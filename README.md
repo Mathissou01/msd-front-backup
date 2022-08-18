@@ -26,7 +26,7 @@ Application frontend Gatsby.
 
    Your site is now running at http://localhost:8000!
 
-   Edit `src/pages/index.tsx` to see your site update in real-time!
+   Edit `src/pages/index.tsx.old` to see your site update in real-time!
 
 4. **Learn more**
 
