@@ -1,0 +1,77 @@
+name: $(BuildID)
+
+trigger:
+- develop
+- feature/69_dev
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: 'build'
+    variables:
+      CI: true
+    jobs:
+      - job: BuildMSDFront
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: "14.x"
+            displayName: "Install Node.js"
+
+          - task: Npm@1
+            inputs:
+              command: "custom"
+              customCommand: "install -g gatsby-cli"
+            displayName: "Install gatsby-cli"
+
+          - task: Npm@1
+            inputs:
+              command: "install"
+            displayName: "Install dependencies"
+
+          - task: Npm@1
+            inputs:
+              command: "custom"
+              customCommand: "run test:ci"
+            displayName: "Launch jest test"
+
+          - task: Npm@1
+            inputs:
+              command: "custom"
+              customCommand: "run lint"
+            displayName: "Launch lint test"
+
+          - task: PublishTestResults@2
+            displayName: "Publish Jest Unit Test Results"
+            inputs:
+              testResultsFiles: junit.xml
+              mergeTestResults: true
+              testRunTitle: "Jest Unit Tests"
+              failTaskOnFailedTests: true
+
+          - task: PublishCodeCoverageResults@1
+            displayName: "Publish code coverage from Jest tests"
+            inputs:
+              codeCoverageTool: Cobertura
+              summaryFileLocation: "$(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml"
+              # reportDirectory: '$(System.DefaultWorkingDirectory)/coverage'
+              failIfCoverageEmpty: true
+
+          - task: Npm@1
+            inputs:
+              command: "custom"
+              customCommand: "run build"
+            displayName: "Gatsby build"
+
+          - task: CopyFiles@2
+            inputs:
+              SourceFolder: "public"
+              Contents: "**"
+              TargetFolder: $(Build.ArtifactStagingDirectory)
+              CleanTargetFolder: true
+            displayName: "Copy public folder"
+
+          - publish: $(Build.ArtifactStagingDirectory)
+            displayName: "Save artifact for later use"
+            artifact: BuildMSDFront
