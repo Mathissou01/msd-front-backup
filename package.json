@@ -15,7 +15,7 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "lint": "npm run lint:eslint && npm run lint:style",
-    "lint:eslint": "eslint . --fix --max-warnings=0 --ignore-path .gitignore",
+    "lint:eslint": "eslint . --fix --max-warnings=0 --ignore-path .gitignore --ignore-path .eslintignore",
     "lint:prettier": "prettier . --write --ignore-unknown --ignore-path .gitignore --ignore-path .prettier.ignore",
     "lint:style": "stylelint src/**/*.{css,scss,sass} --max-warnings=0 --fix",
     "test": "npm run test:typecheck && npm run test:jest",
