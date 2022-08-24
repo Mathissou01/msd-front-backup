@@ -14,7 +14,7 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "lint": "npm run lint:eslint && npm run lint:style",
+    "lint": "npm run lint:eslint && npm run lint:style && npm run lint:prettier",
     "lint:eslint": "eslint . --fix --max-warnings=0 --ignore-path .gitignore --ignore-path .eslintignore",
     "lint:prettier": "prettier . --write --ignore-unknown --ignore-path .gitignore --ignore-path .prettier.ignore",
     "lint:style": "stylelint src/**/*.{css,scss,sass} --max-warnings=0 --fix",
@@ -88,9 +88,9 @@
     ]
   },
   "lint-staged": {
-    "*": "prettier --write --ignore-unknown --ignore-path .gitignore --ignore-path .prettier.ignore",
     "*.{js,jsx,ts,tsx}": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --max-warnings=0 --ignore-path .gitignore",
-    "*.{css,scss,sass}": "stylelint src/**/*.{css,scss} --fix --max-warnings=0 --ignore-path .gitignore"
+    "*.{css,scss,sass}": "stylelint src/**/*.{css,scss} --fix --max-warnings=0 --ignore-path .gitignore",
+    "*": "prettier --write --ignore-unknown --ignore-path .gitignore --ignore-path .prettier.ignore"
   },
   "browserslist": {
     "production": [
