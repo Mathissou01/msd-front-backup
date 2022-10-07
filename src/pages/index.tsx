@@ -1,37 +1,47 @@
-import React from "react";
-import { useStaticQuery, graphql } from "gatsby";
-import Layout from "../components/layout";
-import ArticlesGrid from "../components/articles-grid";
-import Seo from "../components/seo";
-import Headings from "../components/headings";
+import DOMPurify from "isomorphic-dompurify";
+import { GetStaticProps } from "next";
+import { fetchAPI, getPages } from "../lib/api";
+import Header from "../components/header";
+import pageStyles from "../styles/page.module.scss";
 
-const IndexPage = () => {
-  const { allStrapiArticle, strapiGlobal } = useStaticQuery(graphql`
-    query {
-      allStrapiArticle {
-        nodes {
-          ...ArticleCard
-        }
-      }
-      strapiGlobal {
-        siteName
-        siteDescription
-      }
-    }
-  `);
-
-  return (
-    <Layout>
-      <Seo seo={{ metaTitle: "Home" }} />
-      <Headings
-        title={strapiGlobal.siteName}
-        description={strapiGlobal.siteDescription}
-      />
-      <main>
-        <ArticlesGrid articles={allStrapiArticle.nodes} />
-      </main>
-    </Layout>
-  );
+type HomeProps = {
+  homePage?: any;
+  pages?: any;
 };
 
-export default IndexPage;
+export default function Home({ homePage, pages }: HomeProps) {
+  return (
+    <>
+      <Header pages={pages} />
+      <main>
+        <div className={pageStyles.page__content}>
+          {homePage && (
+            <>
+              <h2>{homePage?.attributes.title}</h2>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(homePage?.attributes.content, {
+                    FORCE_BODY: true,
+                  }),
+                }}
+              />
+            </>
+          )}
+        </div>
+      </main>
+    </>
+  );
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const homePage = await fetchAPI("/home");
+  const pages = await getPages(context.preview);
+
+  return {
+    props: {
+      homePage: homePage.data,
+      pages: pages,
+    },
+    revalidate: 1,
+  };
+};
