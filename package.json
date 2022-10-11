@@ -13,6 +13,7 @@
     "develop": "next dev --port 3002",
     "start": "next start",
     "build": "next build",
+    "export": "next export",
     "clean": "rm -rf .cache .tmp .next dist build coverage",
     "lint": "npm run lint:eslint && npm run lint:style && npm run lint:prettier",
     "lint:eslint": "eslint . --fix --max-warnings=0 --ignore-path .gitignore --ignore-path .eslintignore",

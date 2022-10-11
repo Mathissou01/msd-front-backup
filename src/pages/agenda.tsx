@@ -11,7 +11,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import React, { ComponentType, useCallback, useEffect, useState } from "react";
 import { GetStaticProps } from "next";
-import { fetchGraphQL, getPages } from "../lib/api";
+import { fetchGraphQLApi, getPages } from "../lib/api";
 import Header from "../components/header";
 import pageStyles from "../styles/page.module.scss";
 import styles from "../styles/agenda.module.scss";
@@ -150,7 +150,7 @@ export default function Agenda({
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const pages = await getPages(context.preview);
-  const timeEvents = await fetchGraphQL({
+  const timeEvents = await fetchGraphQLApi({
     query: `
     query GetTimeEvents {
       timeEvents {
@@ -170,7 +170,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     }
   `,
   });
-  const timeSlots = await fetchGraphQL({
+  const timeSlots = await fetchGraphQLApi({
     query: `
     query GetTimeSlots {
       timeSlots {
@@ -190,7 +190,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     }
   `,
   });
-  const timeDays = await fetchGraphQL({
+  const timeDays = await fetchGraphQLApi({
     query: `
     query GetTimeDays {
       timeDays {
