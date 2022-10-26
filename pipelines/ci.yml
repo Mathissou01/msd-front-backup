@@ -4,7 +4,6 @@ trigger:
   batch: true
   branches:
     - develop
-    - feature/69_dev
 
 pool:
   vmImage: ubuntu-latest
@@ -44,10 +43,10 @@ stages:
             inputs:
               SourceFolder: "public"
               Contents: "**"
-              TargetFolder: $(Build.ArtifactStagingDirectory)
+              TargetFolder: $(Build.ArtifactStagingDirectory)/front
               CleanTargetFolder: true
             displayName: "Copy public folder"
 
-          - publish: $(Build.ArtifactStagingDirectory)
+          - publish: $(Build.ArtifactStagingDirectory)/front
             displayName: "Save artifact for later use"
             artifact: BuildMSDFront
