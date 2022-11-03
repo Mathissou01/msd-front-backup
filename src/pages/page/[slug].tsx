@@ -1,9 +1,9 @@
 import DOMPurify from "isomorphic-dompurify";
 import { ParsedUrlQuery } from "querystring";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { fetchAPI, getPageBySlug, getPages } from "../../lib/api";
-import Header from "../../components/header";
-import styles from "../../styles/page.module.scss";
+import Header from "../../components/Header/Header";
+import client from "../../graphql/client";
+import { GetPageBySlug, GetPages } from "src/graphql/queries/pages.graphql";
 
 interface IParams extends ParsedUrlQuery {
   slug: string;
@@ -18,11 +18,11 @@ export default function Page({ page, pages }: PageProps) {
   return (
     <>
       <Header pages={pages} />
-      <div className={styles.page__content}>
+      <div className="o-Page__Content">
         {!page && <div>Loading...</div>}
         {page && (
           <>
-            <h2>{page?.attributes.title}</h2>
+            <h1>{page?.attributes.title}</h1>
             <div
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(page?.attributes.content, {
@@ -38,8 +38,9 @@ export default function Page({ page, pages }: PageProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const pages = await fetchAPI(`/pages`);
-  const pagePaths = pages.data.map((page: any) => {
+  const { data: pagesData } = await client.query({ query: GetPages });
+
+  const pagePaths = pagesData.pages.data.map((page: any) => {
     return { params: { slug: page?.attributes?.slug } };
   });
 
@@ -50,14 +51,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  const { data: pagesData } = await client.query({ query: GetPages });
   const { slug } = context.params as IParams;
-  const pages = await getPages(context.preview);
-  const page = await getPageBySlug(slug, context.preview);
+  const { data: pageData } = await client.query({
+    query: GetPageBySlug,
+    variables: { slug: slug },
+  });
 
   return {
     props: {
-      pages: pages,
-      page: page[0] ?? null,
+      pages: pagesData.pages.data ?? null,
+      page: pageData.pages.data[0] ?? null,
     },
     revalidate: 1,
   };

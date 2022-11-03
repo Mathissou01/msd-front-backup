@@ -1,0 +1,11 @@
+query GetHome {
+  home {
+    data {
+      id
+      attributes {
+        title
+        content
+      }
+    }
+  }
+}

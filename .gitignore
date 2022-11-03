@@ -10,6 +10,7 @@
 
 # next.js
 /.next/
+/.swc/
 /out/
 
 # production
@@ -73,5 +74,8 @@ sketch
 ### WebStorm ###
 .idea/
 
-### misc ###
-junit.xml
+### Testing ###
+junit*.xml
+/test-results/
+/playwright-report/
+/playwright/.cache/

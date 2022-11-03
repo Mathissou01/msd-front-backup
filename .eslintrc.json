@@ -2,9 +2,9 @@
   "root": true,
   "extends": [
     "eslint:recommended",
-    "plugin:prettier/recommended",
     "next/core-web-vitals",
     "plugin:testing-library/react",
+    "plugin:prettier/recommended",
     "prettier"
   ],
   "plugins": ["testing-library", "prettier"],
