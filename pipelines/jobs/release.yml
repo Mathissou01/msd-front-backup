@@ -1,0 +1,23 @@
+# Jobs template for static website release
+jobs:
+  - job: msd_fo_site_release
+    displayName: "Release FrontOffice Static WebSite"
+    steps:
+      - checkout: none
+
+      - task: DownloadPipelineArtifact@2
+        displayName: Get latest Artifact from CI pipeline
+        inputs:
+          buildType: "current"
+          path: $(System.DefaultWorkingDirectory)/
+          artifact: FO Static WebApp Export $(Build.BuildId)
+
+      - task: AzureStaticWebApp@0
+        displayName: Publish FO Static WebApp in Azure Cloud
+        inputs:
+          output_location: "out"
+          skip_app_build: true
+          verbose: true
+          is_static_export: true
+        env:
+          azure_static_web_apps_api_token: $(az.stapps.deployment.token)

@@ -1,0 +1,13 @@
+#Steps template for Static WebApps export
+steps:
+  - task: Npm@1
+    displayName: "Build FO Static WebSite"
+    inputs:
+      command: "custom"
+      customCommand: "run build"
+
+  - task: Npm@1
+    displayName: "Export FO Static Website assets"
+    inputs:
+      command: "custom"
+      customCommand: "run export"
