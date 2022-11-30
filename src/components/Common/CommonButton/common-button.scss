@@ -1,0 +1,15 @@
+@use "src/styles/02-tools/tools.buttons" as buttons;
+
+.c-CommonButton {
+  &_primary {
+    @include buttons.button("primary");
+  }
+
+  &_secondary {
+    @include buttons.button("secondary");
+  }
+
+  &_tertiary {
+    @include buttons.button("tertiary");
+  }
+}

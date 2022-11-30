@@ -1,41 +1,25 @@
 import { faker } from "@faker-js/faker";
-import {
-  ApolloClient,
-  ApolloLink,
-  InMemoryCache,
-  NormalizedCacheObject,
-} from "@apollo/client";
+import { ApolloClient, ApolloLink, InMemoryCache } from "@apollo/client";
 import { asyncMap } from "@apollo/client/utilities";
 import { SchemaLink } from "@apollo/client/link/schema";
 import { addMocksToSchema } from "@graphql-tools/mock";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import schemaString from "src/graphql/codegen/schema.graphql";
-// import { Resolvers } from "./codegen/resolvers-types";
 
 export default function getMockedClient(delay = 0) {
-  let client: ApolloClient<NormalizedCacheObject>;
-
   const schema = makeExecutableSchema({
     typeDefs: schemaString,
     // resolvers,
   });
   const mocks = {
-    // General Types
     ID: () => faker.datatype.number(),
     Int: () => faker.datatype.number(),
     Float: () => faker.datatype.float(),
     String: () => faker.lorem.words(),
+    Date: () => faker.date.soon(10),
     DateTime: () => faker.date.soon(10),
-    // Specific Objects
-    Home: () => ({
-      title: () => "Home",
-      content: () => faker.lorem.paragraph(),
-    }),
-    Page: () => ({
-      title: () => faker.lorem.word(),
-      content: () => faker.lorem.paragraph(),
-      slug: () => "page-slug",
-    }),
+    Boolean: () => faker.datatype.boolean(),
+    // Queries
   };
   const preserveResolvers = true;
   const schemaWithMocks = addMocksToSchema({
@@ -43,7 +27,9 @@ export default function getMockedClient(delay = 0) {
     mocks,
     preserveResolvers,
   });
-  const schemaLink = new SchemaLink({ schema: schemaWithMocks });
+  const schemaLink = new SchemaLink({
+    schema: schemaWithMocks,
+  }) as unknown as ApolloLink;
 
   function timeout(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -56,10 +42,8 @@ export default function getMockedClient(delay = 0) {
     });
   });
 
-  client = new ApolloClient({
-    cache: new InMemoryCache(),
+  return new ApolloClient({
     link: mockDelayMiddleware.concat(schemaLink),
+    cache: new InMemoryCache(),
   });
-
-  return client;
 }

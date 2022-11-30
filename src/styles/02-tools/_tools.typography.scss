@@ -1,0 +1,151 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.media-queries" as media;
+
+@mixin text($type: "body") {
+  color: colors.$gray-800;
+  font-family: DINPro-Medium, sans-serif;
+
+  @if $type == "body" {
+    font-weight: 400;
+    font-size: 16px;
+    font-family: DINPro-Regular, sans-serif;
+    line-height: 24px;
+
+    @include media.desktop-only {
+      font-size: 18px;
+      line-height: 27px;
+    }
+  }
+
+  @if $type == "caption" {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.06px;
+
+    @include media.desktop-only {
+      font-size: 14px;
+      line-height: 21px;
+      letter-spacing: initial;
+    }
+  }
+
+  @if $type == "button" {
+    color: colors.$expert-blue;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0.06px;
+
+    @include media.desktop-only {
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: initial;
+    }
+  }
+
+  @if $type == "link" {
+    color: colors.$expert-blue;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 27px;
+    text-decoration: underline;
+
+    @include media.desktop-only {
+      font-size: 18px;
+    }
+  }
+
+  @if $type == "bold" {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+
+    @include media.desktop-only {
+      font-size: 18px;
+      line-height: 27px;
+    }
+  }
+
+  @if $type == "large" {
+    color: colors.$expert-blue;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  @if $type == "huge" {
+    color: colors.$expert-blue;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 60px;
+  }
+
+  @if $type == "highlight" {
+    color: colors.$expert-blue;
+    font-weight: 500;
+    font-size: 56px;
+    line-height: 70px;
+  }
+}
+
+@mixin heading($level) {
+  color: colors.$expert-blue;
+  font-family: DINPro-Medium, sans-serif;
+
+  @if $level == 1 {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 25px;
+
+    @include media.desktop-only {
+      font-size: 30px;
+      line-height: 26px;
+    }
+  }
+
+  @if $level == 2 {
+    font-weight: 700;
+    font-size: 20px;
+    font-family: DINPro-Bold, sans-serif;
+    line-height: 25px;
+
+    @include media.desktop-only {
+      font-size: 28px;
+      line-height: 35px;
+    }
+  }
+
+  @if $level == 3 {
+    font-weight: 700;
+    font-size: 20px;
+    font-family: DINPro-Bold, sans-serif;
+    line-height: 25px;
+
+    @include media.desktop-only {
+      font-size: 24px;
+      line-height: 30px;
+    }
+  }
+
+  @if $level == 4 {
+    font-weight: 700;
+    font-size: 16px;
+    font-family: DINPro-Bold, sans-serif;
+    line-height: 20px;
+    letter-spacing: 0.06px;
+
+    @include media.desktop-only {
+      font-size: 20px;
+      line-height: 25px;
+      letter-spacing: initial;
+    }
+  }
+
+  @if $level == 5 {
+    font-weight: 700;
+    font-size: 16px;
+    font-family: DINPro-Bold, sans-serif;
+    line-height: 20px;
+  }
+}

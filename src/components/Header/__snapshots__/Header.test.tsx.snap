@@ -1,57 +1,314 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders 1`] = `
+exports[`renders in desktop mode 1`] = `
 <div>
-  <nav
-    class="c-Header__Nav"
+  <header
+    class="c-HeaderTopBar"
+    data-testid="top-bar"
+    role="banner"
   >
     <div
-      class="c-Header__TopBar"
-      data-testid="top-bar"
+      class="c-HeaderTopBar__Item c-HeaderTopBar__Logo"
     >
       <a
         href="/"
-        style="font-weight: bold;"
       >
-        MSD FRONT
+        [Logo Collectivité]
       </a>
-      <div>
-        <a
-          href="/page/page-1"
-          style="text-transform: uppercase;"
-        >
-          this is a title
-        </a>
-      </div>
-      <div>
-        <a
-          href="/page/page-2"
-          style="text-transform: uppercase;"
-        >
-          this is a title
-        </a>
-      </div>
     </div>
+    <ul
+      class="c-HeaderTopBar__List"
+    >
+      <li
+        class="c-HeaderTopBar__Item"
+        style="min-width: 151px;"
+      >
+        <a
+          href="/"
+        >
+          [Selecteur]
+        </a>
+      </li>
+      <div
+        class="c-HeaderTopBar__Filler"
+      />
+      <li
+        class="c-HeaderTopBar__Item"
+        style="min-width: 316px;"
+      >
+        <a
+          href="/"
+        >
+          [Recherche]
+        </a>
+      </li>
+      <li
+        class="c-HeaderTopBar__Item"
+      >
+        <a
+          href="/"
+        >
+          [Ad]
+        </a>
+      </li>
+      <div
+        class="c-HeaderTopBar__Separator"
+      />
+      <li
+        class="c-HeaderTopBar__Item"
+      >
+        <a
+          href="/"
+        >
+          [Ca]
+        </a>
+      </li>
+      <div
+        class="c-HeaderTopBar__Separator"
+      />
+      <li
+        class="c-HeaderTopBar__Item"
+      >
+        <a
+          href="/"
+        >
+          [Al]
+        </a>
+      </li>
+      <div
+        class="c-HeaderTopBar__Separator"
+      />
+      <li
+        class="c-HeaderTopBar__Item"
+      >
+        <a
+          href="/"
+        >
+          [Co]
+        </a>
+      </li>
+      <div
+        class="c-HeaderTopBar__Separator"
+      />
+      <li
+        class="c-HeaderTopBar__Item"
+        style="min-width: 115px;"
+      >
+        <a
+          href="/"
+        >
+          [Profil]
+        </a>
+      </li>
+      <div
+        class="c-HeaderTopBar__Separator"
+      />
+      <li
+        class="c-HeaderTopBar__Item"
+      >
+        <a
+          href="/"
+        >
+          [Us]
+        </a>
+      </li>
+    </ul>
+  </header>
+  <nav
+    class="c-HeaderSideBar"
+    data-testid="side-bar"
+  >
+    <ul
+      class="c-HeaderSideBar__List"
+    >
+      <li
+        class="c-HeaderSideBar__Item c-HeaderSideBar__Item_active"
+      >
+        <a
+          href="/"
+        >
+          [Accueil]
+        </a>
+      </li>
+      <li
+        class="c-HeaderSideBar__Item"
+      >
+        <a
+          href="/"
+        >
+          [Carte]
+        </a>
+      </li>
+      <li
+        class="c-HeaderSideBar__Item"
+      >
+        <a
+          href="/"
+        >
+          [Adresse]
+        </a>
+      </li>
+      <li
+        class="c-HeaderSideBar__Item"
+      >
+        <a
+          href="/"
+        >
+          [Guide]
+        </a>
+      </li>
+      <li
+        class="c-HeaderSideBar__Item"
+      >
+        <a
+          href="/"
+        >
+          [Demande]
+        </a>
+      </li>
+      <li
+        class="c-HeaderSideBar__Item"
+      >
+        <a
+          href="/"
+        >
+          [Réduire]
+        </a>
+      </li>
+      <li
+        class="c-HeaderSideBar__Item"
+      >
+        <a
+          href="/"
+        >
+          [Valoriser]
+        </a>
+      </li>
+    </ul>
     <div
-      class="c-Header__LeftBar"
-      data-testid="left-bar"
+      class="c-HeaderSideBar__Logo"
     >
       <a
-        href="/agenda"
-        style="text-transform: uppercase;"
+        href="/"
       >
-        Agenda
+        [Logo MSD]
       </a>
-      <div>
-        MENU
-      </div>
-      <div>
-        MENU
-      </div>
-      <div>
-        MENU
-      </div>
     </div>
   </nav>
+  <div
+    aria-hidden="true"
+    class="c-Header__ContentCover "
+    data-testid="content-cover"
+  />
+</div>
+`;
+
+exports[`renders in mobile mode 1`] = `
+<div>
+  <header
+    class="c-HeaderTopBar"
+    data-testid="top-bar"
+    role="banner"
+  >
+    <button
+      aria-expanded="false"
+      class="c-HeaderTopBar__BurgerButton "
+      data-testid="burger-menu-button"
+      type="button"
+    />
+    <div
+      class="c-HeaderTopBar__Item c-HeaderTopBar__Logo"
+    >
+      <a
+        href="/"
+      >
+        [Logo Collectivité]
+      </a>
+    </div>
+    <ul
+      class="c-HeaderTopBar__List"
+    >
+      <li
+        class="c-HeaderTopBar__Item c-HeaderTopBar__User"
+      >
+        <a
+          href="/"
+        >
+          [Us]
+        </a>
+      </li>
+      <li
+        class="c-HeaderTopBar__Item c-HeaderTopBar__Search"
+      >
+        <a
+          href="/"
+        >
+          [Re]
+        </a>
+      </li>
+    </ul>
+  </header>
+  <nav
+    class="c-HeaderBurgerMenu "
+    data-testid="burger-menu"
+  >
+    <ul
+      class="c-HeaderBurgerMenu__List"
+    >
+      <li
+        class="c-HeaderBurgerMenu__Item"
+        style="height: 88px;"
+      >
+        <span>
+          [Selecteur]
+        </span>
+      </li>
+      <li
+        class="c-HeaderBurgerMenu__Item"
+        style="height: 64px;"
+      >
+        <span>
+          [Profil]
+        </span>
+      </li>
+      <li
+        class="c-HeaderBurgerMenu__Item c-HeaderBurgerMenu__Item_grow"
+        style="height: 518px;"
+      >
+        <nav
+          role="navigation"
+        >
+          <span>
+            [Services]
+          </span>
+        </nav>
+      </li>
+      <li
+        class="c-HeaderBurgerMenu__Item c-HeaderBurgerMenu__Item_grow"
+        style="height: 264px;"
+      >
+        <nav
+          role="navigation"
+        >
+          <span>
+            [User]
+          </span>
+        </nav>
+      </li>
+      <li
+        class="c-HeaderBurgerMenu__Item"
+        style="height: 62px;"
+      >
+        <span>
+          [Logo]
+        </span>
+      </li>
+    </ul>
+  </nav>
+  <div
+    aria-hidden="true"
+    class="c-Header__ContentCover "
+    data-testid="content-cover"
+  />
 </div>
 `;

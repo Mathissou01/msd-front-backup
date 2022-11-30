@@ -1,68 +1,32 @@
+@use "src/styles/01-settings/settings.layout" as layout;
+@use "src/styles/02-tools/tools.media-queries" as media;
+
 .o-Page {
-  &__Title {
-    text-align: right;
+  &__Container {
+    position: relative;
+    top: layout.$header-height;
+    width: 100vw;
+    height: calc(100vh - #{layout.$header-height});
+    overflow: hidden auto;
+
+    @include media.desktop-only {
+      left: layout.$sidebar-width;
+      width: calc(100vw - #{layout.$sidebar-width});
+    }
   }
 
-  &__Content {
+  &__Main {
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
-    margin-left: 207px;
-    padding: 0 20px;
-
-    h1,
-    h2 {
-      margin: 0;
-      font-weight: bold;
-    }
   }
 
-  &__Form {
-    margin: 10px 0;
-
-    h2 {
-      margin: 0;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-
-      label {
-        display: block;
-        margin: 10px;
-      }
-    }
-
-    form input {
-      width: 300px;
-    }
-  }
-
-  &__Block {
+  // TODO: temporary structural class, remove later
+  &__Section {
     display: flex;
-    flex: 1;
-    flex-direction: row;
-  }
-
-  &__Save {
-    display: flex;
-    width: fit-content;
-    margin-top: 5px;
-    padding: 5px;
-    font-weight: bold;
-    border-radius: 5px;
-  }
-
-  &__Preview {
-    display: flex;
-    width: fit-content;
-    margin-top: 20px;
-    padding: 5px;
-    color: #fff;
-    font-weight: bold;
-    background-color: #800080;
-    border: 2px solid #000;
-    border-radius: 5px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    border-bottom: 1px solid #000;
   }
 }

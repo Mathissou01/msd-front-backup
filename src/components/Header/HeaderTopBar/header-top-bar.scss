@@ -1,0 +1,122 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/01-settings/settings.layout" as layout;
+@use "src/styles/02-tools/tools.z-index" as index;
+@use "src/styles/02-tools/tools.media-queries" as media;
+
+.c-HeaderTopBar {
+  position: fixed;
+  top: 0;
+  z-index: index.z(site-header);
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: layout.$header-height;
+  color: colors.$expert-blue;
+  font-size: 16px;
+  background: colors.$white;
+  box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
+
+  @include media.mobile-only {
+    padding: 0 4px;
+  }
+
+  @include media.desktop-only {
+    padding: 0;
+  }
+
+  &__BurgerButton {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 60px;
+
+    @include media.desktop-only {
+      display: none;
+    }
+
+    &::before,
+    &::after {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 24px;
+      transition: opacity cubic-bezier(0.65, 0.05, 0.36, 1) 0.2s;
+    }
+
+    &::before {
+      opacity: 1;
+      content: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 5.143C0 4.512.512 4 1.143 4h21.714a1.143 1.143 0 1 1 0 2.286H1.143A1.143 1.143 0 0 1 0 5.143ZM0 12c0-.631.512-1.143 1.143-1.143h21.714a1.143 1.143 0 0 1 0 2.286H1.143A1.143 1.143 0 0 1 0 12Zm1.143 5.714a1.143 1.143 0 0 0 0 2.286h21.714a1.143 1.143 0 1 0 0-2.286H1.143Z' fill='%233D466C'/%3E%3C/svg%3E");
+    }
+
+    &::after {
+      opacity: 0;
+      content: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23a)' stroke='%23030F40' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m.75 23.249 22.5-22.5m0 22.5L.75.749'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='a'%3E%3Cpath fill='%23fff' d='M0 0h24v24H0z'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
+    }
+
+    &_expanded {
+      &::before {
+        opacity: 0;
+      }
+
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__Logo {
+    flex-grow: 1;
+    @include media.desktop-only {
+      flex-grow: 0;
+      width: layout.$sidebar-width;
+      box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
+    }
+  }
+
+  &__List {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @include media.desktop-only {
+      flex-grow: 1;
+      gap: 8px;
+      padding: 0 8px;
+    }
+
+    &_top {
+      align-items: center;
+    }
+
+    &_side {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  &__Item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-width: 56px;
+    height: 60px;
+  }
+
+  &__Filler {
+    flex-grow: 1;
+  }
+
+  &__Separator {
+    width: 2px;
+    height: 48px;
+    background-color: colors.$gray-200;
+  }
+}

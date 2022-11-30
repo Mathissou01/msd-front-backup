@@ -1,2 +1,58 @@
-$primary: #ea691e;
-$secondary: #f98;
+@use "settings.external" as external;
+
+/* Static */
+$black: #000;
+$white: #fff;
+
+// Background colors
+$background-default: #faf8f4;
+$background-dark: #efeee9;
+
+// Neutral colors
+$blue-clear: #84dfff;
+$expert-blue: #030f40;
+$blue-1: #3d466c;
+$blue-2: #767c97;
+$blue-3: #abafbf;
+$blue-4: #d5d6de;
+
+// Gray shades
+$gray-0: #f4f8ff;
+$gray-200: #e9ecef;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-800: #343a40;
+
+// Warning
+$warning: #deb861;
+$warning-light: #f1e5cb;
+$warning-dark: #a83;
+
+// Success
+$success: #30d158;
+$success-light: #c0f1cc;
+$success-dark: #107d2b;
+
+// Error
+$error: #eb4a65ff;
+$error-light: #f5c4cc;
+$error-dark: #800e21;
+
+/* Dynamic */
+
+// Brand
+$brand-primary: external.$external-primary;
+$brand-primary-dark: external.$calculated-primary-dark;
+$brand-primary-light: external.$calculated-primary-light;
+$brand-secondary: external.$external-secondary;
+$brand-secondary-dark: external.$calculated-secondary-dark;
+$brand-secondary-light: external.$calculated-secondary-light;
+
+// Waste
+$waste-household: external.$external-waste-household;
+$waste-selective: external.$external-waste-selective;
+$waste-bio: external.$external-waste-bio;
+$waste-green: external.$external-waste-green;
+$waste-glass: external.$external-waste-glass;
+$waste-paper: external.$external-waste-paper;
+$waste-other: external.$external-waste-other;

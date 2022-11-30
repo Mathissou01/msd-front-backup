@@ -1,74 +1,38 @@
 import Head from "next/head";
-import Link from "next/link";
+import { useEffect, useState } from "react";
+import useScreenWidth from "../../lib/useScreenWidth";
+import HeaderTopBar from "./HeaderTopBar/HeaderTopBar";
+import HeaderSideBar from "./HeaderSideBar/HeaderSideBar";
 import "./header.scss";
 
-type Page = {
-  id: number;
-  attributes: {
-    title: string;
-    content: string;
-    slug: string;
-  };
-};
+export default function Header() {
+  const [sidebarExpanded, setSidebarExpanded] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const windowWidth = useScreenWidth();
 
-type HeaderProps = {
-  pages: Array<Page>;
-  isPreview?: boolean;
-};
-
-export default function Header({ pages, isPreview = false }: HeaderProps) {
+  useEffect(() => {
+    setIsDesktop(!!(windowWidth && windowWidth >= 1200));
+  }, [windowWidth]);
   return (
     <>
       <Head>
         <title>MSD-FRONT</title>
         <meta name="description" content="wip" />
-        <link rel="icon" href="/public/favicon.ico" />
+        <link rel="icon" href="/images/favicon.ico" />
       </Head>
-
-      {isPreview && (
-        <div className="c-Header__PreviewBar">
-          <span>Preview Mode</span>
-          <span>|</span>
-          <Link
-            href={`/`}
-            prefetch={false}
-            style={{ textDecoration: "underline" }}
-          >
-            Disable
-          </Link>
-        </div>
-      )}
-      <nav className="c-Header__Nav">
-        <div className="c-Header__TopBar" data-testid={"top-bar"}>
-          <Link href={"/"} style={{ fontWeight: "bold" }}>
-            MSD FRONT
-          </Link>
-          {pages && (
-            <>
-              {pages?.map((page: Page) => {
-                return (
-                  <div key={page.id}>
-                    <Link
-                      href={`/page/${page.attributes.slug}`}
-                      style={{ textTransform: "uppercase" }}
-                    >
-                      {page.attributes.title}
-                    </Link>
-                  </div>
-                );
-              })}
-            </>
-          )}
-        </div>
-        <div className="c-Header__LeftBar" data-testid={"left-bar"}>
-          <Link href={`/agenda`} style={{ textTransform: "uppercase" }}>
-            Agenda
-          </Link>
-          <div>MENU</div>
-          <div>MENU</div>
-          <div>MENU</div>
-        </div>
-      </nav>
+      <HeaderTopBar
+        isMenuOpen={sidebarExpanded}
+        isDesktopMode={isDesktop}
+        handleClick={(e) => setSidebarExpanded(e)}
+      />
+      {isDesktop && <HeaderSideBar />}
+      <div
+        className={`c-Header__ContentCover ${
+          sidebarExpanded ? "c-Header__ContentCover_active" : ""
+        }`}
+        aria-hidden={true}
+        data-testid="content-cover"
+      />
     </>
   );
 }

@@ -1,1 +1,9 @@
-$z-indexes: ("modal", "site-nav", "site-header", "site-content", "site-footer");
+$z-indexes: (
+  "modal",
+  "site-sidebar",
+  "site-header",
+  "site-burger-menu",
+  "content-cover",
+  "site-content",
+  "site-footer"
+);

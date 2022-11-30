@@ -1,0 +1,16 @@
+@use "src/styles/01-settings/settings.layout" as layout;
+@use "src/styles/02-tools/tools.media-queries" as media;
+
+.c-Footer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 111px;
+  overflow: hidden auto;
+
+  @include media.desktop-only {
+    min-height: 69px;
+  }
+}

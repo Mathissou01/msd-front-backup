@@ -1,58 +1,18 @@
-.c-Header {
-  &__Nav {
-    width: 100%;
-  }
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.z-index" as index;
 
-  &__TopBar {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    gap: 50px;
-    align-items: center;
-    height: 60px;
-    padding-left: 30px;
-    background-color: #a9a9a9;
+.c-Header__ContentCover {
+  position: absolute;
+  z-index: index.z(content-cover);
+  width: 100vw;
+  height: 100vh;
+  background-color: colors.$expert-blue;
+  opacity: 0;
+  transition: opacity ease 0.1s;
+  pointer-events: none;
 
-    a {
-      text-decoration: none;
-    }
-  }
-
-  &__LeftBar {
-    position: fixed;
-    top: 0;
-    z-index: 5;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    align-items: center;
-    width: 207px;
-    height: 100vh;
-    padding-top: 100px;
-    background-color: #808080;
-
-    a {
-      text-decoration: none;
-    }
-
-    &_modName {
-      width: 5px;
-
-      &_modValue {
-        width: 10px;
-      }
-    }
-  }
-
-  &__PreviewBar {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    gap: 30px;
-    align-items: center;
-    justify-content: center;
-    height: 30px;
-    color: #fff;
-    background-color: #800080;
+  &_active {
+    opacity: 0.4;
+    pointer-events: auto;
   }
 }
