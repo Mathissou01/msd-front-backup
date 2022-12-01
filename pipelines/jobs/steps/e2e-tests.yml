@@ -14,7 +14,7 @@ steps:
     continueOnError: true
     env:
       NEXT_PUBLIC_BASE_HOST: http://localhost
-      NEXT_PUBLIC_BASE_PORT: 3001
+      NEXT_PUBLIC_BASE_PORT: 3002
 
   - task: PublishTestResults@2
     displayName: "Publish e2e tests results"

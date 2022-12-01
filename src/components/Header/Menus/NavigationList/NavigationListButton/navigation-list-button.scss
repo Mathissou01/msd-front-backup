@@ -1,0 +1,72 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.media-queries" as media;
+@use "src/styles/02-tools/tools.functions" as func;
+
+.c-NavigationListButton {
+  $self: &;
+
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 8px 16px;
+
+  &_desktop {
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 16px;
+  }
+
+  &__Circle {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    min-width: 50px;
+    min-height: 50px;
+    padding: 0;
+    background-color: colors.$brand-primary-light;
+    border-radius: 100px;
+
+    #{$self}_desktop#{$self}_active & {
+      background-color: colors.$brand-primary-dark;
+    }
+  }
+
+  &__Picto {
+    width: 24px;
+    height: 24px;
+    background-color: colors.$brand-primary;
+    mask-position: center;
+    mask-size: 24px;
+    mask-repeat: no-repeat;
+
+    #{$self}_desktop#{$self}_active & {
+      background-color: colors.$white;
+    }
+  }
+
+  &__Label {
+    font-weight: 500;
+    font-size: 14px;
+    font-family: DINPro-Medium, sans-serif;
+    line-height: 14px;
+    letter-spacing: 0.005em;
+    text-transform: uppercase;
+
+    #{$self}_desktop & {
+      text-align: center;
+    }
+
+    #{$self}_desktop#{$self}_active & {
+      color: colors.$white;
+    }
+  }
+}

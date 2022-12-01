@@ -43,7 +43,7 @@ it("opens the burger menu and enables the content cover when burger button is cl
 
 it("renders in desktop mode", () => {
   const { container } = render(<Header />);
-  act(() => mockResizeWindow(1200, 600));
+  act(() => mockResizeWindow(1440, 600));
 
   const topBar = screen.getByTestId("top-bar");
   const sideBar = screen.getByTestId("side-bar");

@@ -1,3 +1,4 @@
+import NavigationList from "../Menus/NavigationList/NavigationList";
 import "./header-burger-menu.scss";
 
 interface IHeaderBurgerMenuProps {
@@ -19,19 +20,16 @@ export default function HeaderBurgerMenu({ isOpen }: IHeaderBurgerMenuProps) {
         <li className="c-HeaderBurgerMenu__Item" style={{ height: "64px" }}>
           <span>[Profil]</span>
         </li>
-        <li
-          className="c-HeaderBurgerMenu__Item c-HeaderBurgerMenu__Item_grow"
-          style={{ height: "518px" }}
-        >
-          <nav role="navigation">
-            <span>[Services]</span>
+        <li className="c-HeaderBurgerMenu__Item c-HeaderBurgerMenu__Item_grow">
+          <nav className="c-HeaderBurgerMenu__Container" role="navigation">
+            <NavigationList isDesktopMode={false} />
           </nav>
         </li>
         <li
           className="c-HeaderBurgerMenu__Item c-HeaderBurgerMenu__Item_grow"
           style={{ height: "264px" }}
         >
-          <nav role="navigation">
+          <nav className="c-HeaderBurgerMenu__Container" role="navigation">
             <span>[User]</span>
           </nav>
         </li>

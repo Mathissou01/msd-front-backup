@@ -45,11 +45,16 @@
     align-items: flex-start;
     justify-content: center;
     width: 100%;
-    padding: 16px 20px 16px 16px;
     box-shadow: 0 1px 0 rgb(0 0 0 / 10%);
 
     &_grow {
       flex-grow: 1;
     }
+  }
+
+  &__Container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
   }
 }

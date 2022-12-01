@@ -40,6 +40,9 @@ $error-dark: #800e21;
 
 /* Dynamic */
 
+// Accessible Contrast
+$contrast-text: external.$external-contrast-text;
+
 // Brand
 $brand-primary: external.$external-primary;
 $brand-primary-dark: external.$calculated-primary-dark;

@@ -11,6 +11,11 @@
     font-family: DINPro-Regular, sans-serif;
     line-height: 24px;
 
+    @include media.medium-mobile-only {
+      font-size: 18px;
+      line-height: 27px;
+    }
+
     @include media.desktop-only {
       font-size: 18px;
       line-height: 27px;
@@ -77,8 +82,18 @@
   @if $type == "huge" {
     color: colors.$expert-blue;
     font-weight: 500;
-    font-size: 48px;
-    line-height: 60px;
+    font-size: 26px;
+    line-height: 33px;
+
+    @include media.medium-mobile-only {
+      font-size: 32px;
+      line-height: 40px;
+    }
+
+    @include media.desktop-only {
+      font-size: 48px;
+      line-height: 60px;
+    }
   }
 
   @if $type == "highlight" {

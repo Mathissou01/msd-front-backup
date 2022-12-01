@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useScreenWidth from "../../lib/useScreenWidth";
 import HeaderTopBar from "./HeaderTopBar/HeaderTopBar";
 import HeaderSideBar from "./HeaderSideBar/HeaderSideBar";
@@ -7,12 +7,8 @@ import "./header.scss";
 
 export default function Header() {
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
-  const windowWidth = useScreenWidth();
+  const { isDesktop } = useScreenWidth();
 
-  useEffect(() => {
-    setIsDesktop(!!(windowWidth && windowWidth >= 1200));
-  }, [windowWidth]);
   return (
     <>
       <Head>
@@ -28,7 +24,7 @@ export default function Header() {
       {isDesktop && <HeaderSideBar />}
       <div
         className={`c-Header__ContentCover ${
-          sidebarExpanded ? "c-Header__ContentCover_active" : ""
+          sidebarExpanded && !isDesktop ? "c-Header__ContentCover_active" : ""
         }`}
         aria-hidden={true}
         data-testid="content-cover"

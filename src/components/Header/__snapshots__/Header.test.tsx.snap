@@ -119,69 +119,160 @@ exports[`renders in desktop mode 1`] = `
     data-testid="side-bar"
   >
     <ul
-      class="c-HeaderSideBar__List"
+      class="c-NavigationList c-NavigationList_desktop"
     >
       <li
-        class="c-HeaderSideBar__Item c-HeaderSideBar__Item_active"
+        class="c-NavigationList__Item c-NavigationList__Item_active"
       >
         <a
+          class="c-NavigationListButton c-NavigationListButton_desktop c-NavigationListButton_active"
           href="/"
         >
-          [Accueil]
+          <div
+            class="c-NavigationListButton__Circle"
+          >
+            <div
+              class="c-NavigationListButton__Picto"
+              style="mask-image: url("/images/pictos-temp/homepage.svg");"
+            />
+          </div>
+          <span
+            class="c-NavigationListButton__Label"
+          >
+            Accueil
+          </span>
         </a>
       </li>
       <li
-        class="c-HeaderSideBar__Item"
+        class="c-NavigationList__Item"
       >
         <a
+          class="c-NavigationListButton c-NavigationListButton_desktop "
           href="/"
         >
-          [Carte]
+          <div
+            class="c-NavigationListButton__Circle"
+          >
+            <div
+              class="c-NavigationListButton__Picto"
+              style="mask-image: url("/images/pictos-temp/map.svg");"
+            />
+          </div>
+          <span
+            class="c-NavigationListButton__Label"
+          >
+            Carte
+          </span>
         </a>
       </li>
       <li
-        class="c-HeaderSideBar__Item"
+        class="c-NavigationList__Item"
       >
         <a
+          class="c-NavigationListButton c-NavigationListButton_desktop "
           href="/"
         >
-          [Adresse]
+          <div
+            class="c-NavigationListButton__Circle"
+          >
+            <div
+              class="c-NavigationListButton__Picto"
+              style="mask-image: url("/images/pictos-temp/address.svg");"
+            />
+          </div>
+          <span
+            class="c-NavigationListButton__Label"
+          >
+            Collecte à mon adresse
+          </span>
         </a>
       </li>
       <li
-        class="c-HeaderSideBar__Item"
+        class="c-NavigationList__Item"
       >
         <a
+          class="c-NavigationListButton c-NavigationListButton_desktop "
           href="/"
         >
-          [Guide]
+          <div
+            class="c-NavigationListButton__Circle"
+          >
+            <div
+              class="c-NavigationListButton__Picto"
+              style="mask-image: url("/images/pictos-temp/recyclingGuide.svg");"
+            />
+          </div>
+          <span
+            class="c-NavigationListButton__Label"
+          >
+            Guide du tri
+          </span>
         </a>
       </li>
       <li
-        class="c-HeaderSideBar__Item"
+        class="c-NavigationList__Item"
       >
         <a
+          class="c-NavigationListButton c-NavigationListButton_desktop "
           href="/"
         >
-          [Demande]
+          <div
+            class="c-NavigationListButton__Circle"
+          >
+            <div
+              class="c-NavigationListButton__Picto"
+              style="mask-image: url("/images/pictos-temp/demand.svg");"
+            />
+          </div>
+          <span
+            class="c-NavigationListButton__Label"
+          >
+            Faire une demande
+          </span>
         </a>
       </li>
       <li
-        class="c-HeaderSideBar__Item"
+        class="c-NavigationList__Item"
       >
         <a
+          class="c-NavigationListButton c-NavigationListButton_desktop "
           href="/"
         >
-          [Réduire]
+          <div
+            class="c-NavigationListButton__Circle"
+          >
+            <div
+              class="c-NavigationListButton__Picto"
+              style="mask-image: url("/images/pictos-temp/wastes.svg");"
+            />
+          </div>
+          <span
+            class="c-NavigationListButton__Label"
+          >
+            Réduire mes déchets
+          </span>
         </a>
       </li>
       <li
-        class="c-HeaderSideBar__Item"
+        class="c-NavigationList__Item"
       >
         <a
+          class="c-NavigationListButton c-NavigationListButton_desktop "
           href="/"
         >
-          [Valoriser]
+          <div
+            class="c-NavigationListButton__Circle"
+          >
+            <div
+              class="c-NavigationListButton__Picto"
+              style="mask-image: url("/images/pictos-temp/leaf.svg");"
+            />
+          </div>
+          <span
+            class="c-NavigationListButton__Label"
+          >
+            Valorisation des déchets et lorem ipsum dolor
+          </span>
         </a>
       </li>
     </ul>
@@ -273,14 +364,169 @@ exports[`renders in mobile mode 1`] = `
       </li>
       <li
         class="c-HeaderBurgerMenu__Item c-HeaderBurgerMenu__Item_grow"
-        style="height: 518px;"
       >
         <nav
+          class="c-HeaderBurgerMenu__Container"
           role="navigation"
         >
-          <span>
-            [Services]
-          </span>
+          <ul
+            class="c-NavigationList c-NavigationList_mobile"
+          >
+            <li
+              class="c-NavigationList__Item c-NavigationList__Item_active"
+            >
+              <a
+                class="c-NavigationListButton c-NavigationListButton_mobile c-NavigationListButton_active"
+                href="/"
+              >
+                <div
+                  class="c-NavigationListButton__Circle"
+                >
+                  <div
+                    class="c-NavigationListButton__Picto"
+                    style="mask-image: url("/images/pictos-temp/homepage.svg");"
+                  />
+                </div>
+                <span
+                  class="c-NavigationListButton__Label"
+                >
+                  Accueil
+                </span>
+              </a>
+            </li>
+            <li
+              class="c-NavigationList__Item"
+            >
+              <a
+                class="c-NavigationListButton c-NavigationListButton_mobile "
+                href="/"
+              >
+                <div
+                  class="c-NavigationListButton__Circle"
+                >
+                  <div
+                    class="c-NavigationListButton__Picto"
+                    style="mask-image: url("/images/pictos-temp/map.svg");"
+                  />
+                </div>
+                <span
+                  class="c-NavigationListButton__Label"
+                >
+                  Carte
+                </span>
+              </a>
+            </li>
+            <li
+              class="c-NavigationList__Item"
+            >
+              <a
+                class="c-NavigationListButton c-NavigationListButton_mobile "
+                href="/"
+              >
+                <div
+                  class="c-NavigationListButton__Circle"
+                >
+                  <div
+                    class="c-NavigationListButton__Picto"
+                    style="mask-image: url("/images/pictos-temp/address.svg");"
+                  />
+                </div>
+                <span
+                  class="c-NavigationListButton__Label"
+                >
+                  Collecte à mon adresse
+                </span>
+              </a>
+            </li>
+            <li
+              class="c-NavigationList__Item"
+            >
+              <a
+                class="c-NavigationListButton c-NavigationListButton_mobile "
+                href="/"
+              >
+                <div
+                  class="c-NavigationListButton__Circle"
+                >
+                  <div
+                    class="c-NavigationListButton__Picto"
+                    style="mask-image: url("/images/pictos-temp/recyclingGuide.svg");"
+                  />
+                </div>
+                <span
+                  class="c-NavigationListButton__Label"
+                >
+                  Guide du tri
+                </span>
+              </a>
+            </li>
+            <li
+              class="c-NavigationList__Item"
+            >
+              <a
+                class="c-NavigationListButton c-NavigationListButton_mobile "
+                href="/"
+              >
+                <div
+                  class="c-NavigationListButton__Circle"
+                >
+                  <div
+                    class="c-NavigationListButton__Picto"
+                    style="mask-image: url("/images/pictos-temp/demand.svg");"
+                  />
+                </div>
+                <span
+                  class="c-NavigationListButton__Label"
+                >
+                  Faire une demande
+                </span>
+              </a>
+            </li>
+            <li
+              class="c-NavigationList__Item"
+            >
+              <a
+                class="c-NavigationListButton c-NavigationListButton_mobile "
+                href="/"
+              >
+                <div
+                  class="c-NavigationListButton__Circle"
+                >
+                  <div
+                    class="c-NavigationListButton__Picto"
+                    style="mask-image: url("/images/pictos-temp/wastes.svg");"
+                  />
+                </div>
+                <span
+                  class="c-NavigationListButton__Label"
+                >
+                  Réduire mes déchets
+                </span>
+              </a>
+            </li>
+            <li
+              class="c-NavigationList__Item"
+            >
+              <a
+                class="c-NavigationListButton c-NavigationListButton_mobile "
+                href="/"
+              >
+                <div
+                  class="c-NavigationListButton__Circle"
+                >
+                  <div
+                    class="c-NavigationListButton__Picto"
+                    style="mask-image: url("/images/pictos-temp/leaf.svg");"
+                  />
+                </div>
+                <span
+                  class="c-NavigationListButton__Label"
+                >
+                  Valorisation des déchets et lorem ipsum dolor
+                </span>
+              </a>
+            </li>
+          </ul>
         </nav>
       </li>
       <li
@@ -288,6 +534,7 @@ exports[`renders in mobile mode 1`] = `
         style="height: 264px;"
       >
         <nav
+          class="c-HeaderBurgerMenu__Container"
           role="navigation"
         >
           <span>

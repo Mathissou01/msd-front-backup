@@ -1,6 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require("path");
 const {
+  contrastText,
   primaryColor,
   primaryColorDark,
   primaryColorLight,
@@ -13,8 +14,7 @@ const {
   wasteGlass,
   wasteGreen,
   wastePaper,
-  wasteOther,
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  wasteOther, // eslint-disable-next-line @typescript-eslint/no-var-requires
 } = require("./color-config");
 
 /** @type {import("next").NextConfig} */
@@ -34,6 +34,7 @@ const nextConfig = {
     // then override values with .env, then make settings globally available
     additionalData: `
       @use "src/styles/01-settings/settings.external" as *;
+      $external-contrast-text: ${contrastText};
       $external-primary: ${primaryColor};
       $calculated-primary-dark: ${primaryColorDark};
       $calculated-primary-light: ${primaryColorLight};

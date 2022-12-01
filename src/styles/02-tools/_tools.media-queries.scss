@@ -1,13 +1,25 @@
-@use "src/styles/01-settings/settings.breakpoints" as breakpoints;
+@use "src/styles/01-settings/settings.breakpoints" as bp;
 
 @mixin mobile-only {
-  @media screen and (max-width: map-get(breakpoints.$breakpoints, mobile)) {
+  @media screen and (max-width: map-get(bp.$breakpoints, mobile)) {
+    @content;
+  }
+}
+
+@mixin small-mobile-only {
+  @media screen and (max-width: map-get(bp.$breakpoints, medium-mobile)) {
+    @content;
+  }
+}
+
+@mixin medium-mobile-only {
+  @media screen and (min-width: map-get(bp.$breakpoints, medium-mobile)) and (max-width: map-get(bp.$breakpoints, mobile)) {
     @content;
   }
 }
 
 @mixin desktop-only {
-  @media screen and (min-width: map-get(breakpoints.$breakpoints, desktop)) {
+  @media screen and (min-width: map-get(bp.$breakpoints, desktop)) {
     @content;
   }
 }

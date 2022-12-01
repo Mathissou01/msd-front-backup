@@ -1,0 +1,47 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.media-queries" as media;
+
+.c-NavigationList {
+  $self: &;
+
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &_desktop {
+    flex-grow: 1;
+    align-items: flex-start;
+  }
+
+  &__Item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    #{$self}_mobile & {
+      height: 66px;
+    }
+
+    #{$self}_desktop & {
+      flex-grow: 1;
+      gap: 6px;
+      align-items: center; // TODO: remove after replacing all items with NavigationListButton
+      justify-content: center;
+      min-height: 70px;
+      max-height: 102px;
+      border-bottom: 1px solid colors.$gray-200;
+    }
+
+    &:first-child:not(&_active) {
+      border-top: 1px solid colors.$gray-200;
+    }
+
+    &_active {
+      #{$self}_desktop & {
+        background-color: colors.$brand-primary;
+      }
+    }
+  }
+}

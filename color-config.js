@@ -2,6 +2,8 @@
 const chroma = require("chroma-js");
 
 /* Externally loaded colors with fallback values, used to generate site palette */
+// Accessible Contrast
+const contrastText = process.env.NEXT_PUBLIC_CONTRAST_TEXT || "#030f40";
 // Brand Colors
 const primaryColor = process.env.NEXT_PUBLIC_COLOR_BRAND_PRIMARY || "#9bcd41";
 const primaryColorDark = chroma(primaryColor).darken();
@@ -25,6 +27,7 @@ const wastePaper = process.env.NEXT_PUBLIC_COLOR_WASTE_PAPER || "#2068C7";
 const wasteOther = process.env.NEXT_PUBLIC_COLOR_WASTE_OTHER || "#FFFFFF";
 
 const colorConfig = {
+  contrastText,
   primaryColor,
   primaryColorDark,
   primaryColorLight,

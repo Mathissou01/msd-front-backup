@@ -1,0 +1,63 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.media-queries" as media;
+@use "src/styles/02-tools/tools.typography" as typo;
+@use "src/styles/02-tools/tools.z-index" as index;
+
+.c-WelcomeBlock {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  &__Heading {
+    z-index: index.z("site-content");
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 40px;
+    margin-right: 16px;
+    margin-left: 16px;
+
+    @include media.medium-mobile-only {
+      width: 76.8%;
+    }
+
+    @include media.desktop-only {
+      width: 68.86%;
+      max-width: 850px;
+      margin-top: 60px;
+      margin-left: 60px;
+    }
+  }
+
+  &__Title {
+    @include typo.text("huge");
+  }
+
+  &__Subtitle {
+    @include typo.text("body");
+  }
+
+  &__Svg {
+    z-index: index.z("background");
+    width: 100%;
+    margin-top: -12px;
+
+    @include media.desktop-only {
+      margin-top: -242px;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+
+      #primary-color {
+        fill: colors.$brand-primary;
+      }
+
+      #secondary-color {
+        fill: colors.$brand-secondary;
+      }
+    }
+  }
+}

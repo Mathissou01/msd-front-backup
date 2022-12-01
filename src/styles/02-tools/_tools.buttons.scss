@@ -1,10 +1,17 @@
 @use "sass:color" as color;
 @use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.typography" as typo;
 @use "src/styles/02-tools/tools.media-queries" as media;
 
 @mixin button($type: "secondary") {
+  @include typo.text("button");
+
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
   padding: 14px 16px 13px;
-  color: colors.$expert-blue;
   background-color: transparent;
   border: 1px solid colors.$brand-primary;
   border-radius: 4px;
@@ -22,6 +29,7 @@
   }
 
   @if $type == "primary" {
+    color: colors.$contrast-text;
     background-color: colors.$brand-primary;
     border-color: transparent;
 
