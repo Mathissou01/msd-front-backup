@@ -6,9 +6,8 @@ import "./welcome-block.scss";
 export default function WelcomeBlock() {
   /* Static Data */
   const temporaryText = {
-    title: "Vestibulum nulla volutpat vulputates econsectetur ut sed.",
-    subtitle:
-      "Orci sem pellentesque augue ultrices. Quam nisl ut maecenas et aliquet varius cursus. Blandit arcu morbi tellu bibendum quis lectus commodo ",
+    title: "",
+    subtitle: "",
   };
 
   /* Local Data */

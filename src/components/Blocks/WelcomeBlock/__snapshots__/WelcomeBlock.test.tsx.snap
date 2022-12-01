@@ -10,14 +10,10 @@ exports[`renders in desktop mode 1`] = `
     >
       <h1
         class="c-WelcomeBlock__Title"
-      >
-        Vestibulum nulla volutpat vulputates econsectetur ut sed.
-      </h1>
+      />
       <span
         class="c-WelcomeBlock__Subtitle"
-      >
-        Orci sem pellentesque augue ultrices. Quam nisl ut maecenas et aliquet varius cursus. Blandit arcu morbi tellu bibendum quis lectus commodo 
-      </span>
+      />
     </div>
     <div
       class="c-WelcomeBlock__Svg"
@@ -40,14 +36,10 @@ exports[`renders in mobile mode 1`] = `
     >
       <h1
         class="c-WelcomeBlock__Title"
-      >
-        Vestibulum nulla volutpat vulputates econsectetur ut sed.
-      </h1>
+      />
       <span
         class="c-WelcomeBlock__Subtitle"
-      >
-        Orci sem pellentesque augue ultrices. Quam nisl ut maecenas et aliquet varius cursus. Blandit arcu morbi tellu bibendum quis lectus commodo 
-      </span>
+      />
     </div>
     <div
       class="c-WelcomeBlock__Svg"
