@@ -16,7 +16,7 @@ export default function NavigationList({
     recyclingGuide: "Guide du tri",
     demand: "Faire une demande",
     wastes: "Réduire mes déchets",
-    leaf: "Valorisation des déchets et lorem ipsum dolor",
+    leaf: "Valorisation des déchets",
   };
 
   return (

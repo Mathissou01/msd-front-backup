@@ -271,7 +271,7 @@ exports[`renders in desktop mode 1`] = `
           <span
             class="c-NavigationListButton__Label"
           >
-            Valorisation des déchets et lorem ipsum dolor
+            Valorisation des déchets
           </span>
         </a>
       </li>
@@ -522,7 +522,7 @@ exports[`renders in mobile mode 1`] = `
                 <span
                   class="c-NavigationListButton__Label"
                 >
-                  Valorisation des déchets et lorem ipsum dolor
+                  Valorisation des déchets
                 </span>
               </a>
             </li>
