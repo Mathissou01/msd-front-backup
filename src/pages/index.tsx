@@ -12,7 +12,10 @@ export default function HomePage() {
       <WelcomeBlock />
       <section
         className="o-Page__Section"
-        style={{ minHeight: isDesktop ? "357px" : "397px" }}
+        style={{
+          minHeight: isDesktop ? "357px" : "397px",
+          backgroundColor: "#fff",
+        }}
       >
         (Search)
       </section>

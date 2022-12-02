@@ -1,3 +1,4 @@
+@use "src/styles/01-settings/settings.colors" as colors;
 @use "src/styles/01-settings/settings.layout" as layout;
 @use "src/styles/02-tools/tools.media-queries" as media;
 
@@ -9,6 +10,8 @@
   justify-content: center;
   min-height: 111px;
   overflow: hidden auto;
+  background-color: colors.$white;
+  border-top: 1px solid colors.$gray-200;
 
   @include media.desktop-only {
     min-height: 69px;

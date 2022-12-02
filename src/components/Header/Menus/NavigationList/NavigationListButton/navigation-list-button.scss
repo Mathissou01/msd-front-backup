@@ -66,7 +66,7 @@
     }
 
     #{$self}_desktop#{$self}_active & {
-      color: colors.$white;
+      color: colors.$contrast-text;
     }
   }
 }
