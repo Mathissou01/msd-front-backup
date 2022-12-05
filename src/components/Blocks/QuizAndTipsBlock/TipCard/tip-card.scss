@@ -22,6 +22,10 @@
   background-color: colors.$brand-primary;
   border-radius: 8px;
 
+  @include media.desktop-only {
+    max-width: 350px;
+  }
+
   &:hover {
     background-color: colors.$brand-primary-dark;
   }

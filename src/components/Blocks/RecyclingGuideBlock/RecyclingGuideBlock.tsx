@@ -38,6 +38,8 @@ export default function RecyclingGuideBlock({ data }: IRecyclingGuideBlock) {
             picto="search"
             type="button"
             style="primary"
+            fontStyle="fontLarge"
+            paddingStyle="paddingLarge"
             isFullWidth={true}
           />
         </div>

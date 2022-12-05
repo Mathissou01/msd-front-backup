@@ -1,7 +1,7 @@
-@use "src/styles/02-tools/tools.media-queries" as media;
+@use "src/styles/01-settings/settings.colors" as colors;
 @use "src/styles/02-tools/tools.typography" as typo;
 @use "src/styles/02-tools/tools.inputs" as input;
-@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.media-queries" as media;
 
 .c-RecyclingGuideBlock {
   display: flex;
@@ -25,6 +25,7 @@
   &__Title {
     @include typo.text;
 
+    color: colors.$expert-blue;
     font-size: 18px;
     text-align: center;
   }
@@ -32,6 +33,7 @@
   &__Subtitle {
     @include typo.heading(2);
 
+    color: colors.$expert-blue;
     letter-spacing: 0.005em;
     text-align: center;
   }
@@ -83,10 +85,11 @@
     justify-content: center;
     height: 35px;
     padding: 7px 12px;
+    color: colors.$expert-blue;
     font-size: 14px;
     line-height: 21px;
-    background: #fff;
-    border: 1px solid #e9ecef;
+    background-color: colors.$white;
+    border: 1px solid colors.$gray-200;
     border-radius: 32px;
 
     &::before {

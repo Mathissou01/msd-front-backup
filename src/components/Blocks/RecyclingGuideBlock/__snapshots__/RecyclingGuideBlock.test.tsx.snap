@@ -31,7 +31,7 @@ exports[`renders one tip 1`] = `
           type="text"
         />
         <button
-          class="c-CommonButton c-CommonButton_primary  c-CommonButton_fontSmall c-CommonButton_fullWidth"
+          class="c-CommonButton c-CommonButton_primary c-CommonButton_paddingLarge c-CommonButton_fontLarge c-CommonButton_fullWidth"
           type="button"
         >
           <div
