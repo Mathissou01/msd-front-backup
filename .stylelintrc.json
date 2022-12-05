@@ -14,7 +14,7 @@
     "selector-max-id": 1,
     "selector-max-compound-selectors": 4,
     "selector-class-pattern": [
-      "^(?:(?:s|t|g|e|o|c|u|is|has)-)?[A-Z]+(?:[a-zA-Z0-9]+)*(?:__[A-Z]+[a-zA-Z0-9]+)?(?:_[a-z]+(?:[a-zA-Z0-9]+)*)*$",
+      "^(?:(?:s|t|g|e|o|c|u|is|has)-)?[A-Z]+(?:[a-zA-Z0-9]+)*(?:__[A-Z]+[a-zA-Z0-9]*)?(?:_[a-z]+(?:[a-zA-Z0-9]+)*)*$",
       {
         "resolveNestedSelectors": true
       }

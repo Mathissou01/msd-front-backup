@@ -22,6 +22,14 @@
     }
   }
 
+  @if $type == "tag" {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.06px;
+    text-transform: uppercase;
+  }
+
   @if $type == "caption" {
     font-weight: 500;
     font-size: 12px;
@@ -35,14 +43,16 @@
     }
   }
 
-  @if $type == "button" {
-    color: colors.$expert-blue;
+  @if $type == "buttonSmall" or "buttonLarge" {
     font-weight: 500;
-    font-size: 14px;
-    line-height: 21px;
-    letter-spacing: 0.06px;
 
-    @include media.desktop-only {
+    @if $type == "buttonSmall" {
+      font-size: 14px;
+      line-height: 21px;
+      letter-spacing: 0.06px;
+    }
+
+    @if $type == "buttonLarge" {
       font-size: 16px;
       line-height: 24px;
       letter-spacing: initial;
@@ -50,7 +60,6 @@
   }
 
   @if $type == "link" {
-    color: colors.$expert-blue;
     font-weight: 500;
     font-size: 16px;
     line-height: 27px;
@@ -72,15 +81,19 @@
     }
   }
 
+  @if $type == "boldStatic" {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 27px;
+  }
+
   @if $type == "large" {
-    color: colors.$expert-blue;
     font-weight: 500;
     font-size: 32px;
     line-height: 40px;
   }
 
   @if $type == "huge" {
-    color: colors.$expert-blue;
     font-weight: 500;
     font-size: 26px;
     line-height: 33px;
@@ -97,7 +110,6 @@
   }
 
   @if $type == "highlight" {
-    color: colors.$expert-blue;
     font-weight: 500;
     font-size: 56px;
     line-height: 70px;
@@ -105,7 +117,6 @@
 }
 
 @mixin heading($level) {
-  color: colors.$expert-blue;
   font-family: DINPro-Medium, sans-serif;
 
   @if $level == 1 {

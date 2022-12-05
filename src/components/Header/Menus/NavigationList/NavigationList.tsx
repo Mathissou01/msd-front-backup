@@ -28,7 +28,7 @@ export default function NavigationList({
       <li className="c-NavigationList__Item c-NavigationList__Item_active">
         <NavigationListButton
           label={temporaryLabels.homepage}
-          picto="homepage"
+          pictoUrl="/images/pictos-temp/homepage.svg"
           isDesktopMode={isDesktopMode}
           isActive={true}
         />
@@ -36,42 +36,42 @@ export default function NavigationList({
       <li className="c-NavigationList__Item">
         <NavigationListButton
           label={temporaryLabels.map}
-          picto="map"
+          pictoUrl="/images/pictos-temp/map.svg"
           isDesktopMode={isDesktopMode}
         />
       </li>
       <li className="c-NavigationList__Item">
         <NavigationListButton
           label={temporaryLabels.address}
-          picto="address"
+          pictoUrl="/images/pictos-temp/address.svg"
           isDesktopMode={isDesktopMode}
         />
       </li>
       <li className="c-NavigationList__Item">
         <NavigationListButton
           label={temporaryLabels.recyclingGuide}
-          picto="recyclingGuide"
+          pictoUrl="/images/pictos-temp/recyclingGuide.svg"
           isDesktopMode={isDesktopMode}
         />
       </li>
       <li className="c-NavigationList__Item">
         <NavigationListButton
           label={temporaryLabels.demand}
-          picto="demand"
+          pictoUrl="/images/pictos-temp/demand.svg"
           isDesktopMode={isDesktopMode}
         />
       </li>
       <li className="c-NavigationList__Item">
         <NavigationListButton
           label={temporaryLabels.wastes}
-          picto="wastes"
+          pictoUrl="/images/pictos-temp/wastes.svg"
           isDesktopMode={isDesktopMode}
         />
       </li>
       <li className="c-NavigationList__Item">
         <NavigationListButton
           label={temporaryLabels.leaf}
-          picto="leaf"
+          pictoUrl="/images/pictos-temp/leaf.svg"
           isDesktopMode={isDesktopMode}
         />
       </li>

@@ -1,8 +1,23 @@
+import client from "../graphql/client";
+import {
+  GetQuizAndTipsBlockDocument,
+  GetQuizAndTipsBlockQuery,
+  QuizAndTipsBlockEntity,
+} from "../graphql/codegen/generated-types";
 import useScreenWidth from "../lib/useScreenWidth";
 import WelcomeBlock from "../components/Blocks/WelcomeBlock/WelcomeBlock";
+import QuizAndTipsBlock from "../components/Blocks/QuizAndTipsBlock/QuizAndTipsBlock";
 import "./home-page.scss";
+import { extractQuizAndTipsBlock } from "../lib/graphql-data";
 
-export default function HomePage() {
+interface IHomePageProps {
+  quizAndTipsBlock: QuizAndTipsBlockEntity;
+}
+
+export default function HomePage({ quizAndTipsBlock }: IHomePageProps) {
+  /* StaticProps data */
+  // TODO: should I also check if the relevant service is Active to display the block?
+  const displayQuizAndTipsBlock = quizAndTipsBlock?.attributes?.displayBlock;
   /* Local Data */
   const { isDesktop } = useScreenWidth();
 
@@ -37,12 +52,7 @@ export default function HomePage() {
       >
         (Headlines)
       </section>
-      <section
-        className="o-Page__Section"
-        style={{ minHeight: isDesktop ? "468px" : "1046px" }}
-      >
-        (Tips)
-      </section>
+      {displayQuizAndTipsBlock && <QuizAndTipsBlock data={quizAndTipsBlock} />}
       <section
         className="o-Page__Section"
         style={{ minHeight: isDesktop ? "592px" : "1204px" }}
@@ -51,4 +61,19 @@ export default function HomePage() {
       </section>
     </>
   );
+}
+
+export async function getStaticProps() {
+  const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID?.toString();
+  const { data } = await client.query<GetQuizAndTipsBlockQuery>({
+    query: GetQuizAndTipsBlockDocument,
+    variables: { contractId },
+  });
+  const quizAndTipsBlock = extractQuizAndTipsBlock(data);
+
+  return {
+    props: {
+      quizAndTipsBlock,
+    }, // will be passed to the page component as props
+  };
 }

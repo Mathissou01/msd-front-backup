@@ -33,6 +33,8 @@
 
   &__Title {
     @include typo.text("huge");
+
+    color: colors.$expert-blue;
   }
 
   &__Subtitle {

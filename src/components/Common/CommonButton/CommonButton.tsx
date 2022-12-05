@@ -9,7 +9,8 @@ interface ICommonButtonProps {
   onClick?: () => void;
   formLabelId?: string;
   buttonRef?: React.RefObject<HTMLButtonElement>;
-  style?: "primary" | "secondary" | "tertiary" | null;
+  style?: "primary" | "primaryContrast" | "secondary" | "tertiary" | null;
+  fontStyle?: "fontSmall" | "fontLarge";
   paddingStyle?: "paddingDefault" | "paddingSmall" | "paddingLarge";
   isFullWidth?: boolean;
 }
@@ -23,6 +24,7 @@ export default function CommonButton({
   formLabelId,
   buttonRef,
   style = "secondary",
+  fontStyle = "fontSmall",
   paddingStyle = "paddingDefault",
   isFullWidth = false,
 }: ICommonButtonProps) {
@@ -32,7 +34,9 @@ export default function CommonButton({
         paddingStyle !== "paddingDefault"
           ? "c-CommonButton_" + paddingStyle
           : ""
-      } ${isFullWidth ? "c-CommonButton_fullWidth" : ""}`}
+      } ${fontStyle ? "c-CommonButton_" + fontStyle : ""} ${
+        isFullWidth ? "c-CommonButton_fullWidth" : ""
+      }`}
       type={type}
       onClick={onClick}
       disabled={isDisabled}

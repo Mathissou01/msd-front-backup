@@ -4,8 +4,6 @@
 @use "src/styles/02-tools/tools.media-queries" as media;
 
 @mixin button($type: "secondary") {
-  @include typo.text("button");
-
   display: flex;
   flex-direction: row;
   gap: 8px;
@@ -28,10 +26,18 @@
     color: colors.$gray-600;
   }
 
-  @if $type == "primary" {
-    color: colors.$contrast-text;
+  @if $type == "primary" or "primaryContrast" {
+    @if $type == "primary" {
+      color: colors.$contrast-text;
+      border-color: transparent;
+    }
+
+    @if $type == "primaryContrast" {
+      color: colors.$contrast-text;
+      border-color: colors.$contrast-text;
+    }
+
     background-color: colors.$brand-primary;
-    border-color: transparent;
 
     &:hover {
       background-color: colors.$brand-primary-dark;

@@ -27,52 +27,9 @@ query GetQuizAndTipsBlock($contractId: ID!) {
                         id
                         attributes {
                           title
+                          titleLabel
+                          link
                           publishedAt
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-  services(filters: { contract: { id: { eq: $contractId } } }) {
-    data {
-      attributes {
-        serviceInstance {
-          __typename
-          ... on ComponentMsdEditorial {
-            id
-            editorialServices {
-              data {
-                attributes {
-                  subServiceInstance {
-                    __typename
-                    ... on ComponentEditoTipsSubService {
-                      isActivated
-                      tips {
-                        data {
-                          id
-                          attributes {
-                            title
-                            publishedAt
-                          }
-                        }
-                      }
-                    }
-                    ... on ComponentEditoQuizzesSubService {
-                      isActivated
-                      quizzes {
-                        data {
-                          id
-                          attributes {
-                            title
-                            publishedAt
-                          }
                         }
                       }
                     }

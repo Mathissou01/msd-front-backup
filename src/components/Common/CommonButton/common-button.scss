@@ -1,10 +1,23 @@
 @use "src/styles/01-settings/settings.colors" as colors;
 @use "src/styles/02-tools/tools.buttons" as buttons;
+@use "src/styles/02-tools/tools.typography" as typo;
 @use "src/styles/02-tools/tools.functions" as func;
 
 .c-CommonButton {
+  &_fontSmall {
+    @include typo.text("buttonSmall");
+  }
+
+  &_fontLarge {
+    @include typo.text("buttonLarge");
+  }
+
   &_primary {
     @include buttons.button("primary");
+  }
+
+  &_primaryContrast {
+    @include buttons.button("primaryContrast");
   }
 
   &_secondary {

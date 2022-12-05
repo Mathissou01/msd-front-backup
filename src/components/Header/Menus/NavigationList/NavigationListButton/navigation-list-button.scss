@@ -1,6 +1,7 @@
 @use "src/styles/01-settings/settings.colors" as colors;
 @use "src/styles/02-tools/tools.media-queries" as media;
 @use "src/styles/02-tools/tools.functions" as func;
+@use "src/styles/02-tools/tools.mixins" as mixins;
 
 .c-NavigationListButton {
   $self: &;
@@ -41,19 +42,15 @@
   }
 
   &__Picto {
-    width: 24px;
-    height: 24px;
-    background-color: colors.$brand-primary;
-    mask-position: center;
-    mask-size: 24px;
-    mask-repeat: no-repeat;
+    @include mixins.recolor(colors.$brand-primary);
 
     #{$self}_desktop#{$self}_active & {
-      background-color: colors.$white;
+      @include mixins.recolor(colors.$white);
     }
   }
 
   &__Label {
+    color: colors.$expert-blue;
     font-weight: 500;
     font-size: 14px;
     font-family: DINPro-Medium, sans-serif;

@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<div>
+  <div
+    class="c-CommonBlockHeading"
+  >
+    <h2>
+      common block heading
+    </h2>
+    <div
+      class="c-CommonBlockHeading__Line"
+    />
+  </div>
+</div>
+`;

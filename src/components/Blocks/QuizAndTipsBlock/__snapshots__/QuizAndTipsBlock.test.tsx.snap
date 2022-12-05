@@ -1,0 +1,197 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders one tip 1`] = `
+<div>
+  <section
+    class="c-QuizAndTipsBlock"
+  >
+    <div
+      class="c-CommonBlockHeading"
+    >
+      <h2>
+        Astuces !
+      </h2>
+      <div
+        class="c-CommonBlockHeading__Line"
+      />
+    </div>
+    <div
+      class="c-QuizAndTipsBlock__Tips"
+    >
+      <a
+        class="c-TipCard"
+        href="/"
+      >
+        <div
+          class="c-TipCard__Tag"
+        >
+          Astuce
+        </div>
+        <p
+          class="c-TipCard__Content"
+        >
+          Découper vos peaux de bananes avant de les jeter dans votre compost.
+        </p>
+        <span
+          class="c-TipCard__Link"
+        >
+          En savoir plus
+        </span>
+        <div
+          class="o-Blob c-TipCard__Svg"
+        >
+          <img
+            alt=""
+            data-nimg="1"
+            decoding="async"
+            height="72"
+            loading="lazy"
+            src="/images/pictos-temp/banana.svg"
+            srcset="/images/pictos-temp/banana.svg 1x, /images/pictos-temp/banana.svg 2x"
+            style="color: transparent;"
+            width="72"
+          />
+        </div>
+      </a>
+      <div
+        class="c-QuizAndTipsBlock__TipsSvg"
+      >
+        <div />
+      </div>
+    </div>
+  </section>
+</div>
+`;
+
+exports[`renders three tips 1`] = `
+<div>
+  <section
+    class="c-QuizAndTipsBlock"
+  >
+    <div
+      class="c-CommonBlockHeading"
+    >
+      <h2>
+        Astuces !
+      </h2>
+      <div
+        class="c-CommonBlockHeading__Line"
+      />
+    </div>
+    <div
+      class="c-QuizAndTipsBlock__Tips"
+    >
+      <a
+        class="c-TipCard"
+        href="/"
+      >
+        <div
+          class="c-TipCard__Tag"
+        >
+          Astuce
+        </div>
+        <p
+          class="c-TipCard__Content"
+        >
+          Découper vos peaux de bananes avant de les jeter dans votre compost.
+        </p>
+        <span
+          class="c-TipCard__Link"
+        >
+          En savoir plus
+        </span>
+        <div
+          class="o-Blob c-TipCard__Svg"
+        >
+          <img
+            alt=""
+            data-nimg="1"
+            decoding="async"
+            height="72"
+            loading="lazy"
+            src="/images/pictos-temp/banana.svg"
+            srcset="/images/pictos-temp/banana.svg 1x, /images/pictos-temp/banana.svg 2x"
+            style="color: transparent;"
+            width="72"
+          />
+        </div>
+      </a>
+      <a
+        class="c-TipCard"
+        href="/"
+      >
+        <div
+          class="c-TipCard__Tag"
+        >
+          Astuce
+        </div>
+        <p
+          class="c-TipCard__Content"
+        >
+          Pas besoin de nettoyer vos pots de yaourts avant de les jeter
+        </p>
+        <span
+          class="c-TipCard__Link"
+        >
+          En savoir plus
+        </span>
+        <div
+          class="o-Blob c-TipCard__Svg"
+        >
+          <img
+            alt=""
+            data-nimg="1"
+            decoding="async"
+            height="72"
+            loading="lazy"
+            src="/images/pictos-temp/sink.svg"
+            srcset="/images/pictos-temp/sink.svg 1x, /images/pictos-temp/sink.svg 2x"
+            style="color: transparent;"
+            width="72"
+          />
+        </div>
+      </a>
+      <a
+        class="c-TipCard"
+        href="/"
+      >
+        <div
+          class="c-TipCard__Tag"
+        >
+          Astuce
+        </div>
+        <p
+          class="c-TipCard__Content"
+        >
+          Remplacez vos sacs en plastique par des sacs réutilisables, un caddie ou des paniers.
+        </p>
+        <span
+          class="c-TipCard__Link"
+        >
+          En savoir plus
+        </span>
+        <div
+          class="o-Blob c-TipCard__Svg"
+        >
+          <img
+            alt=""
+            data-nimg="1"
+            decoding="async"
+            height="72"
+            loading="lazy"
+            src="/images/pictos-temp/basket.svg"
+            srcset="/images/pictos-temp/basket.svg 1x, /images/pictos-temp/basket.svg 2x"
+            style="color: transparent;"
+            width="72"
+          />
+        </div>
+      </a>
+      <div
+        class="c-QuizAndTipsBlock__TipsSvg"
+      >
+        <div />
+      </div>
+    </div>
+  </section>
+</div>
+`;
