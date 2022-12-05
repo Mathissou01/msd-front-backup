@@ -3,20 +3,32 @@ import {
   GetQuizAndTipsBlockDocument,
   GetQuizAndTipsBlockQuery,
   QuizAndTipsBlockEntity,
+  GetRecyclingGuideBlockDocument,
+  RecyclingGuideBlockEntity,
+  GetRecyclingGuideBlockQuery,
 } from "../graphql/codegen/generated-types";
+import {
+  extractQuizAndTipsBlock,
+  extractRecyclingGuideBlock,
+} from "../lib/graphql-data";
 import useScreenWidth from "../lib/useScreenWidth";
 import WelcomeBlock from "../components/Blocks/WelcomeBlock/WelcomeBlock";
+import RecyclingGuideBlock from "../components/Blocks/RecyclingGuideBlock/RecyclingGuideBlock";
 import QuizAndTipsBlock from "../components/Blocks/QuizAndTipsBlock/QuizAndTipsBlock";
 import "./home-page.scss";
-import { extractQuizAndTipsBlock } from "../lib/graphql-data";
 
 interface IHomePageProps {
+  recyclingGuideBlock: RecyclingGuideBlockEntity;
   quizAndTipsBlock: QuizAndTipsBlockEntity;
 }
 
-export default function HomePage({ quizAndTipsBlock }: IHomePageProps) {
+export default function HomePage({
+  recyclingGuideBlock,
+  quizAndTipsBlock,
+}: IHomePageProps) {
   /* StaticProps data */
-  // TODO: should I also check if the relevant service is Active to display the block?
+  // TODO: check contract services to determine if blocks are displayed
+  const displayRecyclingGuideBlock = true;
   const displayQuizAndTipsBlock = quizAndTipsBlock?.attributes?.displayBlock;
   /* Local Data */
   const { isDesktop } = useScreenWidth();
@@ -25,15 +37,9 @@ export default function HomePage({ quizAndTipsBlock }: IHomePageProps) {
   return (
     <>
       <WelcomeBlock />
-      <section
-        className="o-Page__Section"
-        style={{
-          minHeight: isDesktop ? "357px" : "397px",
-          backgroundColor: "#fff",
-        }}
-      >
-        (Search)
-      </section>
+      {displayRecyclingGuideBlock && (
+        <RecyclingGuideBlock data={recyclingGuideBlock} />
+      )}
       <section
         className="o-Page__Section"
         style={{ minHeight: isDesktop ? "447px" : "703px" }}
@@ -65,15 +71,29 @@ export default function HomePage({ quizAndTipsBlock }: IHomePageProps) {
 
 export async function getStaticProps() {
   const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID?.toString();
-  const { data } = await client.query<GetQuizAndTipsBlockQuery>({
-    query: GetQuizAndTipsBlockDocument,
-    variables: { contractId },
-  });
-  const quizAndTipsBlock = extractQuizAndTipsBlock(data);
+
+  // TODO: get all services to check if enabled/disabled for the related blocks
+
+  const { data: recyclingGuideBlockData } =
+    await client.query<GetRecyclingGuideBlockQuery>({
+      query: GetRecyclingGuideBlockDocument,
+      variables: { contractId },
+    });
+  const { data: quizAndTipsBlockData } =
+    await client.query<GetQuizAndTipsBlockQuery>({
+      query: GetQuizAndTipsBlockDocument,
+      variables: { contractId },
+    });
+
+  const recyclingGuideBlock = extractRecyclingGuideBlock(
+    recyclingGuideBlockData,
+  );
+  const quizAndTipsBlock = extractQuizAndTipsBlock(quizAndTipsBlockData);
 
   return {
     props: {
+      recyclingGuideBlock,
       quizAndTipsBlock,
-    }, // will be passed to the page component as props
+    },
   };
 }

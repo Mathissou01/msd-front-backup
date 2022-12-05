@@ -117,11 +117,10 @@
 }
 
 @mixin heading($level) {
-  font-family: DINPro-Medium, sans-serif;
-
   @if $level == 1 {
     font-weight: 500;
     font-size: 24px;
+    font-family: DINPro-Medium, sans-serif;
     line-height: 25px;
 
     @include media.desktop-only {

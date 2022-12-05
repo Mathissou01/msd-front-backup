@@ -6,6 +6,12 @@ export const ContractCustomizationEntityResponseCollectionMock = {
         homepage: {
           data: {
             attributes: {
+              recyclingGuideBlock: {
+                data: {
+                  id: "1",
+                  attributes: {},
+                },
+              },
               quizAndTipsBlock: {
                 data: {
                   id: "1",

@@ -1,5 +1,7 @@
 import { QuizAndTipsBlockEntity } from "../../../graphql/codegen/generated-types";
-import TipsBoy from "public/images/Tips-boy.svg";
+import useScreenWidth from "../../../lib/useScreenWidth";
+import TipsMobile from "public/images/mobile_astuces-section_bottom-right-angle.svg";
+import TipsDesktop from "public/images/desktop_astuces-section_bottom-right-angle.svg";
 import CommonBlockHeading from "../../Common/CommonBlockHeading/CommonBlockHeading";
 import TipCard from "./TipCard/TipCard";
 import "./quiz-and-tips-block.scss";
@@ -16,6 +18,7 @@ export default function QuizAndTipsBlock({ data }: IQuizAndTipsBlockProps) {
   };
 
   /* Local Data */
+  const { isDesktop } = useScreenWidth();
   const blockTitle = data.attributes?.title ?? "";
   const quiz = data.attributes?.quiz?.data ?? null;
   const tips = data.attributes?.tips?.data ?? [];
@@ -41,7 +44,7 @@ export default function QuizAndTipsBlock({ data }: IQuizAndTipsBlockProps) {
                 />
               ))}
               <div className="c-QuizAndTipsBlock__TipsSvg">
-                <TipsBoy />
+                {isDesktop ? <TipsDesktop /> : <TipsMobile />}
               </div>
             </div>
           )}

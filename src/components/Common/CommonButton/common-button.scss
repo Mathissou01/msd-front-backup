@@ -1,4 +1,5 @@
 @use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.media-queries" as media;
 @use "src/styles/02-tools/tools.buttons" as buttons;
 @use "src/styles/02-tools/tools.typography" as typo;
 @use "src/styles/02-tools/tools.functions" as func;
@@ -37,7 +38,9 @@
   }
 
   &_fullWidth {
-    width: 100%;
+    @include media.medium-mobile-only {
+      width: 100%;
+    }
   }
 
   &__Picto {

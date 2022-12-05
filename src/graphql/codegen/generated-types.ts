@@ -4611,6 +4611,55 @@ export type GetQuizAndTipsBlockQuery = {
   } | null;
 };
 
+export type GetRecyclingGuideBlockQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+}>;
+
+export type GetRecyclingGuideBlockQuery = {
+  __typename?: "Query";
+  contractCustomizations?: {
+    __typename?: "ContractCustomizationEntityResponseCollection";
+    data: Array<{
+      __typename?: "ContractCustomizationEntity";
+      attributes?: {
+        __typename?: "ContractCustomization";
+        homepage?: {
+          __typename?: "HomepageEntityResponse";
+          data?: {
+            __typename?: "HomepageEntity";
+            attributes?: {
+              __typename?: "Homepage";
+              recyclingGuideBlock?: {
+                __typename?: "RecyclingGuideBlockEntityResponse";
+                data?: {
+                  __typename?: "RecyclingGuideBlockEntity";
+                  id?: string | null;
+                  attributes?: {
+                    __typename?: "RecyclingGuideBlock";
+                    titleContent: string;
+                    subtitleContent: string;
+                    recyclingGuideDisplayContent: string;
+                    tags?: {
+                      __typename?: "TagRelationResponseCollection";
+                      data: Array<{
+                        __typename?: "TagEntity";
+                        attributes?: {
+                          __typename?: "Tag";
+                          name?: string | null;
+                        } | null;
+                      }>;
+                    } | null;
+                  } | null;
+                } | null;
+              } | null;
+            } | null;
+          } | null;
+        } | null;
+      } | null;
+    }>;
+  } | null;
+};
+
 export const GetQuizAndTipsBlockDocument = gql`
   query GetQuizAndTipsBlock($contractId: ID!) {
     contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
@@ -4708,4 +4757,88 @@ export type GetQuizAndTipsBlockLazyQueryHookResult = ReturnType<
 export type GetQuizAndTipsBlockQueryResult = Apollo.QueryResult<
   GetQuizAndTipsBlockQuery,
   GetQuizAndTipsBlockQueryVariables
+>;
+export const GetRecyclingGuideBlockDocument = gql`
+  query GetRecyclingGuideBlock($contractId: ID!) {
+    contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
+      data {
+        attributes {
+          homepage {
+            data {
+              attributes {
+                recyclingGuideBlock {
+                  data {
+                    id
+                    attributes {
+                      titleContent
+                      subtitleContent
+                      recyclingGuideDisplayContent
+                      tags {
+                        data {
+                          attributes {
+                            name
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetRecyclingGuideBlockQuery__
+ *
+ * To run a query within a React component, call `useGetRecyclingGuideBlockQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRecyclingGuideBlockQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRecyclingGuideBlockQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetRecyclingGuideBlockQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetRecyclingGuideBlockQuery,
+    GetRecyclingGuideBlockQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetRecyclingGuideBlockQuery,
+    GetRecyclingGuideBlockQueryVariables
+  >(GetRecyclingGuideBlockDocument, options);
+}
+export function useGetRecyclingGuideBlockLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetRecyclingGuideBlockQuery,
+    GetRecyclingGuideBlockQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetRecyclingGuideBlockQuery,
+    GetRecyclingGuideBlockQueryVariables
+  >(GetRecyclingGuideBlockDocument, options);
+}
+export type GetRecyclingGuideBlockQueryHookResult = ReturnType<
+  typeof useGetRecyclingGuideBlockQuery
+>;
+export type GetRecyclingGuideBlockLazyQueryHookResult = ReturnType<
+  typeof useGetRecyclingGuideBlockLazyQuery
+>;
+export type GetRecyclingGuideBlockQueryResult = Apollo.QueryResult<
+  GetRecyclingGuideBlockQuery,
+  GetRecyclingGuideBlockQueryVariables
 >;
