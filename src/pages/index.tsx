@@ -28,7 +28,7 @@ export default function HomePage({
 }: IHomePageProps) {
   /* StaticProps data */
   // TODO: check contract services to determine if blocks are displayed
-  const displayRecyclingGuideBlock = true;
+  const displayRecyclingGuideBlock = !!recyclingGuideBlock;
   const displayQuizAndTipsBlock = quizAndTipsBlock?.attributes?.displayBlock;
 
   /* Local Data */

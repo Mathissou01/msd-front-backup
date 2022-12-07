@@ -29,10 +29,6 @@ const nextConfig = {
   env: {
     API_URL: process.env.NEXT_PUBLIC_API_URL,
   },
-  i18n: {
-    locales: ["fr"],
-    defaultLocale: "fr",
-  },
   sassOptions: {
     // Trick to load scss variable values from .env, load local variable declaration first
     // Calculate dark/light values of color with chroma.js (using CIELAB calculations)
