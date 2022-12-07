@@ -52,7 +52,7 @@
     }
   }
 
-  &__TipsSvg {
+  &__TipsSvgContainer {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -77,6 +77,24 @@
 
       #secondary-color {
         fill: colors.$brand-secondary;
+      }
+    }
+  }
+
+  &__Svg {
+    &_mobile {
+      display: initial;
+
+      @include media.desktop-only {
+        display: none;
+      }
+    }
+
+    &_desktop {
+      display: none;
+
+      @include media.desktop-only {
+        display: initial;
       }
     }
   }

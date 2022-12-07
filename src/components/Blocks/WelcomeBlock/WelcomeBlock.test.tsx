@@ -1,10 +1,13 @@
-import { act, render, screen } from "@testing-library/react";
-import { mockResizeWindow } from "../../../../__mocks__/resizeWindow";
+import { render, screen } from "@testing-library/react";
+import { IsDesktopContext } from "../../../hooks/useScreenWidth";
 import WelcomeBlock from "./WelcomeBlock";
 
 it("renders in mobile mode", () => {
-  const { container } = render(<WelcomeBlock />);
-  act(() => mockResizeWindow(325, 600));
+  const { container } = render(
+    <IsDesktopContext.Provider value={false}>
+      <WelcomeBlock />
+    </IsDesktopContext.Provider>,
+  );
 
   const heroMobile = screen.getByTestId("hero-illu-mobile");
   const heroDesktop = screen.queryByTestId("hero-illu-desktop");
@@ -14,8 +17,11 @@ it("renders in mobile mode", () => {
 });
 
 it("renders in desktop mode", () => {
-  const { container } = render(<WelcomeBlock />);
-  act(() => mockResizeWindow(1440, 600));
+  const { container } = render(
+    <IsDesktopContext.Provider value={true}>
+      <WelcomeBlock />
+    </IsDesktopContext.Provider>,
+  );
 
   const heroDesktop = screen.getByTestId("hero-illu-desktop");
   const heroMobile = screen.queryByTestId("hero-illu-mobile");

@@ -30,6 +30,7 @@ exports[`renders in desktop mode 1`] = `
         </a>
       </li>
       <div
+        aria-hidden="true"
         class="c-HeaderTopBar__Filler"
       />
       <li
@@ -52,6 +53,7 @@ exports[`renders in desktop mode 1`] = `
         </a>
       </li>
       <div
+        aria-hidden="true"
         class="c-HeaderTopBar__Separator"
       />
       <li
@@ -64,6 +66,7 @@ exports[`renders in desktop mode 1`] = `
         </a>
       </li>
       <div
+        aria-hidden="true"
         class="c-HeaderTopBar__Separator"
       />
       <li
@@ -76,6 +79,7 @@ exports[`renders in desktop mode 1`] = `
         </a>
       </li>
       <div
+        aria-hidden="true"
         class="c-HeaderTopBar__Separator"
       />
       <li
@@ -88,6 +92,7 @@ exports[`renders in desktop mode 1`] = `
         </a>
       </li>
       <div
+        aria-hidden="true"
         class="c-HeaderTopBar__Separator"
       />
       <li
@@ -101,6 +106,7 @@ exports[`renders in desktop mode 1`] = `
         </a>
       </li>
       <div
+        aria-hidden="true"
         class="c-HeaderTopBar__Separator"
       />
       <li
@@ -158,7 +164,7 @@ exports[`renders in desktop mode 1`] = `
         class="c-NavigationList__Item"
       >
         <a
-          class="c-NavigationListButton c-NavigationListButton_desktop "
+          class="c-NavigationListButton c-NavigationListButton_desktop"
           href="/"
         >
           <div
@@ -191,7 +197,7 @@ exports[`renders in desktop mode 1`] = `
         class="c-NavigationList__Item"
       >
         <a
-          class="c-NavigationListButton c-NavigationListButton_desktop "
+          class="c-NavigationListButton c-NavigationListButton_desktop"
           href="/"
         >
           <div
@@ -224,7 +230,7 @@ exports[`renders in desktop mode 1`] = `
         class="c-NavigationList__Item"
       >
         <a
-          class="c-NavigationListButton c-NavigationListButton_desktop "
+          class="c-NavigationListButton c-NavigationListButton_desktop"
           href="/"
         >
           <div
@@ -257,7 +263,7 @@ exports[`renders in desktop mode 1`] = `
         class="c-NavigationList__Item"
       >
         <a
-          class="c-NavigationListButton c-NavigationListButton_desktop "
+          class="c-NavigationListButton c-NavigationListButton_desktop"
           href="/"
         >
           <div
@@ -290,7 +296,7 @@ exports[`renders in desktop mode 1`] = `
         class="c-NavigationList__Item"
       >
         <a
-          class="c-NavigationListButton c-NavigationListButton_desktop "
+          class="c-NavigationListButton c-NavigationListButton_desktop"
           href="/"
         >
           <div
@@ -323,7 +329,7 @@ exports[`renders in desktop mode 1`] = `
         class="c-NavigationList__Item"
       >
         <a
-          class="c-NavigationListButton c-NavigationListButton_desktop "
+          class="c-NavigationListButton c-NavigationListButton_desktop"
           href="/"
         >
           <div
@@ -365,7 +371,7 @@ exports[`renders in desktop mode 1`] = `
   </nav>
   <div
     aria-hidden="true"
-    class="c-Header__ContentCover "
+    class="c-Header__ContentCover"
     data-testid="content-cover"
   />
 </div>
@@ -380,7 +386,7 @@ exports[`renders in mobile mode 1`] = `
   >
     <button
       aria-expanded="false"
-      class="c-HeaderTopBar__BurgerButton "
+      class="c-HeaderTopBar__BurgerButton"
       data-testid="burger-menu-button"
       type="button"
     />
@@ -417,7 +423,7 @@ exports[`renders in mobile mode 1`] = `
     </ul>
   </header>
   <nav
-    class="c-HeaderBurgerMenu "
+    class="c-HeaderBurgerMenu"
     data-testid="burger-menu"
   >
     <ul
@@ -486,7 +492,7 @@ exports[`renders in mobile mode 1`] = `
               class="c-NavigationList__Item"
             >
               <a
-                class="c-NavigationListButton c-NavigationListButton_mobile "
+                class="c-NavigationListButton c-NavigationListButton_mobile"
                 href="/"
               >
                 <div
@@ -519,7 +525,7 @@ exports[`renders in mobile mode 1`] = `
               class="c-NavigationList__Item"
             >
               <a
-                class="c-NavigationListButton c-NavigationListButton_mobile "
+                class="c-NavigationListButton c-NavigationListButton_mobile"
                 href="/"
               >
                 <div
@@ -552,7 +558,7 @@ exports[`renders in mobile mode 1`] = `
               class="c-NavigationList__Item"
             >
               <a
-                class="c-NavigationListButton c-NavigationListButton_mobile "
+                class="c-NavigationListButton c-NavigationListButton_mobile"
                 href="/"
               >
                 <div
@@ -585,7 +591,7 @@ exports[`renders in mobile mode 1`] = `
               class="c-NavigationList__Item"
             >
               <a
-                class="c-NavigationListButton c-NavigationListButton_mobile "
+                class="c-NavigationListButton c-NavigationListButton_mobile"
                 href="/"
               >
                 <div
@@ -618,7 +624,7 @@ exports[`renders in mobile mode 1`] = `
               class="c-NavigationList__Item"
             >
               <a
-                class="c-NavigationListButton c-NavigationListButton_mobile "
+                class="c-NavigationListButton c-NavigationListButton_mobile"
                 href="/"
               >
                 <div
@@ -651,7 +657,7 @@ exports[`renders in mobile mode 1`] = `
               class="c-NavigationList__Item"
             >
               <a
-                class="c-NavigationListButton c-NavigationListButton_mobile "
+                class="c-NavigationListButton c-NavigationListButton_mobile"
                 href="/"
               >
                 <div
@@ -708,7 +714,7 @@ exports[`renders in mobile mode 1`] = `
   </nav>
   <div
     aria-hidden="true"
-    class="c-Header__ContentCover "
+    class="c-Header__ContentCover"
     data-testid="content-cover"
   />
 </div>

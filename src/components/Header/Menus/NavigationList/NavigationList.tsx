@@ -1,5 +1,6 @@
 import NavigationListButton from "./NavigationListButton/NavigationListButton";
 import "./navigation-list.scss";
+import classNames from "classnames";
 
 interface INavigationListProps {
   isDesktopMode: boolean;
@@ -18,13 +19,13 @@ export default function NavigationList({
     wastes: "Réduire mes déchets",
     leaf: "Valorisation des déchets",
   };
+  const dynamicClassNames = classNames("c-NavigationList", {
+    "c-NavigationList_desktop": isDesktopMode,
+    "c-NavigationList_mobile": !isDesktopMode,
+  });
 
   return (
-    <ul
-      className={`c-NavigationList ${
-        isDesktopMode ? "c-NavigationList_desktop" : "c-NavigationList_mobile"
-      }`}
-    >
+    <ul className={dynamicClassNames}>
       <li className="c-NavigationList__Item c-NavigationList__Item_active">
         <NavigationListButton
           label={temporaryLabels.homepage}

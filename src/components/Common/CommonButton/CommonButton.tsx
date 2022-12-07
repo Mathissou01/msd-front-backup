@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React from "react";
 import "./common-button.scss";
 
@@ -11,7 +12,7 @@ interface ICommonButtonProps {
   buttonRef?: React.RefObject<HTMLButtonElement>;
   style?: "primary" | "primaryContrast" | "secondary" | "tertiary" | null;
   fontStyle?: "fontSmall" | "fontLarge";
-  paddingStyle?: "paddingDefault" | "paddingSmall" | "paddingLarge";
+  paddingStyle?: "paddingSmall" | "paddingLarge";
   isFullWidth?: boolean;
 }
 
@@ -25,29 +26,29 @@ export default function CommonButton({
   buttonRef,
   style = "secondary",
   fontStyle = "fontSmall",
-  paddingStyle = "paddingDefault",
+  paddingStyle,
   isFullWidth = false,
 }: ICommonButtonProps) {
+  const buttonClassNames = classNames("c-CommonButton", {
+    [`c-CommonButton_${style}`]: style,
+    [`c-CommonButton_${fontStyle}`]: fontStyle,
+    [`c-CommonButton_${paddingStyle}`]: paddingStyle,
+    "c-CommonButton_fullWidth": isFullWidth,
+  });
+  const pictoClassNames = classNames("c-CommonButton__Picto", {
+    [`c-CommonButton__Picto_${picto}`]: picto,
+  });
+
   return (
     <button
-      className={`c-CommonButton ${style ? "c-CommonButton_" + style : ""} ${
-        paddingStyle !== "paddingDefault"
-          ? "c-CommonButton_" + paddingStyle
-          : ""
-      } ${fontStyle ? "c-CommonButton_" + fontStyle : ""} ${
-        isFullWidth ? "c-CommonButton_fullWidth" : ""
-      }`}
+      className={buttonClassNames}
       type={type}
       onClick={onClick}
       disabled={isDisabled}
       id={formLabelId}
       ref={buttonRef}
     >
-      {picto && (
-        <div
-          className={`c-CommonButton__Picto c-CommonButton__Picto_${picto}`}
-        />
-      )}
+      {picto && <div className={pictoClassNames} />}
       {label}
     </button>
   );

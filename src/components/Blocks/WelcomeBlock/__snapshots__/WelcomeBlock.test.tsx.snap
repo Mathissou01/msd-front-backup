@@ -16,9 +16,10 @@ exports[`renders in desktop mode 1`] = `
       />
     </div>
     <div
-      class="c-WelcomeBlock__Svg"
+      class="c-WelcomeBlock__SvgContainer"
     >
       <div
+        class="c-WelcomeBlock__Svg_desktop"
         data-testid="hero-illu-desktop"
       />
     </div>
@@ -42,9 +43,10 @@ exports[`renders in mobile mode 1`] = `
       />
     </div>
     <div
-      class="c-WelcomeBlock__Svg"
+      class="c-WelcomeBlock__SvgContainer"
     >
       <div
+        class="c-WelcomeBlock__Svg_mobile"
         data-testid="hero-illu-mobile"
       />
     </div>

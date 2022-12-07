@@ -1,13 +1,17 @@
+import classNames from "classnames";
 import Head from "next/head";
 import { useState } from "react";
-import useScreenWidth from "../../lib/useScreenWidth";
+import { useIsDesktopContext } from "../../hooks/useScreenWidth";
 import HeaderTopBar from "./HeaderTopBar/HeaderTopBar";
 import HeaderSideBar from "./HeaderSideBar/HeaderSideBar";
 import "./header.scss";
 
 export default function Header() {
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
-  const { isDesktop } = useScreenWidth();
+  const isDesktop = useIsDesktopContext();
+  const coverClassNames = classNames("c-Header__ContentCover", {
+    "c-Header__ContentCover_active": sidebarExpanded && !isDesktop,
+  });
 
   return (
     <>
@@ -23,9 +27,7 @@ export default function Header() {
       />
       {isDesktop && <HeaderSideBar />}
       <div
-        className={`c-Header__ContentCover ${
-          sidebarExpanded && !isDesktop ? "c-Header__ContentCover_active" : ""
-        }`}
+        className={coverClassNames}
         aria-hidden={true}
         data-testid="content-cover"
       />

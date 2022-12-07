@@ -2,7 +2,7 @@ export const defaultMockData = {
   data: {
     id: "1",
     attributes: {
-      title: "Astuces !",
+      titleContent: "Astuces !",
       displayBlock: true,
       displayQuiz: true,
       quiz: {
@@ -37,7 +37,7 @@ export const threeTipsMockData = {
   data: {
     id: "1",
     attributes: {
-      title: "Astuces !",
+      titleContent: "Astuces !",
       displayBlock: true,
       displayQuiz: true,
       quiz: {

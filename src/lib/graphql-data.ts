@@ -1,14 +1,16 @@
 import {
-  GetQuizAndTipsBlockQuery,
-  QuizAndTipsBlockEntity,
-  GetRecyclingGuideBlockQuery,
+  GetRecyclingGuideBlockByContractIdQuery,
   RecyclingGuideBlockEntity,
+  GetQuizAndTipsBlockByContractIdQuery,
+  QuizAndTipsBlockEntity,
   ServiceEntity,
   EditorialServiceEntity,
 } from "../graphql/codegen/generated-types";
 
 /* Homepage */
-export function extractRecyclingGuideBlock(data: GetRecyclingGuideBlockQuery) {
+export function extractRecyclingGuideBlock(
+  data: GetRecyclingGuideBlockByContractIdQuery,
+) {
   const recyclingGuideBlock: RecyclingGuideBlockEntity | null =
     data.contractCustomizations?.data[0]?.attributes?.homepage?.data?.attributes
       ?.recyclingGuideBlock?.data ?? null;
@@ -16,7 +18,9 @@ export function extractRecyclingGuideBlock(data: GetRecyclingGuideBlockQuery) {
   return recyclingGuideBlock;
 }
 
-export function extractQuizAndTipsBlock(data: GetQuizAndTipsBlockQuery) {
+export function extractQuizAndTipsBlock(
+  data: GetQuizAndTipsBlockByContractIdQuery,
+) {
   const quizAndTipsBlock: QuizAndTipsBlockEntity | null =
     data.contractCustomizations?.data[0]?.attributes?.homepage?.data?.attributes
       ?.quizAndTipsBlock?.data ?? null;

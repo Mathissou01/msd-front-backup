@@ -1,17 +1,17 @@
 import client from "../graphql/client";
 import {
-  GetQuizAndTipsBlockDocument,
-  GetQuizAndTipsBlockQuery,
-  QuizAndTipsBlockEntity,
-  GetRecyclingGuideBlockDocument,
   RecyclingGuideBlockEntity,
-  GetRecyclingGuideBlockQuery,
+  GetRecyclingGuideBlockByContractIdDocument,
+  GetRecyclingGuideBlockByContractIdQuery,
+  QuizAndTipsBlockEntity,
+  GetQuizAndTipsBlockByContractIdDocument,
+  GetQuizAndTipsBlockByContractIdQuery,
 } from "../graphql/codegen/generated-types";
 import {
-  extractQuizAndTipsBlock,
   extractRecyclingGuideBlock,
+  extractQuizAndTipsBlock,
 } from "../lib/graphql-data";
-import useScreenWidth from "../lib/useScreenWidth";
+import { useIsDesktopContext } from "../hooks/useScreenWidth";
 import WelcomeBlock from "../components/Blocks/WelcomeBlock/WelcomeBlock";
 import RecyclingGuideBlock from "../components/Blocks/RecyclingGuideBlock/RecyclingGuideBlock";
 import QuizAndTipsBlock from "../components/Blocks/QuizAndTipsBlock/QuizAndTipsBlock";
@@ -30,8 +30,9 @@ export default function HomePage({
   // TODO: check contract services to determine if blocks are displayed
   const displayRecyclingGuideBlock = true;
   const displayQuizAndTipsBlock = quizAndTipsBlock?.attributes?.displayBlock;
+
   /* Local Data */
-  const { isDesktop } = useScreenWidth();
+  const isDesktop = useIsDesktopContext();
 
   // TODO: temporary styling to show structure of page in mobile/desktop, remove later
   return (
@@ -75,13 +76,13 @@ export async function getStaticProps() {
   // TODO: get all services to check if enabled/disabled for the related blocks
 
   const { data: recyclingGuideBlockData } =
-    await client.query<GetRecyclingGuideBlockQuery>({
-      query: GetRecyclingGuideBlockDocument,
+    await client.query<GetRecyclingGuideBlockByContractIdQuery>({
+      query: GetRecyclingGuideBlockByContractIdDocument,
       variables: { contractId },
     });
   const { data: quizAndTipsBlockData } =
-    await client.query<GetQuizAndTipsBlockQuery>({
-      query: GetQuizAndTipsBlockDocument,
+    await client.query<GetQuizAndTipsBlockByContractIdQuery>({
+      query: GetQuizAndTipsBlockByContractIdDocument,
       variables: { contractId },
     });
 

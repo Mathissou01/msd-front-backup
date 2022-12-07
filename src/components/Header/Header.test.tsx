@@ -1,10 +1,13 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
-import { mockResizeWindow } from "../../../__mocks__/resizeWindow";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { IsDesktopContext } from "../../hooks/useScreenWidth";
 import Header from "./Header";
 
 it("renders in mobile mode", () => {
-  const { container } = render(<Header />);
-  act(() => mockResizeWindow(325, 600));
+  const { container } = render(
+    <IsDesktopContext.Provider value={false}>
+      <Header />
+    </IsDesktopContext.Provider>,
+  );
 
   const topBar = screen.getByTestId("top-bar");
   const burgerMenuButton = screen.queryByTestId("burger-menu-button");
@@ -18,8 +21,11 @@ it("renders in mobile mode", () => {
 });
 
 it("opens the burger menu and enables the content cover when burger button is clicked", () => {
-  render(<Header />);
-  act(() => mockResizeWindow(325, 600));
+  render(
+    <IsDesktopContext.Provider value={false}>
+      <Header />
+    </IsDesktopContext.Provider>,
+  );
 
   const burgerMenuButton = screen.getByTestId("burger-menu-button");
   const contentCover = screen.getByTestId("content-cover");
@@ -42,8 +48,11 @@ it("opens the burger menu and enables the content cover when burger button is cl
 });
 
 it("renders in desktop mode", () => {
-  const { container } = render(<Header />);
-  act(() => mockResizeWindow(1440, 600));
+  const { container } = render(
+    <IsDesktopContext.Provider value={true}>
+      <Header />
+    </IsDesktopContext.Provider>,
+  );
 
   const topBar = screen.getByTestId("top-bar");
   const sideBar = screen.getByTestId("side-bar");

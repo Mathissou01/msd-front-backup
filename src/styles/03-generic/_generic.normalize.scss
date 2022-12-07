@@ -9,10 +9,14 @@ body {
   height: 0;
   margin: 0;
   padding: 0;
-  background-color: colors.$background-default;
+  background-color: colors.$white;
 
   > div,
   #app {
     height: 0;
+  }
+
+  main {
+    background-color: colors.$background-default;
   }
 }

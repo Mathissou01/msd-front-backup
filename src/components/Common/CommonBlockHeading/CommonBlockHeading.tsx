@@ -1,15 +1,15 @@
 import "./common-block-heading.scss";
 
 interface ICommonBlockHeadingProps {
-  blockTitle: string;
+  titleContent: string;
 }
 
 export default function CommonBlockHeading({
-  blockTitle,
+  titleContent,
 }: ICommonBlockHeadingProps) {
   return (
     <div className="c-CommonBlockHeading">
-      <h2>{blockTitle}</h2>
+      <h2>{titleContent}</h2>
       <div className="c-CommonBlockHeading__Line" />
     </div>
   );

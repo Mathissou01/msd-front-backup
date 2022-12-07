@@ -1,5 +1,5 @@
 import { QuizAndTipsBlockEntity } from "../../../graphql/codegen/generated-types";
-import useScreenWidth from "../../../lib/useScreenWidth";
+import { useIsDesktopContext } from "../../../hooks/useScreenWidth";
 import TipsMobile from "public/images/mobile_astuces-section_bottom-right-angle.svg";
 import TipsDesktop from "public/images/desktop_astuces-section_bottom-right-angle.svg";
 import CommonBlockHeading from "../../Common/CommonBlockHeading/CommonBlockHeading";
@@ -18,8 +18,8 @@ export default function QuizAndTipsBlock({ data }: IQuizAndTipsBlockProps) {
   };
 
   /* Local Data */
-  const { isDesktop } = useScreenWidth();
-  const blockTitle = data.attributes?.title ?? "";
+  const isDesktop = useIsDesktopContext();
+  const titleContent = data.attributes?.titleContent ?? "";
   const quiz = data.attributes?.quiz?.data ?? null;
   const tips = data.attributes?.tips?.data ?? [];
   const hasQuiz = !!quiz;
@@ -29,7 +29,7 @@ export default function QuizAndTipsBlock({ data }: IQuizAndTipsBlockProps) {
     <>
       {(hasQuiz || hasTips) && (
         <section className="c-QuizAndTipsBlock">
-          <CommonBlockHeading blockTitle={blockTitle} />
+          <CommonBlockHeading titleContent={titleContent} />
           {/* // TODO: only display tips version for now, add quiz only and quiz+tips version later */}
           {/*{hasQuiz && <div />}*/}
           {hasTips && (
@@ -43,8 +43,12 @@ export default function QuizAndTipsBlock({ data }: IQuizAndTipsBlockProps) {
                   pictoUrl={tip.attributes?.link ?? null}
                 />
               ))}
-              <div className="c-QuizAndTipsBlock__TipsSvg">
-                {isDesktop ? <TipsDesktop /> : <TipsMobile />}
+              <div className="c-QuizAndTipsBlock__SvgContainer">
+                {isDesktop ? (
+                  <TipsDesktop className="c-QuizAndTipsBlock__Svg_desktop" />
+                ) : (
+                  <TipsMobile className="c-QuizAndTipsBlock__Svg_mobile" />
+                )}
               </div>
             </div>
           )}

@@ -2,6 +2,7 @@ import Link from "next/link";
 import "./navigation-list-button.scss";
 import Image from "next/image";
 import { isAbsoluteOrRelativeUrl } from "../../../../../lib/utilities";
+import classNames from "classnames";
 
 interface INavigationListButtonProps {
   label: string;
@@ -18,17 +19,15 @@ export default function NavigationListButton({
   isDesktopMode,
   isActive = false,
 }: INavigationListButtonProps) {
+  const dynamicClassNames = classNames("c-NavigationListButton", {
+    "c-NavigationListButton_desktop": isDesktopMode,
+    "c-NavigationListButton_mobile": !isDesktopMode,
+    "c-NavigationListButton_active": isActive,
+  });
   const isValidUrl = pictoUrl && isAbsoluteOrRelativeUrl(pictoUrl);
 
   return (
-    <Link
-      className={`c-NavigationListButton ${
-        isDesktopMode
-          ? "c-NavigationListButton_desktop"
-          : "c-NavigationListButton_mobile"
-      } ${isActive ? "c-NavigationListButton_active" : ""}`}
-      href={"/"}
-    >
+    <Link className={dynamicClassNames} href={"/"}>
       <div className="c-NavigationListButton__Circle">
         {isValidUrl && (
           <div className="c-NavigationListButton__Picto">

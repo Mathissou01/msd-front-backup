@@ -1,4 +1,4 @@
-query GetQuizAndTipsBlock($contractId: ID!) {
+query getQuizAndTipsBlockByContractId($contractId: ID!) {
   contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
     data {
       attributes {
@@ -9,7 +9,7 @@ query GetQuizAndTipsBlock($contractId: ID!) {
                 data {
                   id
                   attributes {
-                    title
+                    titleContent
                     displayBlock
                     displayQuiz
                     quiz {

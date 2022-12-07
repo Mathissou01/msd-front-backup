@@ -1,4 +1,4 @@
-import useScreenWidth from "../../../lib/useScreenWidth";
+import { useIsDesktopContext } from "../../../hooks/useScreenWidth";
 import HeroIlluDesktop from "public/images/Hero-illu-desktop.svg";
 import HeroIlluMobile from "public/images/Hero-illu-mobile.svg";
 import "./welcome-block.scss";
@@ -11,7 +11,7 @@ export default function WelcomeBlock() {
   };
 
   /* Local Data */
-  const { isDesktop } = useScreenWidth();
+  const isDesktop = useIsDesktopContext();
 
   return (
     <section className="c-WelcomeBlock">
@@ -21,11 +21,17 @@ export default function WelcomeBlock() {
           {temporaryText.subtitle}
         </span>
       </div>
-      <div className="c-WelcomeBlock__Svg">
+      <div className="c-WelcomeBlock__SvgContainer">
         {isDesktop ? (
-          <HeroIlluDesktop data-testid="hero-illu-desktop" />
+          <HeroIlluDesktop
+            className="c-WelcomeBlock__Svg_desktop"
+            data-testid="hero-illu-desktop"
+          />
         ) : (
-          <HeroIlluMobile data-testid="hero-illu-mobile" />
+          <HeroIlluMobile
+            className="c-WelcomeBlock__Svg_mobile"
+            data-testid="hero-illu-mobile"
+          />
         )}
       </div>
     </section>

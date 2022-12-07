@@ -54,9 +54,11 @@ exports[`renders one tip 1`] = `
         </div>
       </a>
       <div
-        class="c-QuizAndTipsBlock__TipsSvg"
+        class="c-QuizAndTipsBlock__SvgContainer"
       >
-        <div />
+        <div
+          class="c-QuizAndTipsBlock__Svg_mobile"
+        />
       </div>
     </div>
   </section>
@@ -187,9 +189,11 @@ exports[`renders three tips 1`] = `
         </div>
       </a>
       <div
-        class="c-QuizAndTipsBlock__TipsSvg"
+        class="c-QuizAndTipsBlock__SvgContainer"
       >
-        <div />
+        <div
+          class="c-QuizAndTipsBlock__Svg_mobile"
+        />
       </div>
     </div>
   </section>

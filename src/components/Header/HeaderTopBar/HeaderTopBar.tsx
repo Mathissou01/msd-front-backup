@@ -1,10 +1,11 @@
+import classNames from "classnames";
 import Link from "next/link";
 import HeaderBurgerMenu from "../HeaderBurgerMenu/HeaderBurgerMenu";
 import "./header-top-bar.scss";
 
 interface IHeaderTopBarProps {
   isMenuOpen: boolean;
-  isDesktopMode: boolean;
+  isDesktopMode?: boolean;
   handleClick: (a: boolean) => void;
 }
 
@@ -13,15 +14,17 @@ export default function HeaderTopBar({
   isDesktopMode,
   handleClick,
 }: IHeaderTopBarProps) {
+  const buttonClassNames = classNames("c-HeaderTopBar__BurgerButton", {
+    "c-HeaderTopBar__BurgerButton_expanded": isMenuOpen,
+  });
+
   return (
     <>
       <header role="banner" className="c-HeaderTopBar" data-testid="top-bar">
         {!isDesktopMode && (
           <button
             type="button"
-            className={`c-HeaderTopBar__BurgerButton ${
-              isMenuOpen ? "c-HeaderTopBar__BurgerButton_expanded" : ""
-            }`}
+            className={buttonClassNames}
             aria-expanded={isMenuOpen}
             onClick={() => handleClick(!isMenuOpen)}
             data-testid="burger-menu-button"
@@ -49,7 +52,7 @@ export default function HeaderTopBar({
               >
                 <Link href={"/"}>[Selecteur]</Link>
               </li>
-              <div className="c-HeaderTopBar__Filler" />
+              <div className="c-HeaderTopBar__Filler" aria-hidden={true} />
               <li
                 className="c-HeaderTopBar__Item"
                 style={{ minWidth: "316px" }}
@@ -59,26 +62,26 @@ export default function HeaderTopBar({
               <li className="c-HeaderTopBar__Item">
                 <Link href={"/"}>[Ad]</Link>
               </li>
-              <div className="c-HeaderTopBar__Separator" />
+              <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
               <li className="c-HeaderTopBar__Item">
                 <Link href={"/"}>[Ca]</Link>
               </li>
-              <div className="c-HeaderTopBar__Separator" />
+              <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
               <li className="c-HeaderTopBar__Item">
                 <Link href={"/"}>[Al]</Link>
               </li>
-              <div className="c-HeaderTopBar__Separator" />
+              <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
               <li className="c-HeaderTopBar__Item">
                 <Link href={"/"}>[Co]</Link>
               </li>
-              <div className="c-HeaderTopBar__Separator" />
+              <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
               <li
                 className="c-HeaderTopBar__Item"
                 style={{ minWidth: "115px" }}
               >
                 <Link href={"/"}>[Profil]</Link>
               </li>
-              <div className="c-HeaderTopBar__Separator" />
+              <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
               <li className="c-HeaderTopBar__Item">
                 <Link href={"/"}>[Us]</Link>
               </li>

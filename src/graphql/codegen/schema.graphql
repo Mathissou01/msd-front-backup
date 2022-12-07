@@ -264,7 +264,7 @@ type ComponentEditoFreeService {
   ): FreeContentRelationResponseCollection
   id: ID!
   isActivated: Boolean!
-  name: String
+  name: String!
 }
 
 type ComponentEditoNewsSubService {
@@ -321,6 +321,12 @@ type ComponentMsdEditorial {
   id: ID!
 }
 
+type ComponentMsdExternal {
+  externalLink: String!
+  id: ID!
+  name: String
+}
+
 type ComponentMsdRecycling {
   id: ID!
   recyclingGuideService: RecyclingGuideServiceEntityResponse
@@ -331,45 +337,6 @@ type ComponentMsdRequest {
   requestService: RequestServiceEntityResponse
 }
 
-type ComponentSharedMedia {
-  file: UploadFileEntityResponse
-  id: ID!
-}
-
-type ComponentSharedQuote {
-  body: String
-  id: ID!
-  title: String
-}
-
-type ComponentSharedRichText {
-  body: String
-  id: ID!
-}
-
-type ComponentSharedSeo {
-  id: ID!
-  metaDescription: String!
-  metaTitle: String!
-  shareImage: UploadFileEntityResponse
-}
-
-input ComponentSharedSeoInput {
-  id: ID
-  metaDescription: String
-  metaTitle: String
-  shareImage: ID
-}
-
-type ComponentSharedSlider {
-  files(
-    filters: UploadFileFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): UploadFileRelationResponseCollection
-  id: ID!
-}
-
 type Contract {
   ccap: Int
   clear: Int
@@ -377,7 +344,6 @@ type Contract {
   contactClient: ClientEntityResponse
   contractCustomization: ContractCustomizationEntityResponse
   createdAt: DateTime
-  footer: FooterEntityResponse
   label: String!
   publishedAt: DateTime
   services(
@@ -461,7 +427,6 @@ input ContractFiltersInput {
   contactClient: ClientFiltersInput
   contractCustomization: ContractCustomizationFiltersInput
   createdAt: DateTimeFilterInput
-  footer: FooterFiltersInput
   id: IDFilterInput
   label: StringFilterInput
   not: ContractFiltersInput
@@ -480,7 +445,6 @@ input ContractInput {
   clientName: String
   contactClient: ID
   contractCustomization: ID
-  footer: ID
   label: String
   publishedAt: DateTime
   services: [ID]
@@ -497,30 +461,6 @@ type ContractPayload {
 A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
 scalar Date
-
-input DateFilterInput {
-  and: [Date]
-  between: [Date]
-  contains: Date
-  containsi: Date
-  endsWith: Date
-  eq: Date
-  eqi: Date
-  gt: Date
-  gte: Date
-  in: [Date]
-  lt: Date
-  lte: Date
-  ne: Date
-  not: DateFilterInput
-  notContains: Date
-  notContainsi: Date
-  notIn: [Date]
-  notNull: Boolean
-  null: Boolean
-  or: [Date]
-  startsWith: Date
-}
 
 """
 A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
@@ -701,37 +641,12 @@ input EditoBlockInput {
 
 type EditoContent {
   createdAt: DateTime
-  events(
-    filters: EventFiltersInput
-    pagination: PaginationArg = {}
-    publicationState: PublicationState = LIVE
-    sort: [String] = []
-  ): EventRelationResponseCollection
-  freeContents(
-    filters: FreeContentFiltersInput
-    pagination: PaginationArg = {}
-    publicationState: PublicationState = LIVE
-    sort: [String] = []
-  ): FreeContentRelationResponseCollection
-  news(
-    filters: NewFiltersInput
-    pagination: PaginationArg = {}
-    publicationState: PublicationState = LIVE
-    sort: [String] = []
-  ): NewRelationResponseCollection
+  event: EventEntityResponse
+  freeContent: FreeContentEntityResponse
+  news: NewEntityResponse
   publishedAt: DateTime
-  quizzes(
-    filters: QuizFiltersInput
-    pagination: PaginationArg = {}
-    publicationState: PublicationState = LIVE
-    sort: [String] = []
-  ): QuizRelationResponseCollection
-  tips(
-    filters: TipFiltersInput
-    pagination: PaginationArg = {}
-    publicationState: PublicationState = LIVE
-    sort: [String] = []
-  ): TipRelationResponseCollection
+  quiz: QuizEntityResponse
+  tip: TipEntityResponse
   updatedAt: DateTime
 }
 
@@ -752,25 +667,25 @@ type EditoContentEntityResponseCollection {
 input EditoContentFiltersInput {
   and: [EditoContentFiltersInput]
   createdAt: DateTimeFilterInput
-  events: EventFiltersInput
-  freeContents: FreeContentFiltersInput
+  event: EventFiltersInput
+  freeContent: FreeContentFiltersInput
   id: IDFilterInput
   news: NewFiltersInput
   not: EditoContentFiltersInput
   or: [EditoContentFiltersInput]
   publishedAt: DateTimeFilterInput
-  quizzes: QuizFiltersInput
-  tips: TipFiltersInput
+  quiz: QuizFiltersInput
+  tip: TipFiltersInput
   updatedAt: DateTimeFilterInput
 }
 
 input EditoContentInput {
-  events: [ID]
-  freeContents: [ID]
-  news: [ID]
+  event: ID
+  freeContent: ID
+  news: ID
   publishedAt: DateTime
-  quizzes: [ID]
-  tips: [ID]
+  quiz: ID
+  tip: ID
 }
 
 type EditoContentRelationResponseCollection {
@@ -967,6 +882,10 @@ type EventRelationResponseCollection {
   data: [EventEntity!]!
 }
 
+type ExternalServicesBlockLinkPayload {
+  serviceId: ID
+}
+
 input FileInfoInput {
   alternativeText: String
   caption: String
@@ -999,7 +918,6 @@ input FloatFilterInput {
 
 type Footer {
   AccessibilityLevel: ENUM_FOOTER_ACCESSIBILITYLEVEL
-  contract: ContractEntityResponse
   contractCustomization: ContractCustomizationEntityResponse
   createdAt: DateTime
   legalContent: LegalContentEntityResponse
@@ -1024,7 +942,6 @@ type FooterEntityResponseCollection {
 input FooterFiltersInput {
   AccessibilityLevel: StringFilterInput
   and: [FooterFiltersInput]
-  contract: ContractFiltersInput
   contractCustomization: ContractCustomizationFiltersInput
   createdAt: DateTimeFilterInput
   id: IDFilterInput
@@ -1037,7 +954,6 @@ input FooterFiltersInput {
 
 input FooterInput {
   AccessibilityLevel: ENUM_FOOTER_ACCESSIBILITYLEVEL
-  contract: ID
   contractCustomization: ID
   legalContent: ID
   publishedAt: DateTime
@@ -1110,13 +1026,9 @@ union GenericMorph =
   | ComponentMobileDescription
   | ComponentMsdContactUs
   | ComponentMsdEditorial
+  | ComponentMsdExternal
   | ComponentMsdRecycling
   | ComponentMsdRequest
-  | ComponentSharedMedia
-  | ComponentSharedQuote
-  | ComponentSharedRichText
-  | ComponentSharedSeo
-  | ComponentSharedSlider
   | Contract
   | ContractCustomization
   | DescriptionService
@@ -1135,22 +1047,20 @@ union GenericMorph =
   | KeyMetric
   | LegalContent
   | New
-  | Page
   | Profile
   | Quiz
   | QuizAndTipsBlock
   | RecyclingGuideBlock
   | RecyclingGuideService
   | RequestService
+  | SearchEngineBlock
   | Service
   | ServicesBlock
   | ServicesBlockLink
+  | SideBarItem
   | Tag
   | Territory
   | TerritoryType
-  | TimeDay
-  | TimeEvent
-  | TimeSlot
   | Tip
   | TopContent
   | TopContentBlock
@@ -1162,7 +1072,6 @@ union GenericMorph =
 
 type Global {
   createdAt: DateTime
-  defaultSeo: ComponentSharedSeo
   favicon: UploadFileEntityResponse
   siteDescription: String!
   siteName: String!
@@ -1179,7 +1088,6 @@ type GlobalEntityResponse {
 }
 
 input GlobalInput {
-  defaultSeo: ComponentSharedSeoInput
   favicon: ID
   siteDescription: String
   siteName: String
@@ -1215,6 +1123,7 @@ type Homepage {
   publishedAt: DateTime
   quizAndTipsBlock: QuizAndTipsBlockEntityResponse
   recyclingGuideBlock: RecyclingGuideBlockEntityResponse
+  searchEngineBlock: SearchEngineBlockEntityResponse
   servicesBlock: ServicesBlockEntityResponse
   topContentBlock: TopContentBlockEntityResponse
   updatedAt: DateTime
@@ -1245,6 +1154,7 @@ input HomepageFiltersInput {
   publishedAt: DateTimeFilterInput
   quizAndTipsBlock: QuizAndTipsBlockFiltersInput
   recyclingGuideBlock: RecyclingGuideBlockFiltersInput
+  searchEngineBlock: SearchEngineBlockFiltersInput
   servicesBlock: ServicesBlockFiltersInput
   topContentBlock: TopContentBlockFiltersInput
   updatedAt: DateTimeFilterInput
@@ -1256,6 +1166,7 @@ input HomepageInput {
   publishedAt: DateTime
   quizAndTipsBlock: ID
   recyclingGuideBlock: ID
+  searchEngineBlock: ID
   servicesBlock: ID
   topContentBlock: ID
 }
@@ -1511,13 +1422,17 @@ type Mutation {
   createEmptyContract(name: String): ContractPayload
   createEpci(data: EpciInput!): EpciEntityResponse
   createEvent(data: EventInput!): EventEntityResponse
+  createExternalServicesBlockLink(
+    contractId: ID
+    externalLink: String
+    name: String
+  ): ExternalServicesBlockLinkPayload
   createFooter(data: FooterInput!): FooterEntityResponse
   createFreeContent(data: FreeContentInput!): FreeContentEntityResponse
   createHomepage(data: HomepageInput!): HomepageEntityResponse
   createKeyMetric(data: KeyMetricInput!): KeyMetricEntityResponse
   createLegalContent(data: LegalContentInput!): LegalContentEntityResponse
   createNew(data: NewInput!): NewEntityResponse
-  createPage(data: PageInput!): PageEntityResponse
   createProfile(data: ProfileInput!): ProfileEntityResponse
   createQuiz(data: QuizInput!): QuizEntityResponse
   createQuizAndTipsBlock(
@@ -1535,17 +1450,18 @@ type Mutation {
     endDate: Date
     startDate: Date
   ): RequestServicePayload
+  createSearchEngineBlock(
+    data: SearchEngineBlockInput!
+  ): SearchEngineBlockEntityResponse
   createService(data: ServiceInput!): ServiceEntityResponse
   createServicesBlock(data: ServicesBlockInput!): ServicesBlockEntityResponse
   createServicesBlockLink(
     data: ServicesBlockLinkInput!
   ): ServicesBlockLinkEntityResponse
+  createSideBarItem(data: SideBarItemInput!): SideBarItemEntityResponse
   createTag(data: TagInput!): TagEntityResponse
   createTerritory(data: TerritoryInput!): TerritoryEntityResponse
   createTerritoryType(data: TerritoryTypeInput!): TerritoryTypeEntityResponse
-  createTimeDay(data: TimeDayInput!): TimeDayEntityResponse
-  createTimeEvent(data: TimeEventInput!): TimeEventEntityResponse
-  createTimeSlot(data: TimeSlotInput!): TimeSlotEntityResponse
   createTip(data: TipInput!): TipEntityResponse
   createTopContent(data: TopContentInput!): TopContentEntityResponse
   createTopContentBlock(
@@ -1589,22 +1505,20 @@ type Mutation {
   deleteKeyMetric(id: ID!): KeyMetricEntityResponse
   deleteLegalContent(id: ID!): LegalContentEntityResponse
   deleteNew(id: ID!): NewEntityResponse
-  deletePage(id: ID!): PageEntityResponse
   deleteProfile(id: ID!): ProfileEntityResponse
   deleteQuiz(id: ID!): QuizEntityResponse
   deleteQuizAndTipsBlock(id: ID!): QuizAndTipsBlockEntityResponse
   deleteRecyclingGuideBlock(id: ID!): RecyclingGuideBlockEntityResponse
   deleteRecyclingGuideService(id: ID!): RecyclingGuideServiceEntityResponse
   deleteRequestService(id: ID!): RequestServiceEntityResponse
+  deleteSearchEngineBlock(id: ID!): SearchEngineBlockEntityResponse
   deleteService(id: ID!): ServiceEntityResponse
   deleteServicesBlock(id: ID!): ServicesBlockEntityResponse
   deleteServicesBlockLink(id: ID!): ServicesBlockLinkEntityResponse
+  deleteSideBarItem(id: ID!): SideBarItemEntityResponse
   deleteTag(id: ID!): TagEntityResponse
   deleteTerritory(id: ID!): TerritoryEntityResponse
   deleteTerritoryType(id: ID!): TerritoryTypeEntityResponse
-  deleteTimeDay(id: ID!): TimeDayEntityResponse
-  deleteTimeEvent(id: ID!): TimeEventEntityResponse
-  deleteTimeSlot(id: ID!): TimeSlotEntityResponse
   deleteTip(id: ID!): TipEntityResponse
   deleteTopContent(id: ID!): TopContentEntityResponse
   deleteTopContentBlock(id: ID!): TopContentBlockEntityResponse
@@ -1693,7 +1607,6 @@ type Mutation {
     id: ID!
   ): LegalContentEntityResponse
   updateNew(data: NewInput!, id: ID!): NewEntityResponse
-  updatePage(data: PageInput!, id: ID!): PageEntityResponse
   updateProfile(data: ProfileInput!, id: ID!): ProfileEntityResponse
   updateQuiz(data: QuizInput!, id: ID!): QuizEntityResponse
   updateQuizAndTipsBlock(
@@ -1712,6 +1625,10 @@ type Mutation {
     data: RequestServiceInput!
     id: ID!
   ): RequestServiceEntityResponse
+  updateSearchEngineBlock(
+    data: SearchEngineBlockInput!
+    id: ID!
+  ): SearchEngineBlockEntityResponse
   updateService(data: ServiceInput!, id: ID!): ServiceEntityResponse
   updateServicesBlock(
     data: ServicesBlockInput!
@@ -1721,15 +1638,13 @@ type Mutation {
     data: ServicesBlockLinkInput!
     id: ID!
   ): ServicesBlockLinkEntityResponse
+  updateSideBarItem(data: SideBarItemInput!, id: ID!): SideBarItemEntityResponse
   updateTag(data: TagInput!, id: ID!): TagEntityResponse
   updateTerritory(data: TerritoryInput!, id: ID!): TerritoryEntityResponse
   updateTerritoryType(
     data: TerritoryTypeInput!
     id: ID!
   ): TerritoryTypeEntityResponse
-  updateTimeDay(data: TimeDayInput!, id: ID!): TimeDayEntityResponse
-  updateTimeEvent(data: TimeEventInput!, id: ID!): TimeEventEntityResponse
-  updateTimeSlot(data: TimeSlotInput!, id: ID!): TimeSlotEntityResponse
   updateTip(data: TipInput!, id: ID!): TipEntityResponse
   updateTopContent(data: TopContentInput!, id: ID!): TopContentEntityResponse
   updateTopContentBlock(
@@ -1825,49 +1740,6 @@ input NewInput {
 
 type NewRelationResponseCollection {
   data: [NewEntity!]!
-}
-
-type Page {
-  content: String
-  createdAt: DateTime
-  publishedAt: DateTime
-  slug: String!
-  title: String!
-  updatedAt: DateTime
-}
-
-type PageEntity {
-  attributes: Page
-  id: ID
-}
-
-type PageEntityResponse {
-  data: PageEntity
-}
-
-type PageEntityResponseCollection {
-  data: [PageEntity!]!
-  meta: ResponseCollectionMeta!
-}
-
-input PageFiltersInput {
-  and: [PageFiltersInput]
-  content: StringFilterInput
-  createdAt: DateTimeFilterInput
-  id: IDFilterInput
-  not: PageFiltersInput
-  or: [PageFiltersInput]
-  publishedAt: DateTimeFilterInput
-  slug: StringFilterInput
-  title: StringFilterInput
-  updatedAt: DateTimeFilterInput
-}
-
-input PageInput {
-  content: String
-  publishedAt: DateTime
-  slug: String
-  title: String
 }
 
 type Pagination {
@@ -2076,13 +1948,6 @@ type Query {
     publicationState: PublicationState = LIVE
     sort: [String] = []
   ): NewEntityResponseCollection
-  page(id: ID): PageEntityResponse
-  pages(
-    filters: PageFiltersInput
-    pagination: PaginationArg = {}
-    publicationState: PublicationState = LIVE
-    sort: [String] = []
-  ): PageEntityResponseCollection
   profile(id: ID): ProfileEntityResponse
   profiles(
     filters: ProfileFiltersInput
@@ -2125,6 +1990,13 @@ type Query {
     publicationState: PublicationState = LIVE
     sort: [String] = []
   ): RequestServiceEntityResponseCollection
+  searchEngineBlock(id: ID): SearchEngineBlockEntityResponse
+  searchEngineBlocks(
+    filters: SearchEngineBlockFiltersInput
+    pagination: PaginationArg = {}
+    publicationState: PublicationState = LIVE
+    sort: [String] = []
+  ): SearchEngineBlockEntityResponseCollection
   service(id: ID): ServiceEntityResponse
   services(
     filters: ServiceFiltersInput
@@ -2146,6 +2018,13 @@ type Query {
     publicationState: PublicationState = LIVE
     sort: [String] = []
   ): ServicesBlockEntityResponseCollection
+  sideBarItem(id: ID): SideBarItemEntityResponse
+  sideBarItems(
+    filters: SideBarItemFiltersInput
+    pagination: PaginationArg = {}
+    publicationState: PublicationState = LIVE
+    sort: [String] = []
+  ): SideBarItemEntityResponseCollection
   tag(id: ID): TagEntityResponse
   tags(
     filters: TagFiltersInput
@@ -2167,27 +2046,6 @@ type Query {
     publicationState: PublicationState = LIVE
     sort: [String] = []
   ): TerritoryTypeEntityResponseCollection
-  timeDay(id: ID): TimeDayEntityResponse
-  timeDays(
-    filters: TimeDayFiltersInput
-    pagination: PaginationArg = {}
-    publicationState: PublicationState = LIVE
-    sort: [String] = []
-  ): TimeDayEntityResponseCollection
-  timeEvent(id: ID): TimeEventEntityResponse
-  timeEvents(
-    filters: TimeEventFiltersInput
-    pagination: PaginationArg = {}
-    publicationState: PublicationState = LIVE
-    sort: [String] = []
-  ): TimeEventEntityResponseCollection
-  timeSlot(id: ID): TimeSlotEntityResponse
-  timeSlots(
-    filters: TimeSlotFiltersInput
-    pagination: PaginationArg = {}
-    publicationState: PublicationState = LIVE
-    sort: [String] = []
-  ): TimeSlotEntityResponseCollection
   tip(id: ID): TipEntityResponse
   tips(
     filters: TipFiltersInput
@@ -2257,7 +2115,7 @@ type QuizAndTipsBlock {
     publicationState: PublicationState = LIVE
     sort: [String] = []
   ): TipRelationResponseCollection
-  title: String!
+  titleContent: String!
   updatedAt: DateTime
 }
 
@@ -2288,7 +2146,7 @@ input QuizAndTipsBlockFiltersInput {
   publishedAt: DateTimeFilterInput
   quiz: QuizFiltersInput
   tips: TipFiltersInput
-  title: StringFilterInput
+  titleContent: StringFilterInput
   updatedAt: DateTimeFilterInput
 }
 
@@ -2300,7 +2158,7 @@ input QuizAndTipsBlockInput {
   publishedAt: DateTime
   quiz: ID
   tips: [ID]
-  title: String
+  titleContent: String
 }
 
 type QuizEntity {
@@ -2486,6 +2344,46 @@ type ResponseCollectionMeta {
   pagination: Pagination!
 }
 
+type SearchEngineBlock {
+  createdAt: DateTime
+  homepage: HomepageEntityResponse
+  publishedAt: DateTime
+  titleContent: String!
+  updatedAt: DateTime
+}
+
+type SearchEngineBlockEntity {
+  attributes: SearchEngineBlock
+  id: ID
+}
+
+type SearchEngineBlockEntityResponse {
+  data: SearchEngineBlockEntity
+}
+
+type SearchEngineBlockEntityResponseCollection {
+  data: [SearchEngineBlockEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input SearchEngineBlockFiltersInput {
+  and: [SearchEngineBlockFiltersInput]
+  createdAt: DateTimeFilterInput
+  homepage: HomepageFiltersInput
+  id: IDFilterInput
+  not: SearchEngineBlockFiltersInput
+  or: [SearchEngineBlockFiltersInput]
+  publishedAt: DateTimeFilterInput
+  titleContent: StringFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input SearchEngineBlockInput {
+  homepage: ID
+  publishedAt: DateTime
+  titleContent: String
+}
+
 type Service {
   channelType: ChannelTypeEntityResponse
   cities(
@@ -2496,11 +2394,11 @@ type Service {
   ): CityRelationResponseCollection
   contract: ContractEntityResponse
   createdAt: DateTime
-  endDate: Date!
+  endDate: DateTime!
   isActivated: Boolean!
   publishedAt: DateTime
   serviceInstance: [ServiceServiceInstanceDynamicZone]
-  startDate: Date!
+  startDate: DateTime!
   updatedAt: DateTime
 }
 
@@ -2524,13 +2422,13 @@ input ServiceFiltersInput {
   cities: CityFiltersInput
   contract: ContractFiltersInput
   createdAt: DateTimeFilterInput
-  endDate: DateFilterInput
+  endDate: DateTimeFilterInput
   id: IDFilterInput
   isActivated: BooleanFilterInput
   not: ServiceFiltersInput
   or: [ServiceFiltersInput]
   publishedAt: DateTimeFilterInput
-  startDate: DateFilterInput
+  startDate: DateTimeFilterInput
   updatedAt: DateTimeFilterInput
 }
 
@@ -2538,11 +2436,11 @@ input ServiceInput {
   channelType: ID
   cities: [ID]
   contract: ID
-  endDate: Date
+  endDate: DateTime
   isActivated: Boolean
   publishedAt: DateTime
   serviceInstance: [ServiceServiceInstanceDynamicZoneInput!]
-  startDate: Date
+  startDate: DateTime
 }
 
 type ServiceRelationResponseCollection {
@@ -2552,6 +2450,7 @@ type ServiceRelationResponseCollection {
 union ServiceServiceInstanceDynamicZone =
     ComponentMsdContactUs
   | ComponentMsdEditorial
+  | ComponentMsdExternal
   | ComponentMsdRecycling
   | ComponentMsdRequest
   | Error
@@ -2607,7 +2506,6 @@ input ServicesBlockInput {
 }
 
 type ServicesBlockLink {
-  contract: ContractEntityResponse
   createdAt: DateTime
   isDisplay: Boolean!
   link: String
@@ -2635,7 +2533,6 @@ type ServicesBlockLinkEntityResponseCollection {
 
 input ServicesBlockLinkFiltersInput {
   and: [ServicesBlockLinkFiltersInput]
-  contract: ContractFiltersInput
   createdAt: DateTimeFilterInput
   id: IDFilterInput
   isDisplay: BooleanFilterInput
@@ -2650,7 +2547,6 @@ input ServicesBlockLinkFiltersInput {
 }
 
 input ServicesBlockLinkInput {
-  contract: ID
   isDisplay: Boolean
   link: String
   name: String
@@ -2662,6 +2558,57 @@ input ServicesBlockLinkInput {
 
 type ServicesBlockLinkRelationResponseCollection {
   data: [ServicesBlockLinkEntity!]!
+}
+
+type SideBarItem {
+  activationDate: DateTime
+  createdAt: DateTime
+  displayName: String!
+  isDisplay: Boolean!
+  order: Int
+  picto: UploadFileEntityResponse
+  publishedAt: DateTime
+  service: ServiceEntityResponse
+  updatedAt: DateTime
+}
+
+type SideBarItemEntity {
+  attributes: SideBarItem
+  id: ID
+}
+
+type SideBarItemEntityResponse {
+  data: SideBarItemEntity
+}
+
+type SideBarItemEntityResponseCollection {
+  data: [SideBarItemEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input SideBarItemFiltersInput {
+  activationDate: DateTimeFilterInput
+  and: [SideBarItemFiltersInput]
+  createdAt: DateTimeFilterInput
+  displayName: StringFilterInput
+  id: IDFilterInput
+  isDisplay: BooleanFilterInput
+  not: SideBarItemFiltersInput
+  or: [SideBarItemFiltersInput]
+  order: IntFilterInput
+  publishedAt: DateTimeFilterInput
+  service: ServiceFiltersInput
+  updatedAt: DateTimeFilterInput
+}
+
+input SideBarItemInput {
+  activationDate: DateTime
+  displayName: String
+  isDisplay: Boolean
+  order: Int
+  picto: ID
+  publishedAt: DateTime
+  service: ID
 }
 
 input StringFilterInput {
@@ -2827,153 +2774,6 @@ input TerritoryTypeFiltersInput {
 input TerritoryTypeInput {
   publishedAt: DateTime
   territoryType: String
-}
-
-type TimeDay {
-  allDay: Boolean
-  createdAt: DateTime
-  description: String
-  end: DateTime
-  publishedAt: DateTime
-  start: DateTime
-  title: String!
-  updatedAt: DateTime
-}
-
-type TimeDayEntity {
-  attributes: TimeDay
-  id: ID
-}
-
-type TimeDayEntityResponse {
-  data: TimeDayEntity
-}
-
-type TimeDayEntityResponseCollection {
-  data: [TimeDayEntity!]!
-  meta: ResponseCollectionMeta!
-}
-
-input TimeDayFiltersInput {
-  allDay: BooleanFilterInput
-  and: [TimeDayFiltersInput]
-  createdAt: DateTimeFilterInput
-  description: StringFilterInput
-  end: DateTimeFilterInput
-  id: IDFilterInput
-  not: TimeDayFiltersInput
-  or: [TimeDayFiltersInput]
-  publishedAt: DateTimeFilterInput
-  start: DateTimeFilterInput
-  title: StringFilterInput
-  updatedAt: DateTimeFilterInput
-}
-
-input TimeDayInput {
-  allDay: Boolean
-  description: String
-  end: DateTime
-  publishedAt: DateTime
-  start: DateTime
-  title: String
-}
-
-type TimeEvent {
-  allDay: Boolean
-  createdAt: DateTime
-  description: String
-  end: DateTime!
-  publishedAt: DateTime
-  start: DateTime!
-  title: String!
-  updatedAt: DateTime
-}
-
-type TimeEventEntity {
-  attributes: TimeEvent
-  id: ID
-}
-
-type TimeEventEntityResponse {
-  data: TimeEventEntity
-}
-
-type TimeEventEntityResponseCollection {
-  data: [TimeEventEntity!]!
-  meta: ResponseCollectionMeta!
-}
-
-input TimeEventFiltersInput {
-  allDay: BooleanFilterInput
-  and: [TimeEventFiltersInput]
-  createdAt: DateTimeFilterInput
-  description: StringFilterInput
-  end: DateTimeFilterInput
-  id: IDFilterInput
-  not: TimeEventFiltersInput
-  or: [TimeEventFiltersInput]
-  publishedAt: DateTimeFilterInput
-  start: DateTimeFilterInput
-  title: StringFilterInput
-  updatedAt: DateTimeFilterInput
-}
-
-input TimeEventInput {
-  allDay: Boolean
-  description: String
-  end: DateTime
-  publishedAt: DateTime
-  start: DateTime
-  title: String
-}
-
-type TimeSlot {
-  allDay: Boolean
-  createdAt: DateTime
-  description: String
-  end: DateTime
-  publishedAt: DateTime
-  start: DateTime
-  title: String!
-  updatedAt: DateTime
-}
-
-type TimeSlotEntity {
-  attributes: TimeSlot
-  id: ID
-}
-
-type TimeSlotEntityResponse {
-  data: TimeSlotEntity
-}
-
-type TimeSlotEntityResponseCollection {
-  data: [TimeSlotEntity!]!
-  meta: ResponseCollectionMeta!
-}
-
-input TimeSlotFiltersInput {
-  allDay: BooleanFilterInput
-  and: [TimeSlotFiltersInput]
-  createdAt: DateTimeFilterInput
-  description: StringFilterInput
-  end: DateTimeFilterInput
-  id: IDFilterInput
-  not: TimeSlotFiltersInput
-  or: [TimeSlotFiltersInput]
-  publishedAt: DateTimeFilterInput
-  start: DateTimeFilterInput
-  title: StringFilterInput
-  updatedAt: DateTimeFilterInput
-}
-
-input TimeSlotInput {
-  allDay: Boolean
-  description: String
-  end: DateTime
-  publishedAt: DateTime
-  start: DateTime
-  title: String
 }
 
 type Tip {

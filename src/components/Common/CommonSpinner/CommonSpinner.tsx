@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React from "react";
 import "./common-spinner.scss";
 
@@ -8,12 +9,12 @@ interface ICommonSpinnerProps {
 export default function CommonSpinner({
   isCover = false,
 }: ICommonSpinnerProps) {
+  const dynamicClassNames = classNames("c-CommonSpinner__Wrapper", {
+    "c-CommonSpinner__Wrapper_cover": isCover,
+  });
+
   return (
-    <div
-      className={`c-CommonSpinner__Wrapper ${
-        isCover ? "c-CommonSpinner__Wrapper_cover" : ""
-      }`}
-    >
+    <div className={dynamicClassNames}>
       <div className="c-CommonSpinner" data-testid="common-spinner">
         <div />
         <div />
