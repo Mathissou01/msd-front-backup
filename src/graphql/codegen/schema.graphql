@@ -283,15 +283,25 @@ type ComponentEditoNewsSubService {
 type ComponentEditoQuizzesSubService {
   description: String!
   id: ID!
-  isActivated: Boolean!
   name: String!
+  quizzes(
+    filters: QuizFiltersInput
+    pagination: PaginationArg = {}
+    publicationState: PublicationState = LIVE
+    sort: [String] = []
+  ): QuizRelationResponseCollection
 }
 
 type ComponentEditoTipsSubService {
   description: String!
   id: ID!
-  isActivated: Boolean!
   name: String!
+  tips(
+    filters: TipFiltersInput
+    pagination: PaginationArg = {}
+    publicationState: PublicationState = LIVE
+    sort: [String] = []
+  ): TipRelationResponseCollection
 }
 
 type ComponentMobileDescription {
@@ -2119,7 +2129,6 @@ type Query {
 
 type Quiz {
   createdAt: DateTime
-  editorialService: EditorialServiceEntityResponse
   publishedAt: DateTime
   title: String
   updatedAt: DateTime
@@ -2202,7 +2211,6 @@ type QuizEntityResponseCollection {
 input QuizFiltersInput {
   and: [QuizFiltersInput]
   createdAt: DateTimeFilterInput
-  editorialService: EditorialServiceFiltersInput
   id: IDFilterInput
   not: QuizFiltersInput
   or: [QuizFiltersInput]
@@ -2212,9 +2220,12 @@ input QuizFiltersInput {
 }
 
 input QuizInput {
-  editorialService: ID
   publishedAt: DateTime
   title: String
+}
+
+type QuizRelationResponseCollection {
+  data: [QuizEntity!]!
 }
 
 type RecyclingGuideBlock {
@@ -2798,7 +2809,6 @@ input TerritoryTypeInput {
 
 type Tip {
   createdAt: DateTime
-  editorialService: EditorialServiceEntityResponse
   link: String
   publishedAt: DateTime
   title: String!
@@ -2823,7 +2833,6 @@ type TipEntityResponseCollection {
 input TipFiltersInput {
   and: [TipFiltersInput]
   createdAt: DateTimeFilterInput
-  editorialService: EditorialServiceFiltersInput
   id: IDFilterInput
   link: StringFilterInput
   not: TipFiltersInput
@@ -2835,7 +2844,6 @@ input TipFiltersInput {
 }
 
 input TipInput {
-  editorialService: ID
   link: String
   publishedAt: DateTime
   title: String

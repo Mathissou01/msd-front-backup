@@ -1,6 +1,5 @@
 @use "sass:color" as color;
 @use "src/styles/01-settings/settings.colors" as colors;
-@use "src/styles/02-tools/tools.media-queries" as media;
 
 @mixin input($type: "default") {
   position: relative;

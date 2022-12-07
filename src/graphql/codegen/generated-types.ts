@@ -349,16 +349,30 @@ export type ComponentEditoQuizzesSubService = {
   __typename?: "ComponentEditoQuizzesSubService";
   description: Scalars["String"];
   id: Scalars["ID"];
-  isActivated: Scalars["Boolean"];
   name: Scalars["String"];
+  quizzes?: Maybe<QuizRelationResponseCollection>;
+};
+
+export type ComponentEditoQuizzesSubServiceQuizzesArgs = {
+  filters?: InputMaybe<QuizFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type ComponentEditoTipsSubService = {
   __typename?: "ComponentEditoTipsSubService";
   description: Scalars["String"];
   id: Scalars["ID"];
-  isActivated: Scalars["Boolean"];
   name: Scalars["String"];
+  tips?: Maybe<TipRelationResponseCollection>;
+};
+
+export type ComponentEditoTipsSubServiceTipsArgs = {
+  filters?: InputMaybe<TipFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type ComponentMobileDescription = {
@@ -3028,7 +3042,6 @@ export type QueryUsersPermissionsUsersArgs = {
 export type Quiz = {
   __typename?: "Quiz";
   createdAt?: Maybe<Scalars["DateTime"]>;
-  editorialService?: Maybe<EditorialServiceEntityResponse>;
   publishedAt?: Maybe<Scalars["DateTime"]>;
   title?: Maybe<Scalars["String"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
@@ -3120,7 +3133,6 @@ export type QuizEntityResponseCollection = {
 export type QuizFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<QuizFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  editorialService?: InputMaybe<EditorialServiceFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<QuizFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<QuizFiltersInput>>>;
@@ -3130,9 +3142,13 @@ export type QuizFiltersInput = {
 };
 
 export type QuizInput = {
-  editorialService?: InputMaybe<Scalars["ID"]>;
   publishedAt?: InputMaybe<Scalars["DateTime"]>;
   title?: InputMaybe<Scalars["String"]>;
+};
+
+export type QuizRelationResponseCollection = {
+  __typename?: "QuizRelationResponseCollection";
+  data: Array<QuizEntity>;
 };
 
 export type RecyclingGuideBlock = {
@@ -3779,7 +3795,6 @@ export type TerritoryTypeInput = {
 export type Tip = {
   __typename?: "Tip";
   createdAt?: Maybe<Scalars["DateTime"]>;
-  editorialService?: Maybe<EditorialServiceEntityResponse>;
   link?: Maybe<Scalars["String"]>;
   publishedAt?: Maybe<Scalars["DateTime"]>;
   title: Scalars["String"];
@@ -3807,7 +3822,6 @@ export type TipEntityResponseCollection = {
 export type TipFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<TipFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  editorialService?: InputMaybe<EditorialServiceFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
   link?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<TipFiltersInput>;
@@ -3819,7 +3833,6 @@ export type TipFiltersInput = {
 };
 
 export type TipInput = {
-  editorialService?: InputMaybe<Scalars["ID"]>;
   link?: InputMaybe<Scalars["String"]>;
   publishedAt?: InputMaybe<Scalars["DateTime"]>;
   title?: InputMaybe<Scalars["String"]>;
