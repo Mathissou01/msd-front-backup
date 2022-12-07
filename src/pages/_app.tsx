@@ -7,7 +7,7 @@ import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import "../styles/main.scss";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MsdFrontApp({ Component, pageProps }: AppProps) {
   const { isDesktop } = useScreenWidth();
 
   return (
@@ -28,4 +28,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default MsdFrontApp;

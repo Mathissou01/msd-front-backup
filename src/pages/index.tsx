@@ -15,7 +15,6 @@ import { useIsDesktopContext } from "../hooks/useScreenWidth";
 import WelcomeBlock from "../components/Blocks/WelcomeBlock/WelcomeBlock";
 import RecyclingGuideBlock from "../components/Blocks/RecyclingGuideBlock/RecyclingGuideBlock";
 import QuizAndTipsBlock from "../components/Blocks/QuizAndTipsBlock/QuizAndTipsBlock";
-import "./home-page.scss";
 
 interface IHomePageProps {
   recyclingGuideBlock: RecyclingGuideBlockEntity;

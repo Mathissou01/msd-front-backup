@@ -18,7 +18,7 @@ export default function Header() {
       <Head>
         <title>MSD-FRONT</title>
         <meta name="description" content="wip" />
-        <link rel="icon" href="/images/favicon.ico" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <HeaderTopBar
         isMenuOpen={sidebarExpanded}

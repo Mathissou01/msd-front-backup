@@ -302,9 +302,10 @@ export type ComponentContentEdito = {
 
 export type ComponentEditoEventSubService = {
   __typename?: "ComponentEditoEventSubService";
+  description: Scalars["String"];
   events?: Maybe<EventRelationResponseCollection>;
   id: Scalars["ID"];
-  isActivated: Scalars["Boolean"];
+  name: Scalars["String"];
 };
 
 export type ComponentEditoEventSubServiceEventsArgs = {
@@ -316,9 +317,9 @@ export type ComponentEditoEventSubServiceEventsArgs = {
 
 export type ComponentEditoFreeService = {
   __typename?: "ComponentEditoFreeService";
+  description: Scalars["String"];
   freeContents?: Maybe<FreeContentRelationResponseCollection>;
   id: Scalars["ID"];
-  isActivated: Scalars["Boolean"];
   name: Scalars["String"];
 };
 
@@ -331,8 +332,9 @@ export type ComponentEditoFreeServiceFreeContentsArgs = {
 
 export type ComponentEditoNewsSubService = {
   __typename?: "ComponentEditoNewsSubService";
+  description: Scalars["String"];
   id: Scalars["ID"];
-  isActivated: Scalars["Boolean"];
+  name: Scalars["String"];
   news?: Maybe<NewRelationResponseCollection>;
 };
 
@@ -345,30 +347,18 @@ export type ComponentEditoNewsSubServiceNewsArgs = {
 
 export type ComponentEditoQuizzesSubService = {
   __typename?: "ComponentEditoQuizzesSubService";
+  description: Scalars["String"];
   id: Scalars["ID"];
   isActivated: Scalars["Boolean"];
-  quizzes?: Maybe<QuizRelationResponseCollection>;
-};
-
-export type ComponentEditoQuizzesSubServiceQuizzesArgs = {
-  filters?: InputMaybe<QuizFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  name: Scalars["String"];
 };
 
 export type ComponentEditoTipsSubService = {
   __typename?: "ComponentEditoTipsSubService";
+  description: Scalars["String"];
   id: Scalars["ID"];
   isActivated: Scalars["Boolean"];
-  tips?: Maybe<TipRelationResponseCollection>;
-};
-
-export type ComponentEditoTipsSubServiceTipsArgs = {
-  filters?: InputMaybe<TipFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  name: Scalars["String"];
 };
 
 export type ComponentMobileDescription = {
@@ -414,6 +404,13 @@ export type ComponentMsdRequest = {
   __typename?: "ComponentMsdRequest";
   id: Scalars["ID"];
   requestService?: Maybe<RequestServiceEntityResponse>;
+};
+
+export type ContentTypeReferential = {
+  __typename?: "ContentTypeReferential";
+  description?: Maybe<Scalars["String"]>;
+  isFreeInstance?: Maybe<Scalars["Boolean"]>;
+  name?: Maybe<Scalars["String"]>;
 };
 
 export type Contract = {
@@ -800,6 +797,7 @@ export type EditorialService = {
   __typename?: "EditorialService";
   audienceTypes?: Maybe<AudienceTypeRelationResponseCollection>;
   createdAt?: Maybe<Scalars["DateTime"]>;
+  isActivated: Scalars["Boolean"];
   publishedAt?: Maybe<Scalars["DateTime"]>;
   service?: Maybe<ServiceEntityResponse>;
   subServiceFreeInstance?: Maybe<
@@ -840,6 +838,7 @@ export type EditorialServiceFiltersInput = {
   audienceTypes?: InputMaybe<AudienceTypeFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
+  isActivated?: InputMaybe<BooleanFilterInput>;
   not?: InputMaybe<EditorialServiceFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<EditorialServiceFiltersInput>>>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
@@ -849,6 +848,7 @@ export type EditorialServiceFiltersInput = {
 
 export type EditorialServiceInput = {
   audienceTypes?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  isActivated?: InputMaybe<Scalars["Boolean"]>;
   publishedAt?: InputMaybe<Scalars["DateTime"]>;
   service?: InputMaybe<Scalars["ID"]>;
   subServiceFreeInstance?: InputMaybe<
@@ -857,6 +857,11 @@ export type EditorialServiceInput = {
   subServiceInstance?: InputMaybe<
     Array<Scalars["EditorialServiceSubServiceInstanceDynamicZoneInput"]>
   >;
+};
+
+export type EditorialServicePayload = {
+  __typename?: "EditorialServicePayload";
+  serviceId?: Maybe<Scalars["ID"]>;
 };
 
 export type EditorialServiceRelationResponseCollection = {
@@ -1106,8 +1111,16 @@ export type FreeContent = {
   image?: Maybe<UploadFileEntityResponse>;
   publishedAt?: Maybe<Scalars["DateTime"]>;
   shortDescription?: Maybe<Scalars["String"]>;
+  tags?: Maybe<TagRelationResponseCollection>;
   title?: Maybe<Scalars["String"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type FreeContentTagsArgs = {
+  filters?: InputMaybe<TagFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type FreeContentEntity = {
@@ -1137,6 +1150,7 @@ export type FreeContentFiltersInput = {
   or?: InputMaybe<Array<InputMaybe<FreeContentFiltersInput>>>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   shortDescription?: InputMaybe<StringFilterInput>;
+  tags?: InputMaybe<TagFiltersInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
@@ -1147,6 +1161,7 @@ export type FreeContentInput = {
   image?: InputMaybe<Scalars["ID"]>;
   publishedAt?: InputMaybe<Scalars["DateTime"]>;
   shortDescription?: InputMaybe<Scalars["String"]>;
+  tags?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   title?: InputMaybe<Scalars["String"]>;
 };
 
@@ -1564,6 +1579,7 @@ export type Mutation = {
   createEditoBlock?: Maybe<EditoBlockEntityResponse>;
   createEditoContent?: Maybe<EditoContentEntityResponse>;
   createEditorialService?: Maybe<EditorialServiceEntityResponse>;
+  createEditorialServiceForContract?: Maybe<EditorialServicePayload>;
   createEmptyContract?: Maybe<ContractPayload>;
   createEpci?: Maybe<EpciEntityResponse>;
   createEvent?: Maybe<EventEntityResponse>;
@@ -1755,6 +1771,13 @@ export type MutationCreateEditoContentArgs = {
 
 export type MutationCreateEditorialServiceArgs = {
   data: EditorialServiceInput;
+};
+
+export type MutationCreateEditorialServiceForContractArgs = {
+  contractId?: InputMaybe<Scalars["ID"]>;
+  endDate?: InputMaybe<Scalars["Date"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  startDate?: InputMaybe<Scalars["Date"]>;
 };
 
 export type MutationCreateEmptyContractArgs = {
@@ -2477,6 +2500,9 @@ export type Query = {
   footers?: Maybe<FooterEntityResponseCollection>;
   freeContent?: Maybe<FreeContentEntityResponse>;
   freeContents?: Maybe<FreeContentEntityResponseCollection>;
+  getContentTypeReferentialByContractId?: Maybe<
+    Array<Maybe<ContentTypeReferential>>
+  >;
   global?: Maybe<GlobalEntityResponse>;
   home?: Maybe<HomeEntityResponse>;
   homepage?: Maybe<HomepageEntityResponse>;
@@ -2708,6 +2734,10 @@ export type QueryFreeContentsArgs = {
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type QueryGetContentTypeReferentialByContractIdArgs = {
+  contractId: Scalars["ID"];
 };
 
 export type QueryHomeArgs = {
@@ -3103,11 +3133,6 @@ export type QuizInput = {
   editorialService?: InputMaybe<Scalars["ID"]>;
   publishedAt?: InputMaybe<Scalars["DateTime"]>;
   title?: InputMaybe<Scalars["String"]>;
-};
-
-export type QuizRelationResponseCollection = {
-  __typename?: "QuizRelationResponseCollection";
-  data: Array<QuizEntity>;
 };
 
 export type RecyclingGuideBlock = {

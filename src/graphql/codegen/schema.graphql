@@ -245,6 +245,7 @@ type ComponentContentEdito {
 }
 
 type ComponentEditoEventSubService {
+  description: String!
   events(
     filters: EventFiltersInput
     pagination: PaginationArg = {}
@@ -252,10 +253,11 @@ type ComponentEditoEventSubService {
     sort: [String] = []
   ): EventRelationResponseCollection
   id: ID!
-  isActivated: Boolean!
+  name: String!
 }
 
 type ComponentEditoFreeService {
+  description: String!
   freeContents(
     filters: FreeContentFiltersInput
     pagination: PaginationArg = {}
@@ -263,13 +265,13 @@ type ComponentEditoFreeService {
     sort: [String] = []
   ): FreeContentRelationResponseCollection
   id: ID!
-  isActivated: Boolean!
   name: String!
 }
 
 type ComponentEditoNewsSubService {
+  description: String!
   id: ID!
-  isActivated: Boolean!
+  name: String!
   news(
     filters: NewFiltersInput
     pagination: PaginationArg = {}
@@ -279,25 +281,17 @@ type ComponentEditoNewsSubService {
 }
 
 type ComponentEditoQuizzesSubService {
+  description: String!
   id: ID!
   isActivated: Boolean!
-  quizzes(
-    filters: QuizFiltersInput
-    pagination: PaginationArg = {}
-    publicationState: PublicationState = LIVE
-    sort: [String] = []
-  ): QuizRelationResponseCollection
+  name: String!
 }
 
 type ComponentEditoTipsSubService {
+  description: String!
   id: ID!
   isActivated: Boolean!
-  tips(
-    filters: TipFiltersInput
-    pagination: PaginationArg = {}
-    publicationState: PublicationState = LIVE
-    sort: [String] = []
-  ): TipRelationResponseCollection
+  name: String!
 }
 
 type ComponentMobileDescription {
@@ -335,6 +329,12 @@ type ComponentMsdRecycling {
 type ComponentMsdRequest {
   id: ID!
   requestService: RequestServiceEntityResponse
+}
+
+type ContentTypeReferential {
+  description: String
+  isFreeInstance: Boolean
+  name: String
 }
 
 type Contract {
@@ -700,6 +700,7 @@ type EditorialService {
     sort: [String] = []
   ): AudienceTypeRelationResponseCollection
   createdAt: DateTime
+  isActivated: Boolean!
   publishedAt: DateTime
   service: ServiceEntityResponse
   subServiceFreeInstance: [EditorialServiceSubServiceFreeInstanceDynamicZone]
@@ -726,6 +727,7 @@ input EditorialServiceFiltersInput {
   audienceTypes: AudienceTypeFiltersInput
   createdAt: DateTimeFilterInput
   id: IDFilterInput
+  isActivated: BooleanFilterInput
   not: EditorialServiceFiltersInput
   or: [EditorialServiceFiltersInput]
   publishedAt: DateTimeFilterInput
@@ -735,10 +737,15 @@ input EditorialServiceFiltersInput {
 
 input EditorialServiceInput {
   audienceTypes: [ID]
+  isActivated: Boolean
   publishedAt: DateTime
   service: ID
   subServiceFreeInstance: [EditorialServiceSubServiceFreeInstanceDynamicZoneInput!]
   subServiceInstance: [EditorialServiceSubServiceInstanceDynamicZoneInput!]
+}
+
+type EditorialServicePayload {
+  serviceId: ID
 }
 
 type EditorialServiceRelationResponseCollection {
@@ -966,6 +973,12 @@ type FreeContent {
   image: UploadFileEntityResponse
   publishedAt: DateTime
   shortDescription: String
+  tags(
+    filters: TagFiltersInput
+    pagination: PaginationArg = {}
+    publicationState: PublicationState = LIVE
+    sort: [String] = []
+  ): TagRelationResponseCollection
   title: String
   updatedAt: DateTime
 }
@@ -994,6 +1007,7 @@ input FreeContentFiltersInput {
   or: [FreeContentFiltersInput]
   publishedAt: DateTimeFilterInput
   shortDescription: StringFilterInput
+  tags: TagFiltersInput
   title: StringFilterInput
   updatedAt: DateTimeFilterInput
 }
@@ -1004,6 +1018,7 @@ input FreeContentInput {
   image: ID
   publishedAt: DateTime
   shortDescription: String
+  tags: [ID]
   title: String
 }
 
@@ -1419,6 +1434,12 @@ type Mutation {
   createEditorialService(
     data: EditorialServiceInput!
   ): EditorialServiceEntityResponse
+  createEditorialServiceForContract(
+    contractId: ID
+    endDate: Date
+    name: String
+    startDate: Date
+  ): EditorialServicePayload
   createEmptyContract(name: String): ContractPayload
   createEpci(data: EpciInput!): EpciEntityResponse
   createEvent(data: EventInput!): EventEntityResponse
@@ -1911,6 +1932,9 @@ type Query {
     publicationState: PublicationState = LIVE
     sort: [String] = []
   ): FreeContentEntityResponseCollection
+  getContentTypeReferentialByContractId(
+    contractId: ID!
+  ): [ContentTypeReferential]
   global: GlobalEntityResponse
   home(publicationState: PublicationState = LIVE): HomeEntityResponse
   homepage(id: ID): HomepageEntityResponse
@@ -2191,10 +2215,6 @@ input QuizInput {
   editorialService: ID
   publishedAt: DateTime
   title: String
-}
-
-type QuizRelationResponseCollection {
-  data: [QuizEntity!]!
 }
 
 type RecyclingGuideBlock {
