@@ -1,8 +1,8 @@
+import classNames from "classnames";
 import Link from "next/link";
-import "./navigation-list-button.scss";
 import Image from "next/image";
 import { isAbsoluteOrRelativeUrl } from "../../../../../lib/utilities";
-import classNames from "classnames";
+import "./navigation-list-button.scss";
 
 interface INavigationListButtonProps {
   label: string;

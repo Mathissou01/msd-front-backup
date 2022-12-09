@@ -84,7 +84,7 @@
     }
 
     img {
-      @include mixin.recolor(colors.$white, 1);
+      filter: url("#recolor-white");
     }
   }
 }

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders one tip 1`] = `
+exports[`RecyclingGuideBlock renders 1`] = `
 <div>
   <section
     class="c-RecyclingGuideBlock"

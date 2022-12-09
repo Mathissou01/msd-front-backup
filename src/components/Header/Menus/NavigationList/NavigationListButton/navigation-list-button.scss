@@ -1,5 +1,4 @@
 @use "src/styles/01-settings/settings.colors" as colors;
-@use "src/styles/02-tools/tools.mixins" as mixins;
 
 .c-NavigationListButton {
   $self: &;
@@ -40,10 +39,10 @@
   }
 
   &__Picto {
-    @include mixins.recolor(colors.$brand-primary);
+    filter: url("#recolor-primary");
 
     #{$self}_desktop#{$self}_active & {
-      @include mixins.recolor(colors.$white);
+      filter: url("#recolor-white");
     }
   }
 
@@ -53,7 +52,6 @@
     font-size: 14px;
     font-family: DINPro-Medium, sans-serif;
     line-height: 14px;
-    letter-spacing: 0.005em;
     text-transform: uppercase;
 
     #{$self}_desktop & {

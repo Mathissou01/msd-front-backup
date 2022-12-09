@@ -3,6 +3,7 @@ import React from "react";
 import type { AppProps } from "next/app";
 import client from "../graphql/client";
 import useScreenWidth, { IsDesktopContext } from "../hooks/useScreenWidth";
+import CommonSvgDefs from "../components/Common/CommonSvgDefs/CommonSvgDefs";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import "../styles/main.scss";
@@ -14,6 +15,7 @@ function MsdFrontApp({ Component, pageProps }: AppProps) {
     <ApolloProvider client={client}>
       <IsDesktopContext.Provider value={isDesktop}>
         <div id={"app"}>
+          <CommonSvgDefs />
           <Header />
           <div className="o-Page__Container">
             <main role="main" className="o-Page__Main">

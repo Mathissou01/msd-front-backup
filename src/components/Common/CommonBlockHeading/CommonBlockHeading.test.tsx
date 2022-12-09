@@ -5,9 +5,11 @@ const mock = {
   titleContent: "common block heading",
 };
 
-it("renders", () => {
-  const { container } = render(
-    <CommonBlockHeading titleContent={mock.titleContent} />,
-  );
-  expect(container).toMatchSnapshot();
+describe("CommonBlockHeading", () => {
+  it("renders", () => {
+    const { container } = render(
+      <CommonBlockHeading titleContent={mock.titleContent} />,
+    );
+    expect(container).toMatchSnapshot();
+  });
 });

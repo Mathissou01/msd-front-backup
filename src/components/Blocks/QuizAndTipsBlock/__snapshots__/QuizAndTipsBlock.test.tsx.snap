@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders one tip 1`] = `
+exports[`QuizAndTipsBlock renders one tip 1`] = `
 <div>
   <section
     class="c-QuizAndTipsBlock"
@@ -65,7 +65,7 @@ exports[`renders one tip 1`] = `
 </div>
 `;
 
-exports[`renders three tips 1`] = `
+exports[`QuizAndTipsBlock renders three tips 1`] = `
 <div>
   <section
     class="c-QuizAndTipsBlock"

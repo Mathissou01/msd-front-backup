@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders in desktop mode 1`] = `
+exports[`WelcomeBlock renders in desktop mode 1`] = `
 <div>
   <section
     class="c-WelcomeBlock"
@@ -27,7 +27,7 @@ exports[`renders in desktop mode 1`] = `
 </div>
 `;
 
-exports[`renders in mobile mode 1`] = `
+exports[`WelcomeBlock renders in mobile mode 1`] = `
 <div>
   <section
     class="c-WelcomeBlock"
