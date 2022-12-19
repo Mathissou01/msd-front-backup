@@ -1,14 +1,13 @@
-import Link from "next/link";
+import React from "react";
 import NavigationList from "../Menus/NavigationList/NavigationList";
+import MSDLogo from "../MSDLogo/MSDLogo";
 import "./header-side-bar.scss";
 
 export default function HeaderSideBar() {
   return (
     <nav className="c-HeaderSideBar" data-testid="side-bar">
-      <NavigationList isDesktopMode={true} />
-      <div className="c-HeaderSideBar__Logo">
-        <Link href={"/"}>[Logo MSD]</Link>
-      </div>
+      <NavigationList isDesktopMode />
+      <MSDLogo />
     </nav>
   );
 }

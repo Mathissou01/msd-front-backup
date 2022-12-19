@@ -2,8 +2,10 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { IsDesktopContext } from "../../hooks/useScreenWidth";
 import Header from "./Header";
 
+jest.mock("./Menus/NavigationList/NavigationList");
+
 describe("Header", () => {
-  it("renders in mobile mode", () => {
+  it("renders in mobile mode", async () => {
     const { container } = render(
       <IsDesktopContext.Provider value={false}>
         <Header />

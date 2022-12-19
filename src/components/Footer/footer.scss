@@ -8,12 +8,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 111px;
+  min-height: layout.$footer-height;
   overflow: hidden auto;
   background-color: colors.$white;
   border-top: 1px solid colors.$gray-200;
-
-  @include media.desktop-only {
-    min-height: 69px;
-  }
 }

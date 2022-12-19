@@ -1,12 +1,17 @@
 import classNames from "classnames";
 import NavigationList from "../Menus/NavigationList/NavigationList";
+import MSDLogo from "../MSDLogo/MSDLogo";
 import "./header-burger-menu.scss";
 
 interface IHeaderBurgerMenuProps {
   isOpen: boolean;
+  onNavigationClick: () => void;
 }
 
-export default function HeaderBurgerMenu({ isOpen }: IHeaderBurgerMenuProps) {
+export default function HeaderBurgerMenu({
+  isOpen,
+  onNavigationClick,
+}: IHeaderBurgerMenuProps) {
   const dynamicClassNames = classNames("c-HeaderBurgerMenu", {
     "c-HeaderBurgerMenu_expanded": isOpen,
   });
@@ -22,7 +27,10 @@ export default function HeaderBurgerMenu({ isOpen }: IHeaderBurgerMenuProps) {
         </li>
         <li className="c-HeaderBurgerMenu__Item c-HeaderBurgerMenu__Item_grow">
           <nav className="c-HeaderBurgerMenu__Container" role="navigation">
-            <NavigationList isDesktopMode={false} />
+            <NavigationList
+              isDesktopMode={false}
+              onNavigationClick={() => onNavigationClick()}
+            />
           </nav>
         </li>
         <li
@@ -33,8 +41,8 @@ export default function HeaderBurgerMenu({ isOpen }: IHeaderBurgerMenuProps) {
             <span>[User]</span>
           </nav>
         </li>
-        <li className="c-HeaderBurgerMenu__Item" style={{ height: "62px" }}>
-          <span>[Logo]</span>
+        <li className="c-HeaderBurgerMenu__Item">
+          <MSDLogo />
         </li>
       </ul>
     </nav>

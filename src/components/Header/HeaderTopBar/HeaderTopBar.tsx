@@ -89,7 +89,12 @@ export default function HeaderTopBar({
           )}
         </ul>
       </header>
-      {!isDesktopMode && <HeaderBurgerMenu isOpen={isMenuOpen} />}
+      {!isDesktopMode && (
+        <HeaderBurgerMenu
+          isOpen={isMenuOpen}
+          onNavigationClick={() => handleClick(false)}
+        />
+      )}
     </>
   );
 }
