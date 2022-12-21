@@ -39,24 +39,31 @@ export default function NavigationList({
 
   const contractMenus: Array<IServiceLink> | null =
     globalData.contractMenu?.data?.attributes?.serviceLinks
-      ?.map((link) => {
-        if (link) {
-          const type = link.__typename;
-          let path = "/";
-          if (type === "ComponentLinksFrees" && link.name) {
-            path = normalizeStringPath(link.name);
+      ?.map(
+        (link: {
+          __typename: string;
+          name: string;
+          isDisplayed: boolean;
+          picto: Record<string, unknown>;
+        }) => {
+          if (link) {
+            const type = link.__typename;
+            let path = "/";
+            if (type === "ComponentLinksFrees" && link.name) {
+              path = normalizeStringPath(link.name);
+            }
+            if (type && isServiceLink(link)) {
+              return {
+                type,
+                name: link?.name,
+                isDisplayed: link?.isDisplayed,
+                picto: link?.picto,
+                path,
+              };
+            }
           }
-          if (type && isServiceLink(link)) {
-            return {
-              type,
-              name: link?.name,
-              isDisplayed: link?.isDisplayed,
-              picto: link?.picto,
-              path,
-            };
-          }
-        }
-      })
+        },
+      )
       .filter(removeNulls) ?? null;
 
   /* Local Data */

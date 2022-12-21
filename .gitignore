@@ -38,9 +38,6 @@ next-env.d.ts
 
 #### ADDED ####
 
-### config ###
-/config/global.json
-
 ### dotenv ###
 .env
 .env.*

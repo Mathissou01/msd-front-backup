@@ -1,5 +1,5 @@
 import React from "react";
-import NavigationList from "../Menus/NavigationList/NavigationList";
+import NavigationList from "../Navigation/NavigationList/NavigationList";
 import MSDLogo from "../MSDLogo/MSDLogo";
 import "./header-side-bar.scss";
 
