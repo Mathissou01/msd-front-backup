@@ -1,24 +1,246 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NavigationList renders in mobile mode 1`] = `
+exports[`NavigationList renders in desktop mode 1`] = `
 <div>
-  <div
-    class="c-CommonSpinner__Wrapper"
+  <ul
+    class="c-NavigationList c-NavigationList_desktop"
   >
-    <div
-      class="c-CommonSpinner"
-      data-testid="common-spinner"
+    <li
+      class="c-NavigationList__Item c-NavigationList__Item_active"
     >
-      <div />
-      <div />
-      <div />
-      <div />
-    </div>
-  </div>
+      <a
+        class="c-NavigationListButton c-NavigationListButton_desktop c-NavigationListButton_active"
+        href="/"
+      >
+        <div
+          class="c-NavigationListButton__Circle"
+        >
+          <div
+            class="c-NavigationListButton__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="/images/pictos/homepage.svg"
+              srcset="/images/pictos/homepage.svg 1x, /images/pictos/homepage.svg 2x"
+              style="color: transparent;"
+              width="24"
+            />
+          </div>
+        </div>
+        <span
+          class="c-NavigationListButton__Label"
+        >
+          Accueil
+        </span>
+      </a>
+    </li>
+    <li
+      class="c-NavigationList__Item "
+    >
+      <a
+        class="c-NavigationListButton c-NavigationListButton_desktop"
+        href="/service/carte"
+      >
+        <div
+          class="c-NavigationListButton__Circle"
+        >
+          <div
+            class="c-NavigationListButton__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="/images/pictos/default.svg"
+              srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
+              style="color: transparent;"
+              width="24"
+            />
+          </div>
+        </div>
+        <span
+          class="c-NavigationListButton__Label"
+        >
+          Carte
+        </span>
+      </a>
+    </li>
+    <li
+      class="c-NavigationList__Item "
+    >
+      <a
+        class="c-NavigationListButton c-NavigationListButton_desktop"
+        href="/service/collecte-adresse"
+      >
+        <div
+          class="c-NavigationListButton__Circle"
+        >
+          <div
+            class="c-NavigationListButton__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="/images/pictos/default.svg"
+              srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
+              style="color: transparent;"
+              width="24"
+            />
+          </div>
+        </div>
+        <span
+          class="c-NavigationListButton__Label"
+        >
+          Collecte à mon adresse
+        </span>
+      </a>
+    </li>
+    <li
+      class="c-NavigationList__Item "
+    >
+      <a
+        class="c-NavigationListButton c-NavigationListButton_desktop"
+        href="/service/demandes"
+      >
+        <div
+          class="c-NavigationListButton__Circle"
+        >
+          <div
+            class="c-NavigationListButton__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="/images/pictos/default.svg"
+              srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
+              style="color: transparent;"
+              width="24"
+            />
+          </div>
+        </div>
+        <span
+          class="c-NavigationListButton__Label"
+        >
+          Faire une demande
+        </span>
+      </a>
+    </li>
+    <li
+      class="c-NavigationList__Item "
+    >
+      <a
+        class="c-NavigationListButton c-NavigationListButton_desktop"
+        href="/service/guide-tri"
+      >
+        <div
+          class="c-NavigationListButton__Circle"
+        >
+          <div
+            class="c-NavigationListButton__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="/images/pictos/default.svg"
+              srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
+              style="color: transparent;"
+              width="24"
+            />
+          </div>
+        </div>
+        <span
+          class="c-NavigationListButton__Label"
+        >
+          Guide du tri
+        </span>
+      </a>
+    </li>
+    <li
+      class="c-NavigationList__Item "
+    >
+      <a
+        class="c-NavigationListButton c-NavigationListButton_desktop"
+        href="/edito/reduire-mes-dechets"
+      >
+        <div
+          class="c-NavigationListButton__Circle"
+        >
+          <div
+            class="c-NavigationListButton__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="/images/pictos/default.svg"
+              srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
+              style="color: transparent;"
+              width="24"
+            />
+          </div>
+        </div>
+        <span
+          class="c-NavigationListButton__Label"
+        >
+          Réduire mes déchets
+        </span>
+      </a>
+    </li>
+    <li
+      class="c-NavigationList__Item "
+    >
+      <a
+        class="c-NavigationListButton c-NavigationListButton_desktop"
+        href="/edito/valoriser-mes-dechets"
+      >
+        <div
+          class="c-NavigationListButton__Circle"
+        >
+          <div
+            class="c-NavigationListButton__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="/images/pictos/default.svg"
+              srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
+              style="color: transparent;"
+              width="24"
+            />
+          </div>
+        </div>
+        <span
+          class="c-NavigationListButton__Label"
+        >
+          Valoriser mes déchets
+        </span>
+      </a>
+    </li>
+  </ul>
 </div>
 `;
 
-exports[`NavigationList renders in mobile mode 2`] = `
+exports[`NavigationList renders in mobile mode 1`] = `
 <div>
   <ul
     class="c-NavigationList c-NavigationList_mobile"
@@ -75,8 +297,8 @@ exports[`NavigationList renders in mobile mode 2`] = `
               decoding="async"
               height="24"
               loading="lazy"
-              src="https://fake-url/address.svg"
-              srcset="https://fake-url/address.svg 1x, https://fake-url/address.svg 2x"
+              src="/images/pictos/default.svg"
+              srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
               style="color: transparent;"
               width="24"
             />
@@ -127,39 +349,6 @@ exports[`NavigationList renders in mobile mode 2`] = `
     >
       <a
         class="c-NavigationListButton c-NavigationListButton_mobile"
-        href="/service/guide-tri"
-      >
-        <div
-          class="c-NavigationListButton__Circle"
-        >
-          <div
-            class="c-NavigationListButton__Picto"
-          >
-            <img
-              alt=""
-              data-nimg="1"
-              decoding="async"
-              height="24"
-              loading="lazy"
-              src="/images/pictos/default.svg"
-              srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
-              style="color: transparent;"
-              width="24"
-            />
-          </div>
-        </div>
-        <span
-          class="c-NavigationListButton__Label"
-        >
-          Guide du tri
-        </span>
-      </a>
-    </li>
-    <li
-      class="c-NavigationList__Item "
-    >
-      <a
-        class="c-NavigationListButton c-NavigationListButton_mobile"
         href="/service/demandes"
       >
         <div
@@ -185,6 +374,39 @@ exports[`NavigationList renders in mobile mode 2`] = `
           class="c-NavigationListButton__Label"
         >
           Faire une demande
+        </span>
+      </a>
+    </li>
+    <li
+      class="c-NavigationList__Item "
+    >
+      <a
+        class="c-NavigationListButton c-NavigationListButton_mobile"
+        href="/service/guide-tri"
+      >
+        <div
+          class="c-NavigationListButton__Circle"
+        >
+          <div
+            class="c-NavigationListButton__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="/images/pictos/default.svg"
+              srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
+              style="color: transparent;"
+              width="24"
+            />
+          </div>
+        </div>
+        <span
+          class="c-NavigationListButton__Label"
+        >
+          Guide du tri
         </span>
       </a>
     </li>

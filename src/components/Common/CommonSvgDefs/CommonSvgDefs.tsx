@@ -1,4 +1,4 @@
-import { primaryColor, secondaryColor } from "../../../../color-config";
+import { primaryColor, secondaryColor } from "../../../../config/color-config";
 import CommonSvgFilter from "./CommonSvgFilter/CommonSvgFilter";
 
 export default function CommonSvgDefs() {

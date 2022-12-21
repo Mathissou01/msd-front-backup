@@ -6,14 +6,14 @@ const chroma = require("chroma-js");
 const contrastText = process.env.NEXT_PUBLIC_CONTRAST_TEXT || "#030f40";
 // Brand Colors
 const primaryColor = process.env.NEXT_PUBLIC_COLOR_BRAND_PRIMARY || "#9bcd41";
-const primaryColorDark = chroma(primaryColor).darken();
-const primaryColorLight = chroma(primaryColor).alpha(0.1);
+const primaryColorDark = chroma(primaryColor).darken().hex();
+const primaryColorLight = chroma(primaryColor).alpha(0.1).hex();
 const secondaryColor =
   process.env.NEXT_PUBLIC_COLOR_BRAND_SECONDARY ||
   process.env.NEXT_PUBLIC_COLOR_BRAND_PRIMARY ||
   "#ffc229";
-const secondaryColorDark = chroma(secondaryColor).darken();
-const secondaryColorLight = chroma(secondaryColor).alpha(0.1);
+const secondaryColorDark = chroma(secondaryColor).darken().hex();
+const secondaryColorLight = chroma(secondaryColor).alpha(0.1).hex();
 
 // Waste Colors
 const wasteHousehold =

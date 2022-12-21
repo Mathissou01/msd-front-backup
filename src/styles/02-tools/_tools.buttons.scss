@@ -24,13 +24,11 @@
     color: colors.$gray-600;
   }
 
-  @if $type == "primary" or "primaryContrast" {
+  @if $type == "primary" or $type == "primaryContrast" {
     @if $type == "primary" {
       color: colors.$contrast-text;
       border-color: transparent;
-    }
-
-    @if $type == "primaryContrast" {
+    } @else if $type == "primaryContrast" {
       color: colors.$contrast-text;
       border-color: colors.$contrast-text;
     }
@@ -50,8 +48,7 @@
       background-color: colors.$blue-4;
       border-color: transparent;
     }
-  }
-  @if $type == "secondary" {
+  } @else if $type == "secondary" {
     &:hover {
       background-color: color.adjust(colors.$gray-800, $alpha: -0.9);
     }
@@ -65,8 +62,7 @@
       background-color: inherit;
       border-color: colors.$blue-3;
     }
-  }
-  @if $type == "tertiary" {
+  } @else if $type == "tertiary" {
     color: colors.$blue-1;
     border-color: transparent;
 

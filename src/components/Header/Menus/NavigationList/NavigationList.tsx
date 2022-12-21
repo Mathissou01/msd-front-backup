@@ -1,27 +1,14 @@
 import classNames from "classnames";
 import React from "react";
+import { IServiceLink, isServiceLink } from "../../../../lib/service-links";
+import { normalizeStringPath, removeNulls } from "../../../../lib/utilities";
 import {
   ENavigationPages,
   useNavigation,
 } from "../../../../hooks/useNavigation";
+import globalData from "../../../../../config/global.json";
 import NavigationListButton from "./NavigationListButton/NavigationListButton";
-import { useGetContractMenuQuery } from "../../../../graphql/codegen/generated-types";
-import { normalizeStringPath, removeNulls } from "../../../../lib/utilities";
-import CommonSpinner from "../../../Common/CommonSpinner/CommonSpinner";
 import "./navigation-list.scss";
-
-export interface INavigationLink {
-  type?: string;
-  name: string;
-  isDisplayed: boolean;
-  picto?: { data?: { attributes?: { url: string } } };
-  path?: string;
-}
-
-// eslint-disable-next-line
-export function isNavigationLink(link: any): link is INavigationLink {
-  return "name" in link && "isDisplayed" in link;
-}
 
 interface INavigationListProps {
   isDesktopMode: boolean;
@@ -48,14 +35,10 @@ export default function NavigationList({
   }
 
   /* External Data */
-  const contractId = "1";
-  const { loading, error, data } = useGetContractMenuQuery({
-    variables: { contractId },
-  });
   const { currentPage, setCurrentPage } = useNavigation();
 
-  const contractMenus: Array<INavigationLink> | null =
-    data?.contract?.data?.attributes?.contractMenu?.data?.attributes?.serviceLinks
+  const contractMenus: Array<IServiceLink> | null =
+    globalData.contractMenu?.data?.attributes?.serviceLinks
       ?.map((link) => {
         if (link) {
           const type = link.__typename;
@@ -63,7 +46,7 @@ export default function NavigationList({
           if (type === "ComponentLinksFrees" && link.name) {
             path = normalizeStringPath(link.name);
           }
-          if (type && isNavigationLink(link)) {
+          if (type && isServiceLink(link)) {
             return {
               type,
               name: link?.name,
@@ -82,8 +65,6 @@ export default function NavigationList({
     "c-NavigationList_mobile": !isDesktopMode,
   });
 
-  if (loading) return <CommonSpinner />;
-  if (error) return <span>{error?.message}</span>;
   return (
     <ul className={dynamicClassNames}>
       <li

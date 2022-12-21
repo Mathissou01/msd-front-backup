@@ -21,6 +21,8 @@ const customJestConfig = {
     // Handle module aliases (this will be automatically configured for you soon)
     "^@/components/(.*)$": "<rootDir>/components/$1",
     "^@/pages/(.*)$": "<rootDir>/pages/$1",
+    // Mock global data file
+    "^(.*)/config/global.json$": "<rootDir>/__mocks__/globalMock.json",
   },
   testPathIgnorePatterns: [
     "<rootDir>/node_modules/",
