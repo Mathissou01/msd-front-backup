@@ -1,0 +1,93 @@
+@use "src/styles/02-tools/tools.media-queries" as media;
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.z-index" as index;
+
+.c-ServicesBlock {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-start;
+  width: 100%;
+  padding: 50px 20px 55px;
+  overflow: hidden;
+
+  @include media.desktop-only {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 64px 124px 85px 123px;
+  }
+
+  &__Services {
+    display: flex;
+    flex-flow: column wrap;
+    gap: 14px;
+    width: 100%;
+
+    @include media.desktop-only {
+      flex-direction: row;
+      width: 100%;
+
+      &_few .c-ServiceCard {
+        width: calc((100% - 16px) / 2);
+      }
+
+      &_many .c-ServiceCard {
+        width: calc((100% - 32px) / 3);
+      }
+    }
+  }
+
+  &__SvgContainer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: colors.$background-dark;
+
+    @include media.desktop-only {
+      bottom: -1px;
+      width: 82%;
+      background: colors.$background-dark;
+      border-radius: 0 120px 0 0;
+    }
+  }
+
+  &__Svg {
+    &_mobile {
+      display: initial;
+
+      @include media.desktop-only {
+        display: none;
+      }
+    }
+
+    &_desktop {
+      display: none;
+
+      @include media.desktop-only {
+        display: initial;
+      }
+    }
+  }
+
+  svg {
+    width: 186px;
+    height: 160px;
+    margin-top: -21px;
+
+    @include media.desktop-only {
+      width: 223px;
+      height: 172px;
+      margin-top: -24px;
+    }
+
+    #primary-color {
+      fill: colors.$brand-primary;
+    }
+
+    #secondary-color {
+      fill: colors.$brand-secondary;
+    }
+  }
+}

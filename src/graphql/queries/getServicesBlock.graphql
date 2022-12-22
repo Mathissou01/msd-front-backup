@@ -1,0 +1,132 @@
+query getServicesBlock($contractId: ID!) {
+  contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
+    data {
+      id
+      attributes {
+        homepage {
+          data {
+            attributes {
+              servicesBlock {
+                data {
+                  attributes {
+                    titleContent
+                    serviceLinks {
+                      ... on ComponentLinksRequest {
+                        id
+                        name
+                        isDisplayed
+                        picto {
+                          data {
+                            attributes {
+                              url
+                            }
+                          }
+                        }
+                      }
+                      ... on ComponentLinksRecycling {
+                        id
+                        name
+                        isDisplayed
+                        picto {
+                          data {
+                            attributes {
+                              url
+                            }
+                          }
+                        }
+                      }
+                      ... on ComponentLinksContactUs {
+                        id
+                        name
+                        isDisplayed
+                        picto {
+                          data {
+                            attributes {
+                              url
+                            }
+                          }
+                        }
+                      }
+                      ... on ComponentLinksExternal {
+                        id
+                        name
+                        isDisplayed
+                        picto {
+                          data {
+                            attributes {
+                              url
+                            }
+                          }
+                        }
+                      }
+                      ... on ComponentLinksEvents {
+                        id
+                        name
+                        isDisplayed
+                        picto {
+                          data {
+                            attributes {
+                              url
+                            }
+                          }
+                        }
+                      }
+                      ... on ComponentLinksFrees {
+                        id
+                        name
+                        isDisplayed
+                        picto {
+                          data {
+                            attributes {
+                              url
+                            }
+                          }
+                        }
+                      }
+                      ... on ComponentLinksNews {
+                        id
+                        name
+                        isDisplayed
+                        picto {
+                          data {
+                            attributes {
+                              url
+                            }
+                          }
+                        }
+                      }
+                      ... on ComponentLinksQuizzes {
+                        id
+                        name
+                        isDisplayed
+                        picto {
+                          data {
+                            attributes {
+                              url
+                            }
+                          }
+                        }
+                      }
+                      ... on ComponentLinksTips {
+                        id
+                        name
+                        isDisplayed
+                        picto {
+                          data {
+                            attributes {
+                              url
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

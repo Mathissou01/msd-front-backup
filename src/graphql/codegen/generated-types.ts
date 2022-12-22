@@ -5216,11 +5216,11 @@ export type GetContractMenuQuery = {
   } | null;
 };
 
-export type GetQuizAndTipsBlockByContractIdQueryVariables = Exact<{
+export type GetQuizAndTipsBlockQueryVariables = Exact<{
   contractId: Scalars["ID"];
 }>;
 
-export type GetQuizAndTipsBlockByContractIdQuery = {
+export type GetQuizAndTipsBlockQuery = {
   __typename?: "Query";
   contractCustomizations?: {
     __typename?: "ContractCustomizationEntityResponseCollection";
@@ -5282,11 +5282,11 @@ export type GetQuizAndTipsBlockByContractIdQuery = {
   } | null;
 };
 
-export type GetRecyclingGuideBlockByContractIdQueryVariables = Exact<{
+export type GetRecyclingGuideBlockQueryVariables = Exact<{
   contractId: Scalars["ID"];
 }>;
 
-export type GetRecyclingGuideBlockByContractIdQuery = {
+export type GetRecyclingGuideBlockQuery = {
   __typename?: "Query";
   contractCustomizations?: {
     __typename?: "ContractCustomizationEntityResponseCollection";
@@ -5320,6 +5320,330 @@ export type GetRecyclingGuideBlockByContractIdQuery = {
                         } | null;
                       }>;
                     } | null;
+                  } | null;
+                } | null;
+              } | null;
+            } | null;
+          } | null;
+        } | null;
+      } | null;
+    }>;
+  } | null;
+};
+
+export type GetServicesActiveQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+}>;
+
+export type GetServicesActiveQuery = {
+  __typename?: "Query";
+  editorialServices?: {
+    __typename?: "EditorialServiceEntityResponseCollection";
+    data: Array<{
+      __typename?: "EditorialServiceEntity";
+      attributes?: {
+        __typename?: "EditorialService";
+        eventSubService?: {
+          __typename?: "EventSubServiceEntityResponse";
+          data?: {
+            __typename?: "EventSubServiceEntity";
+            attributes?: {
+              __typename?: "EventSubService";
+              isActivated: boolean;
+            } | null;
+          } | null;
+        } | null;
+        newsSubService?: {
+          __typename?: "NewsSubServiceEntityResponse";
+          data?: {
+            __typename?: "NewsSubServiceEntity";
+            attributes?: {
+              __typename?: "NewsSubService";
+              isActivated: boolean;
+            } | null;
+          } | null;
+        } | null;
+        quizSubService?: {
+          __typename?: "QuizSubServiceEntityResponse";
+          data?: {
+            __typename?: "QuizSubServiceEntity";
+            attributes?: {
+              __typename?: "QuizSubService";
+              isActivated: boolean;
+            } | null;
+          } | null;
+        } | null;
+        tipSubService?: {
+          __typename?: "TipSubServiceEntityResponse";
+          data?: {
+            __typename?: "TipSubServiceEntity";
+            attributes?: {
+              __typename?: "TipSubService";
+              isActivated: boolean;
+            } | null;
+          } | null;
+        } | null;
+        freeContentSubServices?: {
+          __typename?: "FreeContentSubServiceRelationResponseCollection";
+          data: Array<{
+            __typename?: "FreeContentSubServiceEntity";
+            attributes?: {
+              __typename?: "FreeContentSubService";
+              isActivated: boolean;
+            } | null;
+          }>;
+        } | null;
+        contactUsSubService?: {
+          __typename?: "ContactUsSubServiceEntityResponse";
+          data?: {
+            __typename?: "ContactUsSubServiceEntity";
+            attributes?: {
+              __typename?: "ContactUsSubService";
+              isActivated: boolean;
+            } | null;
+          } | null;
+        } | null;
+        cguSubService?: {
+          __typename?: "CguSubServiceEntityResponse";
+          data?: {
+            __typename?: "CguSubServiceEntity";
+            attributes?: {
+              __typename?: "CguSubService";
+              isActivated: boolean;
+            } | null;
+          } | null;
+        } | null;
+        accessibilitySubService?: {
+          __typename?: "AccessibilitySubServiceEntityResponse";
+          data?: {
+            __typename?: "AccessibilitySubServiceEntity";
+            attributes?: {
+              __typename?: "AccessibilitySubService";
+              isActivated: boolean;
+            } | null;
+          } | null;
+        } | null;
+        confidentialitySubService?: {
+          __typename?: "ConfidentialitySubServiceEntityResponse";
+          data?: {
+            __typename?: "ConfidentialitySubServiceEntity";
+            attributes?: {
+              __typename?: "ConfidentialitySubService";
+              isActivated: boolean;
+            } | null;
+          } | null;
+        } | null;
+        cookiesSubService?: {
+          __typename?: "CookiesSubServiceEntityResponse";
+          data?: {
+            __typename?: "CookiesSubServiceEntity";
+            attributes?: {
+              __typename?: "CookiesSubService";
+              isActivated: boolean;
+            } | null;
+          } | null;
+        } | null;
+      } | null;
+    }>;
+  } | null;
+  recyclingGuideServices?: {
+    __typename?: "RecyclingGuideServiceEntityResponseCollection";
+    data: Array<{
+      __typename?: "RecyclingGuideServiceEntity";
+      attributes?: {
+        __typename?: "RecyclingGuideService";
+        isActivated: boolean;
+      } | null;
+    }>;
+  } | null;
+  requestServices?: {
+    __typename?: "RequestServiceEntityResponseCollection";
+    data: Array<{
+      __typename?: "RequestServiceEntity";
+      attributes?: {
+        __typename?: "RequestService";
+        isActivated: boolean;
+      } | null;
+    }>;
+  } | null;
+};
+
+export type GetServicesBlockQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+}>;
+
+export type GetServicesBlockQuery = {
+  __typename?: "Query";
+  contractCustomizations?: {
+    __typename?: "ContractCustomizationEntityResponseCollection";
+    data: Array<{
+      __typename?: "ContractCustomizationEntity";
+      id?: string | null;
+      attributes?: {
+        __typename?: "ContractCustomization";
+        homepage?: {
+          __typename?: "HomepageEntityResponse";
+          data?: {
+            __typename?: "HomepageEntity";
+            attributes?: {
+              __typename?: "Homepage";
+              servicesBlock?: {
+                __typename?: "ServicesBlockEntityResponse";
+                data?: {
+                  __typename?: "ServicesBlockEntity";
+                  attributes?: {
+                    __typename?: "ServicesBlock";
+                    titleContent: string;
+                    serviceLinks?: Array<
+                      | { __typename?: "ComponentLinksCalendar" }
+                      | {
+                          __typename?: "ComponentLinksContactUs";
+                          id: string;
+                          name?: string | null;
+                          isDisplayed: boolean;
+                          picto?: {
+                            __typename?: "UploadFileEntityResponse";
+                            data?: {
+                              __typename?: "UploadFileEntity";
+                              attributes?: {
+                                __typename?: "UploadFile";
+                                url: string;
+                              } | null;
+                            } | null;
+                          } | null;
+                        }
+                      | {
+                          __typename?: "ComponentLinksEvents";
+                          id: string;
+                          name?: string | null;
+                          isDisplayed: boolean;
+                          picto?: {
+                            __typename?: "UploadFileEntityResponse";
+                            data?: {
+                              __typename?: "UploadFileEntity";
+                              attributes?: {
+                                __typename?: "UploadFile";
+                                url: string;
+                              } | null;
+                            } | null;
+                          } | null;
+                        }
+                      | {
+                          __typename?: "ComponentLinksExternal";
+                          id: string;
+                          name?: string | null;
+                          isDisplayed: boolean;
+                          picto?: {
+                            __typename?: "UploadFileEntityResponse";
+                            data?: {
+                              __typename?: "UploadFileEntity";
+                              attributes?: {
+                                __typename?: "UploadFile";
+                                url: string;
+                              } | null;
+                            } | null;
+                          } | null;
+                        }
+                      | {
+                          __typename?: "ComponentLinksFrees";
+                          id: string;
+                          name?: string | null;
+                          isDisplayed: boolean;
+                          picto?: {
+                            __typename?: "UploadFileEntityResponse";
+                            data?: {
+                              __typename?: "UploadFileEntity";
+                              attributes?: {
+                                __typename?: "UploadFile";
+                                url: string;
+                              } | null;
+                            } | null;
+                          } | null;
+                        }
+                      | { __typename?: "ComponentLinksMap" }
+                      | {
+                          __typename?: "ComponentLinksNews";
+                          id: string;
+                          name?: string | null;
+                          isDisplayed: boolean;
+                          picto?: {
+                            __typename?: "UploadFileEntityResponse";
+                            data?: {
+                              __typename?: "UploadFileEntity";
+                              attributes?: {
+                                __typename?: "UploadFile";
+                                url: string;
+                              } | null;
+                            } | null;
+                          } | null;
+                        }
+                      | {
+                          __typename?: "ComponentLinksQuizzes";
+                          id: string;
+                          name?: string | null;
+                          isDisplayed: boolean;
+                          picto?: {
+                            __typename?: "UploadFileEntityResponse";
+                            data?: {
+                              __typename?: "UploadFileEntity";
+                              attributes?: {
+                                __typename?: "UploadFile";
+                                url: string;
+                              } | null;
+                            } | null;
+                          } | null;
+                        }
+                      | {
+                          __typename?: "ComponentLinksRecycling";
+                          id: string;
+                          name?: string | null;
+                          isDisplayed: boolean;
+                          picto?: {
+                            __typename?: "UploadFileEntityResponse";
+                            data?: {
+                              __typename?: "UploadFileEntity";
+                              attributes?: {
+                                __typename?: "UploadFile";
+                                url: string;
+                              } | null;
+                            } | null;
+                          } | null;
+                        }
+                      | {
+                          __typename?: "ComponentLinksRequest";
+                          id: string;
+                          name?: string | null;
+                          isDisplayed: boolean;
+                          picto?: {
+                            __typename?: "UploadFileEntityResponse";
+                            data?: {
+                              __typename?: "UploadFileEntity";
+                              attributes?: {
+                                __typename?: "UploadFile";
+                                url: string;
+                              } | null;
+                            } | null;
+                          } | null;
+                        }
+                      | {
+                          __typename?: "ComponentLinksTips";
+                          id: string;
+                          name?: string | null;
+                          isDisplayed: boolean;
+                          picto?: {
+                            __typename?: "UploadFileEntityResponse";
+                            data?: {
+                              __typename?: "UploadFileEntity";
+                              attributes?: {
+                                __typename?: "UploadFile";
+                                url: string;
+                              } | null;
+                            } | null;
+                          } | null;
+                        }
+                      | { __typename?: "Error" }
+                      | null
+                    > | null;
                   } | null;
                 } | null;
               } | null;
@@ -5522,8 +5846,8 @@ export type GetContractMenuQueryResult = Apollo.QueryResult<
   GetContractMenuQuery,
   GetContractMenuQueryVariables
 >;
-export const GetQuizAndTipsBlockByContractIdDocument = gql`
-  query getQuizAndTipsBlockByContractId($contractId: ID!) {
+export const GetQuizAndTipsBlockDocument = gql`
+  query getQuizAndTipsBlock($contractId: ID!) {
     contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
       data {
         attributes {
@@ -5571,57 +5895,57 @@ export const GetQuizAndTipsBlockByContractIdDocument = gql`
 `;
 
 /**
- * __useGetQuizAndTipsBlockByContractIdQuery__
+ * __useGetQuizAndTipsBlockQuery__
  *
- * To run a query within a React component, call `useGetQuizAndTipsBlockByContractIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetQuizAndTipsBlockByContractIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetQuizAndTipsBlockQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetQuizAndTipsBlockQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetQuizAndTipsBlockByContractIdQuery({
+ * const { data, loading, error } = useGetQuizAndTipsBlockQuery({
  *   variables: {
  *      contractId: // value for 'contractId'
  *   },
  * });
  */
-export function useGetQuizAndTipsBlockByContractIdQuery(
+export function useGetQuizAndTipsBlockQuery(
   baseOptions: Apollo.QueryHookOptions<
-    GetQuizAndTipsBlockByContractIdQuery,
-    GetQuizAndTipsBlockByContractIdQueryVariables
+    GetQuizAndTipsBlockQuery,
+    GetQuizAndTipsBlockQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<
-    GetQuizAndTipsBlockByContractIdQuery,
-    GetQuizAndTipsBlockByContractIdQueryVariables
-  >(GetQuizAndTipsBlockByContractIdDocument, options);
+    GetQuizAndTipsBlockQuery,
+    GetQuizAndTipsBlockQueryVariables
+  >(GetQuizAndTipsBlockDocument, options);
 }
-export function useGetQuizAndTipsBlockByContractIdLazyQuery(
+export function useGetQuizAndTipsBlockLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    GetQuizAndTipsBlockByContractIdQuery,
-    GetQuizAndTipsBlockByContractIdQueryVariables
+    GetQuizAndTipsBlockQuery,
+    GetQuizAndTipsBlockQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<
-    GetQuizAndTipsBlockByContractIdQuery,
-    GetQuizAndTipsBlockByContractIdQueryVariables
-  >(GetQuizAndTipsBlockByContractIdDocument, options);
+    GetQuizAndTipsBlockQuery,
+    GetQuizAndTipsBlockQueryVariables
+  >(GetQuizAndTipsBlockDocument, options);
 }
-export type GetQuizAndTipsBlockByContractIdQueryHookResult = ReturnType<
-  typeof useGetQuizAndTipsBlockByContractIdQuery
+export type GetQuizAndTipsBlockQueryHookResult = ReturnType<
+  typeof useGetQuizAndTipsBlockQuery
 >;
-export type GetQuizAndTipsBlockByContractIdLazyQueryHookResult = ReturnType<
-  typeof useGetQuizAndTipsBlockByContractIdLazyQuery
+export type GetQuizAndTipsBlockLazyQueryHookResult = ReturnType<
+  typeof useGetQuizAndTipsBlockLazyQuery
 >;
-export type GetQuizAndTipsBlockByContractIdQueryResult = Apollo.QueryResult<
-  GetQuizAndTipsBlockByContractIdQuery,
-  GetQuizAndTipsBlockByContractIdQueryVariables
+export type GetQuizAndTipsBlockQueryResult = Apollo.QueryResult<
+  GetQuizAndTipsBlockQuery,
+  GetQuizAndTipsBlockQueryVariables
 >;
-export const GetRecyclingGuideBlockByContractIdDocument = gql`
-  query getRecyclingGuideBlockByContractId($contractId: ID!) {
+export const GetRecyclingGuideBlockDocument = gql`
+  query getRecyclingGuideBlock($contractId: ID!) {
     contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
       data {
         attributes {
@@ -5655,52 +5979,382 @@ export const GetRecyclingGuideBlockByContractIdDocument = gql`
 `;
 
 /**
- * __useGetRecyclingGuideBlockByContractIdQuery__
+ * __useGetRecyclingGuideBlockQuery__
  *
- * To run a query within a React component, call `useGetRecyclingGuideBlockByContractIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetRecyclingGuideBlockByContractIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetRecyclingGuideBlockQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRecyclingGuideBlockQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetRecyclingGuideBlockByContractIdQuery({
+ * const { data, loading, error } = useGetRecyclingGuideBlockQuery({
  *   variables: {
  *      contractId: // value for 'contractId'
  *   },
  * });
  */
-export function useGetRecyclingGuideBlockByContractIdQuery(
+export function useGetRecyclingGuideBlockQuery(
   baseOptions: Apollo.QueryHookOptions<
-    GetRecyclingGuideBlockByContractIdQuery,
-    GetRecyclingGuideBlockByContractIdQueryVariables
+    GetRecyclingGuideBlockQuery,
+    GetRecyclingGuideBlockQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<
-    GetRecyclingGuideBlockByContractIdQuery,
-    GetRecyclingGuideBlockByContractIdQueryVariables
-  >(GetRecyclingGuideBlockByContractIdDocument, options);
+    GetRecyclingGuideBlockQuery,
+    GetRecyclingGuideBlockQueryVariables
+  >(GetRecyclingGuideBlockDocument, options);
 }
-export function useGetRecyclingGuideBlockByContractIdLazyQuery(
+export function useGetRecyclingGuideBlockLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    GetRecyclingGuideBlockByContractIdQuery,
-    GetRecyclingGuideBlockByContractIdQueryVariables
+    GetRecyclingGuideBlockQuery,
+    GetRecyclingGuideBlockQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<
-    GetRecyclingGuideBlockByContractIdQuery,
-    GetRecyclingGuideBlockByContractIdQueryVariables
-  >(GetRecyclingGuideBlockByContractIdDocument, options);
+    GetRecyclingGuideBlockQuery,
+    GetRecyclingGuideBlockQueryVariables
+  >(GetRecyclingGuideBlockDocument, options);
 }
-export type GetRecyclingGuideBlockByContractIdQueryHookResult = ReturnType<
-  typeof useGetRecyclingGuideBlockByContractIdQuery
+export type GetRecyclingGuideBlockQueryHookResult = ReturnType<
+  typeof useGetRecyclingGuideBlockQuery
 >;
-export type GetRecyclingGuideBlockByContractIdLazyQueryHookResult = ReturnType<
-  typeof useGetRecyclingGuideBlockByContractIdLazyQuery
+export type GetRecyclingGuideBlockLazyQueryHookResult = ReturnType<
+  typeof useGetRecyclingGuideBlockLazyQuery
 >;
-export type GetRecyclingGuideBlockByContractIdQueryResult = Apollo.QueryResult<
-  GetRecyclingGuideBlockByContractIdQuery,
-  GetRecyclingGuideBlockByContractIdQueryVariables
+export type GetRecyclingGuideBlockQueryResult = Apollo.QueryResult<
+  GetRecyclingGuideBlockQuery,
+  GetRecyclingGuideBlockQueryVariables
+>;
+export const GetServicesActiveDocument = gql`
+  query getServicesActive($contractId: ID!) {
+    editorialServices(filters: { contract: { id: { eq: $contractId } } }) {
+      data {
+        attributes {
+          eventSubService {
+            data {
+              attributes {
+                isActivated
+              }
+            }
+          }
+          newsSubService {
+            data {
+              attributes {
+                isActivated
+              }
+            }
+          }
+          quizSubService {
+            data {
+              attributes {
+                isActivated
+              }
+            }
+          }
+          tipSubService {
+            data {
+              attributes {
+                isActivated
+              }
+            }
+          }
+          freeContentSubServices {
+            data {
+              attributes {
+                isActivated
+              }
+            }
+          }
+          contactUsSubService {
+            data {
+              attributes {
+                isActivated
+              }
+            }
+          }
+          cguSubService {
+            data {
+              attributes {
+                isActivated
+              }
+            }
+          }
+          accessibilitySubService {
+            data {
+              attributes {
+                isActivated
+              }
+            }
+          }
+          confidentialitySubService {
+            data {
+              attributes {
+                isActivated
+              }
+            }
+          }
+          cookiesSubService {
+            data {
+              attributes {
+                isActivated
+              }
+            }
+          }
+        }
+      }
+    }
+    recyclingGuideServices(filters: { contract: { id: { eq: $contractId } } }) {
+      data {
+        attributes {
+          isActivated
+        }
+      }
+    }
+    requestServices(filters: { contract: { id: { eq: $contractId } } }) {
+      data {
+        attributes {
+          isActivated
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetServicesActiveQuery__
+ *
+ * To run a query within a React component, call `useGetServicesActiveQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetServicesActiveQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetServicesActiveQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetServicesActiveQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetServicesActiveQuery,
+    GetServicesActiveQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetServicesActiveQuery,
+    GetServicesActiveQueryVariables
+  >(GetServicesActiveDocument, options);
+}
+export function useGetServicesActiveLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetServicesActiveQuery,
+    GetServicesActiveQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetServicesActiveQuery,
+    GetServicesActiveQueryVariables
+  >(GetServicesActiveDocument, options);
+}
+export type GetServicesActiveQueryHookResult = ReturnType<
+  typeof useGetServicesActiveQuery
+>;
+export type GetServicesActiveLazyQueryHookResult = ReturnType<
+  typeof useGetServicesActiveLazyQuery
+>;
+export type GetServicesActiveQueryResult = Apollo.QueryResult<
+  GetServicesActiveQuery,
+  GetServicesActiveQueryVariables
+>;
+export const GetServicesBlockDocument = gql`
+  query getServicesBlock($contractId: ID!) {
+    contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
+      data {
+        id
+        attributes {
+          homepage {
+            data {
+              attributes {
+                servicesBlock {
+                  data {
+                    attributes {
+                      titleContent
+                      serviceLinks {
+                        ... on ComponentLinksRequest {
+                          id
+                          name
+                          isDisplayed
+                          picto {
+                            data {
+                              attributes {
+                                url
+                              }
+                            }
+                          }
+                        }
+                        ... on ComponentLinksRecycling {
+                          id
+                          name
+                          isDisplayed
+                          picto {
+                            data {
+                              attributes {
+                                url
+                              }
+                            }
+                          }
+                        }
+                        ... on ComponentLinksContactUs {
+                          id
+                          name
+                          isDisplayed
+                          picto {
+                            data {
+                              attributes {
+                                url
+                              }
+                            }
+                          }
+                        }
+                        ... on ComponentLinksExternal {
+                          id
+                          name
+                          isDisplayed
+                          picto {
+                            data {
+                              attributes {
+                                url
+                              }
+                            }
+                          }
+                        }
+                        ... on ComponentLinksEvents {
+                          id
+                          name
+                          isDisplayed
+                          picto {
+                            data {
+                              attributes {
+                                url
+                              }
+                            }
+                          }
+                        }
+                        ... on ComponentLinksFrees {
+                          id
+                          name
+                          isDisplayed
+                          picto {
+                            data {
+                              attributes {
+                                url
+                              }
+                            }
+                          }
+                        }
+                        ... on ComponentLinksNews {
+                          id
+                          name
+                          isDisplayed
+                          picto {
+                            data {
+                              attributes {
+                                url
+                              }
+                            }
+                          }
+                        }
+                        ... on ComponentLinksQuizzes {
+                          id
+                          name
+                          isDisplayed
+                          picto {
+                            data {
+                              attributes {
+                                url
+                              }
+                            }
+                          }
+                        }
+                        ... on ComponentLinksTips {
+                          id
+                          name
+                          isDisplayed
+                          picto {
+                            data {
+                              attributes {
+                                url
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetServicesBlockQuery__
+ *
+ * To run a query within a React component, call `useGetServicesBlockQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetServicesBlockQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetServicesBlockQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetServicesBlockQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetServicesBlockQuery,
+    GetServicesBlockQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetServicesBlockQuery, GetServicesBlockQueryVariables>(
+    GetServicesBlockDocument,
+    options,
+  );
+}
+export function useGetServicesBlockLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetServicesBlockQuery,
+    GetServicesBlockQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetServicesBlockQuery,
+    GetServicesBlockQueryVariables
+  >(GetServicesBlockDocument, options);
+}
+export type GetServicesBlockQueryHookResult = ReturnType<
+  typeof useGetServicesBlockQuery
+>;
+export type GetServicesBlockLazyQueryHookResult = ReturnType<
+  typeof useGetServicesBlockLazyQuery
+>;
+export type GetServicesBlockQueryResult = Apollo.QueryResult<
+  GetServicesBlockQuery,
+  GetServicesBlockQueryVariables
 >;

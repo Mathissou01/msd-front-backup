@@ -40,7 +40,7 @@
     }
   }
 
-  @if $type == "buttonSmall" or "buttonLarge" {
+  @if $type == "buttonSmall" or $type == "buttonLarge" {
     font-weight: 500;
 
     @if $type == "buttonSmall" {

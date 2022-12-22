@@ -1,34 +1,52 @@
 import client from "../graphql/client";
 import {
   RecyclingGuideBlockEntity,
-  GetRecyclingGuideBlockByContractIdDocument,
-  GetRecyclingGuideBlockByContractIdQuery,
   QuizAndTipsBlockEntity,
-  GetQuizAndTipsBlockByContractIdDocument,
-  GetQuizAndTipsBlockByContractIdQuery,
+  GetServicesBlockQuery,
+  GetServicesBlockDocument,
+  GetServicesActiveDocument,
+  GetServicesActiveQuery,
+  GetQuizAndTipsBlockQuery,
+  GetQuizAndTipsBlockDocument,
+  GetRecyclingGuideBlockQuery,
+  GetRecyclingGuideBlockDocument,
 } from "../graphql/codegen/generated-types";
 import {
   extractRecyclingGuideBlock,
   extractQuizAndTipsBlock,
+  remapServiceLinksDynamicZone,
+  IRemappedServiceBlock,
 } from "../lib/graphql-data";
 import { useIsDesktopContext } from "../hooks/useScreenWidth";
 import WelcomeBlock from "../components/Blocks/WelcomeBlock/WelcomeBlock";
 import RecyclingGuideBlock from "../components/Blocks/RecyclingGuideBlock/RecyclingGuideBlock";
+import ServicesBlock from "../components/Blocks/ServicesBlock/ServicesBlock";
 import QuizAndTipsBlock from "../components/Blocks/QuizAndTipsBlock/QuizAndTipsBlock";
 
 interface IHomePageProps {
-  recyclingGuideBlock: RecyclingGuideBlockEntity;
-  quizAndTipsBlock: QuizAndTipsBlockEntity;
+  servicesData: GetServicesActiveQuery;
+  recyclingGuideBlock: RecyclingGuideBlockEntity | null;
+  servicesBlock: IRemappedServiceBlock;
+  quizAndTipsBlock: QuizAndTipsBlockEntity | null;
 }
 
 export default function HomePage({
+  servicesData,
   recyclingGuideBlock,
+  servicesBlock,
   quizAndTipsBlock,
 }: IHomePageProps) {
   /* StaticProps data */
-  // TODO: check contract services to determine if blocks are displayed
-  const displayRecyclingGuideBlock = !!recyclingGuideBlock;
-  const displayQuizAndTipsBlock = quizAndTipsBlock?.attributes?.displayBlock;
+  const displayRecyclingGuideBlock =
+    !!recyclingGuideBlock &&
+    servicesData.recyclingGuideServices?.data[0].attributes?.isActivated;
+  const displayServicesBlock = !!servicesBlock;
+  const displayQuizAndTipsBlock =
+    quizAndTipsBlock?.attributes?.displayBlock &&
+    (servicesData.editorialServices?.data[0].attributes?.quizSubService?.data
+      ?.attributes?.isActivated ||
+      servicesData.editorialServices?.data[0].attributes?.tipSubService?.data
+        ?.attributes?.isActivated);
 
   /* Local Data */
   const isDesktop = useIsDesktopContext();
@@ -40,15 +58,10 @@ export default function HomePage({
       {displayRecyclingGuideBlock && (
         <RecyclingGuideBlock data={recyclingGuideBlock} />
       )}
+      {displayServicesBlock && <ServicesBlock remappedData={servicesBlock} />}
       <section
         className="o-Page__Section"
-        style={{ minHeight: isDesktop ? "447px" : "703px" }}
-      >
-        (Services)
-      </section>
-      <section
-        className="o-Page__Section"
-        style={{ minHeight: isDesktop ? "512px" : "881px" }}
+        style={{ minHeight: isDesktop ? "512px" : "auto" }}
       >
         (KeyMetric)
       </section>
@@ -71,28 +84,40 @@ export default function HomePage({
 
 export async function getStaticProps() {
   const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID?.toString();
-
-  // TODO: get all services to check if enabled/disabled for the related blocks
+  const { data: servicesData } = await client.query<GetServicesActiveQuery>({
+    query: GetServicesActiveDocument,
+    variables: { contractId },
+  });
 
   const { data: recyclingGuideBlockData } =
-    await client.query<GetRecyclingGuideBlockByContractIdQuery>({
-      query: GetRecyclingGuideBlockByContractIdDocument,
+    await client.query<GetRecyclingGuideBlockQuery>({
+      query: GetRecyclingGuideBlockDocument,
       variables: { contractId },
     });
-  const { data: quizAndTipsBlockData } =
-    await client.query<GetQuizAndTipsBlockByContractIdQuery>({
-      query: GetQuizAndTipsBlockByContractIdDocument,
-      variables: { contractId },
-    });
-
   const recyclingGuideBlock = extractRecyclingGuideBlock(
     recyclingGuideBlockData,
   );
+
+  const { data: servicesBlockData } = await client.query<GetServicesBlockQuery>(
+    {
+      query: GetServicesBlockDocument,
+      variables: { contractId },
+    },
+  );
+  const servicesBlock = remapServiceLinksDynamicZone(servicesBlockData);
+
+  const { data: quizAndTipsBlockData } =
+    await client.query<GetQuizAndTipsBlockQuery>({
+      query: GetQuizAndTipsBlockDocument,
+      variables: { contractId },
+    });
   const quizAndTipsBlock = extractQuizAndTipsBlock(quizAndTipsBlockData);
 
   return {
     props: {
+      servicesData,
       recyclingGuideBlock,
+      servicesBlock,
       quizAndTipsBlock,
     },
   };

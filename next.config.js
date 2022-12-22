@@ -83,6 +83,7 @@ module.exports = async () => {
     env: {
       API_URL: process.env.NEXT_PUBLIC_API_URL,
     },
+    pageExtensions: ["page.js", "page.jsx", "page.ts", "page.tsx"],
     sassOptions: {
       // Trick to load scss variable values from .env, load local variable declaration first
       // Calculate dark/light values of color with chroma.js (using CIELAB calculations)

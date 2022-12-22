@@ -1,0 +1,43 @@
+@use "src/styles/02-tools/tools.typography" as typo;
+@use "src/styles/02-tools/tools.media-queries" as media;
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.shadows" as shadows;
+@use "src/styles/02-tools/tools.z-index" as index;
+
+.c-ServiceCard {
+  @include typo.text("boldStatic");
+  @include shadows.shadow(1);
+
+  z-index: index.z("site-content");
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  height: 80px;
+  min-height: 96px;
+  padding: 16px;
+  overflow: auto;
+  background: #fff;
+  border-radius: 8px;
+
+  @include media.desktop-only {
+    height: 102px;
+    padding: 24px;
+  }
+
+  &__Svg {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    min-height: 48px;
+    padding: 0;
+    background-color: colors.$brand-primary-light;
+    border-radius: 100px;
+  }
+
+  &__Picto {
+    filter: url("#recolor-primary");
+  }
+}

@@ -19,6 +19,7 @@ export default function NavigationList({
   isDesktopMode,
   onNavigationClick,
 }: INavigationListProps) {
+  /* Static Data */
   const homepageLabel = "Accueil";
   const defaultPicto = "/images/pictos/default.svg";
 

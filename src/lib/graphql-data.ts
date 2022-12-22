@@ -1,14 +1,15 @@
 import {
-  GetRecyclingGuideBlockByContractIdQuery,
-  RecyclingGuideBlockEntity,
-  GetQuizAndTipsBlockByContractIdQuery,
+  GetQuizAndTipsBlockQuery,
+  GetRecyclingGuideBlockQuery,
+  GetServicesBlockQuery,
   QuizAndTipsBlockEntity,
+  RecyclingGuideBlockEntity,
 } from "../graphql/codegen/generated-types";
+import { normalizeStringPath, removeNulls } from "./utilities";
+import { IServiceLink, isServiceLink } from "./service-links";
 
 /* Homepage */
-export function extractRecyclingGuideBlock(
-  data: GetRecyclingGuideBlockByContractIdQuery,
-) {
+export function extractRecyclingGuideBlock(data: GetRecyclingGuideBlockQuery) {
   const recyclingGuideBlock: RecyclingGuideBlockEntity | null =
     data.contractCustomizations?.data[0]?.attributes?.homepage?.data?.attributes
       ?.recyclingGuideBlock?.data ?? null;
@@ -16,9 +17,45 @@ export function extractRecyclingGuideBlock(
   return recyclingGuideBlock;
 }
 
-export function extractQuizAndTipsBlock(
-  data: GetQuizAndTipsBlockByContractIdQuery,
-) {
+export interface IRemappedServiceBlock {
+  titleContent: string | null;
+  serviceLinks: Array<IServiceLink> | null;
+}
+
+export function remapServiceLinksDynamicZone(
+  data: GetServicesBlockQuery,
+): IRemappedServiceBlock {
+  const serviceBlock =
+    data?.contractCustomizations?.data[0].attributes?.homepage?.data?.attributes
+      ?.servicesBlock?.data ?? null;
+  const serviceLinks: Array<IServiceLink> | null =
+    serviceBlock?.attributes?.serviceLinks
+      ?.map((link) => {
+        if (link) {
+          const type = link.__typename;
+          let path = "/";
+          if (type === "ComponentLinksFrees" && link.name) {
+            path = normalizeStringPath(link.name);
+          }
+          if (type && isServiceLink(link)) {
+            return {
+              type,
+              name: link?.name,
+              isDisplayed: link?.isDisplayed,
+              picto: link?.picto,
+              path,
+            };
+          }
+        }
+      })
+      .filter(removeNulls) ?? null;
+  return {
+    titleContent: serviceBlock?.attributes?.titleContent ?? null,
+    serviceLinks,
+  };
+}
+
+export function extractQuizAndTipsBlock(data: GetQuizAndTipsBlockQuery) {
   const quizAndTipsBlock: QuizAndTipsBlockEntity | null =
     data.contractCustomizations?.data[0]?.attributes?.homepage?.data?.attributes
       ?.quizAndTipsBlock?.data ?? null;

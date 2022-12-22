@@ -1,0 +1,270 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ServicesBlock renders less than three ServiceCard 1`] = `
+<div>
+  <section
+    class="c-ServicesBlock"
+    data-testid="services-block"
+  >
+    <div
+      class="c-CommonBlockHeading"
+    >
+      <h2>
+        Les services de ma ville
+      </h2>
+      <div
+        class="c-CommonBlockHeading__Line"
+      />
+    </div>
+    <div
+      class="c-ServicesBlock__Services c-ServicesBlock__Services_many"
+    >
+      <a
+        class="c-ServiceCard"
+        data-testid="service-card"
+        href="/"
+      >
+        <div
+          class="c-ServiceCard__Svg"
+        >
+          <div
+            class="c-ServiceCard__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="25"
+              loading="lazy"
+              src="/images/pictos/default.svg"
+              srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
+              style="color: transparent;"
+              width="25"
+            />
+          </div>
+        </div>
+        <div>
+          Guide du tri
+        </div>
+      </a>
+      <a
+        class="c-ServiceCard"
+        data-testid="service-card"
+        href="valorisation-de-mes-dechets"
+      >
+        <div
+          class="c-ServiceCard__Svg"
+        >
+          <div
+            class="c-ServiceCard__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="25"
+              loading="lazy"
+              src="/images/pictos/default.svg"
+              srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
+              style="color: transparent;"
+              width="25"
+            />
+          </div>
+        </div>
+        <div>
+          Valorisation de mes déchets
+        </div>
+      </a>
+    </div>
+    <div
+      class="c-ServicesBlock__SvgContainer"
+    >
+      <div
+        class="c-ServicesBlock__Svg_desktop"
+      />
+      <div
+        class="c-ServicesBlock__Svg_mobile"
+      />
+    </div>
+  </section>
+</div>
+`;
+
+exports[`ServicesBlock renders nothing when data don't contain a required data  1`] = `
+<div>
+  <section
+    class="c-ServicesBlock"
+    data-testid="services-block"
+  >
+    <div
+      class="c-CommonBlockHeading"
+    >
+      <h2>
+        Les services de ma ville
+      </h2>
+      <div
+        class="c-CommonBlockHeading__Line"
+      />
+    </div>
+    <div
+      class="c-ServicesBlock__Services"
+    />
+    <div
+      class="c-ServicesBlock__SvgContainer"
+    >
+      <div
+        class="c-ServicesBlock__Svg_desktop"
+      />
+      <div
+        class="c-ServicesBlock__Svg_mobile"
+      />
+    </div>
+  </section>
+</div>
+`;
+
+exports[`ServicesBlock renders three or more of ServiceCard 1`] = `
+<div>
+  <section
+    class="c-ServicesBlock"
+    data-testid="services-block"
+  >
+    <div
+      class="c-CommonBlockHeading"
+    >
+      <h2>
+        Les services de ma ville
+      </h2>
+      <div
+        class="c-CommonBlockHeading__Line"
+      />
+    </div>
+    <div
+      class="c-ServicesBlock__Services c-ServicesBlock__Services_many"
+    >
+      <a
+        class="c-ServiceCard"
+        data-testid="service-card"
+        href="/"
+      >
+        <div
+          class="c-ServiceCard__Svg"
+        >
+          <div
+            class="c-ServiceCard__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="25"
+              loading="lazy"
+              src="/images/pictos/default.svg"
+              srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
+              style="color: transparent;"
+              width="25"
+            />
+          </div>
+        </div>
+        <div>
+          Guide du tri
+        </div>
+      </a>
+      <a
+        class="c-ServiceCard"
+        data-testid="service-card"
+        href="valorisation-de-mes-dechets"
+      >
+        <div
+          class="c-ServiceCard__Svg"
+        >
+          <div
+            class="c-ServiceCard__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="25"
+              loading="lazy"
+              src="/images/pictos/default.svg"
+              srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
+              style="color: transparent;"
+              width="25"
+            />
+          </div>
+        </div>
+        <div>
+          Valorisation de mes déchets
+        </div>
+      </a>
+      <a
+        class="c-ServiceCard"
+        data-testid="service-card"
+        href="reduire-mes-dechets"
+      >
+        <div
+          class="c-ServiceCard__Svg"
+        >
+          <div
+            class="c-ServiceCard__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="25"
+              loading="lazy"
+              src="/images/pictos/default.svg"
+              srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
+              style="color: transparent;"
+              width="25"
+            />
+          </div>
+        </div>
+        <div>
+          Réduire mes déchets
+        </div>
+      </a>
+      <a
+        class="c-ServiceCard"
+        data-testid="service-card"
+        href="/"
+      >
+        <div
+          class="c-ServiceCard__Svg"
+        >
+          <div
+            class="c-ServiceCard__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="25"
+              loading="lazy"
+              src="/images/pictos/default.svg"
+              srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
+              style="color: transparent;"
+              width="25"
+            />
+          </div>
+        </div>
+        <div>
+          dfhsrgsrh
+        </div>
+      </a>
+    </div>
+    <div
+      class="c-ServicesBlock__SvgContainer"
+    >
+      <div
+        class="c-ServicesBlock__Svg_desktop"
+      />
+      <div
+        class="c-ServicesBlock__Svg_mobile"
+      />
+    </div>
+  </section>
+</div>
+`;
