@@ -1,6 +1,12 @@
 import classNames from "classnames";
-import Link from "next/link";
+import NavigationLink from "../Navigation/NavigationLink/NavigationLink";
 import HeaderBurgerMenu from "../HeaderBurgerMenu/HeaderBurgerMenu";
+import LogoCommunity from "./LogoCommunity/LogoCommunity";
+import HeaderLinkProfile from "./HeaderLinkProfile/HeaderLinkProfile";
+import HeaderLinkSelector from "./HeaderLinkSelector/HeaderLinkSelector";
+import HeaderLinkUser from "./HeaderLinkUser/HeaderLinkUser";
+import HeaderLinkSearch from "./HeaderLinkSearch/HeaderLinkSearch";
+
 import "./header-top-bar.scss";
 
 interface IHeaderTopBarProps {
@@ -31,59 +37,72 @@ export default function HeaderTopBar({
           />
         )}
         <div className="c-HeaderTopBar__Item c-HeaderTopBar__Logo">
-          <Link href={"/"}>[Logo Collectivité]</Link>
+          <LogoCommunity />
         </div>
         <ul className="c-HeaderTopBar__List">
           {!isDesktopMode && (
             <>
               <li className="c-HeaderTopBar__Item c-HeaderTopBar__User">
-                <Link href={"/"}>[Us]</Link>
+                <HeaderLinkUser />
               </li>
               <li className="c-HeaderTopBar__Item c-HeaderTopBar__Search">
-                <Link href={"/"}>[Re]</Link>
+                <NavigationLink
+                  href="/"
+                  pictoUrl="/images/pictos/search.svg"
+                  isDesktopMode
+                />
               </li>
             </>
           )}
           {isDesktopMode && (
             <>
-              <li
-                className="c-HeaderTopBar__Item"
-                style={{ minWidth: "151px" }}
-              >
-                <Link href={"/"}>[Selecteur]</Link>
+              <li className="c-HeaderTopBar__Item">
+                <HeaderLinkSelector />
               </li>
               <div className="c-HeaderTopBar__Filler" aria-hidden={true} />
-              <li
-                className="c-HeaderTopBar__Item"
-                style={{ minWidth: "316px" }}
-              >
-                <Link href={"/"}>[Recherche]</Link>
+              <li className="c-HeaderTopBar__Item">
+                <div className="c-HeaderTopBar__SearchBar">
+                  <HeaderLinkSearch />
+                </div>
               </li>
               <li className="c-HeaderTopBar__Item">
-                <Link href={"/"}>[Ad]</Link>
+                <NavigationLink
+                  href="/"
+                  pictoUrl="/images/pictos/localisation.svg"
+                  isDesktopMode
+                />
               </li>
               <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
               <li className="c-HeaderTopBar__Item">
-                <Link href={"/"}>[Ca]</Link>
+                <NavigationLink
+                  href="/"
+                  pictoUrl="/images/pictos/calendar.svg"
+                  isDesktopMode
+                />
               </li>
               <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
               <li className="c-HeaderTopBar__Item">
-                <Link href={"/"}>[Al]</Link>
+                <NavigationLink
+                  href="/"
+                  pictoUrl="/images/pictos/notify.svg"
+                  isDesktopMode
+                />
               </li>
               <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
               <li className="c-HeaderTopBar__Item">
-                <Link href={"/"}>[Co]</Link>
-              </li>
-              <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
-              <li
-                className="c-HeaderTopBar__Item"
-                style={{ minWidth: "115px" }}
-              >
-                <Link href={"/"}>[Profil]</Link>
+                <NavigationLink
+                  href="/"
+                  pictoUrl="/images/pictos/contact.svg"
+                  isDesktopMode
+                />
               </li>
               <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
               <li className="c-HeaderTopBar__Item">
-                <Link href={"/"}>[Us]</Link>
+                <HeaderLinkProfile />
+              </li>
+              <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
+              <li className="c-HeaderTopBar__Item">
+                <HeaderLinkUser />
               </li>
             </>
           )}

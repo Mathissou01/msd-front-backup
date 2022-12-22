@@ -1,0 +1,32 @@
+.c-NavigationLink {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 8px 16px;
+
+  &_desktop {
+    gap: 0;
+    padding: 0;
+  }
+
+  &__Box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-width: 50px;
+    min-height: 50px;
+  }
+
+  &__Label {
+    // color: colors.$expert-blue;
+    font-weight: 500;
+    font-size: 14px;
+    font-family: DINPro-Medium, sans-serif;
+    line-height: 14px;
+    text-transform: uppercase;
+  }
+}

@@ -3,6 +3,7 @@
 @use "src/styles/02-tools/tools.z-index" as index;
 @use "src/styles/02-tools/tools.media-queries" as media;
 @use "src/styles/02-tools/tools.typography" as typo;
+@use "src/styles/02-tools/tools.inputs" as input;
 @use "src/styles/02-tools/tools.shadows" as shadows;
 
 .c-HeaderTopBar {
@@ -113,6 +114,15 @@
     min-width: 56px;
     height: 60px;
     color: colors.$expert-blue;
+  }
+
+  &__SearchBar {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    padding: 0;
+    border-radius: 2px;
   }
 
   &__Filler {

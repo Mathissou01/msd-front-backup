@@ -5,7 +5,7 @@ test("homepage has title and links homepage customization page", async ({
 }) => {
   await page.goto("http://localhost:3002/");
   await expect(page).toHaveTitle(/MSD-FRONT/);
-  await page.getByRole("link", { name: "[Logo Collectivité]" }).click();
+  await page.getByTestId("logo-community").click();
   // await page.getByRole("link", { name: "Page d'accueil" }).click();
   // const title = page.getByTestId("title");
   // await expect(title).toHaveText("Page d'accueil");

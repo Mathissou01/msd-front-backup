@@ -1,14 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import { IsDesktopContext } from "../../../../hooks/useScreenWidth";
 import NavigationList from "./NavigationList";
 
 describe("NavigationList", () => {
   it("renders in mobile mode", async () => {
-    const { container } = render(
-      <IsDesktopContext.Provider value={false}>
-        <NavigationList isDesktopMode={false} />
-      </IsDesktopContext.Provider>,
-    );
+    const { container } = render(<NavigationList isDesktopMode={false} />);
 
     expect(await screen.findByText("Accueil")).toBeInTheDocument();
     expect(
@@ -18,11 +13,7 @@ describe("NavigationList", () => {
   });
 
   it("renders in desktop mode", async () => {
-    const { container } = render(
-      <IsDesktopContext.Provider value={false}>
-        <NavigationList isDesktopMode={true} />
-      </IsDesktopContext.Provider>,
-    );
+    const { container } = render(<NavigationList isDesktopMode={true} />);
 
     expect(await screen.findByText("Accueil")).toBeInTheDocument();
     expect(
