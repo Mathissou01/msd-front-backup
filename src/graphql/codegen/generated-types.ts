@@ -5495,10 +5495,23 @@ export type GetServicesBlockQuery = {
                     __typename?: "ServicesBlock";
                     titleContent: string;
                     serviceLinks?: Array<
-                      | { __typename?: "ComponentLinksCalendar" }
+                      | {
+                          __typename?: "ComponentLinksCalendar";
+                          name?: string | null;
+                          isDisplayed: boolean;
+                          picto?: {
+                            __typename?: "UploadFileEntityResponse";
+                            data?: {
+                              __typename?: "UploadFileEntity";
+                              attributes?: {
+                                __typename?: "UploadFile";
+                                url: string;
+                              } | null;
+                            } | null;
+                          } | null;
+                        }
                       | {
                           __typename?: "ComponentLinksContactUs";
-                          id: string;
                           name?: string | null;
                           isDisplayed: boolean;
                           picto?: {
@@ -5514,7 +5527,6 @@ export type GetServicesBlockQuery = {
                         }
                       | {
                           __typename?: "ComponentLinksEvents";
-                          id: string;
                           name?: string | null;
                           isDisplayed: boolean;
                           picto?: {
@@ -5530,9 +5542,9 @@ export type GetServicesBlockQuery = {
                         }
                       | {
                           __typename?: "ComponentLinksExternal";
-                          id: string;
                           name?: string | null;
                           isDisplayed: boolean;
+                          externalLink?: string | null;
                           picto?: {
                             __typename?: "UploadFileEntityResponse";
                             data?: {
@@ -5546,7 +5558,6 @@ export type GetServicesBlockQuery = {
                         }
                       | {
                           __typename?: "ComponentLinksFrees";
-                          id: string;
                           name?: string | null;
                           isDisplayed: boolean;
                           picto?: {
@@ -5560,10 +5571,23 @@ export type GetServicesBlockQuery = {
                             } | null;
                           } | null;
                         }
-                      | { __typename?: "ComponentLinksMap" }
+                      | {
+                          __typename?: "ComponentLinksMap";
+                          name?: string | null;
+                          isDisplayed: boolean;
+                          picto?: {
+                            __typename?: "UploadFileEntityResponse";
+                            data?: {
+                              __typename?: "UploadFileEntity";
+                              attributes?: {
+                                __typename?: "UploadFile";
+                                url: string;
+                              } | null;
+                            } | null;
+                          } | null;
+                        }
                       | {
                           __typename?: "ComponentLinksNews";
-                          id: string;
                           name?: string | null;
                           isDisplayed: boolean;
                           picto?: {
@@ -5579,7 +5603,6 @@ export type GetServicesBlockQuery = {
                         }
                       | {
                           __typename?: "ComponentLinksQuizzes";
-                          id: string;
                           name?: string | null;
                           isDisplayed: boolean;
                           picto?: {
@@ -5595,7 +5618,6 @@ export type GetServicesBlockQuery = {
                         }
                       | {
                           __typename?: "ComponentLinksRecycling";
-                          id: string;
                           name?: string | null;
                           isDisplayed: boolean;
                           picto?: {
@@ -5611,7 +5633,6 @@ export type GetServicesBlockQuery = {
                         }
                       | {
                           __typename?: "ComponentLinksRequest";
-                          id: string;
                           name?: string | null;
                           isDisplayed: boolean;
                           picto?: {
@@ -5627,7 +5648,6 @@ export type GetServicesBlockQuery = {
                         }
                       | {
                           __typename?: "ComponentLinksTips";
-                          id: string;
                           name?: string | null;
                           isDisplayed: boolean;
                           picto?: {
@@ -6187,8 +6207,18 @@ export const GetServicesBlockDocument = gql`
                     attributes {
                       titleContent
                       serviceLinks {
-                        ... on ComponentLinksRequest {
-                          id
+                        ... on ComponentLinksMap {
+                          name
+                          isDisplayed
+                          picto {
+                            data {
+                              attributes {
+                                url
+                              }
+                            }
+                          }
+                        }
+                        ... on ComponentLinksCalendar {
                           name
                           isDisplayed
                           picto {
@@ -6200,7 +6230,17 @@ export const GetServicesBlockDocument = gql`
                           }
                         }
                         ... on ComponentLinksRecycling {
-                          id
+                          name
+                          isDisplayed
+                          picto {
+                            data {
+                              attributes {
+                                url
+                              }
+                            }
+                          }
+                        }
+                        ... on ComponentLinksRequest {
                           name
                           isDisplayed
                           picto {
@@ -6212,43 +6252,6 @@ export const GetServicesBlockDocument = gql`
                           }
                         }
                         ... on ComponentLinksContactUs {
-                          id
-                          name
-                          isDisplayed
-                          picto {
-                            data {
-                              attributes {
-                                url
-                              }
-                            }
-                          }
-                        }
-                        ... on ComponentLinksExternal {
-                          id
-                          name
-                          isDisplayed
-                          picto {
-                            data {
-                              attributes {
-                                url
-                              }
-                            }
-                          }
-                        }
-                        ... on ComponentLinksEvents {
-                          id
-                          name
-                          isDisplayed
-                          picto {
-                            data {
-                              attributes {
-                                url
-                              }
-                            }
-                          }
-                        }
-                        ... on ComponentLinksFrees {
-                          id
                           name
                           isDisplayed
                           picto {
@@ -6260,7 +6263,17 @@ export const GetServicesBlockDocument = gql`
                           }
                         }
                         ... on ComponentLinksNews {
-                          id
+                          name
+                          isDisplayed
+                          picto {
+                            data {
+                              attributes {
+                                url
+                              }
+                            }
+                          }
+                        }
+                        ... on ComponentLinksEvents {
                           name
                           isDisplayed
                           picto {
@@ -6272,7 +6285,6 @@ export const GetServicesBlockDocument = gql`
                           }
                         }
                         ... on ComponentLinksQuizzes {
-                          id
                           name
                           isDisplayed
                           picto {
@@ -6284,7 +6296,6 @@ export const GetServicesBlockDocument = gql`
                           }
                         }
                         ... on ComponentLinksTips {
-                          id
                           name
                           isDisplayed
                           picto {
@@ -6294,6 +6305,29 @@ export const GetServicesBlockDocument = gql`
                               }
                             }
                           }
+                        }
+                        ... on ComponentLinksFrees {
+                          name
+                          isDisplayed
+                          picto {
+                            data {
+                              attributes {
+                                url
+                              }
+                            }
+                          }
+                        }
+                        ... on ComponentLinksExternal {
+                          name
+                          isDisplayed
+                          picto {
+                            data {
+                              attributes {
+                                url
+                              }
+                            }
+                          }
+                          externalLink
                         }
                       }
                     }

@@ -11,8 +11,18 @@ query getServicesBlock($contractId: ID!) {
                   attributes {
                     titleContent
                     serviceLinks {
-                      ... on ComponentLinksRequest {
-                        id
+                      ... on ComponentLinksMap {
+                        name
+                        isDisplayed
+                        picto {
+                          data {
+                            attributes {
+                              url
+                            }
+                          }
+                        }
+                      }
+                      ... on ComponentLinksCalendar {
                         name
                         isDisplayed
                         picto {
@@ -24,7 +34,17 @@ query getServicesBlock($contractId: ID!) {
                         }
                       }
                       ... on ComponentLinksRecycling {
-                        id
+                        name
+                        isDisplayed
+                        picto {
+                          data {
+                            attributes {
+                              url
+                            }
+                          }
+                        }
+                      }
+                      ... on ComponentLinksRequest {
                         name
                         isDisplayed
                         picto {
@@ -36,43 +56,6 @@ query getServicesBlock($contractId: ID!) {
                         }
                       }
                       ... on ComponentLinksContactUs {
-                        id
-                        name
-                        isDisplayed
-                        picto {
-                          data {
-                            attributes {
-                              url
-                            }
-                          }
-                        }
-                      }
-                      ... on ComponentLinksExternal {
-                        id
-                        name
-                        isDisplayed
-                        picto {
-                          data {
-                            attributes {
-                              url
-                            }
-                          }
-                        }
-                      }
-                      ... on ComponentLinksEvents {
-                        id
-                        name
-                        isDisplayed
-                        picto {
-                          data {
-                            attributes {
-                              url
-                            }
-                          }
-                        }
-                      }
-                      ... on ComponentLinksFrees {
-                        id
                         name
                         isDisplayed
                         picto {
@@ -84,7 +67,17 @@ query getServicesBlock($contractId: ID!) {
                         }
                       }
                       ... on ComponentLinksNews {
-                        id
+                        name
+                        isDisplayed
+                        picto {
+                          data {
+                            attributes {
+                              url
+                            }
+                          }
+                        }
+                      }
+                      ... on ComponentLinksEvents {
                         name
                         isDisplayed
                         picto {
@@ -96,7 +89,6 @@ query getServicesBlock($contractId: ID!) {
                         }
                       }
                       ... on ComponentLinksQuizzes {
-                        id
                         name
                         isDisplayed
                         picto {
@@ -108,7 +100,6 @@ query getServicesBlock($contractId: ID!) {
                         }
                       }
                       ... on ComponentLinksTips {
-                        id
                         name
                         isDisplayed
                         picto {
@@ -118,6 +109,29 @@ query getServicesBlock($contractId: ID!) {
                             }
                           }
                         }
+                      }
+                      ... on ComponentLinksFrees {
+                        name
+                        isDisplayed
+                        picto {
+                          data {
+                            attributes {
+                              url
+                            }
+                          }
+                        }
+                      }
+                      ... on ComponentLinksExternal {
+                        name
+                        isDisplayed
+                        picto {
+                          data {
+                            attributes {
+                              url
+                            }
+                          }
+                        }
+                        externalLink
                       }
                     }
                   }
