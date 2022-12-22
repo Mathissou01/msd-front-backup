@@ -1,4 +1,26 @@
 {
+  "footer": {
+    "data": {
+      "attributes": {
+        "accessibilityLevel": "partially_conform",
+        "cguSubService": {
+          "data": null
+        },
+        "accessibilitySubService": {
+          "data": null
+        },
+        "confidentialitySubService": {
+          "data": null
+        },
+        "cookiesSubService": {
+          "data": null
+        },
+        "contactUsSubService": {
+          "data": null
+        }
+      }
+    }
+  },
   "contractMenu": {
     "data": {
       "attributes": {

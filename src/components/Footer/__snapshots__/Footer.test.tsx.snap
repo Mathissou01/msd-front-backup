@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders 1`] = `
+<div>
+  <footer
+    class="c-Footer"
+    data-testid="footer"
+  >
+    <a
+      class="c-Footer__Link"
+      href="/"
+    >
+      <span>
+        Accessibilité : partiellement conforme
+      </span>
+    </a>
+    <a
+      class="c-Footer__Link"
+      href="/"
+    >
+      <span>
+        Le site de SUEZ
+      </span>
+    </a>
+    <a
+      class="c-Footer__Link"
+      href="/"
+    >
+      <span>
+        Conditions générales
+      </span>
+    </a>
+    <a
+      class="c-Footer__Link"
+      href="/"
+    >
+      <span>
+        Politique de cookies
+      </span>
+    </a>
+    <a
+      class="c-Footer__Link"
+      href="/"
+    >
+      <span>
+        Politique de confidentialité
+      </span>
+    </a>
+    <a
+      class="c-Footer__Link"
+      href="/"
+    >
+      <span>
+        Contactez-nous
+      </span>
+    </a>
+  </footer>
+</div>
+`;

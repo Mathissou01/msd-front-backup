@@ -74,7 +74,9 @@ export default function HomePage({
       {displayQuizAndTipsBlock && <QuizAndTipsBlock data={quizAndTipsBlock} />}
       <section
         className="o-Page__Section"
-        style={{ minHeight: isDesktop ? "592px" : "1204px" }}
+        style={{
+          minHeight: isDesktop ? "592px" : "1204px",
+        }}
       >
         (Edito)
       </section>

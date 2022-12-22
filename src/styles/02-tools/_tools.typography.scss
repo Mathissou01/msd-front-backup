@@ -29,6 +29,18 @@
     text-transform: uppercase;
   }
 
+  @if $type == "footer" {
+    font-weight: 400;
+    font-size: 12px;
+    font-family: DINPro-Regular, sans-serif;
+    line-height: 18px;
+
+    @include media.desktop-only {
+      font-size: 14px;
+      line-height: 21px;
+    }
+  }
+
   @if $type == "caption" {
     font-weight: 500;
     font-size: 12px;

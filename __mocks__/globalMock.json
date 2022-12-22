@@ -55,6 +55,34 @@
       }
     }
   },
+  "footer": {
+    "data": {
+      "attributes": {
+        "accessibilityLevel": "partially_conform",
+        "cguSubService": {
+          "data": null
+        },
+        "accessibilitySubService": {
+          "data": null
+        },
+        "confidentialitySubService": {
+          "data": null
+        },
+        "cookiesSubService": {
+          "data": null
+        },
+        "contactUsSubService": {
+          "data": {
+            "attributes": {
+              "isActivated": true,
+              "label": "Contactez-nous",
+              "link": null
+            }
+          }
+        }
+      }
+    }
+  },
   "colors": {
     "external-contrast-text": "#030f40",
     "external-primary": "#0A959F",

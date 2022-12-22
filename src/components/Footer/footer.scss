@@ -1,15 +1,45 @@
 @use "src/styles/01-settings/settings.colors" as colors;
 @use "src/styles/01-settings/settings.layout" as layout;
+@use "src/styles/02-tools/tools.typography" as typo;
 @use "src/styles/02-tools/tools.media-queries" as media;
 
 .c-Footer {
-  position: relative;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  min-height: layout.$footer-height;
-  overflow: hidden auto;
-  background-color: colors.$white;
+  width: 100%;
+  padding: 16px 5px;
   border-top: 1px solid colors.$gray-200;
+
+  @include media.desktop-only {
+    height: 69px;
+  }
+
+  &__Link {
+    @include typo.text("footer");
+
+    position: relative;
+    padding-right: 12px;
+    padding-left: 12px;
+
+    @include media.desktop-only {
+      padding: 0 20px;
+    }
+
+    &::before {
+      position: absolute;
+      right: 0;
+      width: 1px;
+      height: 20px;
+      background: colors.$gray-500;
+      content: "";
+    }
+
+    &:last-child {
+      &::before {
+        content: none;
+      }
+    }
+  }
 }
