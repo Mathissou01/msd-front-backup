@@ -43,7 +43,9 @@ exports[`ServicesBlock renders less than three ServiceCard 1`] = `
             />
           </div>
         </div>
-        <div>
+        <div
+          class="c-ServiceCard__Title"
+        >
           Guide du tri
         </div>
       </a>
@@ -71,7 +73,9 @@ exports[`ServicesBlock renders less than three ServiceCard 1`] = `
             />
           </div>
         </div>
-        <div>
+        <div
+          class="c-ServiceCard__Title"
+        >
           Valorisation de mes déchets
         </div>
       </a>
@@ -166,7 +170,9 @@ exports[`ServicesBlock renders three or more of ServiceCard 1`] = `
             />
           </div>
         </div>
-        <div>
+        <div
+          class="c-ServiceCard__Title"
+        >
           Guide du tri
         </div>
       </a>
@@ -194,7 +200,9 @@ exports[`ServicesBlock renders three or more of ServiceCard 1`] = `
             />
           </div>
         </div>
-        <div>
+        <div
+          class="c-ServiceCard__Title"
+        >
           Valorisation de mes déchets
         </div>
       </a>
@@ -222,7 +230,9 @@ exports[`ServicesBlock renders three or more of ServiceCard 1`] = `
             />
           </div>
         </div>
-        <div>
+        <div
+          class="c-ServiceCard__Title"
+        >
           Réduire mes déchets
         </div>
       </a>
@@ -250,7 +260,9 @@ exports[`ServicesBlock renders three or more of ServiceCard 1`] = `
             />
           </div>
         </div>
-        <div>
+        <div
+          class="c-ServiceCard__Title"
+        >
           dfhsrgsrh
         </div>
       </a>

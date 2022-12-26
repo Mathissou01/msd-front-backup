@@ -1,76 +1,25 @@
 {
-  "contractMenu": {
-    "data": {
-      "attributes": {
-        "serviceLinks": [
-          {
-            "__typename": "ComponentLinksMap",
-            "name": "Carte",
-            "isDisplayed": true,
-            "picto": { "data": null }
-          },
-          {
-            "__typename": "ComponentLinksCalendar",
-            "name": "Collecte à mon adresse",
-            "isDisplayed": true,
-            "picto": { "data": null }
-          },
-          {
-            "__typename": "ComponentLinksRequest",
-            "name": "Faire une demande",
-            "isDisplayed": true,
-            "picto": { "data": null }
-          },
-          {
-            "__typename": "ComponentLinksRecycling",
-            "name": "Guide du tri",
-            "isDisplayed": true,
-            "picto": { "data": null }
-          },
-          {
-            "__typename": "ComponentLinksFrees",
-            "name": "Réduire mes déchets",
-            "isDisplayed": true,
-            "picto": { "data": null }
-          },
-          {
-            "__typename": "ComponentLinksFrees",
-            "name": "Valoriser mes déchets",
-            "isDisplayed": true,
-            "picto": { "data": null }
-          }
-        ]
-      }
-    }
-  },
+  "contractMenu": { "data": { "attributes": { "serviceLinks": [] } } },
   "footer": {
     "data": {
       "attributes": {
-        "accessibilityLevel": "partially_conform",
+        "accessibilityLevel": "not_conform",
         "cguSubService": { "data": null },
         "accessibilitySubService": { "data": null },
         "confidentialitySubService": { "data": null },
         "cookiesSubService": { "data": null },
-        "contactUsSubService": {
-          "data": {
-            "attributes": {
-              "isActivated": true,
-              "label": "Contactez-nous",
-              "link": null
-            }
-          }
-        }
+        "contactUsSubService": { "data": null }
       }
     }
   },
   "colors": {
-    "external-contrast-text": "#FFFFFF",
-    "external-primary": "#0A959F",
-    "calculated-primary-dark": "#006771",
-    "calculated-primary-light": "#0a959f1a",
-    "external-secondary": "#A3C037",
-    "calculated-secondary-dark": "#719000",
-    "calculated-secondary-light": "#a3c0371a",
+    "external-contrast-text": "#030f40",
+    "external-primary": "#9bcd41",
+    "calculated-primary-dark": "#699c00",
+    "calculated-primary-light": "#9bcd411a",
+    "external-secondary": "#ffc229",
+    "calculated-secondary-dark": "#c79200",
+    "calculated-secondary-light": "#ffc2291a",
     "external-waste-household": "#6C757D",
     "external-waste-selective": "#FFC229",
     "external-waste-bio": "#BD4602",

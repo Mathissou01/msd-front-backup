@@ -40,4 +40,8 @@
   &__Picto {
     filter: url("#recolor-primary");
   }
+
+  &__Title {
+    color: colors.$expert-blue;
+  }
 }

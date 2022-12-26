@@ -27,7 +27,7 @@ export default function ServiceCard({
           </div>
         )}
       </div>
-      <div>{name}</div>
+      <div className="c-ServiceCard__Title">{name}</div>
     </Link>
   );
 }
