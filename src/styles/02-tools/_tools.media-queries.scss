@@ -18,6 +18,36 @@
   }
 }
 
+@mixin mobile {
+  @media screen and (min-width: map-get(bp.$breakpoints, minimum)) and (max-width: map-get(bp.$breakpoints, large-mobile)) {
+    @content;
+  }
+}
+
+@mixin small-tablet {
+  @media screen and (min-width: map-get(bp.$breakpoints, large-mobile)) and (max-width: map-get(bp.$breakpoints, tablet)) {
+    @content;
+  }
+}
+
+@mixin small-laptop {
+  @media screen and (min-width: map-get(bp.$breakpoints, tablet)) and (max-width: map-get(bp.$breakpoints, large-laptop)) {
+    @content;
+  }
+}
+
+@mixin from-tablet {
+  @media screen and (min-width: map-get(bp.$breakpoints, tablet)) {
+    @content;
+  }
+}
+
+@mixin from-small-laptop {
+  @media screen and (min-width: map-get(bp.$breakpoints, small-laptop)) {
+    @content;
+  }
+}
+
 @mixin desktop-only {
   @media screen and (min-width: map-get(bp.$breakpoints, desktop)) {
     @content;

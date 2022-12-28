@@ -12,4 +12,8 @@
     border: 2px solid colors.$brand-secondary;
     border-radius: 5px;
   }
+
+  &_alignLeft {
+    align-self: flex-start;
+  }
 }

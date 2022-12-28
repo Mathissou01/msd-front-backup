@@ -2,8 +2,10 @@ import {
   GetQuizAndTipsBlockQuery,
   GetRecyclingGuideBlockQuery,
   GetServicesBlockQuery,
+  GetTopContentBlockQuery,
   QuizAndTipsBlockEntity,
   RecyclingGuideBlockEntity,
+  TopContentBlockEntity,
 } from "../graphql/codegen/generated-types";
 import { normalizeStringPath, removeNulls } from "./utilities";
 import { IServiceLink, isServiceLink } from "./service-links";
@@ -61,4 +63,12 @@ export function extractQuizAndTipsBlock(data: GetQuizAndTipsBlockQuery) {
       ?.quizAndTipsBlock?.data ?? null;
 
   return quizAndTipsBlock;
+}
+
+export function extractTopContentBlock(data: GetTopContentBlockQuery) {
+  const topContentBlock = (data.contractCustomizations?.data[0].attributes
+    ?.homepage?.data?.attributes?.topContentBlock?.data ??
+    null) as TopContentBlockEntity;
+
+  return topContentBlock;
 }

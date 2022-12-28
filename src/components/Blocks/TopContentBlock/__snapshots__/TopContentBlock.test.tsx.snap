@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TopContentBlock renders 1`] = `
+<div>
+  <section
+    class="c-TopContentBlock"
+  >
+    <div
+      class="c-CommonBlockHeading c-CommonBlockHeading_alignLeft"
+    >
+      <h2>
+        Actualités & Evénements
+      </h2>
+      <div
+        class="c-CommonBlockHeading__Line"
+      />
+    </div>
+    <div
+      class="c-TopContentCard"
+    >
+      <div
+        class="c-TopContentCard__Image"
+      >
+        <img
+          alt=""
+          class="c-TopContentCard__Img_desktop"
+          data-nimg="1"
+          decoding="async"
+          height="308"
+          loading="lazy"
+          src="/_next/image?url=%2Fimages%2Fimages-temp%2FnewsDesktop.jpg&w=1080&q=75"
+          srcset="/_next/image?url=%2Fimages%2Fimages-temp%2FnewsDesktop.jpg&w=640&q=75 1x, /_next/image?url=%2Fimages%2Fimages-temp%2FnewsDesktop.jpg&w=1080&q=75 2x"
+          style="color: transparent;"
+          width="480"
+        />
+        <img
+          alt=""
+          class="c-TopContentCard__Img_mobile"
+          data-nimg="1"
+          decoding="async"
+          height="200"
+          loading="lazy"
+          src="/_next/image?url=%2Fimages%2Fimages-temp%2FnewsMobile.png&w=640&q=75"
+          srcset="/_next/image?url=%2Fimages%2Fimages-temp%2FnewsMobile.png&w=384&q=75 1x, /_next/image?url=%2Fimages%2Fimages-temp%2FnewsMobile.png&w=640&q=75 2x"
+          style="color: transparent;"
+          width="312"
+        />
+      </div>
+      <div
+        class="c-TopContentCard__Content"
+      >
+        <div
+          class="c-TopContentCard__ContentTags"
+        >
+          <div
+            class="c-TopContentCard__Tags"
+          >
+            <span
+              class="c-TopContentCard__Tag "
+            >
+              Evénement
+            </span>
+            <span
+              class="c-TopContentCard__Tag c-TopContentCard__Tag_backgroud"
+            >
+              Réparation
+            </span>
+          </div>
+          <div
+            class="c-TopContentCard__ContentCardDate"
+          >
+            5 décembre 2022
+          </div>
+        </div>
+        <div
+          class="c-TopContentCard__Description"
+        >
+          <h2
+            class="c-TopContentCard__TitleContent"
+          >
+            Café préparation
+          </h2>
+          <p
+            class="c-TopContentCard__DescriptionContent"
+          >
+            Participer à un café réparation avec La Recyclade au café restaurantde la Maison Phare. Vous apprendrez à faire un diagnostic et àréparer votre petit appareil électrique ou électronique de la viequotidienne
+          </p>
+        </div>
+        <a
+          class="c-TopContentCard__Link"
+          href="/"
+        >
+          <button
+            class="c-TopContentCard__Button"
+            type="button"
+          >
+            En savoir plus
+          </button>
+          <div />
+        </a>
+      </div>
+    </div>
+    <button
+      class="c-CommonButton c-CommonButton_primary c-CommonButton_fontSmall"
+      type="button"
+    >
+      Voir plus d’actualités et d’événements
+    </button>
+  </section>
+</div>
+`;

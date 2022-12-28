@@ -1,0 +1,16 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.typography" as typo;
+@use "src/styles/02-tools/tools.inputs" as input;
+@use "src/styles/02-tools/tools.media-queries" as media;
+
+.c-TopContentBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  padding: 40px 16px;
+
+  @include media.from-tablet {
+    padding: 80px 124px;
+  }
+}

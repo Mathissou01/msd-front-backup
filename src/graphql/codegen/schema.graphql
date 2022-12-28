@@ -2166,6 +2166,7 @@ type New {
     sort: [String] = []
   ): ChannelTypeRelationResponseCollection
   createdAt: DateTime
+  description: String!
   editoContent: EditoContentEntityResponse
   image: UploadFileEntityResponse
   newsSubService: NewsSubServiceEntityResponse
@@ -2200,6 +2201,7 @@ input NewFiltersInput {
   audiences: AudienceTypeFiltersInput
   channels: ChannelTypeFiltersInput
   createdAt: DateTimeFilterInput
+  description: StringFilterInput
   editoContent: EditoContentFiltersInput
   id: IDFilterInput
   newsSubService: NewsSubServiceFiltersInput
@@ -2215,6 +2217,7 @@ input NewFiltersInput {
 input NewInput {
   audiences: [ID]
   channels: [ID]
+  description: String
   editoContent: ID
   image: ID
   newsSubService: ID

@@ -1,0 +1,55 @@
+query getTopContentBlock($contractId: ID!) {
+  contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
+    data {
+      attributes {
+        homepage {
+          data {
+            attributes {
+              topContentBlock {
+                data {
+                  id
+                  attributes {
+                    titleContent
+                    displayBlock
+                    displayLastThreeContents
+                    topContent {
+                      data {
+                        attributes {
+                          news {
+                            data {
+                              attributes {
+                                title
+                                tags {
+                                  data {
+                                    attributes {
+                                      name
+                                    }
+                                  }
+                                }
+                                publishedAt
+                                image {
+                                  data {
+                                    attributes {
+                                      alternativeText
+                                      url
+                                    }
+                                  }
+                                }
+                                description
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                    hasTopContent
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

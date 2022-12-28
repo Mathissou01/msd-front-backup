@@ -16,3 +16,13 @@ export function normalizeStringPath(str: string): string {
     .replace(/([\u0300-\u036f]|[^0-9a-zA-Z-])/g, "")
     .toLowerCase();
 }
+
+export function handleDateFrenchFormat(date: Date): string {
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+
+  return date.toLocaleDateString("fr", options);
+}

@@ -2878,6 +2878,7 @@ export type New = {
   audiences?: Maybe<AudienceTypeRelationResponseCollection>;
   channels?: Maybe<ChannelTypeRelationResponseCollection>;
   createdAt?: Maybe<Scalars["DateTime"]>;
+  description: Scalars["String"];
   editoContent?: Maybe<EditoContentEntityResponse>;
   image?: Maybe<UploadFileEntityResponse>;
   newsSubService?: Maybe<NewsSubServiceEntityResponse>;
@@ -2929,6 +2930,7 @@ export type NewFiltersInput = {
   audiences?: InputMaybe<AudienceTypeFiltersInput>;
   channels?: InputMaybe<ChannelTypeFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
   editoContent?: InputMaybe<EditoContentFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
   newsSubService?: InputMaybe<NewsSubServiceFiltersInput>;
@@ -2944,6 +2946,7 @@ export type NewFiltersInput = {
 export type NewInput = {
   audiences?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   channels?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  description?: InputMaybe<Scalars["String"]>;
   editoContent?: InputMaybe<Scalars["ID"]>;
   image?: InputMaybe<Scalars["ID"]>;
   newsSubService?: InputMaybe<Scalars["ID"]>;
@@ -5675,6 +5678,88 @@ export type GetServicesBlockQuery = {
   } | null;
 };
 
+export type GetTopContentBlockQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+}>;
+
+export type GetTopContentBlockQuery = {
+  __typename?: "Query";
+  contractCustomizations?: {
+    __typename?: "ContractCustomizationEntityResponseCollection";
+    data: Array<{
+      __typename?: "ContractCustomizationEntity";
+      attributes?: {
+        __typename?: "ContractCustomization";
+        homepage?: {
+          __typename?: "HomepageEntityResponse";
+          data?: {
+            __typename?: "HomepageEntity";
+            attributes?: {
+              __typename?: "Homepage";
+              topContentBlock?: {
+                __typename?: "TopContentBlockEntityResponse";
+                data?: {
+                  __typename?: "TopContentBlockEntity";
+                  id?: string | null;
+                  attributes?: {
+                    __typename?: "TopContentBlock";
+                    titleContent: string;
+                    displayBlock: boolean;
+                    displayLastThreeContents: boolean;
+                    hasTopContent: boolean;
+                    topContent?: {
+                      __typename?: "TopContentEntityResponse";
+                      data?: {
+                        __typename?: "TopContentEntity";
+                        attributes?: {
+                          __typename?: "TopContent";
+                          news?: {
+                            __typename?: "NewEntityResponse";
+                            data?: {
+                              __typename?: "NewEntity";
+                              attributes?: {
+                                __typename?: "New";
+                                title: string;
+                                publishedAt?: any | null;
+                                description: string;
+                                tags?: {
+                                  __typename?: "TagRelationResponseCollection";
+                                  data: Array<{
+                                    __typename?: "TagEntity";
+                                    attributes?: {
+                                      __typename?: "Tag";
+                                      name: string;
+                                    } | null;
+                                  }>;
+                                } | null;
+                                image?: {
+                                  __typename?: "UploadFileEntityResponse";
+                                  data?: {
+                                    __typename?: "UploadFileEntity";
+                                    attributes?: {
+                                      __typename?: "UploadFile";
+                                      alternativeText?: string | null;
+                                      url: string;
+                                    } | null;
+                                  } | null;
+                                } | null;
+                              } | null;
+                            } | null;
+                          } | null;
+                        } | null;
+                      } | null;
+                    } | null;
+                  } | null;
+                } | null;
+              } | null;
+            } | null;
+          } | null;
+        } | null;
+      } | null;
+    }>;
+  } | null;
+};
+
 export const GetContractMenuDocument = gql`
   query getContractMenu($contractId: ID!) {
     contract(id: $contractId) {
@@ -6391,4 +6476,112 @@ export type GetServicesBlockLazyQueryHookResult = ReturnType<
 export type GetServicesBlockQueryResult = Apollo.QueryResult<
   GetServicesBlockQuery,
   GetServicesBlockQueryVariables
+>;
+export const GetTopContentBlockDocument = gql`
+  query getTopContentBlock($contractId: ID!) {
+    contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
+      data {
+        attributes {
+          homepage {
+            data {
+              attributes {
+                topContentBlock {
+                  data {
+                    id
+                    attributes {
+                      titleContent
+                      displayBlock
+                      displayLastThreeContents
+                      topContent {
+                        data {
+                          attributes {
+                            news {
+                              data {
+                                attributes {
+                                  title
+                                  tags {
+                                    data {
+                                      attributes {
+                                        name
+                                      }
+                                    }
+                                  }
+                                  publishedAt
+                                  image {
+                                    data {
+                                      attributes {
+                                        alternativeText
+                                        url
+                                      }
+                                    }
+                                  }
+                                  description
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                      hasTopContent
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetTopContentBlockQuery__
+ *
+ * To run a query within a React component, call `useGetTopContentBlockQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTopContentBlockQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTopContentBlockQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetTopContentBlockQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetTopContentBlockQuery,
+    GetTopContentBlockQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetTopContentBlockQuery,
+    GetTopContentBlockQueryVariables
+  >(GetTopContentBlockDocument, options);
+}
+export function useGetTopContentBlockLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetTopContentBlockQuery,
+    GetTopContentBlockQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetTopContentBlockQuery,
+    GetTopContentBlockQueryVariables
+  >(GetTopContentBlockDocument, options);
+}
+export type GetTopContentBlockQueryHookResult = ReturnType<
+  typeof useGetTopContentBlockQuery
+>;
+export type GetTopContentBlockLazyQueryHookResult = ReturnType<
+  typeof useGetTopContentBlockLazyQuery
+>;
+export type GetTopContentBlockQueryResult = Apollo.QueryResult<
+  GetTopContentBlockQuery,
+  GetTopContentBlockQueryVariables
 >;

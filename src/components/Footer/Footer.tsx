@@ -3,7 +3,12 @@ import globalData from "../../../config/global.json";
 import "./footer.scss";
 
 interface IFooterData {
-  accessibilityLevel: "not_conform" | "partially_conform" | "conform" | string;
+  accessibilityLevel:
+    | "not_conform"
+    | "partially_conform"
+    | "conform"
+    | string
+    | null;
   cguSubService: {
     data: { attributes: { link: string | null } } | null;
   } | null;
@@ -52,11 +57,12 @@ export default function Footer() {
   };
 
   /* Global Data */
-  const footerData: IFooterData = globalData.footer.data.attributes;
-  const accessibilityLevelLabel =
-    Object.values(EAccessibilityLevel)[
-      Object.keys(EAccessibilityLevel).indexOf(footerData.accessibilityLevel)
-    ];
+  const footerData = globalData.footer.data.attributes as IFooterData;
+  const accessibilityLevelLabel = footerData.accessibilityLevel
+    ? Object.values(EAccessibilityLevel)[
+        Object.keys(EAccessibilityLevel).indexOf(footerData.accessibilityLevel)
+      ]
+    : "";
 
   return (
     <footer className="c-Footer" data-testid="footer">
