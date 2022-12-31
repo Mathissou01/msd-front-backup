@@ -16,14 +16,14 @@ exports[`TopContentBlock renders 1`] = `
       />
     </div>
     <div
-      class="c-TopContentCard"
+      class="c-CommonTopContentCard"
     >
       <div
-        class="c-TopContentCard__Image"
+        class="c-CommonTopContentCard__Image"
       >
         <img
           alt=""
-          class="c-TopContentCard__Img_desktop"
+          class="c-CommonTopContentCard__Img_desktop"
           data-nimg="1"
           decoding="async"
           height="308"
@@ -35,7 +35,7 @@ exports[`TopContentBlock renders 1`] = `
         />
         <img
           alt=""
-          class="c-TopContentCard__Img_mobile"
+          class="c-CommonTopContentCard__Img_mobile"
           data-nimg="1"
           decoding="async"
           height="200"
@@ -47,57 +47,61 @@ exports[`TopContentBlock renders 1`] = `
         />
       </div>
       <div
-        class="c-TopContentCard__Content"
+        class="c-CommonTopContentCard__ContentContainer"
       >
         <div
-          class="c-TopContentCard__ContentTags"
+          class="c-CommonTopContentCard__Content"
         >
           <div
-            class="c-TopContentCard__Tags"
+            class="c-CommonTopContentCard__ContentTags"
           >
-            <span
-              class="c-TopContentCard__Tag "
+            <div
+              class="c-CommonTopContentCard__Tags"
             >
-              Evénement
-            </span>
-            <span
-              class="c-TopContentCard__Tag c-TopContentCard__Tag_backgroud"
+              <span
+                class="c-CommonTopContentCard__Tag "
+              >
+                Evénement
+              </span>
+              <span
+                class="c-CommonTopContentCard__Tag c-CommonTopContentCard__Tag_backgroud"
+              >
+                Réparation
+              </span>
+            </div>
+            <div
+              class="c-CommonTopContentCard__ContentCardDate"
             >
-              Réparation
-            </span>
+              5 décembre 2022
+            </div>
           </div>
           <div
-            class="c-TopContentCard__ContentCardDate"
+            class="c-CommonTopContentCard__Description"
           >
-            5 décembre 2022
+            <h2
+              class="c-CommonTopContentCard__TitleContent"
+            >
+              Café préparation
+            </h2>
+            <p
+              class="c-CommonTopContentCard__DescriptionContent"
+            >
+              Participer à un café réparation avec La Recyclade au café restaurantde la Maison Phare. Vous apprendrez à faire un diagnostic et àréparer votre petit appareil électrique ou électronique de la viequotidienne
+            </p>
           </div>
+          <a
+            class="c-CommonTopContentCard__Link"
+            href="/"
+          >
+            <button
+              class="c-CommonTopContentCard__Button"
+              type="button"
+            >
+              En savoir plus
+            </button>
+            <div />
+          </a>
         </div>
-        <div
-          class="c-TopContentCard__Description"
-        >
-          <h2
-            class="c-TopContentCard__TitleContent"
-          >
-            Café préparation
-          </h2>
-          <p
-            class="c-TopContentCard__DescriptionContent"
-          >
-            Participer à un café réparation avec La Recyclade au café restaurantde la Maison Phare. Vous apprendrez à faire un diagnostic et àréparer votre petit appareil électrique ou électronique de la viequotidienne
-          </p>
-        </div>
-        <a
-          class="c-TopContentCard__Link"
-          href="/"
-        >
-          <button
-            class="c-TopContentCard__Button"
-            type="button"
-          >
-            En savoir plus
-          </button>
-          <div />
-        </a>
       </div>
     </div>
     <button

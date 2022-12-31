@@ -1,9 +1,9 @@
 import React from "react";
 import CommonBlockHeading from "../../Common/CommonBlockHeading/CommonBlockHeading";
 import CommonButton from "../../Common/CommonButton/CommonButton";
-import TopContentCard from "./TopContentCard/TopContentCard";
-import "./top-content-block.scss";
 import { TopContentBlockEntity } from "../../../graphql/codegen/generated-types";
+import CommonTopContentCard from "../../Common/CommonTopContentCard/CommonTopContentCard";
+import "./top-content-block.scss";
 
 interface ITopContentBlock {
   data: TopContentBlockEntity;
@@ -25,7 +25,7 @@ export default function TopContentBlock({ data }: ITopContentBlock) {
   return (
     <section className="c-TopContentBlock">
       <CommonBlockHeading titleContent={titleContent} isAlignLeft={true} />
-      <TopContentCard
+      <CommonTopContentCard
         title={titleNews}
         description={descriptionNews}
         imageUrlDesktop={

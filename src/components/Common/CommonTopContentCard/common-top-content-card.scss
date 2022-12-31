@@ -5,7 +5,7 @@
 @use "src/styles/02-tools/tools.shadows" as shadows;
 @use "src/styles/02-tools/tools.z-index" as index;
 
-.c-TopContentCard {
+.c-CommonTopContentCard {
   position: relative;
 
   @include media.from-tablet {
@@ -103,11 +103,8 @@
     }
 
     @include media.from-tablet {
-      position: absolute;
-      top: 60px;
-      left: 366px;
       width: 413px;
-      height: 257px;
+      height: fit-content;
       padding: 24px 32px;
     }
   }
@@ -140,6 +137,8 @@
 
   &__ContentCardDate {
     @include typo.text("tag");
+
+    text-transform: lowercase;
   }
 
   &__Description {
@@ -151,6 +150,10 @@
 
   &__TitleContent {
     @include typo.heading(3);
+  }
+
+  &__TitleContentTop {
+    @include typo.heading(1);
   }
 
   &__DescriptionContent {
@@ -190,6 +193,19 @@
 
     #secondary-color {
       fill: colors.$brand-secondary;
+    }
+  }
+}
+
+@include media.from-tablet {
+  .c-CommonTopContentCard {
+    &__ContentContainer {
+      position: absolute;
+      top: 50px;
+      right: 12px;
+      display: flex;
+      align-items: center;
+      height: 308px;
     }
   }
 }

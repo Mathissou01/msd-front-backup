@@ -134,6 +134,11 @@
       font-size: 30px;
       line-height: 26px;
     }
+
+    @include media.from-tablet {
+      font-size: 30px;
+      line-height: 26px;
+    }
   }
 
   @if $level == 2 {

@@ -1,0 +1,31 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.media-queries" as media;
+@use "src/styles/02-tools/tools.buttons" as buttons;
+@use "src/styles/02-tools/tools.typography" as typo;
+@use "src/styles/02-tools/tools.functions" as func;
+
+.c-CommonBreadcrumb {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  padding: 16px;
+
+  &__Link {
+    @include typo.text("buttonSmall");
+
+    font-size: 12px;
+    text-transform: capitalize;
+
+    &_underline {
+      text-decoration: underline;
+    }
+  }
+}
+
+@include media.from-tablet {
+  .c-CommonBreadcrumb {
+    &__Link {
+      font-size: 14px;
+    }
+  }
+}
