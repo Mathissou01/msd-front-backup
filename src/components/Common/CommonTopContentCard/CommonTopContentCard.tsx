@@ -65,9 +65,11 @@ export default function CommonTopContentCard({
                 </span>
               ))}
             </div>
-            <div className="c-CommonTopContentCard__ContentCardDate">
-              {dataFrenchFormat}
-            </div>
+            {!isTitleTop ? (
+              <div className="c-CommonTopContentCard__ContentCardDate">
+                {dataFrenchFormat}
+              </div>
+            ) : null}
           </div>
           <div className="c-CommonTopContentCard__Description">
             {!isTitleTop ? (
@@ -77,12 +79,14 @@ export default function CommonTopContentCard({
               {description}
             </p>
           </div>
-          <Link className="c-CommonTopContentCard__Link" href={"/"}>
-            <button type="button" className="c-CommonTopContentCard__Button">
-              En savoir plus
-            </button>
-            <ArrowCorner />
-          </Link>
+          {!isTitleTop ? (
+            <Link className="c-CommonTopContentCard__Link" href={"/"}>
+              <button type="button" className="c-CommonTopContentCard__Button">
+                En savoir plus
+              </button>
+              <ArrowCorner />
+            </Link>
+          ) : null}
         </div>
       </div>
     </div>

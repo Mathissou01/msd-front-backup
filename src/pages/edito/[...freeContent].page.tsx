@@ -1,17 +1,30 @@
+import CommonTopContentCard from "../../components/Common/CommonTopContentCard/CommonTopContentCard";
+import DesktopActuHero from "public/images/desktop_actuhero.svg";
+import MobileActuHero from "public/images/mobile_actuhero.svg";
+
 interface IGetStaticProps {
   params: { freeContent: string };
 }
 
-interface IEditoContenuLibrePageProps {
-  route: string;
-}
-
-export default function EditoContenuLibrePage({
-  route,
-}: IEditoContenuLibrePageProps) {
+export default function EditoContenuLibrePage() {
+  //TODO temporaly data
+  // const tags = ["actualité", "préparation"] as TagEntity;
+  const defaultImageDesktop = "/images/images-temp/new_image.jpg";
+  const defaultImageMobile = "/images/images-temp/new_image_mobile.jpg";
   return (
-    <section className="o-Page__Section">
-      <div>WIP edito/{route}</div>
+    <section className="o-Page__EditoContenuLibre">
+      <div className="o-Page__HeroImage">
+        <CommonTopContentCard
+          title="Semaine initiatives vertes"
+          isTitleTop={true}
+          imageUrlDesktop={defaultImageDesktop}
+          imageUrlMobile={defaultImageMobile}
+        />
+        <div className="o-Page__SvgContainer">
+          <MobileActuHero className="o-Page__Svg_mobile" />
+          <DesktopActuHero className="o-Page__Svg_desktop" />
+        </div>
+      </div>
     </section>
   );
 }

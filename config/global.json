@@ -4,18 +4,6 @@
       "attributes": {
         "serviceLinks": [
           {
-            "__typename": "ComponentLinksNews",
-            "name": "Actualités",
-            "isDisplayed": true,
-            "picto": { "data": null }
-          },
-          {
-            "__typename": "ComponentLinksNews",
-            "name": "Actualités",
-            "isDisplayed": true,
-            "picto": { "data": null }
-          },
-          {
             "__typename": "ComponentLinksMap",
             "name": "Carte",
             "isDisplayed": true,
