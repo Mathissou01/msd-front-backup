@@ -1,4 +1,4 @@
-query getFooterBlock($contractId: ID!) {
+query getFooter($contractId: ID!) {
   contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
     data {
       attributes {
@@ -6,29 +6,55 @@ query getFooterBlock($contractId: ID!) {
           data {
             id
             attributes {
-              accessibilityLevel
-              legalContent {
+              accessibilitySubService {
                 data {
                   attributes {
-                    GCULink
-                    accessibilityLink
-                    confidentiality
-                    cookiesPolicy
+                    link
+                    isActivated
+                    name
                   }
                 }
               }
+              cguSubService {
+                data {
+                  attributes {
+                    link
+                    isActivated
+                    name
+                  }
+                }
+              }
+              cookiesSubService {
+                data {
+                  attributes {
+                    name
+                    isActivated
+                    link
+                  }
+                }
+              }
+              contactUsSubService {
+                data {
+                  attributes {
+                    link
+                    isActivated
+                    label
+                  }
+                }
+              }
+              confidentialitySubService {
+                data {
+                  attributes {
+                    link
+                    isActivated
+                    name
+                  }
+                }
+              }
+              accessibilityLevel
             }
           }
         }
-      }
-    }
-  }
-  contactUsServices(filters: { contract: { id: { eq: $contractId } } }) {
-    data {
-      attributes {
-        isActivated
-        label
-        link
       }
     }
   }

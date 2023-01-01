@@ -10,9 +10,14 @@ import {
   GetQuizAndTipsBlockDocument,
   GetRecyclingGuideBlockQuery,
   GetRecyclingGuideBlockDocument,
+  EditoBlockEntity,
+  GetEditoBlockQuery,
+  GetEditoBlockDocument,
   GetTopContentBlockQuery,
   GetTopContentBlockDocument,
   TopContentBlockEntity,
+  GetNewestTopContentsQuery,
+  GetNewestTopContentsDocument,
 } from "../graphql/codegen/generated-types";
 import {
   extractRecyclingGuideBlock,
@@ -20,6 +25,7 @@ import {
   remapServiceLinksDynamicZone,
   IRemappedServiceBlock,
   extractTopContentBlock,
+  extractEditoBlock,
 } from "../lib/graphql-data";
 import { useIsDesktopContext } from "../hooks/useScreenWidth";
 import WelcomeBlock from "../components/Blocks/WelcomeBlock/WelcomeBlock";
@@ -27,6 +33,7 @@ import RecyclingGuideBlock from "../components/Blocks/RecyclingGuideBlock/Recycl
 import ServicesBlock from "../components/Blocks/ServicesBlock/ServicesBlock";
 import QuizAndTipsBlock from "../components/Blocks/QuizAndTipsBlock/QuizAndTipsBlock";
 import TopContentBlock from "../components/Blocks/TopContentBlock/TopContentBlock";
+import EditoBlock from "../components/Blocks/EditoBlock/EditoBlock";
 
 interface IHomePageProps {
   servicesData: GetServicesActiveQuery;
@@ -34,6 +41,8 @@ interface IHomePageProps {
   servicesBlock: IRemappedServiceBlock;
   quizAndTipsBlock: QuizAndTipsBlockEntity | null;
   topContentBlock: TopContentBlockEntity | null;
+  newestTopcontents: GetNewestTopContentsQuery;
+  editoBlock: EditoBlockEntity | null;
 }
 
 export default function HomePage({
@@ -42,6 +51,8 @@ export default function HomePage({
   servicesBlock,
   quizAndTipsBlock,
   topContentBlock,
+  newestTopcontents,
+  editoBlock,
 }: IHomePageProps) {
   /* StaticProps data */
   const displayRecyclingGuideBlock =
@@ -54,6 +65,7 @@ export default function HomePage({
       ?.attributes?.isActivated ||
       servicesData.editorialServices?.data[0]?.attributes?.tipSubService?.data
         ?.attributes?.isActivated);
+  const displayEditoBlock = !!editoBlock;
   const displayTopContentBlock = !!topContentBlock;
   /* Local Data */
   const isDesktop = useIsDesktopContext();
@@ -66,7 +78,12 @@ export default function HomePage({
         <RecyclingGuideBlock data={recyclingGuideBlock} />
       )}
       {displayServicesBlock && <ServicesBlock remappedData={servicesBlock} />}
-      {displayTopContentBlock && <TopContentBlock data={topContentBlock} />}
+      {displayTopContentBlock && (
+        <TopContentBlock
+          data={topContentBlock}
+          newestTopcontents={newestTopcontents}
+        />
+      )}
       <section
         className="o-Page__Section"
         style={{ minHeight: isDesktop ? "1205px" : "2285px" }}
@@ -74,14 +91,7 @@ export default function HomePage({
         (Headlines)
       </section>
       {displayQuizAndTipsBlock && <QuizAndTipsBlock data={quizAndTipsBlock} />}
-      <section
-        className="o-Page__Section"
-        style={{
-          minHeight: isDesktop ? "592px" : "1204px",
-        }}
-      >
-        (Edito)
-      </section>
+      {displayEditoBlock && <EditoBlock data={editoBlock} />}
     </>
   );
 }
@@ -123,6 +133,19 @@ export async function getStaticProps() {
       variables: { contractId },
     });
   const topContentBlock = extractTopContentBlock(topContentBlockData);
+
+  const { data: newestTopcontents } =
+    await client.query<GetNewestTopContentsQuery>({
+      query: GetNewestTopContentsDocument,
+      variables: { contractId },
+    });
+
+  const { data: editoBlockData } = await client.query<GetEditoBlockQuery>({
+    query: GetEditoBlockDocument,
+    variables: { contractId },
+  });
+  const editoBlock = extractEditoBlock(editoBlockData);
+
   return {
     props: {
       servicesData,
@@ -130,6 +153,8 @@ export async function getStaticProps() {
       servicesBlock,
       quizAndTipsBlock,
       topContentBlock,
+      newestTopcontents,
+      editoBlock,
     },
   };
 }

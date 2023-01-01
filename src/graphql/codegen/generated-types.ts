@@ -1379,6 +1379,14 @@ export type EventInput = {
   topContent?: InputMaybe<Scalars["ID"]>;
 };
 
+export type EventOrNews = {
+  __typename?: "EventOrNews";
+  description: Scalars["String"];
+  id: Scalars["ID"];
+  publishedAt: Scalars["DateTime"];
+  title: Scalars["String"];
+};
+
 export type EventRelationResponseCollection = {
   __typename?: "EventRelationResponseCollection";
   data: Array<EventEntity>;
@@ -3140,6 +3148,7 @@ export type Query = {
   getContentTypeDTOs?: Maybe<Array<Maybe<ContentTypeDto>>>;
   getEditoBlockDTO?: Maybe<EditoBlockDto>;
   getEditoContentDTOs?: Maybe<Array<Maybe<EditoContentDto>>>;
+  getNewestTopContents?: Maybe<Array<Maybe<EventOrNews>>>;
   getTopContentBlockDTO?: Maybe<TopContentBlockDto>;
   getTopContentDTOs?: Maybe<Array<Maybe<TopContentDto>>>;
   global?: Maybe<GlobalEntityResponse>;
@@ -3451,6 +3460,10 @@ export type QueryGetEditoBlockDtoArgs = {
 };
 
 export type QueryGetEditoContentDtOsArgs = {
+  contractId: Scalars["ID"];
+};
+
+export type QueryGetNewestTopContentsArgs = {
   contractId: Scalars["ID"];
 };
 
@@ -5219,6 +5232,290 @@ export type GetContractMenuQuery = {
   } | null;
 };
 
+export type GetEditoBlockQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+}>;
+
+export type GetEditoBlockQuery = {
+  __typename?: "Query";
+  contractCustomizations?: {
+    __typename?: "ContractCustomizationEntityResponseCollection";
+    data: Array<{
+      __typename?: "ContractCustomizationEntity";
+      id?: string | null;
+      attributes?: {
+        __typename?: "ContractCustomization";
+        homepage?: {
+          __typename?: "HomepageEntityResponse";
+          data?: {
+            __typename?: "HomepageEntity";
+            attributes?: {
+              __typename?: "Homepage";
+              editoBlock?: {
+                __typename?: "EditoBlockEntityResponse";
+                data?: {
+                  __typename?: "EditoBlockEntity";
+                  attributes?: {
+                    __typename?: "EditoBlock";
+                    titleContent: string;
+                    displayBlock: boolean;
+                    editoContents?: {
+                      __typename?: "EditoContentRelationResponseCollection";
+                      data: Array<{
+                        __typename?: "EditoContentEntity";
+                        attributes?: {
+                          __typename?: "EditoContent";
+                          event?: {
+                            __typename?: "EventEntityResponse";
+                            data?: {
+                              __typename?: "EventEntity";
+                              attributes?: {
+                                __typename?: "Event";
+                                title: string;
+                                description: string;
+                                documents?: {
+                                  __typename?: "DocumentRelationResponseCollection";
+                                  data: Array<{
+                                    __typename?: "DocumentEntity";
+                                    attributes?: {
+                                      __typename?: "Document";
+                                      name: string;
+                                    } | null;
+                                  }>;
+                                } | null;
+                                tags?: {
+                                  __typename?: "TagRelationResponseCollection";
+                                  data: Array<{
+                                    __typename?: "TagEntity";
+                                    attributes?: {
+                                      __typename?: "Tag";
+                                      name: string;
+                                    } | null;
+                                  }>;
+                                } | null;
+                              } | null;
+                            } | null;
+                          } | null;
+                          freeContent?: {
+                            __typename?: "FreeContentEntityResponse";
+                            data?: {
+                              __typename?: "FreeContentEntity";
+                              attributes?: {
+                                __typename?: "FreeContent";
+                                title?: string | null;
+                                shortDescription?: string | null;
+                                image?: {
+                                  __typename?: "UploadFileEntityResponse";
+                                  data?: {
+                                    __typename?: "UploadFileEntity";
+                                    attributes?: {
+                                      __typename?: "UploadFile";
+                                      formats?: any | null;
+                                    } | null;
+                                  } | null;
+                                } | null;
+                                tags?: {
+                                  __typename?: "TagRelationResponseCollection";
+                                  data: Array<{
+                                    __typename?: "TagEntity";
+                                    attributes?: {
+                                      __typename?: "Tag";
+                                      name: string;
+                                    } | null;
+                                  }>;
+                                } | null;
+                              } | null;
+                            } | null;
+                          } | null;
+                          news?: {
+                            __typename?: "NewEntityResponse";
+                            data?: {
+                              __typename?: "NewEntity";
+                              attributes?: {
+                                __typename?: "New";
+                                title: string;
+                                description: string;
+                                image?: {
+                                  __typename?: "UploadFileEntityResponse";
+                                  data?: {
+                                    __typename?: "UploadFileEntity";
+                                    attributes?: {
+                                      __typename?: "UploadFile";
+                                      formats?: any | null;
+                                    } | null;
+                                  } | null;
+                                } | null;
+                                tags?: {
+                                  __typename?: "TagRelationResponseCollection";
+                                  data: Array<{
+                                    __typename?: "TagEntity";
+                                    attributes?: {
+                                      __typename?: "Tag";
+                                      name: string;
+                                    } | null;
+                                  }>;
+                                } | null;
+                              } | null;
+                            } | null;
+                          } | null;
+                          quiz?: {
+                            __typename?: "QuizEntityResponse";
+                            data?: {
+                              __typename?: "QuizEntity";
+                              attributes?: {
+                                __typename?: "Quiz";
+                                title?: string | null;
+                                tags?: {
+                                  __typename?: "TagRelationResponseCollection";
+                                  data: Array<{
+                                    __typename?: "TagEntity";
+                                    attributes?: {
+                                      __typename?: "Tag";
+                                      name: string;
+                                    } | null;
+                                  }>;
+                                } | null;
+                              } | null;
+                            } | null;
+                          } | null;
+                          tip?: {
+                            __typename?: "TipEntityResponse";
+                            data?: {
+                              __typename?: "TipEntity";
+                              attributes?: {
+                                __typename?: "Tip";
+                                title: string;
+                                link?: string | null;
+                                tags?: {
+                                  __typename?: "TagRelationResponseCollection";
+                                  data: Array<{
+                                    __typename?: "TagEntity";
+                                    attributes?: {
+                                      __typename?: "Tag";
+                                      name: string;
+                                    } | null;
+                                  }>;
+                                } | null;
+                              } | null;
+                            } | null;
+                          } | null;
+                        } | null;
+                      }>;
+                    } | null;
+                  } | null;
+                } | null;
+              } | null;
+            } | null;
+          } | null;
+        } | null;
+      } | null;
+    }>;
+  } | null;
+};
+
+export type GetFooterQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+}>;
+
+export type GetFooterQuery = {
+  __typename?: "Query";
+  contractCustomizations?: {
+    __typename?: "ContractCustomizationEntityResponseCollection";
+    data: Array<{
+      __typename?: "ContractCustomizationEntity";
+      attributes?: {
+        __typename?: "ContractCustomization";
+        footer?: {
+          __typename?: "FooterEntityResponse";
+          data?: {
+            __typename?: "FooterEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "Footer";
+              accessibilityLevel?: Enum_Footer_Accessibilitylevel | null;
+              accessibilitySubService?: {
+                __typename?: "AccessibilitySubServiceEntityResponse";
+                data?: {
+                  __typename?: "AccessibilitySubServiceEntity";
+                  attributes?: {
+                    __typename?: "AccessibilitySubService";
+                    link?: string | null;
+                    isActivated: boolean;
+                    name: string;
+                  } | null;
+                } | null;
+              } | null;
+              cguSubService?: {
+                __typename?: "CguSubServiceEntityResponse";
+                data?: {
+                  __typename?: "CguSubServiceEntity";
+                  attributes?: {
+                    __typename?: "CguSubService";
+                    link?: string | null;
+                    isActivated: boolean;
+                    name: string;
+                  } | null;
+                } | null;
+              } | null;
+              cookiesSubService?: {
+                __typename?: "CookiesSubServiceEntityResponse";
+                data?: {
+                  __typename?: "CookiesSubServiceEntity";
+                  attributes?: {
+                    __typename?: "CookiesSubService";
+                    name: string;
+                    isActivated: boolean;
+                    link?: string | null;
+                  } | null;
+                } | null;
+              } | null;
+              contactUsSubService?: {
+                __typename?: "ContactUsSubServiceEntityResponse";
+                data?: {
+                  __typename?: "ContactUsSubServiceEntity";
+                  attributes?: {
+                    __typename?: "ContactUsSubService";
+                    link?: string | null;
+                    isActivated: boolean;
+                    label: string;
+                  } | null;
+                } | null;
+              } | null;
+              confidentialitySubService?: {
+                __typename?: "ConfidentialitySubServiceEntityResponse";
+                data?: {
+                  __typename?: "ConfidentialitySubServiceEntity";
+                  attributes?: {
+                    __typename?: "ConfidentialitySubService";
+                    link?: string | null;
+                    isActivated: boolean;
+                    name: string;
+                  } | null;
+                } | null;
+              } | null;
+            } | null;
+          } | null;
+        } | null;
+      } | null;
+    }>;
+  } | null;
+};
+
+export type GetNewestTopContentsQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+}>;
+
+export type GetNewestTopContentsQuery = {
+  __typename?: "Query";
+  getNewestTopContents?: Array<{
+    __typename?: "EventOrNews";
+    id: string;
+    title: string;
+    description: string;
+    publishedAt: any;
+  } | null> | null;
+};
+
 export type GetQuizAndTipsBlockQueryVariables = Exact<{
   contractId: Scalars["ID"];
 }>;
@@ -5950,6 +6247,353 @@ export type GetContractMenuLazyQueryHookResult = ReturnType<
 export type GetContractMenuQueryResult = Apollo.QueryResult<
   GetContractMenuQuery,
   GetContractMenuQueryVariables
+>;
+export const GetEditoBlockDocument = gql`
+  query getEditoBlock($contractId: ID!) {
+    contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
+      data {
+        id
+        attributes {
+          homepage {
+            data {
+              attributes {
+                editoBlock {
+                  data {
+                    attributes {
+                      titleContent
+                      displayBlock
+                      editoContents {
+                        data {
+                          attributes {
+                            event {
+                              data {
+                                attributes {
+                                  title
+                                  description
+                                  documents {
+                                    data {
+                                      attributes {
+                                        name
+                                      }
+                                    }
+                                  }
+                                  tags {
+                                    data {
+                                      attributes {
+                                        name
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                            freeContent {
+                              data {
+                                attributes {
+                                  title
+                                  shortDescription
+                                  image {
+                                    data {
+                                      attributes {
+                                        formats
+                                      }
+                                    }
+                                  }
+                                  tags {
+                                    data {
+                                      attributes {
+                                        name
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                            news {
+                              data {
+                                attributes {
+                                  title
+                                  description
+                                  image {
+                                    data {
+                                      attributes {
+                                        formats
+                                      }
+                                    }
+                                  }
+                                  tags {
+                                    data {
+                                      attributes {
+                                        name
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                            quiz {
+                              data {
+                                attributes {
+                                  title
+                                  tags {
+                                    data {
+                                      attributes {
+                                        name
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                            tip {
+                              data {
+                                attributes {
+                                  title
+                                  link
+                                  tags {
+                                    data {
+                                      attributes {
+                                        name
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetEditoBlockQuery__
+ *
+ * To run a query within a React component, call `useGetEditoBlockQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetEditoBlockQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetEditoBlockQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetEditoBlockQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetEditoBlockQuery,
+    GetEditoBlockQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetEditoBlockQuery, GetEditoBlockQueryVariables>(
+    GetEditoBlockDocument,
+    options,
+  );
+}
+export function useGetEditoBlockLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetEditoBlockQuery,
+    GetEditoBlockQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetEditoBlockQuery, GetEditoBlockQueryVariables>(
+    GetEditoBlockDocument,
+    options,
+  );
+}
+export type GetEditoBlockQueryHookResult = ReturnType<
+  typeof useGetEditoBlockQuery
+>;
+export type GetEditoBlockLazyQueryHookResult = ReturnType<
+  typeof useGetEditoBlockLazyQuery
+>;
+export type GetEditoBlockQueryResult = Apollo.QueryResult<
+  GetEditoBlockQuery,
+  GetEditoBlockQueryVariables
+>;
+export const GetFooterDocument = gql`
+  query getFooter($contractId: ID!) {
+    contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
+      data {
+        attributes {
+          footer {
+            data {
+              id
+              attributes {
+                accessibilitySubService {
+                  data {
+                    attributes {
+                      link
+                      isActivated
+                      name
+                    }
+                  }
+                }
+                cguSubService {
+                  data {
+                    attributes {
+                      link
+                      isActivated
+                      name
+                    }
+                  }
+                }
+                cookiesSubService {
+                  data {
+                    attributes {
+                      name
+                      isActivated
+                      link
+                    }
+                  }
+                }
+                contactUsSubService {
+                  data {
+                    attributes {
+                      link
+                      isActivated
+                      label
+                    }
+                  }
+                }
+                confidentialitySubService {
+                  data {
+                    attributes {
+                      link
+                      isActivated
+                      name
+                    }
+                  }
+                }
+                accessibilityLevel
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetFooterQuery__
+ *
+ * To run a query within a React component, call `useGetFooterQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFooterQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetFooterQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetFooterQuery(
+  baseOptions: Apollo.QueryHookOptions<GetFooterQuery, GetFooterQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetFooterQuery, GetFooterQueryVariables>(
+    GetFooterDocument,
+    options,
+  );
+}
+export function useGetFooterLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetFooterQuery,
+    GetFooterQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetFooterQuery, GetFooterQueryVariables>(
+    GetFooterDocument,
+    options,
+  );
+}
+export type GetFooterQueryHookResult = ReturnType<typeof useGetFooterQuery>;
+export type GetFooterLazyQueryHookResult = ReturnType<
+  typeof useGetFooterLazyQuery
+>;
+export type GetFooterQueryResult = Apollo.QueryResult<
+  GetFooterQuery,
+  GetFooterQueryVariables
+>;
+export const GetNewestTopContentsDocument = gql`
+  query getNewestTopContents($contractId: ID!) {
+    getNewestTopContents(contractId: $contractId) {
+      id
+      title
+      description
+      publishedAt
+    }
+  }
+`;
+
+/**
+ * __useGetNewestTopContentsQuery__
+ *
+ * To run a query within a React component, call `useGetNewestTopContentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetNewestTopContentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetNewestTopContentsQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetNewestTopContentsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetNewestTopContentsQuery,
+    GetNewestTopContentsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetNewestTopContentsQuery,
+    GetNewestTopContentsQueryVariables
+  >(GetNewestTopContentsDocument, options);
+}
+export function useGetNewestTopContentsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetNewestTopContentsQuery,
+    GetNewestTopContentsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetNewestTopContentsQuery,
+    GetNewestTopContentsQueryVariables
+  >(GetNewestTopContentsDocument, options);
+}
+export type GetNewestTopContentsQueryHookResult = ReturnType<
+  typeof useGetNewestTopContentsQuery
+>;
+export type GetNewestTopContentsLazyQueryHookResult = ReturnType<
+  typeof useGetNewestTopContentsLazyQuery
+>;
+export type GetNewestTopContentsQueryResult = Apollo.QueryResult<
+  GetNewestTopContentsQuery,
+  GetNewestTopContentsQueryVariables
 >;
 export const GetQuizAndTipsBlockDocument = gql`
   query getQuizAndTipsBlock($contractId: ID!) {

@@ -90,7 +90,7 @@ export default function NavigationList({
         />
       </li>
       {contractMenus &&
-        contractMenus.map((menu) => {
+        contractMenus.map((menu, index) => {
           if (
             menu?.isDisplayed &&
             menu?.type &&
@@ -105,7 +105,7 @@ export default function NavigationList({
             }
             return (
               <li
-                key={`navigation_link_${path}`}
+                key={`navigation_link_${path}_${index}`}
                 className={`c-NavigationList__Item ${isActiveRoute(path)}`}
               >
                 <NavigationListButton

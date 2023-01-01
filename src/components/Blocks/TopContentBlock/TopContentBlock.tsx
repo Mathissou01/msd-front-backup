@@ -1,14 +1,22 @@
 import React from "react";
 import CommonBlockHeading from "../../Common/CommonBlockHeading/CommonBlockHeading";
 import CommonButton from "../../Common/CommonButton/CommonButton";
-import { TopContentBlockEntity } from "../../../graphql/codegen/generated-types";
+import {
+  GetNewestTopContentsQuery,
+  TopContentBlockEntity,
+} from "../../../graphql/codegen/generated-types";
 import CommonTopContentCard from "../../Common/CommonTopContentCard/CommonTopContentCard";
 import "./top-content-block.scss";
+import CommonCardBlock from "../../Common/CommonCardBlock/CommonCardBlock";
 
 interface ITopContentBlock {
   data: TopContentBlockEntity;
+  newestTopcontents: GetNewestTopContentsQuery;
 }
-export default function TopContentBlock({ data }: ITopContentBlock) {
+export default function TopContentBlock({
+  data,
+  newestTopcontents,
+}: ITopContentBlock) {
   /* Static Data */
   const defaultImage = "/images/images-temp/newsDesktop.jpg";
   const defaultImageMobile = "/images/images-temp/newsMobile.png";
@@ -20,7 +28,9 @@ export default function TopContentBlock({ data }: ITopContentBlock) {
   const descriptionNews = contentTopNews?.description || "";
   const tags = contentTopNews?.tags?.data || [];
   const date = contentTopNews?.publishedAt;
-
+  const threeTopContents = newestTopcontents?.getNewestTopContents;
+  // TODO: temporarily static data, replace with real tags later
+  const tagLabels = ["collecte", "dechets"];
   const labelButton = "Voir plus d’actualités et d’événements";
   return (
     <section className="c-TopContentBlock">
@@ -37,6 +47,19 @@ export default function TopContentBlock({ data }: ITopContentBlock) {
         tags={tags}
         date={date}
       />
+      <div className="c-TopContentBlock__RowCardsBlock">
+        {threeTopContents?.map((topContent, index) => (
+          <CommonCardBlock
+            key={index}
+            tagLabels={tagLabels}
+            title={topContent?.title ?? ""}
+            description={topContent?.description}
+            date={topContent?.publishedAt}
+            imageUrl={defaultImageMobile}
+            href="/"
+          />
+        ))}
+      </div>
       <CommonButton label={labelButton} style="primary" />
     </section>
   );

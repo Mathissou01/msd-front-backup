@@ -1,0 +1,8 @@
+query getNewestTopContents($contractId: ID!) {
+  getNewestTopContents(contractId: $contractId) {
+    id
+    title
+    description
+    publishedAt
+  }
+}

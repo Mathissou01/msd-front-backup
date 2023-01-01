@@ -58,12 +58,24 @@
   "footer": {
     "data": {
       "attributes": {
-        "accessibilityLevel": null,
-        "cguSubService": { "data": null },
-        "accessibilitySubService": { "data": null },
-        "confidentialitySubService": { "data": null },
-        "cookiesSubService": { "data": null },
-        "contactUsSubService": { "data": null }
+        "accessibilityLevel": "partially_conform",
+        "cguSubService": { "data": { "attributes": { "link": null } } },
+        "accessibilitySubService": {
+          "data": { "attributes": { "link": null } }
+        },
+        "confidentialitySubService": {
+          "data": { "attributes": { "link": null } }
+        },
+        "cookiesSubService": { "data": { "attributes": { "link": null } } },
+        "contactUsSubService": {
+          "data": {
+            "attributes": {
+              "isActivated": true,
+              "label": "Contactez-nous",
+              "link": null
+            }
+          }
+        }
       }
     }
   },

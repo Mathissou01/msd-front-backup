@@ -1,21 +1,20 @@
 import React from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import Breadcrumb from "public/images/pictos/breadcrumb-separator.svg";
-import { useRouter } from "next/router";
 import "./common-breadcrumb.scss";
 
 export default function CommonBreadcrumb() {
   /* Local Data */
   const router = useRouter();
   const pathLevelsArray = router.pathname.split("/").slice(1);
-  console.log(router);
   let progressivePath = "";
   const homePage = "/";
   /* Method */
   function handlePathgeneration() {
     return pathLevelsArray.map((path, index) => {
       progressivePath = `${progressivePath}/${path}`;
-      console.log(progressivePath);
+
       return (
         <>
           {router.pathname !== "/" ? (

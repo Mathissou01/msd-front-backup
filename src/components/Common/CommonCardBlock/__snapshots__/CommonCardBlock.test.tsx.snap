@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommonCardBlock renders 1`] = `
+<div>
+  <div
+    class="c-CommonCardBlock"
+  >
+    <div
+      class="c-CommonCardBlock__Image"
+    >
+      <img
+        alt=""
+        data-nimg="1"
+        decoding="async"
+        height="220"
+        loading="lazy"
+        src=""
+        style="color: transparent;"
+        width="343"
+      />
+    </div>
+    <div
+      class="c-CommonCardBlock__Content"
+    >
+      <div
+        class="c-CommonCardBlock__ContentHeader"
+      >
+        <div
+          class="c-CommonCardBlock__Tags"
+        >
+          <span
+            class="c-CommonCardBlock__Tag "
+          >
+            common card block tag
+          </span>
+        </div>
+        <div
+          class="c-CommonCardBlock__Date"
+        >
+          Invalid Date
+        </div>
+      </div>
+      <div
+        class="c-CommonCardBlock__ContentBody"
+      >
+        <h3
+          class="c-CommonCardBlock__Title"
+        >
+          common card block title
+        </h3>
+        <p
+          class="c-CommonCardBlock__Description"
+        />
+      </div>
+      <a
+        class="c-CommonCardBlock__Link"
+        href="/accueil"
+      >
+        <button
+          class="c-CommonCardBlock__Button"
+          type="button"
+        >
+          En savoir plus
+        </button>
+        <div />
+      </a>
+    </div>
+  </div>
+</div>
+`;

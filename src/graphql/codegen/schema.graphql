@@ -1219,6 +1219,13 @@ input EventInput {
   topContent: ID
 }
 
+type EventOrNews {
+  description: String!
+  id: ID!
+  publishedAt: DateTime!
+  title: String!
+}
+
 type EventRelationResponseCollection {
   data: [EventEntity!]!
 }
@@ -2494,6 +2501,7 @@ type Query {
   getContentTypeDTOs(contractId: ID!): [ContentTypeDTO]
   getEditoBlockDTO(contractId: ID!): EditoBlockDTO
   getEditoContentDTOs(contractId: ID!): [EditoContentDTO]
+  getNewestTopContents(contractId: ID!): [EventOrNews]
   getTopContentBlockDTO(contractId: ID!): TopContentBlockDTO
   getTopContentDTOs(contractId: ID!): [TopContentDTO]
   global: GlobalEntityResponse

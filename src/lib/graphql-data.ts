@@ -1,4 +1,6 @@
 import {
+  EditoBlockEntity,
+  GetEditoBlockQuery,
   GetQuizAndTipsBlockQuery,
   GetRecyclingGuideBlockQuery,
   GetServicesBlockQuery,
@@ -66,9 +68,20 @@ export function extractQuizAndTipsBlock(data: GetQuizAndTipsBlockQuery) {
 }
 
 export function extractTopContentBlock(data: GetTopContentBlockQuery) {
-  const topContentBlock = (data.contractCustomizations?.data[0].attributes
-    ?.homepage?.data?.attributes?.topContentBlock?.data ??
-    null) as TopContentBlockEntity;
+  const topContentBlock =
+    (data?.contractCustomizations?.data[0].attributes?.homepage?.data
+      ?.attributes?.topContentBlock?.data as TopContentBlockEntity) ?? null;
 
   return topContentBlock;
+}
+
+export function extractEditoBlock(data: GetEditoBlockQuery) {
+  const editoBlock =
+    (data?.contractCustomizations?.data[0].attributes?.homepage?.data
+      ?.attributes?.editoBlock?.data as EditoBlockEntity) ?? null;
+
+  return {
+    titleContent: editoBlock?.attributes?.titleContent ?? null,
+    editoBlock,
+  };
 }

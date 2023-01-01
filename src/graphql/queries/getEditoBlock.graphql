@@ -1,0 +1,124 @@
+query getEditoBlock($contractId: ID!) {
+  contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
+    data {
+      id
+      attributes {
+        homepage {
+          data {
+            attributes {
+              editoBlock {
+                data {
+                  attributes {
+                    titleContent
+                    displayBlock
+                    editoContents {
+                      data {
+                        attributes {
+                          event {
+                            data {
+                              attributes {
+                                title
+                                description
+                                documents {
+                                  data {
+                                    attributes {
+                                      name
+                                    }
+                                  }
+                                }
+                                tags {
+                                  data {
+                                    attributes {
+                                      name
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                          freeContent {
+                            data {
+                              attributes {
+                                title
+                                shortDescription
+                                image {
+                                  data {
+                                    attributes {
+                                      formats
+                                    }
+                                  }
+                                }
+                                tags {
+                                  data {
+                                    attributes {
+                                      name
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                          news {
+                            data {
+                              attributes {
+                                title
+                                description
+                                image {
+                                  data {
+                                    attributes {
+                                      formats
+                                    }
+                                  }
+                                }
+                                tags {
+                                  data {
+                                    attributes {
+                                      name
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                          quiz {
+                            data {
+                              attributes {
+                                title
+                                tags {
+                                  data {
+                                    attributes {
+                                      name
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                          tip {
+                            data {
+                              attributes {
+                                title
+                                link
+                                tags {
+                                  data {
+                                    attributes {
+                                      name
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
