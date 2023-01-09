@@ -7,8 +7,8 @@ interface IGetStaticProps {
 }
 
 export default function EditoContenuLibrePage() {
-  //TODO temporaly data
-  // const tags = ["actualité", "préparation"] as TagEntity;
+  //TODO temporarily data
+  //const tags = ["actualité", "préparation"] as TagEntity;
   const defaultImageDesktop = "/images/images-temp/new_image.jpg";
   const defaultImageMobile = "/images/images-temp/new_image_mobile.jpg";
   return (

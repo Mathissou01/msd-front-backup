@@ -58,7 +58,7 @@ export default function CommonTopContentCard({
                 <span
                   key={tag.attributes?.name}
                   className={`c-CommonTopContentCard__Tag ${
-                    index > 0 ? "c-CommonTopContentCard__Tag_backgroud" : ""
+                    index > 0 ? "c-CommonTopContentCard__Tag_background" : ""
                   }`}
                 >
                   {tag.attributes?.name}

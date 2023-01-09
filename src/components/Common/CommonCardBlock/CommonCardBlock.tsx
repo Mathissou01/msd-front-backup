@@ -9,11 +9,11 @@ import "./common-card-block.scss";
 interface ICommonCardBlockProps {
   tagLabels: Array<string>;
   title: string;
+  href: string;
   description?: string;
   imageUrl?: string;
   imageAlt?: string;
   date?: string;
-  href: string;
   isAlignTextCenter?: boolean;
   isEventDisplay?: boolean;
 }
@@ -21,14 +21,15 @@ interface ICommonCardBlockProps {
 export default function CommonCardBlock({
   tagLabels,
   title,
+  href,
   description,
-  imageUrl = "",
+  imageUrl,
   imageAlt = "",
   date,
-  href,
   isEventDisplay = false,
   isAlignTextCenter = false,
 }: ICommonCardBlockProps) {
+  const linkLabel = "En savoir plus";
   const contentCardDate = new Date(date || "");
   const dataFrenchFormat = handleDateFrenchFormat(contentCardDate);
   const commonCardBlock = classNames("c-CommonCardBlock", {
@@ -37,7 +38,6 @@ export default function CommonCardBlock({
   const commonCardBlockContent = classNames("c-CommonCardBlock__Content", {
     "c-CommonCardBlock__Content_textCenter": isAlignTextCenter,
   });
-  const linkLabel = "En savoir plus";
 
   return (
     <div className={commonCardBlock}>
@@ -47,9 +47,9 @@ export default function CommonCardBlock({
             <Calendar />
             <div className="c-CommonCardBlock__Date">{dataFrenchFormat}</div>
           </div>
-        ) : (
+        ) : imageUrl ? (
           <Image src={imageUrl} alt={imageAlt} width={343} height={220} />
-        )}
+        ) : null}
       </div>
       <div className={commonCardBlockContent}>
         <div className="c-CommonCardBlock__ContentHeader">
@@ -58,7 +58,7 @@ export default function CommonCardBlock({
               <span
                 key={index}
                 className={`c-CommonCardBlock__Tag ${
-                  index > 0 ? "c-CommonCardBlock__Tag_backgroud" : ""
+                  index > 0 ? "c-CommonCardBlock__Tag_background" : ""
                 }`}
               >
                 {tagLabel}

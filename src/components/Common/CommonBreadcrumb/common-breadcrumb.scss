@@ -16,16 +16,12 @@
     font-size: 12px;
     text-transform: capitalize;
 
+    @include media.from-tablet {
+      font-size: 14px;
+    }
+
     &_underline {
       text-decoration: underline;
-    }
-  }
-}
-
-@include media.from-tablet {
-  .c-CommonBreadcrumb {
-    &__Link {
-      font-size: 14px;
     }
   }
 }

@@ -25,7 +25,7 @@ export default function TopContentBlock({
   const contentTopNews =
     data?.attributes?.topContent?.data?.attributes?.news?.data?.attributes;
   const titleNews = contentTopNews?.title || "";
-  const descriptionNews = contentTopNews?.description || "";
+  const descriptionNews = contentTopNews?.shortDescription || "";
   const tags = contentTopNews?.tags?.data || [];
   const date = contentTopNews?.publishedAt;
   const threeTopContents = newestTopcontents?.getNewestTopContents;
@@ -53,7 +53,7 @@ export default function TopContentBlock({
             key={index}
             tagLabels={tagLabels}
             title={topContent?.title ?? ""}
-            description={topContent?.description}
+            description={topContent?.shortDescription}
             date={topContent?.publishedAt}
             imageUrl={defaultImageMobile}
             href="/"

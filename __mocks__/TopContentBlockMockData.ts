@@ -24,6 +24,8 @@ export const defaultMockData = {
               attributes: {
                 __typename: "New",
                 title: "Café préparation",
+                shortDescription:
+                  "Participer à un café réparation avec La Recyclade au café restaurant de la Maison Phare. Vous apprendrez à faire un diagnostic et à réparer votre petit appareil électrique ou électronique de la vie quotidienne",
                 tags: {
                   __typename: "TagRelationResponseCollection",
                   data: [
@@ -48,8 +50,6 @@ export const defaultMockData = {
                   __typename: "UploadFileEntityResponse",
                   data: null,
                 },
-                description:
-                  "Participer à un café réparation avec La Recyclade au café restaurantde la Maison Phare. Vous apprendrez à faire un diagnostic et àréparer votre petit appareil électrique ou électronique de la viequotidienne",
               },
             },
           },
@@ -66,7 +66,7 @@ export const newestTopContentMockData = {
       __typename: "EventOrNews",
       id: "2",
       title: "Semaine initiatives vertes",
-      description:
+      shortDescription:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ultricies consequat tortor sed.",
       publishedAt: "2022-12-29T09:11:05.800Z",
     },
@@ -74,16 +74,16 @@ export const newestTopContentMockData = {
       __typename: "EventOrNews",
       id: "1",
       title: "Café préparation",
-      description:
-        "Participer à un café réparation avec La Recyclade au café restaurantde la Maison Phare. Vous apprendrez à faire un diagnostic et àréparer votre petit appareil électrique ou électronique de la viequotidienne",
+      shortDescription:
+        "Participer à un café réparation avec La Recyclade au café restaurant de la Maison Phare. Vous apprendrez à faire un diagnostic et à réparer votre petit appareil électrique ou électronique de la vie quotidienne",
       publishedAt: "2022-12-05T15:59:19.503Z",
     },
     {
       __typename: "EventOrNews",
       id: "1",
       title: "Café préparation",
-      description:
-        "Participer à un café réparation avec La Recyclade au café restaurantde la Maison Phare. Vous apprendrez à faire un diagnostic et àréparer votre petit appareil électrique ou électronique de la viequotidienne",
+      shortDescription:
+        "Participer à un café réparation avec La Recyclade au café restaurant de la Maison Phare. Vous apprendrez à faire un diagnostic et à réparer votre petit appareil électrique ou électronique de la vie quotidienne",
       publishedAt: "2022-12-05T15:59:19.503Z",
     },
   ],

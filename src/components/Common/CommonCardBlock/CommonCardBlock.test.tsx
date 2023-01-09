@@ -15,7 +15,7 @@ describe("CommonCardBlock", () => {
         tagLabels={mock.tagLabels}
         title={mock.title}
         href={mock.href}
-        imageUrl={mock.imageUrl}
+        // imageUrl={mock.imageUrl}
       />,
     );
     expect(container).toMatchSnapshot();

@@ -11,7 +11,7 @@ export default function CommonBreadcrumb() {
   let progressivePath = "";
   const homePage = "/";
   /* Method */
-  function handlePathgeneration() {
+  function handlePathGeneration() {
     return pathLevelsArray.map((path, index) => {
       progressivePath = `${progressivePath}/${path}`;
 
@@ -46,7 +46,7 @@ export default function CommonBreadcrumb() {
           Accueil
         </Link>
       ) : null}
-      {handlePathgeneration()}
+      {handlePathGeneration()}
     </nav>
   );
 }
