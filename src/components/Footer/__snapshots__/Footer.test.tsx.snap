@@ -11,7 +11,7 @@ exports[`Header renders 1`] = `
       href="/"
     >
       <span>
-        Accessibilité : partiellement conforme
+        Accessibilité : non conforme
       </span>
     </a>
     <a

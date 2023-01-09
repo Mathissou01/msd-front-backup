@@ -19,6 +19,9 @@ export default function getMockedClient(delay = 0) {
     Date: () => faker.date.soon(10).toString(),
     DateTime: () => faker.date.soon(10).toString(),
     Boolean: () => true,
+    JSON: () => {
+      return {};
+    },
   };
   const preserveResolvers = true;
   const schemaWithMocks = addMocksToSchema({

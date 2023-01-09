@@ -43,13 +43,13 @@ function writeGlobalData(contractMenu, footer) {
   fs.writeFile("./config/global.json", JSON.stringify(globalData));
 }
 
-module.exports = async () => {
+module.exports = async (phase) => {
   const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID.toString();
   if (!Number.parseInt(contractId)) throw "Error";
 
-  if (process.env.NEXT_PUBLIC_MOCK === "true") {
+  if (process.env.NEXT_PUBLIC_MOCK === "true" || phase === "phase-test") {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const globalMockData = require("./__mocks__/globalMockData.json");
+    const globalMockData = require("./__mocks__/globalMock.json");
     writeGlobalData(globalMockData.contractMenu, globalMockData.footer);
   } else {
     // eslint-disable-next-line @typescript-eslint/no-var-requires

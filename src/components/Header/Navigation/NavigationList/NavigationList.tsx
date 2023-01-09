@@ -43,7 +43,7 @@ export default function NavigationList({
       ?.map(
         (link: {
           __typename: string;
-          name: string;
+          name: string | null;
           isDisplayed: boolean;
           picto: Record<string, unknown>;
         }) => {

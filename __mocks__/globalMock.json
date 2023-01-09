@@ -58,7 +58,7 @@
   "footer": {
     "data": {
       "attributes": {
-        "accessibilityLevel": "partially_conform",
+        "accessibilityLevel": "not_conform",
         "cguSubService": {
           "data": null
         },
