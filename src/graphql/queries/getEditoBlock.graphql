@@ -18,7 +18,7 @@ query getEditoBlock($contractId: ID!) {
                             data {
                               attributes {
                                 title
-                                description
+                                shortDescription
                                 documents {
                                   data {
                                     attributes {
@@ -62,7 +62,7 @@ query getEditoBlock($contractId: ID!) {
                             data {
                               attributes {
                                 title
-                                description
+                                shortDescription
                                 image {
                                   data {
                                     attributes {
@@ -84,6 +84,7 @@ query getEditoBlock($contractId: ID!) {
                             data {
                               attributes {
                                 title
+                                shortDescription
                                 tags {
                                   data {
                                     attributes {
@@ -98,6 +99,7 @@ query getEditoBlock($contractId: ID!) {
                             data {
                               attributes {
                                 title
+                                shortDescription
                                 link
                                 tags {
                                   data {

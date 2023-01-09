@@ -1242,7 +1242,6 @@ type Error {
 type Event {
   blocks: [EventBlocksDynamicZone]
   createdAt: DateTime
-  description: String!
   documents(
     filters: DocumentFiltersInput
     pagination: PaginationArg = {}
@@ -1256,6 +1255,7 @@ type Event {
     publicationState: PublicationState = LIVE
     sort: [String] = []
   ): EventRelationResponseCollection
+  image: UploadFileEntityResponse!
   publishedAt: DateTime
   shortDescription: String
   tags(
@@ -1295,7 +1295,6 @@ type EventEntityResponseCollection {
 input EventFiltersInput {
   and: [EventFiltersInput]
   createdAt: DateTimeFilterInput
-  description: StringFilterInput
   documents: DocumentFiltersInput
   editoContent: EditoContentFiltersInput
   eventSubService: EventSubServiceFiltersInput
@@ -1313,11 +1312,11 @@ input EventFiltersInput {
 
 input EventInput {
   blocks: [EventBlocksDynamicZoneInput!]
-  description: String
   documents: [ID]
   editoContent: ID
   eventSubService: ID
   events: [ID]
+  image: ID
   publishedAt: DateTime
   shortDescription: String
   tags: [ID]
@@ -1326,9 +1325,9 @@ input EventInput {
 }
 
 type EventOrNews {
-  description: String!
   id: ID!
   publishedAt: DateTime!
+  shortDescription: String!
   title: String!
 }
 
@@ -1494,11 +1493,10 @@ input FooterInput {
 
 type FreeContent {
   blocks: [FreeContentBlocksDynamicZone]
-  body: String
   createdAt: DateTime
   editoContent: EditoContentEntityResponse
   freeContentSubService: FreeContentSubServiceEntityResponse
-  image: UploadFileEntityResponse
+  image: UploadFileEntityResponse!
   publishedAt: DateTime
   shortDescription: String
   tags(
@@ -1536,7 +1534,6 @@ type FreeContentEntityResponseCollection {
 
 input FreeContentFiltersInput {
   and: [FreeContentFiltersInput]
-  body: StringFilterInput
   createdAt: DateTimeFilterInput
   editoContent: EditoContentFiltersInput
   freeContentSubService: FreeContentSubServiceFiltersInput
@@ -1552,7 +1549,6 @@ input FreeContentFiltersInput {
 
 input FreeContentInput {
   blocks: [FreeContentBlocksDynamicZoneInput!]
-  body: String
   editoContent: ID
   freeContentSubService: ID
   image: ID
@@ -2330,9 +2326,8 @@ type New {
     sort: [String] = []
   ): ChannelTypeRelationResponseCollection
   createdAt: DateTime
-  description: String!
   editoContent: EditoContentEntityResponse
-  image: UploadFileEntityResponse
+  image: UploadFileEntityResponse!
   newsSubService: NewsSubServiceEntityResponse
   publishedAt: DateTime
   shortDescription: String
@@ -2344,7 +2339,6 @@ type New {
   title: String!
   topContent: TopContentEntityResponse
   updatedAt: DateTime
-  video: UploadFileEntityResponse
 }
 
 union NewBlocksDynamicZone =
@@ -2376,7 +2370,6 @@ input NewFiltersInput {
   audiences: AudienceTypeFiltersInput
   channels: ChannelTypeFiltersInput
   createdAt: DateTimeFilterInput
-  description: StringFilterInput
   editoContent: EditoContentFiltersInput
   id: IDFilterInput
   newsSubService: NewsSubServiceFiltersInput
@@ -2394,7 +2387,6 @@ input NewInput {
   audiences: [ID]
   blocks: [NewBlocksDynamicZoneInput!]
   channels: [ID]
-  description: String
   editoContent: ID
   image: ID
   newsSubService: ID
@@ -2403,7 +2395,6 @@ input NewInput {
   tags: [ID]
   title: String
   topContent: ID
-  video: ID
 }
 
 type NewRelationResponseCollection {
@@ -3009,7 +3000,6 @@ input QuizSubServiceInput {
 }
 
 type RecyclingGuideBlock {
-  blocks: [RecyclingGuideBlockBlocksDynamicZone]
   createdAt: DateTime
   homepage: HomepageEntityResponse
   recyclingGuideDisplayContent: String!
@@ -3022,16 +3012,6 @@ type RecyclingGuideBlock {
   titleContent: String!
   updatedAt: DateTime
 }
-
-union RecyclingGuideBlockBlocksDynamicZone =
-    ComponentBlocksHorizontalRule
-  | ComponentBlocksSubHeading
-  | ComponentBlocksTranscript
-  | ComponentBlocksVideo
-  | ComponentBlocksWysiwyg
-  | Error
-
-scalar RecyclingGuideBlockBlocksDynamicZoneInput
 
 type RecyclingGuideBlockEntity {
   attributes: RecyclingGuideBlock
@@ -3062,7 +3042,6 @@ input RecyclingGuideBlockFiltersInput {
 }
 
 input RecyclingGuideBlockInput {
-  blocks: [RecyclingGuideBlockBlocksDynamicZoneInput!]
   homepage: ID
   recyclingGuideDisplayContent: String
   subtitleContent: String

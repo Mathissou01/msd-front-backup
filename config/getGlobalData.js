@@ -8,19 +8,42 @@ query getGlobalData($contractId: ID!) {
             attributes {
               footer {
                 data {
+                  id
                   attributes {
                     accessibilityLevel
-                    cguSubService {
-                      data {
-                        attributes {
-                          link
-                        }
-                      }
-                    }
                     accessibilitySubService {
                       data {
                         attributes {
                           link
+                          isActivated
+                          name
+                        }
+                      }
+                    }
+                    cguSubService {
+                      data {
+                        attributes {
+                          link
+                          isActivated
+                          name
+                        }
+                      }
+                    }
+                    cookiesSubService {
+                      data {
+                        attributes {
+                          isActivated
+                          link
+                          name
+                        }
+                      }
+                    }
+                    contactUsSubService {
+                      data {
+                        attributes {
+                          link
+                          isActivated
+                          label
                         }
                       }
                     }
@@ -28,22 +51,8 @@ query getGlobalData($contractId: ID!) {
                       data {
                         attributes {
                           link
-                        }
-                      }
-                    }
-                    cookiesSubService {
-                      data {
-                        attributes {
-                          link
-                        }
-                      }
-                    }
-                    contactUsSubService {
-                      data {
-                        attributes {
                           isActivated
-                          label
-                          link
+                          name
                         }
                       }
                     }
@@ -198,5 +207,4 @@ query getGlobalData($contractId: ID!) {
     }
   }
 }
-
 `;

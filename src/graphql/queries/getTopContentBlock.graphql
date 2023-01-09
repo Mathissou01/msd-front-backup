@@ -12,6 +12,7 @@ query getTopContentBlock($contractId: ID!) {
                     titleContent
                     displayBlock
                     displayLastThreeContents
+                    hasTopContent
                     topContent {
                       data {
                         attributes {
@@ -19,6 +20,7 @@ query getTopContentBlock($contractId: ID!) {
                             data {
                               attributes {
                                 title
+                                shortDescription
                                 tags {
                                   data {
                                     attributes {
@@ -35,14 +37,12 @@ query getTopContentBlock($contractId: ID!) {
                                     }
                                   }
                                 }
-                                description
                               }
                             }
                           }
                         }
                       }
                     }
-                    hasTopContent
                   }
                 }
               }
