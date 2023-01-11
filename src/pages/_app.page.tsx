@@ -9,7 +9,6 @@ import CommonSvgDefs from "../components/Common/CommonSvgDefs/CommonSvgDefs";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import "../styles/main.scss";
-import CommonBreadcrumb from "../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 
 function MsdFrontApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -27,7 +26,6 @@ function MsdFrontApp({ Component, pageProps }: AppProps) {
             <Header />
             <div className="o-Page__Container">
               <main role="main" className="o-Page__Main">
-                <CommonBreadcrumb />
                 <Component {...pageProps} />
               </main>
               <Footer />

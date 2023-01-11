@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommonBreadcrumb renders 1`] = `
+<div>
+  <nav
+    class="c-CommonBreadcrumb"
+  >
+    <a
+      class="c-CommonBreadcrumb__Link c-CommonBreadcrumb__Link_active"
+      href="/"
+    >
+      Accueil
+    </a>
+    <a
+      class="c-CommonBreadcrumb__Link c-CommonBreadcrumb__Link_active"
+      href="actualites"
+    >
+      Actualités
+    </a>
+    <span
+      class="c-CommonBreadcrumb__Link"
+    >
+      Semaine initiatives vertes
+    </span>
+  </nav>
+</div>
+`;
