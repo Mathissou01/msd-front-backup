@@ -5519,16 +5519,6 @@ export type GetEditoBlockQuery = {
                                 __typename?: "Event";
                                 title: string;
                                 shortDescription?: string | null;
-                                documents?: {
-                                  __typename?: "DocumentRelationResponseCollection";
-                                  data: Array<{
-                                    __typename?: "DocumentEntity";
-                                    attributes?: {
-                                      __typename?: "Document";
-                                      name: string;
-                                    } | null;
-                                  }>;
-                                } | null;
                                 tags?: {
                                   __typename?: "TagRelationResponseCollection";
                                   data: Array<{
@@ -6509,7 +6499,6 @@ export const GetEditoBlockDocument = gql`
                   data {
                     attributes {
                       titleContent
-                      displayBlock
                       editoContents {
                         data {
                           attributes {
@@ -6518,13 +6507,6 @@ export const GetEditoBlockDocument = gql`
                                 attributes {
                                   title
                                   shortDescription
-                                  documents {
-                                    data {
-                                      attributes {
-                                        name
-                                      }
-                                    }
-                                  }
                                   tags {
                                     data {
                                       attributes {
@@ -6613,6 +6595,7 @@ export const GetEditoBlockDocument = gql`
                           }
                         }
                       }
+                      displayBlock
                     }
                   }
                 }

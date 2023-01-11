@@ -1,5 +1,6 @@
 @use "src/styles/01-settings/settings.colors" as colors;
 @use "src/styles/02-tools/tools.media-queries" as media;
+@use "src/styles/02-tools/tools.z-index" as index;
 
 .c-EditoBlock {
   position: relative;
@@ -14,13 +15,64 @@
   }
 
   &__Content {
+    z-index: index.z("site-content");
     display: flex;
     flex-direction: column;
+    gap: 24px;
     align-items: center;
 
     @include media.desktop-only {
       flex-direction: row;
-      gap: 24px;
+    }
+  }
+
+  &__SvgContainer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 65%;
+    height: 280px;
+    background: #efeee9;
+    border-radius: 120px 0 0 120px;
+
+    @include media.from-tablet {
+      width: 82%;
+    }
+
+    @include media.desktop-only {
+      width: 90%;
+    }
+  }
+
+  .c-CommonCardBlock__Image {
+    width: 100%;
+  }
+
+  .c-QuizAndTipsBlock__Tips {
+    padding-right: 0;
+  }
+
+  .c-TipCard {
+    justify-content: center;
+
+    @include media.mobile {
+      width: 320px;
+    }
+
+    @include media.small-tablet {
+      width: 482px;
+    }
+
+    @include media.from-tablet {
+      width: 312px;
+      min-height: 480px;
+    }
+  }
+
+  .c-CommonCardBlock {
+    min-height: 480px;
+    @include media.desktop-only {
+      width: 312px;
     }
   }
 }

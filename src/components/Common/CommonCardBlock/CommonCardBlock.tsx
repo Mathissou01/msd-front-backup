@@ -45,7 +45,11 @@ export default function CommonCardBlock({
         {isEventDisplay ? (
           <div className="c-CommonCardBlock__Calendar">
             <Calendar />
-            <div className="c-CommonCardBlock__Date">{dataFrenchFormat}</div>
+            {date && (
+              <div className="c-CommonCardBlock__Date">
+                {dataFrenchFormat || null}
+              </div>
+            )}
           </div>
         ) : imageUrl ? (
           <Image src={imageUrl} alt={imageAlt} width={343} height={220} />
@@ -65,7 +69,7 @@ export default function CommonCardBlock({
               </span>
             ))}
           </div>
-          {!isEventDisplay ? (
+          {!isEventDisplay && date ? (
             <div className="c-CommonCardBlock__Date">{dataFrenchFormat}</div>
           ) : null}
         </div>

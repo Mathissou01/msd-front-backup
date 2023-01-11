@@ -10,7 +10,6 @@ query getEditoBlock($contractId: ID!) {
                 data {
                   attributes {
                     titleContent
-                    displayBlock
                     editoContents {
                       data {
                         attributes {
@@ -19,13 +18,6 @@ query getEditoBlock($contractId: ID!) {
                               attributes {
                                 title
                                 shortDescription
-                                documents {
-                                  data {
-                                    attributes {
-                                      name
-                                    }
-                                  }
-                                }
                                 tags {
                                   data {
                                     attributes {
@@ -114,6 +106,7 @@ query getEditoBlock($contractId: ID!) {
                         }
                       }
                     }
+                    displayBlock
                   }
                 }
               }

@@ -18,7 +18,7 @@
   border-radius: 8px;
 
   @include media.desktop-only {
-    width: 312px;
+    min-width: 312px;
   }
 
   &__Image {

@@ -35,11 +35,6 @@ exports[`CommonCardBlock renders 1`] = `
             common card block tag
           </span>
         </div>
-        <div
-          class="c-CommonCardBlock__Date"
-        >
-          Invalid Date
-        </div>
       </div>
       <div
         class="c-CommonCardBlock__ContentBody"

@@ -35,9 +35,7 @@ exports[`CommonTopContentCard renders 1`] = `
           />
           <div
             class="c-CommonTopContentCard__ContentCardDate"
-          >
-            Invalid Date
-          </div>
+          />
         </div>
         <div
           class="c-CommonTopContentCard__Description"

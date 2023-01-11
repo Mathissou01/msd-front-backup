@@ -28,8 +28,15 @@ export default function CommonTopContentCard({
   imageAlt = "",
   isTitleTop = false,
 }: ICommonTopContentCardProps) {
-  const contentCardDate = new Date(date ?? "");
-  const dataFrenchFormat = handleDateFrenchFormat(contentCardDate);
+  let contentCardDate;
+  let dataFrenchFormat;
+
+  if (date) {
+    contentCardDate = new Date(date || "");
+    dataFrenchFormat = handleDateFrenchFormat(contentCardDate);
+  }
+
+  const knowMore = "En savoir plus";
 
   return (
     <div className="c-CommonTopContentCard">
@@ -87,9 +94,7 @@ export default function CommonTopContentCard({
           </div>
           {!isTitleTop ? (
             <Link className="c-CommonTopContentCard__Link" href={redirectUrl}>
-              <span className="c-CommonTopContentCard__Label">
-                En savoir plus
-              </span>
+              <span className="c-CommonTopContentCard__Label">{knowMore}</span>
               <ArrowCorner />
             </Link>
           ) : null}

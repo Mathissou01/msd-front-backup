@@ -10,14 +10,14 @@ import {
   GetQuizAndTipsBlockDocument,
   GetRecyclingGuideBlockQuery,
   GetRecyclingGuideBlockDocument,
-  EditoBlockEntity,
-  GetEditoBlockQuery,
-  GetEditoBlockDocument,
   GetTopContentBlockQuery,
   GetTopContentBlockDocument,
   TopContentBlockEntity,
-  GetNewestTopContentsQuery,
+  EditoBlockEntity,
+  GetEditoBlockQuery,
+  GetEditoBlockDocument,
   GetNewestTopContentsDocument,
+  GetNewestTopContentsQuery,
 } from "../graphql/codegen/generated-types";
 import {
   extractRecyclingGuideBlock,
@@ -40,9 +40,9 @@ interface IHomePageProps {
   recyclingGuideBlock: RecyclingGuideBlockEntity | null;
   servicesBlock: IRemappedServiceBlock;
   quizAndTipsBlock: QuizAndTipsBlockEntity | null;
+  editoBlock: EditoBlockEntity | null;
   topContentBlock: TopContentBlockEntity | null;
   newestTopContents: GetNewestTopContentsQuery;
-  editoBlock: EditoBlockEntity | null;
 }
 
 export default function HomePage({
@@ -50,27 +50,49 @@ export default function HomePage({
   recyclingGuideBlock,
   servicesBlock,
   quizAndTipsBlock,
+  editoBlock,
   topContentBlock,
   newestTopContents,
-  editoBlock,
 }: IHomePageProps) {
   /* StaticProps data */
   const displayRecyclingGuideBlock =
     !!recyclingGuideBlock &&
     servicesData.recyclingGuideServices?.data[0]?.attributes?.isActivated;
-  const displayServicesBlock = !!servicesBlock;
+  const displayServicesBlock =
+    !!servicesBlock &&
+    (servicesData.editorialServices?.data[0]?.attributes?.eventSubService?.data
+      ?.attributes?.isActivated ||
+      servicesData.editorialServices?.data[0]?.attributes?.newsSubService?.data
+        ?.attributes?.isActivated ||
+      servicesData.editorialServices?.data[0]?.attributes?.tipSubService?.data
+        ?.attributes?.isActivated ||
+      servicesData.editorialServices?.data[0]?.attributes
+        ?.freeContentSubServices?.data[0].attributes?.isActivated ||
+      servicesData.editorialServices?.data[0]?.attributes?.quizSubService?.data
+        ?.attributes?.isActivated);
   const displayQuizAndTipsBlock =
     quizAndTipsBlock?.attributes?.displayBlock &&
     (servicesData.editorialServices?.data[0]?.attributes?.quizSubService?.data
       ?.attributes?.isActivated ||
       servicesData.editorialServices?.data[0]?.attributes?.tipSubService?.data
         ?.attributes?.isActivated);
-  const displayEditoBlock = !!editoBlock;
-  const displayTopContentBlock =
-    topContentBlock?.attributes?.displayBlock &&
-    (servicesData.editorialServices?.data[0]?.attributes?.newsSubService?.data
+  const displayEditoBlock =
+    !!editoBlock?.attributes?.displayBlock &&
+    (servicesData.editorialServices?.data[0]?.attributes?.eventSubService?.data
       ?.attributes?.isActivated ||
-      servicesData.editorialServices?.data[0]?.attributes?.eventSubService?.data
+      servicesData.editorialServices?.data[0]?.attributes?.newsSubService?.data
+        ?.attributes?.isActivated ||
+      servicesData.editorialServices?.data[0]?.attributes?.tipSubService?.data
+        ?.attributes?.isActivated ||
+      servicesData.editorialServices?.data[0]?.attributes
+        ?.freeContentSubServices?.data[0].attributes?.isActivated ||
+      servicesData.editorialServices?.data[0]?.attributes?.quizSubService?.data
+        ?.attributes?.isActivated);
+  const displayTopContentBlock =
+    !!topContentBlock?.attributes?.displayBlock &&
+    (servicesData.editorialServices?.data[0]?.attributes?.eventSubService?.data
+      ?.attributes?.isActivated ||
+      servicesData.editorialServices?.data[0]?.attributes?.newsSubService?.data
         ?.attributes?.isActivated);
 
   /* Local Data */
@@ -158,9 +180,9 @@ export async function getStaticProps() {
       recyclingGuideBlock,
       servicesBlock,
       quizAndTipsBlock,
+      editoBlock,
       topContentBlock,
       newestTopContents,
-      editoBlock,
     },
   };
 }
