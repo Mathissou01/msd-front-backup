@@ -9,3 +9,4 @@ public
 coverage
 
 src/graphql/codegen
+config/global.json
