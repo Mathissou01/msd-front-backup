@@ -200,6 +200,7 @@ export type CguSubServiceAudienceTypesArgs = {
 };
 
 export type CguSubServiceBlocksDynamicZone =
+  | ComponentBlocksFile
   | ComponentBlocksHorizontalRule
   | ComponentBlocksSubHeading
   | ComponentBlocksWysiwyg
@@ -427,10 +428,24 @@ export type ClientTypeInput = {
   type?: InputMaybe<Scalars["String"]>;
 };
 
+export type ComponentBlocksFile = {
+  __typename?: "ComponentBlocksFile";
+  document?: Maybe<UploadFileEntityResponse>;
+  id: Scalars["ID"];
+};
+
 export type ComponentBlocksHorizontalRule = {
   __typename?: "ComponentBlocksHorizontalRule";
   hr?: Maybe<Scalars["String"]>;
   id: Scalars["ID"];
+};
+
+export type ComponentBlocksImage = {
+  __typename?: "ComponentBlocksImage";
+  altText?: Maybe<Scalars["String"]>;
+  id: Scalars["ID"];
+  isDecorative?: Maybe<Scalars["Boolean"]>;
+  picture?: Maybe<UploadFileEntityResponse>;
 };
 
 export type ComponentBlocksSubHeading = {
@@ -567,6 +582,7 @@ export type ConfidentialitySubServiceAudienceTypesArgs = {
 };
 
 export type ConfidentialitySubServiceBlocksDynamicZone =
+  | ComponentBlocksFile
   | ComponentBlocksHorizontalRule
   | ComponentBlocksSubHeading
   | ComponentBlocksWysiwyg
@@ -637,7 +653,9 @@ export type ContactUsSubServiceAudienceTypesArgs = {
 };
 
 export type ContactUsSubServiceBlocksDynamicZone =
+  | ComponentBlocksFile
   | ComponentBlocksHorizontalRule
+  | ComponentBlocksImage
   | ComponentBlocksSubHeading
   | ComponentBlocksTranscript
   | ComponentBlocksVideo
@@ -912,6 +930,7 @@ export type CookiesSubServiceAudienceTypesArgs = {
 };
 
 export type CookiesSubServiceBlocksDynamicZone =
+  | ComponentBlocksFile
   | ComponentBlocksHorizontalRule
   | ComponentBlocksSubHeading
   | ComponentBlocksWysiwyg
@@ -1439,7 +1458,9 @@ export type EventTagsArgs = {
 };
 
 export type EventBlocksDynamicZone =
+  | ComponentBlocksFile
   | ComponentBlocksHorizontalRule
+  | ComponentBlocksImage
   | ComponentBlocksSubHeading
   | ComponentBlocksTranscript
   | ComponentBlocksVideo
@@ -1499,7 +1520,7 @@ export type EventOrNews = {
   __typename?: "EventOrNews";
   id: Scalars["ID"];
   publishedAt: Scalars["DateTime"];
-  shortDescription: Scalars["String"];
+  shortDescription?: Maybe<Scalars["String"]>;
   title: Scalars["String"];
 };
 
@@ -1699,7 +1720,9 @@ export type FreeContentTagsArgs = {
 };
 
 export type FreeContentBlocksDynamicZone =
+  | ComponentBlocksFile
   | ComponentBlocksHorizontalRule
+  | ComponentBlocksImage
   | ComponentBlocksSubHeading
   | ComponentBlocksTranscript
   | ComponentBlocksVideo
@@ -1833,7 +1856,9 @@ export type GenericMorph =
   | City
   | Client
   | ClientType
+  | ComponentBlocksFile
   | ComponentBlocksHorizontalRule
+  | ComponentBlocksImage
   | ComponentBlocksSubHeading
   | ComponentBlocksTranscript
   | ComponentBlocksVideo
@@ -3090,7 +3115,9 @@ export type NewTagsArgs = {
 };
 
 export type NewBlocksDynamicZone =
+  | ComponentBlocksFile
   | ComponentBlocksHorizontalRule
+  | ComponentBlocksImage
   | ComponentBlocksSubHeading
   | ComponentBlocksTranscript
   | ComponentBlocksVideo
@@ -4636,6 +4663,7 @@ export type Tip = {
   blocks?: Maybe<Array<Maybe<TipBlocksDynamicZone>>>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   editoContent?: Maybe<EditoContentEntityResponse>;
+  image: UploadFileEntityResponse;
   link?: Maybe<Scalars["String"]>;
   publishedAt?: Maybe<Scalars["DateTime"]>;
   shortDescription?: Maybe<Scalars["String"]>;
@@ -4653,7 +4681,9 @@ export type TipTagsArgs = {
 };
 
 export type TipBlocksDynamicZone =
+  | ComponentBlocksFile
   | ComponentBlocksHorizontalRule
+  | ComponentBlocksImage
   | ComponentBlocksSubHeading
   | ComponentBlocksTranscript
   | ComponentBlocksVideo
@@ -4682,6 +4712,7 @@ export type TipFiltersInput = {
   createdAt?: InputMaybe<DateTimeFilterInput>;
   editoContent?: InputMaybe<EditoContentFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
+  isSystem?: InputMaybe<BooleanFilterInput>;
   link?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<TipFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<TipFiltersInput>>>;
@@ -4697,6 +4728,8 @@ export type TipFiltersInput = {
 export type TipInput = {
   blocks?: InputMaybe<Array<Scalars["TipBlocksDynamicZoneInput"]>>;
   editoContent?: InputMaybe<Scalars["ID"]>;
+  image?: InputMaybe<Scalars["ID"]>;
+  isSystem?: InputMaybe<Scalars["Boolean"]>;
   link?: InputMaybe<Scalars["String"]>;
   publishedAt?: InputMaybe<Scalars["DateTime"]>;
   shortDescription?: InputMaybe<Scalars["String"]>;
@@ -5529,6 +5562,22 @@ export type GetEditoBlockQuery = {
                                     } | null;
                                   }>;
                                 } | null;
+                                image: {
+                                  __typename?: "UploadFileEntityResponse";
+                                  data?: {
+                                    __typename?: "UploadFileEntity";
+                                    attributes?: {
+                                      __typename?: "UploadFile";
+                                      hash: string;
+                                      mime: string;
+                                      name: string;
+                                      provider: string;
+                                      size: number;
+                                      url: string;
+                                      alternativeText?: string | null;
+                                    } | null;
+                                  } | null;
+                                };
                               } | null;
                             } | null;
                           } | null;
@@ -5546,7 +5595,13 @@ export type GetEditoBlockQuery = {
                                     __typename?: "UploadFileEntity";
                                     attributes?: {
                                       __typename?: "UploadFile";
-                                      formats?: any | null;
+                                      hash: string;
+                                      mime: string;
+                                      name: string;
+                                      provider: string;
+                                      size: number;
+                                      url: string;
+                                      alternativeText?: string | null;
                                     } | null;
                                   } | null;
                                 };
@@ -5577,7 +5632,13 @@ export type GetEditoBlockQuery = {
                                     __typename?: "UploadFileEntity";
                                     attributes?: {
                                       __typename?: "UploadFile";
-                                      formats?: any | null;
+                                      hash: string;
+                                      mime: string;
+                                      name: string;
+                                      provider: string;
+                                      size: number;
+                                      url: string;
+                                      alternativeText?: string | null;
                                     } | null;
                                   } | null;
                                 };
@@ -5634,6 +5695,22 @@ export type GetEditoBlockQuery = {
                                     } | null;
                                   }>;
                                 } | null;
+                                image: {
+                                  __typename?: "UploadFileEntityResponse";
+                                  data?: {
+                                    __typename?: "UploadFileEntity";
+                                    attributes?: {
+                                      __typename?: "UploadFile";
+                                      hash: string;
+                                      mime: string;
+                                      name: string;
+                                      provider: string;
+                                      size: number;
+                                      url: string;
+                                      alternativeText?: string | null;
+                                    } | null;
+                                  } | null;
+                                };
                               } | null;
                             } | null;
                           } | null;
@@ -5749,7 +5826,7 @@ export type GetNewestTopContentsQuery = {
     __typename?: "EventOrNews";
     id: string;
     title: string;
-    shortDescription: string;
+    shortDescription?: string | null;
     publishedAt: any;
   } | null> | null;
 };
@@ -5806,6 +5883,22 @@ export type GetQuizAndTipsBlockQuery = {
                           titleLabel?: string | null;
                           link?: string | null;
                           publishedAt?: any | null;
+                          image: {
+                            __typename?: "UploadFileEntityResponse";
+                            data?: {
+                              __typename?: "UploadFileEntity";
+                              attributes?: {
+                                __typename?: "UploadFile";
+                                hash: string;
+                                mime: string;
+                                name: string;
+                                provider: string;
+                                size: number;
+                                url: string;
+                                alternativeText?: string | null;
+                              } | null;
+                            } | null;
+                          };
                         } | null;
                       }>;
                     } | null;
@@ -6273,8 +6366,51 @@ export type GetTopContentBlockQuery = {
                                     __typename?: "UploadFileEntity";
                                     attributes?: {
                                       __typename?: "UploadFile";
-                                      alternativeText?: string | null;
+                                      hash: string;
+                                      mime: string;
+                                      name: string;
+                                      provider: string;
+                                      size: number;
                                       url: string;
+                                      alternativeText?: string | null;
+                                    } | null;
+                                  } | null;
+                                };
+                              } | null;
+                            } | null;
+                          } | null;
+                          event?: {
+                            __typename?: "EventEntityResponse";
+                            data?: {
+                              __typename?: "EventEntity";
+                              attributes?: {
+                                __typename?: "Event";
+                                title: string;
+                                shortDescription?: string | null;
+                                publishedAt?: any | null;
+                                tags?: {
+                                  __typename?: "TagRelationResponseCollection";
+                                  data: Array<{
+                                    __typename?: "TagEntity";
+                                    attributes?: {
+                                      __typename?: "Tag";
+                                      name: string;
+                                    } | null;
+                                  }>;
+                                } | null;
+                                image: {
+                                  __typename?: "UploadFileEntityResponse";
+                                  data?: {
+                                    __typename?: "UploadFileEntity";
+                                    attributes?: {
+                                      __typename?: "UploadFile";
+                                      hash: string;
+                                      mime: string;
+                                      name: string;
+                                      provider: string;
+                                      size: number;
+                                      url: string;
+                                      alternativeText?: string | null;
                                     } | null;
                                   } | null;
                                 };
@@ -6514,6 +6650,19 @@ export const GetEditoBlockDocument = gql`
                                       }
                                     }
                                   }
+                                  image {
+                                    data {
+                                      attributes {
+                                        hash
+                                        mime
+                                        name
+                                        provider
+                                        size
+                                        url
+                                        alternativeText
+                                      }
+                                    }
+                                  }
                                 }
                               }
                             }
@@ -6525,7 +6674,13 @@ export const GetEditoBlockDocument = gql`
                                   image {
                                     data {
                                       attributes {
-                                        formats
+                                        hash
+                                        mime
+                                        name
+                                        provider
+                                        size
+                                        url
+                                        alternativeText
                                       }
                                     }
                                   }
@@ -6547,7 +6702,13 @@ export const GetEditoBlockDocument = gql`
                                   image {
                                     data {
                                       attributes {
-                                        formats
+                                        hash
+                                        mime
+                                        name
+                                        provider
+                                        size
+                                        url
+                                        alternativeText
                                       }
                                     }
                                   }
@@ -6586,6 +6747,19 @@ export const GetEditoBlockDocument = gql`
                                     data {
                                       attributes {
                                         name
+                                      }
+                                    }
+                                  }
+                                  image {
+                                    data {
+                                      attributes {
+                                        hash
+                                        mime
+                                        name
+                                        provider
+                                        size
+                                        url
+                                        alternativeText
                                       }
                                     }
                                   }
@@ -6860,6 +7034,19 @@ export const GetQuizAndTipsBlockDocument = gql`
                             title
                             titleLabel
                             link
+                            image {
+                              data {
+                                attributes {
+                                  hash
+                                  mime
+                                  name
+                                  provider
+                                  size
+                                  url
+                                  alternativeText
+                                }
+                              }
+                            }
                             publishedAt
                           }
                         }
@@ -7385,15 +7572,49 @@ export const GetTopContentBlockDocument = gql`
                                       }
                                     }
                                   }
-                                  publishedAt
                                   image {
                                     data {
                                       attributes {
-                                        alternativeText
+                                        hash
+                                        mime
+                                        name
+                                        provider
+                                        size
                                         url
+                                        alternativeText
                                       }
                                     }
                                   }
+                                  publishedAt
+                                }
+                              }
+                            }
+                            event {
+                              data {
+                                attributes {
+                                  title
+                                  shortDescription
+                                  tags {
+                                    data {
+                                      attributes {
+                                        name
+                                      }
+                                    }
+                                  }
+                                  image {
+                                    data {
+                                      attributes {
+                                        hash
+                                        mime
+                                        name
+                                        provider
+                                        size
+                                        url
+                                        alternativeText
+                                      }
+                                    }
+                                  }
+                                  publishedAt
                                 }
                               }
                             }

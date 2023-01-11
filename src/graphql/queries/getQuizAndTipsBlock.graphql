@@ -29,6 +29,19 @@ query getQuizAndTipsBlock($contractId: ID!) {
                           title
                           titleLabel
                           link
+                          image {
+                            data {
+                              attributes {
+                                hash
+                                mime
+                                name
+                                provider
+                                size
+                                url
+                                alternativeText
+                              }
+                            }
+                          }
                           publishedAt
                         }
                       }

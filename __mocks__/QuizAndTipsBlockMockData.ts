@@ -25,6 +25,7 @@ export const defaultMockData = {
               titleLabel: null,
               link: "/images/pictos-temp/banana.svg",
               publishedAt: "2022-11-19T00:14:08.232Z",
+              image: {},
             },
           },
         ],
@@ -60,6 +61,7 @@ export const threeTipsMockData = {
               titleLabel: null,
               link: "/images/pictos-temp/banana.svg",
               publishedAt: "2022-11-19T00:14:08.232Z",
+              image: {},
             },
           },
           {
@@ -70,6 +72,7 @@ export const threeTipsMockData = {
               titleLabel: null,
               link: "/images/pictos-temp/sink.svg",
               publishedAt: "2022-11-19T00:14:37.403Z",
+              image: {},
             },
           },
           {
@@ -80,6 +83,7 @@ export const threeTipsMockData = {
               titleLabel: null,
               link: "/images/pictos-temp/basket.svg",
               publishedAt: "2022-11-18T10:17:11.158Z",
+              image: {},
             },
           },
         ],

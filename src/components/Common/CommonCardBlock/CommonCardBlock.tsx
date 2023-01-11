@@ -10,7 +10,7 @@ interface ICommonCardBlockProps {
   title: string;
   href: string;
   tagLabels?: Array<string>;
-  description?: string;
+  shortDescription?: string;
   imageUrl?: string;
   imageAlt?: string;
   date?: string;
@@ -22,7 +22,7 @@ export default function CommonCardBlock({
   tagLabels,
   title,
   href,
-  description,
+  shortDescription,
   imageUrl,
   imageAlt = "",
   date,
@@ -75,7 +75,7 @@ export default function CommonCardBlock({
         </div>
         <div className="c-CommonCardBlock__ContentBody">
           <h3 className="c-CommonCardBlock__Title">{title}</h3>
-          <p className="c-CommonCardBlock__Description">{description}</p>
+          <p className="c-CommonCardBlock__Description">{shortDescription}</p>
         </div>
         <Link className="c-CommonCardBlock__Link" href={href}>
           <span className="c-CommonCardBlock__Label">{linkLabel}</span>

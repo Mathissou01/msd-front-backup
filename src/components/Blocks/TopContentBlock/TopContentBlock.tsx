@@ -13,6 +13,7 @@ interface ITopContentBlock {
   data: TopContentBlockEntity;
   newestTopContents: GetNewestTopContentsQuery;
 }
+
 export default function TopContentBlock({
   data,
   newestTopContents,
@@ -29,6 +30,7 @@ export default function TopContentBlock({
   const titleContent = data?.attributes?.titleContent ?? "";
   const hasTopContent = data.attributes?.hasTopContent;
   const displayLastThreeContents = data.attributes?.displayLastThreeContents;
+  // TODO: add case when topContent is event later
   const contentTopNewsOrEvent =
     data?.attributes?.topContent?.data?.attributes?.news?.data?.attributes;
   const titleNews = contentTopNewsOrEvent?.title ?? "";
@@ -60,7 +62,7 @@ export default function TopContentBlock({
             <CommonCardBlock
               key={index}
               title={topContent?.title ?? ""}
-              description={topContent?.shortDescription}
+              shortDescription={topContent?.shortDescription ?? ""}
               date={topContent?.publishedAt}
               imageUrl={defaultImageMobile}
               href={defaultHref}

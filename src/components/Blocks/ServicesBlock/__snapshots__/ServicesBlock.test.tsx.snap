@@ -7,74 +7,78 @@ exports[`ServicesBlock renders less than three ServiceCard 1`] = `
     data-testid="services-block"
   >
     <div
-      class="c-CommonBlockHeading"
+      class="c-ServicesBlock__Content"
     >
-      <h2>
-        Les services de ma ville
-      </h2>
       <div
-        class="c-CommonBlockHeading__Line"
-      />
-    </div>
-    <div
-      class="c-ServicesBlock__Services c-ServicesBlock__Services_many"
-    >
-      <a
-        class="c-ServiceCard"
-        data-testid="service-card"
-        href="/"
+        class="c-CommonBlockHeading"
       >
+        <h2>
+          Les services de ma ville
+        </h2>
         <div
-          class="c-ServiceCard__Svg"
+          class="c-CommonBlockHeading__Line"
+        />
+      </div>
+      <div
+        class="c-ServicesBlock__Services c-ServicesBlock__Services_many"
+      >
+        <a
+          class="c-ServiceCard"
+          data-testid="service-card"
+          href="/"
         >
           <div
-            class="c-ServiceCard__Picto"
+            class="c-ServiceCard__Svg"
           >
-            <img
-              alt=""
-              data-nimg="1"
-              decoding="async"
-              height="25"
-              loading="lazy"
-              src="/images/pictos/default.svg"
-              srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
-              style="color: transparent;"
-              width="25"
-            />
+            <div
+              class="c-ServiceCard__Picto"
+            >
+              <img
+                alt=""
+                data-nimg="1"
+                decoding="async"
+                height="25"
+                loading="lazy"
+                src="/images/pictos/default.svg"
+                srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
+                style="color: transparent;"
+                width="25"
+              />
+            </div>
           </div>
-        </div>
-        <div>
-          Guide du tri
-        </div>
-      </a>
-      <a
-        class="c-ServiceCard"
-        data-testid="service-card"
-        href="valorisation-de-mes-dechets"
-      >
-        <div
-          class="c-ServiceCard__Svg"
+          <div>
+            Guide du tri
+          </div>
+        </a>
+        <a
+          class="c-ServiceCard"
+          data-testid="service-card"
+          href="valorisation-de-mes-dechets"
         >
           <div
-            class="c-ServiceCard__Picto"
+            class="c-ServiceCard__Svg"
           >
-            <img
-              alt=""
-              data-nimg="1"
-              decoding="async"
-              height="25"
-              loading="lazy"
-              src="/images/pictos/default.svg"
-              srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
-              style="color: transparent;"
-              width="25"
-            />
+            <div
+              class="c-ServiceCard__Picto"
+            >
+              <img
+                alt=""
+                data-nimg="1"
+                decoding="async"
+                height="25"
+                loading="lazy"
+                src="/images/pictos/default.svg"
+                srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
+                style="color: transparent;"
+                width="25"
+              />
+            </div>
           </div>
-        </div>
-        <div>
-          Valorisation de mes déchets
-        </div>
-      </a>
+          <div>
+            Valorisation de mes déchets
+          </div>
+        </a>
+      </div>
     </div>
     <div
       class="c-ServicesBlock__SvgContainer"
@@ -97,18 +101,22 @@ exports[`ServicesBlock renders nothing when data don't contain a required data  
     data-testid="services-block"
   >
     <div
-      class="c-CommonBlockHeading"
+      class="c-ServicesBlock__Content"
     >
-      <h2>
-        Les services de ma ville
-      </h2>
       <div
-        class="c-CommonBlockHeading__Line"
+        class="c-CommonBlockHeading"
+      >
+        <h2>
+          Les services de ma ville
+        </h2>
+        <div
+          class="c-CommonBlockHeading__Line"
+        />
+      </div>
+      <div
+        class="c-ServicesBlock__Services"
       />
     </div>
-    <div
-      class="c-ServicesBlock__Services"
-    />
     <div
       class="c-ServicesBlock__SvgContainer"
     >
@@ -130,130 +138,134 @@ exports[`ServicesBlock renders three or more of ServiceCard 1`] = `
     data-testid="services-block"
   >
     <div
-      class="c-CommonBlockHeading"
+      class="c-ServicesBlock__Content"
     >
-      <h2>
-        Les services de ma ville
-      </h2>
       <div
-        class="c-CommonBlockHeading__Line"
-      />
-    </div>
-    <div
-      class="c-ServicesBlock__Services c-ServicesBlock__Services_many"
-    >
-      <a
-        class="c-ServiceCard"
-        data-testid="service-card"
-        href="/"
+        class="c-CommonBlockHeading"
       >
+        <h2>
+          Les services de ma ville
+        </h2>
         <div
-          class="c-ServiceCard__Svg"
+          class="c-CommonBlockHeading__Line"
+        />
+      </div>
+      <div
+        class="c-ServicesBlock__Services c-ServicesBlock__Services_many"
+      >
+        <a
+          class="c-ServiceCard"
+          data-testid="service-card"
+          href="/"
         >
           <div
-            class="c-ServiceCard__Picto"
+            class="c-ServiceCard__Svg"
           >
-            <img
-              alt=""
-              data-nimg="1"
-              decoding="async"
-              height="25"
-              loading="lazy"
-              src="/images/pictos/default.svg"
-              srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
-              style="color: transparent;"
-              width="25"
-            />
+            <div
+              class="c-ServiceCard__Picto"
+            >
+              <img
+                alt=""
+                data-nimg="1"
+                decoding="async"
+                height="25"
+                loading="lazy"
+                src="/images/pictos/default.svg"
+                srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
+                style="color: transparent;"
+                width="25"
+              />
+            </div>
           </div>
-        </div>
-        <div>
-          Guide du tri
-        </div>
-      </a>
-      <a
-        class="c-ServiceCard"
-        data-testid="service-card"
-        href="valorisation-de-mes-dechets"
-      >
-        <div
-          class="c-ServiceCard__Svg"
+          <div>
+            Guide du tri
+          </div>
+        </a>
+        <a
+          class="c-ServiceCard"
+          data-testid="service-card"
+          href="valorisation-de-mes-dechets"
         >
           <div
-            class="c-ServiceCard__Picto"
+            class="c-ServiceCard__Svg"
           >
-            <img
-              alt=""
-              data-nimg="1"
-              decoding="async"
-              height="25"
-              loading="lazy"
-              src="/images/pictos/default.svg"
-              srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
-              style="color: transparent;"
-              width="25"
-            />
+            <div
+              class="c-ServiceCard__Picto"
+            >
+              <img
+                alt=""
+                data-nimg="1"
+                decoding="async"
+                height="25"
+                loading="lazy"
+                src="/images/pictos/default.svg"
+                srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
+                style="color: transparent;"
+                width="25"
+              />
+            </div>
           </div>
-        </div>
-        <div>
-          Valorisation de mes déchets
-        </div>
-      </a>
-      <a
-        class="c-ServiceCard"
-        data-testid="service-card"
-        href="reduire-mes-dechets"
-      >
-        <div
-          class="c-ServiceCard__Svg"
+          <div>
+            Valorisation de mes déchets
+          </div>
+        </a>
+        <a
+          class="c-ServiceCard"
+          data-testid="service-card"
+          href="reduire-mes-dechets"
         >
           <div
-            class="c-ServiceCard__Picto"
+            class="c-ServiceCard__Svg"
           >
-            <img
-              alt=""
-              data-nimg="1"
-              decoding="async"
-              height="25"
-              loading="lazy"
-              src="/images/pictos/default.svg"
-              srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
-              style="color: transparent;"
-              width="25"
-            />
+            <div
+              class="c-ServiceCard__Picto"
+            >
+              <img
+                alt=""
+                data-nimg="1"
+                decoding="async"
+                height="25"
+                loading="lazy"
+                src="/images/pictos/default.svg"
+                srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
+                style="color: transparent;"
+                width="25"
+              />
+            </div>
           </div>
-        </div>
-        <div>
-          Réduire mes déchets
-        </div>
-      </a>
-      <a
-        class="c-ServiceCard"
-        data-testid="service-card"
-        href="/"
-      >
-        <div
-          class="c-ServiceCard__Svg"
+          <div>
+            Réduire mes déchets
+          </div>
+        </a>
+        <a
+          class="c-ServiceCard"
+          data-testid="service-card"
+          href="/"
         >
           <div
-            class="c-ServiceCard__Picto"
+            class="c-ServiceCard__Svg"
           >
-            <img
-              alt=""
-              data-nimg="1"
-              decoding="async"
-              height="25"
-              loading="lazy"
-              src="/images/pictos/default.svg"
-              srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
-              style="color: transparent;"
-              width="25"
-            />
+            <div
+              class="c-ServiceCard__Picto"
+            >
+              <img
+                alt=""
+                data-nimg="1"
+                decoding="async"
+                height="25"
+                loading="lazy"
+                src="/images/pictos/default.svg"
+                srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
+                style="color: transparent;"
+                width="25"
+              />
+            </div>
           </div>
-        </div>
-        <div>
-          dfhsrgsrh
-        </div>
-      </a>
+          <div>
+            dfhsrgsrh
+          </div>
+        </a>
+      </div>
     </div>
     <div
       class="c-ServicesBlock__SvgContainer"

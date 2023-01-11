@@ -25,19 +25,21 @@ export default function ServicesBlock({ remappedData }: IServicesBlockProps) {
 
   return (
     <section className="c-ServicesBlock" data-testid="services-block">
-      <CommonBlockHeading titleContent={remappedData.titleContent ?? ""} />
-      <div className={servicesClassNames}>
-        {remappedData.serviceLinks?.map(
-          (link, index) =>
-            link.isDisplayed && (
-              <ServiceCard
-                href={link.path ?? "/"}
-                key={`${link.name}_${index}`}
-                name={link.name ?? ""}
-                pictoUrl={link.picto?.data?.attributes?.url ?? defaultPicto}
-              />
-            ),
-        )}
+      <div className="c-ServicesBlock__Content">
+        <CommonBlockHeading titleContent={remappedData.titleContent ?? ""} />
+        <div className={servicesClassNames}>
+          {remappedData.serviceLinks?.map(
+            (link, index) =>
+              link.isDisplayed && (
+                <ServiceCard
+                  href={link.path ?? "/"}
+                  key={`${link.name}_${index}`}
+                  name={link.name ?? ""}
+                  pictoUrl={link.picto?.data?.attributes?.url ?? defaultPicto}
+                />
+              ),
+          )}
+        </div>
       </div>
       <div className="c-ServicesBlock__SvgContainer">
         <ServicesDesktop className="c-ServicesBlock__Svg_desktop" />

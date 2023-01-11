@@ -28,15 +28,49 @@ query getTopContentBlock($contractId: ID!) {
                                     }
                                   }
                                 }
-                                publishedAt
                                 image {
                                   data {
                                     attributes {
-                                      alternativeText
+                                      hash
+                                      mime
+                                      name
+                                      provider
+                                      size
                                       url
+                                      alternativeText
                                     }
                                   }
                                 }
+                                publishedAt
+                              }
+                            }
+                          }
+                          event {
+                            data {
+                              attributes {
+                                title
+                                shortDescription
+                                tags {
+                                  data {
+                                    attributes {
+                                      name
+                                    }
+                                  }
+                                }
+                                image {
+                                  data {
+                                    attributes {
+                                      hash
+                                      mime
+                                      name
+                                      provider
+                                      size
+                                      url
+                                      alternativeText
+                                    }
+                                  }
+                                }
+                                publishedAt
                               }
                             }
                           }

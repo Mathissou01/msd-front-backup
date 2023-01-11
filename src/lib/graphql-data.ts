@@ -63,19 +63,19 @@ export function extractQuizAndTipsBlock(data: GetQuizAndTipsBlockQuery) {
   const quizAndTipsBlock: QuizAndTipsBlockEntity | null =
     data.contractCustomizations?.data[0]?.attributes?.homepage?.data?.attributes
       ?.quizAndTipsBlock?.data ?? null;
-
   return quizAndTipsBlock;
 }
 
 export function extractTopContentBlock(data: GetTopContentBlockQuery) {
-  return (data.contractCustomizations?.data[0].attributes?.homepage?.data
-    ?.attributes?.topContentBlock?.data ??
-    null) as TopContentBlockEntity | null;
+  const topContentBlock: TopContentBlockEntity | null =
+    data.contractCustomizations?.data[0].attributes?.homepage?.data?.attributes
+      ?.topContentBlock?.data ?? null;
+  return topContentBlock;
 }
 
 export function extractEditoBlock(data: GetEditoBlockQuery) {
-  return (
-    (data?.contractCustomizations?.data[0].attributes?.homepage?.data
-      ?.attributes?.editoBlock?.data as EditoBlockEntity) ?? null
-  );
+  const editoBlock: EditoBlockEntity | null =
+    data?.contractCustomizations?.data[0].attributes?.homepage?.data?.attributes
+      ?.editoBlock?.data ?? null;
+  return editoBlock;
 }

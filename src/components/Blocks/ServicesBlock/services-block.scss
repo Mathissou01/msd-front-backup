@@ -4,11 +4,7 @@
 
 .c-ServicesBlock {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  align-items: flex-start;
-  width: 100%;
+  min-height: 268px;
   padding: 50px 20px 55px;
   overflow: hidden;
 
@@ -16,6 +12,15 @@
     margin-top: 10px;
     margin-bottom: 20px;
     padding: 64px 124px 85px 123px;
+  }
+
+  &__Content {
+    position: relative;
+    z-index: index.z("site-content");
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
   }
 
   &__Services {
@@ -42,6 +47,7 @@
     position: absolute;
     bottom: 0;
     left: 0;
+    z-index: index.z("background");
     width: 100%;
     background: colors.$background-dark;
 
@@ -72,15 +78,8 @@
   }
 
   svg {
-    width: 186px;
     height: 160px;
     margin-top: -21px;
-
-    @include media.desktop-only {
-      width: 223px;
-      height: 172px;
-      margin-top: -24px;
-    }
 
     #primary-color {
       fill: colors.$brand-primary;

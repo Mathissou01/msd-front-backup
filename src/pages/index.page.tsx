@@ -59,7 +59,7 @@ export default function HomePage({
     !!recyclingGuideBlock &&
     servicesData.recyclingGuideServices?.data[0]?.attributes?.isActivated;
   const displayServicesBlock =
-    !!servicesBlock &&
+    servicesBlock.titleContent &&
     (servicesData.editorialServices?.data[0]?.attributes?.eventSubService?.data
       ?.attributes?.isActivated ||
       servicesData.editorialServices?.data[0]?.attributes?.newsSubService?.data
