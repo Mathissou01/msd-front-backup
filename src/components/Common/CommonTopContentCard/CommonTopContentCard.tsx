@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -16,7 +17,9 @@ interface ICommonTopContentCardProps {
   imageUrlMobile?: string;
   imageAlt?: string;
   isTitleTop?: boolean;
+  style?: "default" | "editoPage";
 }
+
 export default function CommonTopContentCard({
   title,
   redirectUrl,
@@ -27,16 +30,26 @@ export default function CommonTopContentCard({
   imageUrlMobile,
   imageAlt = "",
   isTitleTop = false,
+  style = "default",
 }: ICommonTopContentCardProps) {
+  const knowMore = "En savoir plus";
+
   let contentCardDate;
   let dataFrenchFormat;
-
   if (date) {
     contentCardDate = new Date(date || "");
     dataFrenchFormat = handleDateFrenchFormat(contentCardDate);
   }
 
-  const knowMore = "En savoir plus";
+  const contentClassNames = classNames("c-CommonTopContentCard__Content", {
+    "c-CommonTopContentCard__EditoContent": style === "editoPage",
+  });
+
+  const getTagClassNames = (index: number) => {
+    return classNames("c-CommonTopContentCard__Tag", {
+      "c-CommonTopContentCard__Tag_background": index > 0,
+    });
+  };
 
   return (
     <div className="c-CommonTopContentCard">
@@ -61,7 +74,7 @@ export default function CommonTopContentCard({
         ) : null}
       </div>
       <div className="c-CommonTopContentCard__ContentContainer">
-        <div className="c-CommonTopContentCard__Content">
+        <div className={contentClassNames}>
           {isTitleTop ? (
             <h2 className="c-CommonTopContentCard__TitleContentTop">{title}</h2>
           ) : null}
@@ -70,9 +83,7 @@ export default function CommonTopContentCard({
               {tags?.map((tag, index) => (
                 <span
                   key={tag.attributes?.name}
-                  className={`c-CommonTopContentCard__Tag ${
-                    index > 0 ? "c-CommonTopContentCard__Tag_background" : ""
-                  }`}
+                  className={getTagClassNames(index)}
                 >
                   {tag.attributes?.name}
                 </span>
