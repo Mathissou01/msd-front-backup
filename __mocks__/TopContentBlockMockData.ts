@@ -3,7 +3,7 @@ import {
   TopContentBlockEntity,
 } from "../src/graphql/codegen/generated-types";
 
-export const defaultMockData = {
+export const defaultMockMinData = {
   __typename: "TopContentBlockEntity",
   id: "1",
   attributes: {
@@ -11,6 +11,7 @@ export const defaultMockData = {
     titleContent: "Actualités & Evénements",
     displayBlock: true,
     displayLastThreeContents: false,
+    hasTopContent: false,
     topContent: {
       __typename: "TopContentEntityResponse",
       data: {
@@ -56,7 +57,63 @@ export const defaultMockData = {
         },
       },
     },
-    hasTopContent: false,
+  },
+} as TopContentBlockEntity;
+
+export const defaultMockFullData = {
+  __typename: "TopContentBlockEntity",
+  id: "1",
+  attributes: {
+    __typename: "TopContentBlock",
+    titleContent: "Actualités & Evénements",
+    displayBlock: true,
+    displayLastThreeContents: true,
+    hasTopContent: true,
+    topContent: {
+      __typename: "TopContentEntityResponse",
+      data: {
+        __typename: "TopContentEntity",
+        attributes: {
+          __typename: "TopContent",
+          news: {
+            __typename: "NewEntityResponse",
+            data: {
+              __typename: "NewEntity",
+              attributes: {
+                __typename: "New",
+                title: "Lorem ipsum dolor sit amet",
+                shortDescription:
+                  "consectetur adipiscing elit. Aliquam facilisis tincidunt est",
+                tags: {
+                  __typename: "TagRelationResponseCollection",
+                  data: [
+                    {
+                      __typename: "TagEntity",
+                      attributes: {
+                        __typename: "Tag",
+                        name: "Evénement",
+                      },
+                    },
+                    {
+                      __typename: "TagEntity",
+                      attributes: {
+                        __typename: "Tag",
+                        name: "Réparation",
+                      },
+                    },
+                  ],
+                },
+                publishedAt: "2022-12-05T15:59:19.503Z",
+                image: {
+                  __typename: "UploadFileEntityResponse",
+                  data: null,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
   },
 } as TopContentBlockEntity;
 
@@ -65,9 +122,9 @@ export const newestTopContentMockData = {
     {
       __typename: "EventOrNews",
       id: "2",
-      title: "Semaine initiatives vertes",
+      title: "Suspendisse et est sem",
       shortDescription:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ultricies consequat tortor sed.",
+        "Vestibulum cursus eros ut ligula lobortis auctor. Quisque luctus sagittis tellus",
       publishedAt: "2022-12-29T09:11:05.800Z",
     },
     {

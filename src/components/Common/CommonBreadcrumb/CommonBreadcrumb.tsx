@@ -1,5 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
+import classNames from "classnames";
 import Link from "next/link";
 import Breadcrumb from "public/images/pictos/breadcrumb-separator.svg";
 import "./common-breadcrumb.scss";
@@ -14,24 +15,20 @@ export default function CommonBreadcrumb() {
   function handlePathGeneration() {
     return pathLevelsArray.map((path, index) => {
       progressivePath = `${progressivePath}/${path}`;
+      const CommonBreadcrumbLink = classNames("c-CommonBreadcrumb__Link", {
+        "c-CommonBreadcrumb__Link_underline":
+          pathLevelsArray.length - 1 > index,
+      });
 
       return (
-        <>
+        <div key={path}>
           {router.pathname !== "/" ? (
             <Breadcrumb data-testid="breadcrumb-separator" />
           ) : null}
-          <Link
-            key={path}
-            className={
-              pathLevelsArray.length - 1 > index
-                ? "c-CommonBreadcrumb__Link c-CommonBreadcrumb__Link_underline"
-                : "c-CommonBreadcrumb__Link"
-            }
-            href={`${progressivePath}`}
-          >
+          <Link className={CommonBreadcrumbLink} href={`${progressivePath}`}>
             {path}
           </Link>
-        </>
+        </div>
       );
     });
   }

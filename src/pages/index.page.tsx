@@ -41,7 +41,7 @@ interface IHomePageProps {
   servicesBlock: IRemappedServiceBlock;
   quizAndTipsBlock: QuizAndTipsBlockEntity | null;
   topContentBlock: TopContentBlockEntity | null;
-  newestTopcontents: GetNewestTopContentsQuery;
+  newestTopContents: GetNewestTopContentsQuery;
   editoBlock: EditoBlockEntity | null;
 }
 
@@ -51,7 +51,7 @@ export default function HomePage({
   servicesBlock,
   quizAndTipsBlock,
   topContentBlock,
-  newestTopcontents,
+  newestTopContents,
   editoBlock,
 }: IHomePageProps) {
   /* StaticProps data */
@@ -66,7 +66,13 @@ export default function HomePage({
       servicesData.editorialServices?.data[0]?.attributes?.tipSubService?.data
         ?.attributes?.isActivated);
   const displayEditoBlock = !!editoBlock;
-  const displayTopContentBlock = !!topContentBlock;
+  const displayTopContentBlock =
+    topContentBlock?.attributes?.displayBlock &&
+    (servicesData.editorialServices?.data[0]?.attributes?.newsSubService?.data
+      ?.attributes?.isActivated ||
+      servicesData.editorialServices?.data[0]?.attributes?.eventSubService?.data
+        ?.attributes?.isActivated);
+
   /* Local Data */
   const isDesktop = useIsDesktopContext();
 
@@ -81,7 +87,7 @@ export default function HomePage({
       {displayTopContentBlock && (
         <TopContentBlock
           data={topContentBlock}
-          newestTopcontents={newestTopcontents}
+          newestTopContents={newestTopContents}
         />
       )}
       <section
@@ -134,7 +140,7 @@ export async function getStaticProps() {
     });
   const topContentBlock = extractTopContentBlock(topContentBlockData);
 
-  const { data: newestTopcontents } =
+  const { data: newestTopContents } =
     await client.query<GetNewestTopContentsQuery>({
       query: GetNewestTopContentsDocument,
       variables: { contractId },
@@ -153,7 +159,7 @@ export async function getStaticProps() {
       servicesBlock,
       quizAndTipsBlock,
       topContentBlock,
-      newestTopcontents,
+      newestTopContents,
       editoBlock,
     },
   };

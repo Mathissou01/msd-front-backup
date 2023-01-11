@@ -1,13 +1,14 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import ArrowCorner from "public/images/pictos/arrow-corner.svg";
-import { handleDateFrenchFormat } from "../../../lib/utilities";
 import { TagEntity } from "../../../graphql/codegen/generated-types";
+import { handleDateFrenchFormat } from "../../../lib/utilities";
+import ArrowCorner from "public/images/pictos/arrow-corner.svg";
 import "./common-top-content-card.scss";
 
 interface ICommonTopContentCardProps {
   title: string;
+  redirectUrl: string;
   description?: string;
   tags?: TagEntity[];
   date?: string;
@@ -18,34 +19,39 @@ interface ICommonTopContentCardProps {
 }
 export default function CommonTopContentCard({
   title,
+  redirectUrl,
   description,
   tags,
   date,
-  imageUrlDesktop = "",
-  imageUrlMobile = "",
+  imageUrlDesktop,
+  imageUrlMobile,
   imageAlt = "",
   isTitleTop = false,
 }: ICommonTopContentCardProps) {
-  const contentCardDate = new Date(date || "");
+  const contentCardDate = new Date(date ?? "");
   const dataFrenchFormat = handleDateFrenchFormat(contentCardDate);
 
   return (
     <div className="c-CommonTopContentCard">
       <div className="c-CommonTopContentCard__Image">
-        <Image
-          src={imageUrlDesktop}
-          alt={imageAlt}
-          width={480}
-          height={308}
-          className="c-CommonTopContentCard__Img_desktop"
-        />
-        <Image
-          src={imageUrlMobile}
-          alt={imageAlt}
-          width={312}
-          height={200}
-          className="c-CommonTopContentCard__Img_mobile"
-        />
+        {imageUrlDesktop ? (
+          <Image
+            src={imageUrlDesktop}
+            alt={imageAlt}
+            width={480}
+            height={308}
+            className="c-CommonTopContentCard__Img_desktop"
+          />
+        ) : null}
+        {imageUrlMobile ? (
+          <Image
+            src={imageUrlMobile}
+            alt={imageAlt}
+            width={312}
+            height={200}
+            className="c-CommonTopContentCard__Img_mobile"
+          />
+        ) : null}
       </div>
       <div className="c-CommonTopContentCard__ContentContainer">
         <div className="c-CommonTopContentCard__Content">
@@ -80,10 +86,10 @@ export default function CommonTopContentCard({
             </p>
           </div>
           {!isTitleTop ? (
-            <Link className="c-CommonTopContentCard__Link" href={"/"}>
-              <button type="button" className="c-CommonTopContentCard__Button">
+            <Link className="c-CommonTopContentCard__Link" href={redirectUrl}>
+              <span className="c-CommonTopContentCard__Label">
                 En savoir plus
-              </button>
+              </span>
               <ArrowCorner />
             </Link>
           ) : null}

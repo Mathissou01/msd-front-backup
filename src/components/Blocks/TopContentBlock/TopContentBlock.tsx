@@ -11,55 +11,63 @@ import CommonCardBlock from "../../Common/CommonCardBlock/CommonCardBlock";
 
 interface ITopContentBlock {
   data: TopContentBlockEntity;
-  newestTopcontents: GetNewestTopContentsQuery;
+  newestTopContents: GetNewestTopContentsQuery;
 }
 export default function TopContentBlock({
   data,
-  newestTopcontents,
+  newestTopContents,
 }: ITopContentBlock) {
   /* Static Data */
   const defaultImage = "/images/images-temp/newsDesktop.jpg";
   const defaultImageMobile = "/images/images-temp/newsMobile.png";
-  /* Local Data */
-  const titleContent = data?.attributes?.titleContent || "";
-  const contentTopNews =
-    data?.attributes?.topContent?.data?.attributes?.news?.data?.attributes;
-  const titleNews = contentTopNews?.title || "";
-  const descriptionNews = contentTopNews?.shortDescription || "";
-  const tags = contentTopNews?.tags?.data || [];
-  const date = contentTopNews?.publishedAt;
-  const threeTopContents = newestTopcontents?.getNewestTopContents;
+
   // TODO: temporarily static data, replace with real tags later
-  const tagLabels = ["collecte", "dechets"];
   const labelButton = "Voir plus d’actualités et d’événements";
+  const defaultHref = "/";
+
+  /* Local Data */
+  const titleContent = data?.attributes?.titleContent ?? "";
+  const hasTopContent = data.attributes?.hasTopContent;
+  const displayLastThreeContents = data.attributes?.displayLastThreeContents;
+  const contentTopNewsOrEvent =
+    data?.attributes?.topContent?.data?.attributes?.news?.data?.attributes;
+  const titleNews = contentTopNewsOrEvent?.title ?? "";
+  const descriptionNews = contentTopNewsOrEvent?.shortDescription ?? "";
+  const date = contentTopNewsOrEvent?.publishedAt ?? "";
+  const threeTopContents = newestTopContents?.getNewestTopContents;
+
   return (
     <section className="c-TopContentBlock">
       <CommonBlockHeading titleContent={titleContent} isAlignLeft={true} />
-      <CommonTopContentCard
-        title={titleNews}
-        description={descriptionNews}
-        imageUrlDesktop={
-          contentTopNews?.image?.data?.attributes?.url ?? defaultImage
-        }
-        imageUrlMobile={
-          contentTopNews?.image?.data?.attributes?.url ?? defaultImageMobile
-        }
-        tags={tags}
-        date={date}
-      />
-      <div className="c-TopContentBlock__RowCardsBlock">
-        {threeTopContents?.map((topContent, index) => (
-          <CommonCardBlock
-            key={index}
-            tagLabels={tagLabels}
-            title={topContent?.title ?? ""}
-            description={topContent?.shortDescription}
-            date={topContent?.publishedAt}
-            imageUrl={defaultImageMobile}
-            href="/"
-          />
-        ))}
-      </div>
+      {hasTopContent && (
+        <CommonTopContentCard
+          title={titleNews}
+          redirectUrl={defaultHref}
+          description={descriptionNews}
+          imageUrlDesktop={
+            contentTopNewsOrEvent?.image?.data?.attributes?.url ?? defaultImage
+          }
+          imageUrlMobile={
+            contentTopNewsOrEvent?.image?.data?.attributes?.url ??
+            defaultImageMobile
+          }
+          date={date}
+        />
+      )}
+      {displayLastThreeContents && (
+        <div className="c-TopContentBlock__RowCardsBlock">
+          {threeTopContents?.map((topContent, index) => (
+            <CommonCardBlock
+              key={index}
+              title={topContent?.title ?? ""}
+              description={topContent?.shortDescription}
+              date={topContent?.publishedAt}
+              imageUrl={defaultImageMobile}
+              href={defaultHref}
+            />
+          ))}
+        </div>
+      )}
       <CommonButton label={labelButton} style="primary" />
     </section>
   );

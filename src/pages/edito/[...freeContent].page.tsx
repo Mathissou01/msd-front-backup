@@ -16,6 +16,7 @@ export default function EditoContenuLibrePage() {
       <div className="o-Page__HeroImage">
         <CommonTopContentCard
           title="Semaine initiatives vertes"
+          redirectUrl="/"
           isTitleTop={true}
           imageUrlDesktop={defaultImageDesktop}
           imageUrlMobile={defaultImageMobile}

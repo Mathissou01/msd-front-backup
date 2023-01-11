@@ -1,6 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TopContentBlock renders 1`] = `
+exports[`TopContentBlock renders titleContent 1`] = `
+<div>
+  <section
+    class="c-TopContentBlock"
+  >
+    <div
+      class="c-CommonBlockHeading c-CommonBlockHeading_alignLeft"
+    >
+      <h2>
+        Actualités & Evénements
+      </h2>
+      <div
+        class="c-CommonBlockHeading__Line"
+      />
+    </div>
+    <button
+      class="c-CommonButton c-CommonButton_primary c-CommonButton_fontSmall"
+      type="button"
+    >
+      Voir plus d’actualités et d’événements
+    </button>
+  </section>
+</div>
+`;
+
+exports[`TopContentBlock renders top Content and three topContents 1`] = `
 <div>
   <section
     class="c-TopContentBlock"
@@ -57,18 +82,7 @@ exports[`TopContentBlock renders 1`] = `
           >
             <div
               class="c-CommonTopContentCard__Tags"
-            >
-              <span
-                class="c-CommonTopContentCard__Tag "
-              >
-                Evénement
-              </span>
-              <span
-                class="c-CommonTopContentCard__Tag c-CommonTopContentCard__Tag_background"
-              >
-                Réparation
-              </span>
-            </div>
+            />
             <div
               class="c-CommonTopContentCard__ContentCardDate"
             >
@@ -81,24 +95,23 @@ exports[`TopContentBlock renders 1`] = `
             <h2
               class="c-CommonTopContentCard__TitleContent"
             >
-              Café préparation
+              Lorem ipsum dolor sit amet
             </h2>
             <p
               class="c-CommonTopContentCard__DescriptionContent"
             >
-              Participer à un café réparation avec La Recyclade au café restaurant de la Maison Phare. Vous apprendrez à faire un diagnostic et à réparer votre petit appareil électrique ou électronique de la vie quotidienne
+              consectetur adipiscing elit. Aliquam facilisis tincidunt est
             </p>
           </div>
           <a
             class="c-CommonTopContentCard__Link"
             href="/"
           >
-            <button
-              class="c-CommonTopContentCard__Button"
-              type="button"
+            <span
+              class="c-CommonTopContentCard__Label"
             >
               En savoir plus
-            </button>
+            </span>
             <div />
           </a>
         </div>
@@ -133,18 +146,7 @@ exports[`TopContentBlock renders 1`] = `
           >
             <div
               class="c-CommonCardBlock__Tags"
-            >
-              <span
-                class="c-CommonCardBlock__Tag "
-              >
-                collecte
-              </span>
-              <span
-                class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
-              >
-                dechets
-              </span>
-            </div>
+            />
             <div
               class="c-CommonCardBlock__Date"
             >
@@ -157,24 +159,23 @@ exports[`TopContentBlock renders 1`] = `
             <h3
               class="c-CommonCardBlock__Title"
             >
-              Semaine initiatives vertes
+              Suspendisse et est sem
             </h3>
             <p
               class="c-CommonCardBlock__Description"
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ultricies consequat tortor sed.
+              Vestibulum cursus eros ut ligula lobortis auctor. Quisque luctus sagittis tellus
             </p>
           </div>
           <a
             class="c-CommonCardBlock__Link"
             href="/"
           >
-            <button
-              class="c-CommonCardBlock__Button"
-              type="button"
+            <span
+              class="c-CommonCardBlock__Label"
             >
               En savoir plus
-            </button>
+            </span>
             <div />
           </a>
         </div>
@@ -205,18 +206,7 @@ exports[`TopContentBlock renders 1`] = `
           >
             <div
               class="c-CommonCardBlock__Tags"
-            >
-              <span
-                class="c-CommonCardBlock__Tag "
-              >
-                collecte
-              </span>
-              <span
-                class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
-              >
-                dechets
-              </span>
-            </div>
+            />
             <div
               class="c-CommonCardBlock__Date"
             >
@@ -241,12 +231,11 @@ exports[`TopContentBlock renders 1`] = `
             class="c-CommonCardBlock__Link"
             href="/"
           >
-            <button
-              class="c-CommonCardBlock__Button"
-              type="button"
+            <span
+              class="c-CommonCardBlock__Label"
             >
               En savoir plus
-            </button>
+            </span>
             <div />
           </a>
         </div>
@@ -277,18 +266,7 @@ exports[`TopContentBlock renders 1`] = `
           >
             <div
               class="c-CommonCardBlock__Tags"
-            >
-              <span
-                class="c-CommonCardBlock__Tag "
-              >
-                collecte
-              </span>
-              <span
-                class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
-              >
-                dechets
-              </span>
-            </div>
+            />
             <div
               class="c-CommonCardBlock__Date"
             >
@@ -313,12 +291,11 @@ exports[`TopContentBlock renders 1`] = `
             class="c-CommonCardBlock__Link"
             href="/"
           >
-            <button
-              class="c-CommonCardBlock__Button"
-              type="button"
+            <span
+              class="c-CommonCardBlock__Label"
             >
               En savoir plus
-            </button>
+            </span>
             <div />
           </a>
         </div>

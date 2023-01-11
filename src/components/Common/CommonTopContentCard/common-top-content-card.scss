@@ -77,7 +77,19 @@
 
       @include media.from-tablet {
         display: initial;
+        border-radius: 8px;
       }
+    }
+  }
+
+  &__ContentContainer {
+    @include media.from-tablet {
+      position: absolute;
+      top: 50px;
+      right: 12px;
+      display: flex;
+      align-items: center;
+      height: 308px;
     }
   }
 
@@ -170,20 +182,20 @@
     align-items: center;
     padding: 0;
     border-radius: 2px;
-  }
-
-  &__Button {
-    @include typo.text("caption");
-
-    color: colors.$blue-1;
     transition: text-decoration 0.3s ease-in-out;
-
-    @include media.from-tablet {
-      @include typo.text("buttonLarge");
-    }
 
     &:hover {
       text-decoration: underline;
+    }
+  }
+
+  &__Label {
+    @include typo.text("caption");
+
+    color: colors.$blue-1;
+
+    @include media.from-tablet {
+      @include typo.text("buttonLarge");
     }
   }
 
@@ -194,19 +206,6 @@
 
     #secondary-color {
       fill: colors.$brand-secondary;
-    }
-  }
-}
-
-@include media.from-tablet {
-  .c-CommonTopContentCard {
-    &__ContentContainer {
-      position: absolute;
-      top: 50px;
-      right: 12px;
-      display: flex;
-      align-items: center;
-      height: 308px;
     }
   }
 }

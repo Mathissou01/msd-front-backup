@@ -7,9 +7,9 @@ import { handleDateFrenchFormat } from "../../../lib/utilities";
 import "./common-card-block.scss";
 
 interface ICommonCardBlockProps {
-  tagLabels: Array<string>;
   title: string;
   href: string;
+  tagLabels?: Array<string>;
   description?: string;
   imageUrl?: string;
   imageAlt?: string;
@@ -30,7 +30,7 @@ export default function CommonCardBlock({
   isAlignTextCenter = false,
 }: ICommonCardBlockProps) {
   const linkLabel = "En savoir plus";
-  const contentCardDate = new Date(date || "");
+  const contentCardDate = new Date(date ?? "");
   const dataFrenchFormat = handleDateFrenchFormat(contentCardDate);
   const commonCardBlock = classNames("c-CommonCardBlock", {
     "c-CommonCardBlock_eventDisplay": isEventDisplay,
@@ -74,9 +74,7 @@ export default function CommonCardBlock({
           <p className="c-CommonCardBlock__Description">{description}</p>
         </div>
         <Link className="c-CommonCardBlock__Link" href={href}>
-          <button type="button" className="c-CommonCardBlock__Button">
-            {linkLabel}
-          </button>
+          <span className="c-CommonCardBlock__Label">{linkLabel}</span>
           <Arrow />
         </Link>
       </div>

@@ -163,15 +163,19 @@
   }
 
   &__Link {
-    gap: 12px;
     margin-top: auto;
     padding: 0;
+    transition: text-decoration 0.3s ease-in-out;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
-  &__Button {
+  &__Label {
     @include typo.text("buttonSmall");
 
-    margin-right: 6px;
+    margin-right: 12px;
     color: colors.$blue-1;
     border-radius: 2px;
   }

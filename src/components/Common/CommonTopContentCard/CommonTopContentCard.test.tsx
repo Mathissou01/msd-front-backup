@@ -1,21 +1,19 @@
 import { render } from "@testing-library/react";
-import CommonCardBlock from "./CommonCardBlock";
+import CommonTopContentCard from "./CommonTopContentCard";
 
 const mock = {
-  tagLabels: ["common card block tag"],
-  title: "common card block title",
+  title: "common top content card title",
   href: "/accueil",
   imageUrl: "/images/pictos/default.svg",
 };
 
-describe("CommonCardBlock", () => {
+describe("CommonTopContentCard", () => {
   it("renders", () => {
     const { container } = render(
-      <CommonCardBlock
-        tagLabels={mock.tagLabels}
+      <CommonTopContentCard
         title={mock.title}
-        href={mock.href}
-        imageUrl={mock.imageUrl}
+        redirectUrl={mock.href}
+        imageUrlDesktop={mock.imageUrl}
       />,
     );
     expect(container).toMatchSnapshot();
