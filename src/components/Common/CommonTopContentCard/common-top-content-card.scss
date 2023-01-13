@@ -21,7 +21,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transform: transform 0.3s ease-in-out;
 
     @include media.mobile {
       min-width: 375px;
@@ -56,7 +55,9 @@
       }
     }
 
-    img {
+    &_hoverImg {
+      transition: transform 0.2s ease-in-out;
+
       &:hover {
         transform: scale(1.1);
       }
@@ -86,7 +87,7 @@
     @include media.from-tablet {
       position: absolute;
       top: 50px;
-      right: 12px;
+      right: 18px;
       display: flex;
       align-items: center;
       height: 308px;
@@ -199,13 +200,35 @@
     }
   }
 
-  svg {
-    #primary-color {
-      fill: colors.$brand-primary;
+  &__EditoContent {
+    @include media.from-tablet {
+      width: 100%;
     }
 
-    #secondary-color {
-      fill: colors.$brand-secondary;
+    .c-CommonTopContentCard__ContentContainer {
+      width: 100%;
+
+      @include media.from-tablet {
+        width: 74%;
+      }
+    }
+
+    .c-CommonTopContentCard__Content {
+      width: 100%;
+
+      img {
+        height: 297px;
+      }
+    }
+
+    svg {
+      #primary-color {
+        fill: colors.$brand-primary;
+      }
+
+      #secondary-color {
+        fill: colors.$brand-secondary;
+      }
     }
   }
 }

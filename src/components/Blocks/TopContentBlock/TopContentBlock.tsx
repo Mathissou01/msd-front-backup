@@ -24,7 +24,7 @@ export default function TopContentBlock({
 
   // TODO: temporarily static data, replace with real tags later
   const labelButton = "Voir plus d’actualités et d’événements";
-  const defaultHref = "/";
+  const defaultHref = "/edito/edito";
 
   /* Local Data */
   const titleContent = data?.attributes?.titleContent ?? "";
@@ -54,6 +54,7 @@ export default function TopContentBlock({
             defaultImageMobile
           }
           date={date}
+          isImgHasHover={true}
         />
       )}
       {displayLastThreeContents && (

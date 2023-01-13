@@ -2,9 +2,10 @@ import CommonTopContentCard from "../../components/Common/CommonTopContentCard/C
 import DesktopActuHero from "public/images/desktop_actuhero.svg";
 import MobileActuHero from "public/images/mobile_actuhero.svg";
 import CommonBreadcrumb from "../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
+import "./edito-page.scss";
 
-export default function EditoContenuLibrePage() {
-  //TODO temporary data
+export default function EditoPage() {
+  //TODO temporarily data
   const pagesUrl = [
     {
       label: "Accueil",
@@ -23,8 +24,8 @@ export default function EditoContenuLibrePage() {
   return (
     <>
       <CommonBreadcrumb pages={pagesUrl} />
-      <section className="o-Page__EditoContenuLibre">
-        <div className="o-Page__HeroImage">
+      <section className="c-EditoPage">
+        <div className="c-EditoPage__HeroImage">
           <CommonTopContentCard
             title="Semaine initiatives vertes"
             redirectUrl="/"
@@ -33,9 +34,9 @@ export default function EditoContenuLibrePage() {
             imageUrlMobile={defaultImageMobile}
             style="editoPage"
           />
-          <div className="o-Page__SvgContainer">
-            <MobileActuHero className="o-Page__Svg_mobile" />
-            <DesktopActuHero className="o-Page__Svg_desktop" />
+          <div className="c-EditoPage__SvgContainer">
+            <MobileActuHero className="c-EditoPage__Svg_mobile" />
+            <DesktopActuHero className="c-EditoPage__Svg_desktop" />
           </div>
         </div>
       </section>

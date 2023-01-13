@@ -1,0 +1,58 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.media-queries" as media;
+
+.c-EditoPage {
+  position: relative;
+
+  &__HeroImage {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 403px;
+    padding: 0;
+
+    @include media.from-tablet {
+      height: 457px;
+      padding: 0 124px;
+    }
+  }
+
+  &__SvgContainer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 115px;
+    background: colors.$background-dark;
+
+    @include media.from-tablet {
+      bottom: 30px;
+      height: 230px;
+    }
+  }
+
+  &__Svg {
+    &_mobile {
+      position: absolute;
+      right: 0;
+      bottom: 47px;
+      display: block;
+
+      @include media.from-tablet {
+        display: none;
+      }
+    }
+
+    &_desktop {
+      display: none;
+
+      @include media.from-tablet {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        display: block;
+      }
+    }
+  }
+}

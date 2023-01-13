@@ -44,7 +44,7 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
       class="c-CommonTopContentCard"
     >
       <div
-        class="c-CommonTopContentCard__Image"
+        class="c-CommonTopContentCard__Image c-CommonTopContentCard__Image_hoverImg"
       >
         <img
           alt=""
@@ -105,7 +105,7 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
           </div>
           <a
             class="c-CommonTopContentCard__Link"
-            href="/"
+            href="/edito/edito"
           >
             <span
               class="c-CommonTopContentCard__Label"
@@ -169,7 +169,7 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
           </div>
           <a
             class="c-CommonCardBlock__Link"
-            href="/"
+            href="/edito/edito"
           >
             <span
               class="c-CommonCardBlock__Label"
@@ -229,7 +229,7 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
           </div>
           <a
             class="c-CommonCardBlock__Link"
-            href="/"
+            href="/edito/edito"
           >
             <span
               class="c-CommonCardBlock__Label"
@@ -289,7 +289,7 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
           </div>
           <a
             class="c-CommonCardBlock__Link"
-            href="/"
+            href="/edito/edito"
           >
             <span
               class="c-CommonCardBlock__Label"

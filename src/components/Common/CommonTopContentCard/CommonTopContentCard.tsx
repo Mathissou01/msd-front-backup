@@ -18,6 +18,7 @@ interface ICommonTopContentCardProps {
   imageAlt?: string;
   isTitleTop?: boolean;
   style?: "default" | "editoPage";
+  isImgHasHover?: boolean;
 }
 
 export default function CommonTopContentCard({
@@ -30,6 +31,7 @@ export default function CommonTopContentCard({
   imageUrlMobile,
   imageAlt = "",
   isTitleTop = false,
+  isImgHasHover = false,
   style = "default",
 }: ICommonTopContentCardProps) {
   const knowMore = "En savoir plus";
@@ -41,8 +43,12 @@ export default function CommonTopContentCard({
     dataFrenchFormat = handleDateFrenchFormat(contentCardDate);
   }
 
-  const contentClassNames = classNames("c-CommonTopContentCard__Content", {
+  const cardClassNames = classNames("c-CommonTopContentCard", {
     "c-CommonTopContentCard__EditoContent": style === "editoPage",
+  });
+
+  const imageClassNames = classNames("c-CommonTopContentCard__Image", {
+    "c-CommonTopContentCard__Image_hoverImg": isImgHasHover,
   });
 
   const getTagClassNames = (index: number) => {
@@ -52,8 +58,8 @@ export default function CommonTopContentCard({
   };
 
   return (
-    <div className="c-CommonTopContentCard">
-      <div className="c-CommonTopContentCard__Image">
+    <div className={cardClassNames}>
+      <div className={imageClassNames}>
         {imageUrlDesktop ? (
           <Image
             src={imageUrlDesktop}
@@ -74,7 +80,7 @@ export default function CommonTopContentCard({
         ) : null}
       </div>
       <div className="c-CommonTopContentCard__ContentContainer">
-        <div className={contentClassNames}>
+        <div className="c-CommonTopContentCard__Content">
           {isTitleTop ? (
             <h2 className="c-CommonTopContentCard__TitleContentTop">{title}</h2>
           ) : null}
