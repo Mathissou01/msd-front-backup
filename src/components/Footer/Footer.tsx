@@ -1,36 +1,7 @@
 import Link from "next/link";
 import globalData from "../../../config/global.json";
+import { GlobalDataType } from "../../../config/globalData.type";
 import "./footer.scss";
-
-interface IFooterData {
-  accessibilityLevel:
-    | "not_conform"
-    | "partially_conform"
-    | "conform"
-    | string
-    | null;
-  cguSubService: {
-    data: { attributes: { link: string | null } } | null;
-  } | null;
-  accessibilitySubService: {
-    data: { attributes: { link: string | null } } | null;
-  } | null;
-  confidentialitySubService: {
-    data: { attributes: { link: string | null } } | null;
-  } | null;
-  cookiesSubService: {
-    data: { attributes: { link: string | null } } | null;
-  } | null;
-  contactUsSubService: {
-    data: {
-      attributes: {
-        isActivated: boolean;
-        label: string | null;
-        link: string | null;
-      };
-    } | null;
-  };
-}
 
 enum EAccessibilityLevel {
   "not_conform" = "non conforme",
@@ -57,8 +28,8 @@ export default function Footer() {
   };
 
   /* Global Data */
-  const footerData = globalData.footer.data.attributes as IFooterData;
-  const accessibilityLevelLabel = footerData.accessibilityLevel
+  const footerData = (globalData as GlobalDataType).footer.data?.attributes;
+  const accessibilityLevelLabel = footerData?.accessibilityLevel
     ? Object.values(EAccessibilityLevel)[
         Object.keys(EAccessibilityLevel).indexOf(footerData.accessibilityLevel)
       ]
@@ -75,7 +46,7 @@ export default function Footer() {
       <Link
         className="c-Footer__Link"
         href={
-          footerData.cguSubService?.data?.attributes.link ?? routes.cguRoute
+          footerData?.cguSubService?.data?.attributes?.link ?? routes.cguRoute
         }
       >
         <span>{labels.cguLabel}</span>
@@ -83,7 +54,7 @@ export default function Footer() {
       <Link
         className="c-Footer__Link"
         href={
-          footerData.cookiesSubService?.data?.attributes.link ??
+          footerData?.cookiesSubService?.data?.attributes?.link ??
           routes.cookiesRoute
         }
       >
@@ -92,14 +63,14 @@ export default function Footer() {
       <Link
         className="c-Footer__Link"
         href={
-          footerData.confidentialitySubService?.data?.attributes.link ??
+          footerData?.confidentialitySubService?.data?.attributes?.link ??
           routes.confidentialityRoute
         }
       >
         <span>{labels.confidentialityLabel}</span>
       </Link>
-      {footerData.contactUsSubService.data?.attributes.isActivated &&
-        footerData.contactUsSubService.data.attributes.label && (
+      {footerData?.contactUsSubService?.data?.attributes?.isActivated &&
+        footerData?.contactUsSubService?.data.attributes.label && (
           <Link
             className="c-Footer__Link"
             href={

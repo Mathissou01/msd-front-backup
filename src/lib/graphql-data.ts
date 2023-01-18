@@ -9,8 +9,7 @@ import {
   RecyclingGuideBlockEntity,
   TopContentBlockEntity,
 } from "../graphql/codegen/generated-types";
-import { normalizeStringPath, removeNulls } from "./utilities";
-import { IServiceLink, isServiceLink } from "./service-links";
+import { IServiceLink, remapServiceLinksDynamicZone } from "./service-links";
 
 /* Homepage */
 export function extractRecyclingGuideBlock(data: GetRecyclingGuideBlockQuery) {
@@ -21,38 +20,14 @@ export function extractRecyclingGuideBlock(data: GetRecyclingGuideBlockQuery) {
   return recyclingGuideBlock;
 }
 
-export interface IRemappedServiceBlock {
-  titleContent: string | null;
-  serviceLinks: Array<IServiceLink> | null;
-}
-
-export function remapServiceLinksDynamicZone(
-  data: GetServicesBlockQuery,
-): IRemappedServiceBlock {
+export function extractServicesBlock(data: GetServicesBlockQuery) {
   const serviceBlock =
-    data?.contractCustomizations?.data[0].attributes?.homepage?.data?.attributes
+    data.contractCustomizations?.data[0]?.attributes?.homepage?.data?.attributes
       ?.servicesBlock?.data ?? null;
-  const serviceLinks: Array<IServiceLink> | null =
-    serviceBlock?.attributes?.serviceLinks
-      ?.map((link) => {
-        if (link) {
-          const type = link.__typename;
-          let path = "/";
-          if (type === "ComponentLinksFrees" && link.name) {
-            path = normalizeStringPath(link.name);
-          }
-          if (type && isServiceLink(link)) {
-            return {
-              type,
-              name: link?.name,
-              isDisplayed: link?.isDisplayed,
-              picto: link?.picto,
-              path,
-            };
-          }
-        }
-      })
-      .filter(removeNulls) ?? null;
+  const serviceLinks: Array<IServiceLink> | null = remapServiceLinksDynamicZone(
+    serviceBlock?.attributes?.serviceLinks ?? null,
+  );
+
   return {
     titleContent: serviceBlock?.attributes?.titleContent ?? null,
     serviceLinks,

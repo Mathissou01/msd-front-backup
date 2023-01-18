@@ -40,7 +40,6 @@ exports[`ServicesBlock renders less than three ServiceCard 1`] = `
                 height="25"
                 loading="lazy"
                 src="/images/pictos/default.svg"
-                srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
                 style="color: transparent;"
                 width="25"
               />
@@ -68,7 +67,6 @@ exports[`ServicesBlock renders less than three ServiceCard 1`] = `
                 height="25"
                 loading="lazy"
                 src="/images/pictos/default.svg"
-                srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
                 style="color: transparent;"
                 width="25"
               />
@@ -171,7 +169,6 @@ exports[`ServicesBlock renders three or more of ServiceCard 1`] = `
                 height="25"
                 loading="lazy"
                 src="/images/pictos/default.svg"
-                srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
                 style="color: transparent;"
                 width="25"
               />
@@ -199,7 +196,6 @@ exports[`ServicesBlock renders three or more of ServiceCard 1`] = `
                 height="25"
                 loading="lazy"
                 src="/images/pictos/default.svg"
-                srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
                 style="color: transparent;"
                 width="25"
               />
@@ -227,7 +223,6 @@ exports[`ServicesBlock renders three or more of ServiceCard 1`] = `
                 height="25"
                 loading="lazy"
                 src="/images/pictos/default.svg"
-                srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
                 style="color: transparent;"
                 width="25"
               />
@@ -255,7 +250,6 @@ exports[`ServicesBlock renders three or more of ServiceCard 1`] = `
                 height="25"
                 loading="lazy"
                 src="/images/pictos/default.svg"
-                srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
                 style="color: transparent;"
                 width="25"
               />

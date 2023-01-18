@@ -47,7 +47,6 @@ exports[`QuizAndTipsBlock renders one tip 1`] = `
             height="72"
             loading="lazy"
             src="/images/pictos-temp/banana.svg"
-            srcset="/images/pictos-temp/banana.svg 1x, /images/pictos-temp/banana.svg 2x"
             style="color: transparent;"
             width="72"
           />
@@ -112,7 +111,6 @@ exports[`QuizAndTipsBlock renders three tips 1`] = `
             height="72"
             loading="lazy"
             src="/images/pictos-temp/banana.svg"
-            srcset="/images/pictos-temp/banana.svg 1x, /images/pictos-temp/banana.svg 2x"
             style="color: transparent;"
             width="72"
           />
@@ -147,7 +145,6 @@ exports[`QuizAndTipsBlock renders three tips 1`] = `
             height="72"
             loading="lazy"
             src="/images/pictos-temp/sink.svg"
-            srcset="/images/pictos-temp/sink.svg 1x, /images/pictos-temp/sink.svg 2x"
             style="color: transparent;"
             width="72"
           />
@@ -182,7 +179,6 @@ exports[`QuizAndTipsBlock renders three tips 1`] = `
             height="72"
             loading="lazy"
             src="/images/pictos-temp/basket.svg"
-            srcset="/images/pictos-temp/basket.svg 1x, /images/pictos-temp/basket.svg 2x"
             style="color: transparent;"
             width="72"
           />

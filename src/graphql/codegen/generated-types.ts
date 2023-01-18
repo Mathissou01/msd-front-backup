@@ -58,6 +58,7 @@ export type AccessibilitySubServiceAudienceTypesArgs = {
 };
 
 export type AccessibilitySubServiceBlocksDynamicZone =
+  | ComponentBlocksFile
   | ComponentBlocksHorizontalRule
   | ComponentBlocksSubHeading
   | ComponentBlocksWysiwyg
@@ -6128,6 +6129,7 @@ export type GetServicesBlockQuery = {
                     serviceLinks?: Array<
                       | {
                           __typename?: "ComponentLinksCalendar";
+                          id: string;
                           name?: string | null;
                           isDisplayed: boolean;
                           picto?: {
@@ -6143,6 +6145,7 @@ export type GetServicesBlockQuery = {
                         }
                       | {
                           __typename?: "ComponentLinksContactUs";
+                          id: string;
                           name?: string | null;
                           isDisplayed: boolean;
                           picto?: {
@@ -6158,6 +6161,7 @@ export type GetServicesBlockQuery = {
                         }
                       | {
                           __typename?: "ComponentLinksEvents";
+                          id: string;
                           name?: string | null;
                           isDisplayed: boolean;
                           picto?: {
@@ -6173,6 +6177,7 @@ export type GetServicesBlockQuery = {
                         }
                       | {
                           __typename?: "ComponentLinksExternal";
+                          id: string;
                           name?: string | null;
                           isDisplayed: boolean;
                           externalLink?: string | null;
@@ -6189,6 +6194,7 @@ export type GetServicesBlockQuery = {
                         }
                       | {
                           __typename?: "ComponentLinksFrees";
+                          id: string;
                           name?: string | null;
                           isDisplayed: boolean;
                           picto?: {
@@ -6204,6 +6210,7 @@ export type GetServicesBlockQuery = {
                         }
                       | {
                           __typename?: "ComponentLinksMap";
+                          id: string;
                           name?: string | null;
                           isDisplayed: boolean;
                           picto?: {
@@ -6219,6 +6226,7 @@ export type GetServicesBlockQuery = {
                         }
                       | {
                           __typename?: "ComponentLinksNews";
+                          id: string;
                           name?: string | null;
                           isDisplayed: boolean;
                           picto?: {
@@ -6234,6 +6242,7 @@ export type GetServicesBlockQuery = {
                         }
                       | {
                           __typename?: "ComponentLinksQuizzes";
+                          id: string;
                           name?: string | null;
                           isDisplayed: boolean;
                           picto?: {
@@ -6249,6 +6258,7 @@ export type GetServicesBlockQuery = {
                         }
                       | {
                           __typename?: "ComponentLinksRecycling";
+                          id: string;
                           name?: string | null;
                           isDisplayed: boolean;
                           picto?: {
@@ -6264,6 +6274,7 @@ export type GetServicesBlockQuery = {
                         }
                       | {
                           __typename?: "ComponentLinksRequest";
+                          id: string;
                           name?: string | null;
                           isDisplayed: boolean;
                           picto?: {
@@ -6279,6 +6290,7 @@ export type GetServicesBlockQuery = {
                         }
                       | {
                           __typename?: "ComponentLinksTips";
+                          id: string;
                           name?: string | null;
                           isDisplayed: boolean;
                           picto?: {
@@ -7357,6 +7369,7 @@ export const GetServicesBlockDocument = gql`
                       titleContent
                       serviceLinks {
                         ... on ComponentLinksMap {
+                          id
                           name
                           isDisplayed
                           picto {
@@ -7368,6 +7381,7 @@ export const GetServicesBlockDocument = gql`
                           }
                         }
                         ... on ComponentLinksCalendar {
+                          id
                           name
                           isDisplayed
                           picto {
@@ -7379,6 +7393,7 @@ export const GetServicesBlockDocument = gql`
                           }
                         }
                         ... on ComponentLinksRecycling {
+                          id
                           name
                           isDisplayed
                           picto {
@@ -7390,6 +7405,7 @@ export const GetServicesBlockDocument = gql`
                           }
                         }
                         ... on ComponentLinksRequest {
+                          id
                           name
                           isDisplayed
                           picto {
@@ -7401,6 +7417,7 @@ export const GetServicesBlockDocument = gql`
                           }
                         }
                         ... on ComponentLinksContactUs {
+                          id
                           name
                           isDisplayed
                           picto {
@@ -7412,6 +7429,7 @@ export const GetServicesBlockDocument = gql`
                           }
                         }
                         ... on ComponentLinksNews {
+                          id
                           name
                           isDisplayed
                           picto {
@@ -7423,6 +7441,7 @@ export const GetServicesBlockDocument = gql`
                           }
                         }
                         ... on ComponentLinksEvents {
+                          id
                           name
                           isDisplayed
                           picto {
@@ -7434,6 +7453,7 @@ export const GetServicesBlockDocument = gql`
                           }
                         }
                         ... on ComponentLinksQuizzes {
+                          id
                           name
                           isDisplayed
                           picto {
@@ -7445,6 +7465,7 @@ export const GetServicesBlockDocument = gql`
                           }
                         }
                         ... on ComponentLinksTips {
+                          id
                           name
                           isDisplayed
                           picto {
@@ -7456,6 +7477,7 @@ export const GetServicesBlockDocument = gql`
                           }
                         }
                         ... on ComponentLinksFrees {
+                          id
                           name
                           isDisplayed
                           picto {
@@ -7467,6 +7489,7 @@ export const GetServicesBlockDocument = gql`
                           }
                         }
                         ... on ComponentLinksExternal {
+                          id
                           name
                           isDisplayed
                           picto {

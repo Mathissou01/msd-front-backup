@@ -23,7 +23,19 @@ This application uses graphql-codegen to get the graphql schema from the API, th
 application locally with a mocked client and mocked data.
 With mocks, you can test the application and develop without access to the real API.
 
-First install dependencies with `npm i`.
+You first need to login to NPM in order to gain access to Suez Design System (a private repo) :
+
+```
+npm login --registry=https://npm.pkg.github.com --scope=@suezenv
+```
+
+It will ask for a Username (you can input any value, it will be ignored),
+a Password (You need to copy an NPM Token, the value can be copied from [BitWarden]),
+and en Email (you can input any value in anything@email.com format, it will be ignored)
+
+Once logged in NPM, it will be saved to your local user and you shouldn't need to login again on this machine.
+
+Then install dependencies with `npm i`.
 
 ### Development
 

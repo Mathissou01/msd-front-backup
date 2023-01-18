@@ -82,7 +82,6 @@ exports[`Header renders in desktop mode 1`] = `
                 height="24"
                 loading="lazy"
                 src="/images/pictos/localisation.svg"
-                srcset="/images/pictos/localisation.svg 1x, /images/pictos/localisation.svg 2x"
                 style="color: transparent;"
                 width="24"
               />
@@ -117,7 +116,6 @@ exports[`Header renders in desktop mode 1`] = `
                 height="24"
                 loading="lazy"
                 src="/images/pictos/calendar.svg"
-                srcset="/images/pictos/calendar.svg 1x, /images/pictos/calendar.svg 2x"
                 style="color: transparent;"
                 width="24"
               />
@@ -152,7 +150,6 @@ exports[`Header renders in desktop mode 1`] = `
                 height="24"
                 loading="lazy"
                 src="/images/pictos/notify.svg"
-                srcset="/images/pictos/notify.svg 1x, /images/pictos/notify.svg 2x"
                 style="color: transparent;"
                 width="24"
               />
@@ -187,7 +184,6 @@ exports[`Header renders in desktop mode 1`] = `
                 height="24"
                 loading="lazy"
                 src="/images/pictos/contact.svg"
-                srcset="/images/pictos/contact.svg 1x, /images/pictos/contact.svg 2x"
                 style="color: transparent;"
                 width="24"
               />
@@ -314,7 +310,6 @@ exports[`Header renders in mobile mode 1`] = `
                 height="24"
                 loading="lazy"
                 src="/images/pictos/search.svg"
-                srcset="/images/pictos/search.svg 1x, /images/pictos/search.svg 2x"
                 style="color: transparent;"
                 width="24"
               />
@@ -404,7 +399,6 @@ exports[`Header renders in mobile mode 1`] = `
                   height="24"
                   loading="lazy"
                   src="/images/pictos/localisation.svg"
-                  srcset="/images/pictos/localisation.svg 1x, /images/pictos/localisation.svg 2x"
                   style="color: transparent;"
                   width="24"
                 />
@@ -433,7 +427,6 @@ exports[`Header renders in mobile mode 1`] = `
                   height="24"
                   loading="lazy"
                   src="/images/pictos/calendar.svg"
-                  srcset="/images/pictos/calendar.svg 1x, /images/pictos/calendar.svg 2x"
                   style="color: transparent;"
                   width="24"
                 />
@@ -462,7 +455,6 @@ exports[`Header renders in mobile mode 1`] = `
                   height="24"
                   loading="lazy"
                   src="/images/pictos/notify.svg"
-                  srcset="/images/pictos/notify.svg 1x, /images/pictos/notify.svg 2x"
                   style="color: transparent;"
                   width="24"
                 />
@@ -491,7 +483,6 @@ exports[`Header renders in mobile mode 1`] = `
                   height="24"
                   loading="lazy"
                   src="/images/pictos/contact.svg"
-                  srcset="/images/pictos/contact.svg 1x, /images/pictos/contact.svg 2x"
                   style="color: transparent;"
                   width="24"
                 />

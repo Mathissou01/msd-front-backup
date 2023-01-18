@@ -22,12 +22,11 @@ import {
 import {
   extractRecyclingGuideBlock,
   extractQuizAndTipsBlock,
-  remapServiceLinksDynamicZone,
-  IRemappedServiceBlock,
   extractTopContentBlock,
   extractEditoBlock,
+  extractServicesBlock,
 } from "../lib/graphql-data";
-import { useIsDesktopContext } from "../hooks/useScreenWidth";
+import { IServiceLink } from "../lib/service-links";
 import WelcomeBlock from "../components/Blocks/WelcomeBlock/WelcomeBlock";
 import RecyclingGuideBlock from "../components/Blocks/RecyclingGuideBlock/RecyclingGuideBlock";
 import ServicesBlock from "../components/Blocks/ServicesBlock/ServicesBlock";
@@ -38,7 +37,10 @@ import EditoBlock from "../components/Blocks/EditoBlock/EditoBlock";
 interface IHomePageProps {
   servicesData: GetServicesActiveQuery;
   recyclingGuideBlock: RecyclingGuideBlockEntity | null;
-  servicesBlock: IRemappedServiceBlock;
+  servicesBlock: {
+    titleContent: string | null;
+    serviceLinks: Array<IServiceLink> | null;
+  };
   quizAndTipsBlock: QuizAndTipsBlockEntity | null;
   editoBlock: EditoBlockEntity | null;
   topContentBlock: TopContentBlockEntity | null;
@@ -58,18 +60,19 @@ export default function HomePage({
   const displayRecyclingGuideBlock =
     !!recyclingGuideBlock &&
     servicesData.recyclingGuideServices?.data[0]?.attributes?.isActivated;
-  const displayServicesBlock =
-    servicesBlock.titleContent &&
-    (servicesData.editorialServices?.data[0]?.attributes?.eventSubService?.data
+  const editorialServicesActivated =
+    servicesData.editorialServices?.data[0]?.attributes?.eventSubService?.data
       ?.attributes?.isActivated ||
-      servicesData.editorialServices?.data[0]?.attributes?.newsSubService?.data
-        ?.attributes?.isActivated ||
-      servicesData.editorialServices?.data[0]?.attributes?.tipSubService?.data
-        ?.attributes?.isActivated ||
-      servicesData.editorialServices?.data[0]?.attributes
-        ?.freeContentSubServices?.data[0].attributes?.isActivated ||
-      servicesData.editorialServices?.data[0]?.attributes?.quizSubService?.data
-        ?.attributes?.isActivated);
+    servicesData.editorialServices?.data[0]?.attributes?.newsSubService?.data
+      ?.attributes?.isActivated ||
+    servicesData.editorialServices?.data[0]?.attributes?.tipSubService?.data
+      ?.attributes?.isActivated ||
+    servicesData.editorialServices?.data[0]?.attributes?.freeContentSubServices
+      ?.data[0].attributes?.isActivated ||
+    servicesData.editorialServices?.data[0]?.attributes?.quizSubService?.data
+      ?.attributes?.isActivated;
+  const displayServicesBlock =
+    servicesBlock.titleContent && editorialServicesActivated;
   const displayQuizAndTipsBlock =
     quizAndTipsBlock?.attributes?.displayBlock &&
     (servicesData.editorialServices?.data[0]?.attributes?.quizSubService?.data
@@ -77,17 +80,7 @@ export default function HomePage({
       servicesData.editorialServices?.data[0]?.attributes?.tipSubService?.data
         ?.attributes?.isActivated);
   const displayEditoBlock =
-    !!editoBlock?.attributes?.displayBlock &&
-    (servicesData.editorialServices?.data[0]?.attributes?.eventSubService?.data
-      ?.attributes?.isActivated ||
-      servicesData.editorialServices?.data[0]?.attributes?.newsSubService?.data
-        ?.attributes?.isActivated ||
-      servicesData.editorialServices?.data[0]?.attributes?.tipSubService?.data
-        ?.attributes?.isActivated ||
-      servicesData.editorialServices?.data[0]?.attributes
-        ?.freeContentSubServices?.data[0].attributes?.isActivated ||
-      servicesData.editorialServices?.data[0]?.attributes?.quizSubService?.data
-        ?.attributes?.isActivated);
+    !!editoBlock?.attributes?.displayBlock && editorialServicesActivated;
   const displayTopContentBlock =
     !!topContentBlock?.attributes?.displayBlock &&
     (servicesData.editorialServices?.data[0]?.attributes?.eventSubService?.data
@@ -95,10 +88,6 @@ export default function HomePage({
       servicesData.editorialServices?.data[0]?.attributes?.newsSubService?.data
         ?.attributes?.isActivated);
 
-  /* Local Data */
-  const isDesktop = useIsDesktopContext();
-
-  // TODO: temporary styling to show structure of page in mobile/desktop, remove later
   return (
     <>
       <WelcomeBlock />
@@ -112,12 +101,6 @@ export default function HomePage({
           newestTopContents={newestTopContents}
         />
       )}
-      <section
-        className="o-Page__Section"
-        style={{ minHeight: isDesktop ? "1205px" : "2285px" }}
-      >
-        (Headlines)
-      </section>
       {displayQuizAndTipsBlock && <QuizAndTipsBlock data={quizAndTipsBlock} />}
       {displayEditoBlock && <EditoBlock data={editoBlock} />}
     </>
@@ -146,7 +129,7 @@ export async function getStaticProps() {
       variables: { contractId },
     },
   );
-  const servicesBlock = remapServiceLinksDynamicZone(servicesBlockData);
+  const servicesBlock = extractServicesBlock(servicesBlockData);
 
   const { data: quizAndTipsBlockData } =
     await client.query<GetQuizAndTipsBlockQuery>({

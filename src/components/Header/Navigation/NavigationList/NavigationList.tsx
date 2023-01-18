@@ -1,12 +1,15 @@
 import classNames from "classnames";
 import React from "react";
-import { IServiceLink, isServiceLink } from "../../../../lib/service-links";
-import { normalizeStringPath, removeNulls } from "../../../../lib/utilities";
+import {
+  IServiceLink,
+  remapServiceLinksDynamicZone,
+} from "../../../../lib/service-links";
 import {
   ENavigationPages,
   useNavigation,
 } from "../../../../hooks/useNavigation";
 import globalData from "../../../../../config/global.json";
+import { GlobalDataType } from "../../../../../config/globalData.type";
 import NavigationListButton from "./NavigationListButton/NavigationListButton";
 import "./navigation-list.scss";
 
@@ -39,33 +42,10 @@ export default function NavigationList({
   const { currentPage, setCurrentPage } = useNavigation();
 
   const contractMenus: Array<IServiceLink> | null =
-    globalData.contractMenu?.data?.attributes?.serviceLinks
-      ?.map(
-        (link: {
-          __typename: string;
-          name: string | null;
-          isDisplayed: boolean;
-          picto: Record<string, unknown>;
-        }) => {
-          if (link) {
-            const type = link.__typename;
-            let path = "/";
-            if (type === "ComponentLinksFrees" && link.name) {
-              path = normalizeStringPath(link.name);
-            }
-            if (type && isServiceLink(link)) {
-              return {
-                type,
-                name: link?.name,
-                isDisplayed: link?.isDisplayed,
-                picto: link?.picto,
-                path,
-              };
-            }
-          }
-        },
-      )
-      .filter(removeNulls) ?? null;
+    remapServiceLinksDynamicZone(
+      (globalData as GlobalDataType).contractMenu.data?.attributes
+        ?.serviceLinks ?? null,
+    );
 
   /* Local Data */
   const dynamicClassNames = classNames("c-NavigationList", {
@@ -101,7 +81,7 @@ export default function NavigationList({
                 Object.keys(ENavigationPages).indexOf(menu.type)
               ];
             if (menu.type === "ComponentLinksFrees") {
-              path += `/${menu.path}`;
+              path += `/${menu.generatedSlug}`;
             }
             return (
               <li

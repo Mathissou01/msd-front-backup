@@ -16,7 +16,6 @@ exports[`CommonTopContentCard renders 1`] = `
         height="308"
         loading="lazy"
         src="/images/pictos/default.svg"
-        srcset="/images/pictos/default.svg 1x, /images/pictos/default.svg 2x"
         style="color: transparent;"
         width="480"
       />

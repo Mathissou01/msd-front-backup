@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { IRemappedServiceBlock } from "../../../lib/graphql-data";
+import { IServiceLink } from "../../../lib/service-links";
 import CommonBlockHeading from "../../Common/CommonBlockHeading/CommonBlockHeading";
 import ServiceCard from "./ServiceCard/ServiceCard";
 import ServicesMobile from "public/images/mobile_services-section_bottom-left-angle.svg";
@@ -7,7 +7,10 @@ import ServicesDesktop from "public/images/desktop_services-section_bottom-left-
 import "./services-block.scss";
 
 interface IServicesBlockProps {
-  remappedData: IRemappedServiceBlock;
+  remappedData: {
+    titleContent: string | null;
+    serviceLinks: Array<IServiceLink> | null;
+  };
 }
 
 export default function ServicesBlock({ remappedData }: IServicesBlockProps) {
@@ -22,7 +25,6 @@ export default function ServicesBlock({ remappedData }: IServicesBlockProps) {
     "c-ServicesBlock__Services_many":
       !!countVisibleServices && countVisibleServices >= 3,
   });
-
   return (
     <section className="c-ServicesBlock" data-testid="services-block">
       <div className="c-ServicesBlock__Content">
@@ -32,7 +34,11 @@ export default function ServicesBlock({ remappedData }: IServicesBlockProps) {
             (link, index) =>
               link.isDisplayed && (
                 <ServiceCard
-                  href={link.path ?? "/"}
+                  href={
+                    link.externalLink
+                      ? link.externalLink
+                      : link.generatedSlug ?? "/"
+                  }
                   key={`${link.name}_${index}`}
                   name={link.name ?? ""}
                   pictoUrl={link.picto?.data?.attributes?.url ?? defaultPicto}
