@@ -13,6 +13,7 @@ steps:
       customCommand: "run test:e2e:ci"
     continueOnError: true
     env:
+      NEXT_PUBLIC_API_URL: https://func-msd-${{ parameters.env }}-foapi.azurewebsites.net/api
       NEXT_PUBLIC_BASE_HOST: http://localhost
       NEXT_PUBLIC_BASE_PORT: 3002
 

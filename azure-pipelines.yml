@@ -13,7 +13,6 @@ variables:
     value: ${{ eq(variables['Build.SourceBranch'], 'refs/heads/develop') }}
   - name: releaseRec
     value: ${{ startsWith(variables['Build.SourceBranch'], 'refs/heads/release') }}
-  - group: fo_site_variables
 
 pool:
   vmImage: ubuntu-latest

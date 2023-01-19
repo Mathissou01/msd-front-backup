@@ -13,6 +13,8 @@ jobs:
       - template: build/pre-tests.yml
 
       - template: build/e2e-tests.yml
+        parameters:
+          env: ${{ parameters.env }}
 
       - template: build/export.yml
         parameters:

@@ -17,3 +17,5 @@ steps:
     inputs:
       command: "custom"
       customCommand: "run export"
+    env:
+      NEXT_PUBLIC_API_URL: https://func-msd-${{ parameters.env }}-foapi.azurewebsites.net/api
