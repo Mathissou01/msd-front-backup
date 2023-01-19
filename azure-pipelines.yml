@@ -6,12 +6,15 @@ trigger:
   branches:
     include:
       - develop
-      - feature/*
+      - release/*
 
 variables:
-  - name: runCD
-    value: $[eq(variables['Build.SourceBranch'], 'refs/heads/develop')]
+  - name: releaseDev
+    value: ${{ eq(variables['Build.SourceBranch'], 'refs/heads/develop') }}
+  - name: releaseRec
+    value: ${{ startsWith(variables['Build.SourceBranch'], 'refs/heads/release') }}
   - group: fo_site_variables
+
 pool:
   vmImage: ubuntu-latest
 
@@ -19,10 +22,24 @@ stages:
   - stage: Build
     displayName: CI tasks
     jobs:
-      - template: pipelines/jobs/ci.yml
+      - template: azure-pipelines/build.yml
+        ${{ if eq(variables.releaseRec, 'true') }}:
+          parameters:
+            env: rec
 
   - stage: Release
     displayName: Service update on Azure Cloud
-    condition: and(eq(variables.runCD, 'true'), succeeded())
+    condition: and(succeeded(),or(eq(variables.releaseDev, 'true'),eq(variables.releaseRec, 'true')))
+    variables:
+      - ${{ if eq(variables.releaseDev, 'true') }}:
+          - group: fo_site_variables_dev
+          - name: env
+            value: dev
+      - ${{ if eq(variables.releaseRec, 'true') }}:
+          - group: fo_site_variables_rec
+          - name: env
+            value: rec
     jobs:
-      - template: pipelines/jobs/release.yml
+      - template: azure-pipelines/release.yml
+        parameters:
+          env: ${{ variables.env }}

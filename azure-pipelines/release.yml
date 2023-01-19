@@ -1,7 +1,12 @@
 # Jobs template for static website release
+parameters:
+  - name: env
+    type: string
+    default: dev
+
 jobs:
   - job: msd_fo_site_release
-    displayName: "Release FrontOffice Static WebSite"
+    displayName: "[${{ upper(parameters.env) }}] Publish FO Website"
     steps:
       - checkout: none
 
@@ -20,4 +25,4 @@ jobs:
           verbose: true
           is_static_export: true
         env:
-          azure_static_web_apps_api_token: $(az.stapps.deployment.token)
+          azure_static_web_apps_api_token: $(fo-deployment-token)
