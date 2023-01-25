@@ -3,6 +3,9 @@ parameters:
   - name: env
     type: string
     default: dev
+  - name: instance
+    type: string
+    default: smile
 
 jobs:
   - job: msd_fo_site_release
@@ -24,5 +27,6 @@ jobs:
           skip_app_build: true
           verbose: true
           is_static_export: true
+          deployment_environment: ${{ parameters.instance }}
         env:
           azure_static_web_apps_api_token: $(fo-deployment-token)
