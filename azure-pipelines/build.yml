@@ -14,6 +14,7 @@ jobs:
 
   - job: msd_fo_site_build_test
     displayName: Run tests
+    dependsOn: msd_fo_site_build_install
     steps:
       - template: build/cache.yml
 
@@ -24,6 +25,7 @@ jobs:
           env: ${{ parameters.env }}
 
   - job: msd_fo_site_build_package
+    dependsOn: msd_fo_site_build_install
     displayName: Build package
     steps:
       - template: build/cache.yml
