@@ -957,7 +957,7 @@ input ContactUsSubServiceInput {
 }
 
 type ContentTypeDTO {
-  description: String!
+  description: String
   name: String!
   subServiceId: ID!
   type: String!
@@ -1646,7 +1646,7 @@ type EditoContent {
 type EditoContentDTO {
   attributes: Attributes!
   contentType: String!
-  originalId: ID!
+  id: ID!
   typeName: String!
 }
 
@@ -1937,6 +1937,7 @@ input EventInput {
 }
 
 type EventOrNews {
+  id: ID!
   image: UploadFile
   originalId: ID!
   publishedAt: DateTime!
@@ -4654,7 +4655,7 @@ input TopContentBlockInput {
 type TopContentDTO {
   attributes: Attributes!
   contentType: String!
-  originalId: ID!
+  id: ID!
   typeName: String!
 }
 

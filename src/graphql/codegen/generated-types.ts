@@ -1100,7 +1100,7 @@ export type ContactUsSubServiceInput = {
 
 export type ContentTypeDto = {
   __typename?: "ContentTypeDTO";
-  description: Scalars["String"];
+  description?: Maybe<Scalars["String"]>;
   name: Scalars["String"];
   subServiceId: Scalars["ID"];
   type: Scalars["String"];
@@ -1847,7 +1847,7 @@ export type EditoContentDto = {
   __typename?: "EditoContentDTO";
   attributes: Attributes;
   contentType: Scalars["String"];
-  originalId: Scalars["ID"];
+  id: Scalars["ID"];
   typeName: Scalars["String"];
 };
 
@@ -2173,6 +2173,7 @@ export type EventInput = {
 
 export type EventOrNews = {
   __typename?: "EventOrNews";
+  id: Scalars["ID"];
   image?: Maybe<UploadFile>;
   originalId: Scalars["ID"];
   publishedAt: Scalars["DateTime"];
@@ -6162,7 +6163,7 @@ export type TopContentDto = {
   __typename?: "TopContentDTO";
   attributes: Attributes;
   contentType: Scalars["String"];
-  originalId: Scalars["ID"];
+  id: Scalars["ID"];
   typeName: Scalars["String"];
 };
 
