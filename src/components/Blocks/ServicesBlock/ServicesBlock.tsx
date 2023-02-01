@@ -18,31 +18,34 @@ export default function ServicesBlock({ remappedData }: IServicesBlockProps) {
   const defaultPicto = "/images/pictos/default.svg";
 
   /* Local Data */
-  const countVisibleServices = remappedData.serviceLinks?.length;
-  const servicesClassNames = classNames("c-ServicesBlock__Services", {
-    "c-ServicesBlock__Services_few":
-      !!countVisibleServices && countVisibleServices < 3,
-    "c-ServicesBlock__Services_many":
-      !!countVisibleServices && countVisibleServices >= 3,
-  });
+  const countVisibleServices =
+    remappedData.serviceLinks?.filter((service) => service.isDisplayed)
+      .length ?? 0;
+
   return (
     <section className="c-ServicesBlock" data-testid="services-block">
       <div className="c-ServicesBlock__Content">
         <CommonBlockHeading titleContent={remappedData.titleContent ?? ""} />
-        <div className={servicesClassNames}>
+        <div className="c-ServicesBlock__Services">
           {remappedData.serviceLinks?.map(
             (link, index) =>
               link.isDisplayed && (
-                <ServiceCard
-                  href={
-                    link.externalLink
-                      ? link.externalLink
-                      : link.generatedSlug ?? "/"
-                  }
+                <div
                   key={`${link.name}_${index}`}
-                  name={link.name ?? ""}
-                  pictoUrl={link.picto?.data?.attributes?.url ?? defaultPicto}
-                />
+                  className={classNames("c-ServicesBlock__Card", {
+                    "c-ServicesBlock__Card_few": countVisibleServices < 3,
+                  })}
+                >
+                  <ServiceCard
+                    href={
+                      link.externalLink
+                        ? link.externalLink
+                        : link.generatedSlug ?? "/"
+                    }
+                    name={link.name ?? ""}
+                    pictoUrl={link.picto?.data?.attributes?.url ?? defaultPicto}
+                  />
+                </div>
               ),
           )}
         </div>

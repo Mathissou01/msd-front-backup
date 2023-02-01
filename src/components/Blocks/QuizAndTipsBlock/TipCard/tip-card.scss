@@ -2,10 +2,12 @@
 @use "src/styles/01-settings/settings.colors" as colors;
 @use "src/styles/02-tools/tools.typography" as typo;
 @use "src/styles/02-tools/tools.z-index" as index;
-@use "src/styles/02-tools/tools.media-queries" as media;
+@use "src/styles/02-tools/tools.include-media" as im;
 @use "src/styles/02-tools/tools.functions" as func;
 
 .c-TipCard {
+  $self: &;
+
   position: relative;
   z-index: index.z("site-content");
   display: flex;
@@ -14,15 +16,19 @@
   align-items: flex-start;
   justify-content: space-between;
   width: 100%;
-  min-width: 280px;
+  max-width: 476px;
   min-height: 235px;
   padding: 24px;
   overflow: hidden;
   background-color: colors.$brand-primary;
   border-radius: 8px;
 
-  @include media.desktop-only {
-    max-width: 350px;
+  @include im.media(">=mobile") {
+    min-height: 204px;
+  }
+
+  @include im.media(">=tablet") {
+    max-width: 335px;
   }
 
   &:hover {
@@ -37,14 +43,16 @@
     align-items: center;
     padding: 6px 10px;
     color: colors.$contrast-text;
+    font-weight: 500;
     border: 1px solid colors.$blue-1;
     border-radius: 4px;
   }
 
   &__Content {
-    @include typo.text("boldStatic");
+    @include typo.text("bodyStatic");
 
     color: colors.$contrast-text;
+    font-weight: 500;
   }
 
   &__Link {
@@ -62,6 +70,10 @@
       width: 24px;
       height: 24px;
       content: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23a)' stroke='#{func.hex-to-url-string(colors.$contrast-text)}' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M.75 12h22.5m-10.5 10.5L23.25 12 12.75 1.5'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='a'%3E%3Cpath fill='%23fff' d='M0 0h24v24H0z'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
+    }
+
+    #{$self}:hover & {
+      text-decoration: underline;
     }
   }
 

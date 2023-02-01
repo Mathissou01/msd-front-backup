@@ -121,7 +121,6 @@ export const newestTopContentMockData = {
   getNewestTopContents: [
     {
       __typename: "EventOrNews",
-      id: "2",
       title: "Suspendisse et est sem",
       shortDescription:
         "Vestibulum cursus eros ut ligula lobortis auctor. Quisque luctus sagittis tellus",
@@ -129,7 +128,6 @@ export const newestTopContentMockData = {
     },
     {
       __typename: "EventOrNews",
-      id: "1",
       title: "Café préparation",
       shortDescription:
         "Participer à un café réparation avec La Recyclade au café restaurant de la Maison Phare. Vous apprendrez à faire un diagnostic et à réparer votre petit appareil électrique ou électronique de la vie quotidienne",
@@ -137,7 +135,6 @@ export const newestTopContentMockData = {
     },
     {
       __typename: "EventOrNews",
-      id: "1",
       title: "Café préparation",
       shortDescription:
         "Participer à un café réparation avec La Recyclade au café restaurant de la Maison Phare. Vous apprendrez à faire un diagnostic et à réparer votre petit appareil électrique ou électronique de la vie quotidienne",

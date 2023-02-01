@@ -22,11 +22,6 @@ exports[`QuizAndTipsBlock renders one tip 1`] = `
         class="c-TipCard"
         href="/"
       >
-        <div
-          class="c-TipCard__Tag"
-        >
-          Astuce
-        </div>
         <p
           class="c-TipCard__Content"
         >
@@ -55,6 +50,9 @@ exports[`QuizAndTipsBlock renders one tip 1`] = `
       <div
         class="c-QuizAndTipsBlock__SvgContainer"
       >
+        <div
+          class="c-QuizAndTipsBlock__Svg_desktop"
+        />
         <div
           class="c-QuizAndTipsBlock__Svg_mobile"
         />
@@ -86,11 +84,6 @@ exports[`QuizAndTipsBlock renders three tips 1`] = `
         class="c-TipCard"
         href="/"
       >
-        <div
-          class="c-TipCard__Tag"
-        >
-          Astuce
-        </div>
         <p
           class="c-TipCard__Content"
         >
@@ -120,11 +113,6 @@ exports[`QuizAndTipsBlock renders three tips 1`] = `
         class="c-TipCard"
         href="/"
       >
-        <div
-          class="c-TipCard__Tag"
-        >
-          Astuce
-        </div>
         <p
           class="c-TipCard__Content"
         >
@@ -154,11 +142,6 @@ exports[`QuizAndTipsBlock renders three tips 1`] = `
         class="c-TipCard"
         href="/"
       >
-        <div
-          class="c-TipCard__Tag"
-        >
-          Astuce
-        </div>
         <p
           class="c-TipCard__Content"
         >
@@ -187,6 +170,9 @@ exports[`QuizAndTipsBlock renders three tips 1`] = `
       <div
         class="c-QuizAndTipsBlock__SvgContainer"
       >
+        <div
+          class="c-QuizAndTipsBlock__Svg_desktop"
+        />
         <div
           class="c-QuizAndTipsBlock__Svg_mobile"
         />

@@ -15,6 +15,9 @@ exports[`TopContentBlock renders titleContent 1`] = `
         class="c-CommonBlockHeading__Line"
       />
     </div>
+    <div
+      class="c-TopContentBlock__Content"
+    />
     <button
       class="c-CommonButton c-CommonButton_primary c-CommonButton_fontSmall"
       type="button"
@@ -41,264 +44,238 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
       />
     </div>
     <div
-      class="c-CommonTopContentCard"
+      class="c-TopContentBlock__Content"
     >
-      <div
-        class="c-CommonTopContentCard__Image c-CommonTopContentCard__Image_hoverImg"
+      <a
+        class="c-TopContentCard"
+        href="/edito/edito"
       >
-        <img
-          alt=""
-          class="c-CommonTopContentCard__Img_desktop"
-          data-nimg="1"
-          decoding="async"
-          height="308"
-          loading="lazy"
-          src="/_next/image?url=%2Fimages%2Fimages-temp%2FnewsDesktop.jpg&w=1080&q=75"
-          srcset="/_next/image?url=%2Fimages%2Fimages-temp%2FnewsDesktop.jpg&w=640&q=75 1x, /_next/image?url=%2Fimages%2Fimages-temp%2FnewsDesktop.jpg&w=1080&q=75 2x"
-          style="color: transparent;"
-          width="480"
+        <div
+          class="c-TopContentCard__Banner"
         />
-        <img
-          alt=""
-          class="c-CommonTopContentCard__Img_mobile"
-          data-nimg="1"
-          decoding="async"
-          height="200"
-          loading="lazy"
-          src="/_next/image?url=%2Fimages%2Fimages-temp%2FnewsMobile.png&w=640&q=75"
-          srcset="/_next/image?url=%2Fimages%2Fimages-temp%2FnewsMobile.png&w=384&q=75 1x, /_next/image?url=%2Fimages%2Fimages-temp%2FnewsMobile.png&w=640&q=75 2x"
-          style="color: transparent;"
-          width="312"
-        />
-      </div>
-      <div
-        class="c-CommonTopContentCard__ContentContainer"
-      >
         <div
-          class="c-CommonTopContentCard__Content"
+          class="c-TopContentCard__CardContainer"
         >
           <div
-            class="c-CommonTopContentCard__ContentTags"
+            class="c-TopContentCard__Card"
           >
             <div
-              class="c-CommonTopContentCard__Tags"
-            />
-            <div
-              class="c-CommonTopContentCard__ContentCardDate"
+              class="c-TopContentCard__Header"
             >
-              5 décembre 2022
+              <div
+                class="c-TopContentCard__Tags"
+              />
+              <div
+                class="c-TopContentCard__Date"
+              >
+                5 décembre 2022
+              </div>
+            </div>
+            <div
+              class="c-TopContentCard__Content"
+            >
+              <h2
+                class="c-TopContentCard__Title"
+              >
+                Lorem ipsum dolor sit amet
+              </h2>
+              <p
+                class="c-TopContentCard__Description"
+              >
+                consectetur adipiscing elit. Aliquam facilisis tincidunt est
+              </p>
+            </div>
+            <div
+              class="c-TopContentCard__KnowMore"
+            >
+              <span>
+                En savoir plus
+              </span>
+              <div />
             </div>
           </div>
-          <div
-            class="c-CommonTopContentCard__Description"
-          >
-            <h2
-              class="c-CommonTopContentCard__TitleContent"
-            >
-              Lorem ipsum dolor sit amet
-            </h2>
-            <p
-              class="c-CommonTopContentCard__DescriptionContent"
-            >
-              consectetur adipiscing elit. Aliquam facilisis tincidunt est
-            </p>
-          </div>
-          <a
-            class="c-CommonTopContentCard__Link"
-            href="/edito/edito"
-          >
-            <span
-              class="c-CommonTopContentCard__Label"
-            >
-              En savoir plus
-            </span>
-            <div />
-          </a>
         </div>
-      </div>
-    </div>
-    <div
-      class="c-TopContentBlock__RowCardsBlock"
-    >
+      </a>
       <div
-        class="c-CommonCardBlock"
+        class="c-TopContentBlock__LastThreeContents"
       >
-        <div
-          class="c-CommonCardBlock__Image"
-        >
-          <img
-            alt=""
-            data-nimg="1"
-            decoding="async"
-            height="220"
-            loading="lazy"
-            src="/_next/image?url=%2Fimages%2Fimages-temp%2FnewsMobile.png&w=750&q=75"
-            srcset="/_next/image?url=%2Fimages%2Fimages-temp%2FnewsMobile.png&w=384&q=75 1x, /_next/image?url=%2Fimages%2Fimages-temp%2FnewsMobile.png&w=750&q=75 2x"
-            style="color: transparent;"
-            width="343"
-          />
-        </div>
-        <div
-          class="c-CommonCardBlock__Content"
+        <a
+          class="c-CommonCardBlock__Container"
+          href="/edito/edito"
         >
           <div
-            class="c-CommonCardBlock__ContentHeader"
+            class="c-CommonCardBlock"
           >
             <div
-              class="c-CommonCardBlock__Tags"
-            />
-            <div
-              class="c-CommonCardBlock__Date"
+              class="c-CommonCardBlock__Image"
             >
-              29 décembre 2022
+              <img
+                alt=""
+                data-nimg="1"
+                decoding="async"
+                height="309"
+                loading="lazy"
+                src="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=1080&q=75"
+                srcset="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=640&q=75 1x, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=1080&q=75 2x"
+                style="color: transparent;"
+                width="482"
+              />
+            </div>
+            <div
+              class="c-CommonCardBlock__Content"
+            >
+              <div
+                class="c-CommonCardBlock__ContentHeader"
+              >
+                <div
+                  class="c-CommonCardBlock__Date"
+                >
+                  29 décembre 2022
+                </div>
+              </div>
+              <div
+                class="c-CommonCardBlock__ContentBody"
+              >
+                <h3
+                  class="c-CommonCardBlock__Title"
+                >
+                  Suspendisse et est sem
+                </h3>
+                <p
+                  class="c-CommonCardBlock__Description"
+                >
+                  Vestibulum cursus eros ut ligula lobortis auctor. Quisque luctus sagittis tellus
+                </p>
+              </div>
+              <div
+                class="c-CommonCardBlock__Link"
+              >
+                <span>
+                  En savoir plus
+                </span>
+                <div />
+              </div>
             </div>
           </div>
-          <div
-            class="c-CommonCardBlock__ContentBody"
-          >
-            <h3
-              class="c-CommonCardBlock__Title"
-            >
-              Suspendisse et est sem
-            </h3>
-            <p
-              class="c-CommonCardBlock__Description"
-            >
-              Vestibulum cursus eros ut ligula lobortis auctor. Quisque luctus sagittis tellus
-            </p>
-          </div>
-          <a
-            class="c-CommonCardBlock__Link"
-            href="/edito/edito"
-          >
-            <span
-              class="c-CommonCardBlock__Label"
-            >
-              En savoir plus
-            </span>
-            <div />
-          </a>
-        </div>
-      </div>
-      <div
-        class="c-CommonCardBlock"
-      >
-        <div
-          class="c-CommonCardBlock__Image"
-        >
-          <img
-            alt=""
-            data-nimg="1"
-            decoding="async"
-            height="220"
-            loading="lazy"
-            src="/_next/image?url=%2Fimages%2Fimages-temp%2FnewsMobile.png&w=750&q=75"
-            srcset="/_next/image?url=%2Fimages%2Fimages-temp%2FnewsMobile.png&w=384&q=75 1x, /_next/image?url=%2Fimages%2Fimages-temp%2FnewsMobile.png&w=750&q=75 2x"
-            style="color: transparent;"
-            width="343"
-          />
-        </div>
-        <div
-          class="c-CommonCardBlock__Content"
+        </a>
+        <a
+          class="c-CommonCardBlock__Container"
+          href="/edito/edito"
         >
           <div
-            class="c-CommonCardBlock__ContentHeader"
+            class="c-CommonCardBlock"
           >
             <div
-              class="c-CommonCardBlock__Tags"
-            />
-            <div
-              class="c-CommonCardBlock__Date"
+              class="c-CommonCardBlock__Image"
             >
-              5 décembre 2022
+              <img
+                alt=""
+                data-nimg="1"
+                decoding="async"
+                height="309"
+                loading="lazy"
+                src="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=1080&q=75"
+                srcset="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=640&q=75 1x, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=1080&q=75 2x"
+                style="color: transparent;"
+                width="482"
+              />
+            </div>
+            <div
+              class="c-CommonCardBlock__Content"
+            >
+              <div
+                class="c-CommonCardBlock__ContentHeader"
+              >
+                <div
+                  class="c-CommonCardBlock__Date"
+                >
+                  5 décembre 2022
+                </div>
+              </div>
+              <div
+                class="c-CommonCardBlock__ContentBody"
+              >
+                <h3
+                  class="c-CommonCardBlock__Title"
+                >
+                  Café préparation
+                </h3>
+                <p
+                  class="c-CommonCardBlock__Description"
+                >
+                  Participer à un café réparation avec La Recyclade au café restaurant de la Maison Phare. Vous apprendrez à faire un diagnostic et à réparer votre petit appareil électrique ou électronique de la vie quotidienne
+                </p>
+              </div>
+              <div
+                class="c-CommonCardBlock__Link"
+              >
+                <span>
+                  En savoir plus
+                </span>
+                <div />
+              </div>
             </div>
           </div>
-          <div
-            class="c-CommonCardBlock__ContentBody"
-          >
-            <h3
-              class="c-CommonCardBlock__Title"
-            >
-              Café préparation
-            </h3>
-            <p
-              class="c-CommonCardBlock__Description"
-            >
-              Participer à un café réparation avec La Recyclade au café restaurant de la Maison Phare. Vous apprendrez à faire un diagnostic et à réparer votre petit appareil électrique ou électronique de la vie quotidienne
-            </p>
-          </div>
-          <a
-            class="c-CommonCardBlock__Link"
-            href="/edito/edito"
-          >
-            <span
-              class="c-CommonCardBlock__Label"
-            >
-              En savoir plus
-            </span>
-            <div />
-          </a>
-        </div>
-      </div>
-      <div
-        class="c-CommonCardBlock"
-      >
-        <div
-          class="c-CommonCardBlock__Image"
-        >
-          <img
-            alt=""
-            data-nimg="1"
-            decoding="async"
-            height="220"
-            loading="lazy"
-            src="/_next/image?url=%2Fimages%2Fimages-temp%2FnewsMobile.png&w=750&q=75"
-            srcset="/_next/image?url=%2Fimages%2Fimages-temp%2FnewsMobile.png&w=384&q=75 1x, /_next/image?url=%2Fimages%2Fimages-temp%2FnewsMobile.png&w=750&q=75 2x"
-            style="color: transparent;"
-            width="343"
-          />
-        </div>
-        <div
-          class="c-CommonCardBlock__Content"
+        </a>
+        <a
+          class="c-CommonCardBlock__Container"
+          href="/edito/edito"
         >
           <div
-            class="c-CommonCardBlock__ContentHeader"
+            class="c-CommonCardBlock"
           >
             <div
-              class="c-CommonCardBlock__Tags"
-            />
-            <div
-              class="c-CommonCardBlock__Date"
+              class="c-CommonCardBlock__Image"
             >
-              5 décembre 2022
+              <img
+                alt=""
+                data-nimg="1"
+                decoding="async"
+                height="309"
+                loading="lazy"
+                src="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=1080&q=75"
+                srcset="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=640&q=75 1x, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=1080&q=75 2x"
+                style="color: transparent;"
+                width="482"
+              />
+            </div>
+            <div
+              class="c-CommonCardBlock__Content"
+            >
+              <div
+                class="c-CommonCardBlock__ContentHeader"
+              >
+                <div
+                  class="c-CommonCardBlock__Date"
+                >
+                  5 décembre 2022
+                </div>
+              </div>
+              <div
+                class="c-CommonCardBlock__ContentBody"
+              >
+                <h3
+                  class="c-CommonCardBlock__Title"
+                >
+                  Café préparation
+                </h3>
+                <p
+                  class="c-CommonCardBlock__Description"
+                >
+                  Participer à un café réparation avec La Recyclade au café restaurant de la Maison Phare. Vous apprendrez à faire un diagnostic et à réparer votre petit appareil électrique ou électronique de la vie quotidienne
+                </p>
+              </div>
+              <div
+                class="c-CommonCardBlock__Link"
+              >
+                <span>
+                  En savoir plus
+                </span>
+                <div />
+              </div>
             </div>
           </div>
-          <div
-            class="c-CommonCardBlock__ContentBody"
-          >
-            <h3
-              class="c-CommonCardBlock__Title"
-            >
-              Café préparation
-            </h3>
-            <p
-              class="c-CommonCardBlock__Description"
-            >
-              Participer à un café réparation avec La Recyclade au café restaurant de la Maison Phare. Vous apprendrez à faire un diagnostic et à réparer votre petit appareil électrique ou électronique de la vie quotidienne
-            </p>
-          </div>
-          <a
-            class="c-CommonCardBlock__Link"
-            href="/edito/edito"
-          >
-            <span
-              class="c-CommonCardBlock__Label"
-            >
-              En savoir plus
-            </span>
-            <div />
-          </a>
-        </div>
+        </a>
       </div>
     </div>
     <button

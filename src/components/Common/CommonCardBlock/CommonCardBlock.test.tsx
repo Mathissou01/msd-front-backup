@@ -5,7 +5,15 @@ const mock = {
   tagLabels: ["common card block tag"],
   title: "common card block title",
   href: "/accueil",
-  imageUrl: "/images/pictos/default.svg",
+  image: {
+    url: "/images/images-temp/temp_image.jpg",
+    alternativeText: "",
+    hash: "",
+    mime: "",
+    name: "",
+    provider: "",
+    size: 0,
+  },
 };
 
 describe("CommonCardBlock", () => {
@@ -14,8 +22,8 @@ describe("CommonCardBlock", () => {
       <CommonCardBlock
         tagLabels={mock.tagLabels}
         title={mock.title}
+        image={mock.image}
         href={mock.href}
-        imageUrl={mock.imageUrl}
       />,
     );
     expect(container).toMatchSnapshot();

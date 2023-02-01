@@ -19,6 +19,10 @@
     flex-direction: column;
     width: 100%;
 
+    &:hover {
+      background-color: colors.$brand-primary-light;
+    }
+
     #{$self}_mobile & {
       height: 66px;
     }

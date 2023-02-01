@@ -2,63 +2,56 @@
 
 exports[`CommonCardBlock renders 1`] = `
 <div>
-  <div
-    class="c-CommonCardBlock"
+  <a
+    class="c-CommonCardBlock__Container"
+    href="/accueil"
   >
     <div
-      class="c-CommonCardBlock__Image"
-    >
-      <img
-        alt=""
-        data-nimg="1"
-        decoding="async"
-        height="220"
-        loading="lazy"
-        src="/images/pictos/default.svg"
-        style="color: transparent;"
-        width="343"
-      />
-    </div>
-    <div
-      class="c-CommonCardBlock__Content"
+      class="c-CommonCardBlock"
     >
       <div
-        class="c-CommonCardBlock__ContentHeader"
+        class="c-CommonCardBlock__Image"
       >
-        <div
-          class="c-CommonCardBlock__Tags"
-        >
-          <span
-            class="c-CommonCardBlock__Tag "
-          >
-            common card block tag
-          </span>
-        </div>
-      </div>
-      <div
-        class="c-CommonCardBlock__ContentBody"
-      >
-        <h3
-          class="c-CommonCardBlock__Title"
-        >
-          common card block title
-        </h3>
-        <p
-          class="c-CommonCardBlock__Description"
+        <img
+          alt=""
+          data-nimg="1"
+          decoding="async"
+          height="309"
+          loading="lazy"
+          src="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=1080&q=75"
+          srcset="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=640&q=75 1x, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=1080&q=75 2x"
+          style="color: transparent;"
+          width="482"
         />
       </div>
-      <a
-        class="c-CommonCardBlock__Link"
-        href="/accueil"
+      <div
+        class="c-CommonCardBlock__Content"
       >
-        <span
-          class="c-CommonCardBlock__Label"
+        <div
+          class="c-CommonCardBlock__ContentHeader"
+        />
+        <div
+          class="c-CommonCardBlock__ContentBody"
         >
-          En savoir plus
-        </span>
-        <div />
-      </a>
+          <h3
+            class="c-CommonCardBlock__Title"
+          >
+            common card block title
+          </h3>
+          <p
+            class="c-CommonCardBlock__Description"
+          />
+        </div>
+        <div
+          class="c-CommonCardBlock__Link"
+        >
+          <span>
+            En savoir plus
+          </span>
+          <div />
+        </div>
+      </div>
     </div>
-  </div>
+  </a>
 </div>
 `;

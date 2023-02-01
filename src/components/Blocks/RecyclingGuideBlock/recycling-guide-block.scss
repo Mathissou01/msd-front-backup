@@ -1,25 +1,50 @@
 @use "src/styles/01-settings/settings.colors" as colors;
 @use "src/styles/02-tools/tools.typography" as typo;
 @use "src/styles/02-tools/tools.inputs" as input;
-@use "src/styles/02-tools/tools.media-queries" as media;
+@use "src/styles/02-tools/tools.include-media" as im;
 
 .c-RecyclingGuideBlock {
   display: flex;
   flex-direction: column;
   gap: 32px;
+  align-items: center;
+  padding: 40px 16px;
   background-color: colors.$white;
 
-  @include media.mobile-only {
-    padding: 40px 16px;
+  @include im.media(">=tablet") {
+    padding: 60px 160px;
   }
 
-  @include media.desktop-only {
+  @include im.media(">=laptop") {
+    padding: 80px 160px;
+  }
+
+  @include im.media(">=desktop") {
+    padding: 80px 124px;
+  }
+
+  @include im.media(">=large-desktop") {
     padding: 80px 224px;
   }
 
-  &__Heading {
+  &__Heading,
+  &__SearchContainer {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    max-width: 648px;
+
+    @include im.media(">=tablet") {
+      max-width: 703px;
+    }
+
+    @include im.media(">=desktop") {
+      max-width: 785px;
+    }
+
+    @include im.media(">=large-desktop") {
+      max-width: 945px;
+    }
   }
 
   &__Title {
@@ -37,9 +62,7 @@
     text-align: center;
   }
 
-  &__SearchZone {
-    display: flex;
-    flex-direction: column;
+  &__SearchContainer {
     gap: 12px;
   }
 
@@ -48,8 +71,12 @@
     flex-direction: column;
     gap: 8px;
 
-    @include media.desktop-only {
+    @include im.media(">=mobile") {
       flex-direction: row;
+
+      button {
+        width: unset;
+      }
     }
   }
 

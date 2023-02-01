@@ -1,6 +1,6 @@
 @forward "tools.mixins";
 @forward "tools.functions";
-@forward "tools.media-queries";
+@forward "tools.include-media";
 @forward "tools.z-index";
 @forward "tools.svg";
 @forward "tools.blobs";
@@ -8,3 +8,4 @@
 @forward "tools.typography";
 @forward "tools.inputs";
 @forward "tools.buttons";
+@forward "tools.focus";
