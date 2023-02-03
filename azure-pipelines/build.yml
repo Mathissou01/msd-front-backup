@@ -10,8 +10,6 @@ jobs:
     steps:
       - template: build/node.yml
 
-      - template: build/cache.yml
-
       - template: build/install.yml
 
   - job: msd_fo_site_build_test
@@ -19,8 +17,6 @@ jobs:
     dependsOn: msd_fo_site_build_install
     steps:
       - template: build/node.yml
-
-      - template: build/cache.yml
 
       - template: build/pre-tests.yml
 
@@ -33,8 +29,6 @@ jobs:
     displayName: Build package
     steps:
       - template: build/node.yml
-
-      - template: build/cache.yml
 
       - template: build/export.yml
         parameters:

@@ -6,3 +6,8 @@ steps:
     inputs:
       versionSpec: "16.x"
 
+  - task: Cache@2
+    displayName: "Cache Node modules"
+    inputs:
+      key: package-lock.json
+      path: node_modules

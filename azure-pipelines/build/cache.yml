@@ -1,7 +1,0 @@
----
-steps:
-  - task: Cache@2
-    displayName: "Cache Node modules"
-    inputs:
-      key: package-lock.json
-      path: node_modules
