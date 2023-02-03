@@ -1,0 +1,8 @@
+---
+# NodeJS installation job template
+steps:
+  - task: NodeTool@0
+    displayName: "Install Node.js"
+    inputs:
+      versionSpec: "16.x"
+

@@ -8,6 +8,8 @@ jobs:
   - job: msd_fo_site_build_install
     displayName: Install node modules
     steps:
+      - template: build/node.yml
+
       - template: build/cache.yml
 
       - template: build/install.yml
@@ -16,6 +18,8 @@ jobs:
     displayName: Run tests
     dependsOn: msd_fo_site_build_install
     steps:
+      - template: build/node.yml
+
       - template: build/cache.yml
 
       - template: build/pre-tests.yml
@@ -28,6 +32,8 @@ jobs:
     dependsOn: msd_fo_site_build_install
     displayName: Build package
     steps:
+      - template: build/node.yml
+
       - template: build/cache.yml
 
       - template: build/export.yml
