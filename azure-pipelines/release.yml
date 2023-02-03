@@ -9,7 +9,7 @@ parameters:
 
 jobs:
   - deployment: msd_fo_site_release_${{ parameters.env }}
-    displayName: "[${{ upper(parameters.env) }}] Publish FO Website"
+    displayName: "[${{ upper(parameters.env) }}] Publish FO (${{ parameters.instance }})"
     environment: msd-${{ parameters.env }}
     strategy:
       runOnce:
