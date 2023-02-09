@@ -42,7 +42,7 @@ export default function TopContentBlock({
           <TopContentCard
             title={contentTopNewsOrEvent.title}
             shortDescription={contentTopNewsOrEvent.shortDescription ?? ""}
-            date={contentTopNewsOrEvent.publishedAt}
+            date={contentTopNewsOrEvent.publishedDate}
             image={contentTopNewsOrEvent?.image.data ?? null}
             href={defaultHref}
           />
@@ -56,7 +56,7 @@ export default function TopContentBlock({
                   key={index}
                   title={topContent?.title ?? ""}
                   shortDescription={topContent?.shortDescription ?? ""}
-                  date={topContent?.publishedAt}
+                  date={topContent?.publishedDate}
                   image={topContent?.image ?? null}
                   href={defaultHref}
                 />

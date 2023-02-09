@@ -3,7 +3,7 @@ query getNewestTopContents($contractId: ID!) {
     originalId
     title
     shortDescription
-    publishedAt
+    publishedDate
     tags {
       name
     }

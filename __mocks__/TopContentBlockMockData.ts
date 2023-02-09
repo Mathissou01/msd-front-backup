@@ -46,7 +46,7 @@ export const defaultMockMinData = {
                     },
                   ],
                 },
-                publishedAt: "2022-12-05T15:59:19.503Z",
+                publishedDate: "2022-12-05T15:59:19.503Z",
                 image: {
                   __typename: "UploadFileEntityResponse",
                   data: null,
@@ -103,7 +103,7 @@ export const defaultMockFullData = {
                     },
                   ],
                 },
-                publishedAt: "2022-12-05T15:59:19.503Z",
+                publishedDate: "2022-12-05T15:59:19.503Z",
                 image: {
                   __typename: "UploadFileEntityResponse",
                   data: null,
@@ -124,21 +124,21 @@ export const newestTopContentMockData = {
       title: "Suspendisse et est sem",
       shortDescription:
         "Vestibulum cursus eros ut ligula lobortis auctor. Quisque luctus sagittis tellus",
-      publishedAt: "2022-12-29T09:11:05.800Z",
+      publishedDate: "2022-12-29T09:11:05.800Z",
     },
     {
       __typename: "EventOrNews",
       title: "Café préparation",
       shortDescription:
         "Participer à un café réparation avec La Recyclade au café restaurant de la Maison Phare. Vous apprendrez à faire un diagnostic et à réparer votre petit appareil électrique ou électronique de la vie quotidienne",
-      publishedAt: "2022-12-05T15:59:19.503Z",
+      publishedDate: "2022-12-05T15:59:19.503Z",
     },
     {
       __typename: "EventOrNews",
       title: "Café préparation",
       shortDescription:
         "Participer à un café réparation avec La Recyclade au café restaurant de la Maison Phare. Vous apprendrez à faire un diagnostic et à réparer votre petit appareil électrique ou électronique de la vie quotidienne",
-      publishedAt: "2022-12-05T15:59:19.503Z",
+      publishedDate: "2022-12-05T15:59:19.503Z",
     },
   ],
 } as GetNewestTopContentsQuery;

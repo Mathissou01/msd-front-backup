@@ -38,7 +38,7 @@ query getEditoBlock($contractId: ID!) {
                                     }
                                   }
                                 }
-                                publishedAt
+                                publishedDate
                               }
                             }
                           }
@@ -67,7 +67,7 @@ query getEditoBlock($contractId: ID!) {
                                     }
                                   }
                                 }
-                                publishedAt
+                                publishedDate
                               }
                             }
                           }
@@ -96,7 +96,7 @@ query getEditoBlock($contractId: ID!) {
                                     }
                                   }
                                 }
-                                publishedAt
+                                publishedDate
                               }
                             }
                           }
@@ -112,7 +112,7 @@ query getEditoBlock($contractId: ID!) {
                                     }
                                   }
                                 }
-                                publishedAt
+                                publishedDate
                               }
                             }
                           }
@@ -142,7 +142,7 @@ query getEditoBlock($contractId: ID!) {
                                     }
                                   }
                                 }
-                                publishedAt
+                                publishedDate
                               }
                             }
                           }

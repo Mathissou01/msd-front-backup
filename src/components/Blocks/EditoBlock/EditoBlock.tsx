@@ -49,7 +49,9 @@ export default function EditoBlock({ data }: IEditoBlockProps) {
         <CommonCardBlock
           key={`editoContent_${content.id}_${index}`}
           title={content.attributes?.title}
-          date={typeBlock === "event" ? content.attributes?.publishedAt : null}
+          date={
+            typeBlock === "event" ? content.attributes?.publishedDate : null
+          }
           tagLabels={parseTagsIntoStrings(content.attributes?.tags?.data)}
           image={
             !isEditoType<QuizEntity>(content, "QuizEntity")

@@ -21,7 +21,7 @@ query getTopContentBlock($contractId: ID!) {
                               attributes {
                                 title
                                 shortDescription
-                                publishedAt
+                                publishedDate
                                 tags {
                                   data {
                                     attributes {
@@ -50,7 +50,7 @@ query getTopContentBlock($contractId: ID!) {
                               attributes {
                                 title
                                 shortDescription
-                                publishedAt
+                                publishedDate
                                 tags {
                                   data {
                                     attributes {
