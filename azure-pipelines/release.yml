@@ -3,26 +3,34 @@ parameters:
   - name: env
     type: string
     default: dev
+  - name: instance
+    type: string
+    default: smile
 
 jobs:
-  - job: msd_fo_site_release
-    displayName: "[${{ upper(parameters.env) }}] Publish FO Website"
-    steps:
-      - checkout: none
+  - deployment: msd_fo_site_release_${{ parameters.env }}
+    displayName: "[${{ upper(parameters.env) }}] Publish FO (${{ parameters.instance }})"
+    environment: msd-${{ parameters.env }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - checkout: none
 
-      - task: DownloadPipelineArtifact@2
-        displayName: Get latest Artifact from CI pipeline
-        inputs:
-          buildType: "current"
-          path: $(System.DefaultWorkingDirectory)/
-          artifact: FO Static WebApp Export $(Build.BuildId)
+            - task: DownloadPipelineArtifact@2
+              displayName: Get latest Artifact from CI pipeline
+              inputs:
+                buildType: "current"
+                path: $(System.DefaultWorkingDirectory)/
+                artifact: FO Static WebApp Export $(Build.BuildId)
 
-      - task: AzureStaticWebApp@0
-        displayName: Publish FO Static WebApp in Azure Cloud
-        inputs:
-          output_location: "out"
-          skip_app_build: true
-          verbose: true
-          is_static_export: true
-        env:
-          azure_static_web_apps_api_token: $(fo-deployment-token)
+            - task: AzureStaticWebApp@0
+              displayName: Publish FO Static WebApp in Azure Cloud
+              inputs:
+                output_location: "out"
+                skip_app_build: true
+                verbose: true
+                is_static_export: true
+                deployment_environment: ${{ parameters.instance }}
+              env:
+                azure_static_web_apps_api_token: $(fo-deployment-token)
