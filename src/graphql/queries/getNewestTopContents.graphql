@@ -1,8 +1,20 @@
 query getNewestTopContents($contractId: ID!) {
   getNewestTopContents(contractId: $contractId) {
-    id
+    originalId
     title
     shortDescription
-    publishedAt
+    publishedDate
+    tags {
+      name
+    }
+    image {
+      hash
+      mime
+      name
+      provider
+      size
+      url
+      alternativeText
+    }
   }
 }

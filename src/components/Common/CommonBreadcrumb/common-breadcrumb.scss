@@ -1,5 +1,5 @@
 @use "src/styles/01-settings/settings.colors" as colors;
-@use "src/styles/02-tools/tools.media-queries" as media;
+@use "src/styles/02-tools/tools.include-media" as im;
 @use "src/styles/02-tools/tools.buttons" as buttons;
 @use "src/styles/02-tools/tools.typography" as typo;
 @use "src/styles/02-tools/tools.functions" as func;
@@ -14,7 +14,7 @@
     font-size: 12px;
     text-transform: capitalize;
 
-    @include media.from-tablet {
+    @include im.media(">=mobile") {
       font-size: 14px;
     }
 

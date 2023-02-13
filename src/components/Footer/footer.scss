@@ -1,29 +1,33 @@
 @use "src/styles/01-settings/settings.colors" as colors;
 @use "src/styles/01-settings/settings.layout" as layout;
 @use "src/styles/02-tools/tools.typography" as typo;
-@use "src/styles/02-tools/tools.media-queries" as media;
+@use "src/styles/02-tools/tools.include-media" as im;
 
 .c-Footer {
   display: flex;
   flex-wrap: wrap;
+  row-gap: 8px;
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 16px 5px;
+  padding: 16px 12px;
   border-top: 1px solid colors.$gray-200;
 
-  @include media.desktop-only {
-    height: 69px;
+  @include im.media(">=mobile") {
+    min-height: 69px;
   }
 
   &__Link {
     @include typo.text("footer");
 
     position: relative;
+    display: flex;
+    align-items: center;
+    height: 21px;
     padding-right: 12px;
     padding-left: 12px;
 
-    @include media.desktop-only {
+    @include im.media(">=mobile") {
       padding: 0 20px;
     }
 

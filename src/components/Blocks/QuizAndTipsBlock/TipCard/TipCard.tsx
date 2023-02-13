@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import "./tip-card.scss";
 import { isAbsoluteOrRelativeUrl } from "../../../../lib/utilities";
+import "./tip-card.scss";
 
 interface ITipCardProps {
   tagLabel: string;
@@ -12,7 +12,7 @@ interface ITipCardProps {
 }
 
 export default function TipCard({
-  tagLabel,
+  // tagLabel,
   content,
   linkLabel,
   pictoUrl,
@@ -22,7 +22,7 @@ export default function TipCard({
 
   return (
     <Link className="c-TipCard" href="/">
-      <div className="c-TipCard__Tag">{tagLabel}</div>
+      {/*<div className="c-TipCard__Tag">{tagLabel}</div>*/}
       <p className="c-TipCard__Content">{content}</p>
       <span className="c-TipCard__Link">{linkLabel}</span>
       <div className="o-Blob c-TipCard__Svg">

@@ -1,87 +1,102 @@
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
+import { UploadFile } from "../../../graphql/codegen/generated-types";
 import Arrow from "public/images/pictos/arrow.svg";
-import Calendar from "public/images/pictos/calendar.svg";
 import { handleDateFrenchFormat } from "../../../lib/utilities";
 import "./common-card-block.scss";
 
 interface ICommonCardBlockProps {
   title: string;
-  href: string;
-  tagLabels?: Array<string>;
   shortDescription?: string;
-  imageUrl?: string;
-  imageAlt?: string;
   date?: string;
+  tagLabels?: Array<string>;
+  image: UploadFile | null;
+  href: string;
   isAlignTextCenter?: boolean;
   isEventDisplay?: boolean;
 }
 
 export default function CommonCardBlock({
-  tagLabels,
   title,
-  href,
   shortDescription,
-  imageUrl,
-  imageAlt = "",
   date,
+  // tagLabels,
+  image,
+  href,
   isEventDisplay = false,
   isAlignTextCenter = false,
 }: ICommonCardBlockProps) {
+  // TODO: remove temporary default image
+  const temporaryDefaultImage = "/images/images-temp/temp_image.jpg";
+
   const linkLabel = "En savoir plus";
   const contentCardDate = new Date(date ?? "");
   const dataFrenchFormat = handleDateFrenchFormat(contentCardDate);
-  const commonCardBlock = classNames("c-CommonCardBlock", {
-    "c-CommonCardBlock_eventDisplay": isEventDisplay,
+  const blockClasses = classNames("c-CommonCardBlock", {
+    "c-CommonCardBlock_isEventDisplay": isEventDisplay,
   });
-  const commonCardBlockContent = classNames("c-CommonCardBlock__Content", {
+  const contentClasses = classNames("c-CommonCardBlock__Content", {
     "c-CommonCardBlock__Content_textCenter": isAlignTextCenter,
   });
 
   return (
-    <div className={commonCardBlock}>
-      <div className="c-CommonCardBlock__Image">
+    <Link className="c-CommonCardBlock__Container" href={href}>
+      <div className={blockClasses}>
         {isEventDisplay ? (
-          <div className="c-CommonCardBlock__Calendar">
-            <Calendar />
+          <div className="c-CommonCardBlock__EventDisplay">
+            <Image
+              className="c-CommonCardBlock__CalendarPicto"
+              src={"/images/pictos/calendar.svg"}
+              alt={""}
+              width={36}
+              height={36}
+            />
             {date && (
               <div className="c-CommonCardBlock__Date">
-                {dataFrenchFormat || null}
+                {dataFrenchFormat ?? null}
               </div>
             )}
           </div>
-        ) : imageUrl ? (
-          <Image src={imageUrl} alt={imageAlt} width={343} height={220} />
-        ) : null}
-      </div>
-      <div className={commonCardBlockContent}>
-        <div className="c-CommonCardBlock__ContentHeader">
-          <div className="c-CommonCardBlock__Tags">
-            {tagLabels?.map((tagLabel, index) => (
-              <span
-                key={index}
-                className={`c-CommonCardBlock__Tag ${
-                  index > 0 ? "c-CommonCardBlock__Tag_background" : ""
-                }`}
-              >
-                {tagLabel}
-              </span>
-            ))}
+        ) : image || temporaryDefaultImage ? (
+          <div className="c-CommonCardBlock__Image">
+            <Image
+              src={image?.url ?? temporaryDefaultImage}
+              alt={image?.alternativeText ?? ""}
+              width={image?.width ?? 482}
+              height={image?.height ?? 309}
+            />
           </div>
-          {!isEventDisplay && date ? (
-            <div className="c-CommonCardBlock__Date">{dataFrenchFormat}</div>
-          ) : null}
+        ) : null}
+        <div className={contentClasses}>
+          <div className="c-CommonCardBlock__ContentHeader">
+            {/* TODO: tags, also distinguish between two types of tags <div className="c-CommonCardBlock__Tags">*/}
+            {/*  {tagLabels?.map((tagLabel, index) => (*/}
+            {/*    <span*/}
+            {/*      key={index}*/}
+            {/*      className={`c-CommonCardBlock__Tag ${*/}
+            {/*        index > 0 ? "c-CommonCardBlock__Tag_background" : ""*/}
+            {/*      }`}*/}
+            {/*    >*/}
+            {/*      {tagLabel}*/}
+            {/*    </span>*/}
+            {/*  ))}*/}
+            {/*</div>*/}
+            {!isEventDisplay && date ? (
+              <div className="c-CommonCardBlock__Date">{dataFrenchFormat}</div>
+            ) : null}
+          </div>
+          <div className="c-CommonCardBlock__ContentBody">
+            <h3 className="c-CommonCardBlock__Title">{title}</h3>
+            <p className="c-CommonCardBlock__Description">{shortDescription}</p>
+          </div>
+          <div className="c-CommonCardBlock__Link">
+            <span>{linkLabel}</span>
+            <Arrow />
+          </div>
         </div>
-        <div className="c-CommonCardBlock__ContentBody">
-          <h3 className="c-CommonCardBlock__Title">{title}</h3>
-          <p className="c-CommonCardBlock__Description">{shortDescription}</p>
-        </div>
-        <Link className="c-CommonCardBlock__Link" href={href}>
-          <span className="c-CommonCardBlock__Label">{linkLabel}</span>
-          <Arrow />
-        </Link>
       </div>
-    </div>
+    </Link>
   );
 }

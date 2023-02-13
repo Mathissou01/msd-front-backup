@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TopContentCard renders 1`] = `
+<div>
+  <a
+    class="c-TopContentCard"
+    href="/accueil"
+  >
+    <div
+      class="c-TopContentCard__Banner"
+    >
+      <img
+        alt=""
+        data-nimg="1"
+        decoding="async"
+        height="205"
+        loading="lazy"
+        src="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=750&q=75"
+        srcset="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=384&q=75 1x, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=750&q=75 2x"
+        style="color: transparent;"
+        width="375"
+      />
+    </div>
+    <div
+      class="c-TopContentCard__CardContainer"
+    >
+      <div
+        class="c-TopContentCard__Card"
+      >
+        <div
+          class="c-TopContentCard__Header"
+        >
+          <div
+            class="c-TopContentCard__Tags"
+          />
+        </div>
+        <div
+          class="c-TopContentCard__Content"
+        >
+          <h2
+            class="c-TopContentCard__Title"
+          >
+            common top content card title
+          </h2>
+          <p
+            class="c-TopContentCard__Description"
+          />
+        </div>
+        <div
+          class="c-TopContentCard__KnowMore"
+        >
+          <span>
+            En savoir plus
+          </span>
+          <div />
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+`;

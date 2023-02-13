@@ -2,7 +2,7 @@ export const defaultMockData = {
   titleContent: "Les services de ma ville",
   serviceLinks: [
     {
-      localId: 0,
+      id: "0",
       type: "ComponentLinksRecycling",
       name: "Guide du tri",
       isDisplayed: true,
@@ -10,7 +10,7 @@ export const defaultMockData = {
       generatedSlug: "/",
     },
     {
-      localId: 1,
+      id: "1",
       type: "ComponentLinksFrees",
       name: "Valorisation de mes déchets",
       isDisplayed: true,
@@ -18,7 +18,7 @@ export const defaultMockData = {
       generatedSlug: "valorisation-de-mes-dechets",
     },
     {
-      localId: 2,
+      id: "2",
       type: "ComponentLinksFrees",
       name: "Réduire mes déchets",
       isDisplayed: true,
@@ -26,7 +26,7 @@ export const defaultMockData = {
       generatedSlug: "reduire-mes-dechets",
     },
     {
-      localId: 3,
+      id: "3",
       type: "ComponentLinksRequest",
       name: "dfhsrgsrh",
       isDisplayed: true,
@@ -45,7 +45,7 @@ export const lessThanThreeMockData = {
   titleContent: "Les services de ma ville",
   serviceLinks: [
     {
-      localId: 0,
+      id: "0",
       type: "ComponentLinksRecycling",
       name: "Guide du tri",
       isDisplayed: true,
@@ -53,7 +53,7 @@ export const lessThanThreeMockData = {
       generatedSlug: "/",
     },
     {
-      localId: 1,
+      id: "1",
       type: "ComponentLinksFrees",
       name: "Valorisation de mes déchets",
       isDisplayed: true,
@@ -61,7 +61,7 @@ export const lessThanThreeMockData = {
       generatedSlug: "valorisation-de-mes-dechets",
     },
     {
-      localId: 2,
+      id: "2",
       type: "ComponentLinksFrees",
       name: "Point de collecte",
       isDisplayed: false,
@@ -69,7 +69,7 @@ export const lessThanThreeMockData = {
       generatedSlug: "reduire-mes-dechets",
     },
     {
-      localId: 3,
+      id: "3",
       type: "ComponentLinksRequest",
       name: "dfhsrgsrh",
       isDisplayed: false,

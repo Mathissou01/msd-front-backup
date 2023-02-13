@@ -1,61 +1,42 @@
 @use "src/styles/02-tools/tools.typography" as typo;
 @use "src/styles/01-settings/settings.colors" as colors;
-@use "src/styles/02-tools/tools.media-queries" as media;
+@use "src/styles/02-tools/tools.include-media" as im;
 @use "src/styles/02-tools/tools.shadows" as shadows;
 
 .c-CommonCardBlock {
-  @include shadows.shadow(1);
+  $self: &;
 
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 16px;
-  padding: 0 0 24px;
-  background-color: colors.$white;
-  border-radius: 8px;
+  padding-bottom: 24px;
 
-  @include media.mobile {
-    width: 320px;
+  @include im.media(">=mobile") {
+    gap: 24px;
   }
 
-  @include media.small-tablet {
-    width: 482px;
+  &:hover {
+    background-color: colors.$brand-primary-light;
   }
 
-  @include media.from-tablet {
-    width: 285px;
+  &_isEventDisplay {
+    padding: 24px 16px;
   }
 
-  &__Image {
-    @include media.small-tablet {
-      width: 482px;
-      max-height: 309px;
+  &__Container {
+    @include shadows.shadow(1);
 
-      img {
-        width: 100%;
-        max-width: 480px;
-        height: 100%;
-      }
-    }
-
-    @include media.from-tablet {
-      width: 285px;
-
-      img {
-        width: 100%;
-        max-width: 312px;
-        height: 100%;
-      }
-    }
-
-    img {
-      width: 100%;
-      height: 100%;
-      border-top-left-radius: 8px;
-      border-top-right-radius: 8px;
-    }
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+    background-color: colors.$white;
+    border-radius: 8px;
   }
 
-  &__Calendar {
+  &__EventDisplay {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -69,17 +50,51 @@
     border-radius: 50%;
   }
 
+  &__CalendarPicto {
+    width: 36px;
+    filter: url("#recolor-secondary");
+  }
+
+  &__Date {
+    width: 150px;
+    color: colors.$gray-800;
+    font-weight: 500;
+    font-size: 14px;
+    font-family: DINPro-Medium, sans-serif;
+    line-height: 21px;
+    text-align: center;
+  }
+
+  &__Image {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    @include im.media(">=tablet") {
+      min-height: 200px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.2s ease-in-out;
+
+      @include im.media(">=tablet") {
+        object-fit: cover;
+      }
+
+      #{$self}:hover & {
+        transform: scale(1.1);
+      }
+    }
+  }
+
   &__Content {
     display: flex;
     flex-direction: column;
     gap: 16px;
     height: 100%;
     padding: 0 16px;
-
-    @include media.small-tablet {
-      width: 482px;
-      max-width: 482px;
-    }
 
     &_textCenter {
       align-items: center;
@@ -115,15 +130,6 @@
     }
   }
 
-  &__Date {
-    width: 150px;
-    color: colors.$gray-800;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 21px;
-    text-align: center;
-  }
-
   &__ContentBody {
     display: flex;
     flex-direction: column;
@@ -136,14 +142,6 @@
 
     width: 100%;
     color: colors.$expert-blue;
-    @include media.small-tablet {
-      font-size: 18px;
-      line-height: 23px;
-    }
-    @include media.from-tablet {
-      font-size: 18px;
-      line-height: 23px;
-    }
   }
 
   &__Description {
@@ -151,15 +149,6 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
-
-    @include media.small-tablet {
-      font-size: 14px;
-      line-height: 21px;
-    }
-    @include media.from-tablet {
-      font-size: 14px;
-      line-height: 21px;
-    }
   }
 
   &__Link {
@@ -167,20 +156,16 @@
     padding: 0;
     transition: text-decoration 0.3s ease-in-out;
 
-    &:hover {
+    #{$self}:hover & {
       text-decoration: underline;
     }
-  }
 
-  &__Label {
-    @include typo.text("buttonSmall");
+    span {
+      @include typo.text("buttonSmall");
 
-    margin-right: 12px;
-    color: colors.$blue-1;
-    border-radius: 2px;
-  }
-
-  &_eventDisplay {
-    padding: 24px 16px;
+      margin-right: 12px;
+      color: colors.$blue-1;
+      border-radius: 2px;
+    }
   }
 }

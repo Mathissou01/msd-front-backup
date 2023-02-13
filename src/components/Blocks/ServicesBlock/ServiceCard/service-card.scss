@@ -1,27 +1,31 @@
 @use "src/styles/02-tools/tools.typography" as typo;
-@use "src/styles/02-tools/tools.media-queries" as media;
+@use "src/styles/02-tools/tools.include-media" as im;
 @use "src/styles/01-settings/settings.colors" as colors;
 @use "src/styles/02-tools/tools.shadows" as shadows;
 @use "src/styles/02-tools/tools.z-index" as index;
 
 .c-ServiceCard {
-  @include typo.text("boldStatic");
+  @include typo.text("bodyStatic");
   @include shadows.shadow(1);
 
   z-index: index.z("site-content");
   display: flex;
   gap: 16px;
   align-items: center;
-  height: 80px;
+  width: 100%;
   min-height: 96px;
   padding: 16px;
   overflow: auto;
-  background: #fff;
+  font-weight: 500;
+  background: colors.$white;
   border-radius: 8px;
 
-  @include media.desktop-only {
-    height: 102px;
+  @include im.media(">=mobile") {
     padding: 24px;
+  }
+
+  &:hover {
+    background-color: colors.$brand-primary-light;
   }
 
   &__Svg {
@@ -39,5 +43,9 @@
 
   &__Picto {
     filter: url("#recolor-primary");
+  }
+
+  &__Name {
+    word-break: break-word;
   }
 }

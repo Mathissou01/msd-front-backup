@@ -17,7 +17,7 @@ query getQuizAndTipsBlock($contractId: ID!) {
                         id
                         attributes {
                           title
-                          publishedAt
+                          publishedDate
                         }
                       }
                     }
@@ -42,7 +42,7 @@ query getQuizAndTipsBlock($contractId: ID!) {
                               }
                             }
                           }
-                          publishedAt
+                          publishedDate
                         }
                       }
                     }

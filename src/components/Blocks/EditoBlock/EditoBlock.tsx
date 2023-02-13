@@ -1,13 +1,19 @@
-import CommonBlockHeading from "../../Common/CommonBlockHeading/CommonBlockHeading";
-import "./edito-block.scss";
 import {
   EditoBlockEntity,
-  EditoContentEntity,
+  QuizEntity,
   TagEntity,
+  TipEntity,
 } from "../../../graphql/codegen/generated-types";
-import TipCard from "../QuizAndTipsBlock/TipCard/TipCard";
-import "../QuizAndTipsBlock/TipCard/tip-card.scss";
+import { removeNulls } from "../../../lib/utilities";
+import {
+  editoFields,
+  isEditoType,
+  TEditoTypes,
+} from "../../../lib/edito-content";
+import CommonBlockHeading from "../../Common/CommonBlockHeading/CommonBlockHeading";
 import CommonCardBlock from "../../Common/CommonCardBlock/CommonCardBlock";
+import TipCard from "../QuizAndTipsBlock/TipCard/TipCard";
+import "./edito-block.scss";
 
 interface IEditoBlockProps {
   data: EditoBlockEntity;
@@ -15,73 +21,78 @@ interface IEditoBlockProps {
 
 export default function EditoBlock({ data }: IEditoBlockProps) {
   /* Static Data */
-  const defaultImage = "/images/images-temp/default_editoCard.svg";
   const labels = {
     tag: "Astuce",
     knowMore: "En savoir plus",
   };
   /* Local Data */
-  const titleContent = data.attributes?.titleContent || "";
-  const editoContents = data.attributes?.editoContents?.data || [];
+  const titleContent = data.attributes?.titleContent ?? "";
+  const editoContents = data.attributes?.editoContents?.data ?? [];
 
-  function handleTagLabel(tags: Array<TagEntity>) {
-    const tagsLabel = tags?.map((tag) => tag.attributes?.name);
-    return tagsLabel || [];
+  function parseTagsIntoStrings(tags?: Array<TagEntity>): Array<string> {
+    return tags
+      ? tags?.map((tag) => tag.attributes?.name).filter(removeNulls)
+      : [];
   }
 
   function renderCardType(
-    editoContent: EditoContentEntity,
+    content: TEditoTypes,
     typeBlock: string,
     index: number,
   ) {
-    const contentAttributes = editoContent.attributes || [];
-    const contentDataAttributes = Object.entries(contentAttributes).filter(
-      (entry) => entry[0] === `${typeBlock}`,
-    )[0][1].data?.attributes;
-    if (contentDataAttributes && typeBlock !== "tip") {
+    if (
+      !isEditoType<TipEntity>(content, "TipEntity") &&
+      typeBlock !== "tip" &&
+      content.attributes?.title
+    ) {
       return (
         <CommonCardBlock
-          key={`editoContent_${editoContent.id}_${index}`}
-          tagLabels={
-            handleTagLabel(contentDataAttributes?.tags?.data) as string[]
+          key={`editoContent_${content.id}_${index}`}
+          title={content.attributes?.title}
+          date={
+            typeBlock === "event" ? content.attributes?.publishedDate : null
           }
-          title={contentDataAttributes?.title}
-          imageUrl={defaultImage}
+          tagLabels={parseTagsIntoStrings(content.attributes?.tags?.data)}
+          image={
+            !isEditoType<QuizEntity>(content, "QuizEntity")
+              ? content.attributes.image.data?.attributes ?? null
+              : null
+          }
           href={""}
+          isEventDisplay={typeBlock === "event"}
+          isAlignTextCenter={typeBlock === "event"}
         />
       );
-    } else if (contentDataAttributes && typeBlock === "tip") {
+    } else if (
+      isEditoType<TipEntity>(content, "TipEntity") &&
+      typeBlock === "tip" &&
+      content.attributes?.title
+    ) {
       return (
-        <div className="c-QuizAndTipsBlock__Tips">
-          <TipCard
-            tagLabel={labels.tag}
-            content={contentDataAttributes.title || ""}
-            linkLabel={labels.knowMore}
-            pictoUrl={contentDataAttributes.link || null}
-          />
-        </div>
+        <TipCard
+          key={`editoContent_${content.id}_${index}`}
+          tagLabel={labels.tag}
+          content={content.attributes?.title}
+          linkLabel={labels.knowMore}
+          pictoUrl={content.attributes?.link ?? null}
+        />
       );
     }
   }
 
-  function handleContentsByType(editoContents: EditoContentEntity[]) {
-    return editoContents?.map((editoContent, index) => {
-      return ["news", "event", "freeContent", "quiz", "tip"].map(
-        (typeBlock) => {
-          return renderCardType(editoContent, typeBlock, index);
-        },
-      );
-    });
-  }
-
   return (
     <section className="c-EditoBlock">
-      <CommonBlockHeading titleContent={titleContent} />
-      {
-        <div className="c-EditoBlock__Content">
-          {handleContentsByType(editoContents)}
-        </div>
-      }
+      <CommonBlockHeading titleContent={titleContent} isAlignLeft={true} />
+      <div className="c-EditoBlock__Content">
+        {editoContents?.map((editoContent, index) => {
+          return editoFields.map((typeBlock) => {
+            const content = editoContent.attributes?.[typeBlock]?.data;
+            if (content) {
+              return renderCardType(content, typeBlock, index);
+            }
+          });
+        })}
+      </div>
       <div className="c-EditoBlock__SvgContainer"></div>
     </section>
   );

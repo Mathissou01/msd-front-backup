@@ -38,6 +38,7 @@ query getEditoBlock($contractId: ID!) {
                                     }
                                   }
                                 }
+                                publishedDate
                               }
                             }
                           }
@@ -46,6 +47,13 @@ query getEditoBlock($contractId: ID!) {
                               attributes {
                                 title
                                 shortDescription
+                                tags {
+                                  data {
+                                    attributes {
+                                      name
+                                    }
+                                  }
+                                }
                                 image {
                                   data {
                                     attributes {
@@ -59,13 +67,7 @@ query getEditoBlock($contractId: ID!) {
                                     }
                                   }
                                 }
-                                tags {
-                                  data {
-                                    attributes {
-                                      name
-                                    }
-                                  }
-                                }
+                                publishedDate
                               }
                             }
                           }
@@ -74,6 +76,13 @@ query getEditoBlock($contractId: ID!) {
                               attributes {
                                 title
                                 shortDescription
+                                tags {
+                                  data {
+                                    attributes {
+                                      name
+                                    }
+                                  }
+                                }
                                 image {
                                   data {
                                     attributes {
@@ -87,13 +96,7 @@ query getEditoBlock($contractId: ID!) {
                                     }
                                   }
                                 }
-                                tags {
-                                  data {
-                                    attributes {
-                                      name
-                                    }
-                                  }
-                                }
+                                publishedDate
                               }
                             }
                           }
@@ -109,6 +112,7 @@ query getEditoBlock($contractId: ID!) {
                                     }
                                   }
                                 }
+                                publishedDate
                               }
                             }
                           }
@@ -138,6 +142,7 @@ query getEditoBlock($contractId: ID!) {
                                     }
                                   }
                                 }
+                                publishedDate
                               }
                             }
                           }

@@ -5,7 +5,7 @@ const getRawDesktopBreakpoint = () =>
   isWindow
     ? Number.parseInt(
         getComputedStyle(document.documentElement).getPropertyValue(
-          "--breakpoint-desktop",
+          "--breakpoint-laptop",
         ),
       )
     : null;

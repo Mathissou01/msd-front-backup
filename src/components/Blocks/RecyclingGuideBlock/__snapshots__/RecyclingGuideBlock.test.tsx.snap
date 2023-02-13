@@ -20,7 +20,7 @@ exports[`RecyclingGuideBlock renders 1`] = `
       </h2>
     </div>
     <div
-      class="c-RecyclingGuideBlock__SearchZone"
+      class="c-RecyclingGuideBlock__SearchContainer"
     >
       <div
         class="c-RecyclingGuideBlock__SearchBar"

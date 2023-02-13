@@ -26,7 +26,7 @@ export default function RecyclingGuideBlock({ data }: IRecyclingGuideBlock) {
         <span className="c-RecyclingGuideBlock__Title">{titleContent}</span>
         <h2 className="c-RecyclingGuideBlock__Subtitle">{subtitleContent}</h2>
       </div>
-      <div className="c-RecyclingGuideBlock__SearchZone">
+      <div className="c-RecyclingGuideBlock__SearchContainer">
         <div className="c-RecyclingGuideBlock__SearchBar">
           <input
             className="c-RecyclingGuideBlock__Input"

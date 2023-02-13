@@ -6,7 +6,6 @@ import HeaderLinkProfile from "./HeaderLinkProfile/HeaderLinkProfile";
 import HeaderLinkSelector from "./HeaderLinkSelector/HeaderLinkSelector";
 import HeaderLinkUser from "./HeaderLinkUser/HeaderLinkUser";
 import HeaderLinkSearch from "./HeaderLinkSearch/HeaderLinkSearch";
-
 import "./header-top-bar.scss";
 
 interface IHeaderTopBarProps {
