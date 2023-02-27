@@ -55,7 +55,7 @@ export default function EditoBlock({ data }: IEditoBlockProps) {
           tagLabels={parseTagsIntoStrings(content.attributes?.tags?.data)}
           image={
             !isEditoType<QuizEntity>(content, "QuizEntity")
-              ? content.attributes.image.data?.attributes ?? null
+              ? content.attributes.image?.data?.attributes ?? null
               : null
           }
           href={""}

@@ -1,6 +1,7 @@
 query getServicesActive($contractId: ID!) {
   editorialServices(filters: { contract: { id: { eq: $contractId } } }) {
     data {
+      id
       attributes {
         eventSubService {
           data {
@@ -38,34 +39,6 @@ query getServicesActive($contractId: ID!) {
           }
         }
         contactUsSubService {
-          data {
-            attributes {
-              isActivated
-            }
-          }
-        }
-        cguSubService {
-          data {
-            attributes {
-              isActivated
-            }
-          }
-        }
-        accessibilitySubService {
-          data {
-            attributes {
-              isActivated
-            }
-          }
-        }
-        confidentialitySubService {
-          data {
-            attributes {
-              isActivated
-            }
-          }
-        }
-        cookiesSubService {
           data {
             attributes {
               isActivated

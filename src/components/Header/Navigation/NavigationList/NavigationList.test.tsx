@@ -6,9 +6,7 @@ describe("NavigationList", () => {
     const { container } = render(<NavigationList isDesktopMode={false} />);
 
     expect(await screen.findByText("Accueil")).toBeInTheDocument();
-    expect(
-      await screen.findByText("Collecte à mon adresse"),
-    ).toBeInTheDocument();
+    expect(await screen.findByText("Guide du tri")).toBeInTheDocument();
     expect(await container).toMatchSnapshot();
   });
 
@@ -16,9 +14,7 @@ describe("NavigationList", () => {
     const { container } = render(<NavigationList isDesktopMode={true} />);
 
     expect(await screen.findByText("Accueil")).toBeInTheDocument();
-    expect(
-      await screen.findByText("Collecte à mon adresse"),
-    ).toBeInTheDocument();
+    expect(await screen.findByText("Guide du tri")).toBeInTheDocument();
     expect(await container).toMatchSnapshot();
   });
 });

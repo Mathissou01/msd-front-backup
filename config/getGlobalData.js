@@ -5,54 +5,56 @@ query getGlobalData($contractId: ID!) {
       attributes {
         contractCustomization {
           data {
+            id
             attributes {
               footer {
                 data {
-                  id
                   attributes {
                     accessibilityLevel
-                    accessibilitySubService {
-                      data {
-                        attributes {
-                          link
-                          isActivated
-                          name
-                        }
-                      }
-                    }
                     cguSubService {
                       data {
+                        id
                         attributes {
-                          link
-                          isActivated
                           name
+                          link
                         }
                       }
                     }
-                    cookiesSubService {
+                    accessibilitySubService {
                       data {
+                        id
                         attributes {
-                          isActivated
-                          link
                           name
-                        }
-                      }
-                    }
-                    contactUsSubService {
-                      data {
-                        attributes {
                           link
-                          isActivated
-                          label
                         }
                       }
                     }
                     confidentialitySubService {
                       data {
+                        id
                         attributes {
+                          name
+                          link
+                        }
+                      }
+                    }
+                    cookiesSubService {
+                      data {
+                        id
+                        attributes {
+                          name
+                          link
+                        }
+                      }
+                    }
+                    contactUsSubService {
+                      data {
+                        id
+                        attributes {
+                          name
+                          label
                           link
                           isActivated
-                          name
                         }
                       }
                     }
@@ -66,8 +68,8 @@ query getGlobalData($contractId: ID!) {
           data {
             attributes {
               serviceLinks {
-                ... on ComponentLinksMap {
-                  __typename
+                ... on ComponentLinksDropOffMap {
+                  id
                   name
                   isDisplayed
                   picto {
@@ -78,8 +80,8 @@ query getGlobalData($contractId: ID!) {
                     }
                   }
                 }
-                ... on ComponentLinksCalendar {
-                  __typename
+                ... on ComponentLinksPickUpDay {
+                  id
                   name
                   isDisplayed
                   picto {
@@ -90,8 +92,8 @@ query getGlobalData($contractId: ID!) {
                     }
                   }
                 }
-                ... on ComponentLinksRecycling {
-                  __typename
+                ... on ComponentLinksRecyclingGuide {
+                  id
                   name
                   isDisplayed
                   picto {
@@ -103,7 +105,7 @@ query getGlobalData($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksRequest {
-                  __typename
+                  id
                   name
                   isDisplayed
                   picto {
@@ -115,7 +117,7 @@ query getGlobalData($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksContactUs {
-                  __typename
+                  id
                   name
                   isDisplayed
                   picto {
@@ -127,7 +129,7 @@ query getGlobalData($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksNews {
-                  __typename
+                  id
                   name
                   isDisplayed
                   picto {
@@ -139,7 +141,7 @@ query getGlobalData($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksEvents {
-                  __typename
+                  id
                   name
                   isDisplayed
                   picto {
@@ -151,7 +153,7 @@ query getGlobalData($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksQuizzes {
-                  __typename
+                  id
                   name
                   isDisplayed
                   picto {
@@ -163,7 +165,7 @@ query getGlobalData($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksTips {
-                  __typename
+                  id
                   name
                   isDisplayed
                   picto {
@@ -175,7 +177,7 @@ query getGlobalData($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksFrees {
-                  __typename
+                  id
                   name
                   isDisplayed
                   picto {
@@ -187,7 +189,7 @@ query getGlobalData($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksExternal {
-                  __typename
+                  id
                   name
                   isDisplayed
                   picto {

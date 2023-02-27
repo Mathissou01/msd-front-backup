@@ -6,7 +6,8 @@ query getContractMenu($contractId: ID!) {
           data {
             attributes {
               serviceLinks {
-                ... on ComponentLinksMap {
+                ... on ComponentLinksDropOffMap {
+                  id
                   name
                   isDisplayed
                   picto {
@@ -17,7 +18,8 @@ query getContractMenu($contractId: ID!) {
                     }
                   }
                 }
-                ... on ComponentLinksCalendar {
+                ... on ComponentLinksPickUpDay {
+                  id
                   name
                   isDisplayed
                   picto {
@@ -28,7 +30,8 @@ query getContractMenu($contractId: ID!) {
                     }
                   }
                 }
-                ... on ComponentLinksRecycling {
+                ... on ComponentLinksRecyclingGuide {
+                  id
                   name
                   isDisplayed
                   picto {
@@ -40,6 +43,7 @@ query getContractMenu($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksRequest {
+                  id
                   name
                   isDisplayed
                   picto {
@@ -51,6 +55,7 @@ query getContractMenu($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksContactUs {
+                  id
                   name
                   isDisplayed
                   picto {
@@ -62,6 +67,7 @@ query getContractMenu($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksNews {
+                  id
                   name
                   isDisplayed
                   picto {
@@ -73,6 +79,7 @@ query getContractMenu($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksEvents {
+                  id
                   name
                   isDisplayed
                   picto {
@@ -84,6 +91,7 @@ query getContractMenu($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksQuizzes {
+                  id
                   name
                   isDisplayed
                   picto {
@@ -95,6 +103,7 @@ query getContractMenu($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksTips {
+                  id
                   name
                   isDisplayed
                   picto {
@@ -106,6 +115,7 @@ query getContractMenu($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksFrees {
+                  id
                   name
                   isDisplayed
                   picto {
@@ -117,6 +127,7 @@ query getContractMenu($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksExternal {
+                  id
                   name
                   isDisplayed
                   picto {

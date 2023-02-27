@@ -6,52 +6,48 @@ query getFooter($contractId: ID!) {
           data {
             id
             attributes {
-              accessibilitySubService {
+              accessibilityLevel
+              cguSubService {
                 data {
+                  id
                   attributes {
                     link
-                    isActivated
-                    name
                   }
                 }
               }
-              cguSubService {
+              accessibilitySubService {
                 data {
+                  id
                   attributes {
                     link
-                    isActivated
-                    name
+                  }
+                }
+              }
+              confidentialitySubService {
+                data {
+                  id
+                  attributes {
+                    link
                   }
                 }
               }
               cookiesSubService {
                 data {
+                  id
                   attributes {
-                    name
-                    isActivated
                     link
                   }
                 }
               }
               contactUsSubService {
                 data {
+                  id
                   attributes {
-                    link
-                    isActivated
                     label
-                  }
-                }
-              }
-              confidentialitySubService {
-                data {
-                  attributes {
                     link
-                    isActivated
-                    name
                   }
                 }
               }
-              accessibilityLevel
             }
           }
         }

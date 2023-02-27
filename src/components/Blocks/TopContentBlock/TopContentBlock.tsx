@@ -43,7 +43,7 @@ export default function TopContentBlock({
             title={contentTopNewsOrEvent.title}
             shortDescription={contentTopNewsOrEvent.shortDescription ?? ""}
             date={contentTopNewsOrEvent.publishedDate}
-            image={contentTopNewsOrEvent?.image.data ?? null}
+            image={contentTopNewsOrEvent?.image?.data ?? null}
             href={defaultHref}
           />
         )}
