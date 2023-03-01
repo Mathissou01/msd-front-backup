@@ -21,7 +21,7 @@ parameters:
     default: smile
     values:
       - smile
-      - production
+      - Production
 
 pool:
   vmImage: ubuntu-latest
@@ -43,10 +43,13 @@ stages:
           - group: fo_site_variables_dev
           - name: env
             value: dev
-      - ${{ if eq(variables.releaseRec, 'true') }}:
+      - ${{ elseif eq(variables.releaseRec, 'true') }}:
           - group: fo_site_variables_rec
           - name: env
             value: rec
+      - ${{ else }}:
+          - name: env
+            value: dev
     jobs:
       - template: azure-pipelines/release.yml
         parameters:
@@ -54,4 +57,4 @@ stages:
           ${{ if eq(variables.releaseRec, 'true') }}:
             instance: ${{ parameters.az_env }}
           ${{ else }}:
-            instance: "production"
+            instance: "Production"
