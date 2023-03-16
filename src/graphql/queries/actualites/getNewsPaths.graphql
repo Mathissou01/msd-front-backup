@@ -1,0 +1,10 @@
+query getNewsPaths {
+  news(filters: { status: { eq: "published" } }) {
+    data {
+      id
+      attributes {
+        status
+      }
+    }
+  }
+}

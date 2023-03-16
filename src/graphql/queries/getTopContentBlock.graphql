@@ -18,10 +18,10 @@ query getTopContentBlock($contractId: ID!) {
                         attributes {
                           news {
                             data {
+                              id
                               attributes {
                                 title
                                 shortDescription
-                                publishedDate
                                 tags {
                                   data {
                                     attributes {
@@ -42,15 +42,16 @@ query getTopContentBlock($contractId: ID!) {
                                     }
                                   }
                                 }
+                                publishedDate
                               }
                             }
                           }
                           event {
                             data {
+                              id
                               attributes {
                                 title
                                 shortDescription
-                                publishedDate
                                 tags {
                                   data {
                                     attributes {
@@ -71,6 +72,7 @@ query getTopContentBlock($contractId: ID!) {
                                     }
                                   }
                                 }
+                                publishedDate
                               }
                             }
                           }

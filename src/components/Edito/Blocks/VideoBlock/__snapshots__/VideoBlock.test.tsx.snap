@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Video Block renders 1`] = `
+<div>
+  <span
+    class="c-VideoBlock__BadUrl"
+  >
+    Url de la video est invalide 😫
+  </span>
+</div>
+`;

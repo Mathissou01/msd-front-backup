@@ -477,9 +477,13 @@ type ChannelTypeRelationResponseCollection {
 
 type City {
   createdAt: DateTime
+  department: String
   epci: EpciEntityResponse
-  label: String!
-  postalCode: String!
+  insee: Long
+  name: String
+  postalCode: Long
+  region: String
+  siren: Long
   updatedAt: DateTime
 }
 
@@ -500,19 +504,27 @@ type CityEntityResponseCollection {
 input CityFiltersInput {
   and: [CityFiltersInput]
   createdAt: DateTimeFilterInput
+  department: StringFilterInput
   epci: EpciFiltersInput
   id: IDFilterInput
-  label: StringFilterInput
+  insee: LongFilterInput
+  name: StringFilterInput
   not: CityFiltersInput
   or: [CityFiltersInput]
-  postalCode: StringFilterInput
+  postalCode: LongFilterInput
+  region: StringFilterInput
+  siren: LongFilterInput
   updatedAt: DateTimeFilterInput
 }
 
 input CityInput {
+  department: String
   epci: ID
-  label: String
-  postalCode: String
+  insee: Long
+  name: String
+  postalCode: Long
+  region: String
+  siren: Long
 }
 
 type CityRelationResponseCollection {
@@ -636,6 +648,15 @@ type ComponentLinksDropOffMap {
   isDisplayed: Boolean!
   name: String
   picto: UploadFileEntityResponse
+  pointToDisplayOnTheMap: ENUM_COMPONENTLINKSDROPOFFMAP_POINTTODISPLAYONTHEMAP
+}
+
+type ComponentLinksEditorial {
+  event_sub_service: EventSubServiceEntityResponse
+  id: ID!
+  isDisplayed: Boolean
+  name: String
+  picto: UploadFileEntityResponse
 }
 
 type ComponentLinksEvents {
@@ -731,6 +752,7 @@ type ComponentLinksRecyclingGuide {
 }
 
 type ComponentLinksRequest {
+  demand: ENUM_COMPONENTLINKSREQUEST_DEMAND
   id: ID!
   isDisplayed: Boolean!
   name: String
@@ -1058,11 +1080,13 @@ type Contract {
   createdAt: DateTime
   dropOffMapService: DropOffMapServiceEntityResponse
   editorialService: EditorialServiceEntityResponse
-  folderId: Long
   isNonExclusive: Boolean!
   isRVFrance: Boolean!
   keyMetricsService: KeyMetricsServiceEntityResponse
   logicalDelete: Boolean
+  numberOfInhabitants: Long
+  oldClientName: String
+  pathId: Long
   pickUpDayService: PickUpDayServiceEntityResponse
   recyclingGuideService: RecyclingGuideServiceEntityResponse
   requestService: RequestServiceEntityResponse
@@ -1161,14 +1185,16 @@ input ContractFiltersInput {
   createdAt: DateTimeFilterInput
   dropOffMapService: DropOffMapServiceFiltersInput
   editorialService: EditorialServiceFiltersInput
-  folderId: LongFilterInput
   id: IDFilterInput
   isNonExclusive: BooleanFilterInput
   isRVFrance: BooleanFilterInput
   keyMetricsService: KeyMetricsServiceFiltersInput
   logicalDelete: BooleanFilterInput
   not: ContractFiltersInput
+  numberOfInhabitants: LongFilterInput
+  oldClientName: StringFilterInput
   or: [ContractFiltersInput]
+  pathId: LongFilterInput
   pickUpDayService: PickUpDayServiceFiltersInput
   recyclingGuideService: RecyclingGuideServiceFiltersInput
   requestService: RequestServiceFiltersInput
@@ -1192,11 +1218,13 @@ input ContractInput {
   contracts: [ID]
   dropOffMapService: ID
   editorialService: ID
-  folderId: Long
   isNonExclusive: Boolean
   isRVFrance: Boolean
   keyMetricsService: ID
   logicalDelete: Boolean
+  numberOfInhabitants: Long
+  oldClientName: String
+  pathId: Long
   pickUpDayService: ID
   recyclingGuideService: ID
   requestService: ID
@@ -1674,6 +1702,22 @@ enum ENUM_COMPONENTBLOCKSSUBHEADING_SUBHEADINGTAG {
   h6
 }
 
+enum ENUM_COMPONENTLINKSDROPOFFMAP_POINTTODISPLAYONTHEMAP {
+  A
+  B
+  C
+  D
+  E
+}
+
+enum ENUM_COMPONENTLINKSREQUEST_DEMAND {
+  A
+  B
+  C
+  D
+  E
+}
+
 enum ENUM_CONFIDENTIALITY_STATUS {
   archived
   draft
@@ -1714,6 +1758,12 @@ enum ENUM_EVENT_STATUS {
   archived
   draft
   published
+}
+
+enum ENUM_EXPORTENTITY_STATUS {
+  Finished
+  In_progress
+  New
 }
 
 enum ENUM_FOOTER_ACCESSIBILITYLEVEL {
@@ -1965,11 +2015,7 @@ input EditorialServiceInput {
 }
 
 type Epci {
-  cities(
-    filters: CityFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): CityRelationResponseCollection
+  city: CityEntityResponse
   createdAt: DateTime
   name: String
   territories(
@@ -1996,7 +2042,7 @@ type EpciEntityResponseCollection {
 
 input EpciFiltersInput {
   and: [EpciFiltersInput]
-  cities: CityFiltersInput
+  city: CityFiltersInput
   createdAt: DateTimeFilterInput
   id: IDFilterInput
   name: StringFilterInput
@@ -2007,7 +2053,7 @@ input EpciFiltersInput {
 }
 
 input EpciInput {
-  cities: [ID]
+  city: ID
   name: String
   territories: [ID]
 }
@@ -2039,6 +2085,7 @@ type Event {
   ): EventRelationResponseCollection
   hasDraft: Boolean
   image: UploadFileEntityResponse!
+  linkToServices: [EventLinkToServicesDynamicZone]
   publishedDate: DateTime
   shortDescription: String
   status: ENUM_EVENT_STATUS
@@ -2109,6 +2156,7 @@ input EventInput {
   events: [ID]
   hasDraft: Boolean
   image: ID
+  linkToServices: [EventLinkToServicesDynamicZoneInput!]
   publishedDate: DateTime
   shortDescription: String
   status: ENUM_EVENT_STATUS
@@ -2117,6 +2165,17 @@ input EventInput {
   topContent: ID
   unpublishedDate: DateTime
 }
+
+union EventLinkToServicesDynamicZone =
+    ComponentLinksAlertNotification
+  | ComponentLinksDropOffMap
+  | ComponentLinksEditorial
+  | ComponentLinksPickUpDay
+  | ComponentLinksRecyclingGuide
+  | ComponentLinksRequest
+  | Error
+
+scalar EventLinkToServicesDynamicZoneInput
 
 type EventOrNews {
   image: UploadFile
@@ -2206,6 +2265,49 @@ input EventSubServiceInput {
 
 type EventSubServiceRelationResponseCollection {
   data: [EventSubServiceEntity!]!
+}
+
+type ExportEntity {
+  createdAt: DateTime
+  displayName: String
+  filePath: String
+  name: String
+  status: ENUM_EXPORTENTITY_STATUS
+  updatedAt: DateTime
+}
+
+type ExportEntityEntity {
+  attributes: ExportEntity
+  id: ID
+}
+
+type ExportEntityEntityResponse {
+  data: ExportEntityEntity
+}
+
+type ExportEntityEntityResponseCollection {
+  data: [ExportEntityEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input ExportEntityFiltersInput {
+  and: [ExportEntityFiltersInput]
+  createdAt: DateTimeFilterInput
+  displayName: StringFilterInput
+  filePath: StringFilterInput
+  id: IDFilterInput
+  name: StringFilterInput
+  not: ExportEntityFiltersInput
+  or: [ExportEntityFiltersInput]
+  status: StringFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input ExportEntityInput {
+  displayName: String
+  filePath: String
+  name: String
+  status: ENUM_EXPORTENTITY_STATUS
 }
 
 input FileInfoInput {
@@ -2314,6 +2416,7 @@ type FreeContent {
   freeContentSubService: FreeContentSubServiceEntityResponse
   hasDraft: Boolean
   image: UploadFileEntityResponse!
+  linkToServices: [FreeContentLinkToServicesDynamicZone]
   publishedDate: DateTime
   shortDescription: String
   status: ENUM_FREECONTENT_STATUS
@@ -2378,6 +2481,7 @@ input FreeContentInput {
   freeContentSubService: ID
   hasDraft: Boolean
   image: ID
+  linkToServices: [FreeContentLinkToServicesDynamicZoneInput!]
   publishedDate: DateTime
   shortDescription: String
   status: ENUM_FREECONTENT_STATUS
@@ -2385,6 +2489,17 @@ input FreeContentInput {
   title: String
   unpublishedDate: DateTime
 }
+
+union FreeContentLinkToServicesDynamicZone =
+    ComponentLinksAlertNotification
+  | ComponentLinksDropOffMap
+  | ComponentLinksEditorial
+  | ComponentLinksPickUpDay
+  | ComponentLinksRecyclingGuide
+  | ComponentLinksRequest
+  | Error
+
+scalar FreeContentLinkToServicesDynamicZoneInput
 
 type FreeContentRelationResponseCollection {
   data: [FreeContentEntity!]!
@@ -2487,6 +2602,7 @@ union GenericMorph =
   | ComponentLinksAlertNotification
   | ComponentLinksContactUs
   | ComponentLinksDropOffMap
+  | ComponentLinksEditorial
   | ComponentLinksEvents
   | ComponentLinksExternal
   | ComponentLinksFrees
@@ -2516,6 +2632,7 @@ union GenericMorph =
   | Epci
   | Event
   | EventSubService
+  | ExportEntity
   | Footer
   | FreeContent
   | FreeContentSubService
@@ -2975,6 +3092,7 @@ type Mutation {
   createEventSubService(
     data: EventSubServiceInput!
   ): EventSubServiceEntityResponse
+  createExportEntity(data: ExportEntityInput!): ExportEntityEntityResponse
   createFooter(data: FooterInput!): FooterEntityResponse
   createFreeContent(data: FreeContentInput!): FreeContentEntityResponse
   createFreeContentSubService(
@@ -3074,6 +3192,7 @@ type Mutation {
   deleteEpci(id: ID!): EpciEntityResponse
   deleteEvent(id: ID!): EventEntityResponse
   deleteEventSubService(id: ID!): EventSubServiceEntityResponse
+  deleteExportEntity(id: ID!): ExportEntityEntityResponse
   deleteFooter(id: ID!): FooterEntityResponse
   deleteFreeContent(id: ID!): FreeContentEntityResponse
   deleteFreeContentSubService(id: ID!): FreeContentSubServiceEntityResponse
@@ -3120,6 +3239,7 @@ type Mutation {
   Confirm an email users email address
   """
   emailConfirmation(confirmation: String!): UsersPermissionsLoginPayload
+  exportMunicipalities: ID
 
   """
   Request a reset password token
@@ -3209,6 +3329,10 @@ type Mutation {
     data: ContractMenuInput!
     id: ID!
   ): ContractMenuEntityResponse
+  updateContractNumberOfInhabitants(
+    contractId: ID!
+    numberOfInhabitants: Int!
+  ): Boolean
   updateCookie(data: CookieInput!, id: ID!): CookieEntityResponse
   updateCookiesSubService(
     data: CookiesSubServiceInput!
@@ -3239,6 +3363,10 @@ type Mutation {
     data: EventSubServiceInput!
     id: ID!
   ): EventSubServiceEntityResponse
+  updateExportEntity(
+    data: ExportEntityInput!
+    id: ID!
+  ): ExportEntityEntityResponse
   updateFileInfo(id: ID!, info: FileInfoInput): UploadFileEntityResponse!
   updateFooter(data: FooterInput!, id: ID!): FooterEntityResponse
   updateFreeContent(data: FreeContentInput!, id: ID!): FreeContentEntityResponse
@@ -3343,6 +3471,7 @@ type Mutation {
     ref: String
     refId: ID
   ): UploadFileEntityResponse!
+  urlUploader(imageName: String!, url: String!): Boolean
 }
 
 type New {
@@ -3363,6 +3492,7 @@ type New {
   editoContent: EditoContentEntityResponse
   hasDraft: Boolean
   image: UploadFileEntityResponse
+  linkToServices: [NewLinkToServicesDynamicZone]
   newsSubService: NewsSubServiceEntityResponse
   publishedDate: DateTime
   shortDescription: String
@@ -3437,6 +3567,7 @@ input NewInput {
   editoContent: ID
   hasDraft: Boolean
   image: ID
+  linkToServices: [NewLinkToServicesDynamicZoneInput!]
   newsSubService: ID
   publishedDate: DateTime
   shortDescription: String
@@ -3447,6 +3578,17 @@ input NewInput {
   unpublishedDate: DateTime
   versionNumber: Int
 }
+
+union NewLinkToServicesDynamicZone =
+    ComponentLinksAlertNotification
+  | ComponentLinksDropOffMap
+  | ComponentLinksEditorial
+  | ComponentLinksPickUpDay
+  | ComponentLinksRecyclingGuide
+  | ComponentLinksRequest
+  | Error
+
+scalar NewLinkToServicesDynamicZoneInput
 
 type NewRelationResponseCollection {
   data: [NewEntity!]!
@@ -3766,6 +3908,7 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): ContractMenuEntityResponseCollection
+  contractPublication(contractId: ID!): contractStatus
   contracts(
     filters: ContractFiltersInput
     pagination: PaginationArg = {}
@@ -3845,6 +3988,12 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): EventEntityResponseCollection
+  exportEntities(
+    filters: ExportEntityFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): ExportEntityEntityResponseCollection
+  exportEntity(id: ID): ExportEntityEntityResponse
   footer(id: ID): FooterEntityResponse
   footers(
     filters: FooterFiltersInput
@@ -3863,7 +4012,7 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): FreeContentEntityResponseCollection
-  getAllFoldersHierarchy(contractFolderId: ID!, path: String!): [RequestFolders]
+  getAllFoldersHierarchy(path: String!): [RequestFolders]
   getContentTypeDTOs(contractId: ID!): [ContentTypeDTO]
   getEditoBlockDTO(
     contractId: ID!
@@ -3873,7 +4022,10 @@ type Query {
     contractId: ID!
     status: ENUM_EDITOCONTENTDTO_STATUS
   ): [EditoContentDTO]
+  getFilePath(id: ID!): String
+  getFolderHierarchy(path: String!): [RequestFolders]
   getNewestTopContents(contractId: ID!): [EventOrNews]
+  getStatusExport(id: ID!): String
   getTopContentBlockDTO(
     contractId: ID!
     status: ENUM_TOPCONTENTDTO_STATUS
@@ -3895,6 +4047,7 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): I18NLocaleEntityResponseCollection
+  importMunicipalities(file: String!): String
   keyMetric(id: ID): KeyMetricEntityResponse
   keyMetrics(
     filters: KeyMetricFiltersInput
@@ -4821,6 +4974,7 @@ type Tip {
   hasDraft: Boolean
   image: UploadFileEntityResponse!
   link: String
+  linkToServices: [TipLinkToServicesDynamicZone]
   publishedDate: DateTime
   shortDescription: String
   status: ENUM_TIP_STATUS
@@ -4891,6 +5045,7 @@ input TipInput {
   image: ID
   isSystem: Boolean
   link: String
+  linkToServices: [TipLinkToServicesDynamicZoneInput!]
   publishedDate: DateTime
   shortDescription: String
   status: ENUM_TIP_STATUS
@@ -4900,6 +5055,17 @@ input TipInput {
   titleLabel: String
   unpublishedDate: DateTime
 }
+
+union TipLinkToServicesDynamicZone =
+    ComponentLinksAlertNotification
+  | ComponentLinksDropOffMap
+  | ComponentLinksEditorial
+  | ComponentLinksPickUpDay
+  | ComponentLinksRecyclingGuide
+  | ComponentLinksRequest
+  | Error
+
+scalar TipLinkToServicesDynamicZoneInput
 
 type TipRelationResponseCollection {
   data: [TipEntity!]!
@@ -5486,6 +5652,10 @@ type WasteFormRelationResponseCollection {
 
 type clientName {
   clientName: String
+}
+
+type contractStatus {
+  contractId: ID
 }
 
 type totalCountPerTag {

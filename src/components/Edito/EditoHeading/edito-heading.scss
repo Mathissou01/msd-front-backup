@@ -3,7 +3,7 @@
 @use "src/styles/02-tools/tools.include-media" as im;
 @use "src/styles/02-tools/tools.z-index" as index;
 
-.c-EditoHeadingBlock {
+.c-EditoHeading {
   position: relative;
   min-height: 353px;
   overflow: hidden;
@@ -19,6 +19,12 @@
     @include im.media(">=tablet") {
       flex-direction: row;
       padding: 27px 124px 80px;
+    }
+
+    &_noImage {
+      @include im.media(">=tablet") {
+        padding: 27px 224px 80px;
+      }
     }
   }
 
@@ -48,6 +54,12 @@
     @include im.media(">=tablet") {
       flex-basis: 51.2%;
     }
+
+    &_fullWidth {
+      @include im.media(">=tablet") {
+        flex-basis: 100%;
+      }
+    }
   }
 
   &__Card {
@@ -63,6 +75,12 @@
       margin: 90px 0 90px -75px;
       padding: 24px;
       border-radius: 8px;
+    }
+
+    &_only {
+      align-items: center;
+      justify-content: center;
+      margin: 50px 16px 0;
     }
   }
 

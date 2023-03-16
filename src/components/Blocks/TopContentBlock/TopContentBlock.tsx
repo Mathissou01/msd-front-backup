@@ -21,7 +21,7 @@ export default function TopContentBlock({
   /* Static Data */
   // TODO: temporarily static data, replace with real tags later
   const labelButton = "Voir plus d’actualités et d’événements";
-  const defaultHref = "/edito/edito";
+  const defaultHref = `/actualites`;
 
   /* Local Data */
   const hasTopContent = data.attributes?.hasTopContent;
@@ -29,6 +29,7 @@ export default function TopContentBlock({
     data?.attributes?.topContent?.data?.attributes?.news?.data?.attributes;
   const displayLastThreeContents = data.attributes?.displayLastThreeContents;
   const threeTopContents = newestTopContents?.getNewestTopContents;
+
   return (
     <section className="c-TopContentBlock">
       {data.attributes?.titleContent && (
@@ -58,7 +59,7 @@ export default function TopContentBlock({
                   shortDescription={topContent?.shortDescription ?? ""}
                   date={topContent?.publishedDate}
                   image={topContent?.image ?? null}
-                  href={defaultHref}
+                  href={`${defaultHref}/${topContent?.originalId}`}
                 />
               ))}
             </div>
