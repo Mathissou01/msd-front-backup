@@ -4,7 +4,10 @@ import Link from "next/link";
 import React from "react";
 import { UploadFile } from "../../../graphql/codegen/generated-types";
 import Arrow from "public/images/pictos/arrow.svg";
-import { handleDateFrenchFormat } from "../../../lib/utilities";
+import {
+  handleDateFrenchFormat,
+  makePublicAssetPath,
+} from "../../../lib/utilities";
 import "./common-card-block.scss";
 
 interface ICommonCardBlockProps {
@@ -48,7 +51,7 @@ export default function CommonCardBlock({
           <div className="c-CommonCardBlock__EventDisplay">
             <Image
               className="c-CommonCardBlock__CalendarPicto"
-              src={"/images/pictos/calendar.svg"}
+              src={makePublicAssetPath("/images/pictos/calendar.svg")}
               alt={""}
               width={36}
               height={36}
@@ -62,7 +65,7 @@ export default function CommonCardBlock({
         ) : image || temporaryDefaultImage ? (
           <div className="c-CommonCardBlock__Image">
             <Image
-              src={image?.url ?? temporaryDefaultImage}
+              src={makePublicAssetPath(image?.url ?? temporaryDefaultImage)}
               alt={image?.alternativeText ?? ""}
               width={image?.width ?? 482}
               height={image?.height ?? 309}

@@ -5,6 +5,7 @@ import { useIsDesktopContext } from "../../hooks/useScreenWidth";
 import HeaderTopBar from "./HeaderTopBar/HeaderTopBar";
 import HeaderSideBar from "./HeaderSideBar/HeaderSideBar";
 import "./header.scss";
+import { makePublicAssetPath } from "../../lib/utilities";
 
 export default function Header() {
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
@@ -18,7 +19,7 @@ export default function Header() {
       <Head>
         <title>MSD-FRONT</title>
         <meta name="description" content="wip" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href={makePublicAssetPath("/favicon.ico")} />
       </Head>
       <HeaderTopBar
         isMenuOpen={sidebarExpanded}

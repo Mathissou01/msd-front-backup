@@ -10,12 +10,13 @@ Copy the `.env.example` and rename the copy `.env`.
 
 Replace the example values with real values for your environment.
 
-|             KEY              |                DESCRIPTION                |                     DEFAULT VALUE                     |
-| :--------------------------: | :---------------------------------------: | :---------------------------------------------------: |
-|    NEXT_PUBLIC_BASE_HOST     |        HOST of this app, msd-front        |                   http://localhost                    |
-|    NEXT_PUBLIC_BASE_HOST     |        PORT of this app, msd-front        |                         3002                          |
-|     NEXT_PUBLIC_API_URL      | URL of the GraphQL endpoint, msd-fn-front |               http://localhost:7072/api               |
-| NEXT_PUBLIC_AZURE_SEARCH_URL |      URL of the Azure Search service      | https://[your-azure-search-domain].search.windows.net |
+|             KEY              |                                                                 DESCRIPTION                                                                 |                                                    DEFAULT VALUE                                                    |
+| :--------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------: |
+|    NEXT_PUBLIC_BASE_HOST     |                                                         HOST of this app, msd-front                                                         |                                                  http://localhost                                                   |
+|    NEXT_PUBLIC_BASE_PORT     |                                                         PORT of this app, msd-front                                                         |                                                        3002                                                         |
+|    NEXT_PUBLIC_BASE_PATH     | for basePath and assetPrefix in next.config.js, used to generate the correct urls when the static HTML export is deployed in a subDirectory | empty in development mode, in production this corresponds to the name of the subDirectory where the app is deployed |
+|     NEXT_PUBLIC_API_URL      |                                                  URL of the GraphQL endpoint, msd-fn-front                                                  |                                              http://localhost:7072/api                                              |
+| NEXT_PUBLIC_AZURE_SEARCH_URL |                                                       URL of the Azure Search service                                                       |                                https://[your-azure-search-domain].search.windows.net                                |
 
 ## Installation
 

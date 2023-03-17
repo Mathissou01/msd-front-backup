@@ -3,6 +3,7 @@ import classNames from "classnames";
 import Image from "next/image";
 import ReactPlayer from "react-player";
 import "./video-block.scss";
+import { makePublicAssetPath } from "../../../../lib/utilities";
 
 interface IVideoBlockProps {
   videoLink: string;
@@ -23,6 +24,7 @@ export default function VideoBlock({
   const [hasWindow, setHasWindow] = useState<boolean>(false);
   const [isDisplayTranscriptVideo, setIsDisplayTranscriptVideo] =
     useState<boolean>(false);
+
   function onToggleDisplayVideo() {
     setIsDisplayTranscriptVideo(!isDisplayTranscriptVideo);
   }
@@ -53,11 +55,11 @@ export default function VideoBlock({
             onClick={onToggleDisplayVideo}
           >
             <Image
-              src={
+              src={makePublicAssetPath(
                 isDisplayTranscriptVideo
                   ? "/images/pictos/view.svg"
-                  : "/images/pictos/view-off.svg"
-              }
+                  : "/images/pictos/view-off.svg",
+              )}
               alt="picto oeil"
               width="24"
               height="24"

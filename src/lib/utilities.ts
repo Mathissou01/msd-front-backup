@@ -1,3 +1,10 @@
+export function makePublicAssetPath(path: string) {
+  return process.env.NODE_ENV === "production" &&
+    !!process.env.NEXT_PUBLIC_BASE_PATH
+    ? `/${process.env.NEXT_PUBLIC_BASE_PATH}/${path}`
+    : path;
+}
+
 export const removeNulls = <S>(value: S | undefined): value is S =>
   value != null;
 

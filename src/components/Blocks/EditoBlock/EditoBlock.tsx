@@ -68,15 +68,17 @@ export default function EditoBlock({ data }: IEditoBlockProps) {
       typeBlock === "tip" &&
       content.attributes?.title
     ) {
-      return (
-        <TipCard
-          key={`editoContent_${content.id}_${index}`}
-          tagLabel={labels.tag}
-          content={content.attributes?.title}
-          linkLabel={labels.knowMore}
-          pictoUrl={content.attributes?.link ?? null}
-        />
-      );
+      if (content.attributes.shortDescription) {
+        return (
+          <TipCard
+            key={`editoContent_${content.id}_${index}`}
+            tags={content.attributes.tags?.data}
+            content={content.attributes.shortDescription}
+            linkLabel={content.attributes.link ?? labels.knowMore}
+            pictoUrl={content.attributes?.link ?? null}
+          />
+        );
+      }
     }
   }
 

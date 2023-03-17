@@ -78,8 +78,19 @@ module.exports = async (phase) => {
 
   /** @type {import("next").NextConfig} */
   return {
+    basePath:
+      process.env.NODE_ENV === "production" &&
+      !!process.env.NEXT_PUBLIC_BASE_PATH
+        ? `/${process.env.NEXT_PUBLIC_BASE_PATH}`
+        : undefined,
+    assetPrefix:
+      process.env.NODE_ENV === "production" &&
+      !!process.env.NEXT_PUBLIC_BASE_PATH
+        ? `/${process.env.NEXT_PUBLIC_BASE_PATH}/`
+        : undefined,
     reactStrictMode: true,
     swcMinify: true,
+    trailingSlash: true,
     images: {
       loader: "default",
       domains: ["localhost"],

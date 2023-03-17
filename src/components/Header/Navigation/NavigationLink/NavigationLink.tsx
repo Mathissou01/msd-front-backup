@@ -2,7 +2,10 @@ import React from "react";
 import classNames from "classnames";
 import Link from "next/link";
 import Image from "next/image";
-import { isAbsoluteOrRelativeUrl } from "../../../../lib/utilities";
+import {
+  isAbsoluteOrRelativeUrl,
+  makePublicAssetPath,
+} from "../../../../lib/utilities";
 import "./navigation-link.scss";
 
 interface INavigationLinkProps {
@@ -31,7 +34,12 @@ export default function NavigationLink({
       <div className="c-NavigationLink__Box">
         {isValidUrl && (
           <div className="c-NavigationLink__Picto">
-            <Image src={pictoUrl} alt={pictoAlt} width={24} height={24} />
+            <Image
+              src={makePublicAssetPath(pictoUrl)}
+              alt={pictoAlt}
+              width={24}
+              height={24}
+            />
           </div>
         )}
       </div>

@@ -41,7 +41,7 @@ exports[`QuizAndTipsBlock renders one tip 1`] = `
             decoding="async"
             height="72"
             loading="lazy"
-            src="/images/pictos-temp/banana.svg"
+            src="/banana.svg"
             style="color: transparent;"
             width="72"
           />
@@ -103,7 +103,7 @@ exports[`QuizAndTipsBlock renders three tips 1`] = `
             decoding="async"
             height="72"
             loading="lazy"
-            src="/images/pictos-temp/banana.svg"
+            src="/banana.svg"
             style="color: transparent;"
             width="72"
           />
@@ -132,7 +132,7 @@ exports[`QuizAndTipsBlock renders three tips 1`] = `
             decoding="async"
             height="72"
             loading="lazy"
-            src="/images/pictos-temp/sink.svg"
+            src="/banana.svg"
             style="color: transparent;"
             width="72"
           />
@@ -161,7 +161,7 @@ exports[`QuizAndTipsBlock renders three tips 1`] = `
             decoding="async"
             height="72"
             loading="lazy"
-            src="/images/pictos-temp/basket.svg"
+            src="/banana.svg"
             style="color: transparent;"
             width="72"
           />

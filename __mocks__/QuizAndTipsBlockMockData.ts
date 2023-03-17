@@ -20,12 +20,24 @@ export const defaultMockData = {
           {
             id: "2",
             attributes: {
-              title:
+              title: "tip 1",
+              shortDescription:
                 "Découper vos peaux de bananes avant de les jeter dans votre compost.",
-              titleLabel: null,
-              link: "/images/pictos-temp/banana.svg",
+              link: null,
               publishedDate: "2022-11-19T00:14:08.232Z",
-              image: {},
+              image: {
+                data: {
+                  attributes: {
+                    hash: "banana_87ee7726e9",
+                    mime: "image/svg+xml",
+                    name: "banana.svg",
+                    provider: "azure-storage-blob",
+                    size: 78.5,
+                    url: "/banana.svg",
+                    alternativeText: null,
+                  },
+                },
+              },
             },
           },
         ],
@@ -56,34 +68,70 @@ export const threeTipsMockData = {
           {
             id: "2",
             attributes: {
-              title:
+              title: "tip 1",
+              shortDescription:
                 "Découper vos peaux de bananes avant de les jeter dans votre compost.",
-              titleLabel: null,
-              link: "/images/pictos-temp/banana.svg",
+              link: null,
               publishedDate: "2022-11-19T00:14:08.232Z",
-              image: {},
+              image: {
+                data: {
+                  attributes: {
+                    hash: "banana_87ee7726e9",
+                    mime: "image/svg+xml",
+                    name: "banana.svg",
+                    provider: "azure-storage-blob",
+                    size: 78.5,
+                    url: "/banana.svg",
+                    alternativeText: null,
+                  },
+                },
+              },
             },
           },
           {
             id: "5",
             attributes: {
-              title:
+              title: "tip 2",
+              shortDescription:
                 "Pas besoin de nettoyer vos pots de yaourts avant de les jeter",
-              titleLabel: null,
-              link: "/images/pictos-temp/sink.svg",
+              link: null,
               publishedDate: "2022-11-19T00:14:37.403Z",
-              image: {},
+              image: {
+                data: {
+                  attributes: {
+                    hash: "banana_87ee7726e9",
+                    mime: "image/svg+xml",
+                    name: "banana.svg",
+                    provider: "azure-storage-blob",
+                    size: 78.5,
+                    url: "/banana.svg",
+                    alternativeText: null,
+                  },
+                },
+              },
             },
           },
           {
             id: "1",
             attributes: {
-              title:
+              title: "tip 3",
+              shortDescription:
                 "Remplacez vos sacs en plastique par des sacs réutilisables, un caddie ou des paniers.",
-              titleLabel: null,
-              link: "/images/pictos-temp/basket.svg",
+              link: null,
               publishedDate: "2022-11-18T10:17:11.158Z",
-              image: {},
+              image: {
+                data: {
+                  attributes: {
+                    hash: "banana_87ee7726e9",
+                    mime: "image/svg+xml",
+                    name: "banana.svg",
+                    provider: "azure-storage-blob",
+                    size: 78.5,
+                    url: "/banana.svg",
+                    alternativeText: null,
+                  },
+                },
+              },
             },
           },
         ],

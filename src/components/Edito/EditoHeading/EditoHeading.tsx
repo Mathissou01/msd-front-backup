@@ -8,6 +8,7 @@ import {
   UploadFile,
 } from "../../../graphql/codegen/generated-types";
 import "./edito-heading.scss";
+import { makePublicAssetPath } from "../../../lib/utilities";
 
 interface IEditoHeadingProps {
   title: string;
@@ -25,6 +26,7 @@ export default function EditoHeading({
       "c-EditoHeading__Tag_darker": isDarker,
     });
   }
+
   const hasImage = image ? true : false;
   const headingContent = classNames("c-EditoHeading__Content", {
     "c-EditoHeading__Content_noImage": !hasImage,
@@ -41,7 +43,11 @@ export default function EditoHeading({
       <div className={headingContent}>
         {image && (
           <div className="c-EditoHeading__Header">
-            <Image src={image.url} alt={image.alternativeText ?? ""} fill />
+            <Image
+              src={makePublicAssetPath(image.url)}
+              alt={image.alternativeText ?? ""}
+              fill
+            />
           </div>
         )}
         <div className={cardContainer}>

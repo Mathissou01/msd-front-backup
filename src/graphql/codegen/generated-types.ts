@@ -8019,7 +8019,7 @@ export type GetQuizAndTipsBlockQuery = {
                         attributes?: {
                           __typename?: "Tip";
                           title: string;
-                          titleLabel?: string | null;
+                          shortDescription?: string | null;
                           link?: string | null;
                           publishedDate?: any | null;
                           image: {
@@ -9379,8 +9379,9 @@ export const GetQuizAndTipsBlockDocument = gql`
                           id
                           attributes {
                             title
-                            titleLabel
+                            shortDescription
                             link
+                            publishedDate
                             image {
                               data {
                                 attributes {
@@ -9394,7 +9395,6 @@ export const GetQuizAndTipsBlockDocument = gql`
                                 }
                               }
                             }
-                            publishedDate
                           }
                         }
                       }

@@ -1,7 +1,10 @@
 import classNames from "classnames";
 import Link from "next/link";
 import Image from "next/image";
-import { isAbsoluteOrRelativeUrl } from "../../../../../lib/utilities";
+import {
+  isAbsoluteOrRelativeUrl,
+  makePublicAssetPath,
+} from "../../../../../lib/utilities";
 import { ENavigationPages } from "../../../../../hooks/useNavigation";
 import "./navigation-list-button.scss";
 
@@ -35,7 +38,12 @@ export default function NavigationListButton({
       <div className="c-NavigationListButton__Circle">
         {isValidUrl && (
           <div className="c-NavigationListButton__Picto">
-            <Image src={pictoUrl} alt={pictoAlt} width={24} height={24} />
+            <Image
+              src={makePublicAssetPath(pictoUrl)}
+              alt={pictoAlt}
+              width={24}
+              height={24}
+            />
           </div>
         )}
       </div>

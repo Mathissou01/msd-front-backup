@@ -12,7 +12,6 @@ interface IQuizAndTipsBlockProps {
 export default function QuizAndTipsBlock({ data }: IQuizAndTipsBlockProps) {
   /* Static Data */
   const labels = {
-    tag: "Astuce",
     knowMore: "En savoir plus",
   };
 
@@ -32,15 +31,21 @@ export default function QuizAndTipsBlock({ data }: IQuizAndTipsBlockProps) {
           {/*{hasQuiz && <div />}*/}
           {hasTips && (
             <div className="c-QuizAndTipsBlock__Tips">
-              {tips?.map((tip, index) => (
-                <TipCard
-                  key={`tip_${tip.id}_${index}`}
-                  tagLabel={labels.tag}
-                  content={tip.attributes?.title ?? ""}
-                  linkLabel={labels.knowMore}
-                  pictoUrl={tip.attributes?.link ?? null}
-                />
-              ))}
+              {tips?.map((tip, index) => {
+                if (tip.attributes?.shortDescription) {
+                  return (
+                    <TipCard
+                      key={`tip_${tip.id}_${index}`}
+                      tags={tip.attributes.tags?.data}
+                      content={tip.attributes.shortDescription}
+                      linkLabel={tip.attributes.link ?? labels.knowMore}
+                      pictoUrl={
+                        tip.attributes.image.data?.attributes?.url ?? null
+                      }
+                    />
+                  );
+                }
+              })}
               <div className="c-QuizAndTipsBlock__SvgContainer">
                 <TipsDesktop className="c-QuizAndTipsBlock__Svg_desktop" />
                 <TipsMobile className="c-QuizAndTipsBlock__Svg_mobile" />

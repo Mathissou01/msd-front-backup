@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import "./common-block-heading.scss";
+
 interface ICommonBlockHeadingProps {
   titleContent: string;
   isAlignLeft?: boolean;

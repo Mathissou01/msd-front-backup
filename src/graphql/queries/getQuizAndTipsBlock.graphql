@@ -27,8 +27,9 @@ query getQuizAndTipsBlock($contractId: ID!) {
                         id
                         attributes {
                           title
-                          titleLabel
+                          shortDescription
                           link
+                          publishedDate
                           image {
                             data {
                               attributes {
@@ -42,7 +43,6 @@ query getQuizAndTipsBlock($contractId: ID!) {
                               }
                             }
                           }
-                          publishedDate
                         }
                       }
                     }

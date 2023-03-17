@@ -7,7 +7,10 @@ import {
   TagEntity,
   UploadFileEntity,
 } from "../../../../graphql/codegen/generated-types";
-import { handleDateFrenchFormat } from "../../../../lib/utilities";
+import {
+  handleDateFrenchFormat,
+  makePublicAssetPath,
+} from "../../../../lib/utilities";
 import "./top-content-card.scss";
 
 interface ITopContentCardProps {
@@ -51,7 +54,7 @@ export default function TopContentCard({
       <div className="c-TopContentCard__Banner">
         {image?.attributes && (
           <Image
-            src={image.attributes.url}
+            src={makePublicAssetPath(image.attributes.url)}
             alt={image.attributes.alternativeText ?? ""}
             width={image.attributes.width ?? 375}
             height={image.attributes.height ?? 205}

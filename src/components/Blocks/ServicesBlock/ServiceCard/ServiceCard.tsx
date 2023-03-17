@@ -1,6 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { isAbsoluteOrRelativeUrl } from "../../../../lib/utilities";
+import {
+  isAbsoluteOrRelativeUrl,
+  makePublicAssetPath,
+} from "../../../../lib/utilities";
 import "./service-card.scss";
 
 interface IServiceCardProps {
@@ -23,7 +26,12 @@ export default function ServiceCard({
       <div className="c-ServiceCard__Svg">
         {isValidUrl && (
           <div className="c-ServiceCard__Picto">
-            <Image src={pictoUrl} alt={pictoAlt} width="25" height="25" />
+            <Image
+              src={makePublicAssetPath(pictoUrl)}
+              alt={pictoAlt}
+              width="25"
+              height="25"
+            />
           </div>
         )}
       </div>
