@@ -22,6 +22,7 @@ query getTopContentBlock($contractId: ID!) {
                               attributes {
                                 title
                                 shortDescription
+                                publishedDate
                                 tags {
                                   data {
                                     attributes {
@@ -42,7 +43,6 @@ query getTopContentBlock($contractId: ID!) {
                                     }
                                   }
                                 }
-                                publishedDate
                               }
                             }
                           }
@@ -52,6 +52,7 @@ query getTopContentBlock($contractId: ID!) {
                               attributes {
                                 title
                                 shortDescription
+                                publishedDate
                                 tags {
                                   data {
                                     attributes {
@@ -72,7 +73,6 @@ query getTopContentBlock($contractId: ID!) {
                                     }
                                   }
                                 }
-                                publishedDate
                               }
                             }
                           }

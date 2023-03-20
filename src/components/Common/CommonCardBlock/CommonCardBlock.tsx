@@ -2,7 +2,10 @@ import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { UploadFile } from "../../../graphql/codegen/generated-types";
+import {
+  TagEntity,
+  UploadFile,
+} from "../../../graphql/codegen/generated-types";
 import Arrow from "public/images/pictos/arrow.svg";
 import {
   handleDateFrenchFormat,
@@ -14,8 +17,8 @@ interface ICommonCardBlockProps {
   title: string;
   shortDescription?: string;
   date?: string;
-  tagLabels?: Array<string>;
-  image: UploadFile | null;
+  tagLabels?: Array<TagEntity>;
+  image?: UploadFile | null;
   href: string;
   isAlignTextCenter?: boolean;
   isEventDisplay?: boolean;
@@ -25,7 +28,7 @@ export default function CommonCardBlock({
   title,
   shortDescription,
   date,
-  // tagLabels,
+  tagLabels,
   image,
   href,
   isEventDisplay = false,
@@ -74,18 +77,18 @@ export default function CommonCardBlock({
         ) : null}
         <div className={contentClasses}>
           <div className="c-CommonCardBlock__ContentHeader">
-            {/* TODO: tags, also distinguish between two types of tags <div className="c-CommonCardBlock__Tags">*/}
-            {/*  {tagLabels?.map((tagLabel, index) => (*/}
-            {/*    <span*/}
-            {/*      key={index}*/}
-            {/*      className={`c-CommonCardBlock__Tag ${*/}
-            {/*        index > 0 ? "c-CommonCardBlock__Tag_background" : ""*/}
-            {/*      }`}*/}
-            {/*    >*/}
-            {/*      {tagLabel}*/}
-            {/*    </span>*/}
-            {/*  ))}*/}
-            {/*</div>*/}
+            <div className="c-CommonCardBlock__Tags">
+              {tagLabels?.map((tagLabel, index) => (
+                <span
+                  key={index}
+                  className={`c-CommonCardBlock__Tag ${
+                    index > 0 ? "c-CommonCardBlock__Tag_background" : ""
+                  }`}
+                >
+                  {tagLabel.attributes?.name}
+                </span>
+              ))}
+            </div>
             {!isEventDisplay && date ? (
               <div className="c-CommonCardBlock__Date">{dataFrenchFormat}</div>
             ) : null}

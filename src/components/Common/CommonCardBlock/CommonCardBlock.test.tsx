@@ -2,7 +2,20 @@ import { render } from "@testing-library/react";
 import CommonCardBlock from "./CommonCardBlock";
 
 const mock = {
-  tagLabels: ["common card block tag"],
+  tagLabels: [
+    {
+      id: "16",
+      attributes: {
+        name: "Prise de RDV",
+      },
+    },
+    {
+      id: "12",
+      attributes: {
+        name: "Evénement",
+      },
+    },
+  ],
   title: "common card block title",
   href: "/accueil",
   image: {

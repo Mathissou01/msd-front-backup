@@ -32,8 +32,8 @@ export default function ActualitesNewPage({
       slug: "/",
     },
     {
-      label: "Actualités",
-      slug: "/actualites",
+      label: "Actualités et événements",
+      slug: "/actualites-evenements",
     },
   ];
   if (newData?.attributes?.title) {

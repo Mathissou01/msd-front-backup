@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import {
   GetNewestTopContentsQuery,
@@ -19,14 +20,12 @@ export default function TopContentBlock({
   newestTopContents,
 }: ITopContentBlock) {
   /* Static Data */
-  // TODO: temporarily static data, replace with real tags later
   const labelButton = "Voir plus d’actualités et d’événements";
-  const defaultHref = `/actualites`;
-
+  const defaultHref = `/actualites-evenements`;
   /* Local Data */
   const hasTopContent = data.attributes?.hasTopContent;
   const contentTopNewsOrEvent =
-    data?.attributes?.topContent?.data?.attributes?.news?.data?.attributes;
+    data?.attributes?.topContent?.data?.attributes?.news?.data;
   const displayLastThreeContents = data.attributes?.displayLastThreeContents;
   const threeTopContents = newestTopContents?.getNewestTopContents;
 
@@ -39,33 +38,48 @@ export default function TopContentBlock({
         />
       )}
       <div className="c-TopContentBlock__Content">
-        {hasTopContent && contentTopNewsOrEvent && (
-          <TopContentCard
-            title={contentTopNewsOrEvent.title}
-            shortDescription={contentTopNewsOrEvent.shortDescription ?? ""}
-            date={contentTopNewsOrEvent.publishedDate}
-            image={contentTopNewsOrEvent?.image?.data ?? null}
-            href={defaultHref}
-          />
-        )}
+        {hasTopContent &&
+          contentTopNewsOrEvent &&
+          contentTopNewsOrEvent.attributes?.title && (
+            <TopContentCard
+              title={contentTopNewsOrEvent.attributes?.title}
+              shortDescription={
+                contentTopNewsOrEvent.attributes?.shortDescription ?? ""
+              }
+              tags={contentTopNewsOrEvent.attributes.tags?.data}
+              date={contentTopNewsOrEvent.attributes?.publishedDate}
+              image={contentTopNewsOrEvent?.attributes?.image?.data ?? null}
+              href={`${defaultHref}/${contentTopNewsOrEvent.id}`}
+            />
+          )}
         {displayLastThreeContents &&
           threeTopContents &&
           threeTopContents.length > 0 && (
             <div className="c-TopContentBlock__LastThreeContents">
-              {threeTopContents?.map((topContent, index) => (
-                <CommonCardBlock
-                  key={index}
-                  title={topContent?.title ?? ""}
-                  shortDescription={topContent?.shortDescription ?? ""}
-                  date={topContent?.publishedDate}
-                  image={topContent?.image ?? null}
-                  href={`${defaultHref}/${topContent?.originalId}`}
-                />
-              ))}
+              {threeTopContents?.map((topContent, index) => {
+                if (
+                  topContent?.originalId &&
+                  topContent?.title &&
+                  topContent.shortDescription
+                ) {
+                  return (
+                    <CommonCardBlock
+                      key={index}
+                      title={topContent?.title}
+                      shortDescription={topContent?.shortDescription}
+                      date={topContent?.publishedDate}
+                      image={topContent?.image ?? null}
+                      href={`${defaultHref}/${topContent?.originalId}`}
+                    />
+                  );
+                }
+              })}
             </div>
           )}
       </div>
-      <CommonButton label={labelButton} style="primary" />
+      <Link href={defaultHref}>
+        <CommonButton label={labelButton} style="primary" />
+      </Link>
     </section>
   );
 }

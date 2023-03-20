@@ -62,7 +62,7 @@
     font-size: 14px;
     font-family: DINPro-Medium, sans-serif;
     line-height: 21px;
-    text-align: center;
+    text-align: right;
   }
 
   &__Image {
@@ -71,6 +71,7 @@
     overflow: hidden;
 
     @include im.media(">=tablet") {
+      height: 200px;
       min-height: 200px;
     }
 

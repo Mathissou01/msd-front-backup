@@ -121,6 +121,7 @@ export const newestTopContentMockData = {
   getNewestTopContents: [
     {
       __typename: "EventOrNews",
+      originalId: "1",
       title: "Suspendisse et est sem",
       shortDescription:
         "Vestibulum cursus eros ut ligula lobortis auctor. Quisque luctus sagittis tellus",

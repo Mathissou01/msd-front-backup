@@ -12,7 +12,6 @@
     @include typo.text("buttonSmall");
 
     font-size: 12px;
-    text-transform: capitalize;
 
     @include im.media(">=mobile") {
       font-size: 14px;

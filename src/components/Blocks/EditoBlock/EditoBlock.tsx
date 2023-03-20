@@ -1,10 +1,8 @@
 import {
   EditoBlockEntity,
   QuizEntity,
-  TagEntity,
   TipEntity,
 } from "../../../graphql/codegen/generated-types";
-import { removeNulls } from "../../../lib/utilities";
 import {
   editoFields,
   isEditoType,
@@ -29,12 +27,6 @@ export default function EditoBlock({ data }: IEditoBlockProps) {
   const titleContent = data.attributes?.titleContent ?? "";
   const editoContents = data.attributes?.editoContents?.data ?? [];
 
-  function parseTagsIntoStrings(tags?: Array<TagEntity>): Array<string> {
-    return tags
-      ? tags?.map((tag) => tag.attributes?.name).filter(removeNulls)
-      : [];
-  }
-
   function renderCardType(
     content: TEditoTypes,
     typeBlock: string,
@@ -52,7 +44,7 @@ export default function EditoBlock({ data }: IEditoBlockProps) {
           date={
             typeBlock === "event" ? content.attributes?.publishedDate : null
           }
-          tagLabels={parseTagsIntoStrings(content.attributes?.tags?.data)}
+          tagLabels={content.attributes?.tags?.data}
           image={
             !isEditoType<QuizEntity>(content, "QuizEntity")
               ? content.attributes.image?.data?.attributes ?? null
