@@ -61,7 +61,7 @@
     "@graphql-codegen/typescript-react-apollo": "3.3.7",
     "@graphql-tools/mock": "8.7.15",
     "@graphql-tools/schema": "9.0.13",
-    "@playwright/test": "1.29.2",
+    "@playwright/test": "1.27.1",
     "@svgr/webpack": "6.5.1",
     "@testing-library/dom": "8.20.0",
     "@testing-library/jest-dom": "5.16.5",

@@ -2,7 +2,6 @@
 parameters:
   - name: env
     type: string
-    default: dev
 
 jobs:
   - job: msd_fo_site_build_install
