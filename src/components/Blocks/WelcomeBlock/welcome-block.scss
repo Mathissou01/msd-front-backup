@@ -1,0 +1,110 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/01-settings/settings.layout" as layout;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.typography" as typo;
+@use "src/styles/02-tools/tools.z-index" as index;
+
+.c-WelcomeBlock {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  &__Heading {
+    z-index: index.z("site-content");
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 169px;
+    margin: 40px 16px 24px;
+
+    @include im.media(">=mobile", "<laptop") {
+      min-height: 164px;
+      margin: 60px 60px 0;
+    }
+
+    @include im.media(">=laptop") {
+      width: 68.86%;
+      max-width: 850px;
+      min-height: 186px;
+      margin-top: 60px;
+      margin-right: 0;
+      margin-left: 60px;
+    }
+  }
+
+  &__Title {
+    @include typo.text("huge");
+
+    color: colors.$expert-blue;
+  }
+
+  &__Subtitle {
+    @include typo.text("body");
+  }
+
+  &__SvgContainer {
+    z-index: index.z("background");
+    width: 100%;
+    min-height: calc(
+      // Avoid CLS with expected aspect-ratio
+      100vw / (320 / 200)
+    );
+    pointer-events: none;
+
+    @include im.media(">=mobile", "<laptop") {
+      min-height: calc(
+        // Avoid CLS with expected aspect-ratio
+        100vw / (768 / 280)
+      );
+      margin-top: -4px;
+    }
+
+    @include im.media(">=laptop") {
+      min-height: calc(
+        // Avoid CLS with expected aspect-ratio
+        (100vw - #{layout.$sidebar-width}) / (1233 / 500)
+      );
+      margin-top: -242px;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+
+      #primary-color {
+        fill: colors.$brand-primary;
+      }
+
+      #secondary-color {
+        fill: colors.$brand-secondary;
+      }
+    }
+  }
+
+  &__Svg {
+    &_mobile {
+      display: initial;
+
+      @include im.media(">=mobile") {
+        display: none;
+      }
+    }
+
+    &_tablet {
+      display: none;
+
+      @include im.media(">=mobile", "<laptop") {
+        display: initial;
+      }
+    }
+
+    &_desktop {
+      display: none;
+
+      @include im.media(">=laptop") {
+        display: initial;
+      }
+    }
+  }
+}

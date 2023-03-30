@@ -1,0 +1,13 @@
+@use "sass:math" as math;
+@use "sass:list" as list;
+@use "src/styles/01-settings/settings.blobs" as blobs;
+
+@mixin blob($index) {
+  @if $index != 0 {
+    $blob: list.nth(blobs.$blobs, $index);
+
+    mask-image: url($blob);
+    mask-repeat: no-repeat;
+    mask-size: contain;
+  }
+}

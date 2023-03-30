@@ -1,0 +1,14 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-HorizontalRuleBlock {
+  width: 100%;
+  height: 0;
+  margin: 16px 0;
+  border: 1px solid colors.$blue-1;
+
+  @include im.media(">=tablet") {
+    margin: 28px 0;
+    border: 1px solid colors.$gray-500;
+  }
+}

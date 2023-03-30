@@ -1,0 +1,12 @@
+.cache
+.tmp
+.next
+out
+dist
+build
+package-lock.json
+public
+coverage
+
+src/graphql/codegen
+config/global.json

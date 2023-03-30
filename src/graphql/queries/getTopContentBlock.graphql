@@ -1,0 +1,91 @@
+query getTopContentBlock($contractId: ID!) {
+  contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
+    data {
+      attributes {
+        homepage {
+          data {
+            attributes {
+              topContentBlock {
+                data {
+                  id
+                  attributes {
+                    titleContent
+                    displayBlock
+                    displayLastThreeContents
+                    hasTopContent
+                    topContent {
+                      data {
+                        attributes {
+                          news {
+                            data {
+                              id
+                              attributes {
+                                title
+                                shortDescription
+                                publishedDate
+                                tags {
+                                  data {
+                                    attributes {
+                                      name
+                                    }
+                                  }
+                                }
+                                image {
+                                  data {
+                                    attributes {
+                                      hash
+                                      mime
+                                      name
+                                      provider
+                                      size
+                                      url
+                                      alternativeText
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                          event {
+                            data {
+                              id
+                              attributes {
+                                title
+                                shortDescription
+                                publishedDate
+                                tags {
+                                  data {
+                                    attributes {
+                                      name
+                                    }
+                                  }
+                                }
+                                image {
+                                  data {
+                                    attributes {
+                                      hash
+                                      mime
+                                      name
+                                      provider
+                                      size
+                                      url
+                                      alternativeText
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

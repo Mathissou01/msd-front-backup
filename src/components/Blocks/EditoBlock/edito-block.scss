@@ -1,0 +1,89 @@
+@use "sass:list";
+@use "sass:math";
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.z-index" as index;
+@use "src/styles/01-settings/settings.blobs" as b;
+@use "src/styles/02-tools/tools.blobs" as blobs;
+
+.c-EditoBlock {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 280px;
+  padding: 40px 16px 60px;
+  border-bottom: 1px solid colors.$gray-200;
+
+  @include im.media(">=mobile") {
+    padding: 60px;
+  }
+
+  @include im.media(">=laptop") {
+    padding: 80px 60px;
+  }
+
+  @include im.media(">=desktop") {
+    padding: 80px 124px;
+  }
+
+  &__Content {
+    // Generate a random blob SVG with random rotation for any child element with "o-Blob" class
+    $random-start: math.random(6);
+    @for $i from 1 through (list.length(b.$blobs) * 2) {
+      *:nth-child(#{(length(b.$blobs) * 2)}n + #{$i}) {
+        // stylelint-disable-next-line
+        .o-Blob::after {
+          @include blobs.blob(
+            (($random-start + $i) % list.length(b.$blobs)) + 1
+          );
+
+          transform: rotate(#{math.random(360deg)}deg);
+        }
+      }
+    }
+
+    position: relative;
+    z-index: index.z("site-content");
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    width: 100%;
+    max-width: 482px;
+
+    @include im.media(">=tablet") {
+      flex-direction: row;
+      align-items: unset;
+      max-width: none;
+
+      > * {
+        flex-basis: calc((100% - 48px) / 3);
+        max-width: 312px;
+      }
+    }
+  }
+
+  &__SvgContainer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: index.z("background");
+    width: 70%;
+    height: 280px;
+    background: #efeee9;
+    border-radius: 120px 0 0 120px;
+    pointer-events: none;
+
+    @include im.media(">=mobile") {
+      width: 83%;
+    }
+
+    @include im.media(">=tablet") {
+      width: 88%;
+    }
+  }
+}

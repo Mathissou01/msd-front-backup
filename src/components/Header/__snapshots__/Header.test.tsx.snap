@@ -1,0 +1,517 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders in desktop mode 1`] = `
+<div>
+  <header
+    class="c-HeaderTopBar"
+    data-testid="top-bar"
+    role="banner"
+  >
+    <div
+      class="c-HeaderTopBar__Item c-HeaderTopBar__Logo"
+    >
+      <a
+        class="c-LogoCommunity"
+        data-testid="logo-community"
+        href="/"
+      >
+        <div />
+      </a>
+    </div>
+    <ul
+      class="c-HeaderTopBar__List"
+    >
+      <li
+        class="c-HeaderTopBar__Item"
+      >
+        <div
+          class="c-HeaderLinkSelector"
+        >
+          <span>
+            Montauban
+          </span>
+          <div />
+        </div>
+      </li>
+      <div
+        aria-hidden="true"
+        class="c-HeaderTopBar__Filler"
+      />
+      <li
+        class="c-HeaderTopBar__Item"
+      >
+        <div
+          class="c-HeaderTopBar__SearchBar"
+        >
+          <div
+            class="c-HeaderLinkSearch"
+          >
+            <input
+              class="c-HeaderLinkSearch__Input"
+              placeholder="Rechercher sur le site"
+              type="text"
+            />
+            <button
+              class="c-CommonButton c-CommonButton_tertiary c-CommonButton_fontSmall"
+              type="button"
+            >
+              <div
+                class="c-CommonButton__Picto c-CommonButton__Picto_search"
+              />
+            </button>
+          </div>
+        </div>
+      </li>
+      <li
+        class="c-HeaderTopBar__Item"
+      >
+        <a
+          class="c-NavigationLink c-NavigationLink_desktop"
+          href="/"
+        >
+          <div
+            class="c-NavigationLink__Box"
+          >
+            <div
+              class="c-NavigationLink__Picto"
+            >
+              <img
+                alt=""
+                data-nimg="1"
+                decoding="async"
+                height="24"
+                loading="lazy"
+                src="/images/pictos/localisation.svg"
+                style="color: transparent;"
+                width="24"
+              />
+            </div>
+          </div>
+          <span
+            class="c-NavigationLink__Label"
+          />
+        </a>
+      </li>
+      <div
+        aria-hidden="true"
+        class="c-HeaderTopBar__Separator"
+      />
+      <li
+        class="c-HeaderTopBar__Item"
+      >
+        <a
+          class="c-NavigationLink c-NavigationLink_desktop"
+          href="/"
+        >
+          <div
+            class="c-NavigationLink__Box"
+          >
+            <div
+              class="c-NavigationLink__Picto"
+            >
+              <img
+                alt=""
+                data-nimg="1"
+                decoding="async"
+                height="24"
+                loading="lazy"
+                src="/images/pictos/calendar.svg"
+                style="color: transparent;"
+                width="24"
+              />
+            </div>
+          </div>
+          <span
+            class="c-NavigationLink__Label"
+          />
+        </a>
+      </li>
+      <div
+        aria-hidden="true"
+        class="c-HeaderTopBar__Separator"
+      />
+      <li
+        class="c-HeaderTopBar__Item"
+      >
+        <a
+          class="c-NavigationLink c-NavigationLink_desktop"
+          href="/"
+        >
+          <div
+            class="c-NavigationLink__Box"
+          >
+            <div
+              class="c-NavigationLink__Picto"
+            >
+              <img
+                alt=""
+                data-nimg="1"
+                decoding="async"
+                height="24"
+                loading="lazy"
+                src="/images/pictos/notify.svg"
+                style="color: transparent;"
+                width="24"
+              />
+            </div>
+          </div>
+          <span
+            class="c-NavigationLink__Label"
+          />
+        </a>
+      </li>
+      <div
+        aria-hidden="true"
+        class="c-HeaderTopBar__Separator"
+      />
+      <li
+        class="c-HeaderTopBar__Item"
+      >
+        <a
+          class="c-NavigationLink c-NavigationLink_desktop"
+          href="/"
+        >
+          <div
+            class="c-NavigationLink__Box"
+          >
+            <div
+              class="c-NavigationLink__Picto"
+            >
+              <img
+                alt=""
+                data-nimg="1"
+                decoding="async"
+                height="24"
+                loading="lazy"
+                src="/images/pictos/contact.svg"
+                style="color: transparent;"
+                width="24"
+              />
+            </div>
+          </div>
+          <span
+            class="c-NavigationLink__Label"
+          />
+        </a>
+      </li>
+      <div
+        aria-hidden="true"
+        class="c-HeaderTopBar__Separator"
+      />
+      <li
+        class="c-HeaderTopBar__Item"
+      >
+        <div
+          class="c-HeaderLinkProfile"
+        >
+          <span>
+            Particulier
+          </span>
+          <div />
+        </div>
+      </li>
+      <div
+        aria-hidden="true"
+        class="c-HeaderTopBar__Separator"
+      />
+      <li
+        class="c-HeaderTopBar__Item"
+      >
+        <a
+          class="c-HeaderLinkUser"
+          href="/"
+        >
+          <div
+            class="c-HeaderLinkUser__Circle"
+          >
+            <div />
+          </div>
+        </a>
+      </li>
+    </ul>
+  </header>
+  <nav
+    class="c-HeaderSideBar"
+    data-testid="side-bar"
+  >
+    <a
+      class="c-MSDLogo"
+      href="https://www.monservicedechets.com/"
+    >
+      <div />
+    </a>
+  </nav>
+  <div
+    aria-hidden="true"
+    class="c-Header__ContentCover"
+    data-testid="content-cover"
+  />
+</div>
+`;
+
+exports[`Header renders in mobile mode 1`] = `
+<div>
+  <header
+    class="c-HeaderTopBar"
+    data-testid="top-bar"
+    role="banner"
+  >
+    <button
+      aria-expanded="false"
+      class="c-HeaderTopBar__BurgerButton"
+      data-testid="burger-menu-button"
+      type="button"
+    />
+    <div
+      class="c-HeaderTopBar__Item c-HeaderTopBar__Logo"
+    >
+      <a
+        class="c-LogoCommunity"
+        data-testid="logo-community"
+        href="/"
+      >
+        <div />
+      </a>
+    </div>
+    <ul
+      class="c-HeaderTopBar__List"
+    >
+      <li
+        class="c-HeaderTopBar__Item c-HeaderTopBar__User"
+      >
+        <a
+          class="c-HeaderLinkUser"
+          href="/"
+        >
+          <div
+            class="c-HeaderLinkUser__Circle"
+          >
+            <div />
+          </div>
+        </a>
+      </li>
+      <li
+        class="c-HeaderTopBar__Item c-HeaderTopBar__Search"
+      >
+        <a
+          class="c-NavigationLink c-NavigationLink_desktop"
+          href="/"
+        >
+          <div
+            class="c-NavigationLink__Box"
+          >
+            <div
+              class="c-NavigationLink__Picto"
+            >
+              <img
+                alt=""
+                data-nimg="1"
+                decoding="async"
+                height="24"
+                loading="lazy"
+                src="/images/pictos/search.svg"
+                style="color: transparent;"
+                width="24"
+              />
+            </div>
+          </div>
+          <span
+            class="c-NavigationLink__Label"
+          />
+        </a>
+      </li>
+    </ul>
+  </header>
+  <nav
+    class="c-HeaderBurgerMenu"
+    data-testid="burger-menu"
+  >
+    <ul
+      class="c-HeaderBurgerMenu__List"
+    >
+      <li
+        class="c-HeaderBurgerMenu__Item"
+      >
+        <h2>
+          Ma commune
+        </h2>
+        <div
+          class="c-HeaderLinkSelector"
+        >
+          <span>
+            Montauban
+          </span>
+          <div />
+        </div>
+      </li>
+      <li
+        class="c-HeaderBurgerMenu__Item"
+      >
+        <div
+          class="c-HeaderBurgerMenu__User"
+        >
+          <span>
+            Je suis
+          </span>
+          <div
+            class="c-HeaderLinkProfile"
+          >
+            <span>
+              Particulier
+            </span>
+            <div />
+          </div>
+        </div>
+      </li>
+      <li
+        class="c-HeaderBurgerMenu__Item c-HeaderBurgerMenu__Item_grow"
+      >
+        <nav
+          class="c-HeaderBurgerMenu__Container"
+          role="navigation"
+        >
+          <h2>
+            Mes services
+          </h2>
+        </nav>
+      </li>
+      <li
+        class="c-HeaderBurgerMenu__Item c-HeaderBurgerMenu__Item_grow"
+      >
+        <nav
+          class="c-HeaderBurgerMenu__Container"
+          role="navigation"
+        >
+          <a
+            class="c-NavigationLink c-NavigationLink_mobile"
+            href="/"
+          >
+            <div
+              class="c-NavigationLink__Box"
+            >
+              <div
+                class="c-NavigationLink__Picto"
+              >
+                <img
+                  alt=""
+                  data-nimg="1"
+                  decoding="async"
+                  height="24"
+                  loading="lazy"
+                  src="/images/pictos/localisation.svg"
+                  style="color: transparent;"
+                  width="24"
+                />
+              </div>
+            </div>
+            <span
+              class="c-NavigationLink__Label"
+            >
+              Mon adresse
+            </span>
+          </a>
+          <a
+            class="c-NavigationLink c-NavigationLink_mobile"
+            href="/"
+          >
+            <div
+              class="c-NavigationLink__Box"
+            >
+              <div
+                class="c-NavigationLink__Picto"
+              >
+                <img
+                  alt=""
+                  data-nimg="1"
+                  decoding="async"
+                  height="24"
+                  loading="lazy"
+                  src="/images/pictos/calendar.svg"
+                  style="color: transparent;"
+                  width="24"
+                />
+              </div>
+            </div>
+            <span
+              class="c-NavigationLink__Label"
+            >
+              Calendrier
+            </span>
+          </a>
+          <a
+            class="c-NavigationLink c-NavigationLink_mobile"
+            href="/"
+          >
+            <div
+              class="c-NavigationLink__Box"
+            >
+              <div
+                class="c-NavigationLink__Picto"
+              >
+                <img
+                  alt=""
+                  data-nimg="1"
+                  decoding="async"
+                  height="24"
+                  loading="lazy"
+                  src="/images/pictos/notify.svg"
+                  style="color: transparent;"
+                  width="24"
+                />
+              </div>
+            </div>
+            <span
+              class="c-NavigationLink__Label"
+            >
+              Alertes
+            </span>
+          </a>
+          <a
+            class="c-NavigationLink c-NavigationLink_mobile"
+            href="/"
+          >
+            <div
+              class="c-NavigationLink__Box"
+            >
+              <div
+                class="c-NavigationLink__Picto"
+              >
+                <img
+                  alt=""
+                  data-nimg="1"
+                  decoding="async"
+                  height="24"
+                  loading="lazy"
+                  src="/images/pictos/contact.svg"
+                  style="color: transparent;"
+                  width="24"
+                />
+              </div>
+            </div>
+            <span
+              class="c-NavigationLink__Label"
+            >
+              Contact
+            </span>
+          </a>
+        </nav>
+      </li>
+      <li
+        class="c-HeaderBurgerMenu__Item"
+      >
+        <a
+          class="c-MSDLogo"
+          href="https://www.monservicedechets.com/"
+        >
+          <div />
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div
+    aria-hidden="true"
+    class="c-Header__ContentCover"
+    data-testid="content-cover"
+  />
+</div>
+`;

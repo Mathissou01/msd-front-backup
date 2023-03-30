@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RecyclingGuideBlock renders 1`] = `
+<div>
+  <section
+    class="c-RecyclingGuideBlock"
+  >
+    <div
+      class="c-RecyclingGuideBlock__Heading"
+    >
+      <span
+        class="c-RecyclingGuideBlock__Title"
+      >
+        Un doute sur le recyclage d'un déchet
+      </span>
+      <h2
+        class="c-RecyclingGuideBlock__Subtitle"
+      >
+        Trouver les consignes de tri dans ma ville
+      </h2>
+    </div>
+    <div
+      class="c-RecyclingGuideBlock__SearchContainer"
+    >
+      <div
+        class="c-RecyclingGuideBlock__SearchBar"
+      >
+        <input
+          class="c-RecyclingGuideBlock__Input"
+          placeholder="Lampe, écran, épluchure"
+          type="text"
+        />
+        <button
+          class="c-CommonButton c-CommonButton_primary c-CommonButton_fontLarge c-CommonButton_paddingLarge c-CommonButton_fullWidth"
+          type="button"
+        >
+          <div
+            class="c-CommonButton__Picto c-CommonButton__Picto_search"
+          />
+          Rechercher
+        </button>
+      </div>
+      <div
+        class="c-RecyclingGuideBlock__Tags"
+      >
+        <button
+          class="c-RecyclingGuideBlock__Tag"
+          type="button"
+        >
+          Bouteille plastique
+        </button>
+        <button
+          class="c-RecyclingGuideBlock__Tag"
+          type="button"
+        >
+          Carton de pizza
+        </button>
+        <button
+          class="c-RecyclingGuideBlock__Tag"
+          type="button"
+        >
+          Papier collant
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+`;

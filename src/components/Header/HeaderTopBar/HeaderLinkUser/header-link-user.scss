@@ -1,0 +1,16 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+
+.c-HeaderLinkUser {
+  &__Circle {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    min-width: 50px;
+    min-height: 50px;
+    padding: 0;
+    background-color: colors.$background-default;
+    border-radius: 100px;
+  }
+}

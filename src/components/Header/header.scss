@@ -1,0 +1,18 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.z-index" as index;
+
+.c-Header__ContentCover {
+  position: absolute;
+  z-index: index.z(content-cover);
+  width: 100vw;
+  height: 100vh;
+  background-color: colors.$expert-blue;
+  opacity: 0;
+  transition: opacity ease 0.1s;
+  pointer-events: none;
+
+  &_active {
+    opacity: 0.4;
+    pointer-events: auto;
+  }
+}

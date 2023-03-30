@@ -1,0 +1,166 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+
+@mixin text($type: "body") {
+  color: colors.$gray-800;
+
+  @if $type == "body" {
+    font-weight: 400;
+    font-size: 16px;
+    font-family: DINPro-Regular, sans-serif;
+    line-height: 24px;
+
+    @include im.media(">=mobile") {
+      font-size: 18px;
+      line-height: 27px;
+    }
+  }
+
+  @if $type == "bodyStatic" {
+    font-weight: 400;
+    font-size: 18px;
+    font-family: DINPro-Medium, sans-serif;
+    line-height: 27px;
+  }
+
+  @if $type == "tag" {
+    font-weight: 400;
+    font-size: 12px;
+    font-family: DINPro-Regular, sans-serif;
+    line-height: 18px;
+    text-transform: uppercase;
+  }
+
+  @if $type == "footer" {
+    font-weight: 400;
+    font-size: 12px;
+    font-family: DINPro-Regular, sans-serif;
+    line-height: 18px;
+
+    @include im.media(">=mobile") {
+      font-size: 14px;
+      line-height: 21px;
+    }
+  }
+
+  @if $type == "caption" {
+    font-weight: 400;
+    font-size: 12px;
+    font-family: DINPro-Medium, sans-serif;
+    line-height: 18px;
+
+    @include im.media(">=mobile") {
+      font-size: 14px;
+      line-height: 21px;
+    }
+  }
+
+  @if $type == "buttonSmall" or $type == "buttonLarge" {
+    font-weight: 500;
+    font-family: DINPro-Medium, sans-serif;
+    letter-spacing: 0.005em;
+
+    @if $type == "buttonSmall" {
+      font-size: 14px;
+      line-height: 21px;
+    }
+
+    @if $type == "buttonLarge" {
+      font-size: 16px;
+      line-height: 24px;
+    }
+  }
+
+  @if $type == "large" {
+    font-weight: 500;
+    font-size: 32px;
+    font-family: DINPro-Medium, sans-serif;
+    line-height: 40px;
+  }
+
+  @if $type == "huge" {
+    font-weight: 500;
+    font-size: 26px;
+    font-family: DINPro-Medium, sans-serif;
+    line-height: 33px;
+
+    @include im.media(">=mobile", "<laptop") {
+      font-size: 38px;
+      line-height: 48.94px;
+    }
+
+    @include im.media(">=laptop") {
+      font-size: 48px;
+      line-height: 60px;
+    }
+  }
+
+  @if $type == "highlight" {
+    font-weight: 500;
+    font-size: 56px;
+    font-family: DINPro-Medium, sans-serif;
+    line-height: 70px;
+  }
+}
+
+@mixin heading($level) {
+  @if $level == 1 {
+    font-weight: 500;
+    font-size: 24px;
+    font-family: DINPro-Medium, sans-serif;
+    line-height: 25px;
+
+    @include im.media(">=mobile") {
+      font-size: 30px;
+      line-height: 26px;
+    }
+  }
+
+  @if $level == 2 {
+    font-weight: 700;
+    font-size: 20px;
+    font-family: DINPro-Bold, sans-serif;
+    line-height: 25px;
+
+    @include im.media(">=mobile", "<laptop") {
+      font-size: 24px;
+      line-height: 30.91px;
+    }
+
+    @include im.media(">=laptop") {
+      font-size: 28px;
+      line-height: 35px;
+    }
+  }
+
+  @if $level == 3 {
+    font-weight: 700;
+    font-size: 20px;
+    font-family: DINPro-Bold, sans-serif;
+    line-height: 25px;
+
+    @include im.media(">=mobile") {
+      font-size: 24px;
+      line-height: 30px;
+    }
+  }
+
+  @if $level == 4 {
+    font-weight: 700;
+    font-size: 16px;
+    font-family: DINPro-Bold, sans-serif;
+    line-height: 20px;
+
+    @include im.media(">=mobile") {
+      font-size: 20px;
+      line-height: 25px;
+    }
+  }
+
+  @if $level == 5 {
+    font-weight: 700;
+    font-size: 16px;
+    font-family: DINPro-Bold, sans-serif;
+    line-height: 20px;
+  }
+}

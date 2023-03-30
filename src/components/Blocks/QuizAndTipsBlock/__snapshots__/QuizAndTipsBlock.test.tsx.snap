@@ -1,0 +1,183 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QuizAndTipsBlock renders one tip 1`] = `
+<div>
+  <section
+    class="c-QuizAndTipsBlock"
+  >
+    <div
+      class="c-CommonBlockHeading"
+    >
+      <h2>
+        Astuces !
+      </h2>
+      <div
+        class="c-CommonBlockHeading__Line"
+      />
+    </div>
+    <div
+      class="c-QuizAndTipsBlock__Tips"
+    >
+      <a
+        class="c-TipCard"
+        href="/"
+      >
+        <p
+          class="c-TipCard__Content"
+        >
+          Découper vos peaux de bananes avant de les jeter dans votre compost.
+        </p>
+        <span
+          class="c-TipCard__Link"
+        >
+          En savoir plus
+        </span>
+        <div
+          class="o-Blob c-TipCard__Svg"
+        >
+          <img
+            alt=""
+            data-nimg="1"
+            decoding="async"
+            height="72"
+            loading="lazy"
+            src="/banana.svg"
+            style="color: transparent;"
+            width="72"
+          />
+        </div>
+      </a>
+      <div
+        class="c-QuizAndTipsBlock__SvgContainer"
+      >
+        <div
+          class="c-QuizAndTipsBlock__Svg_desktop"
+        />
+        <div
+          class="c-QuizAndTipsBlock__Svg_mobile"
+        />
+      </div>
+    </div>
+  </section>
+</div>
+`;
+
+exports[`QuizAndTipsBlock renders three tips 1`] = `
+<div>
+  <section
+    class="c-QuizAndTipsBlock"
+  >
+    <div
+      class="c-CommonBlockHeading"
+    >
+      <h2>
+        Astuces !
+      </h2>
+      <div
+        class="c-CommonBlockHeading__Line"
+      />
+    </div>
+    <div
+      class="c-QuizAndTipsBlock__Tips"
+    >
+      <a
+        class="c-TipCard"
+        href="/"
+      >
+        <p
+          class="c-TipCard__Content"
+        >
+          Découper vos peaux de bananes avant de les jeter dans votre compost.
+        </p>
+        <span
+          class="c-TipCard__Link"
+        >
+          En savoir plus
+        </span>
+        <div
+          class="o-Blob c-TipCard__Svg"
+        >
+          <img
+            alt=""
+            data-nimg="1"
+            decoding="async"
+            height="72"
+            loading="lazy"
+            src="/banana.svg"
+            style="color: transparent;"
+            width="72"
+          />
+        </div>
+      </a>
+      <a
+        class="c-TipCard"
+        href="/"
+      >
+        <p
+          class="c-TipCard__Content"
+        >
+          Pas besoin de nettoyer vos pots de yaourts avant de les jeter
+        </p>
+        <span
+          class="c-TipCard__Link"
+        >
+          En savoir plus
+        </span>
+        <div
+          class="o-Blob c-TipCard__Svg"
+        >
+          <img
+            alt=""
+            data-nimg="1"
+            decoding="async"
+            height="72"
+            loading="lazy"
+            src="/banana.svg"
+            style="color: transparent;"
+            width="72"
+          />
+        </div>
+      </a>
+      <a
+        class="c-TipCard"
+        href="/"
+      >
+        <p
+          class="c-TipCard__Content"
+        >
+          Remplacez vos sacs en plastique par des sacs réutilisables, un caddie ou des paniers.
+        </p>
+        <span
+          class="c-TipCard__Link"
+        >
+          En savoir plus
+        </span>
+        <div
+          class="o-Blob c-TipCard__Svg"
+        >
+          <img
+            alt=""
+            data-nimg="1"
+            decoding="async"
+            height="72"
+            loading="lazy"
+            src="/banana.svg"
+            style="color: transparent;"
+            width="72"
+          />
+        </div>
+      </a>
+      <div
+        class="c-QuizAndTipsBlock__SvgContainer"
+      >
+        <div
+          class="c-QuizAndTipsBlock__Svg_desktop"
+        />
+        <div
+          class="c-QuizAndTipsBlock__Svg_mobile"
+        />
+      </div>
+    </div>
+  </section>
+</div>
+`;

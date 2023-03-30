@@ -1,0 +1,117 @@
+@use "sass:list";
+@use "sass:math";
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/01-settings/settings.blobs" as b;
+@use "src/styles/02-tools/tools.blobs" as blobs;
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-QuizAndTipsBlock {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-start;
+  padding: 40px 16px 190px;
+  overflow: hidden;
+  background-color: colors.$white;
+  border-bottom: 1px solid colors.$gray-200;
+
+  @include im.media(">=mobile") {
+    padding: 60px;
+  }
+
+  @include im.media(">=tablet") {
+    gap: 60px;
+    padding: 60px;
+  }
+
+  @include im.media(">=laptop") {
+    padding: 80px 60px;
+  }
+
+  @include im.media(">=desktop") {
+    padding: 80px 124px;
+  }
+
+  &__Tips {
+    // Generate a random blob SVG with random rotation for any child element with "o-Blob" class
+    $random-start: math.random(6);
+    @for $i from 1 through (list.length(b.$blobs) * 2) {
+      *:nth-child(#{(length(b.$blobs) * 2)}n + #{$i}) {
+        // stylelint-disable-next-line
+        .o-Blob::after {
+          @include blobs.blob(
+            (($random-start + $i) % list.length(b.$blobs)) + 1
+          );
+
+          transform: rotate(#{math.random(360deg)}deg);
+        }
+      }
+    }
+
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    width: 100%;
+
+    @include im.media(">=tablet") {
+      flex-direction: row;
+      padding-right: 160px;
+    }
+
+    @include im.media(">=laptop") {
+      padding-right: 102px;
+    }
+  }
+
+  &__SvgContainer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+
+    svg {
+      width: initial;
+      height: 190px;
+
+      @include im.media(">=mobile") {
+        height: 254px;
+        margin-right: -10px;
+        margin-bottom: -10px;
+      }
+
+      #primary-color {
+        fill: colors.$brand-primary;
+      }
+
+      #secondary-color {
+        fill: colors.$brand-secondary;
+      }
+    }
+  }
+
+  &__Svg {
+    &_mobile {
+      display: initial;
+
+      @include im.media(">=mobile") {
+        display: none;
+      }
+    }
+
+    &_desktop {
+      display: none;
+
+      @include im.media(">=mobile") {
+        display: initial;
+      }
+    }
+  }
+}

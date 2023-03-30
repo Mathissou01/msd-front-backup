@@ -1,0 +1,130 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.z-index" as index;
+
+.c-ServicesBlock {
+  position: relative;
+  display: flex;
+  justify-content: stretch;
+  min-height: 268px;
+  padding: 40px 16px 60px;
+  overflow: hidden;
+
+  @include im.media(">=mobile") {
+    padding: 60px;
+  }
+
+  @include im.media(">=laptop") {
+    justify-content: center;
+    padding: 80px 60px;
+  }
+
+  @include im.media(">=desktop") {
+    padding: 80px 124px;
+  }
+
+  &__Content {
+    position: relative;
+    z-index: index.z("site-content");
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+
+    @include im.media(">=tablet") {
+      max-width: none;
+    }
+  }
+
+  &__Services {
+    display: flex;
+    flex-flow: column wrap;
+    gap: 14px;
+    width: 100%;
+
+    @include im.media(">=tablet") {
+      flex-direction: row;
+      align-self: center;
+      max-width: 985px;
+
+      > * {
+        flex-basis: calc((100% - 28px) / 3);
+      }
+    }
+  }
+
+  &__Card {
+    display: flex;
+    overflow: hidden;
+    border-radius: 8px;
+
+    @include im.media(">=tablet", "<laptop") {
+      flex-basis: calc((100% - 14px) / 2);
+    }
+
+    @include im.media(">=laptop") {
+      flex-basis: calc((100% - 28px) / 3);
+    }
+
+    &:hover {
+      background-color: colors.$white;
+    }
+
+    &_few {
+      flex-basis: calc((100% - 14px) / 2);
+    }
+  }
+
+  &__SvgContainer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: index.z("background");
+    width: 100%;
+    background: colors.$background-dark;
+    pointer-events: none;
+
+    @include im.media(">=tablet") {
+      bottom: -1px;
+      background: colors.$background-dark;
+      border-radius: 0 120px 0 0;
+    }
+  }
+
+  &__Svg {
+    &_mobile {
+      display: initial;
+
+      @include im.media(">=tablet") {
+        display: none;
+      }
+    }
+
+    &_desktop {
+      display: none;
+
+      @include im.media(">=tablet") {
+        display: initial;
+      }
+    }
+  }
+
+  svg {
+    height: 142px;
+    margin-top: -21px;
+
+    @include im.media(">=laptop") {
+      height: 165px;
+    }
+
+    #primary-color {
+      fill: colors.$brand-primary;
+    }
+
+    #secondary-color {
+      fill: colors.$brand-secondary;
+    }
+  }
+}

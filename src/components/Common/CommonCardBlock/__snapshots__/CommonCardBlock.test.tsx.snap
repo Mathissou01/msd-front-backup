@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommonCardBlock renders 1`] = `
+<div>
+  <a
+    class="c-CommonCardBlock__Container"
+    href="/accueil"
+  >
+    <div
+      class="c-CommonCardBlock"
+    >
+      <div
+        class="c-CommonCardBlock__Image"
+      >
+        <img
+          alt=""
+          data-nimg="1"
+          decoding="async"
+          height="309"
+          loading="lazy"
+          src="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=1080&q=75"
+          srcset="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=640&q=75 1x, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=1080&q=75 2x"
+          style="color: transparent;"
+          width="482"
+        />
+      </div>
+      <div
+        class="c-CommonCardBlock__Content"
+      >
+        <div
+          class="c-CommonCardBlock__ContentHeader"
+        >
+          <div
+            class="c-CommonCardBlock__Tags"
+          >
+            <span
+              class="c-CommonCardBlock__Tag "
+            >
+              Prise de RDV
+            </span>
+            <span
+              class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+            >
+              Evénement
+            </span>
+          </div>
+        </div>
+        <div
+          class="c-CommonCardBlock__ContentBody"
+        >
+          <h3
+            class="c-CommonCardBlock__Title"
+          >
+            common card block title
+          </h3>
+          <p
+            class="c-CommonCardBlock__Description"
+          />
+        </div>
+        <div
+          class="c-CommonCardBlock__Link"
+        >
+          <span>
+            En savoir plus
+          </span>
+          <div />
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+`;

@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WelcomeBlock renders 1`] = `
+<div>
+  <section
+    class="c-WelcomeBlock"
+  >
+    <div
+      class="c-WelcomeBlock__Heading"
+    >
+      <h1
+        class="c-WelcomeBlock__Title"
+      />
+      <span
+        class="c-WelcomeBlock__Subtitle"
+      />
+    </div>
+    <div
+      class="c-WelcomeBlock__SvgContainer"
+    >
+      <div
+        class="c-WelcomeBlock__Svg_desktop"
+        data-testid="hero-illu-desktop"
+      />
+      <div
+        class="c-WelcomeBlock__Svg_tablet"
+        data-testid="hero-illu-tablet"
+      />
+      <div
+        class="c-WelcomeBlock__Svg_mobile"
+        data-testid="hero-illu-mobile"
+      />
+    </div>
+  </section>
+</div>
+`;

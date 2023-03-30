@@ -1,0 +1,172 @@
+@use "src/styles/02-tools/tools.typography" as typo;
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.shadows" as shadows;
+
+.c-CommonCardBlock {
+  $self: &;
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 24px;
+
+  @include im.media(">=mobile") {
+    gap: 24px;
+  }
+
+  &:hover {
+    background-color: colors.$brand-primary-light;
+  }
+
+  &_isEventDisplay {
+    padding: 24px 16px;
+  }
+
+  &__Container {
+    @include shadows.shadow(1);
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+    background-color: colors.$white;
+    border-radius: 8px;
+  }
+
+  &__EventDisplay {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    width: 132px;
+    height: 132px;
+    margin: auto;
+    padding: 32px;
+    background: rgb(244 154 28 / 10%);
+    border-radius: 50%;
+  }
+
+  &__CalendarPicto {
+    width: 36px;
+    filter: url("#recolor-secondary");
+  }
+
+  &__Date {
+    width: 150px;
+    color: colors.$gray-800;
+    font-weight: 500;
+    font-size: 14px;
+    font-family: DINPro-Medium, sans-serif;
+    line-height: 21px;
+    text-align: right;
+  }
+
+  &__Image {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    @include im.media(">=tablet") {
+      height: 200px;
+      min-height: 200px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.2s ease-in-out;
+
+      @include im.media(">=tablet") {
+        object-fit: cover;
+      }
+
+      #{$self}:hover & {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  &__Content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 100%;
+    padding: 0 16px;
+
+    &_textCenter {
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+  &__ContentHeader {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__Tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    max-width: 175px;
+  }
+
+  &__Tag {
+    @include typo.text("tag");
+
+    padding: 6px 10px;
+    border: 1px solid colors.$blue-4;
+    border-radius: 4px;
+
+    &_background {
+      background-color: colors.$gray-0;
+      border: hidden;
+    }
+  }
+
+  &__ContentBody {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0;
+  }
+
+  &__Title {
+    @include typo.heading(3);
+
+    width: 100%;
+    color: colors.$expert-blue;
+  }
+
+  &__Description {
+    color: colors.$expert-blue;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  &__Link {
+    margin-top: auto;
+    padding: 0;
+    transition: text-decoration 0.3s ease-in-out;
+
+    #{$self}:hover & {
+      text-decoration: underline;
+    }
+
+    span {
+      @include typo.text("buttonSmall");
+
+      margin-right: 12px;
+      color: colors.$blue-1;
+      border-radius: 2px;
+    }
+  }
+}

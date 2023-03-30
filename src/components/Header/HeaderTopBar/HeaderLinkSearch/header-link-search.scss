@@ -1,0 +1,16 @@
+@use "src/styles/02-tools/tools.inputs" as input;
+
+.c-HeaderLinkSearch {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  width: 316px;
+  height: 48px;
+  padding: 0;
+  border-radius: 2px;
+
+  &__Input {
+    @include input.input;
+  }
+}

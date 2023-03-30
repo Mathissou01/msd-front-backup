@@ -1,0 +1,193 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TopContentBlock renders titleContent 1`] = `
+<div>
+  <section
+    class="c-TopContentBlock"
+  >
+    <div
+      class="c-CommonBlockHeading c-CommonBlockHeading_alignLeft"
+    >
+      <h2>
+        Actualités & Evénements
+      </h2>
+      <div
+        class="c-CommonBlockHeading__Line"
+      />
+    </div>
+    <div
+      class="c-TopContentBlock__Content"
+    />
+    <a
+      href="/actualites-evenements"
+    >
+      <button
+        class="c-CommonButton c-CommonButton_primary c-CommonButton_fontSmall"
+        type="button"
+      >
+        Voir plus d’actualités et d’événements
+      </button>
+    </a>
+  </section>
+</div>
+`;
+
+exports[`TopContentBlock renders top Content and three topContents 1`] = `
+<div>
+  <section
+    class="c-TopContentBlock"
+  >
+    <div
+      class="c-CommonBlockHeading c-CommonBlockHeading_alignLeft"
+    >
+      <h2>
+        Actualités & Evénements
+      </h2>
+      <div
+        class="c-CommonBlockHeading__Line"
+      />
+    </div>
+    <div
+      class="c-TopContentBlock__Content"
+    >
+      <a
+        class="c-TopContentCard"
+        href="/actualites-evenements/undefined"
+      >
+        <div
+          class="c-TopContentCard__Banner"
+        />
+        <div
+          class="c-TopContentCard__CardContainer"
+        >
+          <div
+            class="c-TopContentCard__Card"
+          >
+            <div
+              class="c-TopContentCard__Header"
+            >
+              <div
+                class="c-TopContentCard__Tags"
+              >
+                <span
+                  class="c-TopContentCard__Tag"
+                >
+                  Evénement
+                </span>
+                <span
+                  class="c-TopContentCard__Tag c-TopContentCard__Tag_hasBackground"
+                >
+                  Réparation
+                </span>
+              </div>
+              <div
+                class="c-TopContentCard__Date"
+              >
+                5 décembre 2022
+              </div>
+            </div>
+            <div
+              class="c-TopContentCard__Content"
+            >
+              <h2
+                class="c-TopContentCard__Title"
+              >
+                Lorem ipsum dolor sit amet
+              </h2>
+              <p
+                class="c-TopContentCard__Description"
+              >
+                consectetur adipiscing elit. Aliquam facilisis tincidunt est
+              </p>
+            </div>
+            <div
+              class="c-TopContentCard__KnowMore"
+            >
+              <span>
+                En savoir plus
+              </span>
+              <div />
+            </div>
+          </div>
+        </div>
+      </a>
+      <div
+        class="c-TopContentBlock__LastThreeContents"
+      >
+        <a
+          class="c-CommonCardBlock__Container"
+          href="/actualites-evenements/1"
+        >
+          <div
+            class="c-CommonCardBlock"
+          >
+            <div
+              class="c-CommonCardBlock__Image"
+            >
+              <img
+                alt=""
+                data-nimg="1"
+                decoding="async"
+                height="309"
+                loading="lazy"
+                src="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=1080&q=75"
+                srcset="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=640&q=75 1x, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=1080&q=75 2x"
+                style="color: transparent;"
+                width="482"
+              />
+            </div>
+            <div
+              class="c-CommonCardBlock__Content"
+            >
+              <div
+                class="c-CommonCardBlock__ContentHeader"
+              >
+                <div
+                  class="c-CommonCardBlock__Tags"
+                />
+                <div
+                  class="c-CommonCardBlock__Date"
+                >
+                  29 décembre 2022
+                </div>
+              </div>
+              <div
+                class="c-CommonCardBlock__ContentBody"
+              >
+                <h3
+                  class="c-CommonCardBlock__Title"
+                >
+                  Suspendisse et est sem
+                </h3>
+                <p
+                  class="c-CommonCardBlock__Description"
+                >
+                  Vestibulum cursus eros ut ligula lobortis auctor. Quisque luctus sagittis tellus
+                </p>
+              </div>
+              <div
+                class="c-CommonCardBlock__Link"
+              >
+                <span>
+                  En savoir plus
+                </span>
+                <div />
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <a
+      href="/actualites-evenements"
+    >
+      <button
+        class="c-CommonButton c-CommonButton_primary c-CommonButton_fontSmall"
+        type="button"
+      >
+        Voir plus d’actualités et d’événements
+      </button>
+    </a>
+  </section>
+</div>
+`;

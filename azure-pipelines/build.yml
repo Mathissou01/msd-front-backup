@@ -1,0 +1,36 @@
+# Jobs template for static website build
+parameters:
+  - name: env
+    type: string
+
+jobs:
+  - job: msd_fo_site_build_install
+    displayName: Install node modules
+    steps:
+      - template: build/node.yml
+
+      - template: build/install.yml
+
+  - job: msd_fo_site_build_test
+    displayName: Run tests
+    dependsOn: msd_fo_site_build_install
+    steps:
+      - template: build/node.yml
+
+      - template: build/pre-tests.yml
+
+      - template: build/e2e-tests.yml
+        parameters:
+          env: ${{ parameters.env }}
+
+  - job: msd_fo_site_build_package
+    dependsOn: msd_fo_site_build_install
+    displayName: Build package
+    steps:
+      - template: build/node.yml
+
+      - template: build/export.yml
+        parameters:
+          env: ${{ parameters.env }}
+
+      - template: build/artifact.yml

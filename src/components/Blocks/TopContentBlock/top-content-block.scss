@@ -1,0 +1,59 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.typography" as typo;
+@use "src/styles/02-tools/tools.inputs" as input;
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-TopContentBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 40px 16px 60px;
+
+  @include im.media(">=mobile") {
+    padding: 60px;
+  }
+
+  @include im.media(">=laptop") {
+    padding: 80px 60px;
+  }
+
+  @include im.media(">=desktop") {
+    padding: 80px 124px;
+  }
+
+  &__Content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    width: 100%;
+    max-width: 482px;
+
+    @include im.media(">=tablet") {
+      max-width: none;
+    }
+  }
+
+  &__LastThreeContents {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+
+    @include im.media(">=tablet") {
+      flex-direction: row;
+    }
+
+    @include im.media(">=tablet") {
+      justify-content: center;
+
+      > * {
+        flex-basis: calc((100% - 48px) / 3);
+        max-width: 312px;
+      }
+    }
+  }
+}

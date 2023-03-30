@@ -1,0 +1,16 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+
+.c-SubHeadingBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  color: colors.$expert-blue;
+
+  &__Line {
+    width: 53px;
+    height: 0;
+    border: 2px solid colors.$brand-secondary;
+    border-radius: 5px;
+  }
+}

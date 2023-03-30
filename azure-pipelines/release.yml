@@ -1,0 +1,36 @@
+# Jobs template for static website release
+parameters:
+  - name: env
+    type: string
+
+  - name: instance
+    type: string
+
+jobs:
+  - deployment: msd_fo_site_release_${{ parameters.env }}
+    displayName: "[${{ upper(parameters.env) }}] Publish FO (${{ parameters.instance }})"
+    environment: msd-${{ parameters.env }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - checkout: none
+
+            - task: DownloadPipelineArtifact@2
+              displayName: Get latest Artifact from CI pipeline
+              inputs:
+                buildType: "current"
+                path: $(System.DefaultWorkingDirectory)/
+                artifact: FO Static WebApp Export $(Build.BuildId)
+
+            - task: AzureStaticWebApp@0
+              displayName: Publish FO Static WebApp in Azure Cloud
+              inputs:
+                output_location: "out"
+                skip_app_build: true
+                verbose: true
+                is_static_export: true
+                ${{ if not(eq(parameters.instance, 'production'))  }}:
+                  deployment_environment: ${{ parameters.instance }}
+              env:
+                azure_static_web_apps_api_token: $(fo-deployment-token)

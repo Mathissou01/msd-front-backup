@@ -1,0 +1,162 @@
+query getEditoBlock($contractId: ID!) {
+  contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
+    data {
+      id
+      attributes {
+        homepage {
+          data {
+            attributes {
+              editoBlock {
+                data {
+                  attributes {
+                    titleContent
+                    editoContents {
+                      data {
+                        attributes {
+                          event {
+                            data {
+                              attributes {
+                                title
+                                shortDescription
+                                tags {
+                                  data {
+                                    attributes {
+                                      name
+                                    }
+                                  }
+                                }
+                                image {
+                                  data {
+                                    attributes {
+                                      hash
+                                      mime
+                                      name
+                                      provider
+                                      size
+                                      url
+                                      alternativeText
+                                    }
+                                  }
+                                }
+                                publishedDate
+                              }
+                            }
+                          }
+                          freeContent {
+                            data {
+                              attributes {
+                                title
+                                shortDescription
+                                tags {
+                                  data {
+                                    attributes {
+                                      name
+                                    }
+                                  }
+                                }
+                                image {
+                                  data {
+                                    attributes {
+                                      hash
+                                      mime
+                                      name
+                                      provider
+                                      size
+                                      url
+                                      alternativeText
+                                    }
+                                  }
+                                }
+                                publishedDate
+                              }
+                            }
+                          }
+                          news {
+                            data {
+                              attributes {
+                                title
+                                shortDescription
+                                tags {
+                                  data {
+                                    attributes {
+                                      name
+                                    }
+                                  }
+                                }
+                                image {
+                                  data {
+                                    attributes {
+                                      hash
+                                      mime
+                                      name
+                                      provider
+                                      size
+                                      url
+                                      alternativeText
+                                    }
+                                  }
+                                }
+                                publishedDate
+                              }
+                            }
+                          }
+                          quiz {
+                            data {
+                              attributes {
+                                title
+                                shortDescription
+                                tags {
+                                  data {
+                                    attributes {
+                                      name
+                                    }
+                                  }
+                                }
+                                publishedDate
+                              }
+                            }
+                          }
+                          tip {
+                            data {
+                              attributes {
+                                title
+                                shortDescription
+                                link
+                                tags {
+                                  data {
+                                    attributes {
+                                      name
+                                    }
+                                  }
+                                }
+                                image {
+                                  data {
+                                    attributes {
+                                      hash
+                                      mime
+                                      name
+                                      provider
+                                      size
+                                      url
+                                      alternativeText
+                                    }
+                                  }
+                                }
+                                publishedDate
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                    displayBlock
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

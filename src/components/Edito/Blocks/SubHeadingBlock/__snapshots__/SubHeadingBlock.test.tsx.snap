@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubHeadingBlock renders 1`] = `
+<div>
+  <div
+    class="c-SubHeadingBlock"
+  >
+    <div
+      class="c-SubHeadingBlock__Line"
+    />
+  </div>
+</div>
+`;
