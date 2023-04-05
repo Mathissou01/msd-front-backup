@@ -1,8 +1,8 @@
-query getNewsPaths($contractId: ID!) {
-  news(
+query getFreeContentsPaths($contractId: ID!) {
+  freeContents(
     filters: {
       status: { eq: "published" }
-      newsSubService: {
+      freeContentSubService: {
         isActivated: { eq: true }
         editorialService: { contract: { id: { eq: $contractId } } }
       }

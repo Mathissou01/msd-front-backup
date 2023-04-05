@@ -4,6 +4,7 @@ import {
   GetNewestTopContentsQuery,
   TopContentBlockEntity,
 } from "../../../graphql/codegen/generated-types";
+import { removeNulls } from "../../../lib/utilities";
 import CommonBlockHeading from "../../Common/CommonBlockHeading/CommonBlockHeading";
 import TopContentCard from "./TopContentCard/TopContentCard";
 import CommonCardBlock from "../../Common/CommonCardBlock/CommonCardBlock";
@@ -27,7 +28,8 @@ export default function TopContentBlock({
   const contentTopNewsOrEvent =
     data?.attributes?.topContent?.data?.attributes?.news?.data;
   const displayLastThreeContents = data.attributes?.displayLastThreeContents;
-  const threeTopContents = newestTopContents?.getNewestTopContents;
+  const threeTopContents =
+    newestTopContents?.getNewestTopContents?.filter(removeNulls) ?? [];
 
   return (
     <section className="c-TopContentBlock">
@@ -56,7 +58,7 @@ export default function TopContentBlock({
           threeTopContents &&
           threeTopContents.length > 0 && (
             <div className="c-TopContentBlock__LastThreeContents">
-              {threeTopContents?.map((topContent, index) => {
+              {threeTopContents.map((topContent, index) => {
                 if (
                   topContent?.originalId &&
                   topContent?.title &&
@@ -65,11 +67,12 @@ export default function TopContentBlock({
                   return (
                     <CommonCardBlock
                       key={index}
-                      title={topContent?.title}
-                      shortDescription={topContent?.shortDescription}
-                      date={topContent?.publishedDate}
+                      title={topContent.title}
+                      shortDescription={topContent.shortDescription}
+                      date={topContent.publishedDate}
+                      tagLabels={topContent.tags?.filter(removeNulls) ?? []}
                       image={topContent?.image ?? null}
-                      href={`${defaultHref}/${topContent?.originalId}`}
+                      href={`${defaultHref}/${topContent.originalId}`}
                     />
                   );
                 }

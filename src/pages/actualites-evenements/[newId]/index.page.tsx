@@ -11,7 +11,7 @@ import {
 import { removeNulls } from "../../../lib/utilities";
 import { remapEditoBlocksDynamicZone } from "../../../lib/edito-content";
 import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
-import EditoHeadingBlock from "../../../components/Edito/EditoHeading/EditoHeading";
+import EditoHeading from "../../../components/Edito/EditoHeading/EditoHeading";
 import EditoDynamicBlock from "../../../components/Edito/EditoDynamicBlock";
 import "./actualites-new-page.scss";
 
@@ -45,7 +45,7 @@ export default function ActualitesNewPage({
       <CommonBreadcrumb pages={breadcrumbPages} />
       <section className="c-ActualitesNewPage">
         {newData?.attributes?.title && (
-          <EditoHeadingBlock
+          <EditoHeading
             title={newData.attributes.title}
             tags={newData.attributes.tags?.data}
             image={newData?.attributes?.image?.data?.attributes}
@@ -82,8 +82,10 @@ export const getStaticProps: GetStaticProps<
 };
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
+  const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID?.toString();
   const { data } = await client.query<GetNewsPathsQuery>({
     query: GetNewsPathsDocument,
+    variables: { contractId },
   });
 
   const news = data.news?.data.filter(removeNulls) ?? [];

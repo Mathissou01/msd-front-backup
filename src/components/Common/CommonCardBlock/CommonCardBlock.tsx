@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import {
+  Tag,
   TagEntity,
   UploadFile,
 } from "../../../graphql/codegen/generated-types";
@@ -17,7 +18,7 @@ interface ICommonCardBlockProps {
   title: string;
   shortDescription?: string;
   date?: string;
-  tagLabels?: Array<TagEntity>;
+  tagLabels?: Array<Tag | TagEntity | null>;
   image?: UploadFile | null;
   href: string;
   isAlignTextCenter?: boolean;
@@ -85,7 +86,12 @@ export default function CommonCardBlock({
                     index > 0 ? "c-CommonCardBlock__Tag_background" : ""
                   }`}
                 >
-                  {tagLabel.attributes?.name}
+                  {tagLabel && tagLabel.__typename === "TagEntity"
+                    ? tagLabel.attributes?.name
+                    : null}
+                  {tagLabel && tagLabel.__typename === "Tag"
+                    ? tagLabel.name
+                    : null}
                 </span>
               ))}
             </div>

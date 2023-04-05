@@ -26,12 +26,12 @@ export default function ActualitesEvenementsPage() {
   const titleContent = "Actualités et événements";
   const defaultHref = `/actualites-evenements`;
   /* Local Data */
-  // const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID?.toString();
-  const contractId = "1"; //TODO temporarily contractId
+  const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID?.toString();
+
   const defaultRowsPerPage = 9;
   const defaultPage = 1;
   const defaultQueryVariables: GetNewsAndEventsByContractIdQueryVariables = {
-    contractId: contractId,
+    contractId: `${contractId}`,
     pagination: { page: defaultPage, pageSize: defaultRowsPerPage },
   };
   const [

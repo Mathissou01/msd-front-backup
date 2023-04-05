@@ -1,0 +1,97 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.typography" as typo;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.z-index" as index;
+
+.c-ContenuLibrePage {
+  position: relative;
+  overflow: hidden;
+
+  &__Title {
+    padding: 12px 16px 40px;
+    color: colors.$expert-blue;
+    text-align: center;
+
+    @include im.media(">=tablet") {
+      padding: 12px 124px 60px;
+    }
+  }
+
+  &__Content {
+    display: grid;
+    grid-gap: 40px 0;
+    justify-content: center;
+    justify-items: center;
+    padding-bottom: 20px;
+  }
+
+  &__CardNewsAndEvents {
+    display: grid;
+    grid-gap: 24px 0;
+    grid-template-rows: auto;
+    max-width: 482px;
+    padding: 0 16px;
+
+    @include im.media(">=tablet") {
+      max-width: none;
+    }
+
+    @include im.media(">=tablet") {
+      grid-gap: 60px 24px;
+      grid-template-columns: repeat(3, 312px);
+      min-width: 312px;
+      padding: 0;
+    }
+
+    @include im.media(">=tablet") {
+      justify-content: center;
+
+      > * {
+        flex-basis: calc((100% - 48px) / 3);
+        max-width: 312px;
+      }
+    }
+  }
+
+  &__SvgContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+
+    @include im.media(">=tablet") {
+      width: unset;
+    }
+
+    svg {
+      width: 100%;
+
+      #primary-color {
+        fill: colors.$brand-primary;
+      }
+
+      #secondary-color {
+        fill: colors.$brand-secondary;
+      }
+    }
+  }
+
+  &__Svg {
+    &_mobile {
+      display: initial;
+
+      @include im.media(">=tablet") {
+        display: none;
+      }
+    }
+
+    &_desktop {
+      display: none;
+
+      @include im.media(">=tablet") {
+        display: initial;
+      }
+    }
+  }
+}
