@@ -5,8 +5,10 @@ import {
   IBlocksVideo,
   IEditoBlock,
   isEditoBlockTypename,
+  IBlocksImage,
 } from "../../lib/edito-content";
 import HorizontalRuleBlock from "./Blocks/HorizontalRuleBlock/HorizontalRuleBlock";
+import ImageBlock from "./Blocks/ImageBlock/ImageBlock";
 import SubHeadingBlock from "./Blocks/SubHeadingBlock/SubHeadingBlock";
 import VideoBlock from "./Blocks/VideoBlock/VideoBlock";
 import "./edito.scss";
@@ -56,6 +58,12 @@ export default function EditoDynamicBlock({ blocks }: IEditoDynamicBlockProps) {
           )
         ) {
           return <HorizontalRuleBlock key={block.id} />;
+        }
+        if (
+          block.__typename === "ComponentBlocksImage" &&
+          isEditoBlockTypename<IBlocksImage>(block, "ComponentBlocksImage")
+        ) {
+          return <ImageBlock key={block.id} block={block} />;
         }
       })}
     </div>

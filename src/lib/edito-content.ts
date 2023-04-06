@@ -79,6 +79,16 @@ export interface IBlocksHorizontalRule extends IPartialBlock {
 
 export interface IBlocksImage extends IPartialBlock {
   __typename: "ComponentBlocksImage";
+  picture: {
+    data: {
+      id: string;
+      attributes: {
+        alternativeText: string;
+        name: string;
+        url: string;
+      };
+    };
+  };
 }
 
 export interface IBlocksSubHeading extends IPartialBlock {
