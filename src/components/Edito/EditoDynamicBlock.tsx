@@ -31,7 +31,7 @@ export default function EditoDynamicBlock({ blocks }: IEditoDynamicBlockProps) {
         ) {
           return (
             <SubHeadingBlock
-              key={index}
+              key={`${index}_${block.id}`}
               subHeadingText={block.subHeadingText}
               subHeadingTag={block.subHeadingTag}
             />
@@ -44,9 +44,9 @@ export default function EditoDynamicBlock({ blocks }: IEditoDynamicBlockProps) {
         ) {
           return (
             <VideoBlock
+              key={`${index}_${block.id}`}
               videoLink={block.videoLink}
               transcriptText={block.transcriptText}
-              key={index}
             />
           );
         }
@@ -55,15 +55,17 @@ export default function EditoDynamicBlock({ blocks }: IEditoDynamicBlockProps) {
           isEditoBlockTypename<IBlocksHorizontalRule>(
             block,
             "ComponentBlocksHorizontalRule",
-          )
+          ) &&
+          block.hr
         ) {
-          return <HorizontalRuleBlock key={block.id} />;
+          return <HorizontalRuleBlock key={`${index}_${block.id}`} />;
         }
         if (
           block.__typename === "ComponentBlocksImage" &&
-          isEditoBlockTypename<IBlocksImage>(block, "ComponentBlocksImage")
+          isEditoBlockTypename<IBlocksImage>(block, "ComponentBlocksImage") &&
+          block.picture.data
         ) {
-          return <ImageBlock key={block.id} block={block} />;
+          return <ImageBlock key={`${index}_${block.id}`} block={block} />;
         }
       })}
     </div>

@@ -3,7 +3,7 @@
 @use "src/styles/02-tools/tools.include-media" as im;
 @use "src/styles/02-tools/tools.z-index" as index;
 
-.c-ContenuLibrePage {
+.c-FreeContentListPage {
   position: relative;
   overflow: hidden;
 
@@ -25,7 +25,7 @@
     padding-bottom: 20px;
   }
 
-  &__CardNewsAndEvents {
+  &__CardFreeContent {
     display: grid;
     grid-gap: 24px 0;
     grid-template-rows: auto;

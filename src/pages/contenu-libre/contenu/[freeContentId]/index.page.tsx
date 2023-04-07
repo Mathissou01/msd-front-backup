@@ -14,6 +14,7 @@ import EditoDynamicBlock from "../../../../components/Edito/EditoDynamicBlock";
 import CommonBreadcrumb from "../../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 import { remapEditoBlocksDynamicZone } from "../../../../lib/edito-content";
 import EditoHeading from "../../../../components/Edito/EditoHeading/EditoHeading";
+import "./contenu.scss";
 
 interface Params extends ParsedUrlQuery {
   freeContentId: string;
@@ -47,7 +48,7 @@ export default function FreeContentPage({
   return (
     <>
       <CommonBreadcrumb pages={breadcrumbPages} />
-      <section className="c-ActualitesNewPage">
+      <section className="c-FreeContentPage">
         {freeContentData?.attributes?.title && (
           <EditoHeading
             title={freeContentData.attributes.title}
@@ -57,7 +58,7 @@ export default function FreeContentPage({
         )}
         {freeContentData?.attributes?.blocks &&
           freeContentData.attributes.blocks.length > 0 && (
-            <div className="c-ActualitesNewPage__Blocks">
+            <div className="c-FreeContentPage__Blocks">
               <EditoDynamicBlock
                 blocks={remapEditoBlocksDynamicZone(
                   freeContentData.attributes.blocks,

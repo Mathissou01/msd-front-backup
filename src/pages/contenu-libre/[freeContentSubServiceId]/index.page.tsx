@@ -8,6 +8,7 @@ import CommonPagination from "../../../components/Common/CommonPagination/Common
 import client from "../../../graphql/client";
 import DesktopTopRightAngle from "public/images/desktop_page_top-right-angle.svg";
 import MobileTopRightAngle from "public/images/mobile_page_top-right-angle.svg";
+import { removeNulls } from "../../../lib/utilities";
 import {
   FreeContentSubServiceEntity,
   GetFreeContentsByFreeContentSubServiceIdQueryVariables,
@@ -17,20 +18,19 @@ import {
   GetFreeContentSubServicesPathsQuery,
   useGetFreeContentsByFreeContentSubServiceIdLazyQuery,
 } from "../../../graphql/codegen/generated-types";
-import { removeNulls } from "../../../lib/utilities";
 import "./contenu-libre.scss";
 
 interface Params extends ParsedUrlQuery {
   freeContentSubServiceId: string;
 }
 
-interface IContenuLibrePageProps {
+interface IFreeContentListPageProps {
   freeContentSubServiceData: FreeContentSubServiceEntity | null | undefined;
 }
 
-export default function ContenuLibrePage({
+export default function FreeContentListPage({
   freeContentSubServiceData,
-}: IContenuLibrePageProps) {
+}: IFreeContentListPageProps) {
   /* Static Data */
   const pagesUrl = [
     {
@@ -82,15 +82,15 @@ export default function ContenuLibrePage({
     freeContentsData?.freeContents?.data.filter(removeNulls) ?? [];
   const rowCount = freeContentsData?.freeContents?.meta.pagination.total;
   return (
-    <div className="c-ContenuLibrePage">
+    <div className="c-FreeContentListPage">
       <CommonBreadcrumb pages={pagesUrl} />
-      <div className="c-ContenuLibrePage__SvgContainer">
-        <DesktopTopRightAngle className="c-ContenuLibrePage__Svg_desktop" />
-        <MobileTopRightAngle className="c-ContenuLibrePage__Svg_mobile" />
+      <div className="c-FreeContentListPage__SvgContainer">
+        <DesktopTopRightAngle className="c-FreeContentListPage__Svg_desktop" />
+        <MobileTopRightAngle className="c-FreeContentListPage__Svg_mobile" />
       </div>
-      <h1 className="c-ContenuLibrePage__Title">{titleContent}</h1>
-      <div className="c-ContenuLibrePage__Content">
-        <div className="c-ContenuLibrePage__CardNewsAndEvents">
+      <h1 className="c-FreeContentListPage__Title">{titleContent}</h1>
+      <div className="c-FreeContentListPage__Content">
+        <div className="c-FreeContentListPage__CardFreeContent">
           <CommonLoader isLoading={loading} errors={[error]}>
             {freeContents &&
               freeContents.map((freeContent) => {
@@ -134,7 +134,7 @@ export default function ContenuLibrePage({
 }
 
 export const getStaticProps: GetServerSideProps<
-  IContenuLibrePageProps,
+  IFreeContentListPageProps,
   Params
 > = async ({ params }) => {
   const freeContentSubServiceId = params?.freeContentSubServiceId;
