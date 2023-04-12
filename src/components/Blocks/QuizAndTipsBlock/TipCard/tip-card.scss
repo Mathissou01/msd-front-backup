@@ -35,6 +35,13 @@
     background-color: colors.$brand-primary-dark;
   }
 
+  &__Tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+
   &__Tag {
     @include typo.text("tag");
 
@@ -46,6 +53,11 @@
     font-weight: 500;
     border: 1px solid colors.$blue-1;
     border-radius: 4px;
+
+    &_background {
+      background-color: rgb(0 0 0 / 10%);
+      border: hidden;
+    }
   }
 
   &__Content {

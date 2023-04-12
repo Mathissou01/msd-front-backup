@@ -38,11 +38,9 @@ export default function ServicesBlock({ remappedData }: IServicesBlockProps) {
                 >
                   <ServiceCard
                     href={
-                      link.externalLink
-                        ? link.externalLink
-                        : link.generatedSlug ?? "/"
+                      link.externalLink ? link.externalLink : link.generatedSlug
                     }
-                    name={link.name ?? ""}
+                    name={link.name}
                     pictoUrl={link.picto?.data?.attributes?.url ?? defaultPicto}
                   />
                 </div>

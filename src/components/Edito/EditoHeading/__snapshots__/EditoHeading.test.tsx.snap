@@ -15,7 +15,6 @@ exports[`EditoHeading renders 1`] = `
           alt=""
           data-nimg="fill"
           decoding="async"
-          loading="lazy"
           sizes="100vw"
           src="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=3840&q=75"
           srcset="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=640&q=75 640w, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=750&q=75 750w, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=828&q=75 828w, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=1080&q=75 1080w, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=1200&q=75 1200w, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=1920&q=75 1920w, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=2048&q=75 2048w, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=3840&q=75 3840w"
@@ -37,12 +36,12 @@ exports[`EditoHeading renders 1`] = `
             class="c-EditoHeading__Tags"
           >
             <span
-              class="c-EditoHeading__Tag"
+              class="c-EditoHeading__Tag c-EditoHeading__Tag_background"
             >
               Prise de RDV
             </span>
             <span
-              class="c-EditoHeading__Tag c-EditoHeading__Tag_darker"
+              class="c-EditoHeading__Tag c-EditoHeading__Tag_background"
             >
               Evénement
             </span>

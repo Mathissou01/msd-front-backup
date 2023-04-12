@@ -1,5 +1,7 @@
 @use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.focus" as focus;
 @use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.wysiwyg" as wysiwyg;
 
 .c-VideoBlock {
   display: flex;
@@ -43,13 +45,17 @@
   }
 
   &__Button {
+    @include focus.focus-ring;
+
     display: flex;
     gap: 8px;
     align-items: center;
     justify-content: center;
     padding: 12px;
     color: colors.$blue-1;
+    font-weight: 500;
     font-size: 14px;
+    font-family: DINPro-Medium, sans-serif;
     line-height: 21px;
   }
 
@@ -75,8 +81,11 @@
   }
 
   &__Text {
+    @include wysiwyg.transcript-parse;
+
     font-size: 16px;
     line-height: 24px;
+
     @include im.media(">=tablet") {
       font-size: 14px;
       line-height: 21px;

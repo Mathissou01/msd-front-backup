@@ -24,7 +24,6 @@ export default function ActualitesEvenementsPage() {
     },
   ];
   const titleContent = "Actualités et événements";
-  const defaultHref = `/actualites-evenements`;
   /* Local Data */
   const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID?.toString();
 
@@ -84,11 +83,11 @@ export default function ActualitesEvenementsPage() {
                     <CommonCardBlock
                       key={news.id}
                       title={news.attributes.title}
-                      tagLabels={news.attributes.tags?.data}
+                      tags={news.attributes.tags?.data}
                       image={news.attributes.image?.data?.attributes}
                       date={news.attributes.publishedDate}
                       shortDescription={news.attributes.shortDescription}
-                      href={`${defaultHref}/${news.id}`}
+                      href={`/actualites/${news.id}`}
                     />
                   );
                 }

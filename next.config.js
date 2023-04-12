@@ -19,10 +19,9 @@ const {
   wasteOther, // eslint-disable-next-line @typescript-eslint/no-var-requires
 } = require("./config/color-config");
 
-function writeGlobalData(contractMenu, footer) {
+function writeGlobalData(contract) {
   const globalData = {
-    contractMenu,
-    footer,
+    contract,
     colors: {
       "external-contrast-text": contrastText,
       "external-primary": primaryColor,
@@ -50,7 +49,7 @@ module.exports = async (phase) => {
   if (process.env.NEXT_PUBLIC_MOCK === "true" || phase === "phase-test") {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const globalMockData = require("./__mocks__/globalMock.json");
-    writeGlobalData(globalMockData.contractMenu, globalMockData.footer);
+    writeGlobalData(globalMockData.contract);
   } else {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const GetGlobalDataQuery = require("./config/getGlobalData");
@@ -68,11 +67,7 @@ module.exports = async (phase) => {
     })
       .then((res) => res.json())
       .then((result) => {
-        writeGlobalData(
-          result.data.contract.data.attributes.contractMenu,
-          result.data.contract.data.attributes.contractCustomization.data
-            .attributes.footer,
-        );
+        writeGlobalData(result.data.contract.data);
       });
   }
 

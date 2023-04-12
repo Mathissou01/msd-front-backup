@@ -1,69 +1,143 @@
 {
-  "contractMenu": {
-    "data": {
-      "attributes": {
-        "serviceLinks": [
-          {
-            "__typename": "ComponentLinksRecycling",
-            "name": "Guide du tri",
-            "isDisplayed": true,
-            "picto": {
-              "data": null
+  "contract": {
+    "id": "1",
+    "attributes": {
+      "clientName": "Grand Test",
+      "clientType": "city",
+      "contractStatus": "Initialisation",
+      "isNonExclusive": false,
+      "isRVFrance": true,
+      "contractCustomization": {
+        "data": {
+          "id": "2",
+          "attributes": {
+            "footer": {
+              "data": {
+                "attributes": {
+                  "accessibilityLevel": null,
+                  "cguSubService": {
+                    "data": {
+                      "id": "1",
+                      "attributes": {
+                        "name": "CGU",
+                        "link": null
+                      }
+                    }
+                  },
+                  "accessibilitySubService": {
+                    "data": {
+                      "id": "1",
+                      "attributes": {
+                        "name": "Accessibilité",
+                        "link": null
+                      }
+                    }
+                  },
+                  "confidentialitySubService": {
+                    "data": {
+                      "id": "1",
+                      "attributes": {
+                        "name": "Confidentialité",
+                        "link": null
+                      }
+                    }
+                  },
+                  "cookiesSubService": {
+                    "data": {
+                      "id": "1",
+                      "attributes": {
+                        "name": "Cookies",
+                        "link": null
+                      }
+                    }
+                  },
+                  "contactUsSubService": {
+                    "data": {
+                      "id": "1",
+                      "attributes": {
+                        "name": "Contactez-nous",
+                        "label": "Contactez-nous",
+                        "link": null,
+                        "isActivated": false
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
-        ]
-      }
-    }
-  },
-  "footer": {
-    "data": {
-      "attributes": {
-        "accessibilityLevel": "not_conform",
-        "cguSubService": {
-          "data": {
-            "id": "1",
-            "attributes": {
-              "name": "CGU",
-              "link": null
-            }
-          }
-        },
-        "accessibilitySubService": {
-          "data": {
-            "id": "1",
-            "attributes": {
-              "name": "Accessibilité",
-              "link": null
-            }
-          }
-        },
-        "confidentialitySubService": {
-          "data": {
-            "id": "1",
-            "attributes": {
-              "name": "Confidentialité",
-              "link": null
-            }
-          }
-        },
-        "cookiesSubService": {
-          "data": {
-            "id": "1",
-            "attributes": {
-              "name": "Cookies",
-              "link": null
-            }
-          }
-        },
-        "contactUsSubService": {
-          "data": {
-            "id": "1",
-            "attributes": {
-              "name": "Contactez-nous",
-              "label": "Contactez-nous",
-              "link": null,
-              "isActivated": true
-            }
+        }
+      },
+      "contractMenu": {
+        "data": {
+          "attributes": {
+            "serviceLinks": [
+              {
+                "__typename": "ComponentLinksRecyclingGuide",
+                "id": "3",
+                "name": "Guide du tri",
+                "isDisplayed": true,
+                "picto": {
+                  "data": null
+                }
+              },
+              {
+                "__typename": "ComponentLinksNews",
+                "id": "2",
+                "name": "Actualités",
+                "isDisplayed": true,
+                "picto": {
+                  "data": null
+                }
+              },
+              {
+                "__typename": "ComponentLinksEvents",
+                "id": "2",
+                "name": "Évenements",
+                "isDisplayed": true,
+                "picto": {
+                  "data": null
+                }
+              },
+              {
+                "__typename": "ComponentLinksFrees",
+                "id": "3",
+                "name": "Editorial 1",
+                "isDisplayed": true,
+                "freeContents": {
+                  "data": [
+                    {
+                      "id": "1",
+                      "attributes": {
+                        "name": "Editorial 1"
+                      }
+                    }
+                  ]
+                },
+                "picto": {
+                  "data": null
+                }
+              },
+              {
+                "__typename": "ComponentLinksFrees",
+                "id": "4",
+                "name": "Editorial 2",
+                "isDisplayed": true,
+                "freeContents": {
+                  "data": [
+                    {
+                      "id": "2",
+                      "attributes": {
+                        "name": "Editorial 2"
+                      }
+                    }
+                  ]
+                },
+                "picto": {
+                  "data": null
+                }
+              }
+            ]
           }
         }
       }

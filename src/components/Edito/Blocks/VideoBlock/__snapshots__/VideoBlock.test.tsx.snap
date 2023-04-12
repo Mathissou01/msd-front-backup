@@ -5,7 +5,7 @@ exports[`Video Block renders 1`] = `
   <span
     class="c-VideoBlock__BadUrl"
   >
-    Url de la video est invalide 😫
+    L'URL de la vidéo est invalide
   </span>
 </div>
 `;

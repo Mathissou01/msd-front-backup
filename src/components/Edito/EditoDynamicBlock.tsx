@@ -3,71 +3,75 @@ import {
   IBlocksHorizontalRule,
   IBlocksSubHeading,
   IBlocksVideo,
+  IBlocksImage,
   IEditoBlock,
   isEditoBlockTypename,
-  IBlocksImage,
+  TDynamicFieldOption,
+  IBlocksWysiwyg,
 } from "../../lib/edito-content";
 import HorizontalRuleBlock from "./Blocks/HorizontalRuleBlock/HorizontalRuleBlock";
 import ImageBlock from "./Blocks/ImageBlock/ImageBlock";
 import SubHeadingBlock from "./Blocks/SubHeadingBlock/SubHeadingBlock";
 import VideoBlock from "./Blocks/VideoBlock/VideoBlock";
+import WysiwygBlock from "./Blocks/WysiwygBlock/WysiwygBlock";
 import "./edito.scss";
 
 interface IEditoDynamicBlockProps {
-  blocks?: Array<IEditoBlock>;
+  type: TDynamicFieldOption;
+  data: IEditoBlock;
 }
 
-export default function EditoDynamicBlock({ blocks }: IEditoDynamicBlockProps) {
+export default function EditoDynamicBlock({
+  type,
+  data,
+}: IEditoDynamicBlockProps) {
+  function getBlockComponent(type: TDynamicFieldOption, data: IEditoBlock) {
+    if (
+      type === "ComponentBlocksSubHeading" &&
+      isEditoBlockTypename<IBlocksSubHeading>(data, type) &&
+      data.subHeadingTag &&
+      data.subHeadingText
+    ) {
+      return (
+        <SubHeadingBlock
+          subHeadingText={data.subHeadingText}
+          subHeadingTag={data.subHeadingTag}
+        />
+      );
+    } else if (
+      type === "ComponentBlocksHorizontalRule" &&
+      isEditoBlockTypename<IBlocksHorizontalRule>(data, type)
+    ) {
+      return <HorizontalRuleBlock />;
+    } else if (
+      type === "ComponentBlocksVideo" &&
+      isEditoBlockTypename<IBlocksVideo>(data, type) &&
+      data.videoLink
+    ) {
+      return (
+        <VideoBlock
+          videoLink={data.videoLink}
+          transcriptText={data.transcriptText}
+        />
+      );
+    } else if (
+      type === "ComponentBlocksImage" &&
+      isEditoBlockTypename<IBlocksImage>(data, type) &&
+      data.picture.data
+    ) {
+      return <ImageBlock image={data.picture.data} />;
+    } else if (
+      type === "ComponentBlocksWysiwyg" &&
+      isEditoBlockTypename<IBlocksWysiwyg>(data, type) &&
+      data.textEditor
+    ) {
+      return <WysiwygBlock textEditor={data.textEditor} />;
+    } else {
+      return null;
+    }
+  }
+
   return (
-    <div className="c-EditoDynamicBlock">
-      {blocks?.map((block, index) => {
-        if (
-          block.__typename === "ComponentBlocksSubHeading" &&
-          isEditoBlockTypename<IBlocksSubHeading>(
-            block,
-            "ComponentBlocksSubHeading",
-          ) &&
-          block.subHeadingText
-        ) {
-          return (
-            <SubHeadingBlock
-              key={`${index}_${block.id}`}
-              subHeadingText={block.subHeadingText}
-              subHeadingTag={block.subHeadingTag}
-            />
-          );
-        }
-        if (
-          block.__typename === "ComponentBlocksVideo" &&
-          isEditoBlockTypename<IBlocksVideo>(block, "ComponentBlocksVideo") &&
-          block.videoLink
-        ) {
-          return (
-            <VideoBlock
-              key={`${index}_${block.id}`}
-              videoLink={block.videoLink}
-              transcriptText={block.transcriptText}
-            />
-          );
-        }
-        if (
-          block.__typename === "ComponentBlocksHorizontalRule" &&
-          isEditoBlockTypename<IBlocksHorizontalRule>(
-            block,
-            "ComponentBlocksHorizontalRule",
-          ) &&
-          block.hr
-        ) {
-          return <HorizontalRuleBlock key={`${index}_${block.id}`} />;
-        }
-        if (
-          block.__typename === "ComponentBlocksImage" &&
-          isEditoBlockTypename<IBlocksImage>(block, "ComponentBlocksImage") &&
-          block.picture.data
-        ) {
-          return <ImageBlock key={`${index}_${block.id}`} block={block} />;
-        }
-      })}
-    </div>
+    <div className="c-EditoDynamicBlock">{getBlockComponent(type, data)}</div>
   );
 }

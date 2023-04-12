@@ -103,7 +103,7 @@ export default function FreeContentListPage({
                     <CommonCardBlock
                       key={freeContent.id}
                       title={freeContent.attributes.title}
-                      tagLabels={freeContent.attributes.tags?.data}
+                      tags={freeContent.attributes.tags?.data}
                       image={freeContent.attributes.image?.data?.attributes}
                       date={freeContent.attributes.publishedDate}
                       shortDescription={freeContent.attributes.shortDescription}

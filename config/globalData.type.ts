@@ -4,6 +4,7 @@ import {
 } from "../src/graphql/codegen/generated-types";
 
 export type GlobalDataType = {
+  contractId: string;
   contractMenu: ContractMenuEntityResponse;
   footer: FooterEntityResponse;
   colors: {

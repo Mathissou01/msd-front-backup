@@ -10,6 +10,7 @@ import {
   TopContentBlockEntity,
 } from "../graphql/codegen/generated-types";
 import { IServiceLink, remapServiceLinksDynamicZone } from "./service-links";
+import { removeNulls } from "./utilities";
 
 /* Homepage */
 export function extractRecyclingGuideBlock(data: GetRecyclingGuideBlockQuery) {
@@ -25,7 +26,7 @@ export function extractServicesBlock(data: GetServicesBlockQuery) {
     data.contractCustomizations?.data[0]?.attributes?.homepage?.data?.attributes
       ?.servicesBlock?.data ?? null;
   const serviceLinks: Array<IServiceLink> | null = remapServiceLinksDynamicZone(
-    serviceBlock?.attributes?.serviceLinks ?? null,
+    serviceBlock?.attributes?.serviceLinks?.filter(removeNulls) ?? [],
   );
 
   return {
@@ -43,14 +44,14 @@ export function extractQuizAndTipsBlock(data: GetQuizAndTipsBlockQuery) {
 
 export function extractTopContentBlock(data: GetTopContentBlockQuery) {
   const topContentBlock: TopContentBlockEntity | null =
-    data.contractCustomizations?.data[0].attributes?.homepage?.data?.attributes
+    data.contractCustomizations?.data[0]?.attributes?.homepage?.data?.attributes
       ?.topContentBlock?.data ?? null;
   return topContentBlock;
 }
 
 export function extractEditoBlock(data: GetEditoBlockQuery) {
   const editoBlock: EditoBlockEntity | null =
-    data?.contractCustomizations?.data[0].attributes?.homepage?.data?.attributes
-      ?.editoBlock?.data ?? null;
+    data?.contractCustomizations?.data[0]?.attributes?.homepage?.data
+      ?.attributes?.editoBlock?.data ?? null;
   return editoBlock;
 }

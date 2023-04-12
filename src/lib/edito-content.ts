@@ -4,6 +4,7 @@ import {
   NewEntity,
   QuizEntity,
   TipEntity,
+  UploadFileEntityResponse,
 } from "../graphql/codegen/generated-types";
 import { removeNulls } from "./utilities";
 
@@ -17,6 +18,18 @@ export const editoFields: Array<TEditoFields> = [
   "tip",
 ];
 
+export enum EEditoTypeRoutes {
+  "news" = "actualites",
+  "event" = "evenements",
+  "freeContent" = "contenu-libre",
+  "quiz" = "quiz",
+  "tip" = "astuces",
+}
+
+/* Heading Tags */
+export type THeadingTags = "h2" | "h3" | "h4" | "h5" | "h6";
+
+/* Edito Types */
 export type TEditoTypenames =
   | "EventEntity"
   | "FreeContentEntity"
@@ -38,7 +51,7 @@ export function isEditoType<T extends TEditoTypes>(
   return (content as T).__typename === typename;
 }
 
-/* Blocks */
+/* Edito Blocks */
 export type TBlocksDynamicZone =
   | "ComponentBlocksFile"
   | "ComponentBlocksHorizontalRule"
@@ -79,21 +92,12 @@ export interface IBlocksHorizontalRule extends IPartialBlock {
 
 export interface IBlocksImage extends IPartialBlock {
   __typename: "ComponentBlocksImage";
-  picture: {
-    data: {
-      id: string;
-      attributes: {
-        alternativeText: string;
-        name: string;
-        url: string;
-      };
-    };
-  };
+  picture: UploadFileEntityResponse;
 }
 
 export interface IBlocksSubHeading extends IPartialBlock {
   __typename: "ComponentBlocksSubHeading";
-  subHeadingTag?: string;
+  subHeadingTag?: THeadingTags;
   subHeadingText?: string;
 }
 
@@ -105,6 +109,7 @@ export interface IBlocksVideo extends IPartialBlock {
 
 export interface IBlocksWysiwyg extends IPartialBlock {
   __typename: "ComponentBlocksWysiwyg";
+  textEditor?: string;
 }
 
 /* Methods */

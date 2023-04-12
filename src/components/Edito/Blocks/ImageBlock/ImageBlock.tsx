@@ -1,24 +1,25 @@
 import Image from "next/image";
+import { UploadFileEntity } from "../../../../graphql/codegen/generated-types";
 import { makePublicAssetPath } from "../../../../lib/utilities";
-import { IBlocksImage } from "../../../../lib/edito-content";
 import "./image-block.scss";
 
 interface IImageBlockProps {
-  block: IBlocksImage;
+  image: UploadFileEntity;
 }
-export default function ImageBlock({ block }: IImageBlockProps) {
-  /* Static Data */
-  const imageData = block?.picture?.data;
+
+export default function ImageBlock({ image }: IImageBlockProps) {
   return (
-    imageData && (
-      <div className="c-ImageBlock">
-        <Image
-          src={makePublicAssetPath(imageData.attributes.url)}
-          alt={imageData.attributes.alternativeText}
-          width={580}
-          height={328}
-        />
-      </div>
-    )
+    <>
+      {image.attributes?.url && (
+        <div className="c-ImageBlock">
+          <Image
+            src={makePublicAssetPath(image.attributes?.url)}
+            alt={image.attributes.alternativeText ?? ""}
+            width={580}
+            height={328}
+          />
+        </div>
+      )}
+    </>
   );
 }

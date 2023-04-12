@@ -69,6 +69,134 @@ exports[`NavigationList renders in desktop mode 1`] = `
         </span>
       </a>
     </li>
+    <li
+      class="c-NavigationList__Item "
+    >
+      <a
+        class="c-NavigationListButton c-NavigationListButton_desktop"
+        href="/actualites"
+      >
+        <div
+          class="c-NavigationListButton__Circle"
+        >
+          <div
+            class="c-NavigationListButton__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="/images/pictos/default.svg"
+              style="color: transparent;"
+              width="24"
+            />
+          </div>
+        </div>
+        <span
+          class="c-NavigationListButton__Label"
+        >
+          Actualités
+        </span>
+      </a>
+    </li>
+    <li
+      class="c-NavigationList__Item "
+    >
+      <a
+        class="c-NavigationListButton c-NavigationListButton_desktop"
+        href="/evenements"
+      >
+        <div
+          class="c-NavigationListButton__Circle"
+        >
+          <div
+            class="c-NavigationListButton__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="/images/pictos/default.svg"
+              style="color: transparent;"
+              width="24"
+            />
+          </div>
+        </div>
+        <span
+          class="c-NavigationListButton__Label"
+        >
+          Évenements
+        </span>
+      </a>
+    </li>
+    <li
+      class="c-NavigationList__Item "
+    >
+      <a
+        class="c-NavigationListButton c-NavigationListButton_desktop"
+        href="/contenu-libre/1"
+      >
+        <div
+          class="c-NavigationListButton__Circle"
+        >
+          <div
+            class="c-NavigationListButton__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="/images/pictos/default.svg"
+              style="color: transparent;"
+              width="24"
+            />
+          </div>
+        </div>
+        <span
+          class="c-NavigationListButton__Label"
+        >
+          Editorial 1
+        </span>
+      </a>
+    </li>
+    <li
+      class="c-NavigationList__Item "
+    >
+      <a
+        class="c-NavigationListButton c-NavigationListButton_desktop"
+        href="/contenu-libre/2"
+      >
+        <div
+          class="c-NavigationListButton__Circle"
+        >
+          <div
+            class="c-NavigationListButton__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="/images/pictos/default.svg"
+              style="color: transparent;"
+              width="24"
+            />
+          </div>
+        </div>
+        <span
+          class="c-NavigationListButton__Label"
+        >
+          Editorial 2
+        </span>
+      </a>
+    </li>
   </ul>
 </div>
 `;
@@ -139,6 +267,134 @@ exports[`NavigationList renders in mobile mode 1`] = `
           class="c-NavigationListButton__Label"
         >
           Guide du tri
+        </span>
+      </a>
+    </li>
+    <li
+      class="c-NavigationList__Item "
+    >
+      <a
+        class="c-NavigationListButton c-NavigationListButton_mobile"
+        href="/actualites"
+      >
+        <div
+          class="c-NavigationListButton__Circle"
+        >
+          <div
+            class="c-NavigationListButton__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="/images/pictos/default.svg"
+              style="color: transparent;"
+              width="24"
+            />
+          </div>
+        </div>
+        <span
+          class="c-NavigationListButton__Label"
+        >
+          Actualités
+        </span>
+      </a>
+    </li>
+    <li
+      class="c-NavigationList__Item "
+    >
+      <a
+        class="c-NavigationListButton c-NavigationListButton_mobile"
+        href="/evenements"
+      >
+        <div
+          class="c-NavigationListButton__Circle"
+        >
+          <div
+            class="c-NavigationListButton__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="/images/pictos/default.svg"
+              style="color: transparent;"
+              width="24"
+            />
+          </div>
+        </div>
+        <span
+          class="c-NavigationListButton__Label"
+        >
+          Évenements
+        </span>
+      </a>
+    </li>
+    <li
+      class="c-NavigationList__Item "
+    >
+      <a
+        class="c-NavigationListButton c-NavigationListButton_mobile"
+        href="/contenu-libre/1"
+      >
+        <div
+          class="c-NavigationListButton__Circle"
+        >
+          <div
+            class="c-NavigationListButton__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="/images/pictos/default.svg"
+              style="color: transparent;"
+              width="24"
+            />
+          </div>
+        </div>
+        <span
+          class="c-NavigationListButton__Label"
+        >
+          Editorial 1
+        </span>
+      </a>
+    </li>
+    <li
+      class="c-NavigationList__Item "
+    >
+      <a
+        class="c-NavigationListButton c-NavigationListButton_mobile"
+        href="/contenu-libre/2"
+      >
+        <div
+          class="c-NavigationListButton__Circle"
+        >
+          <div
+            class="c-NavigationListButton__Picto"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="/images/pictos/default.svg"
+              style="color: transparent;"
+              width="24"
+            />
+          </div>
+        </div>
+        <span
+          class="c-NavigationListButton__Label"
+        >
+          Editorial 2
         </span>
       </a>
     </li>

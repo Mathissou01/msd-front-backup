@@ -8293,6 +8293,7 @@ export type GetEditoBlockQuery = {
                             __typename?: "EventEntityResponse";
                             data?: {
                               __typename?: "EventEntity";
+                              id?: string | null;
                               attributes?: {
                                 __typename?: "Event";
                                 title: string;
@@ -8331,6 +8332,7 @@ export type GetEditoBlockQuery = {
                             __typename?: "FreeContentEntityResponse";
                             data?: {
                               __typename?: "FreeContentEntity";
+                              id?: string | null;
                               attributes?: {
                                 __typename?: "FreeContent";
                                 title: string;
@@ -8369,6 +8371,7 @@ export type GetEditoBlockQuery = {
                             __typename?: "NewEntityResponse";
                             data?: {
                               __typename?: "NewEntity";
+                              id?: string | null;
                               attributes?: {
                                 __typename?: "New";
                                 title: string;
@@ -8407,6 +8410,7 @@ export type GetEditoBlockQuery = {
                             __typename?: "QuizEntityResponse";
                             data?: {
                               __typename?: "QuizEntity";
+                              id?: string | null;
                               attributes?: {
                                 __typename?: "Quiz";
                                 title?: string | null;
@@ -8429,6 +8433,7 @@ export type GetEditoBlockQuery = {
                             __typename?: "TipEntityResponse";
                             data?: {
                               __typename?: "TipEntity";
+                              id?: string | null;
                               attributes?: {
                                 __typename?: "Tip";
                                 title: string;
@@ -8570,6 +8575,7 @@ export type GetNewestTopContentsQuery = {
   __typename?: "Query";
   getNewestTopContents?: Array<{
     __typename?: "EventOrNews";
+    type: EventsOrNewsType;
     originalId: string;
     title: string;
     shortDescription?: string | null;
@@ -8640,6 +8646,16 @@ export type GetQuizAndTipsBlockQuery = {
                           shortDescription?: string | null;
                           link?: string | null;
                           publishedDate?: any | null;
+                          tags?: {
+                            __typename?: "TagRelationResponseCollection";
+                            data: Array<{
+                              __typename?: "TagEntity";
+                              attributes?: {
+                                __typename?: "Tag";
+                                name: string;
+                              } | null;
+                            }>;
+                          } | null;
                           image: {
                             __typename?: "UploadFileEntityResponse";
                             data?: {
@@ -10226,6 +10242,7 @@ export const GetEditoBlockDocument = gql`
                           attributes {
                             event {
                               data {
+                                id
                                 attributes {
                                   title
                                   shortDescription
@@ -10255,6 +10272,7 @@ export const GetEditoBlockDocument = gql`
                             }
                             freeContent {
                               data {
+                                id
                                 attributes {
                                   title
                                   shortDescription
@@ -10284,6 +10302,7 @@ export const GetEditoBlockDocument = gql`
                             }
                             news {
                               data {
+                                id
                                 attributes {
                                   title
                                   shortDescription
@@ -10313,6 +10332,7 @@ export const GetEditoBlockDocument = gql`
                             }
                             quiz {
                               data {
+                                id
                                 attributes {
                                   title
                                   shortDescription
@@ -10329,6 +10349,7 @@ export const GetEditoBlockDocument = gql`
                             }
                             tip {
                               data {
+                                id
                                 attributes {
                                   title
                                   shortDescription
@@ -10531,6 +10552,7 @@ export type GetFooterQueryResult = Apollo.QueryResult<
 export const GetNewestTopContentsDocument = gql`
   query getNewestTopContents($contractId: ID!) {
     getNewestTopContents(contractId: $contractId) {
+      type
       originalId
       title
       shortDescription
@@ -10634,6 +10656,13 @@ export const GetQuizAndTipsBlockDocument = gql`
                             shortDescription
                             link
                             publishedDate
+                            tags {
+                              data {
+                                attributes {
+                                  name
+                                }
+                              }
+                            }
                             image {
                               data {
                                 attributes {

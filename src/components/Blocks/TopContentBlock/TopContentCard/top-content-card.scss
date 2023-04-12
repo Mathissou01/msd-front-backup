@@ -63,6 +63,7 @@
 
   &__CardContainer {
     z-index: z("site-content");
+    width: 100%;
     overflow: hidden;
     background-color: colors.$white;
     border-radius: 8px;
@@ -111,6 +112,7 @@
 
   &__Tags {
     display: flex;
+    flex-wrap: wrap;
     gap: 6px;
     padding: 0;
   }

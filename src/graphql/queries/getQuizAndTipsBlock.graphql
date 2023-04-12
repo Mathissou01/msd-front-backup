@@ -30,6 +30,13 @@ query getQuizAndTipsBlock($contractId: ID!) {
                           shortDescription
                           link
                           publishedDate
+                          tags {
+                            data {
+                              attributes {
+                                name
+                              }
+                            }
+                          }
                           image {
                             data {
                               attributes {

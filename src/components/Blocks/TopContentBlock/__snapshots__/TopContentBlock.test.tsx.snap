@@ -52,7 +52,7 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
     >
       <a
         class="c-TopContentCard"
-        href="/actualites-evenements/undefined"
+        href="/actualites/15"
       >
         <div
           class="c-TopContentCard__Banner"
@@ -70,7 +70,7 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
                 class="c-TopContentCard__Tags"
               >
                 <span
-                  class="c-TopContentCard__Tag"
+                  class="c-TopContentCard__Tag c-TopContentCard__Tag_hasBackground"
                 >
                   Evénement
                 </span>
@@ -116,7 +116,7 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
       >
         <a
           class="c-CommonCardBlock__Container"
-          href="/actualites-evenements/1"
+          href="/actualites/1"
         >
           <div
             class="c-CommonCardBlock"
@@ -130,8 +130,8 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
                 decoding="async"
                 height="309"
                 loading="lazy"
-                src="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=1080&q=75"
-                srcset="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=640&q=75 1x, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=1080&q=75 2x"
+                src="/_next/image?url=https%3A%2F%2Fstomsdmediadev.blob.core.windows.net%2Fmsd-media-dev%2Fassets-local-modeste%2FCut%2520Down%2520Living%2520Tree.png&w=1080&q=75"
+                srcset="/_next/image?url=https%3A%2F%2Fstomsdmediadev.blob.core.windows.net%2Fmsd-media-dev%2Fassets-local-modeste%2FCut%2520Down%2520Living%2520Tree.png&w=640&q=75 1x, /_next/image?url=https%3A%2F%2Fstomsdmediadev.blob.core.windows.net%2Fmsd-media-dev%2Fassets-local-modeste%2FCut%2520Down%2520Living%2520Tree.png&w=1080&q=75 2x"
                 style="color: transparent;"
                 width="482"
               />
@@ -144,7 +144,13 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
               >
                 <div
                   class="c-CommonCardBlock__Tags"
-                />
+                >
+                  <span
+                    class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+                  >
+                    Biodéchets
+                  </span>
+                </div>
                 <div
                   class="c-CommonCardBlock__Date"
                 >
@@ -163,6 +169,152 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
                   class="c-CommonCardBlock__Description"
                 >
                   Vestibulum cursus eros ut ligula lobortis auctor. Quisque luctus sagittis tellus
+                </p>
+              </div>
+              <div
+                class="c-CommonCardBlock__Link"
+              >
+                <span>
+                  En savoir plus
+                </span>
+                <div />
+              </div>
+            </div>
+          </div>
+        </a>
+        <a
+          class="c-CommonCardBlock__Container"
+          href="/actualites/2"
+        >
+          <div
+            class="c-CommonCardBlock"
+          >
+            <div
+              class="c-CommonCardBlock__Image"
+            >
+              <img
+                alt=""
+                data-nimg="1"
+                decoding="async"
+                height="309"
+                loading="lazy"
+                src="/_next/image?url=https%3A%2F%2Fstomsdmediadev.blob.core.windows.net%2Fmsd-media-dev%2Fassets-local-modeste%2FCut%2520Down%2520Living%2520Tree.png&w=1080&q=75"
+                srcset="/_next/image?url=https%3A%2F%2Fstomsdmediadev.blob.core.windows.net%2Fmsd-media-dev%2Fassets-local-modeste%2FCut%2520Down%2520Living%2520Tree.png&w=640&q=75 1x, /_next/image?url=https%3A%2F%2Fstomsdmediadev.blob.core.windows.net%2Fmsd-media-dev%2Fassets-local-modeste%2FCut%2520Down%2520Living%2520Tree.png&w=1080&q=75 2x"
+                style="color: transparent;"
+                width="482"
+              />
+            </div>
+            <div
+              class="c-CommonCardBlock__Content"
+            >
+              <div
+                class="c-CommonCardBlock__ContentHeader"
+              >
+                <div
+                  class="c-CommonCardBlock__Tags"
+                >
+                  <span
+                    class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+                  >
+                    Biodéchets
+                  </span>
+                  <span
+                    class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+                  >
+                    Compostage
+                  </span>
+                </div>
+                <div
+                  class="c-CommonCardBlock__Date"
+                >
+                  5 décembre 2022
+                </div>
+              </div>
+              <div
+                class="c-CommonCardBlock__ContentBody"
+              >
+                <h3
+                  class="c-CommonCardBlock__Title"
+                >
+                  Café préparation
+                </h3>
+                <p
+                  class="c-CommonCardBlock__Description"
+                >
+                  Participer à un café réparation avec La Recyclade au café restaurant de la Maison Phare. Vous apprendrez à faire un diagnostic et à réparer votre petit appareil électrique ou électronique de la vie quotidienne
+                </p>
+              </div>
+              <div
+                class="c-CommonCardBlock__Link"
+              >
+                <span>
+                  En savoir plus
+                </span>
+                <div />
+              </div>
+            </div>
+          </div>
+        </a>
+        <a
+          class="c-CommonCardBlock__Container"
+          href="/evenements/3"
+        >
+          <div
+            class="c-CommonCardBlock"
+          >
+            <div
+              class="c-CommonCardBlock__Image"
+            >
+              <img
+                alt=""
+                data-nimg="1"
+                decoding="async"
+                height="309"
+                loading="lazy"
+                src="/_next/image?url=https%3A%2F%2Fstomsdmediadev.blob.core.windows.net%2Fmsd-media-dev%2Fassets-local-modeste%2FCut%2520Down%2520Living%2520Tree.png&w=1080&q=75"
+                srcset="/_next/image?url=https%3A%2F%2Fstomsdmediadev.blob.core.windows.net%2Fmsd-media-dev%2Fassets-local-modeste%2FCut%2520Down%2520Living%2520Tree.png&w=640&q=75 1x, /_next/image?url=https%3A%2F%2Fstomsdmediadev.blob.core.windows.net%2Fmsd-media-dev%2Fassets-local-modeste%2FCut%2520Down%2520Living%2520Tree.png&w=1080&q=75 2x"
+                style="color: transparent;"
+                width="482"
+              />
+            </div>
+            <div
+              class="c-CommonCardBlock__Content"
+            >
+              <div
+                class="c-CommonCardBlock__ContentHeader"
+              >
+                <div
+                  class="c-CommonCardBlock__Tags"
+                >
+                  <span
+                    class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+                  >
+                    Biodéchets
+                  </span>
+                  <span
+                    class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+                  >
+                    Compostage
+                  </span>
+                </div>
+                <div
+                  class="c-CommonCardBlock__Date"
+                >
+                  5 décembre 2022
+                </div>
+              </div>
+              <div
+                class="c-CommonCardBlock__ContentBody"
+              >
+                <h3
+                  class="c-CommonCardBlock__Title"
+                >
+                  Café préparation
+                </h3>
+                <p
+                  class="c-CommonCardBlock__Description"
+                >
+                  Participer à un café réparation avec La Recyclade au café restaurant de la Maison Phare. Vous apprendrez à faire un diagnostic et à réparer votre petit appareil électrique ou électronique de la vie quotidienne
                 </p>
               </div>
               <div

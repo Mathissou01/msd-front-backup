@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import {
-  Tag,
   TagEntity,
   UploadFile,
 } from "../../../graphql/codegen/generated-types";
@@ -15,29 +14,26 @@ import {
 import "./common-card-block.scss";
 
 interface ICommonCardBlockProps {
+  href: string;
   title: string;
   shortDescription?: string;
   date?: string;
-  tagLabels?: Array<Tag | TagEntity | null>;
+  tags?: Array<TagEntity>;
   image?: UploadFile | null;
-  href: string;
   isAlignTextCenter?: boolean;
   isEventDisplay?: boolean;
 }
 
 export default function CommonCardBlock({
+  href,
   title,
   shortDescription,
   date,
-  tagLabels,
+  tags,
   image,
-  href,
   isEventDisplay = false,
   isAlignTextCenter = false,
 }: ICommonCardBlockProps) {
-  // TODO: remove temporary default image
-  const temporaryDefaultImage = "/images/images-temp/temp_image.jpg";
-
   const linkLabel = "En savoir plus";
   const contentCardDate = new Date(date ?? "");
   const dataFrenchFormat = handleDateFrenchFormat(contentCardDate);
@@ -66,32 +62,27 @@ export default function CommonCardBlock({
               </div>
             )}
           </div>
-        ) : image || temporaryDefaultImage ? (
+        ) : (
           <div className="c-CommonCardBlock__Image">
-            <Image
-              src={makePublicAssetPath(image?.url ?? temporaryDefaultImage)}
-              alt={image?.alternativeText ?? ""}
-              width={image?.width ?? 482}
-              height={image?.height ?? 309}
-            />
+            {image?.url && (
+              <Image
+                src={makePublicAssetPath(image.url)}
+                alt={image?.alternativeText ?? ""}
+                width={image?.width ?? 482}
+                height={image?.height ?? 309}
+              />
+            )}
           </div>
-        ) : null}
+        )}
         <div className={contentClasses}>
           <div className="c-CommonCardBlock__ContentHeader">
             <div className="c-CommonCardBlock__Tags">
-              {tagLabels?.map((tagLabel, index) => (
+              {tags?.map((tagLabel, index) => (
                 <span
                   key={index}
-                  className={`c-CommonCardBlock__Tag ${
-                    index > 0 ? "c-CommonCardBlock__Tag_background" : ""
-                  }`}
+                  className="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
                 >
-                  {tagLabel && tagLabel.__typename === "TagEntity"
-                    ? tagLabel.attributes?.name
-                    : null}
-                  {tagLabel && tagLabel.__typename === "Tag"
-                    ? tagLabel.name
-                    : null}
+                  {tagLabel.attributes?.name}
                 </span>
               ))}
             </div>

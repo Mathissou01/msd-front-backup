@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import ArrowCorner from "public/images/pictos/arrow-corner.svg";
 import {
+  Maybe,
   TagEntity,
   UploadFileEntity,
 } from "../../../../graphql/codegen/generated-types";
@@ -15,7 +16,7 @@ import "./top-content-card.scss";
 
 interface ITopContentCardProps {
   title: string;
-  shortDescription?: string;
+  shortDescription?: Maybe<string>;
   image: UploadFileEntity | null;
   href: string;
   tags?: TagEntity[];
@@ -43,11 +44,6 @@ export default function TopContentCard({
   const topContentCardClassNames = classNames("c-TopContentCard", {
     [`c-TopContentCard__Banner_${style}`]: style,
   });
-  const getTagClassNames = (index: number) => {
-    return classNames("c-TopContentCard__Tag", {
-      "c-TopContentCard__Tag_hasBackground": index > 0,
-    });
-  };
 
   return (
     <Link className={topContentCardClassNames} href={href}>
@@ -67,8 +63,8 @@ export default function TopContentCard({
             <div className="c-TopContentCard__Tags">
               {tags?.map((tag, index) => (
                 <span
-                  key={tag.attributes?.name}
-                  className={getTagClassNames(index)}
+                  key={index}
+                  className="c-TopContentCard__Tag c-TopContentCard__Tag_hasBackground"
                 >
                   {tag.attributes?.name}
                 </span>

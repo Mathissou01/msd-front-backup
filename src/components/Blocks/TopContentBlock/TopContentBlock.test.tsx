@@ -19,7 +19,7 @@ describe("TopContentBlock", () => {
     expect(container).toMatchSnapshot();
   });
 
-  it("renders top Content and three topContents", () => {
+  it("renders top Content and three topContents", async () => {
     const { container } = render(
       <TopContentBlock
         data={defaultMockFullData}
@@ -27,12 +27,12 @@ describe("TopContentBlock", () => {
       />,
     );
 
-    const title = screen.getByText("Lorem ipsum dolor sit amet");
-    const shortDescription = screen.getByText(
+    const title = await screen.findByText("Lorem ipsum dolor sit amet");
+    const shortDescription = await screen.findByText(
       "consectetur adipiscing elit. Aliquam facilisis tincidunt est",
     );
-    const titleEventOrNews = screen.getByText("Suspendisse et est sem");
-    const shortDescriptionEventOrNews = screen.getByText(
+    const titleEventOrNews = await screen.findByText("Suspendisse et est sem");
+    const shortDescriptionEventOrNews = await screen.findByText(
       "Vestibulum cursus eros ut ligula lobortis auctor. Quisque luctus sagittis tellus",
     );
 

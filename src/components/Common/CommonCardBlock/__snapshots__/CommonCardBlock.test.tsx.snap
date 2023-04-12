@@ -34,11 +34,15 @@ exports[`CommonCardBlock renders 1`] = `
             class="c-CommonCardBlock__Tags"
           >
             <span
-              class="c-CommonCardBlock__Tag "
-            />
+              class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+            >
+              Prise de RDV
+            </span>
             <span
               class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
-            />
+            >
+              Evénement
+            </span>
           </div>
         </div>
         <div

@@ -4,6 +4,7 @@ import TipsDesktop from "public/images/desktop_astuces-section_bottom-right-angl
 import CommonBlockHeading from "../../Common/CommonBlockHeading/CommonBlockHeading";
 import TipCard from "./TipCard/TipCard";
 import "./quiz-and-tips-block.scss";
+import { EEditoTypeRoutes } from "../../../lib/edito-content";
 
 interface IQuizAndTipsBlockProps {
   data: QuizAndTipsBlockEntity;
@@ -32,10 +33,11 @@ export default function QuizAndTipsBlock({ data }: IQuizAndTipsBlockProps) {
           {hasTips && (
             <div className="c-QuizAndTipsBlock__Tips">
               {tips?.map((tip, index) => {
-                if (tip.attributes?.shortDescription) {
+                if (tip.id && tip.attributes?.shortDescription) {
                   return (
                     <TipCard
                       key={`tip_${tip.id}_${index}`}
+                      href={`/${EEditoTypeRoutes.tip}/${tip.id}`}
                       tags={tip.attributes.tags?.data}
                       content={tip.attributes.shortDescription}
                       linkLabel={tip.attributes.link ?? labels.knowMore}

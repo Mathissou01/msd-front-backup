@@ -2,17 +2,20 @@ import React, { useContext } from "react";
 
 export enum ENavigationPages {
   "HomeLink" = "/",
+  // Editorial
+  "ComponentLinksNews" = "/actualites",
+  "ComponentLinksEvents" = "/evenements",
+  "ComponentLinksQuizzes" = "/quiz",
+  "ComponentLinksTips" = "/astuces",
+  "ComponentLinksFrees" = "/contenu-libre", // Path is concatenated with name as normalized string
+  "ComponentLinksContactUs" = "/contact",
   // Services
-  "ComponentLinksMap" = "/service/carte",
-  "ComponentLinksCalendar" = "/service/collecte-adresse",
-  "ComponentLinksRecycling" = "/service/guide-tri",
+  "ComponentLinksRecyclingGuide" = "/service/guide-tri",
+  "ComponentLinksDropOffMap" = "/service/carte",
+  "ComponentLinksPickUpDay" = "/service/collecte-adresse",
   "ComponentLinksRequest" = "/service/demandes",
-  "ComponentLinksContactUs" = "/service/contact",
-  "ComponentLinksNews" = "/edito/actualite",
-  "ComponentLinksEvents" = "/edito/evenement",
-  "ComponentLinksQuizzes" = "/edito/quiz",
-  "ComponentLinksTips" = "/edito/astuce",
-  "ComponentLinksFrees" = "/edito", // Path is concatenated with name as normalized string
+  // Misc
+  "ComponentLinksExternal" = "/", // TODO: handle external links
 }
 
 export interface INavigationContext {

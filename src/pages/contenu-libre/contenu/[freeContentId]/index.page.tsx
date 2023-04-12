@@ -12,9 +12,8 @@ import {
 import { removeNulls } from "../../../../lib/utilities";
 import EditoDynamicBlock from "../../../../components/Edito/EditoDynamicBlock";
 import CommonBreadcrumb from "../../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
-import { remapEditoBlocksDynamicZone } from "../../../../lib/edito-content";
+import { isEditoBlock } from "../../../../lib/edito-content";
 import EditoHeading from "../../../../components/Edito/EditoHeading/EditoHeading";
-import "./contenu.scss";
 
 interface Params extends ParsedUrlQuery {
   freeContentId: string;
@@ -59,11 +58,17 @@ export default function FreeContentPage({
         {freeContentData?.attributes?.blocks &&
           freeContentData.attributes.blocks.length > 0 && (
             <div className="c-FreeContentPage__Blocks">
-              <EditoDynamicBlock
-                blocks={remapEditoBlocksDynamicZone(
-                  freeContentData.attributes.blocks,
-                )}
-              />
+              {freeContentData.attributes.blocks.map((block, index) => {
+                if (block && isEditoBlock(block)) {
+                  return (
+                    <EditoDynamicBlock
+                      key={index}
+                      type={block.__typename}
+                      data={block}
+                    />
+                  );
+                }
+              })}
             </div>
           )}
       </section>

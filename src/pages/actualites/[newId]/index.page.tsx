@@ -9,7 +9,7 @@ import {
   NewEntity,
 } from "../../../graphql/codegen/generated-types";
 import { removeNulls } from "../../../lib/utilities";
-import { remapEditoBlocksDynamicZone } from "../../../lib/edito-content";
+import { isEditoBlock } from "../../../lib/edito-content";
 import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 import EditoHeading from "../../../components/Edito/EditoHeading/EditoHeading";
 import EditoDynamicBlock from "../../../components/Edito/EditoDynamicBlock";
@@ -54,9 +54,17 @@ export default function ActualitesNewPage({
         {newData?.attributes?.blocks &&
           newData.attributes.blocks.length > 0 && (
             <div className="c-ActualitesNewPage__Blocks">
-              <EditoDynamicBlock
-                blocks={remapEditoBlocksDynamicZone(newData.attributes.blocks)}
-              />
+              {newData.attributes.blocks.map((block, index) => {
+                if (block && isEditoBlock(block)) {
+                  return (
+                    <EditoDynamicBlock
+                      key={index}
+                      type={block.__typename}
+                      data={block}
+                    />
+                  );
+                }
+              })}
             </div>
           )}
       </section>

@@ -1,14 +1,14 @@
 import Image from "next/image";
 import classNames from "classnames";
-import MobileActuHero from "public/images/mobile_actuhero.svg";
-import DesktopActuHero from "public/images/desktop_actuhero.svg";
 import {
   Maybe,
   TagEntity,
   UploadFile,
 } from "../../../graphql/codegen/generated-types";
-import "./edito-heading.scss";
 import { makePublicAssetPath } from "../../../lib/utilities";
+import MobileActuHero from "public/images/mobile_actuhero.svg";
+import DesktopActuHero from "public/images/desktop_actuhero.svg";
+import "./edito-heading.scss";
 
 interface IEditoHeadingProps {
   title: string;
@@ -21,13 +21,7 @@ export default function EditoHeading({
   tags,
   image,
 }: IEditoHeadingProps) {
-  function getTagClassNames(isDarker: boolean) {
-    return classNames("c-EditoHeading__Tag", {
-      "c-EditoHeading__Tag_darker": isDarker,
-    });
-  }
-
-  const hasImage = image ? true : false;
+  const hasImage = !!image;
   const headingContent = classNames("c-EditoHeading__Content", {
     "c-EditoHeading__Content_noImage": !hasImage,
   });
@@ -47,6 +41,7 @@ export default function EditoHeading({
               src={makePublicAssetPath(image.url)}
               alt={image.alternativeText ?? ""}
               fill
+              priority
             />
           </div>
         )}
@@ -56,8 +51,8 @@ export default function EditoHeading({
             <div className="c-EditoHeading__Tags">
               {tags?.map((tagLabel, index) => (
                 <span
-                  key={tagLabel.id}
-                  className={getTagClassNames(index % 2 !== 0)}
+                  key={index}
+                  className="c-EditoHeading__Tag c-EditoHeading__Tag_background"
                 >
                   {tagLabel.attributes?.name}
                 </span>

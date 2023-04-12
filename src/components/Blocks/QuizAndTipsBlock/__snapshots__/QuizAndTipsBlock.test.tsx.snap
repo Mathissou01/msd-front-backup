@@ -20,8 +20,11 @@ exports[`QuizAndTipsBlock renders one tip 1`] = `
     >
       <a
         class="c-TipCard"
-        href="/"
+        href="/astuces/2"
       >
+        <div
+          class="c-TipCard__Tags"
+        />
         <p
           class="c-TipCard__Content"
         >
@@ -82,8 +85,11 @@ exports[`QuizAndTipsBlock renders three tips 1`] = `
     >
       <a
         class="c-TipCard"
-        href="/"
+        href="/astuces/2"
       >
+        <div
+          class="c-TipCard__Tags"
+        />
         <p
           class="c-TipCard__Content"
         >
@@ -111,8 +117,11 @@ exports[`QuizAndTipsBlock renders three tips 1`] = `
       </a>
       <a
         class="c-TipCard"
-        href="/"
+        href="/astuces/5"
       >
+        <div
+          class="c-TipCard__Tags"
+        />
         <p
           class="c-TipCard__Content"
         >
@@ -140,8 +149,11 @@ exports[`QuizAndTipsBlock renders three tips 1`] = `
       </a>
       <a
         class="c-TipCard"
-        href="/"
+        href="/astuces/1"
       >
+        <div
+          class="c-TipCard__Tags"
+        />
         <p
           class="c-TipCard__Content"
         >

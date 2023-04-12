@@ -5,6 +5,7 @@ import {
 } from "../../../graphql/codegen/generated-types";
 import {
   editoFields,
+  EEditoTypeRoutes,
   isEditoType,
   TEditoTypes,
 } from "../../../lib/edito-content";
@@ -29,7 +30,7 @@ export default function EditoBlock({ data }: IEditoBlockProps) {
 
   function renderCardType(
     content: TEditoTypes,
-    typeBlock: string,
+    typeBlock: keyof typeof EEditoTypeRoutes,
     index: number,
   ) {
     if (
@@ -41,16 +42,16 @@ export default function EditoBlock({ data }: IEditoBlockProps) {
         <CommonCardBlock
           key={`editoContent_${content.id}_${index}`}
           title={content.attributes?.title}
+          tags={content.attributes?.tags?.data}
           date={
             typeBlock === "event" ? content.attributes?.publishedDate : null
           }
-          tagLabels={content.attributes?.tags?.data}
           image={
             !isEditoType<QuizEntity>(content, "QuizEntity")
               ? content.attributes.image?.data?.attributes ?? null
               : null
           }
-          href={""}
+          href={`/${EEditoTypeRoutes[typeBlock]}/${content.id}`}
           isEventDisplay={typeBlock === "event"}
           isAlignTextCenter={typeBlock === "event"}
         />
@@ -58,19 +59,19 @@ export default function EditoBlock({ data }: IEditoBlockProps) {
     } else if (
       isEditoType<TipEntity>(content, "TipEntity") &&
       typeBlock === "tip" &&
-      content.attributes?.title
+      content.id &&
+      content.attributes?.shortDescription
     ) {
-      if (content.attributes.shortDescription) {
-        return (
-          <TipCard
-            key={`editoContent_${content.id}_${index}`}
-            tags={content.attributes.tags?.data}
-            content={content.attributes.shortDescription}
-            linkLabel={content.attributes.link ?? labels.knowMore}
-            pictoUrl={content.attributes?.link ?? null}
-          />
-        );
-      }
+      return (
+        <TipCard
+          key={`editoContent_${content.id}_${index}`}
+          href={`/${EEditoTypeRoutes.tip}/${content.id}`}
+          tags={content.attributes.tags?.data}
+          content={content.attributes.shortDescription}
+          linkLabel={content.attributes.link ?? labels.knowMore}
+          pictoUrl={content.attributes?.link ?? null}
+        />
+      );
     }
   }
 

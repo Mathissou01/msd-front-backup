@@ -4,13 +4,11 @@
 .c-EditoDynamicBlock {
   display: flex;
   flex-direction: column;
-  gap: 24px;
   align-items: center;
   justify-content: center;
   width: 100%;
 
   @include im.media(">=tablet") {
-    gap: 32px;
     padding: 0 224px;
   }
 }

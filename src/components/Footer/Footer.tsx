@@ -1,6 +1,5 @@
 import Link from "next/link";
-import globalData from "../../../config/global.json";
-import { GlobalDataType } from "../../../config/globalData.type";
+import { useContract } from "../../hooks/useContract";
 import "./footer.scss";
 
 enum EAccessibilityLevel {
@@ -28,12 +27,15 @@ export default function Footer() {
   };
 
   /* Global Data */
-  const footerData = (globalData as GlobalDataType).footer.data?.attributes;
+  const { contract } = useContract();
+  const footerData =
+    contract.attributes?.contractCustomization?.data?.attributes?.footer?.data
+      ?.attributes;
   const accessibilityLevelLabel = footerData?.accessibilityLevel
     ? Object.values(EAccessibilityLevel)[
         Object.keys(EAccessibilityLevel).indexOf(footerData.accessibilityLevel)
       ]
-    : "";
+    : EAccessibilityLevel.not_conform;
 
   return (
     <footer className="c-Footer" data-testid="footer">
