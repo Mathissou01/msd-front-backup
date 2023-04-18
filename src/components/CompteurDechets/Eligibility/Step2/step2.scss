@@ -1,0 +1,83 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/01-settings/settings.colors" as colors;
+
+.c-Step2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 16px;
+  margin-top: 32px;
+
+  @include im.media(">=mobile") {
+    display: grid;
+    flex-direction: row;
+    grid-template: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+      "img title"
+      "img form";
+    gap: 0 0;
+  }
+  @include im.media("<mobile") {
+    svg {
+      order: 2;
+    }
+  }
+
+  &__TitleContainer {
+    @include im.media("<mobile") {
+      order: 1;
+    }
+  }
+
+  &__Image {
+    margin-top: 34px;
+    margin-bottom: 34px;
+    @include im.media(">=mobile") {
+      display: block;
+      grid-area: img;
+    }
+  }
+
+  &__CardContainer {
+    display: flex;
+    flex-direction: column;
+    grid-area: form;
+    gap: 16px;
+    align-items: flex-start;
+    width: 343px;
+    height: 168px;
+    padding: 0;
+
+    @include im.media("<mobile") {
+      order: 3;
+    }
+    @include im.media(">=mobile") {
+      margin-top: 40px;
+    }
+  }
+
+  &__SubText {
+    color: colors.$expert-blue;
+    font-style: normal;
+    @include im.media(">=mobile") {
+      font-weight: 700;
+      font-size: 16px;
+    }
+  }
+
+  &__Card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 343px;
+    height: 56px;
+    padding: 18px 24px;
+    color: colors.$expert-blue;
+    background: colors.$white;
+    border-radius: 8px;
+    box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
+  }
+}
