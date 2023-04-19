@@ -1,0 +1,122 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.typography" as typo;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.z-index" as index;
+
+.c-NonEligibilitePage {
+  @include im.media(">=tablet") {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    height: calc(100vh - 60px);
+
+    &::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: block;
+      width: 150px;
+      height: 160px;
+      background-image: url("../../../../public/images/Yellow_shape_right_top.svg");
+      background-repeat: no-repeat;
+      content: "";
+    }
+
+    &::before {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      display: block;
+      width: 288px;
+      height: 121px;
+      background-image: url("../../../../public/images/Yellow_shape_left_bottom.svg");
+      background-repeat: no-repeat;
+      content: "";
+    }
+  }
+
+  &__Title {
+    margin-bottom: 20px;
+    color: #030f40;
+    font-size: 24px;
+    font-family: DINPro-Bold, sans-serif;
+    line-height: 25px;
+    text-align: center;
+
+    @include im.media(">=tablet") {
+      font-weight: 700;
+      line-height: 35px;
+    }
+  }
+
+  &__Buttons {
+    order: 3;
+    margin: 26px auto;
+
+    @include im.media(">=tablet") {
+      margin: 0;
+    }
+  }
+
+  &__Illustration {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0 32px;
+
+    @include im.media(">=tablet") {
+      align-items: flex-start;
+      width: 525px;
+      min-width: 525px;
+      height: 593px;
+      padding: 94px 0;
+    }
+  }
+
+  &__ImageSvg {
+    order: 2;
+    width: 160px;
+    height: 160px;
+    margin: auto;
+    background-image: url("../../../../public/images/non_eligibilite_mobile.svg");
+
+    @include im.media(">=tablet") {
+      order: 1;
+      width: 208px;
+      height: 208px;
+      margin: 0;
+      background-image: url("../../../../public/images/Illustration.svg");
+    }
+  }
+
+  &__SecondText {
+    order: 1;
+    margin-bottom: 26px;
+    color: #3d466c;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+
+    @include im.media(">=tablet") {
+      margin-top: 47px;
+      margin-bottom: 16px;
+      color: #3d466c;
+    }
+  }
+
+  &__Fonctionality {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 82px;
+    padding: 0;
+
+    @include im.media(">=tablet") {
+      align-items: center;
+      margin-top: 0;
+    }
+  }
+}
