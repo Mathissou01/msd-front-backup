@@ -11,7 +11,6 @@ describe("Header", () => {
         <Header />
       </IsDesktopContext.Provider>,
     );
-
     const topBar = screen.getByTestId("top-bar");
     const burgerMenuButton = screen.queryByTestId("burger-menu-button");
     const burgerMenu = screen.getByTestId("burger-menu");
@@ -22,14 +21,12 @@ describe("Header", () => {
     expect(sideBar).not.toBeInTheDocument();
     expect(container).toMatchSnapshot();
   });
-
   it("opens the burger menu and enables the content cover when burger button is clicked", () => {
     render(
       <IsDesktopContext.Provider value={false}>
         <Header />
       </IsDesktopContext.Provider>,
     );
-
     const burgerMenuButton = screen.getByTestId("burger-menu-button");
     const contentCover = screen.getByTestId("content-cover");
     expect(burgerMenuButton).toBeInTheDocument();
@@ -38,27 +35,23 @@ describe("Header", () => {
     expect(burgerMenuButton).not.toHaveClass(
       "c-HeaderTopBar__BurgerButton_expanded",
     );
-
     fireEvent.click(burgerMenuButton);
     expect(contentCover).toHaveClass("c-Header__ContentCover_active");
     expect(burgerMenuButton).toHaveClass(
       "c-HeaderTopBar__BurgerButton_expanded",
     );
-
     fireEvent.click(burgerMenuButton);
     expect(contentCover).not.toHaveClass("c-Header__ContentCover_active");
     expect(burgerMenuButton).not.toHaveClass(
       "c-HeaderTopBar__BurgerButton_expanded",
     );
   });
-
   it("renders in desktop mode", () => {
     const { container } = render(
       <IsDesktopContext.Provider value={true}>
         <Header />
       </IsDesktopContext.Provider>,
     );
-
     const topBar = screen.getByTestId("top-bar");
     const sideBar = screen.getByTestId("side-bar");
     const burgerMenuButton = screen.queryByTestId("burger-menu-button");

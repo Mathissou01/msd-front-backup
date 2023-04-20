@@ -8567,6 +8567,41 @@ export type GetFooterQuery = {
   } | null;
 };
 
+export type GetLogoQueryVariables = Exact<{
+  contractId?: InputMaybe<Scalars["ID"]>;
+}>;
+
+export type GetLogoQuery = {
+  __typename?: "Query";
+  contract?: {
+    __typename?: "ContractEntityResponse";
+    data?: {
+      __typename?: "ContractEntity";
+      id?: string | null;
+      attributes?: {
+        __typename?: "Contract";
+        logo?: {
+          __typename?: "UploadFileEntityResponse";
+          data?: {
+            __typename?: "UploadFileEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "UploadFile";
+              name: string;
+              mime: string;
+              size: number;
+              url: string;
+              provider: string;
+              hash: string;
+              alternativeText?: string | null;
+            } | null;
+          } | null;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
+};
+
 export type GetNewestTopContentsQueryVariables = Exact<{
   contractId: Scalars["ID"];
 }>;
@@ -10646,6 +10681,75 @@ export type GetFooterLazyQueryHookResult = ReturnType<
 export type GetFooterQueryResult = Apollo.QueryResult<
   GetFooterQuery,
   GetFooterQueryVariables
+>;
+export const GetLogoDocument = gql`
+  query getLogo($contractId: ID) {
+    contract(id: $contractId) {
+      data {
+        id
+        attributes {
+          logo {
+            data {
+              id
+              attributes {
+                name
+                mime
+                size
+                url
+                provider
+                hash
+                alternativeText
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetLogoQuery__
+ *
+ * To run a query within a React component, call `useGetLogoQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLogoQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLogoQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetLogoQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetLogoQuery, GetLogoQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetLogoQuery, GetLogoQueryVariables>(
+    GetLogoDocument,
+    options,
+  );
+}
+export function useGetLogoLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLogoQuery,
+    GetLogoQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetLogoQuery, GetLogoQueryVariables>(
+    GetLogoDocument,
+    options,
+  );
+}
+export type GetLogoQueryHookResult = ReturnType<typeof useGetLogoQuery>;
+export type GetLogoLazyQueryHookResult = ReturnType<typeof useGetLogoLazyQuery>;
+export type GetLogoQueryResult = Apollo.QueryResult<
+  GetLogoQuery,
+  GetLogoQueryVariables
 >;
 export const GetNewestTopContentsDocument = gql`
   query getNewestTopContents($contractId: ID!) {

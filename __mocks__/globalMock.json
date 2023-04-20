@@ -7,6 +7,20 @@
       "contractStatus": "Initialisation",
       "isNonExclusive": false,
       "isRVFrance": true,
+      "logo": {
+        "data": {
+          "id": "26",
+          "attributes": {
+            "name": "images.png",
+            "mime": "image/png",
+            "size": 2.24,
+            "url": "https://stomsdmediadev.blob.core.windows.net/msd-media-dev/assets-local-root/images.png",
+            "provider": "azure-storage-blob",
+            "hash": "images_eb8049ec37",
+            "alternativeText": null
+          }
+        }
+      },
       "contractCustomization": {
         "data": {
           "id": "2",

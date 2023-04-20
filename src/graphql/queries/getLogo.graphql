@@ -1,0 +1,23 @@
+query getLogo($contractId: ID) {
+  contract(id: $contractId) {
+    data {
+      id
+      attributes {
+        logo {
+          data {
+            id
+            attributes {
+              name
+              mime
+              size
+              url
+              provider
+              hash
+              alternativeText
+            }
+          }
+        }
+      }
+    }
+  }
+}

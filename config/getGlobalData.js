@@ -9,6 +9,20 @@ query getGlobalData($contractId: ID!) {
         contractStatus
         isNonExclusive
         isRVFrance
+        logo {
+          data {
+            id
+            attributes {
+              name
+              mime
+              size
+              url
+              provider
+              hash
+              alternativeText
+            }
+          }
+        }
         contractCustomization {
           data {
             id

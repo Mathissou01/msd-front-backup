@@ -1,11 +1,29 @@
 import React from "react";
-import Logo from "public/images/pictos-temp/logo_community.svg";
+import Image from "next/image";
 import Link from "next/link";
+import { useContract } from "../../../../hooks/useContract";
 
 export default function LogoCommunity() {
+  /*Local Data */
+  const { contract } = useContract();
+  const logoCommunity = contract?.attributes?.logo?.data?.attributes;
+
   return (
-    <Link className="c-LogoCommunity" href={"/"} data-testid="logo-community">
-      <Logo />
-    </Link>
+    <>
+      {logoCommunity && (
+        <Link
+          className="c-LogoCommunity"
+          href={"/"}
+          data-testid="logo-community"
+        >
+          <Image
+            src={logoCommunity.url}
+            alt={logoCommunity.alternativeText ?? ""}
+            width={"160"}
+            height={"56"}
+          />
+        </Link>
+      )}
+    </>
   );
 }

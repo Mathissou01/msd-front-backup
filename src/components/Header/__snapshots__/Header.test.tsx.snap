@@ -9,15 +9,7 @@ exports[`Header renders in desktop mode 1`] = `
   >
     <div
       class="c-HeaderTopBar__Item c-HeaderTopBar__Logo"
-    >
-      <a
-        class="c-LogoCommunity"
-        data-testid="logo-community"
-        href="/"
-      >
-        <div />
-      </a>
-    </div>
+    />
     <ul
       class="c-HeaderTopBar__List"
     >
@@ -264,15 +256,7 @@ exports[`Header renders in mobile mode 1`] = `
     />
     <div
       class="c-HeaderTopBar__Item c-HeaderTopBar__Logo"
-    >
-      <a
-        class="c-LogoCommunity"
-        data-testid="logo-community"
-        href="/"
-      >
-        <div />
-      </a>
-    </div>
+    />
     <ul
       class="c-HeaderTopBar__List"
     >
