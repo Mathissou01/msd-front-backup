@@ -9180,6 +9180,104 @@ export type GetTopContentBlockQuery = {
   } | null;
 };
 
+export type GetContactUsSubServiceByContractIdQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+}>;
+
+export type GetContactUsSubServiceByContractIdQuery = {
+  __typename?: "Query";
+  contactUsSubServices?: {
+    __typename?: "ContactUsSubServiceEntityResponseCollection";
+    data: Array<{
+      __typename?: "ContactUsSubServiceEntity";
+      id?: string | null;
+      attributes?: {
+        __typename?: "ContactUsSubService";
+        name: string;
+        isActivated: boolean;
+      } | null;
+    }>;
+  } | null;
+  contactUses?: {
+    __typename?: "ContactUsEntityResponseCollection";
+    data: Array<{
+      __typename?: "ContactUsEntity";
+      id?: string | null;
+      attributes?: {
+        __typename?: "ContactUs";
+        title: string;
+        tags?: {
+          __typename?: "TagRelationResponseCollection";
+          data: Array<{
+            __typename?: "TagEntity";
+            attributes?: { __typename?: "Tag"; name: string } | null;
+          }>;
+        } | null;
+        blocks?: Array<
+          | {
+              __typename?: "ComponentBlocksFile";
+              id: string;
+              document?: {
+                __typename?: "UploadFileEntityResponse";
+                data?: {
+                  __typename?: "UploadFileEntity";
+                  attributes?: {
+                    __typename?: "UploadFile";
+                    url: string;
+                    size: number;
+                    formats?: any | null;
+                    name: string;
+                  } | null;
+                } | null;
+              } | null;
+            }
+          | {
+              __typename?: "ComponentBlocksHorizontalRule";
+              id: string;
+              hr?: string | null;
+            }
+          | {
+              __typename?: "ComponentBlocksImage";
+              id: string;
+              isDecorative?: boolean | null;
+              altText?: string | null;
+              picture?: {
+                __typename?: "UploadFileEntityResponse";
+                data?: {
+                  __typename?: "UploadFileEntity";
+                  attributes?: {
+                    __typename?: "UploadFile";
+                    name: string;
+                    url: string;
+                  } | null;
+                } | null;
+              } | null;
+            }
+          | {
+              __typename?: "ComponentBlocksSubHeading";
+              id: string;
+              subHeadingText?: string | null;
+              subHeadingTag?: Enum_Componentblockssubheading_Subheadingtag | null;
+            }
+          | {
+              __typename?: "ComponentBlocksVideo";
+              id: string;
+              videoLink?: string | null;
+              transcriptText?: string | null;
+            }
+          | {
+              __typename?: "ComponentBlocksWysiwyg";
+              id: string;
+              textEditor?: string | null;
+            }
+          | { __typename?: "Error"; code: string; message?: string | null }
+          | null
+        > | null;
+      } | null;
+    }>;
+  } | null;
+};
+
 export const GetNewByIdDocument = gql`
   query getNewById($newId: ID!) {
     new(id: $newId) {
@@ -11296,4 +11394,138 @@ export type GetTopContentBlockLazyQueryHookResult = ReturnType<
 export type GetTopContentBlockQueryResult = Apollo.QueryResult<
   GetTopContentBlockQuery,
   GetTopContentBlockQueryVariables
+>;
+export const GetContactUsSubServiceByContractIdDocument = gql`
+  query getContactUsSubServiceByContractId($contractId: ID!) {
+    contactUsSubServices(
+      filters: {
+        editorialService: { contract: { id: { eq: $contractId } } }
+        isActivated: { eq: true }
+      }
+    ) {
+      data {
+        id
+        attributes {
+          name
+          isActivated
+        }
+      }
+    }
+    contactUses(filters: { status: { eq: "published" } }) {
+      data {
+        id
+        attributes {
+          title
+          tags {
+            data {
+              attributes {
+                name
+              }
+            }
+          }
+          blocks {
+            ... on ComponentBlocksHorizontalRule {
+              id
+              hr
+            }
+            ... on ComponentBlocksSubHeading {
+              id
+              subHeadingText
+              subHeadingTag
+            }
+            ... on ComponentBlocksVideo {
+              id
+              videoLink
+              transcriptText
+            }
+            ... on ComponentBlocksWysiwyg {
+              id
+              textEditor
+            }
+            ... on ComponentBlocksImage {
+              id
+              picture {
+                data {
+                  attributes {
+                    name
+                    url
+                  }
+                }
+              }
+              isDecorative
+              altText
+            }
+            ... on ComponentBlocksFile {
+              id
+              document {
+                data {
+                  attributes {
+                    url
+                    size
+                    formats
+                    name
+                  }
+                }
+              }
+            }
+            ... on Error {
+              code
+              message
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetContactUsSubServiceByContractIdQuery__
+ *
+ * To run a query within a React component, call `useGetContactUsSubServiceByContractIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetContactUsSubServiceByContractIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetContactUsSubServiceByContractIdQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetContactUsSubServiceByContractIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetContactUsSubServiceByContractIdQuery,
+    GetContactUsSubServiceByContractIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetContactUsSubServiceByContractIdQuery,
+    GetContactUsSubServiceByContractIdQueryVariables
+  >(GetContactUsSubServiceByContractIdDocument, options);
+}
+export function useGetContactUsSubServiceByContractIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetContactUsSubServiceByContractIdQuery,
+    GetContactUsSubServiceByContractIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetContactUsSubServiceByContractIdQuery,
+    GetContactUsSubServiceByContractIdQueryVariables
+  >(GetContactUsSubServiceByContractIdDocument, options);
+}
+export type GetContactUsSubServiceByContractIdQueryHookResult = ReturnType<
+  typeof useGetContactUsSubServiceByContractIdQuery
+>;
+export type GetContactUsSubServiceByContractIdLazyQueryHookResult = ReturnType<
+  typeof useGetContactUsSubServiceByContractIdLazyQuery
+>;
+export type GetContactUsSubServiceByContractIdQueryResult = Apollo.QueryResult<
+  GetContactUsSubServiceByContractIdQuery,
+  GetContactUsSubServiceByContractIdQueryVariables
 >;

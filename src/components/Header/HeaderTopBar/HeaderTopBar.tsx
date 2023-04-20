@@ -22,7 +22,14 @@ export default function HeaderTopBar({
   const buttonClassNames = classNames("c-HeaderTopBar__BurgerButton", {
     "c-HeaderTopBar__BurgerButton_expanded": isMenuOpen,
   });
-
+  /* Static Data */
+  const routes = {
+    searchRoute: "/",
+    mapsRoute: "/",
+    calendarRoute: "/",
+    notifyRoute: "/",
+    contactUsRoute: "/service/contact",
+  };
   return (
     <>
       <header role="banner" className="c-HeaderTopBar" data-testid="top-bar">
@@ -90,7 +97,7 @@ export default function HeaderTopBar({
               <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
               <li className="c-HeaderTopBar__Item">
                 <NavigationLink
-                  href="/"
+                  href={routes.contactUsRoute}
                   pictoUrl="/images/pictos/contact.svg"
                   isDesktopMode
                 />

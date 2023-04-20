@@ -1,4 +1,4 @@
-import { GetStaticProps, GetStaticPaths } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import client from "../../../graphql/client";
 import { ParsedUrlQuery } from "querystring";
 import {

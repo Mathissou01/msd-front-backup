@@ -16,6 +16,7 @@ export default function Footer() {
     cguLabel: "Conditions générales",
     cookiesLabel: "Politique de cookies",
     confidentialityLabel: "Politique de confidentialité",
+    contactUsSubService: "Contactez-nous",
   };
   const routes = {
     accessibilityRoute: "/",
@@ -23,14 +24,15 @@ export default function Footer() {
     cguRoute: "/",
     cookiesRoute: "/",
     confidentialityRoute: "/",
-    contactUsRoute: "/",
+    contactUsRoute: "/service/contact",
   };
 
   /* Global Data */
   const { contract } = useContract();
   const footerData =
-    contract.attributes?.contractCustomization?.data?.attributes?.footer?.data
+    contract?.attributes?.contractCustomization?.data?.attributes?.footer?.data
       ?.attributes;
+
   const accessibilityLevelLabel = footerData?.accessibilityLevel
     ? Object.values(EAccessibilityLevel)[
         Object.keys(EAccessibilityLevel).indexOf(footerData.accessibilityLevel)
@@ -71,6 +73,7 @@ export default function Footer() {
       >
         <span>{labels.confidentialityLabel}</span>
       </Link>
+
       {footerData?.contactUsSubService?.data?.attributes?.isActivated &&
         footerData?.contactUsSubService?.data.attributes.label && (
           <Link

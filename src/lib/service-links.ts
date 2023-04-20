@@ -69,7 +69,7 @@ export function remapServiceLinksDynamicZone(
               link,
               "ComponentLinksFrees",
             ) &&
-            link.freeContents?.data[0].id
+            link.freeContents?.data[0]?.id
           ) {
             freeContentSubServiceId = link.freeContents?.data[0].id ?? null;
             generatedSlug += `/${freeContentSubServiceId}`;

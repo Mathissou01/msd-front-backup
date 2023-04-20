@@ -236,4 +236,5 @@ query getGlobalData($contractId: ID!) {
     }
   }
 }
+
 `;
