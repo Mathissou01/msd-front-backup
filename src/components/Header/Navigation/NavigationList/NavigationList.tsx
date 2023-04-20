@@ -71,6 +71,20 @@ export default function NavigationList({
           onClick={() => handleClick(ENavigationPages["HomeLink"])}
         />
       </li>
+      {/* <li
+        className={`c-NavigationList__Item ${isActiveRoute(
+          ENavigationPages["MonCompteurDechets"],
+        )}`}
+      >
+        <NavigationListButton
+          href={ENavigationPages["MonCompteurDechets"]}
+          label="mon compteur déchets"
+          pictoUrl="/images/pictos/mon_compteur_dechets.svg"
+          isDesktopMode={isDesktopMode}
+          isActive={currentPage === ENavigationPages["MonCompteurDechets"]}
+          onClick={() => handleClick(ENavigationPages["MonCompteurDechets"])}
+        />
+      </li> */}
       {contractMenus &&
         contractMenus.map((menu, index) => {
           if (

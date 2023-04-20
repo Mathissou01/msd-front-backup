@@ -1,1 +1,130 @@
-{"contract":{"id":"1","attributes":{"clientName":"Grand Test","clientType":"city","contractStatus":"Initialisation","isNonExclusive":false,"isRVFrance":true,"contractCustomization":{"data":{"id":"2","attributes":{"footer":{"data":{"attributes":{"accessibilityLevel":null,"cguSubService":{"data":{"id":"1","attributes":{"name":"CGU","link":null}}},"accessibilitySubService":{"data":{"id":"1","attributes":{"name":"Accessibilité","link":null}}},"confidentialitySubService":{"data":{"id":"1","attributes":{"name":"Confidentialité","link":null}}},"cookiesSubService":{"data":{"id":"1","attributes":{"name":"Cookies","link":null}}},"contactUsSubService":{"data":{"id":"1","attributes":{"name":"Contactez-nous","label":"Contactez-nous","link":null,"isActivated":false}}}}}}}}},"contractMenu":{"data":{"attributes":{"serviceLinks":[{"__typename":"ComponentLinksRecyclingGuide","id":"3","name":"Guide du tri","isDisplayed":true,"picto":{"data":null}},{"__typename":"ComponentLinksNews","id":"2","name":"Actualités","isDisplayed":true,"picto":{"data":null}},{"__typename":"ComponentLinksEvents","id":"2","name":"Évenements","isDisplayed":true,"picto":{"data":null}},{"__typename":"ComponentLinksFrees","id":"3","name":"Editorial 1","isDisplayed":true,"freeContents":{"data":[{"id":"1","attributes":{"name":"Editorial 1"}}]},"picto":{"data":null}},{"__typename":"ComponentLinksFrees","id":"4","name":"Editorial 2","isDisplayed":true,"freeContents":{"data":[{"id":"2","attributes":{"name":"Editorial 2"}}]},"picto":{"data":null}}]}}}}},"colors":{"external-contrast-text":"#030f40","external-primary":"#9bcd41","calculated-primary-dark":"#699c00","calculated-primary-light":"#9bcd411a","external-secondary":"#ffc229","calculated-secondary-dark":"#c79200","calculated-secondary-light":"#ffc2291a","external-waste-household":"#6C757D","external-waste-selective":"#FFC229","external-waste-bio":"#BD4602","external-waste-green":"#9BCD41","external-waste-glass":"#30A23D","external-waste-paper":"#2068C7","external-waste-other":"#FFFFFF"}}
+{
+  "contract": {
+    "id": "1",
+    "attributes": {
+      "clientName": "Grand Test",
+      "clientType": "city",
+      "contractStatus": "Initialisation",
+      "isNonExclusive": false,
+      "isRVFrance": true,
+      "contractCustomization": {
+        "data": {
+          "id": "2",
+          "attributes": {
+            "footer": {
+              "data": {
+                "attributes": {
+                  "accessibilityLevel": null,
+                  "cguSubService": {
+                    "data": {
+                      "id": "1",
+                      "attributes": { "name": "CGU", "link": null }
+                    }
+                  },
+                  "accessibilitySubService": {
+                    "data": {
+                      "id": "1",
+                      "attributes": { "name": "Accessibilité", "link": null }
+                    }
+                  },
+                  "confidentialitySubService": {
+                    "data": {
+                      "id": "1",
+                      "attributes": { "name": "Confidentialité", "link": null }
+                    }
+                  },
+                  "cookiesSubService": {
+                    "data": {
+                      "id": "1",
+                      "attributes": { "name": "Cookies", "link": null }
+                    }
+                  },
+                  "contactUsSubService": {
+                    "data": {
+                      "id": "1",
+                      "attributes": {
+                        "name": "Contactez-nous",
+                        "label": "Contactez-nous",
+                        "link": null,
+                        "isActivated": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "contractMenu": {
+        "data": {
+          "attributes": {
+            "serviceLinks": [
+              {
+                "__typename": "ComponentLinksRecyclingGuide",
+                "id": "3",
+                "name": "Guide du tri",
+                "isDisplayed": true,
+                "picto": { "data": null }
+              },
+              {
+                "__typename": "ComponentLinksNews",
+                "id": "2",
+                "name": "Actualités",
+                "isDisplayed": true,
+                "picto": { "data": null }
+              },
+              {
+                "__typename": "ComponentLinksEvents",
+                "id": "2",
+                "name": "Évenements",
+                "isDisplayed": true,
+                "picto": { "data": null }
+              },
+              {
+                "__typename": "ComponentLinksFrees",
+                "id": "3",
+                "name": "Editorial 1",
+                "isDisplayed": true,
+                "freeContents": {
+                  "data": [
+                    { "id": "1", "attributes": { "name": "Editorial 1" } }
+                  ]
+                },
+                "picto": { "data": null }
+              },
+              {
+                "__typename": "ComponentLinksFrees",
+                "id": "4",
+                "name": "Editorial 2",
+                "isDisplayed": true,
+                "freeContents": {
+                  "data": [
+                    { "id": "2", "attributes": { "name": "Editorial 2" } }
+                  ]
+                },
+                "picto": { "data": null }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "colors": {
+    "external-contrast-text": "#030f40",
+    "external-primary": "#9bcd41",
+    "calculated-primary-dark": "#699c00",
+    "calculated-primary-light": "#9bcd411a",
+    "external-secondary": "#ffc229",
+    "calculated-secondary-dark": "#c79200",
+    "calculated-secondary-light": "#ffc2291a",
+    "external-waste-household": "#6C757D",
+    "external-waste-selective": "#FFC229",
+    "external-waste-bio": "#BD4602",
+    "external-waste-green": "#9BCD41",
+    "external-waste-glass": "#30A23D",
+    "external-waste-paper": "#2068C7",
+    "external-waste-other": "#FFFFFF"
+  }
+}
