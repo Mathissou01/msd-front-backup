@@ -114,7 +114,8 @@
     "queries.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "./jest.setup.js"
+    "./jest.setup.js",
+    "src/components/CompteurDechets/Eligibility/Step1"
   ],
   "exclude": ["node_modules"]
 }

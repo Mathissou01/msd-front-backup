@@ -9,6 +9,7 @@ export interface IQuestion {
 export interface IQuestionOption {
   text: string;
   nextQuestion?: number;
+  idPuce?: string;
   redirectTo?: string;
   buttonStyle?: "primary" | "primaryContrast" | "secondary" | "tertiary" | null;
 }
@@ -52,12 +53,12 @@ export const questions: IQuestion[] = [
     ],
   },
   {
-    title: "Choix du parcours",
+    title: "Nous avons identifiés 2 bacs pour votre adresse",
     options: [
-      { text: "Des bacs sont identifiés", nextQuestion: 4 },
-      { text: "Aucun bac identifié", redirectTo: "/erreur" },
+      { text: "Suivant", nextQuestion: 5, buttonStyle: "primary" },
       {
-        text: "Des bacs sont identifiés mais déjà rattachés à un compte MSD",
+        text: "Il y a une erreur",
+        buttonStyle: "secondary",
         redirectTo: "/erreur",
       },
     ],

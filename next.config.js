@@ -68,7 +68,12 @@ module.exports = async (phase) => {
       .then((res) => res.json())
       .then((result) => {
         writeGlobalData(result.data.contract.data);
-      });
+        console.log(
+          "End GetGlobalDataQuery: ",
+          JSON.stringify(result.data.contract.data),
+        );
+      })
+      .catch((error) => console.error("GetGlobalDataQuery error: ", error));
   }
 
   /** @type {import("next").NextConfig} */
