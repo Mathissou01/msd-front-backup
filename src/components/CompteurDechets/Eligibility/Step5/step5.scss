@@ -10,8 +10,7 @@
   }
 
   &__InputField {
-    flex-grow: 2;
-    width: 100%;
+    flex: 35%;
     height: 56px;
     margin-right: 8px;
     padding: 0 8px;
@@ -43,10 +42,14 @@
 
   &__Plus,
   &__Less {
-    flex: 30%;
+    flex: 25%;
     height: 56px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
+
+    @include im.media(">=mobile") {
+      flex: 30%;
+    }
   }
 }

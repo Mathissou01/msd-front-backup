@@ -190,6 +190,13 @@
     font-size: 14px;
     text-align: center;
   }
+
+  &__ButtonContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
 }
 
 .c-Modal {

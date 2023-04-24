@@ -111,7 +111,7 @@ const Step3: React.FC<Step3Props> = ({
               inputPlaceholder="ex: 10 rue des fleurs 82000 Montauban"
             />
           )}
-          <div className="c-StepAddress__ButtonContainer">
+          <div className="o-Steps__ButtonContainer">
             <CommonButton
               type="button"
               style="primary"

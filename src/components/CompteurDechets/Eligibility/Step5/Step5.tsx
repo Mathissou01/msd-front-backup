@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import "./step5.scss";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
 import { IQuestion } from "../../../../pages/mon-compteur-dechets/eligibilite/questionDatas";
@@ -22,15 +22,14 @@ const Step5: React.FC<Step5Props> = ({
     const value = parseInt(e.target.value);
     value >= 1 && setPersonsCount(value);
   };
-  const [quantity, setQuantity] = useState(1);
 
   const incrementValue = () => {
-    setQuantity(quantity + 1);
+    setPersonsCount(personsCount + 1);
   };
 
   const decrementValue = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
+    if (personsCount > 1) {
+      setPersonsCount(personsCount - 1);
     }
   };
   return (
@@ -44,14 +43,6 @@ const Step5: React.FC<Step5Props> = ({
           <label className="o-Steps__SubText" htmlFor="personsCount">
             {question.text}
           </label>
-          {/* <input
-            id="personsCount"
-            name="personsCount"
-            className="c-Step5__Input"
-            type="number"
-            value={personsCount}
-            onChange={handleChange}
-          /> */}
           <div className="c-Step5__InputNumber">
             <button
               type="button"
@@ -76,7 +67,7 @@ const Step5: React.FC<Step5Props> = ({
               +
             </button>
           </div>
-          <div className="c-Step5__ButtonContainer">
+          <div className="o-Steps__ButtonContainer">
             <CommonButton
               type="button"
               style="primary"
