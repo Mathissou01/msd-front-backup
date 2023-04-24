@@ -1,0 +1,102 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/01-settings/settings.colors" as colors;
+
+.c-Step3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 16px;
+  margin-top: 32px;
+
+  @include im.media(">=mobile") {
+    display: grid;
+    flex-direction: row;
+    grid-template: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+      "img title"
+      "img form";
+    gap: 0 0;
+  }
+
+  @include im.media("<mobile") {
+    svg {
+      order: 2;
+    }
+  }
+
+  &__LabelConfirm {
+    color: colors.$gray-600;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  &__Image {
+    margin-top: 34px;
+    margin-bottom: 34px;
+    @include im.media(">=mobile") {
+      display: block;
+      grid-area: img;
+    }
+  }
+
+  &__InputContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    order: 3;
+    width: 100%;
+    @include im.media(">=mobile") {
+      width: 423px;
+    }
+  }
+
+  &__PencilIcon {
+    cursor: pointer;
+  }
+
+  &__TitleContainer {
+    order: 1;
+    @include im.media(">=mobile") {
+      order: 2;
+      margin-bottom: 16px;
+    }
+  }
+
+  &__AdressBlockContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 98px;
+    padding: 10px;
+    background: colors.$white;
+    border: 1px solid colors.$blue-4;
+    border-radius: 8px;
+  }
+
+  &__Adress {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__ButtonContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 29.5px;
+    justify-content: center;
+    width: 100%;
+    margin: 16px 0;
+    @include im.media(">=mobile") {
+      width: 423px;
+    }
+  }
+
+  &__TextButton {
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+  }
+}

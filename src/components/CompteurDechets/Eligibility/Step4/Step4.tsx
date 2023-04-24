@@ -13,7 +13,7 @@ import BacIcon from "public/images/pictos/search.svg";
 
 interface Step4Props {
   question: IQuestion;
-  handleOptionClick: (nextQuestion: number, redirectTo: string) => void;
+  handleOptionClick: (next: string | number) => void;
 }
 
 type ModalProps = {
@@ -96,12 +96,7 @@ const Step4: React.FC<Step4Props> = ({ question, handleOptionClick }) => {
                         type="button"
                         style={option.buttonStyle}
                         label={option.text}
-                        onClick={() =>
-                          handleOptionClick(
-                            option.nextQuestion || 0,
-                            option.redirectTo || "",
-                          )
-                        }
+                        onClick={() => handleOptionClick(option.next)}
                       />
                     </>
                   ),

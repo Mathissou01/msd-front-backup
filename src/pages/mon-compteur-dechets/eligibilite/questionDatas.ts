@@ -8,9 +8,8 @@ export interface IQuestion {
 
 export interface IQuestionOption {
   text: string;
-  nextQuestion?: number;
   idPuce?: string;
-  redirectTo?: string;
+  next: string | number;
   buttonStyle?: "primary" | "primaryContrast" | "secondary" | "tertiary" | null;
 }
 
@@ -18,10 +17,10 @@ export const questions: IQuestion[] = [
   {
     title: "Possédez-vous un compte MonServiceDéchets ?",
     options: [
-      { text: "Je me connecte", redirectTo: "/login", buttonStyle: "primary" },
+      { text: "Je me connecte", next: "/login", buttonStyle: "primary" },
       {
         text: "Je n'ai pas de compte",
-        nextQuestion: 1,
+        next: 1,
         buttonStyle: "secondary",
       },
     ],
@@ -31,8 +30,8 @@ export const questions: IQuestion[] = [
     text: "Pour commencer, nous avons besoin de vous connaître",
     subText: "Vous êtes ?",
     options: [
-      { text: "Un particulier", nextQuestion: 2 },
-      { text: "Un professionnel", redirectTo: "/erreur" },
+      { text: "Un particulier", next: 2 },
+      { text: "Un professionnel", next: "/non-egibilite" },
     ],
   },
   {
@@ -40,27 +39,32 @@ export const questions: IQuestion[] = [
     text: "Pour commencer, nous avons besoin de vous connaître",
     subText: "Votre type de logement :",
     options: [
-      { text: "Une maison", nextQuestion: 3 },
-      { text: "Un appartement", redirectTo: "/erreur" },
+      { text: "Une maison", next: 3 },
+      { text: "Un appartement", next: "/non-egibilite" },
     ],
   },
   {
     title: "Suivez mois par mois l'évolution de votre production",
     text: "Quelle est votre adresse ?",
     options: [
-      { text: "Valider", nextQuestion: 4, buttonStyle: "primary" },
-      { text: "Mon adresse n'est pas reconnue", redirectTo: "/erreur" },
+      { text: "Valider", next: 4, buttonStyle: "primary" },
+      { text: "Mon adresse n'est pas reconnue", next: "/" },
     ],
   },
   {
     title: "Nous avons identifiés 2 bacs pour votre adresse",
     options: [
-      { text: "Suivant", nextQuestion: 5, buttonStyle: "primary" },
+      { text: "Suivant", next: 5, buttonStyle: "primary" },
       {
         text: "Il y a une erreur",
         buttonStyle: "secondary",
-        redirectTo: "/erreur",
+        next: "/erreur",
       },
     ],
+  },
+  {
+    title: "Vous y êtes presque !",
+    text: "Combien de personne composent votre foyer :",
+    options: [{ text: "Valider", next: 6, buttonStyle: "primary" }],
   },
 ];

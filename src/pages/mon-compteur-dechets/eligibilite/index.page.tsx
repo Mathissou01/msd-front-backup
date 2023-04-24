@@ -6,9 +6,26 @@ import Step3 from "../../../components/CompteurDechets/Eligibility/Step3/Step3";
 import Step4 from "../../../components/CompteurDechets/Eligibility/Step4/Step4";
 import ProgressBar from "../../../components/CompteurDechets/Eligibility/ProgressBar/ProgressBar";
 import Step0 from "../../../components/CompteurDechets/Eligibility/Step0/Step0";
+import { useRouter } from "next/router";
+import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
+import Step5 from "../../../components/CompteurDechets/Eligibility/Step5/Step5";
 
 const Eligibilite = () => {
+  const router = useRouter();
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [selectedAdress, setSelectedAdress] = useState("");
+  const [personsCount, setPersonsCount] = useState(1);
+
+  const breadcrumbPages = [
+    {
+      label: "Accueil",
+      slug: "/",
+    },
+    {
+      label: "Mon compteur déchets",
+      slug: "/mon-compteur-dechets",
+    },
+  ];
 
   const renderQuestion = () => {
     switch (currentQuestion) {
@@ -38,6 +55,8 @@ const Eligibilite = () => {
           <Step3
             question={questions[currentQuestion]}
             handleOptionClick={handleOptionClick}
+            selectedAdress={selectedAdress}
+            setSelectedAdress={setSelectedAdress}
           />
         );
       case 4:
@@ -47,11 +66,22 @@ const Eligibilite = () => {
             handleOptionClick={handleOptionClick}
           />
         );
+      case 5:
+        return (
+          <Step5
+            question={questions[currentQuestion]}
+            handleOptionClick={handleOptionClick}
+            personsCount={personsCount}
+            setPersonsCount={setPersonsCount}
+          />
+        );
     }
   };
 
-  const handleOptionClick = (nextQuestion: number) => {
-    nextQuestion && setCurrentQuestion(nextQuestion);
+  const handleOptionClick = (next: string | number) => {
+    typeof next === "string"
+      ? router.push(`/mon-compteur-dechets${next}`)
+      : setCurrentQuestion(next);
   };
 
   const handleBackClick = () => {
@@ -66,6 +96,7 @@ const Eligibilite = () => {
         maxQuestions={questions.length}
         handleBackClick={handleBackClick}
       />
+      <CommonBreadcrumb pages={breadcrumbPages} />
       {renderQuestion()}
     </>
   );

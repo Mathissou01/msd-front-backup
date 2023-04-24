@@ -9,7 +9,7 @@ import EligibilityRecycling from "public/images/eligibility-recycle.svg";
 
 interface Step1Props {
   question: IQuestion;
-  handleOptionClick: (nextQuestion: number) => void;
+  handleOptionClick: (nextQuestion: string | number) => void;
 }
 
 const Step1: React.FC<Step1Props> = ({ question, handleOptionClick }) => {
@@ -29,7 +29,7 @@ const Step1: React.FC<Step1Props> = ({ question, handleOptionClick }) => {
           <button
             key={index}
             className="c-Step1__Card"
-            onClick={() => handleOptionClick(option.nextQuestion || 0)}
+            onClick={() => handleOptionClick(option.next)}
           >
             <p className="c-Step1__CardSubtitle">{option.text}</p>
           </button>

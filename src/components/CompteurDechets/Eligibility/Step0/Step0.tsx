@@ -8,7 +8,7 @@ import CommonButton from "../../../Common/CommonButton/CommonButton";
 
 interface Step0Props {
   question: IQuestion;
-  handleOptionClick: (nextQuestion: number) => void;
+  handleOptionClick: (next: string | number) => void;
 }
 const Step0: React.FC<Step0Props> = ({ question, handleOptionClick }) => {
   return (
@@ -20,7 +20,7 @@ const Step0: React.FC<Step0Props> = ({ question, handleOptionClick }) => {
           type="button"
           style={option.buttonStyle}
           label={option.text}
-          onClick={() => handleOptionClick(option.nextQuestion || 0)}
+          onClick={() => handleOptionClick(option.next)}
         />
       ))}
     </div>

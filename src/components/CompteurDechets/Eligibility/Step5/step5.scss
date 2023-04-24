@@ -1,0 +1,90 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/01-settings/settings.colors" as colors;
+
+.c-Step5 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 16px;
+  margin-top: 32px;
+
+  @include im.media(">=mobile") {
+    display: grid;
+    flex-direction: row;
+    grid-template: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+      "img title"
+      "img form";
+    gap: 0 0;
+  }
+
+  @include im.media("<mobile") {
+    svg {
+      order: 2;
+    }
+  }
+
+  &__TitleContainer {
+    order: 1;
+    @include im.media(">=mobile") {
+      order: 2;
+      margin-bottom: 16px;
+    }
+  }
+
+  &__Image {
+    margin-top: 34px;
+    margin-bottom: 34px;
+    @include im.media(">=mobile") {
+      display: block;
+      grid-area: img;
+    }
+  }
+
+  &__InputContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    order: 3;
+    width: 100%;
+    @include im.media(">=mobile") {
+      width: 423px;
+    }
+  }
+
+  &__Label {
+    margin-bottom: 16px;
+    font-weight: normal;
+
+    @include im.media(">=mobile") {
+      font-weight: 700;
+    }
+  }
+
+  &__Input {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    align-items: center;
+    box-sizing: border-box;
+    height: 48px;
+    padding: 0 8px;
+    background: colors.$white;
+    border: 1px solid;
+    border-color: colors.$blue-2;
+    border-radius: 4px;
+  }
+
+  &__ButtonContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 29.5px;
+    justify-content: center;
+    width: 100%;
+    margin: 16px 0;
+    @include im.media(">=mobile") {
+      width: 423px;
+    }
+  }
+}

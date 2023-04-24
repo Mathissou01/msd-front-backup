@@ -1,0 +1,67 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/01-settings/settings.colors" as colors;
+
+.c-CommonAutocomplete {
+  &__Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
+
+  &__Label {
+    font-weight: 700;
+  }
+
+  &__Input {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    align-items: center;
+    box-sizing: border-box;
+    height: 48px;
+    padding: 0 8px;
+    background: colors.$white;
+    border: 1px solid;
+    border-color: colors.$blue-2;
+    border-radius: 4px;
+  }
+
+  &__Selector {
+    width: 100%;
+    max-height: 232px;
+    margin-top: 2px;
+    padding: 4px;
+    overflow-y: scroll;
+    background: colors.$white;
+    border: 2px solid colors.$blue-4;
+    border-radius: 2px;
+    box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
+    cursor: pointer;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+      background-color: colors.$white;
+      border-radius: 15px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: colors.$gray-500;
+    }
+  }
+
+  &__Option {
+    gap: 10px;
+    width: 100%;
+    height: 56px;
+    padding: 16px;
+    text-align: left;
+    background: colors.$white;
+    border-bottom: 1px solid;
+    border-color: colors.$blue-4;
+
+    &:hover {
+      background: colors.$gray-200;
+    }
+  }
+}
