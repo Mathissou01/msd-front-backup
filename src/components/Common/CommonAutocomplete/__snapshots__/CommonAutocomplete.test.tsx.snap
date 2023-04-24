@@ -13,6 +13,7 @@ exports[`CommonAutocomplete renders 1`] = `
         for="common autocomplete"
       >
         common autocomplete
+         *
       </label>
       <input
         class="c-CommonAutocomplete__Input"

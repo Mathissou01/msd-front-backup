@@ -30,7 +30,7 @@ const CommonAutocomplete: React.FC<CommonAutocompleteProps> = ({
     <div className="c-CommonAutocomplete">
       <div className="c-CommonAutocomplete__Container">
         <label htmlFor={inputName} className="c-CommonAutocomplete__Label">
-          {inputLabel}
+          {inputLabel} *
         </label>
         <input
           type="text"

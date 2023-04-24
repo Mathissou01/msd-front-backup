@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import "./step5.scss";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
 import { IQuestion } from "../../../../pages/mon-compteur-dechets/eligibilite/questionDatas";
@@ -22,34 +22,78 @@ const Step5: React.FC<Step5Props> = ({
     const value = parseInt(e.target.value);
     value >= 1 && setPersonsCount(value);
   };
+  const [quantity, setQuantity] = useState(1);
 
+  const incrementValue = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const decrementValue = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
   return (
-    <div className="c-Step5">
-      <EligibilityPersons className="c-Step5__Image" />
-      <div className="c-Step5__TitleContainer">
+    <div className="o-Steps c-Step5">
+      <EligibilityPersons className="o-Steps__Image" />
+      <div className="o-Steps__Container">
+        <EligibilityPersons className="o-Steps__Image" />
         <CommonBlockHeading titleContent={question.title} />
-      </div>
 
-      <div className="c-Step5__InputContainer">
-        <label className="c-Step5__Label" htmlFor="personsCount">
-          {question.text}
-        </label>
-        <input
-          id="personsCount"
-          name="personsCount"
-          className="c-Step5__Input"
-          type="number"
-          value={personsCount}
-          onChange={handleChange}
-        />
-
-        <div className="c-Step5__ButtonContainer">
-          <CommonButton
-            type="button"
-            style="primary"
-            label={question.options[0].text}
-            onClick={() => handleOptionClick(question.options[0].next)}
-          />
+        <div className="o-Steps__CardContainer">
+          <label className="o-Steps__SubText" htmlFor="personsCount">
+            {question.text}
+          </label>
+          {/* <input
+            id="personsCount"
+            name="personsCount"
+            className="c-Step5__Input"
+            type="number"
+            value={personsCount}
+            onChange={handleChange}
+          /> */}
+          <div className="c-Step5__InputNumber">
+            <button
+              type="button"
+              className="c-Step5__Plus"
+              onClick={decrementValue}
+            >
+              -
+            </button>
+            <input
+              id="personsCount"
+              name="personsCount"
+              className="c-Step5__InputField"
+              type="number"
+              value={personsCount}
+              onChange={handleChange}
+            />
+            <button
+              type="button"
+              className="c-Step5__Less"
+              onClick={incrementValue}
+            >
+              +
+            </button>
+          </div>
+          <div className="c-Step5__ButtonContainer">
+            <CommonButton
+              type="button"
+              style="primary"
+              label={question.options[0].text}
+              onClick={() => handleOptionClick(question.options[0].next)}
+            />
+            <p className="c-Step5__RGPD">
+              L’activation de Mon Compteur Déchets entrainera le traitement de
+              données à caractère personnel :{" "}
+              <a
+                href="/rgpd"
+                title="Lien vers la page de la Politique de confidentialité"
+              >
+                Politique de confidentialité
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </div>

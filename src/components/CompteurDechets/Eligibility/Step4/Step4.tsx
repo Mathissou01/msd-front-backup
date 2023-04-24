@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import "./step4.scss";
 import {
   IQuestion,
   IQuestionOption,
@@ -10,6 +9,7 @@ import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHe
 import EligibilityRecycling from "public/images/formes_gray.svg";
 import Illu_1 from "public/images/illu_1.svg";
 import BacIcon from "public/images/pictos/search.svg";
+import "./step4.scss";
 
 interface Step4Props {
   question: IQuestion;
@@ -56,38 +56,45 @@ const Step4: React.FC<Step4Props> = ({ question, handleOptionClick }) => {
         />
       )}
       <div>
-        <div className="c-Step4">
-          <EligibilityRecycling className="c-Step4__Image" />
-          <div className="c-Step4__Container">
-            {/* <div className="c-Step4__TitleContainer"> */}
+        <div className="o-Steps c-StepIdentiteBacs">
+          <EligibilityRecycling className="o-Steps__Image" />
+          <div className="o-Steps__Container">
+            {/* <EligibilityRecycling className="o-Steps__Image" /> */}
             <CommonBlockHeading
               titleContent={question.title}
               subTitle={question.text}
             />
-            {/* </div> */}
 
-            <div className="c-Step4__CardContainer">
+            <div className="o-Steps__CardContainer c-StepIdentiteBacs__CardContainer">
               <>
-                <div className="c-Step4__CardItem c-Step4__CardItem_gray">
-                  <div className="c-Step4__CardItem_icon">
+                <div className="c-StepIdentiteBacs__CardItem c-StepIdentiteBacs__CardItem_gray">
+                  <div className="c-StepIdentiteBacs__CardItem_icon">
                     <BacIcon />
                   </div>
-                  <div className="c-Step4__CardItem_content">
-                    <p className="c-Step4__CardItem_label">sdqgqsdfgqs</p>
-                    <p className="c-Step4__CardItem_idPuce">546555556</p>
+                  <div className="c-StepIdentiteBacs__CardItem_content">
+                    <p className="c-StepIdentiteBacs__CardItem_label">
+                      Votre bac à ordures ménagères
+                    </p>
+                    <p className="c-StepIdentiteBacs__CardItem_idPuce">
+                      978054327652
+                    </p>
                   </div>
                 </div>
-                <div className="c-Step4__CardItem c-Step4__CardItem_yellow">
-                  <div className="c-Step4__CardItem_icon">
+                <div className="c-StepIdentiteBacs__CardItem c-StepIdentiteBacs__CardItem_yellow">
+                  <div className="c-StepIdentiteBacs__CardItem_icon">
                     <BacIcon />
                   </div>
-                  <div className="c-Step4__CardItem_content">
-                    <p className="c-Step4__CardItem_label">sdqgqsdfgqs</p>
-                    <p className="c-Step4__CardItem_idPuce">546555556</p>
+                  <div className="c-StepIdentiteBacs__CardItem_content">
+                    <p className="c-StepIdentiteBacs__CardItem_label">
+                      Votre bac à emballages
+                    </p>
+                    <p className="c-StepIdentiteBacs__CardItem_idPuce">
+                      978054327652
+                    </p>
                   </div>
                 </div>
               </>
-              <div className="c-Step4__CardButtons">
+              <div className="c-StepIdentiteBacs__CardButtons">
                 {question.options?.map(
                   (option: IQuestionOption, index: number) => (
                     <>
@@ -103,7 +110,7 @@ const Step4: React.FC<Step4Props> = ({ question, handleOptionClick }) => {
                 )}
                 <button
                   type="button"
-                  className="c-Step4__CardButtons_openmodal"
+                  className="o-Steps__CardButtons_openmodal"
                   onClick={() => setShowModal(true)}
                 >
                   Où trouver mon numéro de bac ?

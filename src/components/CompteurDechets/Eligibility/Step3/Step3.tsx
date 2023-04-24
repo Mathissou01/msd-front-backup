@@ -19,15 +19,15 @@ import CommonAutocomplete from "../../../Common/CommonAutocomplete/CommonAutocom
 interface Step3Props {
   question: IQuestion;
   handleOptionClick: (next: string | number) => void;
-  selectedAdress: string;
-  setSelectedAdress: Dispatch<SetStateAction<string>>;
+  selectedAddress: string;
+  setSelectedAddress: Dispatch<SetStateAction<string>>;
 }
 
 const Step3: React.FC<Step3Props> = ({
   question,
   handleOptionClick,
-  selectedAdress,
-  setSelectedAdress,
+  selectedAddress,
+  setSelectedAddress,
 }) => {
   const [value, setValue] = useState("");
   const debouncedValue = useDebounce<string>(value, 500);
@@ -68,53 +68,61 @@ const Step3: React.FC<Step3Props> = ({
   }
 
   function handleClick(option: string) {
-    setSelectedAdress(option);
+    setSelectedAddress(option);
     setValue(option);
     setIsVisibled(false);
   }
 
   return (
-    <div className="c-Step3">
-      <EligibilityAdress className="c-Step3__Image" />
-      <div className="c-Step3__TitleContainer">
-        <CommonBlockHeading titleContent={question.title} />
-      </div>
-      <div className="c-Step3__InputContainer">
-        {selectedAdress ? (
-          <div className="c-Step3__AdressBlockContainer">
-            <div className="c-Step3__Adress">
-              <p className="c-Step3__LabelConfirm">Adresse complète</p>
-              <h4 className="c-Step3__SelectedAdress">{selectedAdress}</h4>
+    <div className="o-Steps c-StepAddress">
+      <EligibilityAdress className="o-Steps__Image" />
+      <div className="o-Steps__Container">
+        <EligibilityAdress className="o-Steps__Image" />
+        <CommonBlockHeading
+          titleContent={question.title}
+          subTitle={question.text}
+        />
+        <div className="o-Steps__CardContainer">
+          {" "}
+          <p className="o-Steps__SubText">{question.subText}</p>
+          {selectedAddress ? (
+            <div className="c-StepAddress__AddressBlockContainer">
+              <div className="c-StepAddress__Address">
+                <p className="c-StepAddress__LabelConfirm">Adresse complète</p>
+                <p className="c-StepAddress__SelectedAddress">
+                  {selectedAddress}
+                </p>
+              </div>
+              <button type="button" className="c-StepAddress__PencilIcon">
+                <PencilWrite onClick={() => setSelectedAddress("")} />
+              </button>
             </div>
-            <div className="c-Step3__PencilIcon">
-              <PencilWrite onClick={() => setSelectedAdress("")} />
-            </div>
+          ) : (
+            <CommonAutocomplete
+              value={value}
+              handleChange={handleChange}
+              debouncedValue={debouncedValue}
+              isVisibled={isVisibled}
+              setIsVisibled={setIsVisibled}
+              handleClick={handleClick}
+              filteredOptions={filteredOptions}
+              inputName="address"
+              inputLabel="Adresse complète"
+              inputPlaceholder="ex: 10 rue des fleurs 82000 Montauban"
+            />
+          )}
+          <div className="c-StepAddress__ButtonContainer">
+            <CommonButton
+              type="button"
+              style="primary"
+              isDisabled={!selectedAddress}
+              label={question.options[0].text}
+              onClick={() => handleOptionClick(question.options[0].next)}
+            />
+            <button className="o-Steps__CardButtons_openmodal">
+              {`Mon adresse n'est pas reconnue`}
+            </button>
           </div>
-        ) : (
-          <CommonAutocomplete
-            value={value}
-            handleChange={handleChange}
-            debouncedValue={debouncedValue}
-            isVisibled={isVisibled}
-            setIsVisibled={setIsVisibled}
-            handleClick={handleClick}
-            filteredOptions={filteredOptions}
-            inputName="address"
-            inputLabel="Adresse complète"
-            inputPlaceholder="ex: 10 rue des fleurs 82000 Montauban"
-          />
-        )}
-        <div className="c-Step3__ButtonContainer">
-          <CommonButton
-            type="button"
-            style="primary"
-            isDisabled={!selectedAdress}
-            label={question.options[0].text}
-            onClick={() => handleOptionClick(question.options[0].next)}
-          />
-          <button className="c-Step3__TextButton">
-            {`Mon adresse n'est pas reconnue`}
-          </button>
         </div>
       </div>
     </div>

@@ -45,7 +45,7 @@ export const questions: IQuestion[] = [
   },
   {
     title: "Suivez mois par mois l'évolution de votre production",
-    text: "Quelle est votre adresse ?",
+    subText: "Quelle est votre adresse ?",
     options: [
       { text: "Valider", next: 4, buttonStyle: "primary" },
       { text: "Mon adresse n'est pas reconnue", next: "/" },

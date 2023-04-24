@@ -13,7 +13,7 @@ import Step5 from "../../../components/CompteurDechets/Eligibility/Step5/Step5";
 const Eligibilite = () => {
   const router = useRouter();
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selectedAdress, setSelectedAdress] = useState("");
+  const [selectedAddress, setSelectedAddress] = useState("");
   const [personsCount, setPersonsCount] = useState(1);
 
   const breadcrumbPages = [
@@ -55,8 +55,8 @@ const Eligibilite = () => {
           <Step3
             question={questions[currentQuestion]}
             handleOptionClick={handleOptionClick}
-            selectedAdress={selectedAdress}
-            setSelectedAdress={setSelectedAdress}
+            selectedAddress={selectedAddress}
+            setSelectedAddress={setSelectedAddress}
           />
         );
       case 4:
@@ -97,7 +97,7 @@ const Eligibilite = () => {
         handleBackClick={handleBackClick}
       />
       <CommonBreadcrumb pages={breadcrumbPages} />
-      {renderQuestion()}
+      <div className="o-CornerShapes">{renderQuestion()}</div>
     </>
   );
 };

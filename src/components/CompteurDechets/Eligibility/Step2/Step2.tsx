@@ -3,9 +3,8 @@ import {
   IQuestion,
   IQuestionOption,
 } from "../../../../pages/mon-compteur-dechets/eligibilite/questionDatas";
-import "./step2.scss";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
-import EligibilityRecycling from "public/images/eligibility-recycle.svg";
+import EligibilityRecycling from "public/images/formes_gray.svg";
 
 interface Step2Props {
   question: IQuestion;
@@ -14,26 +13,27 @@ interface Step2Props {
 
 const Step2: React.FC<Step2Props> = ({ question, handleOptionClick }) => {
   return (
-    <div className="c-Step2">
-      <EligibilityRecycling className="c-Step1__Image" />
-      <div className="c-Step2__TitleContainer">
+    <div className="o-Steps">
+      <EligibilityRecycling className="o-Steps__Image" />
+      <div className="o-Steps__Container">
+        <EligibilityRecycling className="o-Steps__Image" />
         <CommonBlockHeading
           titleContent={question.title}
           subTitle={question.text}
         />
-      </div>
 
-      <div className="c-Step2__CardContainer">
-        <p className="c-Step1__SubText">{question.subText}</p>
-        {question.options.map((option: IQuestionOption, index: number) => (
-          <button
-            key={index}
-            className="c-Step2__Card"
-            onClick={() => handleOptionClick(option.next)}
-          >
-            <p className="c-Step2__CardSubtitle">{option.text}</p>
-          </button>
-        ))}
+        <div className="o-Steps__CardContainer">
+          <p className="o-Steps__SubText">{question.subText}</p>
+          {question.options.map((option: IQuestionOption, index: number) => (
+            <button
+              key={index}
+              className="o-Steps__Card"
+              onClick={() => handleOptionClick(option.next || 0)}
+            >
+              <p className="o-Steps__CardSubtitle">{option.text}</p>
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

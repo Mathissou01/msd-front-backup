@@ -1,6 +1,6 @@
-import "./non-eligibilite-page.scss";
-import CommonButton from "../../../components/Common/CommonButton/CommonButton";
 import { useRouter } from "next/router";
+import CommonButton from "../../../components/Common/CommonButton/CommonButton";
+import "./non-eligibilite-page.scss";
 
 export default function ActualitesPage() {
   const router = useRouter();
