@@ -27,7 +27,6 @@
     min-height: calc(100vh - #{layout.$header-height});
   }
 
-  // TODO: temporary structural class, remove later
   &__Section {
     display: flex;
     flex-direction: column;
@@ -45,7 +44,7 @@
 .o-CornerShapes {
   @include im.media(">=tablet") {
     position: relative;
-    height: calc(100vh - 119px);
+    height: calc(100vh - 178px);
 
     &::after {
       position: absolute;
@@ -78,8 +77,14 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  width: 100%;
   margin: 30px auto;
   padding: 0 16px;
+
+  @include im.media("<tablet", ">=mobile") {
+    width: 70%;
+    padding: 0 20px;
+  }
 
   @include im.media(">=tablet") {
     flex-direction: row;
@@ -90,7 +95,6 @@
   }
 
   > svg {
-    // display: none;
     position: absolute;
     top: -10000000000000000px;
     @include im.media(">=tablet") {
@@ -101,8 +105,6 @@
 
   &__Image {
     order: 2;
-
-    // display: none;
     margin: 34px auto;
 
     @include im.media("<mobile") {
@@ -112,9 +114,8 @@
     @include im.media(">=tablet") {
       order: 0;
       width: 480px;
+      min-width: 480px;
       height: 480px;
-
-      // display: block;
       margin: 0 55px 0 0;
     }
   }
@@ -127,7 +128,7 @@
     padding: 0;
 
     @include im.media(">=tablet") {
-      width: auto;
+      // width: auto;
     }
 
     > svg {
