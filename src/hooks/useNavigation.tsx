@@ -9,6 +9,7 @@ export enum ENavigationPages {
   "ComponentLinksTips" = "/astuces",
   "ComponentLinksFrees" = "/contenu-libre", // Path is concatenated with name as normalized string
   "ComponentLinksContactUs" = "/contact",
+  "ComponentLinksMyWasteCounter" = "/mon-compteur-dechets",
   // Services
   "ComponentLinksRecyclingGuide" = "/service/guide-tri",
   "ComponentLinksDropOffMap" = "/service/carte",

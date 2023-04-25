@@ -90,6 +90,19 @@ query getGlobalData($contractId: ID!) {
           data {
             attributes {
               serviceLinks {
+                ... on ComponentLinksMyWasteCounter{
+                  __typename
+                  id
+                  name
+                  isDisplayed
+                  picto{
+                    data {
+                      attributes {
+                        url
+                      }
+                    }
+                  }
+                }
                 ... on ComponentLinksDropOffMap {
                   __typename
                   id
