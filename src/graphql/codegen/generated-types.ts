@@ -1041,9 +1041,9 @@ export type ComponentLinksKeyMetricsKeyMetricsArgs = {
 
 export type ComponentLinksMyWasteCounter = {
   __typename?: "ComponentLinksMyWasteCounter";
+  MyWCounter?: Maybe<MwCounterServiceRelationResponseCollection>;
   id: Scalars["ID"];
   isDisplayed: Scalars["Boolean"];
-  myWCounter?: Maybe<MwCounterServiceRelationResponseCollection>;
   name?: Maybe<Scalars["String"]>;
   picto?: Maybe<UploadFileEntityResponse>;
 };
@@ -5143,7 +5143,7 @@ export type MwCounterService = {
   createdAt?: Maybe<Scalars["DateTime"]>;
   description?: Maybe<Scalars["String"]>;
   endDate?: Maybe<Scalars["Date"]>;
-  isActivated: Scalars["Boolean"];
+  isActivated?: Maybe<Scalars["Boolean"]>;
   name?: Maybe<Scalars["String"]>;
   startDate?: Maybe<Scalars["Date"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
@@ -6891,11 +6891,12 @@ export type RecyclingGuideService = {
   contract?: Maybe<ContractEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   endDate?: Maybe<Scalars["Date"]>;
-  file?: Maybe<UploadFileEntityResponse>;
   isActivated: Scalars["Boolean"];
   memoDesc?: Maybe<Scalars["String"]>;
+  memoFile?: Maybe<UploadFileEntityResponse>;
   memoName: Scalars["String"];
   name: Scalars["String"];
+  orderExtension?: Maybe<Scalars["Boolean"]>;
   startDate?: Maybe<Scalars["Date"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
   wasteFamilies?: Maybe<WasteFamilyRelationResponseCollection>;
@@ -6957,6 +6958,7 @@ export type RecyclingGuideServiceFiltersInput = {
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<RecyclingGuideServiceFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<RecyclingGuideServiceFiltersInput>>>;
+  orderExtension?: InputMaybe<BooleanFilterInput>;
   startDate?: InputMaybe<DateFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   wasteFamilies?: InputMaybe<WasteFamilyFiltersInput>;
@@ -6968,11 +6970,12 @@ export type RecyclingGuideServiceInput = {
   cities?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   contract?: InputMaybe<Scalars["ID"]>;
   endDate?: InputMaybe<Scalars["Date"]>;
-  file?: InputMaybe<Scalars["ID"]>;
   isActivated?: InputMaybe<Scalars["Boolean"]>;
   memoDesc?: InputMaybe<Scalars["String"]>;
+  memoFile?: InputMaybe<Scalars["ID"]>;
   memoName?: InputMaybe<Scalars["String"]>;
   name?: InputMaybe<Scalars["String"]>;
+  orderExtension?: InputMaybe<Scalars["Boolean"]>;
   startDate?: InputMaybe<Scalars["Date"]>;
   wasteFamilies?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   wasteForms?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -8282,6 +8285,7 @@ export type WasteForm = {
   name?: Maybe<Scalars["String"]>;
   picto?: Maybe<UploadFileEntityResponse>;
   recyclingGestureText?: Maybe<Scalars["String"]>;
+  recyclingGuideService?: Maybe<RecyclingGuideServiceEntityResponse>;
   tags?: Maybe<TagRelationResponseCollection>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
   wasteFamily?: Maybe<WasteFamilyEntityResponse>;
@@ -8328,6 +8332,7 @@ export type WasteFormFiltersInput = {
   not?: InputMaybe<WasteFormFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<WasteFormFiltersInput>>>;
   recyclingGestureText?: InputMaybe<StringFilterInput>;
+  recyclingGuideService?: InputMaybe<RecyclingGuideServiceFiltersInput>;
   tags?: InputMaybe<TagFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   wasteFamily?: InputMaybe<WasteFamilyFiltersInput>;
@@ -8341,6 +8346,7 @@ export type WasteFormInput = {
   name?: InputMaybe<Scalars["String"]>;
   picto?: InputMaybe<Scalars["ID"]>;
   recyclingGestureText?: InputMaybe<Scalars["String"]>;
+  recyclingGuideService?: InputMaybe<Scalars["ID"]>;
   tags?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   wasteFamily?: InputMaybe<Scalars["ID"]>;
 };
@@ -10185,6 +10191,151 @@ export type GetContactUsSubServiceByContractIdQuery = {
           | { __typename?: "Error"; code: string; message?: string | null }
           | null
         > | null;
+      } | null;
+    }>;
+  } | null;
+};
+
+export type GetTipByIdQueryVariables = Exact<{
+  tipId?: InputMaybe<Scalars["ID"]>;
+}>;
+
+export type GetTipByIdQuery = {
+  __typename?: "Query";
+  tip?: {
+    __typename?: "TipEntityResponse";
+    data?: {
+      __typename?: "TipEntity";
+      id?: string | null;
+      attributes?: {
+        __typename?: "Tip";
+        title: string;
+        link?: string | null;
+        titleLabel?: string | null;
+        shortDescription?: string | null;
+        status?: Enum_Tip_Status | null;
+        publishedDate?: any | null;
+        unpublishedDate?: any | null;
+        createdAt?: any | null;
+        updatedAt?: any | null;
+        tipSubService?: {
+          __typename?: "TipSubServiceEntityResponse";
+          data?: {
+            __typename?: "TipSubServiceEntity";
+            id?: string | null;
+          } | null;
+        } | null;
+        tags?: {
+          __typename?: "TagRelationResponseCollection";
+          data: Array<{
+            __typename?: "TagEntity";
+            id?: string | null;
+            attributes?: { __typename?: "Tag"; name: string } | null;
+          }>;
+        } | null;
+        image: {
+          __typename?: "UploadFileEntityResponse";
+          data?: {
+            __typename?: "UploadFileEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "UploadFile";
+              hash: string;
+              mime: string;
+              name: string;
+              provider: string;
+              size: number;
+              url: string;
+              alternativeText?: string | null;
+            } | null;
+          } | null;
+        };
+        blocks?: Array<
+          | {
+              __typename?: "ComponentBlocksFile";
+              id: string;
+              document?: {
+                __typename?: "UploadFileEntityResponse";
+                data?: {
+                  __typename?: "UploadFileEntity";
+                  attributes?: {
+                    __typename?: "UploadFile";
+                    hash: string;
+                    mime: string;
+                    provider: string;
+                    size: number;
+                    name: string;
+                    url: string;
+                  } | null;
+                } | null;
+              } | null;
+            }
+          | {
+              __typename?: "ComponentBlocksHorizontalRule";
+              id: string;
+              hr?: string | null;
+            }
+          | {
+              __typename?: "ComponentBlocksImage";
+              id: string;
+              isDecorative?: boolean | null;
+              altText?: string | null;
+              picture?: {
+                __typename?: "UploadFileEntityResponse";
+                data?: {
+                  __typename?: "UploadFileEntity";
+                  id?: string | null;
+                  attributes?: {
+                    __typename?: "UploadFile";
+                    name: string;
+                    url: string;
+                    hash: string;
+                    mime: string;
+                    provider: string;
+                    size: number;
+                  } | null;
+                } | null;
+              } | null;
+            }
+          | {
+              __typename?: "ComponentBlocksSubHeading";
+              id: string;
+              subHeadingText?: string | null;
+              subHeadingTag?: Enum_Componentblockssubheading_Subheadingtag | null;
+            }
+          | {
+              __typename?: "ComponentBlocksVideo";
+              id: string;
+              videoLink?: string | null;
+              transcriptText?: string | null;
+            }
+          | {
+              __typename?: "ComponentBlocksWysiwyg";
+              id: string;
+              textEditor?: string | null;
+            }
+          | { __typename?: "Error"; code: string; message?: string | null }
+          | null
+        > | null;
+      } | null;
+    } | null;
+  } | null;
+};
+
+export type GetTipsPathsQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+}>;
+
+export type GetTipsPathsQuery = {
+  __typename?: "Query";
+  tips?: {
+    __typename?: "TipEntityResponseCollection";
+    data: Array<{
+      __typename?: "TipEntity";
+      id?: string | null;
+      attributes?: {
+        __typename?: "Tip";
+        status?: Enum_Tip_Status | null;
       } | null;
     }>;
   } | null;
@@ -12521,4 +12672,228 @@ export type GetContactUsSubServiceByContractIdLazyQueryHookResult = ReturnType<
 export type GetContactUsSubServiceByContractIdQueryResult = Apollo.QueryResult<
   GetContactUsSubServiceByContractIdQuery,
   GetContactUsSubServiceByContractIdQueryVariables
+>;
+export const GetTipByIdDocument = gql`
+  query getTipById($tipId: ID) {
+    tip(id: $tipId) {
+      data {
+        id
+        attributes {
+          title
+          link
+          titleLabel
+          shortDescription
+          tipSubService {
+            data {
+              id
+            }
+          }
+          status
+          publishedDate
+          unpublishedDate
+          createdAt
+          updatedAt
+          tags {
+            data {
+              id
+              attributes {
+                name
+              }
+            }
+          }
+          image {
+            data {
+              id
+              attributes {
+                hash
+                mime
+                name
+                provider
+                size
+                url
+                alternativeText
+              }
+            }
+          }
+          blocks {
+            ... on ComponentBlocksSubHeading {
+              id
+              subHeadingText
+              subHeadingTag
+            }
+            ... on ComponentBlocksVideo {
+              id
+              videoLink
+              transcriptText
+            }
+            ... on ComponentBlocksWysiwyg {
+              id
+              textEditor
+            }
+            ... on ComponentBlocksHorizontalRule {
+              id
+              hr
+            }
+            ... on ComponentBlocksImage {
+              id
+              picture {
+                data {
+                  id
+                  attributes {
+                    name
+                    url
+                    hash
+                    mime
+                    provider
+                    size
+                  }
+                }
+              }
+              isDecorative
+              altText
+            }
+            ... on ComponentBlocksFile {
+              id
+              document {
+                data {
+                  attributes {
+                    hash
+                    mime
+                    provider
+                    size
+                    name
+                    url
+                  }
+                }
+              }
+            }
+            ... on Error {
+              code
+              message
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetTipByIdQuery__
+ *
+ * To run a query within a React component, call `useGetTipByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTipByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTipByIdQuery({
+ *   variables: {
+ *      tipId: // value for 'tipId'
+ *   },
+ * });
+ */
+export function useGetTipByIdQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetTipByIdQuery,
+    GetTipByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetTipByIdQuery, GetTipByIdQueryVariables>(
+    GetTipByIdDocument,
+    options,
+  );
+}
+export function useGetTipByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetTipByIdQuery,
+    GetTipByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetTipByIdQuery, GetTipByIdQueryVariables>(
+    GetTipByIdDocument,
+    options,
+  );
+}
+export type GetTipByIdQueryHookResult = ReturnType<typeof useGetTipByIdQuery>;
+export type GetTipByIdLazyQueryHookResult = ReturnType<
+  typeof useGetTipByIdLazyQuery
+>;
+export type GetTipByIdQueryResult = Apollo.QueryResult<
+  GetTipByIdQuery,
+  GetTipByIdQueryVariables
+>;
+export const GetTipsPathsDocument = gql`
+  query getTipsPaths($contractId: ID!) {
+    tips(
+      filters: {
+        status: { eq: "published" }
+        tipSubService: {
+          isActivated: { eq: true }
+          editorialService: { contract: { id: { eq: $contractId } } }
+        }
+      }
+    ) {
+      data {
+        id
+        attributes {
+          status
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetTipsPathsQuery__
+ *
+ * To run a query within a React component, call `useGetTipsPathsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTipsPathsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTipsPathsQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetTipsPathsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetTipsPathsQuery,
+    GetTipsPathsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetTipsPathsQuery, GetTipsPathsQueryVariables>(
+    GetTipsPathsDocument,
+    options,
+  );
+}
+export function useGetTipsPathsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetTipsPathsQuery,
+    GetTipsPathsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetTipsPathsQuery, GetTipsPathsQueryVariables>(
+    GetTipsPathsDocument,
+    options,
+  );
+}
+export type GetTipsPathsQueryHookResult = ReturnType<
+  typeof useGetTipsPathsQuery
+>;
+export type GetTipsPathsLazyQueryHookResult = ReturnType<
+  typeof useGetTipsPathsLazyQuery
+>;
+export type GetTipsPathsQueryResult = Apollo.QueryResult<
+  GetTipsPathsQuery,
+  GetTipsPathsQueryVariables
 >;
