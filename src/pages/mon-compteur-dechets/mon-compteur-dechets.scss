@@ -15,31 +15,6 @@
     align-items: flex-start;
     justify-content: flex-end;
     margin: 86px 60px 0 0;
-
-    &__Container {
-      z-index: 1;
-      width: 678px;
-      margin: 0;
-      padding: 64px;
-    }
-
-    &__Title {
-      &::after {
-        content: none;
-      }
-    }
-
-    &__Subtitle {
-      display: block;
-      margin-top: 16px;
-    }
-
-    &__Text {
-      margin-top: 45px;
-      margin-bottom: 16px;
-      font-family: DINPro-Medium, sans-serif;
-      line-height: 27px;
-    }
   }
 
   &__SvgContainer {
@@ -114,6 +89,13 @@
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
+
+    @include im.media(">=tablet") {
+      z-index: 1;
+      width: 678px;
+      margin: 0;
+      padding: 64px;
+    }
   }
 
   &__Content {
@@ -139,10 +121,21 @@
     font-family: DINPro-Bold, sans-serif;
     line-height: 25px;
     letter-spacing: 0.005em;
+
+    @include im.media(">=tablet") {
+      &::after {
+        content: none;
+      }
+    }
   }
 
   &__Subtitle {
     display: none;
+
+    @include im.media(">=tablet") {
+      display: block;
+      margin-top: 16px;
+    }
   }
 
   &__Text {
@@ -151,5 +144,12 @@
     font-size: 18px;
     font-family: DINPro-Medium, sans-serif;
     line-height: 27px;
+
+    @include im.media(">=tablet") {
+      margin-top: 45px;
+      margin-bottom: 16px;
+      font-family: DINPro-Medium, sans-serif;
+      line-height: 27px;
+    }
   }
 }

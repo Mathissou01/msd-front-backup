@@ -1,0 +1,60 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-CommonModal {
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  z-index: 11;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 628px;
+  height: 460px;
+  padding: 28px 64px 61px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 8px;
+  transform: translateX(-50%);
+
+  @include im.media("<=mobile") {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    transform: none;
+  }
+
+  .c-CommonButton:first-child {
+    position: absolute;
+    top: 84px;
+    right: 28px;
+    font-size: 20px;
+  }
+
+  &__Header {
+    margin-bottom: 34px;
+  }
+
+  &__Body {
+    margin-bottom: 77px;
+    font-size: 16px;
+  }
+
+  &__Bottom {
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  &__Backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(#343a40, 0.45);
+  }
+}

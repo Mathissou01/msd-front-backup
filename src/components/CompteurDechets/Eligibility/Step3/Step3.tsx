@@ -8,13 +8,13 @@ import React, {
 import { IQuestion } from "../../../../pages/mon-compteur-dechets/eligibilite/questionDatas";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
 import CommonButton from "../../../Common/CommonButton/CommonButton";
+import CommonAutocomplete from "../../../Common/CommonAutocomplete/CommonAutocomplete";
 
 import EligibilityAdress from "public/images/eligibility-recycle.svg";
 import useDebounce from "../../../../hooks/useDebounce";
 import PencilWrite from "public/images/pictos/pencilwrite.svg";
 import { Feature } from "./Address.interface";
 import "./step3.scss";
-import CommonAutocomplete from "../../../Common/CommonAutocomplete/CommonAutocomplete";
 
 interface Step3Props {
   question: IQuestion;

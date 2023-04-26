@@ -21,6 +21,7 @@
   }
 
   &__Main {
+    position: relative; // to check in other pages
     z-index: index.z("site-content");
     display: flex;
     flex-direction: column;
@@ -37,37 +38,6 @@
 
     &:not(:last-child) {
       border-bottom: 1px solid colors.$gray-200;
-    }
-  }
-}
-
-.o-CornerShapes {
-  @include im.media(">=tablet") {
-    position: relative;
-    height: calc(100vh - 178px);
-
-    &::after {
-      position: absolute;
-      top: 0;
-      right: 0;
-      display: block;
-      width: 150px;
-      height: 160px;
-      background-image: url("../../../public/images/Yellow_shape_right_top.svg");
-      background-repeat: no-repeat;
-      content: "";
-    }
-
-    &::before {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      display: block;
-      width: 288px;
-      height: 121px;
-      background-image: url("../../../public/images/Yellow_shape_left_bottom.svg");
-      background-repeat: no-repeat;
-      content: "";
     }
   }
 }
@@ -90,7 +60,7 @@
     flex-direction: row;
     width: 987px;
     max-width: 987px;
-    margin: 94px auto;
+    margin: 78px auto;
     padding: 0;
   }
 
@@ -200,61 +170,30 @@
   }
 }
 
-.c-Modal {
-  position: absolute;
-  top: 150px;
-  left: 50%;
-  z-index: 11;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 628px;
-  height: 460px;
-  padding: 28px 64px 61px;
-  text-align: center;
-  background-color: #fff;
-  border-radius: 8px;
-  transform: translateX(-50%);
+.o-CornerShapes {
+  @include im.media(">=tablet") {
+    &::after {
+      position: absolute;
+      top: 59px;
+      right: 0;
+      display: block;
+      width: 150px;
+      height: 160px;
+      background-image: url("../../../public/images/Yellow_shape_right_top.svg");
+      background-repeat: no-repeat;
+      content: "";
+    }
 
-  @include im.media("<=mobile") {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    border-radius: 0;
-    transform: none;
-  }
-
-  .c-CommonButton:first-child {
-    position: absolute;
-    top: 28px;
-    right: 28px;
-    font-size: 20px;
-  }
-
-  &__Header {
-    margin-bottom: 34px;
-  }
-
-  &__Body {
-    margin-bottom: 77px;
-    font-size: 16px;
-  }
-
-  &__Bottom {
-    font-weight: 600;
-    font-size: 14px;
-  }
-
-  &__Backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(#343a40, 0.45);
+    &::before {
+      position: absolute;
+      top: calc(100% - 121px);
+      left: 0;
+      display: block;
+      width: 288px;
+      height: 121px;
+      background-image: url("../../../public/images/Yellow_shape_left_bottom.svg");
+      background-repeat: no-repeat;
+      content: "";
+    }
   }
 }

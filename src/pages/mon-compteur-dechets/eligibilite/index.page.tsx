@@ -97,7 +97,7 @@ const Eligibilite = () => {
         handleBackClick={handleBackClick}
       />
       <CommonBreadcrumb pages={breadcrumbPages} />
-      <div className="o-CornerShapes">{renderQuestion()}</div>
+      {renderQuestion()}
     </>
   );
 };

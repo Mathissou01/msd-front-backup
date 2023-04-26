@@ -19,7 +19,6 @@ function MsdFrontApp({ Component, pageProps }: AppProps) {
   const [currentPage, setCurrentPage] = useState<ENavigationPages | string>(
     router.route as ENavigationPages | string,
   );
-
   return (
     <ApolloProvider client={client}>
       <ContractContext.Provider
@@ -34,7 +33,14 @@ function MsdFrontApp({ Component, pageProps }: AppProps) {
               <CommonSvgDefs />
               <Header />
               <div className="o-Page__Container">
-                <main role="main" className="o-Page__Main">
+                <main
+                  role="main"
+                  className={`o-Page__Main ${
+                    router.pathname === "/mon-compteur-dechets/eligibilite"
+                      ? "o-CornerShapes"
+                      : ""
+                  }`}
+                >
                   <Component {...pageProps} />
                 </main>
                 <Footer />
