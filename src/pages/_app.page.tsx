@@ -23,6 +23,7 @@ function MsdFrontApp({ Component, pageProps }: AppProps) {
     <ApolloProvider client={client}>
       <ContractContext.Provider
         value={{
+          colors: globalData.colors,
           contract: globalData.contract as ContractEntity,
           contractId: `${Number.parseInt(globalData.contract.id)}`,
         }}

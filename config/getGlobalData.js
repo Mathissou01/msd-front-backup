@@ -28,6 +28,7 @@ query getGlobalData($contractId: ID!) {
             id
             attributes {
               primaryColor
+              secondaryColor
               textContrast
               footer {
                 data {

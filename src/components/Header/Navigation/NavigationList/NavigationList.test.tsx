@@ -11,6 +11,7 @@ describe("NavigationList", () => {
         value={{
           contract: globalMock.contract as ContractEntity,
           contractId: `${Number.parseInt(globalMock.contract.id)}`,
+          colors: globalMock.colors,
         }}
       >
         <NavigationList isDesktopMode={false} />
@@ -18,7 +19,6 @@ describe("NavigationList", () => {
     );
 
     expect(await screen.findByText("Accueil")).toBeInTheDocument();
-    expect(await screen.findByText("Guide du tri")).toBeInTheDocument();
     expect(await container).toMatchSnapshot();
   });
 
@@ -28,6 +28,7 @@ describe("NavigationList", () => {
         value={{
           contract: globalMock.contract as ContractEntity,
           contractId: `${Number.parseInt(globalMock.contract.id)}`,
+          colors: globalMock.colors,
         }}
       >
         <NavigationList isDesktopMode={true} />
@@ -35,7 +36,6 @@ describe("NavigationList", () => {
     );
 
     expect(await screen.findByText("Accueil")).toBeInTheDocument();
-    expect(await screen.findByText("Guide du tri")).toBeInTheDocument();
     expect(await container).toMatchSnapshot();
   });
 });

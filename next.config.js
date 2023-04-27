@@ -1,59 +1,66 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const fs = require("fs-extra");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
+const sass = require("sass");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require("path");
-const {
-  contrastText,
-  primaryColor,
-  primaryColorDark,
-  primaryColorLight,
-  secondaryColor,
-  secondaryColorDark,
-  secondaryColorLight,
-  wasteHousehold,
-  wasteSelective,
-  wasteBio,
-  wasteGlass,
-  wasteGreen,
-  wastePaper,
-  wasteOther, // eslint-disable-next-line @typescript-eslint/no-var-requires
-} = require("./config/color-config");
 
-function writeGlobalData(contract) {
-  const globalData = {
-    contract,
-    colors: {
-      "external-contrast-text": contrastText,
-      "external-primary": primaryColor,
-      "calculated-primary-dark": primaryColorDark,
-      "calculated-primary-light": primaryColorLight,
-      "external-secondary": secondaryColor,
-      "calculated-secondary-dark": secondaryColorDark,
-      "calculated-secondary-light": secondaryColorLight,
-      "external-waste-household": wasteHousehold,
-      "external-waste-selective": wasteSelective,
-      "external-waste-bio": wasteBio,
-      "external-waste-green": wasteGreen,
-      "external-waste-glass": wasteGlass,
-      "external-waste-paper": wastePaper,
-      "external-waste-other": wasteOther,
-    },
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const generateColors = require("./config/color-config").generateColors;
+
+function writeGlobalData(contract, customColors) {
+  let colorsObj = {
+    "external-primary": customColors.primaryColor,
+    "calculated-primary-dark": customColors.primaryColorDark,
+    "calculated-primary-light": customColors.primaryColorLight,
+    "external-secondary": customColors.secondaryColor,
+    "calculated-secondary-dark": customColors.secondaryColorDark,
+    "calculated-secondary-light": customColors.secondaryColorLight,
+    "external-contrast-text": customColors.contrastText,
+    "external-waste-household": customColors.wasteHousehold,
+    "external-waste-selective": customColors.wasteSelective,
+    "external-waste-bio": customColors.wasteBio,
+    "external-waste-green": customColors.wasteGreen,
+    "external-waste-glass": customColors.wasteGlass,
+    "external-waste-paper": customColors.wastePaper,
+    "external-waste-other": customColors.wasteOther,
   };
+  // Check if undefined colors
+  function checkColors(colorsObj, contract) {
+    if (
+      typeof colorsObj === "object" &&
+      Object.values(colorsObj).includes(undefined)
+    ) {
+      return {
+        contract,
+        colors: customColors,
+      };
+    } else {
+      return {
+        contract,
+        colors: colorsObj,
+      };
+    }
+  }
+  const globalData = checkColors(colorsObj, contract);
   fs.writeFile("./config/global.json", JSON.stringify(globalData));
 }
 
+let customColors = null;
 module.exports = async (phase) => {
   const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID.toString();
   if (!Number.parseInt(contractId)) throw "Error";
-
   if (process.env.NEXT_PUBLIC_MOCK === "true" || phase === "phase-test") {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const globalMockData = require("./__mocks__/globalMock.json");
-    writeGlobalData(globalMockData.contract);
+
+    customColors = globalMockData.colors;
+
+    writeGlobalData(globalMockData.contract, globalMockData.colors);
   } else {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const GetGlobalDataQuery = require("./config/getGlobalData");
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/graphql`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/graphql`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -64,11 +71,28 @@ module.exports = async (phase) => {
           contractId,
         },
       }),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        writeGlobalData(result.data.contract.data);
-      });
+    });
+
+    const resultQuery = await response.json();
+    const primaryColorInput =
+      resultQuery.data.contract.data.attributes.contractCustomization.data
+        .attributes.primaryColor;
+
+    const secondaryColorInput =
+      resultQuery.data.contract.data.attributes.contractCustomization.data
+        .attributes.secondaryColor;
+
+    const contrastTextInput =
+      resultQuery.data.contract.data.attributes.contractCustomization.data
+        .attributes.textContrast;
+    const colorsConfig = generateColors(
+      primaryColorInput,
+      secondaryColorInput,
+      contrastTextInput,
+    );
+    customColors = colorsConfig.getColors();
+
+    writeGlobalData(resultQuery.data.contract.data, colorsConfig.getColors());
   }
 
   /** @type {import("next").NextConfig} */
@@ -100,24 +124,25 @@ module.exports = async (phase) => {
       // Calculate dark/light values of color with chroma.js (using CIELAB calculations)
       // then override values with .env, then make settings globally available
       additionalData: `
-      @use "src/styles/01-settings/settings.external" as *;
-      $external-contrast-text: ${contrastText};
-      $external-primary: ${primaryColor};
-      $calculated-primary-dark: ${primaryColorDark};
-      $calculated-primary-light: ${primaryColorLight};
-      $external-secondary: ${secondaryColor};
-      $calculated-secondary-dark: ${secondaryColorDark};
-      $calculated-secondary-light: ${secondaryColorLight};
-      $external-waste-household: ${wasteHousehold};
-      $external-waste-selective: ${wasteSelective};
-      $external-waste-bio: ${wasteBio};
-      $external-waste-green: ${wasteGreen};
-      $external-waste-glass: ${wasteGlass};
-      $external-waste-paper: ${wastePaper};
-      $external-waste-other: ${wasteOther};
+      @use "src/styles/01-settings/settings.external" as *;   
+      $external-primary: ${customColors.primaryColor};
+      $calculated-primary-dark: ${customColors.primaryColorDark};
+      $calculated-primary-light: ${customColors.primaryColorLight};
+      $external-secondary: ${customColors.secondaryColor};
+      $calculated-secondary-dark: ${customColors.secondaryColorDark};
+      $calculated-secondary-light: ${customColors.secondaryColorLight};
+      $external-contrast-text: ${customColors.contrastText};
+      $external-waste-household: ${customColors.wasteHousehold};
+      $external-waste-selective: ${customColors.wasteSelective};
+      $external-waste-bio: ${customColors.wasteBio};
+      $external-waste-green: ${customColors.wasteGreen};
+      $external-waste-glass: ${customColors.wasteGlass};
+      $external-waste-paper: ${customColors.wastePaper};
+      $external-waste-other: ${customColors.wasteOther};
       @use "src/styles/01-settings" as *;
       @use "src/styles/02-tools" as *;
     `,
+      implementation: sass,
     },
     webpack(config) {
       // Enable topLevelAwait, ES2017 in tsconfig
