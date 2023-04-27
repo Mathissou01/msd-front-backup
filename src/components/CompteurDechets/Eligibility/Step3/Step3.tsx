@@ -8,19 +8,20 @@ import React, {
 import { IQuestion } from "../../../../pages/mon-compteur-dechets/eligibilite/questionDatas";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
 import CommonButton from "../../../Common/CommonButton/CommonButton";
-import CommonAutocomplete from "../../../Common/CommonAutocomplete/CommonAutocomplete";
-
 import EligibilityAdress from "public/images/eligibility-recycle.svg";
 import useDebounce from "../../../../hooks/useDebounce";
-import PencilWrite from "public/images/pictos/pencilwrite.svg";
 import { Feature } from "./Address.interface";
 import "./step3.scss";
+import AddressBlock from "../AddressBlock/AddressBlock";
+import { IError } from "../../../../pages/mon-compteur-dechets/eligibilite/index.page";
+import AutocompleteAddress from "../AutocompleteAddress/AutocompleteAddress";
 
 interface Step3Props {
   question: IQuestion;
   handleOptionClick: (next: string | number) => void;
   selectedAddress: string;
   setSelectedAddress: Dispatch<SetStateAction<string>>;
+  handleError: (updates: Partial<IError>) => void;
 }
 
 const Step3: React.FC<Step3Props> = ({
@@ -28,6 +29,7 @@ const Step3: React.FC<Step3Props> = ({
   handleOptionClick,
   selectedAddress,
   setSelectedAddress,
+  handleError,
 }) => {
   const [value, setValue] = useState("");
   const debouncedValue = useDebounce<string>(value, 500);
@@ -83,22 +85,15 @@ const Step3: React.FC<Step3Props> = ({
           subTitle={question.text}
         />
         <div className="o-Steps__CardContainer">
-          {" "}
           <p className="o-Steps__SubText">{question.subText}</p>
           {selectedAddress ? (
-            <div className="c-StepAddress__AddressBlockContainer">
-              <div className="c-StepAddress__Address">
-                <p className="c-StepAddress__LabelConfirm">Adresse complète</p>
-                <p className="c-StepAddress__SelectedAddress">
-                  {selectedAddress}
-                </p>
-              </div>
-              <button type="button" className="c-StepAddress__PencilIcon">
-                <PencilWrite onClick={() => setSelectedAddress("")} />
-              </button>
-            </div>
+            <AddressBlock
+              selectedAddress={selectedAddress}
+              setSelectedAddress={setSelectedAddress}
+              handleError={handleError}
+            />
           ) : (
-            <CommonAutocomplete
+            <AutocompleteAddress
               value={value}
               handleChange={handleChange}
               debouncedValue={debouncedValue}
@@ -109,6 +104,7 @@ const Step3: React.FC<Step3Props> = ({
               inputName="address"
               inputLabel="Adresse complète"
               inputPlaceholder="ex: 10 rue des fleurs 82000 Montauban"
+              handleError={handleError}
             />
           )}
           <div className="o-Steps__ButtonContainer">
@@ -119,7 +115,19 @@ const Step3: React.FC<Step3Props> = ({
               label={question.options[0].text}
               onClick={() => handleOptionClick(question.options[0].next)}
             />
-            <button className="o-Steps__CardButtons_openmodal">
+            <button
+              className="o-Steps__CardButtons_openmodal"
+              onClick={() =>
+                handleError({
+                  isActive: true,
+                  title:
+                    "Malheureusement, nous ne trouvons pas votre adresse dans notre base de données",
+                  isAddressVisible: true,
+                  isReasonVisible: false,
+                  isContactVisible: true,
+                })
+              }
+            >
               {`Mon adresse n'est pas reconnue`}
             </button>
           </div>

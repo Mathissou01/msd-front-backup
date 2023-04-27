@@ -22,8 +22,6 @@ const Step1: React.FC<Step1Props> = ({ question, handleOptionClick }) => {
           titleContent={question.title}
           subTitle={question.text}
         />
-        {/* </div> */}
-
         <div className="o-Steps__CardContainer">
           <p className="o-Steps__SubText">{question.subText}</p>
           {question.options.map((option: IQuestionOption, index: number) => (

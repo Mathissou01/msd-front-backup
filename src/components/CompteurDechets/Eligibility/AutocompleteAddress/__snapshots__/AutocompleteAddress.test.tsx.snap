@@ -1,37 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CommonAutocomplete renders 1`] = `
+exports[`AutocompleteAddress renders 1`] = `
 <div>
   <div
-    class="c-CommonAutocomplete"
+    class="c-AutocompleteAddress"
   >
     <div
-      class="c-CommonAutocomplete__Container"
+      class="c-AutocompleteAddress__Container"
     >
       <label
-        class="c-CommonAutocomplete__Label"
+        class="c-AutocompleteAddress__Label"
         for="common autocomplete"
       >
         common autocomplete
          *
       </label>
       <input
-        class="c-CommonAutocomplete__Input"
+        class="c-AutocompleteAddress__Input"
         name="common autocomplete"
         placeholder="common autocomplete"
         type="text"
         value="common"
       />
       <div
-        class="c-CommonAutocomplete__Selector"
+        class="c-AutocompleteAddress__Selector"
       >
         <button
-          class="c-CommonAutocomplete__Option"
+          class="c-AutocompleteAddress__Option"
         >
           common autocomplete 1
         </button>
         <button
-          class="c-CommonAutocomplete__Option"
+          class="c-AutocompleteAddress__Option"
         >
           common autocomplete 2
         </button>

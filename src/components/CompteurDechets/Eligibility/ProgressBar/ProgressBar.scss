@@ -31,6 +31,10 @@
     }
   }
 
+  &__ArrowIcon {
+    cursor: pointer;
+  }
+
   &__Container {
     display: flex;
     flex-direction: row;

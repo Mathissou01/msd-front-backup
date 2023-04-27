@@ -20,9 +20,11 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   };
   return (
     <div className="c-ProgressBar__Header">
-      <div onClick={handleBackClick}>
-        <ArrowBack />
-      </div>
+      {currentQuestion > 1 && (
+        <div onClick={handleBackClick} className="c-ProgressBar__ArrowIcon">
+          <ArrowBack />
+        </div>
+      )}
       <div className="c-ProgressBar__Content">
         <h4>{title}</h4>
         <div className="c-ProgressBar__Container">

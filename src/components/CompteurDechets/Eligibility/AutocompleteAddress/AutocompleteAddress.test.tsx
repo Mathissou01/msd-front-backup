@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import CommonAutocomplete from "./CommonAutocomplete";
+import AutocompleteAddress from "./AutocompleteAddress";
 
 const mock = {
   value: "common",
@@ -18,12 +18,15 @@ const mock = {
   inputName: "common autocomplete",
   inputLabel: "common autocomplete",
   inputPlaceholder: "common autocomplete",
+  handleError: () => {
+    console.log("");
+  },
 };
 
-describe("CommonAutocomplete", () => {
+describe("AutocompleteAddress", () => {
   it("renders", () => {
     const { container } = render(
-      <CommonAutocomplete
+      <AutocompleteAddress
         value={mock.value}
         handleChange={mock.handleChange}
         debouncedValue={mock.debouncedValue}
@@ -34,6 +37,7 @@ describe("CommonAutocomplete", () => {
         inputName={mock.inputName}
         inputLabel={mock.inputLabel}
         inputPlaceholder={mock.inputPlaceholder}
+        handleError={mock.handleError}
       />,
     );
     expect(container).toMatchSnapshot();

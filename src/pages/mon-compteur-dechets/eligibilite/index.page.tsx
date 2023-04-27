@@ -9,23 +9,43 @@ import Step0 from "../../../components/CompteurDechets/Eligibility/Step0/Step0";
 import { useRouter } from "next/router";
 import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 import Step5 from "../../../components/CompteurDechets/Eligibility/Step5/Step5";
+import StepError from "../../../components/CompteurDechets/Eligibility/StepError/StepError";
+
+export interface IError {
+  isActive: boolean;
+  title: string;
+  isAddressVisible: boolean;
+  isReasonVisible: boolean;
+  isContactVisible: boolean;
+}
+
+const breadcrumbPages = [
+  {
+    label: "Accueil",
+    slug: "/",
+  },
+  {
+    label: "Mon compteur déchets",
+    slug: "/mon-compteur-dechets",
+  },
+];
 
 const Eligibilite = () => {
   const router = useRouter();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAddress, setSelectedAddress] = useState("");
   const [personsCount, setPersonsCount] = useState(1);
+  const [error, setError] = useState({
+    isActive: false,
+    title: "",
+    isAddressVisible: true,
+    isReasonVisible: true,
+    isContactVisible: true,
+  });
 
-  const breadcrumbPages = [
-    {
-      label: "Accueil",
-      slug: "/",
-    },
-    {
-      label: "Mon compteur déchets",
-      slug: "/mon-compteur-dechets",
-    },
-  ];
+  const handleError = (updates: Partial<IError>) => {
+    setError({ ...error, ...updates });
+  };
 
   const renderQuestion = () => {
     switch (currentQuestion) {
@@ -57,6 +77,7 @@ const Eligibilite = () => {
             handleOptionClick={handleOptionClick}
             selectedAddress={selectedAddress}
             setSelectedAddress={setSelectedAddress}
+            handleError={handleError}
           />
         );
       case 4:
@@ -85,7 +106,9 @@ const Eligibilite = () => {
   };
 
   const handleBackClick = () => {
-    setCurrentQuestion(currentQuestion - 1);
+    error.isActive
+      ? setError({ ...error, isActive: false })
+      : setCurrentQuestion(currentQuestion - 1);
   };
 
   return (
@@ -97,7 +120,18 @@ const Eligibilite = () => {
         handleBackClick={handleBackClick}
       />
       <CommonBreadcrumb pages={breadcrumbPages} />
-      {renderQuestion()}
+      <div className="o-CornerShapes">
+        {error.isActive ? (
+          <StepError
+            selectedAddress={selectedAddress}
+            setSelectedAddress={setSelectedAddress}
+            error={error}
+            handleError={handleError}
+          />
+        ) : (
+          renderQuestion()
+        )}
+      </div>
     </>
   );
 };

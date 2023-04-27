@@ -32,6 +32,7 @@ const Step5: React.FC<Step5Props> = ({
       setPersonsCount(personsCount - 1);
     }
   };
+
   return (
     <div className="o-Steps c-Step5">
       <EligibilityPersons className="o-Steps__Image" />
@@ -67,7 +68,7 @@ const Step5: React.FC<Step5Props> = ({
               +
             </button>
           </div>
-          <div className="o-Steps__ButtonContainer">
+          <div className="c-Step5__ButtonContainer">
             <CommonButton
               type="button"
               style="primary"
