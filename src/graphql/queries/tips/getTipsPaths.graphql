@@ -1,18 +1,18 @@
 query getTipsPaths($contractId: ID!) {
-    tips(
-        filters: {
-            status: { eq: "published" }
-            tipSubService: {
-                isActivated: { eq: true }
-                editorialService: { contract: { id: { eq: $contractId } } }
-            }
-        }
-    ) {
-        data {
-            id
-            attributes {
-                status
-            }
-        }
+  tips(
+    filters: {
+      status: { eq: "published" }
+      tipSubService: {
+        isActivated: { eq: true }
+        editorialService: { contract: { id: { eq: $contractId } } }
+      }
     }
+  ) {
+    data {
+      id
+      attributes {
+        status
+      }
+    }
+  }
 }

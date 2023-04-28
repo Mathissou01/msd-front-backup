@@ -5,7 +5,7 @@ import "./header-link-user.scss";
 
 export default function HeaderLinkUser() {
   return (
-    <Link className="c-HeaderLinkUser" href={"/"}>
+    <Link className="c-HeaderLinkUser" href={"/mon-compte"}>
       <div className="c-HeaderLinkUser__Circle">
         <UserAvatar />
       </div>
