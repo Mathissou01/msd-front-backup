@@ -22,7 +22,7 @@
 
   &__Main {
     position: relative; // to check in other pages
-    z-index: index.z("site-content");
+    z-index: index.z("modal");
     display: flex;
     flex-direction: column;
     min-height: calc(100vh - #{layout.$header-height});

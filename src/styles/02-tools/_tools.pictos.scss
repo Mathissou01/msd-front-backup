@@ -86,4 +86,8 @@
   &_compteurDechets {
     background-image: url("data:image/svg+xml,%3Csvg width='25' height='24' viewBox='0 0 25 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23a)' stroke='%23fff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9.5 15.292v-.285a3 3 0 1 1 6 0v.285m-.748-10.035-2.25 6.75m-5.625-4.5a.375.375 0 1 0 0 .75.375.375 0 0 0 0-.75Zm12.75 3.75a.375.375 0 1 0 0 .75.375.375 0 0 0 0-.75v0Zm-1.5-3.75a.375.375 0 1 0 .263.11.375.375 0 0 0-.265-.11m-8.248-3a.375.375 0 1 0 0 .75.375.375 0 0 0 0-.75v0Z'/%3E%3Cpath d='M21.931 18.142a15.753 15.753 0 0 0-18.862 0'/%3E%3Cpath d='M1.25 12.007a11.25 11.25 0 1 0 22.5 0 11.25 11.25 0 0 0-22.5 0v0Z'/%3E%3Cpath d='M5.377 11.257a.375.375 0 1 0 0 .75.375.375 0 0 0 0-.75Z'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='a'%3E%3Cpath fill='%23fff' d='M.5 0h24v24H.5z'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
   }
+
+  &_close {
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23a)' stroke='%233D466C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m.75 23.249 22.5-22.5m0 22.5L.75.749'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='a'%3E%3Cpath fill='%23fff' d='M0 0h24v24H0z'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
+  }
 }

@@ -26,7 +26,7 @@ const Step4: React.FC<Step4Props> = ({ question, handleOptionClick }) => {
           handleClose={() => setShowModal(false)}
           content="Le numéro de votre bac se trouve toujours sous le code barres situé sur l’étiquette collée sur un des côtés de votre bac de déchets."
           bottomText="Votre numéro de bac est illisible ou introuvable ?"
-          headerContent={<Illu_1 />}
+          headerIllu={<Illu_1 />}
         />
       )}
       <div>

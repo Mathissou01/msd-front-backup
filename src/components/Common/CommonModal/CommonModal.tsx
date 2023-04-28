@@ -3,31 +3,38 @@ import CommonButton from "../../Common/CommonButton/CommonButton";
 import "./common-modal.scss";
 
 type ModalProps = {
-  handleClose: () => void;
-  content: string;
-  bottomText: string;
-  headerContent: ReactNode;
+  handleClose?: () => void;
+  headerTitle?: string;
+  headerSubTitle?: string;
+  headerIllu?: ReactNode;
+  content?: string;
+  bottomText?: string;
+  modalButton?: ReactNode;
 };
 const CommonModal = ({
   handleClose,
+  headerIllu,
   content,
   bottomText,
-  headerContent,
 }: ModalProps) => {
   return (
     <>
       <div className="c-CommonModal">
         <CommonButton
-          label="X"
-          // picto="close"
           style={null}
           type={"button"}
           isDisabled={false}
           onClick={handleClose}
         />
-        <div className="c-CommonModal__Header">{headerContent}</div>
-        <div className="c-CommonModal__Body">{content}</div>
-        <div className="c-CommonModal__Bottom">{bottomText}</div>
+        <div className="c-CommonModal__Container">
+          {headerIllu && (
+            <div className="c-CommonModal__Illustration">{headerIllu}</div>
+          )}
+          {content && <div className="c-CommonModal__Body">{content}</div>}
+          {bottomText && (
+            <div className="c-CommonModal__Bottom">{bottomText}</div>
+          )}
+        </div>
       </div>
 
       <div onClick={handleClose} className="c-CommonModal__Backdrop"></div>

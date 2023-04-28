@@ -10,7 +10,6 @@ import { useRouter } from "next/router";
 import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 import Step5 from "../../../components/CompteurDechets/Eligibility/Step5/Step5";
 import StepError from "../../../components/CompteurDechets/Eligibility/StepError/StepError";
-
 export interface IError {
   isActive: boolean;
   title: string;
@@ -120,18 +119,16 @@ const Eligibilite = () => {
         handleBackClick={handleBackClick}
       />
       <CommonBreadcrumb pages={breadcrumbPages} />
-      <div className="o-CornerShapes">
-        {error.isActive ? (
-          <StepError
-            selectedAddress={selectedAddress}
-            setSelectedAddress={setSelectedAddress}
-            error={error}
-            handleError={handleError}
-          />
-        ) : (
-          renderQuestion()
-        )}
-      </div>
+      {error.isActive ? (
+        <StepError
+          selectedAddress={selectedAddress}
+          setSelectedAddress={setSelectedAddress}
+          error={error}
+          handleError={handleError}
+        />
+      ) : (
+        renderQuestion()
+      )}
     </>
   );
 };

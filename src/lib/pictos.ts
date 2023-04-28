@@ -20,4 +20,5 @@ export type TPictoStyles =
   | "fileDouble"
   | "eye"
   | "printer"
-  | "compteurDechets";
+  | "compteurDechets"
+  | "close";
