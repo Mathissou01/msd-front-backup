@@ -1,0 +1,78 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.buttons" as buttons;
+@use "src/styles/02-tools/tools.typography" as typo;
+@use "src/styles/02-tools/tools.functions" as func;
+
+.c-CommonInfoPerso {
+  &__Container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+    padding: 24px;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
+  }
+
+  &__Title {
+    margin-bottom: 18px;
+    color: #030f40;
+    font-weight: 700;
+    font-size: 28px;
+    font-family: DINPro-Bold, sans-serif;
+    line-height: 35px;
+  }
+
+  &__Content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+
+    @include im.media(">=tablet") {
+      flex-direction: row;
+    }
+  }
+
+  &__ContentItem {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    @include im.media(">=tablet") {
+      margin-right: 80px;
+      margin-bottom: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__ContentItem_subTtitle {
+    color: #767c97;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 24px;
+  }
+
+  &__Pwd {
+    text-rendering: optimizelegibility;
+    -webkit-text-security: disc;
+    -moz-text-security: disc;
+
+    // text-security: disc;
+  }
+
+  &__ContentItem_value {
+    color: #343a40;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 25px;
+  }
+
+  &__Button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+  }
+}
