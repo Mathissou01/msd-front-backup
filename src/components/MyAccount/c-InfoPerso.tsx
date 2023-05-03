@@ -1,7 +1,7 @@
 import React from "react";
 import MyHome from "./MyHome";
 import MyInfos from "./MyInfos";
-// import MyPassword from "./MyPassword";
+import MyPassword from "./MyPassword";
 import "./common-infoPerso.scss";
 import "./common-infoPersoEdit.scss";
 
@@ -24,7 +24,7 @@ const ComponentA = () => {
         tel="06 00 00 00 00"
       />
 
-      {/* <MyPassword title="mot de passe" mdp="*****" /> */}
+      <MyPassword title="Mot de passe" />
     </div>
   );
 };
