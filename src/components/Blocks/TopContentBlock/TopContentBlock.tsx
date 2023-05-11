@@ -38,10 +38,10 @@ export default function TopContentBlock({
   /* Local Data */
   const hasTopContent = data.attributes?.hasTopContent;
   const contentTopNewsOrEvent: NewEntityWithType | EventEntityWithType | null =
-    data.attributes?.topContent?.data?.attributes?.news?.data
+    data.attributes?.topContent?.data?.attributes?.new?.data
       ? {
-          ...data.attributes?.topContent?.data?.attributes.news.data,
-          type: "news",
+          ...data.attributes?.topContent?.data?.attributes.new.data,
+          type: "new",
         }
       : data.attributes?.topContent?.data?.attributes?.event?.data
       ? {

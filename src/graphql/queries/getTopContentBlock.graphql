@@ -16,7 +16,7 @@ query getTopContentBlock($contractId: ID!) {
                     topContent {
                       data {
                         attributes {
-                          news {
+                          new {
                             data {
                               id
                               attributes {

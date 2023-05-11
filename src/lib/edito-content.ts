@@ -8,10 +8,10 @@ import {
 } from "../graphql/codegen/generated-types";
 import { removeNulls } from "./utilities";
 
-export type TEditoFields = "news" | "event" | "freeContent" | "quiz" | "tip";
+export type TEditoFields = "new" | "event" | "freeContent" | "quiz" | "tip";
 
 export const editoFields: Array<TEditoFields> = [
-  "news",
+  "new",
   "event",
   "freeContent",
   "quiz",
@@ -19,7 +19,7 @@ export const editoFields: Array<TEditoFields> = [
 ];
 
 export enum EEditoTypeRoutes {
-  "news" = "actualites",
+  "new" = "actualites",
   "event" = "evenements",
   "freeContent" = "contenu-libre",
   "quiz" = "quiz",

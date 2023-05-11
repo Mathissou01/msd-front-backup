@@ -75,7 +75,7 @@ export const defaultMockFullData = {
         __typename: "TopContentEntity",
         attributes: {
           __typename: "TopContent",
-          news: {
+          new: {
             __typename: "NewEntityResponse",
             data: {
               __typename: "NewEntity",
@@ -122,7 +122,7 @@ export const newestTopContentMockData = {
   getNewestTopContents: [
     {
       __typename: "EventOrNews",
-      type: "news",
+      type: "new",
       originalId: "1",
       title: "Suspendisse et est sem",
       shortDescription:
@@ -145,7 +145,7 @@ export const newestTopContentMockData = {
     },
     {
       __typename: "EventOrNews",
-      type: "news",
+      type: "new",
       originalId: "2",
       title: "Café préparation",
       shortDescription:
