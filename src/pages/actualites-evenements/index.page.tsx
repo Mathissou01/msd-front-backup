@@ -3,6 +3,7 @@ import {
   GetNewsAndEventsByContractIdQueryVariables,
   useGetNewsAndEventsByContractIdLazyQuery,
 } from "../../graphql/codegen/generated-types";
+import { useContract } from "../../hooks/useContract";
 import CommonBreadcrumb from "../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 import DesktopTopRightAngle from "public/images/desktop_page_top-right-angle.svg";
 import MobileTopRightAngle from "public/images/mobile_page_top-right-angle.svg";
@@ -25,12 +26,12 @@ export default function ActualitesEvenementsPage() {
   ];
   const titleContent = "Actualités et événements";
   /* Local Data */
-  const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID?.toString();
+  const { contractId } = useContract();
 
   const defaultRowsPerPage = 9;
   const defaultPage = 1;
   const defaultQueryVariables: GetNewsAndEventsByContractIdQueryVariables = {
-    contractId: `${contractId}`,
+    contractId: contractId,
     pagination: { page: defaultPage, pageSize: defaultRowsPerPage },
   };
   const [
