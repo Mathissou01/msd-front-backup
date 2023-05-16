@@ -1,19 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import MyHome from "./MyHome";
 import MyInfos from "./MyInfos";
 import MyPassword from "./MyPassword";
 import "./common-infoPerso.scss";
 import "./common-infoPersoEdit.scss";
 
-const ComponentA = () => {
+const InfoPerso = () => {
+  const [nbrPersonnesCount, setNbrPersonnesCount] = useState(0);
+  // const [typeLogement, setTypeLogement] = useState("Maison");
+  // const [adresse, setAdresse] = useState("");
+  const typeLogement = "";
+  const adresse = "";
   return (
     <div className="c-CommonInfoPerso">
       <MyHome
         title="Mon foyer"
-        typeLogement="Maison"
-        typeUsager="Pariculier"
-        adresse="15 rue de la gare, 82000 Montauban"
-        nbrPersonnes="4 personnes"
+        adresse={adresse}
+        nbrPersonnesCount={nbrPersonnesCount}
+        setNbrPersonnesCount={setNbrPersonnesCount}
+        typeLogement={typeLogement}
       />
 
       <MyInfos
@@ -29,4 +34,4 @@ const ComponentA = () => {
   );
 };
 
-export default ComponentA;
+export default InfoPerso;

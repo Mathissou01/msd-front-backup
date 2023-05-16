@@ -9,10 +9,13 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 24px;
-    padding: 24px;
+    padding: 16px;
     background-color: #e9ecef;
     border-radius: 8px;
     box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
+    @include im.media(">=tablet") {
+      padding: 24px;
+    }
   }
 
   &__Title {

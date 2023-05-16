@@ -40,6 +40,51 @@
     outline: 2px solid transparent;
   }
 
+  // Radiobutton
+  &__InputField {
+    flex: 35%;
+    height: 56px;
+    margin-right: 8px;
+    padding: 0 8px;
+    text-align: center;
+    background-color: colors.$gray-0;
+    border: 1px solid;
+    border-color: colors.$blue-4;
+    border-radius: 8px; /* Firefox */
+    appearance: textfield; /* Safari and Chrome */
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      margin: 0;
+      appearance: none;
+    }
+  }
+
+  &__InputNumber {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  &__Plus {
+    margin-right: 8px;
+  }
+
+  &__Plus,
+  &__Less {
+    flex: 10%;
+    height: 56px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
+
+    @include im.media(">=mobile") {
+      flex: 100px 0;
+    }
+  }
+
+  // End Radiobutton
   &__TextMsg {
     font-size: 16px;
     line-height: 18px;
@@ -55,6 +100,7 @@
 
   &__Label {
     margin-bottom: 4px;
+    color: $blue-2;
     font-weight: 600;
     font-size: 16px;
   }
@@ -62,11 +108,12 @@
   &__Bottom {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     justify-content: flex-end;
 
     @include im.media(">=tablet") {
       flex-direction: row;
+      align-items: center;
 
       > * {
         margin-right: 24px;
@@ -89,13 +136,14 @@
     }
 
     > button:not(:last-child) {
-      margin-right: 24px;
+      margin-right: 16px;
     }
   }
 
   &__ErrorMessage {
     padding: 2px 0;
     color: #eb4a65;
+    font-size: 16px;
     font-style: italic;
   }
 }

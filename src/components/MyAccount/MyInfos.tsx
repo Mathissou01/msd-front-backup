@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import CommonButton from "../Common/CommonButton/CommonButton";
 
-interface ICommonInfoPersoProps {
+interface IInfoPersoProps {
   title: string;
   idUser: string;
   nomComplet?: string;
@@ -16,7 +16,7 @@ export default function CommonInfoPerso({
   nomComplet,
   email,
   tel,
-}: ICommonInfoPersoProps) {
+}: IInfoPersoProps) {
   const [isEdit, setIsEdit] = useState(false);
   const {
     register,
