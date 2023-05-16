@@ -1,0 +1,44 @@
+query getRecyclingFamiliesForms($recyclingGuideServiceId: ID) {
+  recyclingGuideService(id: $recyclingGuideServiceId) {
+    data {
+      __typename
+      id
+      attributes {
+        isActivated
+        wasteFamilies {
+          data {
+            __typename
+            id
+            attributes {
+              createdAt
+              familyName
+              isSystem
+              updatedAt
+              wasteForms {
+                data {
+                  __typename
+                  id
+                  attributes {
+                    name
+                    picto {
+                      data {
+                        attributes {
+                          name
+                          url
+                          hash
+                          size
+                          mime
+                          provider
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

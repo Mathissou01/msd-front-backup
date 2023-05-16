@@ -6,6 +6,8 @@ import {
   GetNewByIdQuery,
   GetNewsPathsDocument,
   GetNewsPathsQuery,
+  GetNewsPathsTotalDocument,
+  GetNewsPathsTotalQuery,
   NewEntity,
 } from "../../../graphql/codegen/generated-types";
 import { removeNulls } from "../../../lib/utilities";
@@ -91,9 +93,13 @@ export const getStaticProps: GetStaticProps<
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
   const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID?.toString();
+  const { data: totalData } = await client.query<GetNewsPathsTotalQuery>({
+    query: GetNewsPathsTotalDocument,
+    variables: { contractId },
+  });
   const { data } = await client.query<GetNewsPathsQuery>({
     query: GetNewsPathsDocument,
-    variables: { contractId },
+    variables: { contractId, total: totalData.news?.meta.pagination.total },
   });
 
   const news = data.news?.data.filter(removeNulls) ?? [];

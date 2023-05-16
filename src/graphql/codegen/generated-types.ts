@@ -952,6 +952,26 @@ export type ComponentBlocksDateChoice = {
   id: Scalars["ID"];
 };
 
+export type ComponentBlocksDownloadBlock = {
+  __typename?: "ComponentBlocksDownloadBlock";
+  file: UploadFileEntityResponse;
+  id: Scalars["ID"];
+  linkText: Scalars["String"];
+};
+
+export type ComponentBlocksDownloadBlockFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentBlocksDownloadBlockFiltersInput>>>;
+  linkText?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentBlocksDownloadBlockFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentBlocksDownloadBlockFiltersInput>>>;
+};
+
+export type ComponentBlocksDownloadBlockInput = {
+  file?: InputMaybe<Scalars["ID"]>;
+  id?: InputMaybe<Scalars["ID"]>;
+  linkText?: InputMaybe<Scalars["String"]>;
+};
+
 export type ComponentBlocksFile = {
   __typename?: "ComponentBlocksFile";
   document?: Maybe<UploadFileEntityResponse>;
@@ -2186,11 +2206,18 @@ export type DropOffMap = {
   collectVoluntary?: Maybe<CollectVoluntaryEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   description?: Maybe<Scalars["String"]>;
+  downloadableFile?: Maybe<Array<Maybe<ComponentBlocksDownloadBlock>>>;
   dropOffMapService?: Maybe<DropOffMapServiceEntityResponse>;
   mustKnow?: Maybe<Scalars["String"]>;
   name?: Maybe<Scalars["String"]>;
   phoneNumber?: Maybe<Scalars["String"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type DropOffMapDownloadableFileArgs = {
+  filters?: InputMaybe<ComponentBlocksDownloadBlockFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type DropOffMapEntity = {
@@ -2216,6 +2243,7 @@ export type DropOffMapFiltersInput = {
   collectVoluntary?: InputMaybe<CollectVoluntaryFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
+  downloadableFile?: InputMaybe<ComponentBlocksDownloadBlockFiltersInput>;
   dropOffMapService?: InputMaybe<DropOffMapServiceFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
   mustKnow?: InputMaybe<StringFilterInput>;
@@ -2230,6 +2258,9 @@ export type DropOffMapInput = {
   collectDropOff?: InputMaybe<Scalars["ID"]>;
   collectVoluntary?: InputMaybe<Scalars["ID"]>;
   description?: InputMaybe<Scalars["String"]>;
+  downloadableFile?: InputMaybe<
+    Array<InputMaybe<ComponentBlocksDownloadBlockInput>>
+  >;
   dropOffMapService?: InputMaybe<Scalars["ID"]>;
   mustKnow?: InputMaybe<Scalars["String"]>;
   name?: InputMaybe<Scalars["String"]>;
@@ -3549,6 +3580,7 @@ export type GenericMorph =
   | ComponentBlocksAttachments
   | ComponentBlocksCheckbox
   | ComponentBlocksDateChoice
+  | ComponentBlocksDownloadBlock
   | ComponentBlocksFile
   | ComponentBlocksHorizontalRule
   | ComponentBlocksImage
@@ -5735,7 +5767,7 @@ export type PickUpDay = {
   __typename?: "PickUpDay";
   createdAt?: Maybe<Scalars["DateTime"]>;
   description?: Maybe<Scalars["String"]>;
-  name?: Maybe<Scalars["String"]>;
+  name: Scalars["String"];
   publishedAt?: Maybe<Scalars["DateTime"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
@@ -8962,6 +8994,7 @@ export type GetNewsAndEventsByContractIdQuery = {
 
 export type GetNewsPathsQueryVariables = Exact<{
   contractId: Scalars["ID"];
+  total: Scalars["Int"];
 }>;
 
 export type GetNewsPathsQuery = {
@@ -8976,6 +9009,21 @@ export type GetNewsPathsQuery = {
         status?: Enum_New_Status | null;
       } | null;
     }>;
+  } | null;
+};
+
+export type GetNewsPathsTotalQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+}>;
+
+export type GetNewsPathsTotalQuery = {
+  __typename?: "Query";
+  news?: {
+    __typename?: "NewEntityResponseCollection";
+    meta: {
+      __typename?: "ResponseCollectionMeta";
+      pagination: { __typename?: "Pagination"; total: number };
+    };
   } | null;
 };
 
@@ -9221,6 +9269,208 @@ export type GetFreeContentsPathsQuery = {
         status?: Enum_Freecontent_Status | null;
       } | null;
     }>;
+  } | null;
+};
+
+export type GetContractByIdQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+}>;
+
+export type GetContractByIdQuery = {
+  __typename?: "Query";
+  contract?: {
+    __typename?: "ContractEntityResponse";
+    data?: {
+      __typename?: "ContractEntity";
+      id?: string | null;
+      attributes?: {
+        __typename?: "Contract";
+        clientName: string;
+        clientType: Enum_Contract_Clienttype;
+        contractStatus: Enum_Contract_Contractstatus;
+        siret?: any | null;
+        clear?: any | null;
+        ccap?: any | null;
+        isNonExclusive: boolean;
+        isRVFrance: boolean;
+        pathId?: any | null;
+        logo: {
+          __typename?: "UploadFileEntityResponse";
+          data?: {
+            __typename?: "UploadFileEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "UploadFile";
+              hash: string;
+              mime: string;
+              name: string;
+              provider: string;
+              size: number;
+              url: string;
+              alternativeText?: string | null;
+            } | null;
+          } | null;
+        };
+        channelType?: {
+          __typename?: "ChannelTypeEntityResponse";
+          data?: {
+            __typename?: "ChannelTypeEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "ChannelType";
+              hasWebApp?: boolean | null;
+              hasWebSite?: boolean | null;
+            } | null;
+          } | null;
+        } | null;
+        clientContact?: {
+          __typename?: "ClientContactEntityResponse";
+          data?: {
+            __typename?: "ClientContactEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "ClientContact";
+              firstName: string;
+              lastName: string;
+              email: string;
+              phoneNumber: string;
+            } | null;
+          } | null;
+        } | null;
+        contractCustomization?: {
+          __typename?: "ContractCustomizationEntityResponse";
+          data?: {
+            __typename?: "ContractCustomizationEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "ContractCustomization";
+              primaryColor: string;
+              secondaryColor?: string | null;
+              textContrast: string;
+            } | null;
+          } | null;
+        } | null;
+        editorialService?: {
+          __typename?: "EditorialServiceEntityResponse";
+          data?: {
+            __typename?: "EditorialServiceEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "EditorialService";
+              eventSubService?: {
+                __typename?: "EventSubServiceEntityResponse";
+                data?: {
+                  __typename?: "EventSubServiceEntity";
+                  id?: string | null;
+                  attributes?: {
+                    __typename?: "EventSubService";
+                    name: string;
+                    isActivated: boolean;
+                  } | null;
+                } | null;
+              } | null;
+              freeContentSubServices?: {
+                __typename?: "FreeContentSubServiceRelationResponseCollection";
+                data: Array<{
+                  __typename?: "FreeContentSubServiceEntity";
+                  id?: string | null;
+                  attributes?: {
+                    __typename?: "FreeContentSubService";
+                    name: string;
+                    isActivated: boolean;
+                  } | null;
+                }>;
+              } | null;
+              newsSubService?: {
+                __typename?: "NewsSubServiceEntityResponse";
+                data?: {
+                  __typename?: "NewsSubServiceEntity";
+                  id?: string | null;
+                  attributes?: {
+                    __typename?: "NewsSubService";
+                    name: string;
+                    isActivated: boolean;
+                  } | null;
+                } | null;
+              } | null;
+              quizSubService?: {
+                __typename?: "QuizSubServiceEntityResponse";
+                data?: {
+                  __typename?: "QuizSubServiceEntity";
+                  id?: string | null;
+                  attributes?: {
+                    __typename?: "QuizSubService";
+                    name: string;
+                    isActivated: boolean;
+                  } | null;
+                } | null;
+              } | null;
+              tipSubService?: {
+                __typename?: "TipSubServiceEntityResponse";
+                data?: {
+                  __typename?: "TipSubServiceEntity";
+                  id?: string | null;
+                  attributes?: {
+                    __typename?: "TipSubService";
+                    name: string;
+                    isActivated: boolean;
+                  } | null;
+                } | null;
+              } | null;
+            } | null;
+          } | null;
+        } | null;
+        recyclingGuideService?: {
+          __typename?: "RecyclingGuideServiceEntityResponse";
+          data?: {
+            __typename?: "RecyclingGuideServiceEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "RecyclingGuideService";
+              name: string;
+              isActivated: boolean;
+              memoName: string;
+            } | null;
+          } | null;
+        } | null;
+        pickUpDayService?: {
+          __typename?: "PickUpDayServiceEntityResponse";
+          data?: {
+            __typename?: "PickUpDayServiceEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "PickUpDayService";
+              name: string;
+              isActivated: boolean;
+            } | null;
+          } | null;
+        } | null;
+        dropOffMapService?: {
+          __typename?: "DropOffMapServiceEntityResponse";
+          data?: {
+            __typename?: "DropOffMapServiceEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "DropOffMapService";
+              name?: string | null;
+              isActivated: boolean;
+            } | null;
+          } | null;
+        } | null;
+        requestService?: {
+          __typename?: "RequestServiceEntityResponse";
+          data?: {
+            __typename?: "RequestServiceEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "RequestService";
+              name: string;
+              isActivated: boolean;
+            } | null;
+          } | null;
+        } | null;
+      } | null;
+    } | null;
   } | null;
 };
 
@@ -10522,6 +10772,252 @@ export type GetContactUsSubServiceByContractIdQuery = {
   } | null;
 };
 
+export type GetRecyclingFamiliesFormsQueryVariables = Exact<{
+  recyclingGuideServiceId?: InputMaybe<Scalars["ID"]>;
+}>;
+
+export type GetRecyclingFamiliesFormsQuery = {
+  __typename?: "Query";
+  recyclingGuideService?: {
+    __typename?: "RecyclingGuideServiceEntityResponse";
+    data?: {
+      __typename: "RecyclingGuideServiceEntity";
+      id?: string | null;
+      attributes?: {
+        __typename?: "RecyclingGuideService";
+        isActivated: boolean;
+        wasteFamilies?: {
+          __typename?: "WasteFamilyRelationResponseCollection";
+          data: Array<{
+            __typename: "WasteFamilyEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "WasteFamily";
+              createdAt?: any | null;
+              familyName: string;
+              isSystem: boolean;
+              updatedAt?: any | null;
+              wasteForms?: {
+                __typename?: "WasteFormRelationResponseCollection";
+                data: Array<{
+                  __typename: "WasteFormEntity";
+                  id?: string | null;
+                  attributes?: {
+                    __typename?: "WasteForm";
+                    name?: string | null;
+                    picto?: {
+                      __typename?: "UploadFileEntityResponse";
+                      data?: {
+                        __typename?: "UploadFileEntity";
+                        attributes?: {
+                          __typename?: "UploadFile";
+                          name: string;
+                          url: string;
+                          hash: string;
+                          size: number;
+                          mime: string;
+                          provider: string;
+                        } | null;
+                      } | null;
+                    } | null;
+                  } | null;
+                }>;
+              } | null;
+            } | null;
+          }>;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
+};
+
+export type GetRecyclingWasteFormItemByIdQueryVariables = Exact<{
+  wasteFormId?: InputMaybe<Scalars["ID"]>;
+}>;
+
+export type GetRecyclingWasteFormItemByIdQuery = {
+  __typename?: "Query";
+  wasteForm?: {
+    __typename?: "WasteFormEntityResponse";
+    data?: {
+      __typename: "WasteFormEntity";
+      id?: string | null;
+      attributes?: {
+        __typename?: "WasteForm";
+        name?: string | null;
+        createdAt?: any | null;
+        updatedAt?: any | null;
+        isHidden?: boolean | null;
+        tags?: {
+          __typename?: "TagRelationResponseCollection";
+          data: Array<{
+            __typename?: "TagEntity";
+            attributes?: { __typename?: "Tag"; name: string } | null;
+          }>;
+        } | null;
+        picto?: {
+          __typename?: "UploadFileEntityResponse";
+          data?: {
+            __typename?: "UploadFileEntity";
+            attributes?: {
+              __typename?: "UploadFile";
+              name: string;
+              url: string;
+              hash: string;
+              size: number;
+              mime: string;
+              provider: string;
+            } | null;
+          } | null;
+        } | null;
+        flow?: {
+          __typename?: "FlowEntityResponse";
+          data?: {
+            __typename?: "FlowEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "Flow";
+              name?: string | null;
+              recyclingGesture: Enum_Flow_Recyclinggesture;
+              code?: string | null;
+              isActivated?: boolean | null;
+              createdAt?: any | null;
+              updatedAt?: any | null;
+              color?: {
+                __typename?: "FlowColorEntityResponse";
+                data?: {
+                  __typename?: "FlowColorEntity";
+                  attributes?: {
+                    __typename?: "FlowColor";
+                    name: string;
+                    hexaCode: string;
+                    shouldChangeHexaCode: boolean;
+                  } | null;
+                } | null;
+              } | null;
+              collectDoorToDoors?: {
+                __typename?: "CollectDoorToDoorRelationResponseCollection";
+                data: Array<{
+                  __typename?: "CollectDoorToDoorEntity";
+                  attributes?: {
+                    __typename?: "CollectDoorToDoor";
+                    name?: string | null;
+                  } | null;
+                }>;
+              } | null;
+            } | null;
+          } | null;
+        } | null;
+        contentBlock?: Array<
+          | {
+              __typename?: "ComponentBlocksFile";
+              id: string;
+              document?: {
+                __typename?: "UploadFileEntityResponse";
+                data?: {
+                  __typename?: "UploadFileEntity";
+                  attributes?: {
+                    __typename?: "UploadFile";
+                    name: string;
+                    alternativeText?: string | null;
+                    caption?: string | null;
+                    width?: number | null;
+                    height?: number | null;
+                    formats?: any | null;
+                    hash: string;
+                    ext?: string | null;
+                    mime: string;
+                    size: number;
+                    url: string;
+                    previewUrl?: string | null;
+                    provider: string;
+                    provider_metadata?: any | null;
+                    createdAt?: any | null;
+                    updatedAt?: any | null;
+                  } | null;
+                } | null;
+              } | null;
+            }
+          | {
+              __typename?: "ComponentBlocksHorizontalRule";
+              id: string;
+              hr?: string | null;
+            }
+          | {
+              __typename: "ComponentBlocksImage";
+              id: string;
+              isDecorative?: boolean | null;
+              altText?: string | null;
+              picture?: {
+                __typename?: "UploadFileEntityResponse";
+                data?: {
+                  __typename?: "UploadFileEntity";
+                  attributes?: {
+                    __typename?: "UploadFile";
+                    name: string;
+                    alternativeText?: string | null;
+                    caption?: string | null;
+                    width?: number | null;
+                    height?: number | null;
+                    formats?: any | null;
+                    hash: string;
+                    ext?: string | null;
+                    mime: string;
+                    size: number;
+                    url: string;
+                    previewUrl?: string | null;
+                    provider: string;
+                    provider_metadata?: any | null;
+                    createdAt?: any | null;
+                    updatedAt?: any | null;
+                  } | null;
+                } | null;
+              } | null;
+            }
+          | {
+              __typename?: "ComponentBlocksSubHeading";
+              id: string;
+              subHeadingText?: string | null;
+              subHeadingTag?: Enum_Componentblockssubheading_Subheadingtag | null;
+            }
+          | {
+              __typename?: "ComponentBlocksVideo";
+              id: string;
+              videoLink?: string | null;
+              transcriptText?: string | null;
+            }
+          | {
+              __typename?: "ComponentBlocksWysiwyg";
+              id: string;
+              textEditor?: string | null;
+            }
+          | { __typename?: "Error"; code: string; message?: string | null }
+          | null
+        > | null;
+      } | null;
+    } | null;
+  } | null;
+};
+
+export type GetWasteFormsPathsQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+}>;
+
+export type GetWasteFormsPathsQuery = {
+  __typename?: "Query";
+  wasteForms?: {
+    __typename?: "WasteFormEntityResponseCollection";
+    data: Array<{
+      __typename: "WasteFormEntity";
+      id?: string | null;
+      attributes?: {
+        __typename?: "WasteForm";
+        isHidden?: boolean | null;
+      } | null;
+    }>;
+  } | null;
+};
+
 export type GetTipByIdQueryVariables = Exact<{
   tipId?: InputMaybe<Scalars["ID"]>;
 }>;
@@ -10973,7 +11469,7 @@ export type GetNewsAndEventsByContractIdQueryResult = Apollo.QueryResult<
   GetNewsAndEventsByContractIdQueryVariables
 >;
 export const GetNewsPathsDocument = gql`
-  query getNewsPaths($contractId: ID!) {
+  query getNewsPaths($contractId: ID!, $total: Int!) {
     news(
       filters: {
         status: { eq: "published" }
@@ -10982,6 +11478,7 @@ export const GetNewsPathsDocument = gql`
           editorialService: { contract: { id: { eq: $contractId } } }
         }
       }
+      pagination: { limit: $total }
     ) {
       data {
         id
@@ -11006,6 +11503,7 @@ export const GetNewsPathsDocument = gql`
  * const { data, loading, error } = useGetNewsPathsQuery({
  *   variables: {
  *      contractId: // value for 'contractId'
+ *      total: // value for 'total'
  *   },
  * });
  */
@@ -11042,6 +11540,76 @@ export type GetNewsPathsLazyQueryHookResult = ReturnType<
 export type GetNewsPathsQueryResult = Apollo.QueryResult<
   GetNewsPathsQuery,
   GetNewsPathsQueryVariables
+>;
+export const GetNewsPathsTotalDocument = gql`
+  query getNewsPathsTotal($contractId: ID!) {
+    news(
+      filters: {
+        status: { eq: "published" }
+        newsSubService: {
+          isActivated: { eq: true }
+          editorialService: { contract: { id: { eq: $contractId } } }
+        }
+      }
+    ) {
+      meta {
+        pagination {
+          total
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetNewsPathsTotalQuery__
+ *
+ * To run a query within a React component, call `useGetNewsPathsTotalQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetNewsPathsTotalQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetNewsPathsTotalQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetNewsPathsTotalQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetNewsPathsTotalQuery,
+    GetNewsPathsTotalQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetNewsPathsTotalQuery,
+    GetNewsPathsTotalQueryVariables
+  >(GetNewsPathsTotalDocument, options);
+}
+export function useGetNewsPathsTotalLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetNewsPathsTotalQuery,
+    GetNewsPathsTotalQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetNewsPathsTotalQuery,
+    GetNewsPathsTotalQueryVariables
+  >(GetNewsPathsTotalDocument, options);
+}
+export type GetNewsPathsTotalQueryHookResult = ReturnType<
+  typeof useGetNewsPathsTotalQuery
+>;
+export type GetNewsPathsTotalLazyQueryHookResult = ReturnType<
+  typeof useGetNewsPathsTotalLazyQuery
+>;
+export type GetNewsPathsTotalQueryResult = Apollo.QueryResult<
+  GetNewsPathsTotalQuery,
+  GetNewsPathsTotalQueryVariables
 >;
 export const GetFreeContentsByFreeContentSubServiceIdDocument = gql`
   query getFreeContentsByFreeContentSubServiceId(
@@ -11508,6 +12076,210 @@ export type GetFreeContentsPathsLazyQueryHookResult = ReturnType<
 export type GetFreeContentsPathsQueryResult = Apollo.QueryResult<
   GetFreeContentsPathsQuery,
   GetFreeContentsPathsQueryVariables
+>;
+export const GetContractByIdDocument = gql`
+  query getContractById($contractId: ID!) {
+    contract(id: $contractId) {
+      data {
+        id
+        attributes {
+          clientName
+          clientType
+          contractStatus
+          siret
+          clear
+          ccap
+          isNonExclusive
+          isRVFrance
+          pathId
+          logo {
+            data {
+              id
+              attributes {
+                hash
+                mime
+                name
+                provider
+                size
+                url
+                alternativeText
+              }
+            }
+          }
+          channelType {
+            data {
+              id
+              attributes {
+                hasWebApp
+                hasWebSite
+              }
+            }
+          }
+          clientContact {
+            data {
+              id
+              attributes {
+                firstName
+                lastName
+                email
+                phoneNumber
+              }
+            }
+          }
+          contractCustomization {
+            data {
+              id
+              attributes {
+                primaryColor
+                secondaryColor
+                textContrast
+              }
+            }
+          }
+          editorialService {
+            data {
+              id
+              attributes {
+                eventSubService {
+                  data {
+                    id
+                    attributes {
+                      name
+                      isActivated
+                    }
+                  }
+                }
+                freeContentSubServices {
+                  data {
+                    id
+                    attributes {
+                      name
+                      isActivated
+                    }
+                  }
+                }
+                newsSubService {
+                  data {
+                    id
+                    attributes {
+                      name
+                      isActivated
+                    }
+                  }
+                }
+                quizSubService {
+                  data {
+                    id
+                    attributes {
+                      name
+                      isActivated
+                    }
+                  }
+                }
+                tipSubService {
+                  data {
+                    id
+                    attributes {
+                      name
+                      isActivated
+                    }
+                  }
+                }
+              }
+            }
+          }
+          recyclingGuideService {
+            data {
+              id
+              attributes {
+                name
+                isActivated
+                memoName
+              }
+            }
+          }
+          pickUpDayService {
+            data {
+              id
+              attributes {
+                name
+                isActivated
+              }
+            }
+          }
+          dropOffMapService {
+            data {
+              id
+              attributes {
+                name
+                isActivated
+              }
+            }
+          }
+          requestService {
+            data {
+              id
+              attributes {
+                name
+                isActivated
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetContractByIdQuery__
+ *
+ * To run a query within a React component, call `useGetContractByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetContractByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetContractByIdQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetContractByIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetContractByIdQuery,
+    GetContractByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetContractByIdQuery, GetContractByIdQueryVariables>(
+    GetContractByIdDocument,
+    options,
+  );
+}
+export function useGetContractByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetContractByIdQuery,
+    GetContractByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetContractByIdQuery,
+    GetContractByIdQueryVariables
+  >(GetContractByIdDocument, options);
+}
+export type GetContractByIdQueryHookResult = ReturnType<
+  typeof useGetContractByIdQuery
+>;
+export type GetContractByIdLazyQueryHookResult = ReturnType<
+  typeof useGetContractByIdLazyQuery
+>;
+export type GetContractByIdQueryResult = Apollo.QueryResult<
+  GetContractByIdQuery,
+  GetContractByIdQueryVariables
 >;
 export const GetContractMenuDocument = gql`
   query getContractMenu($contractId: ID!) {
@@ -13062,6 +13834,366 @@ export type GetContactUsSubServiceByContractIdLazyQueryHookResult = ReturnType<
 export type GetContactUsSubServiceByContractIdQueryResult = Apollo.QueryResult<
   GetContactUsSubServiceByContractIdQuery,
   GetContactUsSubServiceByContractIdQueryVariables
+>;
+export const GetRecyclingFamiliesFormsDocument = gql`
+  query getRecyclingFamiliesForms($recyclingGuideServiceId: ID) {
+    recyclingGuideService(id: $recyclingGuideServiceId) {
+      data {
+        __typename
+        id
+        attributes {
+          isActivated
+          wasteFamilies {
+            data {
+              __typename
+              id
+              attributes {
+                createdAt
+                familyName
+                isSystem
+                updatedAt
+                wasteForms {
+                  data {
+                    __typename
+                    id
+                    attributes {
+                      name
+                      picto {
+                        data {
+                          attributes {
+                            name
+                            url
+                            hash
+                            size
+                            mime
+                            provider
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetRecyclingFamiliesFormsQuery__
+ *
+ * To run a query within a React component, call `useGetRecyclingFamiliesFormsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRecyclingFamiliesFormsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRecyclingFamiliesFormsQuery({
+ *   variables: {
+ *      recyclingGuideServiceId: // value for 'recyclingGuideServiceId'
+ *   },
+ * });
+ */
+export function useGetRecyclingFamiliesFormsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetRecyclingFamiliesFormsQuery,
+    GetRecyclingFamiliesFormsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetRecyclingFamiliesFormsQuery,
+    GetRecyclingFamiliesFormsQueryVariables
+  >(GetRecyclingFamiliesFormsDocument, options);
+}
+export function useGetRecyclingFamiliesFormsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetRecyclingFamiliesFormsQuery,
+    GetRecyclingFamiliesFormsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetRecyclingFamiliesFormsQuery,
+    GetRecyclingFamiliesFormsQueryVariables
+  >(GetRecyclingFamiliesFormsDocument, options);
+}
+export type GetRecyclingFamiliesFormsQueryHookResult = ReturnType<
+  typeof useGetRecyclingFamiliesFormsQuery
+>;
+export type GetRecyclingFamiliesFormsLazyQueryHookResult = ReturnType<
+  typeof useGetRecyclingFamiliesFormsLazyQuery
+>;
+export type GetRecyclingFamiliesFormsQueryResult = Apollo.QueryResult<
+  GetRecyclingFamiliesFormsQuery,
+  GetRecyclingFamiliesFormsQueryVariables
+>;
+export const GetRecyclingWasteFormItemByIdDocument = gql`
+  query getRecyclingWasteFormItemById($wasteFormId: ID) {
+    wasteForm(id: $wasteFormId) {
+      data {
+        id
+        __typename
+        attributes {
+          name
+          createdAt
+          updatedAt
+          isHidden
+          tags {
+            data {
+              attributes {
+                name
+              }
+            }
+          }
+          picto {
+            data {
+              attributes {
+                name
+                url
+                hash
+                size
+                mime
+                provider
+              }
+            }
+          }
+          flow {
+            data {
+              attributes {
+                name
+                color {
+                  data {
+                    attributes {
+                      name
+                      hexaCode
+                      shouldChangeHexaCode
+                    }
+                  }
+                }
+                recyclingGesture
+                code
+                collectDoorToDoors {
+                  data {
+                    attributes {
+                      name
+                    }
+                  }
+                }
+                isActivated
+                createdAt
+                updatedAt
+              }
+              id
+            }
+          }
+          contentBlock {
+            ... on ComponentBlocksImage {
+              id
+              __typename
+              picture {
+                data {
+                  attributes {
+                    name
+                    alternativeText
+                    caption
+                    width
+                    height
+                    formats
+                    hash
+                    ext
+                    mime
+                    size
+                    url
+                    previewUrl
+                    provider
+                    provider_metadata
+                    createdAt
+                    updatedAt
+                  }
+                }
+              }
+              isDecorative
+              altText
+            }
+            ... on ComponentBlocksFile {
+              id
+              document {
+                data {
+                  attributes {
+                    name
+                    alternativeText
+                    caption
+                    width
+                    height
+                    formats
+                    hash
+                    ext
+                    mime
+                    size
+                    url
+                    previewUrl
+                    provider
+                    provider_metadata
+                    createdAt
+                    updatedAt
+                  }
+                }
+              }
+            }
+            ... on ComponentBlocksWysiwyg {
+              id
+              textEditor
+            }
+            ... on ComponentBlocksVideo {
+              id
+              videoLink
+              transcriptText
+            }
+            ... on ComponentBlocksSubHeading {
+              id
+              subHeadingText
+              subHeadingTag
+            }
+            ... on ComponentBlocksHorizontalRule {
+              id
+              hr
+            }
+            ... on Error {
+              code
+              message
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetRecyclingWasteFormItemByIdQuery__
+ *
+ * To run a query within a React component, call `useGetRecyclingWasteFormItemByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRecyclingWasteFormItemByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRecyclingWasteFormItemByIdQuery({
+ *   variables: {
+ *      wasteFormId: // value for 'wasteFormId'
+ *   },
+ * });
+ */
+export function useGetRecyclingWasteFormItemByIdQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetRecyclingWasteFormItemByIdQuery,
+    GetRecyclingWasteFormItemByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetRecyclingWasteFormItemByIdQuery,
+    GetRecyclingWasteFormItemByIdQueryVariables
+  >(GetRecyclingWasteFormItemByIdDocument, options);
+}
+export function useGetRecyclingWasteFormItemByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetRecyclingWasteFormItemByIdQuery,
+    GetRecyclingWasteFormItemByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetRecyclingWasteFormItemByIdQuery,
+    GetRecyclingWasteFormItemByIdQueryVariables
+  >(GetRecyclingWasteFormItemByIdDocument, options);
+}
+export type GetRecyclingWasteFormItemByIdQueryHookResult = ReturnType<
+  typeof useGetRecyclingWasteFormItemByIdQuery
+>;
+export type GetRecyclingWasteFormItemByIdLazyQueryHookResult = ReturnType<
+  typeof useGetRecyclingWasteFormItemByIdLazyQuery
+>;
+export type GetRecyclingWasteFormItemByIdQueryResult = Apollo.QueryResult<
+  GetRecyclingWasteFormItemByIdQuery,
+  GetRecyclingWasteFormItemByIdQueryVariables
+>;
+export const GetWasteFormsPathsDocument = gql`
+  query getWasteFormsPaths($contractId: ID!) {
+    wasteForms(
+      filters: {
+        recyclingGuideService: {
+          isActivated: { eq: true }
+          contract: { id: { eq: $contractId } }
+        }
+      }
+    ) {
+      data {
+        id
+        __typename
+        attributes {
+          isHidden
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetWasteFormsPathsQuery__
+ *
+ * To run a query within a React component, call `useGetWasteFormsPathsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetWasteFormsPathsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetWasteFormsPathsQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetWasteFormsPathsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetWasteFormsPathsQuery,
+    GetWasteFormsPathsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetWasteFormsPathsQuery,
+    GetWasteFormsPathsQueryVariables
+  >(GetWasteFormsPathsDocument, options);
+}
+export function useGetWasteFormsPathsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetWasteFormsPathsQuery,
+    GetWasteFormsPathsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetWasteFormsPathsQuery,
+    GetWasteFormsPathsQueryVariables
+  >(GetWasteFormsPathsDocument, options);
+}
+export type GetWasteFormsPathsQueryHookResult = ReturnType<
+  typeof useGetWasteFormsPathsQuery
+>;
+export type GetWasteFormsPathsLazyQueryHookResult = ReturnType<
+  typeof useGetWasteFormsPathsLazyQuery
+>;
+export type GetWasteFormsPathsQueryResult = Apollo.QueryResult<
+  GetWasteFormsPathsQuery,
+  GetWasteFormsPathsQueryVariables
 >;
 export const GetTipByIdDocument = gql`
   query getTipById($tipId: ID) {

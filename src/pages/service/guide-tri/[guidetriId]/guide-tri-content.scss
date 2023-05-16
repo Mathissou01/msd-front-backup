@@ -1,0 +1,19 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.typography" as typo;
+@use "src/styles/02-tools/tools.z-index" as index;
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-GuideTriContent {
+  &__Blocks {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: flex-start;
+    padding: 40px 16px;
+    border-bottom: 1px solid colors.$gray-200;
+
+    @include im.media(">=tablet") {
+      padding: 32px 0;
+    }
+  }
+}
