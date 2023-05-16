@@ -1,0 +1,206 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-FlowsBox {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 0;
+  padding: 16px 20px 8px;
+  background-color: #fff;
+  box-shadow: 0 0 1.0027px rgb(17 95 251 / 5%),
+    0 1.0027px 3.008px rgb(17 95 251 / 10%);
+
+  @include im.media(">=mobile") {
+    width: 785px;
+    max-width: 785px;
+    margin: 27px auto 0;
+    padding: 24px 40px;
+    border-radius: 8px;
+
+    &::before {
+      position: absolute;
+      top: 32px;
+      right: 0;
+      left: 50%;
+      z-index: -1;
+      width: 100vw;
+      height: 230px;
+      margin: auto;
+      background: #efeee9;
+      transform: translateX(-50%);
+      content: "";
+    }
+  }
+
+  &__Container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 24px;
+
+    @include im.media(">=mobile") {
+      margin-top: 0;
+    }
+  }
+
+  &__Title {
+    width: 100%;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 26px;
+    text-align: center;
+
+    @include im.media(">=mobile") {
+      margin-bottom: 0;
+      font-size: 30px;
+      text-align: left;
+    }
+  }
+
+  &__SubTitle {
+    display: none;
+    font-size: 14px;
+    line-height: 21px;
+
+    @include im.media(">=mobile") {
+      display: block;
+    }
+  }
+
+  &__Flows {
+    display: flex;
+    flex-flow: row wrap;
+
+    @include im.media(">=mobile") {
+      margin-top: 25px;
+    }
+  }
+
+  &__Flows_item {
+    display: flex;
+    margin-bottom: 10px;
+
+    &:not(:last-child) {
+      margin-right: 8px;
+      @include im.media(">=mobile") {
+        margin-right: 23px;
+      }
+    }
+  }
+
+  &__BacSvg_gray,
+  &__BacSvg_yellow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin-right: 4px;
+    border-radius: 8px;
+
+    @include im.media(">=mobile") {
+      width: 24px;
+      height: 24px;
+    }
+
+    svg {
+      width: 13px;
+      height: 16px;
+    }
+  }
+
+  &__BacSvg {
+    &_gray {
+      background-color: #808080;
+
+      svg path {
+        fill: #fff;
+      }
+    }
+
+    &_yellow {
+      background-color: #fad609;
+    }
+  }
+
+  &__Flows_itemData {
+    display: none;
+
+    @include im.media(">=mobile") {
+      display: block;
+    }
+  }
+
+  &__Flows_name {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  &__Flows_id {
+    color: #767c97;
+    font-size: 12px;
+  }
+
+  &__Infos {
+    display: flex;
+    flex-direction: column;
+    order: 2;
+
+    @include im.media(">=mobile") {
+      justify-content: center;
+      order: 1;
+      margin-top: 20px;
+    }
+  }
+
+  &__Date {
+    display: flex;
+    align-items: center;
+    order: 1;
+    width: fit-content;
+    margin-right: 10px;
+    padding: 5px 16px;
+    font-size: 16px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+
+    @include im.media(">=mobile") {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      order: 2;
+      width: 125px;
+      min-width: 125px;
+      height: 125px;
+      margin-top: -15px;
+      margin-right: 0;
+      margin-left: 24px;
+      padding: 0;
+    }
+
+    svg {
+      display: none;
+      @include im.media(">=mobile") {
+        display: block;
+      }
+    }
+  }
+
+  &__Date_month {
+    margin-right: 5px;
+    color: $expert-blue;
+    font-weight: 600;
+
+    @include im.media(">=mobile") {
+      margin-top: 5px;
+    }
+  }
+
+  &__Date_year {
+    line-height: 16px;
+  }
+}

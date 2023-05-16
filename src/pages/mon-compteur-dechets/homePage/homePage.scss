@@ -3,6 +3,59 @@
 @use "src/styles/02-tools/tools.z-index" as index;
 
 .c-HomePage {
+  position: relative;
+
+  // &::after {
+  //   content: "";
+  //   position: absolute;
+  //   top: 0;
+  //   right: 0;
+  //   display: block;
+  //   width: 67px;
+  //   height: 75px;
+  //   background-image: url("../../../../public/images/mobile_page_top-right-angle.svg");
+  //   background-repeat: no-repeat;
+  //   z-index: -1;
+  // }
+
+  // &::before {
+  //   content: "";
+  //   position: absolute;
+  //   bottom: 0;
+  //   right: 0;
+  //   display: block;
+  //   width: 235px;
+  //   height: 184px;
+  //   background-image: url("../../../../public/images/mobile_astuces-section_bottom-right-angle.svg");
+  //   background-repeat: no-repeat;
+  // }
+  // @include im.media(">=mobile") {
+  //   &::after {
+  //     content: "";
+  //     position: absolute;
+  //     top: -130px;
+  //     right: 0;
+  //     display: block;
+  //     width: 484px;
+  //     height: 418px;
+  //     background-image: url("../../../../public/images/formeShapeTop_HP.svg");
+  //     background-repeat: no-repeat;
+  //     z-index: -1;
+  //   }
+
+  //   &::before {
+  //     content: "";
+  //     position: absolute;
+  //     top: calc(100% - 121px);
+  //     right: 0;
+  //     display: block;
+  //     width: 362px;
+  //     height: 287px;
+  //     background-image: url("../../../../public/images/formeShapeBottom_HP.svg");
+  //     background-repeat: no-repeat;
+  //   }
+  // }
+  // }
   &__CommonModal {
     position: fixed;
     top: 150px;
