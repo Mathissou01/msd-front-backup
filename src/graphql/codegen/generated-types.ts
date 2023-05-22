@@ -9236,6 +9236,7 @@ export type GetFreeContentSubServiceByIdQuery = {
 
 export type GetFreeContentSubServicesPathsQueryVariables = Exact<{
   contractId: Scalars["ID"];
+  total: Scalars["Int"];
 }>;
 
 export type GetFreeContentSubServicesPathsQuery = {
@@ -9253,8 +9254,24 @@ export type GetFreeContentSubServicesPathsQuery = {
   } | null;
 };
 
+export type GetFreeContentSubServicesPathsTotalQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+}>;
+
+export type GetFreeContentSubServicesPathsTotalQuery = {
+  __typename?: "Query";
+  freeContentSubServices?: {
+    __typename?: "FreeContentSubServiceEntityResponseCollection";
+    meta: {
+      __typename?: "ResponseCollectionMeta";
+      pagination: { __typename?: "Pagination"; total: number };
+    };
+  } | null;
+};
+
 export type GetFreeContentsPathsQueryVariables = Exact<{
   contractId: Scalars["ID"];
+  total: Scalars["Int"];
 }>;
 
 export type GetFreeContentsPathsQuery = {
@@ -9269,6 +9286,21 @@ export type GetFreeContentsPathsQuery = {
         status?: Enum_Freecontent_Status | null;
       } | null;
     }>;
+  } | null;
+};
+
+export type GetFreeContentsPathsTotalQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+}>;
+
+export type GetFreeContentsPathsTotalQuery = {
+  __typename?: "Query";
+  freeContents?: {
+    __typename?: "FreeContentEntityResponseCollection";
+    meta: {
+      __typename?: "ResponseCollectionMeta";
+      pagination: { __typename?: "Pagination"; total: number };
+    };
   } | null;
 };
 
@@ -11001,6 +11033,7 @@ export type GetRecyclingWasteFormItemByIdQuery = {
 
 export type GetWasteFormsPathsQueryVariables = Exact<{
   contractId: Scalars["ID"];
+  total: Scalars["Int"];
 }>;
 
 export type GetWasteFormsPathsQuery = {
@@ -11015,6 +11048,21 @@ export type GetWasteFormsPathsQuery = {
         isHidden?: boolean | null;
       } | null;
     }>;
+  } | null;
+};
+
+export type GetWasteFormsPathsTotalQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+}>;
+
+export type GetWasteFormsPathsTotalQuery = {
+  __typename?: "Query";
+  wasteForms?: {
+    __typename?: "WasteFormEntityResponseCollection";
+    meta: {
+      __typename?: "ResponseCollectionMeta";
+      pagination: { __typename?: "Pagination"; total: number };
+    };
   } | null;
 };
 
@@ -11146,6 +11194,7 @@ export type GetTipByIdQuery = {
 
 export type GetTipsPathsQueryVariables = Exact<{
   contractId: Scalars["ID"];
+  total: Scalars["Int"];
 }>;
 
 export type GetTipsPathsQuery = {
@@ -11160,6 +11209,21 @@ export type GetTipsPathsQuery = {
         status?: Enum_Tip_Status | null;
       } | null;
     }>;
+  } | null;
+};
+
+export type GetTipsPathsTotalQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+}>;
+
+export type GetTipsPathsTotalQuery = {
+  __typename?: "Query";
+  tips?: {
+    __typename?: "TipEntityResponseCollection";
+    meta: {
+      __typename?: "ResponseCollectionMeta";
+      pagination: { __typename?: "Pagination"; total: number };
+    };
   } | null;
 };
 
@@ -11939,12 +12003,13 @@ export type GetFreeContentSubServiceByIdQueryResult = Apollo.QueryResult<
   GetFreeContentSubServiceByIdQueryVariables
 >;
 export const GetFreeContentSubServicesPathsDocument = gql`
-  query getFreeContentSubServicesPaths($contractId: ID!) {
+  query getFreeContentSubServicesPaths($contractId: ID!, $total: Int!) {
     freeContentSubServices(
       filters: {
         isActivated: { eq: true }
         editorialService: { contract: { id: { eq: $contractId } } }
       }
+      pagination: { limit: $total }
     ) {
       data {
         id
@@ -11969,6 +12034,7 @@ export const GetFreeContentSubServicesPathsDocument = gql`
  * const { data, loading, error } = useGetFreeContentSubServicesPathsQuery({
  *   variables: {
  *      contractId: // value for 'contractId'
+ *      total: // value for 'total'
  *   },
  * });
  */
@@ -12006,8 +12072,75 @@ export type GetFreeContentSubServicesPathsQueryResult = Apollo.QueryResult<
   GetFreeContentSubServicesPathsQuery,
   GetFreeContentSubServicesPathsQueryVariables
 >;
+export const GetFreeContentSubServicesPathsTotalDocument = gql`
+  query getFreeContentSubServicesPathsTotal($contractId: ID!) {
+    freeContentSubServices(
+      filters: {
+        isActivated: { eq: true }
+        editorialService: { contract: { id: { eq: $contractId } } }
+      }
+    ) {
+      meta {
+        pagination {
+          total
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetFreeContentSubServicesPathsTotalQuery__
+ *
+ * To run a query within a React component, call `useGetFreeContentSubServicesPathsTotalQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFreeContentSubServicesPathsTotalQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetFreeContentSubServicesPathsTotalQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetFreeContentSubServicesPathsTotalQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetFreeContentSubServicesPathsTotalQuery,
+    GetFreeContentSubServicesPathsTotalQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetFreeContentSubServicesPathsTotalQuery,
+    GetFreeContentSubServicesPathsTotalQueryVariables
+  >(GetFreeContentSubServicesPathsTotalDocument, options);
+}
+export function useGetFreeContentSubServicesPathsTotalLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetFreeContentSubServicesPathsTotalQuery,
+    GetFreeContentSubServicesPathsTotalQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetFreeContentSubServicesPathsTotalQuery,
+    GetFreeContentSubServicesPathsTotalQueryVariables
+  >(GetFreeContentSubServicesPathsTotalDocument, options);
+}
+export type GetFreeContentSubServicesPathsTotalQueryHookResult = ReturnType<
+  typeof useGetFreeContentSubServicesPathsTotalQuery
+>;
+export type GetFreeContentSubServicesPathsTotalLazyQueryHookResult = ReturnType<
+  typeof useGetFreeContentSubServicesPathsTotalLazyQuery
+>;
+export type GetFreeContentSubServicesPathsTotalQueryResult = Apollo.QueryResult<
+  GetFreeContentSubServicesPathsTotalQuery,
+  GetFreeContentSubServicesPathsTotalQueryVariables
+>;
 export const GetFreeContentsPathsDocument = gql`
-  query getFreeContentsPaths($contractId: ID!) {
+  query getFreeContentsPaths($contractId: ID!, $total: Int!) {
     freeContents(
       filters: {
         status: { eq: "published" }
@@ -12016,6 +12149,7 @@ export const GetFreeContentsPathsDocument = gql`
           editorialService: { contract: { id: { eq: $contractId } } }
         }
       }
+      pagination: { limit: $total }
     ) {
       data {
         id
@@ -12040,6 +12174,7 @@ export const GetFreeContentsPathsDocument = gql`
  * const { data, loading, error } = useGetFreeContentsPathsQuery({
  *   variables: {
  *      contractId: // value for 'contractId'
+ *      total: // value for 'total'
  *   },
  * });
  */
@@ -12076,6 +12211,76 @@ export type GetFreeContentsPathsLazyQueryHookResult = ReturnType<
 export type GetFreeContentsPathsQueryResult = Apollo.QueryResult<
   GetFreeContentsPathsQuery,
   GetFreeContentsPathsQueryVariables
+>;
+export const GetFreeContentsPathsTotalDocument = gql`
+  query getFreeContentsPathsTotal($contractId: ID!) {
+    freeContents(
+      filters: {
+        status: { eq: "published" }
+        freeContentSubService: {
+          isActivated: { eq: true }
+          editorialService: { contract: { id: { eq: $contractId } } }
+        }
+      }
+    ) {
+      meta {
+        pagination {
+          total
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetFreeContentsPathsTotalQuery__
+ *
+ * To run a query within a React component, call `useGetFreeContentsPathsTotalQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFreeContentsPathsTotalQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetFreeContentsPathsTotalQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetFreeContentsPathsTotalQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetFreeContentsPathsTotalQuery,
+    GetFreeContentsPathsTotalQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetFreeContentsPathsTotalQuery,
+    GetFreeContentsPathsTotalQueryVariables
+  >(GetFreeContentsPathsTotalDocument, options);
+}
+export function useGetFreeContentsPathsTotalLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetFreeContentsPathsTotalQuery,
+    GetFreeContentsPathsTotalQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetFreeContentsPathsTotalQuery,
+    GetFreeContentsPathsTotalQueryVariables
+  >(GetFreeContentsPathsTotalDocument, options);
+}
+export type GetFreeContentsPathsTotalQueryHookResult = ReturnType<
+  typeof useGetFreeContentsPathsTotalQuery
+>;
+export type GetFreeContentsPathsTotalLazyQueryHookResult = ReturnType<
+  typeof useGetFreeContentsPathsTotalLazyQuery
+>;
+export type GetFreeContentsPathsTotalQueryResult = Apollo.QueryResult<
+  GetFreeContentsPathsTotalQuery,
+  GetFreeContentsPathsTotalQueryVariables
 >;
 export const GetContractByIdDocument = gql`
   query getContractById($contractId: ID!) {
@@ -14125,7 +14330,7 @@ export type GetRecyclingWasteFormItemByIdQueryResult = Apollo.QueryResult<
   GetRecyclingWasteFormItemByIdQueryVariables
 >;
 export const GetWasteFormsPathsDocument = gql`
-  query getWasteFormsPaths($contractId: ID!) {
+  query getWasteFormsPaths($contractId: ID!, $total: Int!) {
     wasteForms(
       filters: {
         recyclingGuideService: {
@@ -14133,6 +14338,7 @@ export const GetWasteFormsPathsDocument = gql`
           contract: { id: { eq: $contractId } }
         }
       }
+      pagination: { limit: $total }
     ) {
       data {
         id
@@ -14158,6 +14364,7 @@ export const GetWasteFormsPathsDocument = gql`
  * const { data, loading, error } = useGetWasteFormsPathsQuery({
  *   variables: {
  *      contractId: // value for 'contractId'
+ *      total: // value for 'total'
  *   },
  * });
  */
@@ -14194,6 +14401,75 @@ export type GetWasteFormsPathsLazyQueryHookResult = ReturnType<
 export type GetWasteFormsPathsQueryResult = Apollo.QueryResult<
   GetWasteFormsPathsQuery,
   GetWasteFormsPathsQueryVariables
+>;
+export const GetWasteFormsPathsTotalDocument = gql`
+  query getWasteFormsPathsTotal($contractId: ID!) {
+    wasteForms(
+      filters: {
+        recyclingGuideService: {
+          isActivated: { eq: true }
+          contract: { id: { eq: $contractId } }
+        }
+      }
+    ) {
+      meta {
+        pagination {
+          total
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetWasteFormsPathsTotalQuery__
+ *
+ * To run a query within a React component, call `useGetWasteFormsPathsTotalQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetWasteFormsPathsTotalQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetWasteFormsPathsTotalQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetWasteFormsPathsTotalQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetWasteFormsPathsTotalQuery,
+    GetWasteFormsPathsTotalQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetWasteFormsPathsTotalQuery,
+    GetWasteFormsPathsTotalQueryVariables
+  >(GetWasteFormsPathsTotalDocument, options);
+}
+export function useGetWasteFormsPathsTotalLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetWasteFormsPathsTotalQuery,
+    GetWasteFormsPathsTotalQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetWasteFormsPathsTotalQuery,
+    GetWasteFormsPathsTotalQueryVariables
+  >(GetWasteFormsPathsTotalDocument, options);
+}
+export type GetWasteFormsPathsTotalQueryHookResult = ReturnType<
+  typeof useGetWasteFormsPathsTotalQuery
+>;
+export type GetWasteFormsPathsTotalLazyQueryHookResult = ReturnType<
+  typeof useGetWasteFormsPathsTotalLazyQuery
+>;
+export type GetWasteFormsPathsTotalQueryResult = Apollo.QueryResult<
+  GetWasteFormsPathsTotalQuery,
+  GetWasteFormsPathsTotalQueryVariables
 >;
 export const GetTipByIdDocument = gql`
   query getTipById($tipId: ID) {
@@ -14349,7 +14625,7 @@ export type GetTipByIdQueryResult = Apollo.QueryResult<
   GetTipByIdQueryVariables
 >;
 export const GetTipsPathsDocument = gql`
-  query getTipsPaths($contractId: ID!) {
+  query getTipsPaths($contractId: ID!, $total: Int!) {
     tips(
       filters: {
         status: { eq: "published" }
@@ -14358,6 +14634,7 @@ export const GetTipsPathsDocument = gql`
           editorialService: { contract: { id: { eq: $contractId } } }
         }
       }
+      pagination: { limit: $total }
     ) {
       data {
         id
@@ -14382,6 +14659,7 @@ export const GetTipsPathsDocument = gql`
  * const { data, loading, error } = useGetTipsPathsQuery({
  *   variables: {
  *      contractId: // value for 'contractId'
+ *      total: // value for 'total'
  *   },
  * });
  */
@@ -14418,4 +14696,74 @@ export type GetTipsPathsLazyQueryHookResult = ReturnType<
 export type GetTipsPathsQueryResult = Apollo.QueryResult<
   GetTipsPathsQuery,
   GetTipsPathsQueryVariables
+>;
+export const GetTipsPathsTotalDocument = gql`
+  query getTipsPathsTotal($contractId: ID!) {
+    tips(
+      filters: {
+        status: { eq: "published" }
+        tipSubService: {
+          isActivated: { eq: true }
+          editorialService: { contract: { id: { eq: $contractId } } }
+        }
+      }
+    ) {
+      meta {
+        pagination {
+          total
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetTipsPathsTotalQuery__
+ *
+ * To run a query within a React component, call `useGetTipsPathsTotalQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTipsPathsTotalQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTipsPathsTotalQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetTipsPathsTotalQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetTipsPathsTotalQuery,
+    GetTipsPathsTotalQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetTipsPathsTotalQuery,
+    GetTipsPathsTotalQueryVariables
+  >(GetTipsPathsTotalDocument, options);
+}
+export function useGetTipsPathsTotalLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetTipsPathsTotalQuery,
+    GetTipsPathsTotalQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetTipsPathsTotalQuery,
+    GetTipsPathsTotalQueryVariables
+  >(GetTipsPathsTotalDocument, options);
+}
+export type GetTipsPathsTotalQueryHookResult = ReturnType<
+  typeof useGetTipsPathsTotalQuery
+>;
+export type GetTipsPathsTotalLazyQueryHookResult = ReturnType<
+  typeof useGetTipsPathsTotalLazyQuery
+>;
+export type GetTipsPathsTotalQueryResult = Apollo.QueryResult<
+  GetTipsPathsTotalQuery,
+  GetTipsPathsTotalQueryVariables
 >;

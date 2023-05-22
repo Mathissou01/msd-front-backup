@@ -8,6 +8,8 @@ import {
   GetFreeContentByIdQuery,
   GetFreeContentsPathsDocument,
   GetFreeContentsPathsQuery,
+  GetFreeContentsPathsTotalDocument,
+  GetFreeContentsPathsTotalQuery,
 } from "../../../../graphql/codegen/generated-types";
 import { removeNulls } from "../../../../lib/utilities";
 import EditoDynamicBlock from "../../../../components/Edito/EditoDynamicBlock";
@@ -95,9 +97,17 @@ export const getStaticProps: GetStaticProps<
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
   const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID?.toString();
+  const { data: totalData } =
+    await client.query<GetFreeContentsPathsTotalQuery>({
+      query: GetFreeContentsPathsTotalDocument,
+      variables: { contractId },
+    });
   const { data } = await client.query<GetFreeContentsPathsQuery>({
     query: GetFreeContentsPathsDocument,
-    variables: { contractId },
+    variables: {
+      contractId,
+      total: totalData.freeContents?.meta.pagination.total,
+    },
   });
 
   const freeContents = data.freeContents?.data.filter(removeNulls) ?? [];

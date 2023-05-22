@@ -1,4 +1,4 @@
-query getFreeContentsPaths($contractId: ID!, $total: Int!) {
+query getFreeContentsPathsTotal($contractId: ID!) {
     freeContents(
         filters: {
             status: { eq: "published" }
@@ -7,12 +7,10 @@ query getFreeContentsPaths($contractId: ID!, $total: Int!) {
                 editorialService: { contract: { id: { eq: $contractId } } }
             }
         }
-        pagination: { limit: $total }
     ) {
-        data {
-            id
-            attributes {
-                status
+        meta {
+            pagination {
+                total
             }
         }
     }

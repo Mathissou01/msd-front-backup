@@ -1,4 +1,4 @@
-query getWasteFormsPaths($contractId: ID!, $total: Int!) {
+query getWasteFormsPathsTotal($contractId: ID!) {
   wasteForms(
     filters: {
       recyclingGuideService: {
@@ -6,13 +6,10 @@ query getWasteFormsPaths($contractId: ID!, $total: Int!) {
         contract: { id: { eq: $contractId } }
       }
     }
-    pagination: { limit: $total }
   ) {
-    data {
-      id
-      __typename
-      attributes {
-        isHidden
+    meta {
+      pagination {
+        total
       }
     }
   }

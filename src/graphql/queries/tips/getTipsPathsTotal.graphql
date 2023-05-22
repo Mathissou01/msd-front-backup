@@ -1,18 +1,16 @@
-query getFreeContentsPaths($contractId: ID!, $total: Int!) {
-    freeContents(
+query getTipsPathsTotal($contractId: ID!) {
+    tips(
         filters: {
             status: { eq: "published" }
-            freeContentSubService: {
+            tipSubService: {
                 isActivated: { eq: true }
                 editorialService: { contract: { id: { eq: $contractId } } }
             }
         }
-        pagination: { limit: $total }
     ) {
-        data {
-            id
-            attributes {
-                status
+        meta {
+            pagination {
+                total
             }
         }
     }

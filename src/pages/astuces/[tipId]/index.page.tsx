@@ -6,6 +6,8 @@ import {
   GetTipByIdQuery,
   GetTipsPathsDocument,
   GetTipsPathsQuery,
+  GetTipsPathsTotalDocument,
+  GetTipsPathsTotalQuery,
   TipEntity,
 } from "../../../graphql/codegen/generated-types";
 import { removeNulls } from "../../../lib/utilities";
@@ -88,9 +90,13 @@ export const getStaticProps: GetStaticProps<ITipPageProps, Params> = async ({
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
   const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID?.toString();
+  const { data: totalData } = await client.query<GetTipsPathsTotalQuery>({
+    query: GetTipsPathsTotalDocument,
+    variables: { contractId },
+  });
   const { data } = await client.query<GetTipsPathsQuery>({
     query: GetTipsPathsDocument,
-    variables: { contractId },
+    variables: { contractId, total: totalData.tips?.meta.pagination.total },
   });
 
   const tips = data.tips?.data.filter(removeNulls) ?? [];

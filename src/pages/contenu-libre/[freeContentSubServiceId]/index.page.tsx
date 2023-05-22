@@ -16,6 +16,8 @@ import {
   GetFreeContentSubServiceByIdQuery,
   GetFreeContentSubServicesPathsDocument,
   GetFreeContentSubServicesPathsQuery,
+  GetFreeContentSubServicesPathsTotalDocument,
+  GetFreeContentSubServicesPathsTotalQuery,
   useGetFreeContentsByFreeContentSubServiceIdLazyQuery,
 } from "../../../graphql/codegen/generated-types";
 import "./contenu-libre.scss";
@@ -153,9 +155,17 @@ export const getStaticProps: GetServerSideProps<
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
   const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID?.toString();
+  const { data: totalData } =
+    await client.query<GetFreeContentSubServicesPathsTotalQuery>({
+      query: GetFreeContentSubServicesPathsTotalDocument,
+      variables: { contractId },
+    });
   const { data } = await client.query<GetFreeContentSubServicesPathsQuery>({
     query: GetFreeContentSubServicesPathsDocument,
-    variables: { contractId },
+    variables: {
+      contractId,
+      total: totalData.freeContentSubServices?.meta.pagination.total,
+    },
   });
 
   const freeContentSubServices =

@@ -7,6 +7,8 @@ import {
   GetRecyclingWasteFormItemByIdQuery,
   GetWasteFormsPathsDocument,
   GetWasteFormsPathsQuery,
+  GetWasteFormsPathsTotalDocument,
+  GetWasteFormsPathsTotalQuery,
   WasteFormEntity,
 } from "../../../../graphql/codegen/generated-types";
 import EditoDynamicBlock from "../../../../components/Edito/EditoDynamicBlock";
@@ -96,10 +98,16 @@ export const getStaticProps: GetStaticProps<
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
   const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID?.toString();
-
+  const { data: totalData } = await client.query<GetWasteFormsPathsTotalQuery>({
+    query: GetWasteFormsPathsTotalDocument,
+    variables: { contractId },
+  });
   const { data } = await client.query<GetWasteFormsPathsQuery>({
     query: GetWasteFormsPathsDocument,
-    variables: { contractId },
+    variables: {
+      contractId,
+      total: totalData.wasteForms?.meta.pagination.total,
+    },
   });
 
   const wasteForms = data.wasteForms?.data.filter(removeNulls) ?? [];
