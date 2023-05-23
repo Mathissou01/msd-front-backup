@@ -5,6 +5,7 @@ import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/Common
 import Illu_1 from "public/images/illu_1.svg";
 import "./homePage.scss";
 import FlowsBox from "../../../components/CompteurDechets/Eligibility/HomePage/FlowsBox";
+import MyHomeData from "../../../components/CompteurDechets/Eligibility/MyHomeData/MyHomeData";
 
 const HomePage: React.FC = () => {
   const [showModal, setShowModal] = useState(true);
@@ -66,8 +67,9 @@ const HomePage: React.FC = () => {
       )}
 
       <CommonBreadcrumb pages={breadcrumbPages} />
-      <section className="c-HomePage">
+      <section>
         <FlowsBox />
+        <MyHomeData />
       </section>
     </>
   );
