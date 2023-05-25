@@ -25,6 +25,7 @@ function writeGlobalData(contract, customColors) {
     "external-waste-paper": customColors.wastePaper,
     "external-waste-other": customColors.wasteOther,
   };
+
   // Check if undefined colors
   function checkColors(colorsObj, contract) {
     if (
@@ -42,6 +43,7 @@ function writeGlobalData(contract, customColors) {
       };
     }
   }
+
   const globalData = checkColors(colorsObj, contract);
   fs.writeFile("./config/global.json", JSON.stringify(globalData));
 }
@@ -60,6 +62,7 @@ module.exports = async (phase) => {
   } else {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const GetGlobalDataQuery = require("./config/getGlobalData");
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/graphql`, {
       method: "POST",
       headers: {
@@ -74,6 +77,7 @@ module.exports = async (phase) => {
     });
 
     const resultQuery = await response.json();
+
     const primaryColorInput =
       resultQuery.data.contract.data.attributes.contractCustomization.data
         .attributes.primaryColor;
@@ -85,13 +89,13 @@ module.exports = async (phase) => {
     const contrastTextInput =
       resultQuery.data.contract.data.attributes.contractCustomization.data
         .attributes.textContrast;
+
     const colorsConfig = generateColors(
       primaryColorInput,
       secondaryColorInput,
       contrastTextInput,
     );
     customColors = colorsConfig.getColors();
-
     writeGlobalData(resultQuery.data.contract.data, colorsConfig.getColors());
   }
 

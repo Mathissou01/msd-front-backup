@@ -850,6 +850,15 @@ type ComponentBlocksImage {
   picture: UploadFileEntityResponse
 }
 
+type ComponentBlocksOpeningDay {
+  afterNoonEnd: Time
+  afterNoonStart: Time
+  id: ID!
+  morningEnd: Time
+  morningStart: Time
+  weekDay: ENUM_COMPONENTBLOCKSOPENINGDAY_WEEKDAY!
+}
+
 type ComponentBlocksProofOfReceipt {
   id: ID!
   proofOfReceiptHeader: String!
@@ -1941,6 +1950,7 @@ type DocumentRelationResponseCollection {
 }
 
 type DropOffMap {
+  address: String
   collectDropOff: CollectDropOffEntityResponse
   collectVoluntary: CollectVoluntaryEntityResponse
   createdAt: DateTime
@@ -1951,8 +1961,10 @@ type DropOffMap {
     sort: [String] = []
   ): [ComponentBlocksDownloadBlock]
   dropOffMapService: DropOffMapServiceEntityResponse
+  gpsCoordinates: String!
   mustKnow: String
   name: String
+  openingHoursBlock: [DropOffMapOpeningHoursBlockDynamicZone]
   phoneNumber: String
   updatedAt: DateTime
 }
@@ -1972,6 +1984,7 @@ type DropOffMapEntityResponseCollection {
 }
 
 input DropOffMapFiltersInput {
+  address: StringFilterInput
   and: [DropOffMapFiltersInput]
   collectDropOff: CollectDropOffFiltersInput
   collectVoluntary: CollectVoluntaryFiltersInput
@@ -1979,6 +1992,7 @@ input DropOffMapFiltersInput {
   description: StringFilterInput
   downloadableFile: ComponentBlocksDownloadBlockFiltersInput
   dropOffMapService: DropOffMapServiceFiltersInput
+  gpsCoordinates: StringFilterInput
   id: IDFilterInput
   mustKnow: StringFilterInput
   name: StringFilterInput
@@ -1989,15 +2003,22 @@ input DropOffMapFiltersInput {
 }
 
 input DropOffMapInput {
+  address: String
   collectDropOff: ID
   collectVoluntary: ID
   description: String
   downloadableFile: [ComponentBlocksDownloadBlockInput]
   dropOffMapService: ID
+  gpsCoordinates: String
   mustKnow: String
   name: String
+  openingHoursBlock: [DropOffMapOpeningHoursBlockDynamicZoneInput!]
   phoneNumber: String
 }
+
+union DropOffMapOpeningHoursBlockDynamicZone = ComponentBlocksOpeningDay | Error
+
+scalar DropOffMapOpeningHoursBlockDynamicZoneInput
 
 type DropOffMapRelationResponseCollection {
   data: [DropOffMapEntity!]!
@@ -2109,6 +2130,16 @@ enum ENUM_COMPONENTBLOCKSCHECKBOX_FIELDSTATUSCHECKBOX {
 enum ENUM_COMPONENTBLOCKSDATECHOICE_FIELDSTATUS {
   Obligatoire
   Optionnel
+}
+
+enum ENUM_COMPONENTBLOCKSOPENINGDAY_WEEKDAY {
+  Dimanche
+  Jeudi
+  Lundi
+  Mardi
+  Mercredi
+  Samedi
+  Vendredi
 }
 
 enum ENUM_COMPONENTBLOCKSQCM_FIELDSTATUSQCM {
@@ -2781,6 +2812,12 @@ input ExportEntityInput {
   status: ENUM_EXPORTENTITY_STATUS
 }
 
+type File {
+  id: Int!
+  name: String!
+  url: String!
+}
+
 input FileInfoInput {
   alternativeText: String
   caption: String
@@ -2843,6 +2880,7 @@ type Flow {
   createdAt: DateTime
   isActivated: Boolean
   name: String
+  pickUpDay: PickUpDayEntityResponse
   recyclingGesture: ENUM_FLOW_RECYCLINGGESTURE!
   updatedAt: DateTime
   wasteForms(
@@ -2923,6 +2961,7 @@ input FlowFiltersInput {
   name: StringFilterInput
   not: FlowFiltersInput
   or: [FlowFiltersInput]
+  pickUpDay: PickUpDayFiltersInput
   recyclingGesture: StringFilterInput
   updatedAt: DateTimeFilterInput
   wasteForms: WasteFormFiltersInput
@@ -2937,6 +2976,7 @@ input FlowInput {
   contract: ID
   isActivated: Boolean
   name: String
+  pickUpDay: ID
   recyclingGesture: ENUM_FLOW_RECYCLINGGESTURE
   wasteForms: [ID]
 }
@@ -3206,6 +3246,7 @@ union GenericMorph =
   | ComponentBlocksFile
   | ComponentBlocksHorizontalRule
   | ComponentBlocksImage
+  | ComponentBlocksOpeningDay
   | ComponentBlocksProofOfReceipt
   | ComponentBlocksQcm
   | ComponentBlocksQuestions
@@ -3891,7 +3932,7 @@ type Mutation {
   Confirm an email users email address
   """
   emailConfirmation(confirmation: String!): UsersPermissionsLoginPayload
-  endDateServices: Boolean
+  endDateServices: [ServicesDeactivated]
   exportMunicipalities: ID
 
   """
@@ -3931,6 +3972,7 @@ type Mutation {
     serviceId: ID!
     startDate: Date
   ): ServiceActivated
+  singleUploadCustom(file: Upload!): File!
   updateAccessibility(
     data: AccessibilityInput!
     id: ID!
@@ -4502,8 +4544,9 @@ input PaginationArg {
 type PickUpDay {
   createdAt: DateTime
   description: String
+  flow: FlowEntityResponse
   name: String!
-  publishedAt: DateTime
+  sectorization: SectorizationEntityResponse
   updatedAt: DateTime
 }
 
@@ -4525,18 +4568,20 @@ input PickUpDayFiltersInput {
   and: [PickUpDayFiltersInput]
   createdAt: DateTimeFilterInput
   description: StringFilterInput
+  flow: FlowFiltersInput
   id: IDFilterInput
   name: StringFilterInput
   not: PickUpDayFiltersInput
   or: [PickUpDayFiltersInput]
-  publishedAt: DateTimeFilterInput
+  sectorization: SectorizationFiltersInput
   updatedAt: DateTimeFilterInput
 }
 
 input PickUpDayInput {
   description: String
+  flow: ID
   name: String
-  publishedAt: DateTime
+  sectorization: ID
 }
 
 type PickUpDayRelationResponseCollection {
@@ -4562,7 +4607,6 @@ type PickUpDayService {
   pickUpDays(
     filters: PickUpDayFiltersInput
     pagination: PaginationArg = {}
-    publicationState: PublicationState = LIVE
     sort: [String] = []
   ): PickUpDayRelationResponseCollection
   startDate: Date
@@ -4822,6 +4866,7 @@ type Query {
     sort: [String] = []
   ): ExportEntityEntityResponseCollection
   exportEntity(id: ID): ExportEntityEntityResponse
+  files: [File]!
   flow(id: ID): FlowEntityResponse
   flowColor(id: ID): FlowColorEntityResponse
   flowColors(
@@ -4852,6 +4897,7 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): FreeContentEntityResponseCollection
+  getAddressCoordinates(searchTerm: String!): [SearchResultAddress]
   getAllFoldersHierarchy(path: String!): [RequestFolders]
   getContentTypeDTOs(contractId: ID!): [ContentTypeDTO]
   getDropOffCollectType(contractId: ID!): [collectType]
@@ -4938,7 +4984,6 @@ type Query {
   pickUpDays(
     filters: PickUpDayFiltersInput
     pagination: PaginationArg = {}
-    publicationState: PublicationState = LIVE
     sort: [String] = []
   ): PickUpDayEntityResponseCollection
   quiz(id: ID): QuizEntityResponse
@@ -5654,6 +5699,12 @@ type SearchResult {
   id: ID!
   name: String!
   typeName: String!
+  wasteFamilyName: String
+}
+
+type SearchResultAddress {
+  coordinates: String!
+  name: String
 }
 
 type Sectorization {
@@ -5781,6 +5832,12 @@ union ServicesBlockServiceLinksDynamicZone =
   | Error
 
 scalar ServicesBlockServiceLinksDynamicZoneInput
+
+type ServicesDeactivated {
+  contractId: ID
+  serviceId: ID
+  serviceName: String
+}
 
 input StringFilterInput {
   and: [String]
@@ -5938,6 +5995,11 @@ input TerritoryTypeFiltersInput {
 input TerritoryTypeInput {
   territoryType: String
 }
+
+"""
+A time string with format HH:mm:ss.SSS
+"""
+scalar Time
 
 type Tip {
   blocks: [TipBlocksDynamicZone]
@@ -6245,9 +6307,6 @@ type TopContentRelationResponseCollection {
   data: [TopContentEntity!]!
 }
 
-"""
-The `Upload` scalar type represents a file upload.
-"""
 scalar Upload
 
 type UploadFile {

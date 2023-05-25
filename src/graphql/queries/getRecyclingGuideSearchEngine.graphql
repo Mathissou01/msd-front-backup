@@ -3,5 +3,6 @@ query getRecyclingGuideSearchEngine($searchTerm: String!, $contractId: ID!) {
     typeName
     id
     name
+    wasteFamilyName
   }
 }

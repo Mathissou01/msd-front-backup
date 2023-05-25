@@ -4,6 +4,38 @@ const chroma = require("chroma-js");
 class ColorConfig {
   /* Externally loaded colors with fallback values, used to generate site palette */
 
+  static Builder = class {
+    primaryColor = null;
+    primaryColorDark = null;
+    primaryColorLight = null;
+    secondaryColor = null;
+    secondaryColorDark = null;
+    secondaryColorLight = null;
+    contrastText = null;
+
+    setPrimaryColor(color) {
+      this.primaryColor = color;
+      return this;
+    }
+
+    setSecondaryColor(color) {
+      this.secondaryColor = color;
+      return this;
+    }
+
+    setContrastText(color) {
+      this.contrastText = color;
+      return this;
+    }
+
+    build() {
+      return new ColorConfig(
+        this.primaryColor,
+        this.secondaryColor,
+        this.contrastText,
+      );
+    }
+  };
   // Waste Colors
   wasteHousehold = process.env.NEXT_PUBLIC_COLOR_WASTE_HOUSEHOLD || "#6C757D";
   wasteSelective = process.env.NEXT_PUBLIC_COLOR_WASTE_SELECTIVE || "#FFC229";
@@ -11,9 +43,9 @@ class ColorConfig {
   wasteGreen = process.env.NEXT_PUBLIC_COLOR_GREEN || "#9BCD41";
   wasteGlass = process.env.NEXT_PUBLIC_COLOR_WASTE_GLASS || "#30A23D";
   wastePaper = process.env.NEXT_PUBLIC_COLOR_WASTE_PAPER || "#2068C7";
-  wasteOther = process.env.NEXT_PUBLIC_COLOR_WASTE_OTHER || "#FFFFFF";
 
   // Accessible Contrast
+  wasteOther = process.env.NEXT_PUBLIC_COLOR_WASTE_OTHER || "#FFFFFF";
   // Brand Colors
   primaryColor = null;
   primaryColorDark = null;
@@ -55,39 +87,6 @@ class ColorConfig {
       wasteOther: this.wasteOther,
     };
   };
-
-  static Builder = class {
-    primaryColor = null;
-    primaryColorDark = null;
-    primaryColorLight = null;
-    secondaryColor = null;
-    secondaryColorDark = null;
-    secondaryColorLight = null;
-    contrastText = null;
-
-    setPrimaryColor(color) {
-      this.primaryColor = color;
-      return this;
-    }
-
-    setSecondaryColor(color) {
-      this.secondaryColor = color;
-      return this;
-    }
-
-    setContrastText(color) {
-      this.contrastText = color;
-      return this;
-    }
-
-    build() {
-      return new ColorConfig(
-        this.primaryColor,
-        this.secondaryColor,
-        this.contrastText,
-      );
-    }
-  };
 }
 
 let colorsConfig = null;
@@ -105,6 +104,7 @@ const generateColors = (
   }
   return colorsConfig;
 };
+
 module.exports = {
   generateColors,
   colors: colorsConfig?.getColors(),

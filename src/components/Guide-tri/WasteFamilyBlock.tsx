@@ -4,6 +4,7 @@ import CommonLoader from "../Common/CommonLoader/CommonLoader";
 import { useContract } from "../../hooks/useContract";
 import { removeNulls } from "../../lib/utilities";
 import {
+  SearchResult,
   useGetContractByIdQuery,
   useGetRecyclingFamiliesFormsQuery,
   WasteFamilyEntity,
@@ -17,9 +18,18 @@ interface IWasteFamilyTable {
   id: string;
   familyName: string;
   wasteForms: Array<WasteFormEntity>;
+  wasteFamilies: Array<WasteFamilyEntity>;
+  filteredChildren: Array<WasteFormEntity>;
+  filteredFamily: Array<WasteFamilyEntity>;
 }
 
-export default function WasteFamilyBlock() {
+interface IWasteFamilyBlockProps {
+  filteredData: SearchResult[] | null;
+}
+
+export default function WasteFamilyBlock({
+  filteredData,
+}: IWasteFamilyBlockProps) {
   /* External Data */
   const { contractId } = useContract();
   const [tableData, setTableData] = useState<Array<IWasteFamilyTable>>([]);
@@ -41,28 +51,83 @@ export default function WasteFamilyBlock() {
     },
   });
 
-  useEffect(() => {
-    if (getGuideDuTriData) {
-      setTableData(
-        getGuideDuTriData.recyclingGuideService?.data?.attributes?.wasteFamilies?.data
-          .map((item: WasteFamilyEntity) => {
-            if (item && item.id && item.attributes) {
-              return {
-                id: item.id,
-                familyName: item.attributes.familyName,
-                wasteForms: item.attributes.wasteForms?.data ?? [],
-              };
-            }
-          })
-          .filter(removeNulls) ?? [],
-      );
-    }
-  }, [getGuideDuTriData]);
-  /* Static properties */
-  const [dropdownStates, setDropdownStates] = useState<Array<boolean>>(
-    tableData.map(() => false),
+  useEffect(
+    () => {
+      if (getGuideDuTriData) {
+        const updatedTableData =
+          getGuideDuTriData.recyclingGuideService?.data?.attributes?.wasteFamilies?.data
+            .map((item: WasteFamilyEntity) => {
+              if (item && item.id && item.attributes) {
+                // Filter WasteForm
+                const filteredChildren =
+                  filteredData?.length === 0 || !filteredData
+                    ? item.attributes.wasteForms?.data ?? []
+                    : item.attributes.wasteForms?.data?.filter((form) =>
+                        filteredData?.some(
+                          (searchItem) =>
+                            searchItem.id === form.id &&
+                            searchItem.typeName === "wasteForm",
+                        ),
+                      ) ?? [];
+
+                // Filter WasteFamily
+                const filteredFamily =
+                  filteredData?.length === 0 || !filteredData
+                    ? Array.isArray(item.attributes.familyName)
+                      ? item.attributes.familyName
+                      : []
+                    : (Array.isArray(item.attributes.familyName)
+                        ? item.attributes.familyName
+                        : []
+                      ).filter((family) =>
+                        filteredData?.some(
+                          (searchItem) => searchItem.wasteFamilyName === family,
+                        ),
+                      ) ?? [];
+
+                return {
+                  id: item.id,
+                  familyName: item.attributes.familyName,
+                  wasteForms: item.attributes.wasteForms?.data ?? [],
+                  wasteFamilies: [],
+                  filteredChildren,
+                  filteredFamily,
+                };
+              }
+            })
+            .filter(removeNulls) ?? [];
+
+        const filteredTableData = updatedTableData.filter(
+          (data) => data.filteredChildren.length > 0,
+        );
+
+        setTableData(filteredTableData);
+
+        if (filteredData && filteredData.length !== 0) {
+          setIsSearchActive(true);
+
+          setDropdownStates(tableData.map(() => true));
+        } else {
+          setIsSearchActive(false);
+          setDropdownStates(tableData.map(() => false));
+        }
+      }
+    },
+    /* eslint-disable */
+    [getGuideDuTriData, filteredData],
   );
 
+  /* Static properties */
+
+  // HandleDropdown if search is active
+  const [isSearchActive, setIsSearchActive] = useState<boolean>(false);
+  const shouldUpdateDropdownStates = isSearchActive;
+  const [dropdownStates, setDropdownStates] = useState<Array<boolean>>(
+    shouldUpdateDropdownStates
+      ? tableData.map(() => true)
+      : tableData.map(() => false),
+  );
+  // Handle opening dropdown state
   const handleDropdownClick = (index: number) => {
     setDropdownStates((prevStates) => {
       const newStates = [...prevStates];
@@ -70,8 +135,8 @@ export default function WasteFamilyBlock() {
       return newStates;
     });
   };
+  // Ref Family Block
   const containerRef = useRef<HTMLDivElement>(null);
-
   /* Render */
   return (
     <CommonLoader
@@ -112,7 +177,7 @@ export default function WasteFamilyBlock() {
                 dropdownStates[index] ? "display" : "none"
               }`}
             >
-              {data.wasteForms.map((wasteForm, index) => {
+              {data.filteredChildren.map((wasteForm, index) => {
                 if (wasteForm && wasteForm.attributes) {
                   return (
                     <WasteFamilyItems

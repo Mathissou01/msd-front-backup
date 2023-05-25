@@ -1,21 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   RecyclingGuideBlockEntity,
+  SearchResult,
   useGetRecyclingGuideSearchEngineLazyQuery,
 } from "../../../graphql/codegen/generated-types";
 import { useContract } from "../../../hooks/useContract";
 import CommonButton from "../../Common/CommonButton/CommonButton";
 import "./recycling-guide-block.scss";
-import CommonLoader from "../../Common/CommonLoader/CommonLoader";
 
 interface IRecyclingGuideBlock {
   data: RecyclingGuideBlockEntity;
+  onUpdateRecyclingGuideSearchData: (data: (SearchResult | null)[]) => void;
 }
+
 interface IFormInput {
   searchTerm: string;
 }
-export default function RecyclingGuideBlock({ data }: IRecyclingGuideBlock) {
+
+export default function RecyclingGuideBlock({
+  data,
+  onUpdateRecyclingGuideSearchData,
+}: IRecyclingGuideBlock) {
   /* Static Data */
   const minLengthSearch = 3;
 
@@ -29,9 +35,7 @@ export default function RecyclingGuideBlock({ data }: IRecyclingGuideBlock) {
   function handleChange(event: { target: HTMLInputElement }) {
     setDisabled(event.target.value.length < 3);
     if (event.target.value.length <= 2) {
-      getRecyclingGuideSearchEngine({
-        variables: { contractId: contractId, searchTerm: event.target.value },
-      });
+      onUpdateRecyclingGuideSearchData([]);
     }
   }
 
@@ -44,9 +48,27 @@ export default function RecyclingGuideBlock({ data }: IRecyclingGuideBlock) {
   const { register, handleSubmit } = useForm<IFormInput>();
   const [disabled, setDisabled] = useState<boolean>(true);
   const { contractId } = useContract();
-  const [getRecyclingGuideSearchEngine, { data: searchData, loading, error }] =
+  const [getRecyclingGuideSearchEngine, { data: searchData }] =
     useGetRecyclingGuideSearchEngineLazyQuery();
-  const recyclingGuideSearch = searchData?.recyclingGuideSearchEngine;
+
+  //IF NEEDED FOR THE NEXT USE : Result of the query search *
+  // const recyclingGuideSearch = searchData?.recyclingGuideSearchEngine;
+
+  useEffect(
+    () => {
+      if (
+        searchData !== undefined &&
+        searchData !== null &&
+        searchData?.recyclingGuideSearchEngine
+      ) {
+        onUpdateRecyclingGuideSearchData([
+          ...searchData.recyclingGuideSearchEngine,
+        ]); // Appel de la fonction de rappel
+      }
+    },
+    /* eslint-disable */
+    [searchData],
+  );
 
   return (
     <section className="c-RecyclingGuideBlock">
@@ -98,15 +120,14 @@ export default function RecyclingGuideBlock({ data }: IRecyclingGuideBlock) {
           </div>
         )}
       </div>
-      <CommonLoader isLoading={loading} errors={[error]}>
-        {/*TODO Temporarily Show RecyclingGuideSearch */}
-        <ul>
-          {recyclingGuideSearch &&
-            recyclingGuideSearch.map((recyclingGuide) => (
-              <li key={recyclingGuide?.id}>{recyclingGuide?.name}</li>
-            ))}
-        </ul>
-      </CommonLoader>
+
+      {/*IF NEEDED FOR THE NEXT USE : Result of the query search */}
+      {/*<ul>*/}
+      {/*  {recyclingGuideSearch &&*/}
+      {/*    recyclingGuideSearch.map((recyclingGuide) => (*/}
+      {/*      <li key={recyclingGuide?.id}>{recyclingGuide?.name}</li>*/}
+      {/*    ))}*/}
+      {/*</ul>*/}
     </section>
   );
 }

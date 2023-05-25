@@ -1,30 +1,32 @@
+import { useState } from "react";
 import client from "../graphql/client";
 import {
-  RecyclingGuideBlockEntity,
-  QuizAndTipsBlockEntity,
-  GetServicesBlockQuery,
-  GetServicesBlockDocument,
-  GetServicesActiveDocument,
-  GetServicesActiveQuery,
-  GetQuizAndTipsBlockQuery,
-  GetQuizAndTipsBlockDocument,
-  GetRecyclingGuideBlockQuery,
-  GetRecyclingGuideBlockDocument,
-  GetTopContentBlockQuery,
-  GetTopContentBlockDocument,
-  TopContentBlockEntity,
   EditoBlockEntity,
-  GetEditoBlockQuery,
   GetEditoBlockDocument,
+  GetEditoBlockQuery,
   GetNewestTopContentsDocument,
   GetNewestTopContentsQuery,
+  GetQuizAndTipsBlockDocument,
+  GetQuizAndTipsBlockQuery,
+  GetRecyclingGuideBlockDocument,
+  GetRecyclingGuideBlockQuery,
+  GetServicesActiveDocument,
+  GetServicesActiveQuery,
+  GetServicesBlockDocument,
+  GetServicesBlockQuery,
+  GetTopContentBlockDocument,
+  GetTopContentBlockQuery,
+  QuizAndTipsBlockEntity,
+  RecyclingGuideBlockEntity,
+  SearchResult,
+  TopContentBlockEntity,
 } from "../graphql/codegen/generated-types";
 import {
-  extractRecyclingGuideBlock,
-  extractQuizAndTipsBlock,
-  extractTopContentBlock,
   extractEditoBlock,
+  extractQuizAndTipsBlock,
+  extractRecyclingGuideBlock,
   extractServicesBlock,
+  extractTopContentBlock,
 } from "../lib/graphql-data";
 import { IServiceLink } from "../lib/service-links";
 import WelcomeBlock from "../components/Blocks/WelcomeBlock/WelcomeBlock";
@@ -88,11 +90,25 @@ export default function HomePage({
       servicesData.editorialServices?.data[0]?.attributes?.newsSubService?.data
         ?.attributes?.isActivated);
 
+  // SearchResult function
+  /* eslint-disable */
+  const [recyclingGuideSearchData, setRecyclingGuideSearchData] = useState<
+    SearchResult[] | null
+  >(null);
+
+  function updateRecyclingGuideSearchData(data: (SearchResult | null)[]) {
+    const filteredData = data.filter((item) => item !== null) as SearchResult[];
+    setRecyclingGuideSearchData(filteredData);
+  }
+
   return (
     <>
       <WelcomeBlock />
       {displayRecyclingGuideBlock && (
-        <RecyclingGuideBlock data={recyclingGuideBlock} />
+        <RecyclingGuideBlock
+          data={recyclingGuideBlock}
+          onUpdateRecyclingGuideSearchData={updateRecyclingGuideSearchData}
+        />
       )}
       {displayServicesBlock && <ServicesBlock remappedData={servicesBlock} />}
       {displayTopContentBlock && (
@@ -129,6 +145,7 @@ export async function getStaticProps() {
       variables: { contractId },
     },
   );
+
   const servicesBlock = extractServicesBlock(servicesBlockData);
 
   const { data: quizAndTipsBlockData } =

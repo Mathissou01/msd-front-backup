@@ -28,6 +28,7 @@ export type Scalars = {
   CookieBlocksDynamicZoneInput: any;
   Date: any;
   DateTime: any;
+  DropOffMapOpeningHoursBlockDynamicZoneInput: any;
   EventBlocksDynamicZoneInput: any;
   EventLinkToServicesDynamicZoneInput: any;
   FreeContentBlocksDynamicZoneInput: any;
@@ -38,6 +39,7 @@ export type Scalars = {
   NewLinkToServicesDynamicZoneInput: any;
   RequestAddableBlocksDynamicZoneInput: any;
   ServicesBlockServiceLinksDynamicZoneInput: any;
+  Time: any;
   TipBlocksDynamicZoneInput: any;
   TipLinkToServicesDynamicZoneInput: any;
   Upload: any;
@@ -990,6 +992,16 @@ export type ComponentBlocksImage = {
   id: Scalars["ID"];
   isDecorative?: Maybe<Scalars["Boolean"]>;
   picture?: Maybe<UploadFileEntityResponse>;
+};
+
+export type ComponentBlocksOpeningDay = {
+  __typename?: "ComponentBlocksOpeningDay";
+  afterNoonEnd?: Maybe<Scalars["Time"]>;
+  afterNoonStart?: Maybe<Scalars["Time"]>;
+  id: Scalars["ID"];
+  morningEnd?: Maybe<Scalars["Time"]>;
+  morningStart?: Maybe<Scalars["Time"]>;
+  weekDay: Enum_Componentblocksopeningday_Weekday;
 };
 
 export type ComponentBlocksProofOfReceipt = {
@@ -2202,14 +2214,19 @@ export type DocumentRelationResponseCollection = {
 
 export type DropOffMap = {
   __typename?: "DropOffMap";
+  address?: Maybe<Scalars["String"]>;
   collectDropOff?: Maybe<CollectDropOffEntityResponse>;
   collectVoluntary?: Maybe<CollectVoluntaryEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   description?: Maybe<Scalars["String"]>;
   downloadableFile?: Maybe<Array<Maybe<ComponentBlocksDownloadBlock>>>;
   dropOffMapService?: Maybe<DropOffMapServiceEntityResponse>;
+  gpsCoordinates: Scalars["String"];
   mustKnow?: Maybe<Scalars["String"]>;
   name?: Maybe<Scalars["String"]>;
+  openingHoursBlock?: Maybe<
+    Array<Maybe<DropOffMapOpeningHoursBlockDynamicZone>>
+  >;
   phoneNumber?: Maybe<Scalars["String"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
@@ -2238,6 +2255,7 @@ export type DropOffMapEntityResponseCollection = {
 };
 
 export type DropOffMapFiltersInput = {
+  address?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<DropOffMapFiltersInput>>>;
   collectDropOff?: InputMaybe<CollectDropOffFiltersInput>;
   collectVoluntary?: InputMaybe<CollectVoluntaryFiltersInput>;
@@ -2245,6 +2263,7 @@ export type DropOffMapFiltersInput = {
   description?: InputMaybe<StringFilterInput>;
   downloadableFile?: InputMaybe<ComponentBlocksDownloadBlockFiltersInput>;
   dropOffMapService?: InputMaybe<DropOffMapServiceFiltersInput>;
+  gpsCoordinates?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   mustKnow?: InputMaybe<StringFilterInput>;
   name?: InputMaybe<StringFilterInput>;
@@ -2255,6 +2274,7 @@ export type DropOffMapFiltersInput = {
 };
 
 export type DropOffMapInput = {
+  address?: InputMaybe<Scalars["String"]>;
   collectDropOff?: InputMaybe<Scalars["ID"]>;
   collectVoluntary?: InputMaybe<Scalars["ID"]>;
   description?: InputMaybe<Scalars["String"]>;
@@ -2262,10 +2282,18 @@ export type DropOffMapInput = {
     Array<InputMaybe<ComponentBlocksDownloadBlockInput>>
   >;
   dropOffMapService?: InputMaybe<Scalars["ID"]>;
+  gpsCoordinates?: InputMaybe<Scalars["String"]>;
   mustKnow?: InputMaybe<Scalars["String"]>;
   name?: InputMaybe<Scalars["String"]>;
+  openingHoursBlock?: InputMaybe<
+    Array<Scalars["DropOffMapOpeningHoursBlockDynamicZoneInput"]>
+  >;
   phoneNumber?: InputMaybe<Scalars["String"]>;
 };
+
+export type DropOffMapOpeningHoursBlockDynamicZone =
+  | ComponentBlocksOpeningDay
+  | Error;
 
 export type DropOffMapRelationResponseCollection = {
   __typename?: "DropOffMapRelationResponseCollection";
@@ -2389,6 +2417,16 @@ export enum Enum_Componentblockscheckbox_Fieldstatuscheckbox {
 export enum Enum_Componentblocksdatechoice_Fieldstatus {
   Obligatoire = "Obligatoire",
   Optionnel = "Optionnel",
+}
+
+export enum Enum_Componentblocksopeningday_Weekday {
+  Dimanche = "Dimanche",
+  Jeudi = "Jeudi",
+  Lundi = "Lundi",
+  Mardi = "Mardi",
+  Mercredi = "Mercredi",
+  Samedi = "Samedi",
+  Vendredi = "Vendredi",
 }
 
 export enum Enum_Componentblocksqcm_Fieldstatusqcm {
@@ -3120,6 +3158,13 @@ export type ExportEntityInput = {
   status?: InputMaybe<Enum_Exportentity_Status>;
 };
 
+export type File = {
+  __typename?: "File";
+  id: Scalars["Int"];
+  name: Scalars["String"];
+  url: Scalars["String"];
+};
+
 export type FileInfoInput = {
   alternativeText?: InputMaybe<Scalars["String"]>;
   caption?: InputMaybe<Scalars["String"]>;
@@ -3172,6 +3217,7 @@ export type Flow = {
   createdAt?: Maybe<Scalars["DateTime"]>;
   isActivated?: Maybe<Scalars["Boolean"]>;
   name?: Maybe<Scalars["String"]>;
+  pickUpDay?: Maybe<PickUpDayEntityResponse>;
   recyclingGesture: Enum_Flow_Recyclinggesture;
   updatedAt?: Maybe<Scalars["DateTime"]>;
   wasteForms?: Maybe<WasteFormRelationResponseCollection>;
@@ -3279,6 +3325,7 @@ export type FlowFiltersInput = {
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<FlowFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<FlowFiltersInput>>>;
+  pickUpDay?: InputMaybe<PickUpDayFiltersInput>;
   recyclingGesture?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   wasteForms?: InputMaybe<WasteFormFiltersInput>;
@@ -3293,6 +3340,7 @@ export type FlowInput = {
   contract?: InputMaybe<Scalars["ID"]>;
   isActivated?: InputMaybe<Scalars["Boolean"]>;
   name?: InputMaybe<Scalars["String"]>;
+  pickUpDay?: InputMaybe<Scalars["ID"]>;
   recyclingGesture?: InputMaybe<Enum_Flow_Recyclinggesture>;
   wasteForms?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
 };
@@ -3584,6 +3632,7 @@ export type GenericMorph =
   | ComponentBlocksFile
   | ComponentBlocksHorizontalRule
   | ComponentBlocksImage
+  | ComponentBlocksOpeningDay
   | ComponentBlocksProofOfReceipt
   | ComponentBlocksQcm
   | ComponentBlocksQuestions
@@ -4179,7 +4228,7 @@ export type Mutation = {
   duplicateContent?: Maybe<Scalars["Boolean"]>;
   /** Confirm an email users email address */
   emailConfirmation?: Maybe<UsersPermissionsLoginPayload>;
-  endDateServices?: Maybe<Scalars["Boolean"]>;
+  endDateServices?: Maybe<Array<Maybe<ServicesDeactivated>>>;
   exportMunicipalities?: Maybe<Scalars["ID"]>;
   /** Request a reset password token */
   forgotPassword?: Maybe<UsersPermissionsPasswordPayload>;
@@ -4194,6 +4243,7 @@ export type Mutation = {
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
   servicesActivation?: Maybe<ServiceActivated>;
+  singleUploadCustom: File;
   updateAccessibility?: Maybe<AccessibilityEntityResponse>;
   updateAccessibilitySubService?: Maybe<AccessibilitySubServiceEntityResponse>;
   updateAlertNotification?: Maybe<AlertNotificationEntityResponse>;
@@ -4989,6 +5039,10 @@ export type MutationServicesActivationArgs = {
   startDate?: InputMaybe<Scalars["Date"]>;
 };
 
+export type MutationSingleUploadCustomArgs = {
+  file: Scalars["Upload"];
+};
+
 export type MutationUpdateAccessibilityArgs = {
   data: AccessibilityInput;
   id: Scalars["ID"];
@@ -5767,8 +5821,9 @@ export type PickUpDay = {
   __typename?: "PickUpDay";
   createdAt?: Maybe<Scalars["DateTime"]>;
   description?: Maybe<Scalars["String"]>;
+  flow?: Maybe<FlowEntityResponse>;
   name: Scalars["String"];
-  publishedAt?: Maybe<Scalars["DateTime"]>;
+  sectorization?: Maybe<SectorizationEntityResponse>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
 
@@ -5793,18 +5848,20 @@ export type PickUpDayFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<PickUpDayFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
+  flow?: InputMaybe<FlowFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<PickUpDayFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<PickUpDayFiltersInput>>>;
-  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  sectorization?: InputMaybe<SectorizationFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type PickUpDayInput = {
   description?: InputMaybe<Scalars["String"]>;
+  flow?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
-  publishedAt?: InputMaybe<Scalars["DateTime"]>;
+  sectorization?: InputMaybe<Scalars["ID"]>;
 };
 
 export type PickUpDayRelationResponseCollection = {
@@ -5841,7 +5898,6 @@ export type PickUpDayServiceCitiesArgs = {
 export type PickUpDayServicePickUpDaysArgs = {
   filters?: InputMaybe<PickUpDayFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
@@ -5970,6 +6026,7 @@ export type Query = {
   events?: Maybe<EventEntityResponseCollection>;
   exportEntities?: Maybe<ExportEntityEntityResponseCollection>;
   exportEntity?: Maybe<ExportEntityEntityResponse>;
+  files: Array<Maybe<File>>;
   flow?: Maybe<FlowEntityResponse>;
   flowColor?: Maybe<FlowColorEntityResponse>;
   flowColors?: Maybe<FlowColorEntityResponseCollection>;
@@ -5980,6 +6037,7 @@ export type Query = {
   freeContentSubService?: Maybe<FreeContentSubServiceEntityResponse>;
   freeContentSubServices?: Maybe<FreeContentSubServiceEntityResponseCollection>;
   freeContents?: Maybe<FreeContentEntityResponseCollection>;
+  getAddressCoordinates?: Maybe<Array<Maybe<SearchResultAddress>>>;
   getAllFoldersHierarchy?: Maybe<Array<Maybe<RequestFolders>>>;
   getContentTypeDTOs?: Maybe<Array<Maybe<ContentTypeDto>>>;
   getDropOffCollectType?: Maybe<Array<Maybe<CollectType>>>;
@@ -6458,6 +6516,10 @@ export type QueryFreeContentsArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
+export type QueryGetAddressCoordinatesArgs = {
+  searchTerm: Scalars["String"];
+};
+
 export type QueryGetAllFoldersHierarchyArgs = {
   path: Scalars["String"];
 };
@@ -6613,7 +6675,6 @@ export type QueryPickUpDayServicesArgs = {
 export type QueryPickUpDaysArgs = {
   filters?: InputMaybe<PickUpDayFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
@@ -7502,6 +7563,13 @@ export type SearchResult = {
   id: Scalars["ID"];
   name: Scalars["String"];
   typeName: Scalars["String"];
+  wasteFamilyName?: Maybe<Scalars["String"]>;
+};
+
+export type SearchResultAddress = {
+  __typename?: "SearchResultAddress";
+  coordinates: Scalars["String"];
+  name?: Maybe<Scalars["String"]>;
 };
 
 export type Sectorization = {
@@ -7640,6 +7708,13 @@ export type ServicesBlockServiceLinksDynamicZone =
   | ComponentLinksRequest
   | ComponentLinksTips
   | Error;
+
+export type ServicesDeactivated = {
+  __typename?: "ServicesDeactivated";
+  contractId?: Maybe<Scalars["ID"]>;
+  serviceId?: Maybe<Scalars["ID"]>;
+  serviceName?: Maybe<Scalars["String"]>;
+};
 
 export type StringFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
@@ -10257,6 +10332,7 @@ export type GetRecyclingGuideSearchEngineQuery = {
     typeName: string;
     id: string;
     name: string;
+    wasteFamilyName?: string | null;
   } | null> | null;
 };
 
@@ -13372,6 +13448,7 @@ export const GetRecyclingGuideSearchEngineDocument = gql`
       typeName
       id
       name
+      wasteFamilyName
     }
   }
 `;
