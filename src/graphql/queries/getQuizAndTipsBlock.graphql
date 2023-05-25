@@ -17,7 +17,6 @@ query getQuizAndTipsBlock($contractId: ID!) {
                         id
                         attributes {
                           title
-                          publishedDate
                         }
                       }
                     }

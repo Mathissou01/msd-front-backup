@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  IBlocksFile,
   IBlocksHorizontalRule,
   IBlocksSubHeading,
   IBlocksVideo,
@@ -9,12 +10,14 @@ import {
   TDynamicFieldOption,
   IBlocksWysiwyg,
 } from "../../lib/edito-content";
+import FileBlock from "./Blocks/FileBlock/FileBlock";
 import HorizontalRuleBlock from "./Blocks/HorizontalRuleBlock/HorizontalRuleBlock";
 import ImageBlock from "./Blocks/ImageBlock/ImageBlock";
 import SubHeadingBlock from "./Blocks/SubHeadingBlock/SubHeadingBlock";
 import VideoBlock from "./Blocks/VideoBlock/VideoBlock";
 import WysiwygBlock from "./Blocks/WysiwygBlock/WysiwygBlock";
-import "./edito.scss";
+import "./edito-dynamic-block.scss";
+import CommonBlockHeading from "../Common/CommonBlockHeading/CommonBlockHeading";
 
 interface IEditoDynamicBlockProps {
   type: TDynamicFieldOption;
@@ -66,6 +69,16 @@ export default function EditoDynamicBlock({
       data.textEditor
     ) {
       return <WysiwygBlock textEditor={data.textEditor} />;
+    } else if (
+      type === "ComponentBlocksFile" &&
+      isEditoBlockTypename<IBlocksFile>(data, type)
+    ) {
+      return (
+        <>
+          <CommonBlockHeading titleContent="Documents" isAlignLeft />
+          <FileBlock block={data} />
+        </>
+      );
     } else {
       return null;
     }

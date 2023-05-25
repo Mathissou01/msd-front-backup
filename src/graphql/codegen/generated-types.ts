@@ -8828,6 +8828,7 @@ export type GetNewByIdQuery = {
                     size: number;
                     url: string;
                     alternativeText?: string | null;
+                    ext?: string | null;
                   } | null;
                 } | null;
               } | null;
@@ -10141,7 +10142,6 @@ export type GetQuizAndTipsBlockQuery = {
                         attributes?: {
                           __typename?: "Quiz";
                           title?: string | null;
-                          publishedDate?: any | null;
                         } | null;
                       } | null;
                     } | null;
@@ -11310,6 +11310,7 @@ export const GetNewByIdDocument = gql`
                     size
                     url
                     alternativeText
+                    ext
                   }
                 }
               }
@@ -13188,7 +13189,6 @@ export const GetQuizAndTipsBlockDocument = gql`
                           id
                           attributes {
                             title
-                            publishedDate
                           }
                         }
                       }
@@ -13201,13 +13201,6 @@ export const GetQuizAndTipsBlockDocument = gql`
                             shortDescription
                             link
                             publishedDate
-                            tags {
-                              data {
-                                attributes {
-                                  name
-                                }
-                              }
-                            }
                             image {
                               data {
                                 attributes {

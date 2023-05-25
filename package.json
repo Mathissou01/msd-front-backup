@@ -39,6 +39,7 @@
     "graphql": "16.6.0",
     "html-react-parser": "^3.0.15",
     "isomorphic-dompurify": "0.26.0",
+    "js-file-download": "0.4.12",
     "next": "13.1.2",
     "qs": "6.11.0",
     "react": "18.2.0",

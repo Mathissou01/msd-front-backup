@@ -83,6 +83,7 @@ export type IEditoBlock =
 
 export interface IBlocksFile extends IPartialBlock {
   __typename: "ComponentBlocksFile";
+  document: UploadFileEntityResponse;
 }
 
 export interface IBlocksHorizontalRule extends IPartialBlock {

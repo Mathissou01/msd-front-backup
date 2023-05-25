@@ -80,6 +80,7 @@ query getNewById($newId: ID!) {
                   size
                   url
                   alternativeText
+                  ext
                 }
               }
             }
