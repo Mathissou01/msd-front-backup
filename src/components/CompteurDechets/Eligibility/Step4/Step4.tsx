@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { useState } from "react";
 import {
   IQuestion,
@@ -9,7 +10,7 @@ import CommonModal from "../../../Common/CommonModal/CommonModal";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
 import EligibilityRecycling from "public/images/formes_gray.svg";
 import BacIcon from "public/images/pictos/search.svg";
-import Illu_1 from "public/images/illu_1.svg";
+import IlluEmplacementPuce from "public/images/emplacement_puce.jpg";
 import "./step4.scss";
 
 interface Step4Props {
@@ -26,7 +27,12 @@ const Step4: React.FC<Step4Props> = ({ question, handleOptionClick }) => {
           handleClose={() => setShowModal(false)}
           content="Le numéro de votre bac se trouve toujours sous le code barres situé sur l’étiquette collée sur un des côtés de votre bac de déchets."
           bottomText="Votre numéro de bac est illisible ou introuvable ?"
-          headerIllu={<Illu_1 />}
+          headerIllu={
+            <Image
+              src={IlluEmplacementPuce}
+              alt="Illustration Emplacement Puce"
+            />
+          }
         />
       )}
       <div>
