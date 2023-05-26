@@ -1,17 +1,17 @@
 query getNewsPathsTotal($contractId: ID!) {
-    news(
-        filters: {
-            status: { eq: "published" }
-            newsSubService: {
-                isActivated: { eq: true }
-                editorialService: { contract: { id: { eq: $contractId } } }
-            }
-        }
-    ) {
-        meta {
-            pagination {
-                total
-            }
-        }
+  news(
+    filters: {
+      status: { eq: "published" }
+      newsSubService: {
+        isActivated: { eq: true }
+        editorialService: { contract: { id: { eq: $contractId } } }
+      }
     }
+  ) {
+    meta {
+      pagination {
+        total
+      }
+    }
+  }
 }

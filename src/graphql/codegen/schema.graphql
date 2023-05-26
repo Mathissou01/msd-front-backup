@@ -3355,6 +3355,15 @@ input GlobalInput {
   siteName: String
 }
 
+type HomeDataMwc {
+  adresse: String
+  averageProductionPerPerson: Float
+  equivalentOfProduction: Float
+  productionCumulee: Int
+  productionDetaillee: [ProductionDetaillee]
+  variationPercent: Float
+}
+
 type Homepage {
   contractCustomization: ContractCustomizationEntityResponse
   createdAt: DateTime
@@ -4659,12 +4668,28 @@ type PickUpDayServiceRelationResponseCollection {
   data: [PickUpDayServiceEntity!]!
 }
 
+type ProductionDetaillee {
+  dateDebutPeriode: String
+  dateFinPeriode: String
+  productionCumuleePeriode: String
+  productionDetailleePeriode: [String]
+}
+
 enum PublicationState {
   LIVE
   PREVIEW
 }
 
 type Query {
+  GetHomeDataMwc(
+    Agregation: String!
+    address: String!
+    averageProductionPerPerson: Int!
+    dateDebut: String!
+    dateFin: String!
+    numberOfPeopleIntheHousehold: Int!
+    typeUsager: String!
+  ): HomeDataMwc
   accessibilities(
     filters: AccessibilityFiltersInput
     pagination: PaginationArg = {}

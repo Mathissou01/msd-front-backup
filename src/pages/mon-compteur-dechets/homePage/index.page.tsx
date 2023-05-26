@@ -1,3 +1,6 @@
+// Faire attention a 1 personne par foyer qui ne soit au pluriel que si > 1
+// Demander à Damien pour le picto de la variation de la production
+
 import { useState } from "react";
 import { useRouter } from "next/router";
 import CommonButton from "../../../components/Common/CommonButton/CommonButton";
@@ -5,11 +8,15 @@ import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/Common
 import Illu_1 from "public/images/illu_1.svg";
 import "./homePage.scss";
 import FlowsBox from "../../../components/CompteurDechets/Eligibility/HomePage/FlowsBox";
-import MyHomeData from "../../../components/CompteurDechets/Eligibility/MyHomeData/MyHomeData";
-
+import MyHomeData from "../../../components/CompteurDechets/Eligibility/MyHouseData/MyHouseData";
+// import MyHouseDataComponent from "../../../components/CompteurDechets/Eligibility/HomePage/myHouseDataComponent/myHouseDataComponent";
+// import { useGetDataHomePageMwcQuery } from "../../../graphql/codegen/generated-types";
+// import DecliningProduction from "public/images/pictos/arrowData.svg";
+// import CommonBlockHeading from "../../../components/Common/CommonBlockHeading/CommonBlockHeading";
 const HomePage: React.FC = () => {
   const [showModal, setShowModal] = useState(true);
   const router = useRouter();
+
   const breadcrumbPages = [
     {
       label: "Accueil",
@@ -69,6 +76,7 @@ const HomePage: React.FC = () => {
       <CommonBreadcrumb pages={breadcrumbPages} />
       <section>
         <FlowsBox />
+
         <MyHomeData />
       </section>
     </>

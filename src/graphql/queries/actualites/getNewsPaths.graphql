@@ -1,19 +1,19 @@
 query getNewsPaths($contractId: ID!, $total: Int!) {
-    news(
-        filters: {
-            status: { eq: "published" }
-            newsSubService: {
-                isActivated: { eq: true }
-                editorialService: { contract: { id: { eq: $contractId } } }
-            }
-        }
-        pagination: { limit: $total }
-    ) {
-        data {
-            id
-            attributes {
-                status
-            }
-        }
+  news(
+    filters: {
+      status: { eq: "published" }
+      newsSubService: {
+        isActivated: { eq: true }
+        editorialService: { contract: { id: { eq: $contractId } } }
+      }
     }
+    pagination: { limit: $total }
+  ) {
+    data {
+      id
+      attributes {
+        status
+      }
+    }
+  }
 }

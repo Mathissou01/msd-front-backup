@@ -1,19 +1,19 @@
 query getFreeContentsPaths($contractId: ID!, $total: Int!) {
-    freeContents(
-        filters: {
-            status: { eq: "published" }
-            freeContentSubService: {
-                isActivated: { eq: true }
-                editorialService: { contract: { id: { eq: $contractId } } }
-            }
-        }
-        pagination: { limit: $total }
-    ) {
-        data {
-            id
-            attributes {
-                status
-            }
-        }
+  freeContents(
+    filters: {
+      status: { eq: "published" }
+      freeContentSubService: {
+        isActivated: { eq: true }
+        editorialService: { contract: { id: { eq: $contractId } } }
+      }
     }
+    pagination: { limit: $total }
+  ) {
+    data {
+      id
+      attributes {
+        status
+      }
+    }
+  }
 }
