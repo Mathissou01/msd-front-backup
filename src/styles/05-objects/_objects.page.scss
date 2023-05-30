@@ -175,29 +175,29 @@
 }
 
 .o-CornerShapes {
-  @include im.media(">=tablet") {
-    &::after {
-      position: absolute;
-      top: 59px;
-      right: 0;
-      display: block;
-      width: 150px;
-      height: 160px;
-      background-image: url("../../../public/images/Yellow_shape_right_top.svg");
-      background-repeat: no-repeat;
-      content: "";
-    }
+  // @include im.media(">=tablet") {
+  //   &::after {
+  //     position: absolute;
+  //     top: 59px;
+  //     right: 0;
+  //     display: block;
+  //     width: 150px;
+  //     height: 160px;
+  //     background-image: url("../../../public/images/Yellow_shape_right_top.svg");
+  //     background-repeat: no-repeat;
+  //     content: "";
+  //   }
 
-    &::before {
-      position: absolute;
-      top: calc(100% - 121px);
-      left: 0;
-      display: block;
-      width: 288px;
-      height: 121px;
-      background-image: url("../../../public/images/Yellow_shape_left_bottom.svg");
-      background-repeat: no-repeat;
-      content: "";
-    }
-  }
+  //   &::before {
+  //     position: absolute;
+  //     top: calc(100% - 121px);
+  //     left: 0;
+  //     display: block;
+  //     width: 288px;
+  //     height: 121px;
+  //     background-image: url("../../../public/images/Yellow_shape_left_bottom.svg");
+  //     background-repeat: no-repeat;
+  //     content: "";
+  //   }
+  // }
 }

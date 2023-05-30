@@ -1,6 +1,6 @@
 @use "src/styles/02-tools/tools.include-media" as im;
 
-.c-MyHouseData {
+.c-MyHomeData {
   margin-top: 34px;
   padding: 0 8px;
   @include im.media(">=tablet") {
