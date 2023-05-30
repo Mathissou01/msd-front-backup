@@ -31,7 +31,7 @@ export const questions: IQuestion[] = [
     subText: "Vous êtes ?",
     options: [
       { text: "Un particulier", next: 2 },
-      { text: "Un professionnel", next: "/non-eligibilite" },
+      { text: "Un professionnel", next: "/non-egibilite" },
     ],
   },
   {
@@ -40,7 +40,7 @@ export const questions: IQuestion[] = [
     subText: "Votre type de logement :",
     options: [
       { text: "Une maison", next: 3 },
-      { text: "Un appartement", next: "/non-eligibilite" },
+      { text: "Un appartement", next: "/non-egibilite" },
     ],
   },
   {
@@ -53,7 +53,14 @@ export const questions: IQuestion[] = [
   },
   {
     title: "Nous avons identifiés 2 bacs pour votre adresse",
-    options: [{ text: "Suivant", next: 5, buttonStyle: "primary" }],
+    options: [
+      { text: "Suivant", next: 5, buttonStyle: "primary" },
+      {
+        text: "Il y a une erreur",
+        buttonStyle: "secondary",
+        next: "/erreur",
+      },
+    ],
   },
   {
     title: "Vous y êtes presque !",

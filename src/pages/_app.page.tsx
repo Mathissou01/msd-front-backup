@@ -7,7 +7,6 @@ import { ContractEntity } from "../graphql/codegen/generated-types";
 import globalData from "../../config/global.json";
 import { ENavigationPages, NavigationContext } from "../hooks/useNavigation";
 import { ContractContext } from "../hooks/useContract";
-import { UserProvider } from "../hooks/useCurrentUser";
 import useScreenWidth, { IsDesktopContext } from "../hooks/useScreenWidth";
 import CommonSvgDefs from "../components/Common/CommonSvgDefs/CommonSvgDefs";
 import Header from "../components/Header/Header";
@@ -29,23 +28,28 @@ function MsdFrontApp({ Component, pageProps }: AppProps) {
           contractId: `${Number.parseInt(globalData.contract.id)}`,
         }}
       >
-        <UserProvider>
-          <NavigationContext.Provider value={{ currentPage, setCurrentPage }}>
-            <IsDesktopContext.Provider value={isDesktop}>
-              <div id={"app"}>
-                <CommonSvgDefs />
-                <Header />
-                <div className="o-Page__Container">
-                  <main role="main" className="o-Page__Main">
-                    <Component {...pageProps} />
-                  </main>
-                  <Footer />
-                </div>
-                <div id="modal-portal" />
+        <NavigationContext.Provider value={{ currentPage, setCurrentPage }}>
+          <IsDesktopContext.Provider value={isDesktop}>
+            <div id={"app"}>
+              <CommonSvgDefs />
+              <Header />
+              <div className="o-Page__Container">
+                <main
+                  role="main"
+                  className={`o-Page__Main ${
+                    router.pathname === "/mon-compteur-dechets/eligibilite"
+                      ? "o-CornerShapes"
+                      : ""
+                  }`}
+                >
+                  <Component {...pageProps} />
+                </main>
+                <Footer />
               </div>
-            </IsDesktopContext.Provider>
-          </NavigationContext.Provider>
-        </UserProvider>
+              <div id="modal-portal" />
+            </div>
+          </IsDesktopContext.Provider>
+        </NavigationContext.Provider>
       </ContractContext.Provider>
     </ApolloProvider>
   );

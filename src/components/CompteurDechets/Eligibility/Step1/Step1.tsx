@@ -28,9 +28,7 @@ const Step1: React.FC<Step1Props> = ({ question, handleOptionClick }) => {
             <button
               key={index}
               className="o-Steps__Card"
-              onClick={() => {
-                handleOptionClick(option.next || 0);
-              }}
+              onClick={() => handleOptionClick(option.next || 0)}
             >
               <p className="o-Steps__CardSubtitle">{option.text}</p>
             </button>

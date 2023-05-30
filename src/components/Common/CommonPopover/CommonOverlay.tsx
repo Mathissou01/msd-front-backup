@@ -25,7 +25,7 @@ const CommonOverlay: React.FC<CommonOverlayProps> = ({
 
   return (
     <>
-      <div className="c-MyHomeData__Info" onClick={() => setIsVisible(true)}>
+      <div className="c-MyHouseData__Info" onClick={() => setIsVisible(true)}>
         {button}
       </div>
       {isVisible && (
