@@ -3744,16 +3744,6 @@ export type GlobalInput = {
   siteName?: InputMaybe<Scalars["String"]>;
 };
 
-export type HomeDataMwc = {
-  __typename?: "HomeDataMwc";
-  adresse?: Maybe<Scalars["String"]>;
-  averageProductionPerPerson?: Maybe<Scalars["Float"]>;
-  equivalentOfProduction?: Maybe<Scalars["Float"]>;
-  productionCumulee?: Maybe<Scalars["Int"]>;
-  productionDetaillee?: Maybe<Array<Maybe<ProductionDetaillee>>>;
-  variationPercent?: Maybe<Scalars["Float"]>;
-};
-
 export type Homepage = {
   __typename?: "Homepage";
   contractCustomization?: Maybe<ContractCustomizationEntityResponse>;
@@ -5961,14 +5951,6 @@ export type PickUpDayServiceRelationResponseCollection = {
   data: Array<PickUpDayServiceEntity>;
 };
 
-export type ProductionDetaillee = {
-  __typename?: "ProductionDetaillee";
-  dateDebutPeriode?: Maybe<Scalars["String"]>;
-  dateFinPeriode?: Maybe<Scalars["String"]>;
-  productionCumuleePeriode?: Maybe<Scalars["String"]>;
-  productionDetailleePeriode?: Maybe<Array<Maybe<Scalars["String"]>>>;
-};
-
 export enum PublicationState {
   Live = "LIVE",
   Preview = "PREVIEW",
@@ -5976,7 +5958,6 @@ export enum PublicationState {
 
 export type Query = {
   __typename?: "Query";
-  GetHomeDataMwc?: Maybe<HomeDataMwc>;
   accessibilities?: Maybe<AccessibilityEntityResponseCollection>;
   accessibility?: Maybe<AccessibilityEntityResponse>;
   accessibilitySubService?: Maybe<AccessibilitySubServiceEntityResponse>;
@@ -6144,16 +6125,6 @@ export type Query = {
   wasteForms?: Maybe<WasteFormEntityResponseCollection>;
   yesWeScanService?: Maybe<YesWeScanServiceEntityResponse>;
   yesWeScanServices?: Maybe<YesWeScanServiceEntityResponseCollection>;
-};
-
-export type QueryGetHomeDataMwcArgs = {
-  Agregation: Scalars["String"];
-  address: Scalars["String"];
-  averageProductionPerPerson: Scalars["Int"];
-  dateDebut: Scalars["String"];
-  dateFin: Scalars["String"];
-  numberOfPeopleIntheHousehold: Scalars["Int"];
-  typeUsager: Scalars["String"];
 };
 
 export type QueryAccessibilitiesArgs = {
@@ -10811,28 +10782,6 @@ export type GetTopContentBlockQuery = {
   } | null;
 };
 
-export type GetDataHomePageMwcQueryVariables = Exact<{
-  address: Scalars["String"];
-  typeUsager: Scalars["String"];
-  dateDebut: Scalars["String"];
-  dateFin: Scalars["String"];
-  agregation: Scalars["String"];
-  averageProductionPerPerson: Scalars["Int"];
-  numberOfPeopleIntheHousehold: Scalars["Int"];
-}>;
-
-export type GetDataHomePageMwcQuery = {
-  __typename?: "Query";
-  GetHomeDataMwc?: {
-    __typename?: "HomeDataMwc";
-    productionCumulee?: number | null;
-    adresse?: string | null;
-    averageProductionPerPerson?: number | null;
-    equivalentOfProduction?: number | null;
-    variationPercent?: number | null;
-  } | null;
-};
-
 export type GetContactUsSubServiceByContractIdQueryVariables = Exact<{
   contractId: Scalars["ID"];
 }>;
@@ -13328,6 +13277,13 @@ export const GetQuizAndTipsBlockDocument = gql`
                             shortDescription
                             link
                             publishedDate
+                            tags {
+                              data {
+                                attributes {
+                                  name
+                                }
+                              }
+                            }
                             image {
                               data {
                                 attributes {
@@ -14026,90 +13982,6 @@ export type GetTopContentBlockLazyQueryHookResult = ReturnType<
 export type GetTopContentBlockQueryResult = Apollo.QueryResult<
   GetTopContentBlockQuery,
   GetTopContentBlockQueryVariables
->;
-export const GetDataHomePageMwcDocument = gql`
-  query getDataHomePageMwc(
-    $address: String!
-    $typeUsager: String!
-    $dateDebut: String!
-    $dateFin: String!
-    $agregation: String!
-    $averageProductionPerPerson: Int!
-    $numberOfPeopleIntheHousehold: Int!
-  ) {
-    GetHomeDataMwc(
-      address: $address
-      typeUsager: $typeUsager
-      dateDebut: $dateDebut
-      dateFin: $dateFin
-      Agregation: $agregation
-      averageProductionPerPerson: $averageProductionPerPerson
-      numberOfPeopleIntheHousehold: $numberOfPeopleIntheHousehold
-    ) {
-      productionCumulee
-      adresse
-      averageProductionPerPerson
-      equivalentOfProduction
-      variationPercent
-    }
-  }
-`;
-
-/**
- * __useGetDataHomePageMwcQuery__
- *
- * To run a query within a React component, call `useGetDataHomePageMwcQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetDataHomePageMwcQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetDataHomePageMwcQuery({
- *   variables: {
- *      address: // value for 'address'
- *      typeUsager: // value for 'typeUsager'
- *      dateDebut: // value for 'dateDebut'
- *      dateFin: // value for 'dateFin'
- *      agregation: // value for 'agregation'
- *      averageProductionPerPerson: // value for 'averageProductionPerPerson'
- *      numberOfPeopleIntheHousehold: // value for 'numberOfPeopleIntheHousehold'
- *   },
- * });
- */
-export function useGetDataHomePageMwcQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetDataHomePageMwcQuery,
-    GetDataHomePageMwcQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    GetDataHomePageMwcQuery,
-    GetDataHomePageMwcQueryVariables
-  >(GetDataHomePageMwcDocument, options);
-}
-export function useGetDataHomePageMwcLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetDataHomePageMwcQuery,
-    GetDataHomePageMwcQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    GetDataHomePageMwcQuery,
-    GetDataHomePageMwcQueryVariables
-  >(GetDataHomePageMwcDocument, options);
-}
-export type GetDataHomePageMwcQueryHookResult = ReturnType<
-  typeof useGetDataHomePageMwcQuery
->;
-export type GetDataHomePageMwcLazyQueryHookResult = ReturnType<
-  typeof useGetDataHomePageMwcLazyQuery
->;
-export type GetDataHomePageMwcQueryResult = Apollo.QueryResult<
-  GetDataHomePageMwcQuery,
-  GetDataHomePageMwcQueryVariables
 >;
 export const GetContactUsSubServiceByContractIdDocument = gql`
   query getContactUsSubServiceByContractId($contractId: ID!) {

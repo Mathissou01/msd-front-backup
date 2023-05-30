@@ -3,7 +3,7 @@ import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHe
 import CommonButton from "../../../Common/CommonButton/CommonButton";
 import Flows from "../HomePage/Flows/Flows";
 import { useRouter } from "next/router";
-import { useGetDataHomePageMwcQuery } from "../../../../graphql/codegen/generated-types";
+// import { useGetDataHomePageMwcQuery } from "../../../../graphql/codegen/generated-types";
 import MyHouseDataComponent from "../HomePage/myHouseDataComponent/myHouseDataComponent";
 import DecliningProduction from "public/images/pictos/arrowData.svg";
 
@@ -15,20 +15,19 @@ import "./my-house-data.scss";
 const MyHomeData = () => {
   const router = useRouter();
 
-  const { data } = useGetDataHomePageMwcQuery({
-    variables: {
-      address: "11111",
-      typeUsager: "test",
-      dateDebut: "test",
-      dateFin: "test",
-      averageProductionPerPerson: 90,
-      numberOfPeopleIntheHousehold: 4,
-      agregation: "M",
-    },
-  });
+  // const { data } = useGetDataHomePageMwcQuery({
+  //   variables: {
+  //     address: "11111",
+  //     typeUsager: "test",
+  //     dateDebut: "test",
+  //     dateFin: "test",
+  //     averageProductionPerPerson: 90,
+  //     numberOfPeopleIntheHousehold: 4,
+  //     agregation: "M",
+  //   },
+  // });
 
-  const homeData = data?.GetHomeDataMwc;
-
+  // const homeData = data?.GetHomeDataMwc;
   const renderOverlayContent = () => {
     return (
       <div className="c-MyHouseData__Overlay">
@@ -85,12 +84,11 @@ const MyHomeData = () => {
           title="Mes Déchets"
           logoOrWeight={
             <>
-              {homeData?.productionCumulee || 138}
-              <span className="c-MyHouseData__DataUnity">kg</span>
+              {/* {homeData?.productionCumulee || 138}
+              <span className="c-MyHouseData__DataUnity">kg</span> */}
             </>
           }
-          text={`C'est l'équivalent de la production d'un foyer d'environ C'est l'équivalent de la production d'un foyer d'environ  C'est l'équivalent de la production d'un foyer d'environ 
-              ${homeData?.equivalentOfProduction || 0} personnes`}
+          text="hello"
           path="/block1"
         />
         <MyHouseDataComponent
@@ -101,9 +99,10 @@ const MyHomeData = () => {
               <DecliningProduction />{" "}
             </div>
           }
-          text={`Votre production à baissé de ${
-            homeData?.variationPercent || 0
-          } % le mois dernier`}
+          // text={`Votre production à baissé de ${
+          //   homeData?.variationPercent || 0
+          // } % le mois dernier`}
+          text="hello"
           path="/block2"
         />
         <div>
