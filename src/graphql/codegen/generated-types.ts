@@ -193,6 +193,11 @@ export type Activation = {
 
 export type ActivationAndService = Activation | Service;
 
+export type Address = {
+  __typename?: "Address";
+  label?: Maybe<Scalars["String"]>;
+};
+
 export type AlertNotification = {
   __typename?: "AlertNotification";
   createdAt?: Maybe<Scalars["DateTime"]>;
@@ -802,18 +807,12 @@ export type CollectDropOff = {
   flows?: Maybe<FlowRelationResponseCollection>;
   grammaticalGender?: Maybe<Enum_Collectdropoff_Grammaticalgender>;
   name?: Maybe<Scalars["String"]>;
-  picto?: Maybe<UploadFileRelationResponseCollection>;
+  picto?: Maybe<UploadFileEntityResponse>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
 
 export type CollectDropOffFlowsArgs = {
   filters?: InputMaybe<FlowFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
-};
-
-export type CollectDropOffPictoArgs = {
-  filters?: InputMaybe<UploadFileFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
@@ -855,7 +854,7 @@ export type CollectDropOffInput = {
   flows?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   grammaticalGender?: InputMaybe<Enum_Collectdropoff_Grammaticalgender>;
   name?: InputMaybe<Scalars["String"]>;
-  picto?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  picto?: InputMaybe<Scalars["ID"]>;
 };
 
 export type CollectDropOffRelationResponseCollection = {
@@ -3762,6 +3761,15 @@ export type GlobalInput = {
   siteName?: InputMaybe<Scalars["String"]>;
 };
 
+export type HomeDataMwc = {
+  __typename?: "HomeDataMwc";
+  adresse?: Maybe<Scalars["String"]>;
+  averageProductionPerPerson?: Maybe<Scalars["Float"]>;
+  equivalentOfProduction?: Maybe<Scalars["Float"]>;
+  productionCumulee?: Maybe<Scalars["Int"]>;
+  variationPercent?: Maybe<Scalars["Float"]>;
+};
+
 export type Homepage = {
   __typename?: "Homepage";
   contractCustomization?: Maybe<ContractCustomizationEntityResponse>;
@@ -5985,6 +5993,7 @@ export enum PublicationState {
 
 export type Query = {
   __typename?: "Query";
+  GetHomeDataMwc?: Maybe<HomeDataMwc>;
   accessibilities?: Maybe<AccessibilityEntityResponseCollection>;
   accessibility?: Maybe<AccessibilityEntityResponse>;
   accessibilitySubService?: Maybe<AccessibilitySubServiceEntityResponse>;
@@ -6066,8 +6075,8 @@ export type Query = {
   freeContents?: Maybe<FreeContentEntityResponseCollection>;
   getAddressCoordinates?: Maybe<Array<Maybe<SearchResultAddress>>>;
   getAllFoldersHierarchy?: Maybe<Array<Maybe<RequestFolders>>>;
+  getBinId?: Maybe<Array<Maybe<Data>>>;
   getContentTypeDTOs?: Maybe<Array<Maybe<ContentTypeDto>>>;
-  getDataFromAPI?: Maybe<Array<Maybe<Data>>>;
   getDropOffCollectType?: Maybe<Array<Maybe<CollectType>>>;
   getEditoBlockDTO?: Maybe<EditoBlockDto>;
   getEditoContentDTOs?: Maybe<Array<Maybe<EditoContentDto>>>;
@@ -6116,6 +6125,7 @@ export type Query = {
   requestService?: Maybe<RequestServiceEntityResponse>;
   requestServices?: Maybe<RequestServiceEntityResponseCollection>;
   requests?: Maybe<RequestEntityResponseCollection>;
+  searchAddress?: Maybe<Array<Maybe<Address>>>;
   searchCities?: Maybe<Array<Maybe<CityResult>>>;
   searchClientsByName?: Maybe<Array<Maybe<ClientName>>>;
   searchEngineBlock?: Maybe<SearchEngineBlockEntityResponse>;
@@ -6154,6 +6164,16 @@ export type Query = {
   wasteForms?: Maybe<WasteFormEntityResponseCollection>;
   yesWeScanService?: Maybe<YesWeScanServiceEntityResponse>;
   yesWeScanServices?: Maybe<YesWeScanServiceEntityResponseCollection>;
+};
+
+export type QueryGetHomeDataMwcArgs = {
+  Agregation: Scalars["String"];
+  address: Scalars["String"];
+  averageProductionPerPerson: Scalars["Int"];
+  dateDebut: Scalars["String"];
+  dateFin: Scalars["String"];
+  numberOfPeopleIntheHousehold: Scalars["Int"];
+  typeUsager: Scalars["String"];
 };
 
 export type QueryAccessibilitiesArgs = {
@@ -6553,15 +6573,15 @@ export type QueryGetAllFoldersHierarchyArgs = {
   path: Scalars["String"];
 };
 
-export type QueryGetContentTypeDtOsArgs = {
-  contractId: Scalars["ID"];
-};
-
-export type QueryGetDataFromApiArgs = {
+export type QueryGetBinIdArgs = {
   city?: InputMaybe<Scalars["String"]>;
   contractMetadataKey?: InputMaybe<Scalars["String"]>;
   houseNumber?: InputMaybe<Scalars["String"]>;
   street?: InputMaybe<Scalars["String"]>;
+};
+
+export type QueryGetContentTypeDtOsArgs = {
+  contractId: Scalars["ID"];
 };
 
 export type QueryGetDropOffCollectTypeArgs = {
@@ -6788,6 +6808,11 @@ export type QueryRequestsArgs = {
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type QuerySearchAddressArgs = {
+  address?: InputMaybe<Scalars["String"]>;
+  limit?: InputMaybe<Scalars["Int"]>;
 };
 
 export type QuerySearchCitiesArgs = {
@@ -10823,6 +10848,57 @@ export type GetTopContentBlockQuery = {
   } | null;
 };
 
+export type GetBinIdQueryVariables = Exact<{
+  city?: InputMaybe<Scalars["String"]>;
+  contractMetadataKey?: InputMaybe<Scalars["String"]>;
+  street?: InputMaybe<Scalars["String"]>;
+  houseNumber?: InputMaybe<Scalars["String"]>;
+}>;
+
+export type GetBinIdQuery = {
+  __typename?: "Query";
+  getBinId?: Array<{
+    __typename?: "Data";
+    chipId?: string | null;
+    trashFlow?: string | null;
+  } | null> | null;
+};
+
+export type GetDataHomePageMwcQueryVariables = Exact<{
+  address: Scalars["String"];
+  typeUsager: Scalars["String"];
+  dateDebut: Scalars["String"];
+  dateFin: Scalars["String"];
+  agregation: Scalars["String"];
+  averageProductionPerPerson: Scalars["Int"];
+  numberOfPeopleIntheHousehold: Scalars["Int"];
+}>;
+
+export type GetDataHomePageMwcQuery = {
+  __typename?: "Query";
+  GetHomeDataMwc?: {
+    __typename?: "HomeDataMwc";
+    productionCumulee?: number | null;
+    adresse?: string | null;
+    averageProductionPerPerson?: number | null;
+    equivalentOfProduction?: number | null;
+    variationPercent?: number | null;
+  } | null;
+};
+
+export type SearchAddressQueryVariables = Exact<{
+  address?: InputMaybe<Scalars["String"]>;
+  limit?: InputMaybe<Scalars["Int"]>;
+}>;
+
+export type SearchAddressQuery = {
+  __typename?: "Query";
+  searchAddress?: Array<{
+    __typename?: "Address";
+    label?: string | null;
+  } | null> | null;
+};
+
 export type GetContactUsSubServiceByContractIdQueryVariables = Exact<{
   contractId: Scalars["ID"];
 }>;
@@ -14062,6 +14138,216 @@ export type GetTopContentBlockLazyQueryHookResult = ReturnType<
 export type GetTopContentBlockQueryResult = Apollo.QueryResult<
   GetTopContentBlockQuery,
   GetTopContentBlockQueryVariables
+>;
+export const GetBinIdDocument = gql`
+  query getBinId(
+    $city: String
+    $contractMetadataKey: String
+    $street: String
+    $houseNumber: String
+  ) {
+    getBinId(
+      city: $city
+      contractMetadataKey: $contractMetadataKey
+      street: $street
+      houseNumber: $houseNumber
+    ) {
+      chipId
+      trashFlow
+    }
+  }
+`;
+
+/**
+ * __useGetBinIdQuery__
+ *
+ * To run a query within a React component, call `useGetBinIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetBinIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetBinIdQuery({
+ *   variables: {
+ *      city: // value for 'city'
+ *      contractMetadataKey: // value for 'contractMetadataKey'
+ *      street: // value for 'street'
+ *      houseNumber: // value for 'houseNumber'
+ *   },
+ * });
+ */
+export function useGetBinIdQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetBinIdQuery, GetBinIdQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetBinIdQuery, GetBinIdQueryVariables>(
+    GetBinIdDocument,
+    options,
+  );
+}
+export function useGetBinIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetBinIdQuery,
+    GetBinIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetBinIdQuery, GetBinIdQueryVariables>(
+    GetBinIdDocument,
+    options,
+  );
+}
+export type GetBinIdQueryHookResult = ReturnType<typeof useGetBinIdQuery>;
+export type GetBinIdLazyQueryHookResult = ReturnType<
+  typeof useGetBinIdLazyQuery
+>;
+export type GetBinIdQueryResult = Apollo.QueryResult<
+  GetBinIdQuery,
+  GetBinIdQueryVariables
+>;
+export const GetDataHomePageMwcDocument = gql`
+  query getDataHomePageMwc(
+    $address: String!
+    $typeUsager: String!
+    $dateDebut: String!
+    $dateFin: String!
+    $agregation: String!
+    $averageProductionPerPerson: Int!
+    $numberOfPeopleIntheHousehold: Int!
+  ) {
+    GetHomeDataMwc(
+      address: $address
+      typeUsager: $typeUsager
+      dateDebut: $dateDebut
+      dateFin: $dateFin
+      Agregation: $agregation
+      averageProductionPerPerson: $averageProductionPerPerson
+      numberOfPeopleIntheHousehold: $numberOfPeopleIntheHousehold
+    ) {
+      productionCumulee
+      adresse
+      averageProductionPerPerson
+      equivalentOfProduction
+      variationPercent
+    }
+  }
+`;
+
+/**
+ * __useGetDataHomePageMwcQuery__
+ *
+ * To run a query within a React component, call `useGetDataHomePageMwcQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetDataHomePageMwcQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetDataHomePageMwcQuery({
+ *   variables: {
+ *      address: // value for 'address'
+ *      typeUsager: // value for 'typeUsager'
+ *      dateDebut: // value for 'dateDebut'
+ *      dateFin: // value for 'dateFin'
+ *      agregation: // value for 'agregation'
+ *      averageProductionPerPerson: // value for 'averageProductionPerPerson'
+ *      numberOfPeopleIntheHousehold: // value for 'numberOfPeopleIntheHousehold'
+ *   },
+ * });
+ */
+export function useGetDataHomePageMwcQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetDataHomePageMwcQuery,
+    GetDataHomePageMwcQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetDataHomePageMwcQuery,
+    GetDataHomePageMwcQueryVariables
+  >(GetDataHomePageMwcDocument, options);
+}
+export function useGetDataHomePageMwcLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetDataHomePageMwcQuery,
+    GetDataHomePageMwcQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetDataHomePageMwcQuery,
+    GetDataHomePageMwcQueryVariables
+  >(GetDataHomePageMwcDocument, options);
+}
+export type GetDataHomePageMwcQueryHookResult = ReturnType<
+  typeof useGetDataHomePageMwcQuery
+>;
+export type GetDataHomePageMwcLazyQueryHookResult = ReturnType<
+  typeof useGetDataHomePageMwcLazyQuery
+>;
+export type GetDataHomePageMwcQueryResult = Apollo.QueryResult<
+  GetDataHomePageMwcQuery,
+  GetDataHomePageMwcQueryVariables
+>;
+export const SearchAddressDocument = gql`
+  query SearchAddress($address: String, $limit: Int) {
+    searchAddress(address: $address, limit: $limit) {
+      label
+    }
+  }
+`;
+
+/**
+ * __useSearchAddressQuery__
+ *
+ * To run a query within a React component, call `useSearchAddressQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchAddressQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchAddressQuery({
+ *   variables: {
+ *      address: // value for 'address'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useSearchAddressQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    SearchAddressQuery,
+    SearchAddressQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<SearchAddressQuery, SearchAddressQueryVariables>(
+    SearchAddressDocument,
+    options,
+  );
+}
+export function useSearchAddressLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    SearchAddressQuery,
+    SearchAddressQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<SearchAddressQuery, SearchAddressQueryVariables>(
+    SearchAddressDocument,
+    options,
+  );
+}
+export type SearchAddressQueryHookResult = ReturnType<
+  typeof useSearchAddressQuery
+>;
+export type SearchAddressLazyQueryHookResult = ReturnType<
+  typeof useSearchAddressLazyQuery
+>;
+export type SearchAddressQueryResult = Apollo.QueryResult<
+  SearchAddressQuery,
+  SearchAddressQueryVariables
 >;
 export const GetContactUsSubServiceByContractIdDocument = gql`
   query getContactUsSubServiceByContractId($contractId: ID!) {

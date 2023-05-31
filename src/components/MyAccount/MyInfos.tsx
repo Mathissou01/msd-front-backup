@@ -32,7 +32,6 @@ const MyInfos: React.FC<MyInfosProps> = ({ user, refetch }) => {
   } = useForm();
 
   const onSubmit = (data: { [key: string]: string }) => {
-    console.log(data);
     fetch(
       `${process.env.NEXT_PUBLIC_USER_API_URL}/user/${process.env.NEXT_PUBLIC_USER_ID}`,
       {

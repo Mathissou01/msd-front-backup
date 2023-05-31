@@ -10,11 +10,11 @@ import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHe
 import CommonButton from "../../../Common/CommonButton/CommonButton";
 import EligibilityAdress from "public/images/eligibility-recycle.svg";
 import useDebounce from "../../../../hooks/useDebounce";
-import { Feature } from "./Address.interface";
 import "./step3.scss";
 import AddressBlock from "../AddressBlock/AddressBlock";
 import { IError } from "../../../../pages/mon-compteur-dechets/eligibilite/index.page";
 import AutocompleteAddress from "../AutocompleteAddress/AutocompleteAddress";
+import { useSearchAddressQuery } from "../../../../graphql/codegen/generated-types";
 
 interface Step3Props {
   question: IQuestion;
@@ -33,37 +33,27 @@ const Step3: React.FC<Step3Props> = ({
 }) => {
   const [value, setValue] = useState("");
   const debouncedValue = useDebounce<string>(value, 500);
-  const [filteredOptions, setFilteredOptions] = useState([]);
+  const [filteredOptions, setFilteredOptions] = useState<string[]>([]);
   const [isVisibled, setIsVisibled] = useState(true);
 
-  const API_URL = process.env.NEXT_PUBLIC_API_ADDRESSES_GOUV_URL;
-
-  // TODO: Remove this function and type when the API is ready
-  const searchAddress = async (address: string, limit = 5) => {
-    try {
-      const response = await fetch(
-        `${API_URL}/search/?q=${address}&limit=${limit}&autocomplete=1`,
-      );
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { data: searchAddressData } = useSearchAddressQuery({
+    variables: { address: debouncedValue, limit: 5 },
+  });
 
   useEffect(() => {
-    if (debouncedValue && value.length >= 3) {
-      searchAddress(value).then((data) => {
-        if (data && data.features) {
-          const addresses = data.features.map(
-            (feature: Feature) => feature.properties.label,
-          );
-          setFilteredOptions(addresses);
-        } else setFilteredOptions([]);
-      });
+    if (!searchAddressData) {
+      return;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedValue]);
+    if (searchAddressData && searchAddressData.searchAddress) {
+      const addresses = searchAddressData.searchAddress
+        .map((address) => address?.label)
+        .filter((label) => label !== null && label !== undefined) as string[];
+
+      setFilteredOptions(addresses);
+    } else {
+      setFilteredOptions([]);
+    }
+  }, [searchAddressData]);
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     setValue(event.target.value);

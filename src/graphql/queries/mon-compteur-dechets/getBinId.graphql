@@ -1,0 +1,16 @@
+query getBinId(
+  $city: String
+  $contractMetadataKey: String
+  $street: String
+  $houseNumber: String
+) {
+  getBinId(
+    city: $city
+    contractMetadataKey: $contractMetadataKey
+    street: $street
+    houseNumber: $houseNumber
+  ) {
+    chipId
+    trashFlow
+  }
+}

@@ -133,6 +133,10 @@ type Activation {
 
 union ActivationAndService = Activation | Service
 
+type Address {
+  label: String
+}
+
 type AlertNotification {
   createdAt: DateTime
   description: String
@@ -686,11 +690,7 @@ type CollectDropOff {
   ): FlowRelationResponseCollection
   grammaticalGender: ENUM_COLLECTDROPOFF_GRAMMATICALGENDER
   name: String
-  picto(
-    filters: UploadFileFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): UploadFileRelationResponseCollection
+  picto: UploadFileEntityResponse
   updatedAt: DateTime
 }
 
@@ -728,7 +728,7 @@ input CollectDropOffInput {
   flows: [ID]
   grammaticalGender: ENUM_COLLECTDROPOFF_GRAMMATICALGENDER
   name: String
-  picto: [ID]
+  picto: ID
 }
 
 type CollectDropOffRelationResponseCollection {
@@ -3371,6 +3371,14 @@ input GlobalInput {
   siteName: String
 }
 
+type HomeDataMwc {
+  adresse: String
+  averageProductionPerPerson: Float
+  equivalentOfProduction: Float
+  productionCumulee: Int
+  variationPercent: Float
+}
+
 type Homepage {
   contractCustomization: ContractCustomizationEntityResponse
   createdAt: DateTime
@@ -4688,6 +4696,15 @@ enum PublicationState {
 }
 
 type Query {
+  GetHomeDataMwc(
+    Agregation: String!
+    address: String!
+    averageProductionPerPerson: Int!
+    dateDebut: String!
+    dateFin: String!
+    numberOfPeopleIntheHousehold: Int!
+    typeUsager: String!
+  ): HomeDataMwc
   accessibilities(
     filters: AccessibilityFiltersInput
     pagination: PaginationArg = {}
@@ -4922,13 +4939,13 @@ type Query {
   ): FreeContentEntityResponseCollection
   getAddressCoordinates(searchTerm: String!): [SearchResultAddress]
   getAllFoldersHierarchy(path: String!): [RequestFolders]
-  getContentTypeDTOs(contractId: ID!): [ContentTypeDTO]
-  getDataFromAPI(
+  getBinId(
     city: String
     contractMetadataKey: String
     houseNumber: String
     street: String
   ): [Data]
+  getContentTypeDTOs(contractId: ID!): [ContentTypeDTO]
   getDropOffCollectType(contractId: ID!): [collectType]
   getEditoBlockDTO(
     contractId: ID!
@@ -5062,6 +5079,7 @@ type Query {
     publicationState: PublicationState = LIVE
     sort: [String] = []
   ): RequestEntityResponseCollection
+  searchAddress(address: String, limit: Int): [Address]
   searchCities(contractId: ID!, searchTerm: String!): [CityResult]
   searchClientsByName(name: String!): [clientName]
   searchEngineBlock(id: ID): SearchEngineBlockEntityResponse

@@ -3,9 +3,9 @@ import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHe
 import CommonButton from "../../../Common/CommonButton/CommonButton";
 import Flows from "../HomePage/Flows/Flows";
 import { useRouter } from "next/router";
-// import { useGetDataHomePageMwcQuery } from "../../../../graphql/codegen/generated-types";
 import MyHomeDataComponent from "../HomePage/myHomeDataComponent/myHomeDataComponent";
 import DecliningProduction from "public/images/pictos/arrowData.svg";
+import { useGetDataHomePageMwcQuery } from "../../../../graphql/codegen/generated-types";
 
 import PencilWrite from "public/images/pictos/pencilwrite.svg";
 import Info from "public/images/pictos/info.svg";
@@ -14,6 +14,19 @@ import "./my-home-data.scss";
 
 const MyHomeData = () => {
   const router = useRouter();
+
+  const { data } = useGetDataHomePageMwcQuery({
+    variables: {
+      address: "11111",
+      typeUsager: "test",
+      dateDebut: "test",
+      dateFin: "test",
+      averageProductionPerPerson: 90,
+      numberOfPeopleIntheHousehold: 4,
+      agregation: "M",
+    },
+  });
+  const homeData = data?.GetHomeDataMwc;
 
   const renderOverlayContent = () => {
     return (
@@ -34,6 +47,18 @@ const MyHomeData = () => {
         />
       </div>
     );
+  };
+
+  const getArrowColorClass = () => {
+    const variationPercent = homeData?.variationPercent || 0;
+
+    if (variationPercent > 5) {
+      return "c-MyHomeData__DataArrowRed";
+    } else if (variationPercent < -5) {
+      return "c-MyHomeData__DataArrowGreen";
+    } else {
+      return "c-MyHomeData__DataArrowBlue";
+    }
   };
 
   return (
@@ -71,25 +96,26 @@ const MyHomeData = () => {
           title="Mes Déchets"
           logoOrWeight={
             <>
-              {/* {homeData?.productionCumulee || 138}
-              <span className="c-MyHomeData__DataUnity">kg</span> */}
+              {homeData?.productionCumulee || 138}
+              <span className="c-MyHomeData__DataUnity">kg</span>
             </>
           }
-          text="hello"
+          text={`C'est l'équivalent de la production d'un foyer d'environ ${
+            homeData?.equivalentOfProduction || 0
+          } personnes`}
           path="/block1"
         />
         <MyHomeDataComponent
           isFirstBlock={false}
           title="Mon évolution"
           logoOrWeight={
-            <div className="c-MyHomeData__DataArrow c-MyHomeData__DataArrowRed">
+            <div className={`c-MyHomeData__DataArrow ${getArrowColorClass()}`}>
               <DecliningProduction />{" "}
             </div>
           }
-          // text={`Votre production à baissé de ${
-          //   homeData?.variationPercent || 0
-          // } % le mois dernier`}
-          text="hello"
+          text={`Votre production a baissé de ${
+            homeData?.variationPercent || 0
+          } % le mois dernier`}
           path="/block2"
         />
         <div className="c-MyHomeData__Barometer">
