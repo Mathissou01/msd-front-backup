@@ -1,43 +1,66 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import CommonButton from "../Common/CommonButton/CommonButton";
 
-interface IInfoPersoProps {
-  title: string;
-  idUser: string;
-  nomComplet?: string;
-  email?: string;
-  tel?: string;
+interface User {
+  id: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  phone?: string;
+  streetNumber: string;
+  streetName: string;
+  city: string;
+  postalCode: string;
+  dwellingType: string;
+  userType: string;
+  householdSize: number;
+}
+interface MyInfosProps {
+  user: User;
+  refetch: () => void;
+  loading: boolean;
 }
 
-export default function CommonInfoPerso({
-  title,
-  idUser,
-  nomComplet,
-  email,
-  tel,
-}: IInfoPersoProps) {
+const MyInfos: React.FC<MyInfosProps> = ({ user, refetch }) => {
   const [isEdit, setIsEdit] = useState(false);
+
   const {
-    register,
     handleSubmit,
-    // watch,
+    control,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      tel: "",
-      email: "",
-    },
-  });
+  } = useForm();
+
+  const onSubmit = (data: { [key: string]: string }) => {
+    console.log(data);
+    fetch(
+      `${process.env.NEXT_PUBLIC_USER_API_URL}/user/${process.env.NEXT_PUBLIC_USER_ID}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      },
+    )
+      .then((response) => {
+        if (response.ok) {
+          refetch();
+          setIsEdit(false);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   return (
     <div className="c-CommonInfoPerso__Container">
-      <p className="c-CommonInfoPerso__Title">{title}</p>
+      <p className="c-CommonInfoPerso__Title">Mes informations</p>
       {isEdit ? (
         <form
           className="c-CommonInfoPersoEdit"
-          onSubmit={handleSubmit((data) => console.log("first : ", data))}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <div className="c-CommonInfoPersoEdit__Content">
             <p className="c-CommonInfoPersoEdit__TextMsg">
@@ -61,11 +84,17 @@ export default function CommonInfoPerso({
               >
                 Prénom
               </label>
-              <input
-                className="c-CommonInfoPersoEdit__Input"
-                type="text"
-                defaultValue="Prénom"
-                {...register("firstName")}
+              <Controller
+                control={control}
+                name="firstname"
+                defaultValue={user?.firstname}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    className="c-CommonInfoPersoEdit__Input"
+                    type="text"
+                  />
+                )}
               />
             </div>
             <div className="c-CommonInfoPersoEdit__Row">
@@ -75,11 +104,17 @@ export default function CommonInfoPerso({
               >
                 Nom
               </label>
-              <input
-                className="c-CommonInfoPersoEdit__Input"
-                type="text"
-                defaultValue="Nom"
-                {...register("lastName")}
+              <Controller
+                control={control}
+                name="lastname"
+                defaultValue={user?.lastname}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    className="c-CommonInfoPersoEdit__Input"
+                    type="text"
+                  />
+                )}
               />
             </div>
             <div className="c-CommonInfoPersoEdit__Row">
@@ -90,20 +125,33 @@ export default function CommonInfoPerso({
                 Ce numéro pourra être utilisé pour recevoir les alertes
                 auxquelles sous avez souscrites.
               </p>
-              <input
-                className="c-CommonInfoPersoEdit__Input"
-                type="text"
-                defaultValue="0623455678"
-                {...register("tel", { maxLength: 10, pattern: /^[0-9]+$/i })}
+              <Controller
+                control={control}
+                name="phone"
+                defaultValue={user?.phone}
+                rules={{
+                  maxLength: {
+                    value: 20,
+                    message:
+                      "Le numéro de téléphone ne doit pas dépasser 20 caractères",
+                  },
+                  pattern: {
+                    value: /^[\d+]+$/,
+                    message: "Le numéro de téléphone n'est pas valide",
+                  },
+                }}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    className="c-CommonInfoPersoEdit__Input"
+                    type="text"
+                  />
+                )}
               />
-              {errors.tel && errors.tel.type === "maxLength" && (
+
+              {errors.phone && (
                 <p className="c-CommonInfoPersoEdit__ErrorMessage">
-                  Le numéro de téléphone ne doit pas dépasser 10 caractères.
-                </p>
-              )}
-              {errors.tel && errors.tel.type === "pattern" && (
-                <p className="c-CommonInfoPersoEdit__ErrorMessage">
-                  Le numéro téléphone doit contenir uniquement des chiffres.
+                  {errors?.phone?.message as string}
                 </p>
               )}
             </div>
@@ -111,21 +159,28 @@ export default function CommonInfoPerso({
               <label className="c-CommonInfoPersoEdit__Label" htmlFor="email">
                 Votre email *
               </label>
-              <input
-                className="c-CommonInfoPersoEdit__Input"
-                type="text"
-                defaultValue="jimhalpert@gmail.com"
-                {...register("email", {
+              <Controller
+                control={control}
+                name="email"
+                defaultValue={user?.email}
+                rules={{
                   required: "L'email est obligatoire",
                   pattern: {
                     value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                     message: "L'email n'est pas valide",
                   },
-                })}
+                }}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    className="c-CommonInfoPersoEdit__Input"
+                    type="text"
+                  />
+                )}
               />
               {errors.email && (
                 <p className="c-CommonInfoPersoEdit__ErrorMessage">
-                  {errors.email.message}
+                  {errors.email.message as string}
                 </p>
               )}
             </div>
@@ -141,6 +196,7 @@ export default function CommonInfoPerso({
                 label="Annuler"
                 onClick={() => setIsEdit(!isEdit)}
               />
+
               <CommonButton type="submit" style="primary" label="Enregistrer" />
             </div>
           </div>
@@ -150,29 +206,34 @@ export default function CommonInfoPerso({
           <div className="c-CommonInfoPerso__Content">
             <div className="c-CommonInfoPerso__ContentItem">
               <p className="c-CommonInfoPerso__ContentItem_subTtitle">
-                Nom complet
+                ID Utilisateur
               </p>
-              <p className="c-CommonInfoPerso__ContentItem_value">{idUser}</p>
+              <p className="c-CommonInfoPerso__ContentItem_value">{user?.id}</p>
             </div>
             <div className="c-CommonInfoPerso__ContentItem">
               <p className="c-CommonInfoPerso__ContentItem_subTtitle">
                 Nom complet
               </p>
               <p className="c-CommonInfoPerso__ContentItem_value">
-                {nomComplet}
+                {user?.firstname} {user?.lastname}
               </p>
             </div>
             <div className="c-CommonInfoPerso__ContentItem">
               <p className="c-CommonInfoPerso__ContentItem_subTtitle">Email</p>
-              <p className="c-CommonInfoPerso__ContentItem_value">{email}</p>
+              <p className="c-CommonInfoPerso__ContentItem_value">
+                {user?.email}
+              </p>
             </div>
             <div className="c-CommonInfoPerso__ContentItem">
               <p className="c-CommonInfoPerso__ContentItem_subTtitle">
                 N° de téléphone
               </p>
-              <p className="c-CommonInfoPerso__ContentItem_value">{tel}</p>
+              <p className="c-CommonInfoPerso__ContentItem_value">
+                {user?.phone}
+              </p>
             </div>
           </div>
+
           <div className="c-CommonInfoPerso__Button">
             <CommonButton
               type="button"
@@ -185,4 +246,6 @@ export default function CommonInfoPerso({
       )}
     </div>
   );
-}
+};
+
+export default MyInfos;
