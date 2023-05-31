@@ -2,7 +2,7 @@
 @use "src/styles/02-tools/tools.include-media" as im;
 @use "src/styles/02-tools/tools.z-index" as index;
 
-.c-HomePage {
+.c-DashboardWaste {
   position: relative;
 
   // &::after {
@@ -97,7 +97,7 @@
       width: 24px;
       height: 24px;
       font-size: 20px;
-      background-image: url("../../../../public//images//pictos//close.svg");
+      background-image: url("../../../../../../public/images/pictos/close.svg");
     }
 
     &_title {

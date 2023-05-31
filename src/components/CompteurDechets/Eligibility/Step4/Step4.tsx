@@ -8,6 +8,7 @@ import {
 import CommonButton from "../../../Common/CommonButton/CommonButton";
 import CommonModal from "../../../Common/CommonModal/CommonModal";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
+import { IError } from "../../../../pages/mon-compteur-dechets/eligibilite/index.page";
 import EligibilityRecycling from "public/images/formes_gray.svg";
 import BacIcon from "public/images/pictos/search.svg";
 import IlluEmplacementPuce from "public/images/emplacement_puce.jpg";
@@ -16,9 +17,14 @@ import "./step4.scss";
 interface Step4Props {
   question: IQuestion;
   handleOptionClick: (next: string | number) => void;
+  handleError: (updates: Partial<IError>) => void;
 }
 
-const Step4: React.FC<Step4Props> = ({ question, handleOptionClick }) => {
+const Step4: React.FC<Step4Props> = ({
+  question,
+  handleOptionClick,
+  handleError,
+}) => {
   const [showModal, setShowModal] = useState(false);
   return (
     <>
@@ -87,6 +93,21 @@ const Step4: React.FC<Step4Props> = ({ question, handleOptionClick }) => {
                     </>
                   ),
                 )}
+                <CommonButton
+                  type="button"
+                  style="secondary"
+                  label="Il y a une erreur"
+                  onClick={() =>
+                    handleError({
+                      isActive: true,
+                      isAddressVisible: false,
+                      isReasonVisible: false,
+                      isContactVisible: true,
+                      title:
+                        "Les numéros rattachés à votre adresse ne correspondent pas à ceux inscrits sur vos bacs ?",
+                    })
+                  }
+                />
                 <button
                   type="button"
                   className="o-Steps__CardButtons_openmodal"

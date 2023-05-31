@@ -2,7 +2,7 @@
 @use "src/styles/02-tools/tools.include-media" as im;
 @use "src/styles/02-tools/tools.z-index" as index;
 
-.c-MonCompteurDechets {
+.c-HomeEligibility {
   @include im.media(">=mobile") {
     &__Title {
       font-size: 36px;
