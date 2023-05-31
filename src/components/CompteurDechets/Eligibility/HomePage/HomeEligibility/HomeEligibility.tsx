@@ -19,9 +19,9 @@ export default function HomeEligibility() {
   ];
 
   return (
-    <>
+    <div className="c-HomeEligibility">
       <CommonBreadcrumb pages={breadcrumbPages} />
-      <section className="c-HomeEligibility">
+      <section className="c-HomeEligibility__Wrapper">
         <div className="c-HomeEligibility__SvgContainer">
           <BgPagePrincipaleDesktop
             className="c-HomeEligibility__Svg_desktop"
@@ -56,6 +56,6 @@ export default function HomeEligibility() {
           />
         </div>
       </section>
-    </>
+    </div>
   );
 }

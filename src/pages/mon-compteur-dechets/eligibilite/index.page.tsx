@@ -13,6 +13,9 @@ import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/Common
 
 import StepError from "../../../components/CompteurDechets/Eligibility/StepError/StepError";
 import { useCurrentUser } from "../../../hooks/useCurrentUser";
+
+import "./eligibilite-page.scss";
+
 export interface IError {
   isActive: boolean;
   title: string;
@@ -135,17 +138,19 @@ const Eligibilite = () => {
         maxQuestions={questions.length}
         handleBackClick={handleBackClick}
       />
-      <CommonBreadcrumb pages={breadcrumbPages} />
-      {error.isActive ? (
-        <StepError
-          selectedAddress={selectedAddress}
-          setSelectedAddress={setSelectedAddress}
-          error={error}
-          handleError={handleError}
-        />
-      ) : (
-        renderQuestion()
-      )}
+      <div className="c-Steps">
+        <CommonBreadcrumb pages={breadcrumbPages} />
+        {error.isActive ? (
+          <StepError
+            selectedAddress={selectedAddress}
+            setSelectedAddress={setSelectedAddress}
+            error={error}
+            handleError={handleError}
+          />
+        ) : (
+          renderQuestion()
+        )}
+      </div>
     </>
   );
 };

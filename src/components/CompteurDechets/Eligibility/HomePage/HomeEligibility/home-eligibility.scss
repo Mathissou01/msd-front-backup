@@ -3,18 +3,14 @@
 @use "src/styles/02-tools/tools.z-index" as index;
 
 .c-HomeEligibility {
-  @include im.media(">=mobile") {
-    &__Title {
-      font-size: 36px;
-      line-height: 45px;
+  &__Wrapper {
+    @include im.media(">=tablet") {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      margin: 86px 60px 0 0;
     }
-  }
-  @include im.media(">=tablet") {
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
-    margin: 86px 60px 0 0;
   }
 
   &__SvgContainer {
@@ -122,10 +118,9 @@
     line-height: 25px;
     letter-spacing: 0.005em;
 
-    @include im.media(">=tablet") {
-      &::after {
-        content: none;
-      }
+    @include im.media(">=mobile") {
+      font-size: 36px;
+      line-height: 45px;
     }
   }
 

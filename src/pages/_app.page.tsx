@@ -36,14 +36,7 @@ function MsdFrontApp({ Component, pageProps }: AppProps) {
                 <CommonSvgDefs />
                 <Header />
                 <div className="o-Page__Container">
-                  <main
-                    role="main"
-                    className={`o-Page__Main ${
-                      router.pathname === "/mon-compteur-dechets/eligibilite"
-                        ? "o-CornerShapes"
-                        : ""
-                    }`}
-                  >
+                  <main role="main" className="o-Page__Main">
                     <Component {...pageProps} />
                   </main>
                   <Footer />

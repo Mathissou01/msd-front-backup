@@ -3,9 +3,9 @@ import { useState } from "react";
 import CommonButton from "../../../../Common/CommonButton/CommonButton";
 import CommonBreadcrumb from "../../../../Common/CommonBreadcrumb/CommonBreadcrumb";
 import FlowsBox from "../FlowsBox";
+import MyHomeData from "../../MyHomeData/MyHomeData";
 import Illu_1 from "public/images/illu_1.svg";
 import "./dashboard-waste.scss";
-import MyHomeData from "../../MyHouseData/MyHouseData";
 
 const DashboardWaste: React.FC = () => {
   const [showModal, setShowModal] = useState(true);
@@ -23,7 +23,7 @@ const DashboardWaste: React.FC = () => {
   ];
 
   return (
-    <>
+    <div className="c-DashboardWaste">
       {showModal && (
         <>
           <div className="c-DashboardWaste__CommonModal">
@@ -73,7 +73,7 @@ const DashboardWaste: React.FC = () => {
 
         <MyHomeData />
       </section>
-    </>
+    </div>
   );
 };
 export default DashboardWaste;

@@ -1,1 +1,177 @@
-{"contract":{"id":"1","attributes":{"clientName":"Grand Test","clientType":"city","contractStatus":"Initialisation","isNonExclusive":false,"isRVFrance":true,"logo":{"data":{"id":"26","attributes":{"name":"images.png","mime":"image/png","size":2.24,"url":"https://stomsdmediadev.blob.core.windows.net/msd-media-dev/assets-local-root/images.png","provider":"azure-storage-blob","hash":"images_eb8049ec37","alternativeText":null}}},"contractCustomization":{"data":{"id":"1","attributes":{"primaryColor":"#007BFF","secondaryColor":"#FF0000","textContrast":"#290026","footer":{"data":{"attributes":{"accessibilityLevel":null,"cguSubService":{"data":{"id":"1","attributes":{"name":"CGU","link":null}}},"accessibilitySubService":{"data":{"id":"1","attributes":{"name":"Accessibilité","link":null}}},"confidentialitySubService":{"data":{"id":"1","attributes":{"name":"Confidentialité","link":null}}},"cookiesSubService":{"data":{"id":"1","attributes":{"name":"Cookies","link":null}}},"contactUsSubService":{"data":{"id":"1","attributes":{"name":"Contactez-nous","label":"Contactez-nous","link":null,"isActivated":true}}}}}}}}},"contractMenu":{"data":{"attributes":{"serviceLinks":[{"__typename":"ComponentLinksQuizzes","id":"1","name":"Quizz","isDisplayed":true,"picto":{"data":{"attributes":{"url":"https://stomsdmediadev.blob.core.windows.net/msd-media-dev/assets-local-root/poubelle_baree223556.png"}}}},{"__typename":"ComponentLinksTips","id":"1","name":"Tips","isDisplayed":true,"picto":{"data":{"attributes":{"url":"https://stomsdmediadev.blob.core.windows.net/msd-media-dev/assets-local-root/triman191047.png"}}}},{"__typename":"ComponentLinksNews","id":"1","name":"News","isDisplayed":true,"picto":{"data":{"attributes":{"url":"https://stomsdmediadev.blob.core.windows.net/msd-media-dev/assets-local-root/poubelle_baree223556.png"}}}},{"__typename":"ComponentLinksFrees","id":"1","name":"Edito 1","isDisplayed":true,"freeContents":{"data":[{"id":"1","attributes":{"name":"Editorial 1"}}]},"picto":{"data":{"attributes":{"url":"https://stomsdmediadev.blob.core.windows.net/msd-media-dev/assets-local-root/aluminium613073.png"}}}},{"__typename":"ComponentLinksFrees","id":"2","name":"Edito 2","isDisplayed":true,"freeContents":{"data":[{"id":"2","attributes":{"name":"Editorial 2"}}]},"picto":{"data":{"attributes":{"url":"https://stomsdmediadev.blob.core.windows.net/msd-media-dev/assets-local-root/point_vert825302.png"}}}}]}}}}},"colors":{"external-primary":"#007BFF","calculated-primary-dark":"#0050cb","calculated-primary-light":"#007bff1a","external-secondary":"#FF0000","calculated-secondary-dark":"#c20000","calculated-secondary-light":"#ff00001a","external-contrast-text":"#290026","external-waste-household":"#6C757D","external-waste-selective":"#FFC229","external-waste-bio":"#BD4602","external-waste-green":"#9BCD41","external-waste-glass":"#30A23D","external-waste-paper":"#2068C7","external-waste-other":"#FFFFFF"}}
+{
+  "contract": {
+    "id": "1",
+    "attributes": {
+      "clientName": "Grand Test",
+      "clientType": "city",
+      "contractStatus": "Initialisation",
+      "isNonExclusive": false,
+      "isRVFrance": true,
+      "logo": {
+        "data": {
+          "id": "26",
+          "attributes": {
+            "name": "images.png",
+            "mime": "image/png",
+            "size": 2.24,
+            "url": "https://stomsdmediadev.blob.core.windows.net/msd-media-dev/assets-local-root/images.png",
+            "provider": "azure-storage-blob",
+            "hash": "images_eb8049ec37",
+            "alternativeText": null
+          }
+        }
+      },
+      "contractCustomization": {
+        "data": {
+          "id": "1",
+          "attributes": {
+            "primaryColor": "#007BFF",
+            "secondaryColor": "#FF0000",
+            "textContrast": "#290026",
+            "footer": {
+              "data": {
+                "attributes": {
+                  "accessibilityLevel": null,
+                  "cguSubService": {
+                    "data": {
+                      "id": "1",
+                      "attributes": { "name": "CGU", "link": null }
+                    }
+                  },
+                  "accessibilitySubService": {
+                    "data": {
+                      "id": "1",
+                      "attributes": { "name": "Accessibilité", "link": null }
+                    }
+                  },
+                  "confidentialitySubService": {
+                    "data": {
+                      "id": "1",
+                      "attributes": { "name": "Confidentialité", "link": null }
+                    }
+                  },
+                  "cookiesSubService": {
+                    "data": {
+                      "id": "1",
+                      "attributes": { "name": "Cookies", "link": null }
+                    }
+                  },
+                  "contactUsSubService": {
+                    "data": {
+                      "id": "1",
+                      "attributes": {
+                        "name": "Contactez-nous",
+                        "label": "Contactez-nous",
+                        "link": null,
+                        "isActivated": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "contractMenu": {
+        "data": {
+          "attributes": {
+            "serviceLinks": [
+              {
+                "__typename": "ComponentLinksQuizzes",
+                "id": "1",
+                "name": "Quizz",
+                "isDisplayed": true,
+                "picto": {
+                  "data": {
+                    "attributes": {
+                      "url": "https://stomsdmediadev.blob.core.windows.net/msd-media-dev/assets-local-root/poubelle_baree223556.png"
+                    }
+                  }
+                }
+              },
+              {
+                "__typename": "ComponentLinksTips",
+                "id": "1",
+                "name": "Tips",
+                "isDisplayed": true,
+                "picto": {
+                  "data": {
+                    "attributes": {
+                      "url": "https://stomsdmediadev.blob.core.windows.net/msd-media-dev/assets-local-root/triman191047.png"
+                    }
+                  }
+                }
+              },
+              {
+                "__typename": "ComponentLinksNews",
+                "id": "1",
+                "name": "News",
+                "isDisplayed": true,
+                "picto": {
+                  "data": {
+                    "attributes": {
+                      "url": "https://stomsdmediadev.blob.core.windows.net/msd-media-dev/assets-local-root/poubelle_baree223556.png"
+                    }
+                  }
+                }
+              },
+              {
+                "__typename": "ComponentLinksFrees",
+                "id": "1",
+                "name": "Edito 1",
+                "isDisplayed": true,
+                "freeContents": {
+                  "data": [
+                    { "id": "1", "attributes": { "name": "Editorial 1" } }
+                  ]
+                },
+                "picto": {
+                  "data": {
+                    "attributes": {
+                      "url": "https://stomsdmediadev.blob.core.windows.net/msd-media-dev/assets-local-root/aluminium613073.png"
+                    }
+                  }
+                }
+              },
+              {
+                "__typename": "ComponentLinksFrees",
+                "id": "2",
+                "name": "Edito 2",
+                "isDisplayed": true,
+                "freeContents": {
+                  "data": [
+                    { "id": "2", "attributes": { "name": "Editorial 2" } }
+                  ]
+                },
+                "picto": {
+                  "data": {
+                    "attributes": {
+                      "url": "https://stomsdmediadev.blob.core.windows.net/msd-media-dev/assets-local-root/point_vert825302.png"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "colors": {
+    "external-primary": "#007BFF",
+    "calculated-primary-dark": "#0050cb",
+    "calculated-primary-light": "#007bff1a",
+    "external-secondary": "#FF0000",
+    "calculated-secondary-dark": "#c20000",
+    "calculated-secondary-light": "#ff00001a",
+    "external-contrast-text": "#290026",
+    "external-waste-household": "#6C757D",
+    "external-waste-selective": "#FFC229",
+    "external-waste-bio": "#BD4602",
+    "external-waste-green": "#9BCD41",
+    "external-waste-glass": "#30A23D",
+    "external-waste-paper": "#2068C7",
+    "external-waste-other": "#FFFFFF"
+  }
+}
