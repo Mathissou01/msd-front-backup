@@ -588,6 +588,7 @@ export type City = {
   epci?: Maybe<EpciRelationResponseCollection>;
   insee?: Maybe<Scalars["Long"]>;
   name?: Maybe<Scalars["String"]>;
+  pickUpDay?: Maybe<PickUpDayEntityResponse>;
   postalCode?: Maybe<Scalars["Long"]>;
   region?: Maybe<Scalars["String"]>;
   siren?: Maybe<Scalars["Long"]>;
@@ -635,6 +636,7 @@ export type CityFiltersInput = {
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<CityFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<CityFiltersInput>>>;
+  pickUpDay?: InputMaybe<PickUpDayFiltersInput>;
   postalCode?: InputMaybe<LongFilterInput>;
   region?: InputMaybe<StringFilterInput>;
   siren?: InputMaybe<LongFilterInput>;
@@ -648,6 +650,7 @@ export type CityInput = {
   epci?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   insee?: InputMaybe<Scalars["Long"]>;
   name?: InputMaybe<Scalars["String"]>;
+  pickUpDay?: InputMaybe<Scalars["ID"]>;
   postalCode?: InputMaybe<Scalars["Long"]>;
   region?: InputMaybe<Scalars["String"]>;
   siren?: InputMaybe<Scalars["Long"]>;
@@ -657,6 +660,15 @@ export type CityInput = {
 export type CityRelationResponseCollection = {
   __typename?: "CityRelationResponseCollection";
   data: Array<CityEntity>;
+};
+
+export type CityResult = {
+  __typename?: "CityResult";
+  id: Scalars["ID"];
+  insee?: Maybe<Scalars["String"]>;
+  name?: Maybe<Scalars["String"]>;
+  postalCode?: Maybe<Scalars["String"]>;
+  siren?: Maybe<Scalars["String"]>;
 };
 
 export type CitySectorization = {
@@ -2054,6 +2066,12 @@ export type CookiesSubServiceInput = {
   editorialService?: InputMaybe<Scalars["ID"]>;
   link?: InputMaybe<Scalars["String"]>;
   name?: InputMaybe<Scalars["String"]>;
+};
+
+export type Data = {
+  __typename?: "Data";
+  chipId?: Maybe<Scalars["String"]>;
+  trashFlow?: Maybe<Scalars["String"]>;
 };
 
 export type DateFilterInput = {
@@ -5819,12 +5837,19 @@ export type PaginationArg = {
 
 export type PickUpDay = {
   __typename?: "PickUpDay";
+  cities?: Maybe<CityRelationResponseCollection>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   description?: Maybe<Scalars["String"]>;
   flow?: Maybe<FlowEntityResponse>;
   name: Scalars["String"];
   sectorization?: Maybe<SectorizationEntityResponse>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type PickUpDayCitiesArgs = {
+  filters?: InputMaybe<CityFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type PickUpDayEntity = {
@@ -5846,6 +5871,7 @@ export type PickUpDayEntityResponseCollection = {
 
 export type PickUpDayFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<PickUpDayFiltersInput>>>;
+  cities?: InputMaybe<CityFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
   flow?: InputMaybe<FlowFiltersInput>;
@@ -5858,6 +5884,7 @@ export type PickUpDayFiltersInput = {
 };
 
 export type PickUpDayInput = {
+  cities?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   description?: InputMaybe<Scalars["String"]>;
   flow?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
@@ -6040,6 +6067,7 @@ export type Query = {
   getAddressCoordinates?: Maybe<Array<Maybe<SearchResultAddress>>>;
   getAllFoldersHierarchy?: Maybe<Array<Maybe<RequestFolders>>>;
   getContentTypeDTOs?: Maybe<Array<Maybe<ContentTypeDto>>>;
+  getDataFromAPI?: Maybe<Array<Maybe<Data>>>;
   getDropOffCollectType?: Maybe<Array<Maybe<CollectType>>>;
   getEditoBlockDTO?: Maybe<EditoBlockDto>;
   getEditoContentDTOs?: Maybe<Array<Maybe<EditoContentDto>>>;
@@ -6088,6 +6116,7 @@ export type Query = {
   requestService?: Maybe<RequestServiceEntityResponse>;
   requestServices?: Maybe<RequestServiceEntityResponseCollection>;
   requests?: Maybe<RequestEntityResponseCollection>;
+  searchCities?: Maybe<Array<Maybe<CityResult>>>;
   searchClientsByName?: Maybe<Array<Maybe<ClientName>>>;
   searchEngineBlock?: Maybe<SearchEngineBlockEntityResponse>;
   searchEngineBlocks?: Maybe<SearchEngineBlockEntityResponseCollection>;
@@ -6528,6 +6557,13 @@ export type QueryGetContentTypeDtOsArgs = {
   contractId: Scalars["ID"];
 };
 
+export type QueryGetDataFromApiArgs = {
+  city?: InputMaybe<Scalars["String"]>;
+  contractMetadataKey?: InputMaybe<Scalars["String"]>;
+  houseNumber?: InputMaybe<Scalars["String"]>;
+  street?: InputMaybe<Scalars["String"]>;
+};
+
 export type QueryGetDropOffCollectTypeArgs = {
   contractId: Scalars["ID"];
 };
@@ -6752,6 +6788,11 @@ export type QueryRequestsArgs = {
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type QuerySearchCitiesArgs = {
+  contractId: Scalars["ID"];
+  searchTerm: Scalars["String"];
 };
 
 export type QuerySearchClientsByNameArgs = {
@@ -10880,6 +10921,44 @@ export type GetContactUsSubServiceByContractIdQuery = {
   } | null;
 };
 
+export type GetMemoTriBlockByContractIdQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+}>;
+
+export type GetMemoTriBlockByContractIdQuery = {
+  __typename?: "Query";
+  recyclingGuideServices?: {
+    __typename?: "RecyclingGuideServiceEntityResponseCollection";
+    data: Array<{
+      __typename?: "RecyclingGuideServiceEntity";
+      id?: string | null;
+      attributes?: {
+        __typename?: "RecyclingGuideService";
+        isActivated: boolean;
+        memoName: string;
+        memoDesc?: string | null;
+        memoFile?: {
+          __typename?: "UploadFileEntityResponse";
+          data?: {
+            __typename?: "UploadFileEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "UploadFile";
+              name: string;
+              formats?: any | null;
+              hash: string;
+              ext?: string | null;
+              mime: string;
+              size: number;
+              url: string;
+            } | null;
+          } | null;
+        } | null;
+      } | null;
+    }>;
+  } | null;
+};
+
 export type GetRecyclingFamiliesFormsQueryVariables = Exact<{
   recyclingGuideServiceId?: InputMaybe<Scalars["ID"]>;
 }>;
@@ -10917,6 +10996,7 @@ export type GetRecyclingFamiliesFormsQuery = {
                       __typename?: "UploadFileEntityResponse";
                       data?: {
                         __typename?: "UploadFileEntity";
+                        id?: string | null;
                         attributes?: {
                           __typename?: "UploadFile";
                           name: string;
@@ -14117,6 +14197,85 @@ export type GetContactUsSubServiceByContractIdQueryResult = Apollo.QueryResult<
   GetContactUsSubServiceByContractIdQuery,
   GetContactUsSubServiceByContractIdQueryVariables
 >;
+export const GetMemoTriBlockByContractIdDocument = gql`
+  query getMemoTriBlockByContractId($contractId: ID!) {
+    recyclingGuideServices(filters: { contract: { id: { eq: $contractId } } }) {
+      data {
+        id
+        attributes {
+          isActivated
+          memoName
+          memoDesc
+          memoFile {
+            data {
+              id
+              attributes {
+                name
+                formats
+                hash
+                ext
+                mime
+                size
+                url
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetMemoTriBlockByContractIdQuery__
+ *
+ * To run a query within a React component, call `useGetMemoTriBlockByContractIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMemoTriBlockByContractIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMemoTriBlockByContractIdQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetMemoTriBlockByContractIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetMemoTriBlockByContractIdQuery,
+    GetMemoTriBlockByContractIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetMemoTriBlockByContractIdQuery,
+    GetMemoTriBlockByContractIdQueryVariables
+  >(GetMemoTriBlockByContractIdDocument, options);
+}
+export function useGetMemoTriBlockByContractIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetMemoTriBlockByContractIdQuery,
+    GetMemoTriBlockByContractIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetMemoTriBlockByContractIdQuery,
+    GetMemoTriBlockByContractIdQueryVariables
+  >(GetMemoTriBlockByContractIdDocument, options);
+}
+export type GetMemoTriBlockByContractIdQueryHookResult = ReturnType<
+  typeof useGetMemoTriBlockByContractIdQuery
+>;
+export type GetMemoTriBlockByContractIdLazyQueryHookResult = ReturnType<
+  typeof useGetMemoTriBlockByContractIdLazyQuery
+>;
+export type GetMemoTriBlockByContractIdQueryResult = Apollo.QueryResult<
+  GetMemoTriBlockByContractIdQuery,
+  GetMemoTriBlockByContractIdQueryVariables
+>;
 export const GetRecyclingFamiliesFormsDocument = gql`
   query getRecyclingFamiliesForms($recyclingGuideServiceId: ID) {
     recyclingGuideService(id: $recyclingGuideServiceId) {
@@ -14142,6 +14301,7 @@ export const GetRecyclingFamiliesFormsDocument = gql`
                       name
                       picto {
                         data {
+                          id
                           attributes {
                             name
                             url

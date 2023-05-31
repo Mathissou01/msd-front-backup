@@ -1,0 +1,26 @@
+query getMemoTriBlockByContractId($contractId: ID!) {
+  recyclingGuideServices(filters: { contract: { id: { eq: $contractId } } }) {
+    data {
+      id
+      attributes {
+        isActivated
+        memoName
+        memoDesc
+        memoFile {
+          data {
+            id
+            attributes {
+              name
+              formats
+              hash
+              ext
+              mime
+              size
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+}
