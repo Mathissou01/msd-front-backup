@@ -11,7 +11,6 @@ import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHe
 import { IError } from "../../../../pages/mon-compteur-dechets/eligibilite/index.page";
 import EligibilityRecycling from "public/images/formes_gray.svg";
 import BacIcon from "public/images/pictos/search.svg";
-import IlluEmplacementPuce from "public/images/emplacement_puce.jpg";
 import GetDataChipId from "../../../Common/CommonChipIdMwc/CommonChipIdMwc";
 import CommonLoader from "../../../Common/CommonLoader/CommonLoader";
 import "./step4.scss";
@@ -49,8 +48,10 @@ const Step4: React.FC<Step4Props> = ({
           bottomText="Votre numéro de bac est illisible ou introuvable ?"
           headerIllu={
             <Image
-              src={IlluEmplacementPuce}
+              src={"/images/emplacement_puce.jpg"}
               alt="Illustration Emplacement Puce"
+              width={170}
+              height={180}
             />
           }
         />
