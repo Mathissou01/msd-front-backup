@@ -3,8 +3,8 @@ import { format, subMonths, subYears } from "date-fns";
 import { fr } from "date-fns/locale";
 import Bac from "public/images/pictos/bac_2_roues.svg";
 import Calendar from "public/images/pictos/calendar.svg";
-import { useGetBinIdQuery } from "../../../../graphql/codegen/generated-types";
 import CommonLoader from "../../../Common/CommonLoader/CommonLoader";
+import GetDataChipId from "../../../Common/CommonChipIdMwc/CommonChipIdMwc";
 
 import "./flows-box.scss";
 
@@ -12,16 +12,7 @@ const FlowsBox = () => {
   const [previousMonth, setPreviousMonth] = useState("");
   const [previousYear, setPreviousYear] = useState("");
 
-  const queryVariables = {
-    houseNumber: "13",
-    street: "RUE JULES ALLEMAND",
-    city: "Rennes",
-    contractMetadataKey: "243500139",
-  };
-
-  const { data, loading, error } = useGetBinIdQuery({
-    variables: queryVariables,
-  });
+  const { loading, error, findChipIdByTrashFlow, binIdData } = GetDataChipId();
 
   useEffect(() => {
     const today = new Date();
@@ -38,44 +29,6 @@ const FlowsBox = () => {
     const formattedPreviousYear = format(previousYearDate, "yyyy");
     setPreviousYear(formattedPreviousYear);
   }, []);
-
-  const findChipIdByTrashFlow = (
-    binIdData:
-      | {
-          __typename?: string | undefined;
-          chipId?: string | null | undefined;
-          trashFlow?: string | null | undefined;
-        }[]
-      | null
-      | undefined,
-    trashFlow: string,
-  ): string => {
-    if (binIdData) {
-      const item = binIdData.find(
-        (item) => item !== null && item.trashFlow === trashFlow,
-      );
-      if (item) {
-        return item.chipId || "";
-      }
-    }
-    return "";
-  };
-
-  const binIdData:
-    | {
-        __typename?: string | undefined;
-        chipId?: string | null | undefined;
-        trashFlow?: string | null | undefined;
-      }[]
-    | null
-    | undefined = data?.getBinId as
-    | {
-        __typename?: string | undefined;
-        chipId?: string | null | undefined;
-        trashFlow?: string | null | undefined;
-      }[]
-    | null
-    | undefined;
 
   const chipIdOrduresMenageres: string = findChipIdByTrashFlow(
     binIdData,

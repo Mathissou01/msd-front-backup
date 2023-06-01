@@ -12,6 +12,8 @@ import { IError } from "../../../../pages/mon-compteur-dechets/eligibilite/index
 import EligibilityRecycling from "public/images/formes_gray.svg";
 import BacIcon from "public/images/pictos/search.svg";
 import IlluEmplacementPuce from "public/images/emplacement_puce.jpg";
+import GetDataChipId from "../../../Common/CommonChipIdMwc/CommonChipIdMwc";
+import CommonLoader from "../../../Common/CommonLoader/CommonLoader";
 import "./step4.scss";
 
 interface Step4Props {
@@ -26,6 +28,18 @@ const Step4: React.FC<Step4Props> = ({
   handleError,
 }) => {
   const [showModal, setShowModal] = useState(false);
+
+  const { loading, error, findChipIdByTrashFlow, binIdData } = GetDataChipId();
+
+  const chipIdOrduresMenageres: string = findChipIdByTrashFlow(
+    binIdData,
+    "Bacs ordures ménagères",
+  );
+
+  const chipIdCollecteSelective: string = findChipIdByTrashFlow(
+    binIdData,
+    "Bacs collecte sélective",
+  );
   return (
     <>
       {showModal && (
@@ -51,34 +65,36 @@ const Step4: React.FC<Step4Props> = ({
             />
 
             <div className="o-Steps__CardContainer c-StepIdentiteBacs__CardContainer">
-              <>
-                <div className="c-StepIdentiteBacs__CardItem c-StepIdentiteBacs__CardItem_gray">
-                  <div className="c-StepIdentiteBacs__CardItem_icon">
-                    <BacIcon />
+              <CommonLoader isLoading={loading} errors={[error]}>
+                <>
+                  <div className="c-StepIdentiteBacs__CardItem c-StepIdentiteBacs__CardItem_gray">
+                    <div className="c-StepIdentiteBacs__CardItem_icon">
+                      <BacIcon />
+                    </div>
+                    <div className="c-StepIdentiteBacs__CardItem_content">
+                      <p className="c-StepIdentiteBacs__CardItem_label">
+                        Votre bac à ordures ménagères
+                      </p>
+                      <p className="c-StepIdentiteBacs__CardItem_idPuce">
+                        {chipIdOrduresMenageres}
+                      </p>
+                    </div>
                   </div>
-                  <div className="c-StepIdentiteBacs__CardItem_content">
-                    <p className="c-StepIdentiteBacs__CardItem_label">
-                      Votre bac à ordures ménagères
-                    </p>
-                    <p className="c-StepIdentiteBacs__CardItem_idPuce">
-                      978054327652
-                    </p>
+                  <div className="c-StepIdentiteBacs__CardItem c-StepIdentiteBacs__CardItem_yellow">
+                    <div className="c-StepIdentiteBacs__CardItem_icon">
+                      <BacIcon />
+                    </div>
+                    <div className="c-StepIdentiteBacs__CardItem_content">
+                      <p className="c-StepIdentiteBacs__CardItem_label">
+                        Votre bac à emballages
+                      </p>
+                      <p className="c-StepIdentiteBacs__CardItem_idPuce">
+                        {chipIdCollecteSelective}
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div className="c-StepIdentiteBacs__CardItem c-StepIdentiteBacs__CardItem_yellow">
-                  <div className="c-StepIdentiteBacs__CardItem_icon">
-                    <BacIcon />
-                  </div>
-                  <div className="c-StepIdentiteBacs__CardItem_content">
-                    <p className="c-StepIdentiteBacs__CardItem_label">
-                      Votre bac à emballages
-                    </p>
-                    <p className="c-StepIdentiteBacs__CardItem_idPuce">
-                      978054327652
-                    </p>
-                  </div>
-                </div>
-              </>
+                </>
+              </CommonLoader>
               <div className="c-StepIdentiteBacs__CardButtons">
                 {question.options?.map(
                   (option: IQuestionOption, index: number) => (
