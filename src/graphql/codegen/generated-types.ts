@@ -14579,7 +14579,7 @@ export const GetRecyclingFamiliesFormsDocument = gql`
                 familyName
                 isSystem
                 updatedAt
-                wasteForms {
+                wasteForms(filters: { status: { eq: "published" } }) {
                   data {
                     __typename
                     id

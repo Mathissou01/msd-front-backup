@@ -14,7 +14,7 @@ query getRecyclingFamiliesForms($recyclingGuideServiceId: ID) {
               familyName
               isSystem
               updatedAt
-              wasteForms {
+              wasteForms(filters: { status: { eq: "published" } }) {
                 data {
                   __typename
                   id
