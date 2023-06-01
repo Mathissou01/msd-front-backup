@@ -53,13 +53,26 @@ const MyHomeData = () => {
     const variationPercent = homeData?.variationPercent || 0;
 
     if (variationPercent > 5) {
-      return "c-MyHomeData__DataArrowRed";
+      return {
+        className: "c-MyHomeData__DataArrowRed",
+        text: `Votre production a augmenté de ${variationPercent}% le mois dernier`,
+      };
     } else if (variationPercent < -5) {
-      return "c-MyHomeData__DataArrowGreen";
+      return {
+        className: "c-MyHomeData__DataArrowGreen",
+        text: `Votre production a baissé de ${Math.abs(
+          variationPercent,
+        )}% le mois dernier`,
+      };
     } else {
-      return "c-MyHomeData__DataArrowBlue";
+      return {
+        className: "c-MyHomeData__DataArrowBlue",
+        text: "Votre production est stable depuis le mois dernier",
+      };
     }
   };
+
+  const arrowColorClass = getArrowColorClass();
 
   return (
     <div className="c-MyHomeData">
@@ -109,13 +122,13 @@ const MyHomeData = () => {
           isFirstBlock={false}
           title="Mon évolution"
           logoOrWeight={
-            <div className={`c-MyHomeData__DataArrow ${getArrowColorClass()}`}>
+            <div
+              className={`c-MyHomeData__DataArrow ${arrowColorClass.className}`}
+            >
               <DecliningProduction />{" "}
             </div>
           }
-          text={`Votre production a baissé de ${
-            homeData?.variationPercent || 0
-          } % le mois dernier`}
+          text={arrowColorClass.text}
           path="/block2"
         />
         <div className="c-MyHomeData__Barometer">
