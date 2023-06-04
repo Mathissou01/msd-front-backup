@@ -14,19 +14,7 @@
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
-    // after en first
-    &::after {
-      position: absolute;
-      top: calc(50% - 21px);
-      right: 0;
-      display: block;
-      width: 21px;
-      height: 28px;
-      background-image: url("../../../../../../public/images/pictos/arrow-back.svg");
-      background-repeat: no-repeat;
-      transform: rotate(180deg) translateY(-50%);
-      content: "";
-    }
+
     // include en deuxième
     @include im.media(">=mobile") {
       flex: 228px 0 1;
@@ -39,6 +27,20 @@
       &::after {
         content: none;
       }
+    }
+
+    // after en first
+    &::after {
+      position: absolute;
+      top: calc(50% - 21px);
+      right: 0;
+      display: block;
+      width: 21px;
+      height: 28px;
+      background-image: url("../../../../../../public/images/pictos/arrow-back.svg");
+      background-repeat: no-repeat;
+      transform: rotate(180deg) translateY(-50%);
+      content: "";
     }
   }
 

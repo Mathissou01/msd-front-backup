@@ -1,0 +1,218 @@
+@use "sass:list";
+@use "sass:math";
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/01-settings/settings.blobs" as b;
+@use "src/styles/02-tools/tools.shadows" as shadows;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.z-index" as index;
+@use "src/styles/02-tools/tools.blobs" as blobs;
+
+.c-WasteHeading {
+  $random-start: math.random(6);
+
+  position: relative;
+  padding: 40px 16px;
+  background-color: colors.$background-dark;
+
+  @for $i from 1 through (list.length(b.$blobs) * 2) {
+    *:nth-child(#{(length(b.$blobs) * 2)}n + #{$i}) {
+      // stylelint-disable-next-line
+      .o-Blob::after {
+        @include blobs.blob((($random-start + $i) % list.length(b.$blobs)) + 1);
+
+        transform: rotate(#{math.random(360deg)}deg);
+      }
+    }
+  }
+
+  @include im.media(">=tablet") {
+    padding: 80px 124px;
+  }
+
+  &__DetailDechet {
+    @include shadows.shadow(1);
+
+    position: relative;
+    z-index: index.z("site-content");
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    justify-content: center;
+    padding: 24px 16px 100px;
+    overflow: hidden;
+    background-color: colors.$white;
+    border-radius: 8px;
+
+    @include im.media(">=tablet") {
+      gap: 36px;
+      padding: 36px 24px 24px;
+    }
+  }
+
+  &__Content {
+    width: 100%;
+
+    @include im.media(">=tablet") {
+      display: flex;
+      flex-direction: row;
+      gap: 24px;
+      align-items: center;
+    }
+  }
+
+  &__BlocConsignes {
+    display: flex;
+    flex-direction: column;
+
+    @include im.media(">=tablet") {
+      flex-direction: row;
+    }
+  }
+
+  &__Bloc {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+    padding: 16px 24px;
+    border: 1px solid colors.$gray-200;
+
+    @include im.media(">=tablet") {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    &_left {
+      gap: 16px;
+      border-radius: 8px 0 0 8px;
+    }
+
+    &_right {
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+      border-radius: 0 8px 8px 0;
+    }
+  }
+
+  &__GesturePicto {
+    display: flex;
+    gap: 16px;
+  }
+
+  &__WastePicto {
+    position: absolute;
+    right: -2px;
+    bottom: -2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 76px;
+    height: 76px;
+    margin: 17px;
+
+    @include im.media(">=tablet") {
+      top: 0;
+      right: 0;
+      width: 130px;
+      height: 130px;
+    }
+
+    &::after {
+      // Position the o-Blob::after element
+      top: -42px;
+      left: -45px;
+      z-index: index.z("site-content");
+      background-color: colors.$green;
+
+      @include im.media(">=tablet") {
+        width: 224px;
+        height: 224px;
+      }
+    }
+
+    &_mobile {
+      display: inline;
+
+      @include im.media(">=tablet") {
+        display: none;
+      }
+    }
+
+    &_desktop {
+      position: relative;
+      display: none;
+
+      @include im.media(">=tablet") {
+        display: initial;
+      }
+    }
+  }
+
+  &__BoxContainers,
+  &__BoxPictos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+
+  &__Picto {
+    padding: 5px;
+    border: 1px solid colors.$gray-600;
+    border-radius: 8px;
+  }
+
+  &__Description {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  &__NamePicto {
+    white-space: nowrap;
+  }
+
+  &__SvgContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    pointer-events: none;
+
+    @include im.media(">=tablet") {
+      width: unset;
+    }
+
+    svg {
+      width: 100%;
+
+      #primary-color {
+        fill: colors.$brand-primary;
+      }
+
+      #secondary-color {
+        fill: colors.$brand-secondary;
+      }
+    }
+  }
+
+  &__Svg {
+    &_mobile {
+      display: inline;
+
+      @include im.media(">=tablet") {
+        display: none;
+      }
+    }
+
+    &_desktop {
+      position: relative;
+      display: none;
+
+      @include im.media(">=tablet") {
+        display: initial;
+      }
+    }
+  }
+}

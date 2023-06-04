@@ -803,12 +803,18 @@ export type CollectDropOff = {
   __typename?: "CollectDropOff";
   contract?: Maybe<ContractEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
-  dropOffMap?: Maybe<DropOffMapEntityResponse>;
+  dropOffMaps?: Maybe<DropOffMapRelationResponseCollection>;
   flows?: Maybe<FlowRelationResponseCollection>;
   grammaticalGender?: Maybe<Enum_Collectdropoff_Grammaticalgender>;
   name?: Maybe<Scalars["String"]>;
   picto?: Maybe<UploadFileEntityResponse>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type CollectDropOffDropOffMapsArgs = {
+  filters?: InputMaybe<DropOffMapFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type CollectDropOffFlowsArgs = {
@@ -838,7 +844,7 @@ export type CollectDropOffFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<CollectDropOffFiltersInput>>>;
   contract?: InputMaybe<ContractFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  dropOffMap?: InputMaybe<DropOffMapFiltersInput>;
+  dropOffMaps?: InputMaybe<DropOffMapFiltersInput>;
   flows?: InputMaybe<FlowFiltersInput>;
   grammaticalGender?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
@@ -850,7 +856,7 @@ export type CollectDropOffFiltersInput = {
 
 export type CollectDropOffInput = {
   contract?: InputMaybe<Scalars["ID"]>;
-  dropOffMap?: InputMaybe<Scalars["ID"]>;
+  dropOffMaps?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   flows?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   grammaticalGender?: InputMaybe<Enum_Collectdropoff_Grammaticalgender>;
   name?: InputMaybe<Scalars["String"]>;
@@ -866,12 +872,18 @@ export type CollectVoluntary = {
   __typename?: "CollectVoluntary";
   contract?: Maybe<ContractEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
-  dropOffMap?: Maybe<DropOffMapEntityResponse>;
+  dropOffMaps?: Maybe<DropOffMapRelationResponseCollection>;
   flows?: Maybe<FlowRelationResponseCollection>;
   grammaticalGender?: Maybe<Enum_Collectvoluntary_Grammaticalgender>;
   name?: Maybe<Scalars["String"]>;
   picto?: Maybe<UploadFileEntityResponse>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type CollectVoluntaryDropOffMapsArgs = {
+  filters?: InputMaybe<DropOffMapFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type CollectVoluntaryFlowsArgs = {
@@ -901,7 +913,7 @@ export type CollectVoluntaryFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<CollectVoluntaryFiltersInput>>>;
   contract?: InputMaybe<ContractFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  dropOffMap?: InputMaybe<DropOffMapFiltersInput>;
+  dropOffMaps?: InputMaybe<DropOffMapFiltersInput>;
   flows?: InputMaybe<FlowFiltersInput>;
   grammaticalGender?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
@@ -913,7 +925,7 @@ export type CollectVoluntaryFiltersInput = {
 
 export type CollectVoluntaryInput = {
   contract?: InputMaybe<Scalars["ID"]>;
-  dropOffMap?: InputMaybe<Scalars["ID"]>;
+  dropOffMaps?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   flows?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   grammaticalGender?: InputMaybe<Enum_Collectvoluntary_Grammaticalgender>;
   name?: InputMaybe<Scalars["String"]>;
@@ -1039,6 +1051,30 @@ export type ComponentBlocksQuestions = {
   questionTextLabel: Scalars["String"];
   questionTextPlaceholder: Scalars["String"];
   textStatus: Enum_Componentblocksquestions_Textstatus;
+};
+
+export type ComponentBlocksRequestType = {
+  __typename?: "ComponentBlocksRequestType";
+  email?: Maybe<Scalars["String"]>;
+  id: Scalars["ID"];
+  isEmail?: Maybe<Scalars["Boolean"]>;
+  title: Scalars["String"];
+};
+
+export type ComponentBlocksRequestTypeFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentBlocksRequestTypeFiltersInput>>>;
+  email?: InputMaybe<StringFilterInput>;
+  isEmail?: InputMaybe<BooleanFilterInput>;
+  not?: InputMaybe<ComponentBlocksRequestTypeFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentBlocksRequestTypeFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentBlocksRequestTypeInput = {
+  email?: InputMaybe<Scalars["String"]>;
+  id?: InputMaybe<Scalars["ID"]>;
+  isEmail?: InputMaybe<Scalars["Boolean"]>;
+  title?: InputMaybe<Scalars["String"]>;
 };
 
 export type ComponentBlocksSubHeading = {
@@ -2232,13 +2268,14 @@ export type DocumentRelationResponseCollection = {
 export type DropOffMap = {
   __typename?: "DropOffMap";
   address?: Maybe<Scalars["String"]>;
+  city?: Maybe<Scalars["String"]>;
   collectDropOff?: Maybe<CollectDropOffEntityResponse>;
   collectVoluntary?: Maybe<CollectVoluntaryEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   description?: Maybe<Scalars["String"]>;
   downloadableFile?: Maybe<Array<Maybe<ComponentBlocksDownloadBlock>>>;
   dropOffMapService?: Maybe<DropOffMapServiceEntityResponse>;
-  gpsCoordinates: Scalars["String"];
+  gpsCoordinates?: Maybe<Scalars["String"]>;
   mustKnow?: Maybe<Scalars["String"]>;
   name?: Maybe<Scalars["String"]>;
   openingHoursBlock?: Maybe<
@@ -2274,6 +2311,7 @@ export type DropOffMapEntityResponseCollection = {
 export type DropOffMapFiltersInput = {
   address?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<DropOffMapFiltersInput>>>;
+  city?: InputMaybe<StringFilterInput>;
   collectDropOff?: InputMaybe<CollectDropOffFiltersInput>;
   collectVoluntary?: InputMaybe<CollectVoluntaryFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
@@ -2292,6 +2330,7 @@ export type DropOffMapFiltersInput = {
 
 export type DropOffMapInput = {
   address?: InputMaybe<Scalars["String"]>;
+  city?: InputMaybe<Scalars["String"]>;
   collectDropOff?: InputMaybe<Scalars["ID"]>;
   collectVoluntary?: InputMaybe<Scalars["ID"]>;
   description?: InputMaybe<Scalars["String"]>;
@@ -3234,7 +3273,7 @@ export type Flow = {
   createdAt?: Maybe<Scalars["DateTime"]>;
   isActivated?: Maybe<Scalars["Boolean"]>;
   name?: Maybe<Scalars["String"]>;
-  pickUpDay?: Maybe<PickUpDayEntityResponse>;
+  pickUpDays?: Maybe<PickUpDayRelationResponseCollection>;
   recyclingGesture: Enum_Flow_Recyclinggesture;
   updatedAt?: Maybe<Scalars["DateTime"]>;
   wasteForms?: Maybe<WasteFormRelationResponseCollection>;
@@ -3254,6 +3293,12 @@ export type FlowCollectDropOffsArgs = {
 
 export type FlowCollectVoluntariesArgs = {
   filters?: InputMaybe<CollectVoluntaryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type FlowPickUpDaysArgs = {
+  filters?: InputMaybe<PickUpDayFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
@@ -3342,7 +3387,7 @@ export type FlowFiltersInput = {
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<FlowFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<FlowFiltersInput>>>;
-  pickUpDay?: InputMaybe<PickUpDayFiltersInput>;
+  pickUpDays?: InputMaybe<PickUpDayFiltersInput>;
   recyclingGesture?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   wasteForms?: InputMaybe<WasteFormFiltersInput>;
@@ -3357,7 +3402,7 @@ export type FlowInput = {
   contract?: InputMaybe<Scalars["ID"]>;
   isActivated?: InputMaybe<Scalars["Boolean"]>;
   name?: InputMaybe<Scalars["String"]>;
-  pickUpDay?: InputMaybe<Scalars["ID"]>;
+  pickUpDays?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   recyclingGesture?: InputMaybe<Enum_Flow_Recyclinggesture>;
   wasteForms?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
 };
@@ -3653,6 +3698,7 @@ export type GenericMorph =
   | ComponentBlocksProofOfReceipt
   | ComponentBlocksQcm
   | ComponentBlocksQuestions
+  | ComponentBlocksRequestType
   | ComponentBlocksSubHeading
   | ComponentBlocksTest
   | ComponentBlocksUser
@@ -3715,6 +3761,7 @@ export type GenericMorph =
   | RecyclingGuideBlock
   | RecyclingGuideService
   | Request
+  | RequestAggregate
   | RequestService
   | SearchEngineBlock
   | Sectorization
@@ -4154,6 +4201,7 @@ export type Mutation = {
   createRecyclingGuideBlock?: Maybe<RecyclingGuideBlockEntityResponse>;
   createRecyclingGuideService?: Maybe<RecyclingGuideServiceEntityResponse>;
   createRequest?: Maybe<RequestEntityResponse>;
+  createRequestAggregate?: Maybe<RequestAggregateEntityResponse>;
   createRequestService?: Maybe<RequestServiceEntityResponse>;
   createSearchEngineBlock?: Maybe<SearchEngineBlockEntityResponse>;
   createSectorization?: Maybe<SectorizationEntityResponse>;
@@ -4230,6 +4278,7 @@ export type Mutation = {
   deleteRecyclingGuideBlock?: Maybe<RecyclingGuideBlockEntityResponse>;
   deleteRecyclingGuideService?: Maybe<RecyclingGuideServiceEntityResponse>;
   deleteRequest?: Maybe<RequestEntityResponse>;
+  deleteRequestAggregate?: Maybe<RequestAggregateEntityResponse>;
   deleteRequestService?: Maybe<RequestServiceEntityResponse>;
   deleteSearchEngineBlock?: Maybe<SearchEngineBlockEntityResponse>;
   deleteSectorization?: Maybe<SectorizationEntityResponse>;
@@ -4327,6 +4376,7 @@ export type Mutation = {
   updateRecyclingGuideBlock?: Maybe<RecyclingGuideBlockEntityResponse>;
   updateRecyclingGuideService?: Maybe<RecyclingGuideServiceEntityResponse>;
   updateRequest?: Maybe<RequestEntityResponse>;
+  updateRequestAggregate?: Maybe<RequestAggregateEntityResponse>;
   updateRequestService?: Maybe<RequestServiceEntityResponse>;
   updateSearchEngineBlock?: Maybe<SearchEngineBlockEntityResponse>;
   updateSectorization?: Maybe<SectorizationEntityResponse>;
@@ -4523,6 +4573,7 @@ export type MutationCreateEmptyContractArgs = {
   contactFirstName: Scalars["String"];
   contactLastName: Scalars["String"];
   contactPhoneNumber: Scalars["String"];
+  isNonExclusive: Scalars["Boolean"];
   isRVFrance: Scalars["Boolean"];
   siretNumber?: InputMaybe<Scalars["Long"]>;
 };
@@ -4632,6 +4683,10 @@ export type MutationCreateRecyclingGuideServiceArgs = {
 
 export type MutationCreateRequestArgs = {
   data: RequestInput;
+};
+
+export type MutationCreateRequestAggregateArgs = {
+  data: RequestAggregateInput;
 };
 
 export type MutationCreateRequestServiceArgs = {
@@ -4925,6 +4980,10 @@ export type MutationDeleteRecyclingGuideServiceArgs = {
 };
 
 export type MutationDeleteRequestArgs = {
+  id: Scalars["ID"];
+};
+
+export type MutationDeleteRequestAggregateArgs = {
   id: Scalars["ID"];
 };
 
@@ -5351,6 +5410,11 @@ export type MutationUpdateRecyclingGuideServiceArgs = {
 
 export type MutationUpdateRequestArgs = {
   data: RequestInput;
+  id: Scalars["ID"];
+};
+
+export type MutationUpdateRequestAggregateArgs = {
+  data: RequestAggregateInput;
   id: Scalars["ID"];
 };
 
@@ -5850,6 +5914,7 @@ export type PickUpDay = {
   description?: Maybe<Scalars["String"]>;
   flow?: Maybe<FlowEntityResponse>;
   name: Scalars["String"];
+  pickUpDayService?: Maybe<PickUpDayServiceEntityResponse>;
   sectorization?: Maybe<SectorizationEntityResponse>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
@@ -5887,6 +5952,7 @@ export type PickUpDayFiltersInput = {
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<PickUpDayFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<PickUpDayFiltersInput>>>;
+  pickUpDayService?: InputMaybe<PickUpDayServiceFiltersInput>;
   sectorization?: InputMaybe<SectorizationFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
@@ -5896,6 +5962,7 @@ export type PickUpDayInput = {
   description?: InputMaybe<Scalars["String"]>;
   flow?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
+  pickUpDayService?: InputMaybe<Scalars["ID"]>;
   sectorization?: InputMaybe<Scalars["ID"]>;
 };
 
@@ -6122,6 +6189,8 @@ export type Query = {
   recyclingGuideService?: Maybe<RecyclingGuideServiceEntityResponse>;
   recyclingGuideServices?: Maybe<RecyclingGuideServiceEntityResponseCollection>;
   request?: Maybe<RequestEntityResponse>;
+  requestAggregate?: Maybe<RequestAggregateEntityResponse>;
+  requestAggregates?: Maybe<RequestAggregateEntityResponseCollection>;
   requestService?: Maybe<RequestServiceEntityResponse>;
   requestServices?: Maybe<RequestServiceEntityResponseCollection>;
   requests?: Maybe<RequestEntityResponseCollection>;
@@ -6793,6 +6862,16 @@ export type QueryRequestArgs = {
   id?: InputMaybe<Scalars["ID"]>;
 };
 
+export type QueryRequestAggregateArgs = {
+  id?: InputMaybe<Scalars["ID"]>;
+};
+
+export type QueryRequestAggregatesArgs = {
+  filters?: InputMaybe<RequestAggregateFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
 export type QueryRequestServiceArgs = {
   id?: InputMaybe<Scalars["ID"]>;
 };
@@ -6806,7 +6885,6 @@ export type QueryRequestServicesArgs = {
 export type QueryRequestsArgs = {
   filters?: InputMaybe<RequestFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
@@ -7398,10 +7476,18 @@ export type Request = {
   blockText?: Maybe<Scalars["String"]>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   description?: Maybe<Scalars["String"]>;
+  hasSeveralRequestTypes: Scalars["Boolean"];
   name?: Maybe<Scalars["String"]>;
-  publishedAt?: Maybe<Scalars["DateTime"]>;
+  requestAggregate?: Maybe<RequestAggregateEntityResponse>;
   requestService: RequestServiceEntityResponse;
+  requestType?: Maybe<Array<Maybe<ComponentBlocksRequestType>>>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type RequestRequestTypeArgs = {
+  filters?: InputMaybe<ComponentBlocksRequestTypeFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type RequestAddableBlocksDynamicZone =
@@ -7414,6 +7500,53 @@ export type RequestAddableBlocksDynamicZone =
   | ComponentBlocksQuestions
   | ComponentBlocksUser
   | Error;
+
+export type RequestAggregate = {
+  __typename?: "RequestAggregate";
+  createdAt?: Maybe<Scalars["DateTime"]>;
+  name: Scalars["String"];
+  requests?: Maybe<RequestRelationResponseCollection>;
+  updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type RequestAggregateRequestsArgs = {
+  filters?: InputMaybe<RequestFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type RequestAggregateEntity = {
+  __typename?: "RequestAggregateEntity";
+  attributes?: Maybe<RequestAggregate>;
+  id?: Maybe<Scalars["ID"]>;
+};
+
+export type RequestAggregateEntityResponse = {
+  __typename?: "RequestAggregateEntityResponse";
+  data?: Maybe<RequestAggregateEntity>;
+};
+
+export type RequestAggregateEntityResponseCollection = {
+  __typename?: "RequestAggregateEntityResponseCollection";
+  data: Array<RequestAggregateEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type RequestAggregateFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<RequestAggregateFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<RequestAggregateFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<RequestAggregateFiltersInput>>>;
+  requests?: InputMaybe<RequestFiltersInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type RequestAggregateInput = {
+  name?: InputMaybe<Scalars["String"]>;
+  requests?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+};
 
 export type RequestEntity = {
   __typename?: "RequestEntity";
@@ -7443,12 +7576,14 @@ export type RequestFiltersInput = {
   blockText?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
+  hasSeveralRequestTypes?: InputMaybe<BooleanFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<RequestFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<RequestFiltersInput>>>;
-  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  requestAggregate?: InputMaybe<RequestAggregateFiltersInput>;
   requestService?: InputMaybe<RequestServiceFiltersInput>;
+  requestType?: InputMaybe<ComponentBlocksRequestTypeFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
@@ -7478,9 +7613,11 @@ export type RequestInput = {
   >;
   blockText?: InputMaybe<Scalars["String"]>;
   description?: InputMaybe<Scalars["String"]>;
+  hasSeveralRequestTypes?: InputMaybe<Scalars["Boolean"]>;
   name?: InputMaybe<Scalars["String"]>;
-  publishedAt?: InputMaybe<Scalars["DateTime"]>;
+  requestAggregate?: InputMaybe<Scalars["ID"]>;
   requestService?: InputMaybe<Scalars["ID"]>;
+  requestType?: InputMaybe<Array<InputMaybe<ComponentBlocksRequestTypeInput>>>;
 };
 
 export type RequestRelationResponseCollection = {
@@ -7517,7 +7654,6 @@ export type RequestServiceCitiesArgs = {
 export type RequestServiceRequestsArgs = {
   filters?: InputMaybe<RequestFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
@@ -11109,13 +11245,13 @@ export type GetRecyclingWasteFormItemByIdQuery = {
       attributes?: {
         __typename?: "WasteForm";
         name?: string | null;
-        createdAt?: any | null;
-        updatedAt?: any | null;
+        recyclingGestureText?: string | null;
         isHidden?: boolean | null;
         tags?: {
           __typename?: "TagRelationResponseCollection";
           data: Array<{
             __typename?: "TagEntity";
+            id?: string | null;
             attributes?: { __typename?: "Tag"; name: string } | null;
           }>;
         } | null;
@@ -11123,6 +11259,7 @@ export type GetRecyclingWasteFormItemByIdQuery = {
           __typename?: "UploadFileEntityResponse";
           data?: {
             __typename?: "UploadFileEntity";
+            id?: string | null;
             attributes?: {
               __typename?: "UploadFile";
               name: string;
@@ -11145,12 +11282,11 @@ export type GetRecyclingWasteFormItemByIdQuery = {
               recyclingGesture: Enum_Flow_Recyclinggesture;
               code?: string | null;
               isActivated?: boolean | null;
-              createdAt?: any | null;
-              updatedAt?: any | null;
               color?: {
                 __typename?: "FlowColorEntityResponse";
                 data?: {
                   __typename?: "FlowColorEntity";
+                  id?: string | null;
                   attributes?: {
                     __typename?: "FlowColor";
                     name: string;
@@ -11159,13 +11295,87 @@ export type GetRecyclingWasteFormItemByIdQuery = {
                   } | null;
                 } | null;
               } | null;
+              collectVoluntaries?: {
+                __typename?: "CollectVoluntaryRelationResponseCollection";
+                data: Array<{
+                  __typename?: "CollectVoluntaryEntity";
+                  id?: string | null;
+                  attributes?: {
+                    __typename?: "CollectVoluntary";
+                    name?: string | null;
+                    picto?: {
+                      __typename?: "UploadFileEntityResponse";
+                      data?: {
+                        __typename?: "UploadFileEntity";
+                        id?: string | null;
+                        attributes?: {
+                          __typename?: "UploadFile";
+                          name: string;
+                          hash: string;
+                          mime: string;
+                          size: number;
+                          url: string;
+                          provider: string;
+                          alternativeText?: string | null;
+                        } | null;
+                      } | null;
+                    } | null;
+                  } | null;
+                }>;
+              } | null;
+              collectDropOffs?: {
+                __typename?: "CollectDropOffRelationResponseCollection";
+                data: Array<{
+                  __typename?: "CollectDropOffEntity";
+                  id?: string | null;
+                  attributes?: {
+                    __typename?: "CollectDropOff";
+                    name?: string | null;
+                    picto?: {
+                      __typename?: "UploadFileEntityResponse";
+                      data?: {
+                        __typename?: "UploadFileEntity";
+                        id?: string | null;
+                        attributes?: {
+                          __typename?: "UploadFile";
+                          name: string;
+                          hash: string;
+                          mime: string;
+                          size: number;
+                          url: string;
+                          provider: string;
+                          alternativeText?: string | null;
+                        } | null;
+                      } | null;
+                    } | null;
+                  } | null;
+                }>;
+              } | null;
               collectDoorToDoors?: {
                 __typename?: "CollectDoorToDoorRelationResponseCollection";
                 data: Array<{
                   __typename?: "CollectDoorToDoorEntity";
+                  id?: string | null;
                   attributes?: {
                     __typename?: "CollectDoorToDoor";
                     name?: string | null;
+                    picto?: {
+                      __typename?: "UploadFileEntityResponse";
+                      data?: {
+                        __typename?: "UploadFileEntity";
+                        id?: string | null;
+                        attributes?: {
+                          __typename?: "UploadFile";
+                          name: string;
+                          hash: string;
+                          mime: string;
+                          size: number;
+                          url: string;
+                          provider: string;
+                          alternativeText?: string | null;
+                        } | null;
+                      } | null;
+                    } | null;
                   } | null;
                 }>;
               } | null;
@@ -14668,18 +14878,19 @@ export const GetRecyclingWasteFormItemByIdDocument = gql`
         __typename
         attributes {
           name
-          createdAt
-          updatedAt
-          isHidden
           tags {
             data {
+              id
               attributes {
                 name
               }
             }
           }
+          recyclingGestureText
+          isHidden
           picto {
             data {
+              id
               attributes {
                 name
                 url
@@ -14701,20 +14912,78 @@ export const GetRecyclingWasteFormItemByIdDocument = gql`
                       hexaCode
                       shouldChangeHexaCode
                     }
+                    id
                   }
                 }
                 recyclingGesture
                 code
-                collectDoorToDoors {
+                isActivated
+                collectVoluntaries {
                   data {
+                    id
                     attributes {
                       name
+                      picto {
+                        data {
+                          id
+                          attributes {
+                            name
+                            hash
+                            mime
+                            size
+                            url
+                            provider
+                            alternativeText
+                          }
+                        }
+                      }
                     }
                   }
                 }
-                isActivated
-                createdAt
-                updatedAt
+                collectDropOffs {
+                  data {
+                    id
+                    attributes {
+                      name
+                      picto {
+                        data {
+                          id
+                          attributes {
+                            name
+                            hash
+                            mime
+                            size
+                            url
+                            provider
+                            alternativeText
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+                collectDoorToDoors {
+                  data {
+                    id
+                    attributes {
+                      name
+                      picto {
+                        data {
+                          id
+                          attributes {
+                            name
+                            hash
+                            mime
+                            size
+                            url
+                            provider
+                            alternativeText
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
               }
               id
             }

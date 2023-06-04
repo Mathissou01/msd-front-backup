@@ -682,7 +682,11 @@ type CollectDoorToDoorRelationResponseCollection {
 type CollectDropOff {
   contract: ContractEntityResponse
   createdAt: DateTime
-  dropOffMap: DropOffMapEntityResponse
+  dropOffMaps(
+    filters: DropOffMapFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): DropOffMapRelationResponseCollection
   flows(
     filters: FlowFiltersInput
     pagination: PaginationArg = {}
@@ -712,7 +716,7 @@ input CollectDropOffFiltersInput {
   and: [CollectDropOffFiltersInput]
   contract: ContractFiltersInput
   createdAt: DateTimeFilterInput
-  dropOffMap: DropOffMapFiltersInput
+  dropOffMaps: DropOffMapFiltersInput
   flows: FlowFiltersInput
   grammaticalGender: StringFilterInput
   id: IDFilterInput
@@ -724,7 +728,7 @@ input CollectDropOffFiltersInput {
 
 input CollectDropOffInput {
   contract: ID
-  dropOffMap: ID
+  dropOffMaps: [ID]
   flows: [ID]
   grammaticalGender: ENUM_COLLECTDROPOFF_GRAMMATICALGENDER
   name: String
@@ -738,7 +742,11 @@ type CollectDropOffRelationResponseCollection {
 type CollectVoluntary {
   contract: ContractEntityResponse
   createdAt: DateTime
-  dropOffMap: DropOffMapEntityResponse
+  dropOffMaps(
+    filters: DropOffMapFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): DropOffMapRelationResponseCollection
   flows(
     filters: FlowFiltersInput
     pagination: PaginationArg = {}
@@ -768,7 +776,7 @@ input CollectVoluntaryFiltersInput {
   and: [CollectVoluntaryFiltersInput]
   contract: ContractFiltersInput
   createdAt: DateTimeFilterInput
-  dropOffMap: DropOffMapFiltersInput
+  dropOffMaps: DropOffMapFiltersInput
   flows: FlowFiltersInput
   grammaticalGender: StringFilterInput
   id: IDFilterInput
@@ -780,7 +788,7 @@ input CollectVoluntaryFiltersInput {
 
 input CollectVoluntaryInput {
   contract: ID
-  dropOffMap: ID
+  dropOffMaps: [ID]
   flows: [ID]
   grammaticalGender: ENUM_COLLECTVOLUNTARY_GRAMMATICALGENDER
   name: String
@@ -891,6 +899,29 @@ type ComponentBlocksQuestions {
   questionTextLabel: String!
   questionTextPlaceholder: String!
   textStatus: ENUM_COMPONENTBLOCKSQUESTIONS_TEXTSTATUS!
+}
+
+type ComponentBlocksRequestType {
+  email: String
+  id: ID!
+  isEmail: Boolean
+  title: String!
+}
+
+input ComponentBlocksRequestTypeFiltersInput {
+  and: [ComponentBlocksRequestTypeFiltersInput]
+  email: StringFilterInput
+  isEmail: BooleanFilterInput
+  not: ComponentBlocksRequestTypeFiltersInput
+  or: [ComponentBlocksRequestTypeFiltersInput]
+  title: StringFilterInput
+}
+
+input ComponentBlocksRequestTypeInput {
+  email: String
+  id: ID
+  isEmail: Boolean
+  title: String
 }
 
 type ComponentBlocksSubHeading {
@@ -1967,6 +1998,7 @@ type DocumentRelationResponseCollection {
 
 type DropOffMap {
   address: String
+  city: String
   collectDropOff: CollectDropOffEntityResponse
   collectVoluntary: CollectVoluntaryEntityResponse
   createdAt: DateTime
@@ -1977,7 +2009,7 @@ type DropOffMap {
     sort: [String] = []
   ): [ComponentBlocksDownloadBlock]
   dropOffMapService: DropOffMapServiceEntityResponse
-  gpsCoordinates: String!
+  gpsCoordinates: String
   mustKnow: String
   name: String
   openingHoursBlock: [DropOffMapOpeningHoursBlockDynamicZone]
@@ -2002,6 +2034,7 @@ type DropOffMapEntityResponseCollection {
 input DropOffMapFiltersInput {
   address: StringFilterInput
   and: [DropOffMapFiltersInput]
+  city: StringFilterInput
   collectDropOff: CollectDropOffFiltersInput
   collectVoluntary: CollectVoluntaryFiltersInput
   createdAt: DateTimeFilterInput
@@ -2020,6 +2053,7 @@ input DropOffMapFiltersInput {
 
 input DropOffMapInput {
   address: String
+  city: String
   collectDropOff: ID
   collectVoluntary: ID
   description: String
@@ -2896,7 +2930,11 @@ type Flow {
   createdAt: DateTime
   isActivated: Boolean
   name: String
-  pickUpDay: PickUpDayEntityResponse
+  pickUpDays(
+    filters: PickUpDayFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): PickUpDayRelationResponseCollection
   recyclingGesture: ENUM_FLOW_RECYCLINGGESTURE!
   updatedAt: DateTime
   wasteForms(
@@ -2977,7 +3015,7 @@ input FlowFiltersInput {
   name: StringFilterInput
   not: FlowFiltersInput
   or: [FlowFiltersInput]
-  pickUpDay: PickUpDayFiltersInput
+  pickUpDays: PickUpDayFiltersInput
   recyclingGesture: StringFilterInput
   updatedAt: DateTimeFilterInput
   wasteForms: WasteFormFiltersInput
@@ -2992,7 +3030,7 @@ input FlowInput {
   contract: ID
   isActivated: Boolean
   name: String
-  pickUpDay: ID
+  pickUpDays: [ID]
   recyclingGesture: ENUM_FLOW_RECYCLINGGESTURE
   wasteForms: [ID]
 }
@@ -3266,6 +3304,7 @@ union GenericMorph =
   | ComponentBlocksProofOfReceipt
   | ComponentBlocksQcm
   | ComponentBlocksQuestions
+  | ComponentBlocksRequestType
   | ComponentBlocksSubHeading
   | ComponentBlocksTest
   | ComponentBlocksUser
@@ -3328,6 +3367,7 @@ union GenericMorph =
   | RecyclingGuideBlock
   | RecyclingGuideService
   | Request
+  | RequestAggregate
   | RequestService
   | SearchEngineBlock
   | Sectorization
@@ -3778,6 +3818,7 @@ type Mutation {
     contactFirstName: String!
     contactLastName: String!
     contactPhoneNumber: String!
+    isNonExclusive: Boolean!
     isRVFrance: Boolean!
     siretNumber: Long
   ): [ContractAndClientContact]
@@ -3827,6 +3868,9 @@ type Mutation {
     data: RecyclingGuideServiceInput!
   ): RecyclingGuideServiceEntityResponse
   createRequest(data: RequestInput!): RequestEntityResponse
+  createRequestAggregate(
+    data: RequestAggregateInput!
+  ): RequestAggregateEntityResponse
   createRequestService(data: RequestServiceInput!): RequestServiceEntityResponse
   createSearchEngineBlock(
     data: SearchEngineBlockInput!
@@ -3923,6 +3967,7 @@ type Mutation {
   deleteRecyclingGuideBlock(id: ID!): RecyclingGuideBlockEntityResponse
   deleteRecyclingGuideService(id: ID!): RecyclingGuideServiceEntityResponse
   deleteRequest(id: ID!): RequestEntityResponse
+  deleteRequestAggregate(id: ID!): RequestAggregateEntityResponse
   deleteRequestService(id: ID!): RequestServiceEntityResponse
   deleteSearchEngineBlock(id: ID!): SearchEngineBlockEntityResponse
   deleteSectorization(id: ID!): SectorizationEntityResponse
@@ -4157,6 +4202,10 @@ type Mutation {
     id: ID!
   ): RecyclingGuideServiceEntityResponse
   updateRequest(data: RequestInput!, id: ID!): RequestEntityResponse
+  updateRequestAggregate(
+    data: RequestAggregateInput!
+    id: ID!
+  ): RequestAggregateEntityResponse
   updateRequestService(
     data: RequestServiceInput!
     id: ID!
@@ -4575,6 +4624,7 @@ type PickUpDay {
   description: String
   flow: FlowEntityResponse
   name: String!
+  pickUpDayService: PickUpDayServiceEntityResponse
   sectorization: SectorizationEntityResponse
   updatedAt: DateTime
 }
@@ -4603,6 +4653,7 @@ input PickUpDayFiltersInput {
   name: StringFilterInput
   not: PickUpDayFiltersInput
   or: [PickUpDayFiltersInput]
+  pickUpDayService: PickUpDayServiceFiltersInput
   sectorization: SectorizationFiltersInput
   updatedAt: DateTimeFilterInput
 }
@@ -4612,6 +4663,7 @@ input PickUpDayInput {
   description: String
   flow: ID
   name: String
+  pickUpDayService: ID
   sectorization: ID
 }
 
@@ -5067,6 +5119,12 @@ type Query {
     sort: [String] = []
   ): RecyclingGuideServiceEntityResponseCollection
   request(id: ID): RequestEntityResponse
+  requestAggregate(id: ID): RequestAggregateEntityResponse
+  requestAggregates(
+    filters: RequestAggregateFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): RequestAggregateEntityResponseCollection
   requestService(id: ID): RequestServiceEntityResponse
   requestServices(
     filters: RequestServiceFiltersInput
@@ -5076,7 +5134,6 @@ type Query {
   requests(
     filters: RequestFiltersInput
     pagination: PaginationArg = {}
-    publicationState: PublicationState = LIVE
     sort: [String] = []
   ): RequestEntityResponseCollection
   searchAddress(address: String, limit: Int): [Address]
@@ -5540,9 +5597,15 @@ type Request {
   blockText: String
   createdAt: DateTime
   description: String
+  hasSeveralRequestTypes: Boolean!
   name: String
-  publishedAt: DateTime
+  requestAggregate: RequestAggregateEntityResponse
   requestService: RequestServiceEntityResponse!
+  requestType(
+    filters: ComponentBlocksRequestTypeFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): [ComponentBlocksRequestType]
   updatedAt: DateTime
 }
 
@@ -5558,6 +5621,47 @@ union RequestAddableBlocksDynamicZone =
   | Error
 
 scalar RequestAddableBlocksDynamicZoneInput
+
+type RequestAggregate {
+  createdAt: DateTime
+  name: String!
+  requests(
+    filters: RequestFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): RequestRelationResponseCollection
+  updatedAt: DateTime
+}
+
+type RequestAggregateEntity {
+  attributes: RequestAggregate
+  id: ID
+}
+
+type RequestAggregateEntityResponse {
+  data: RequestAggregateEntity
+}
+
+type RequestAggregateEntityResponseCollection {
+  data: [RequestAggregateEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input RequestAggregateFiltersInput {
+  and: [RequestAggregateFiltersInput]
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  name: StringFilterInput
+  not: RequestAggregateFiltersInput
+  or: [RequestAggregateFiltersInput]
+  requests: RequestFiltersInput
+  updatedAt: DateTimeFilterInput
+}
+
+input RequestAggregateInput {
+  name: String
+  requests: [ID]
+}
 
 type RequestEntity {
   attributes: Request
@@ -5584,12 +5688,14 @@ input RequestFiltersInput {
   blockText: StringFilterInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
+  hasSeveralRequestTypes: BooleanFilterInput
   id: IDFilterInput
   name: StringFilterInput
   not: RequestFiltersInput
   or: [RequestFiltersInput]
-  publishedAt: DateTimeFilterInput
+  requestAggregate: RequestAggregateFiltersInput
   requestService: RequestServiceFiltersInput
+  requestType: ComponentBlocksRequestTypeFiltersInput
   updatedAt: DateTimeFilterInput
 }
 
@@ -5615,9 +5721,11 @@ input RequestInput {
   addableBlocks: [RequestAddableBlocksDynamicZoneInput!]
   blockText: String
   description: String
+  hasSeveralRequestTypes: Boolean
   name: String
-  publishedAt: DateTime
+  requestAggregate: ID
   requestService: ID
+  requestType: [ComponentBlocksRequestTypeInput]
 }
 
 type RequestRelationResponseCollection {
@@ -5643,7 +5751,6 @@ type RequestService {
   requests(
     filters: RequestFiltersInput
     pagination: PaginationArg = {}
-    publicationState: PublicationState = LIVE
     sort: [String] = []
   ): RequestRelationResponseCollection
   startDate: Date

@@ -1,6 +1,5 @@
 import React from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
-import "./guide-tri-content.scss";
 import { ParsedUrlQuery } from "querystring";
 import {
   GetRecyclingWasteFormItemByIdDocument,
@@ -13,10 +12,11 @@ import {
 } from "../../../../graphql/codegen/generated-types";
 import EditoDynamicBlock from "../../../../components/Edito/EditoDynamicBlock";
 import client from "../../../../graphql/client";
-import EditoHeading from "../../../../components/Edito/EditoHeading/EditoHeading";
 import { isEditoBlock } from "../../../../lib/edito-content";
 import { removeNulls } from "../../../../lib/utilities";
 import CommonBreadcrumb from "../../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
+import WasteHeading from "../../../../components/Guide-tri/WasteHeading/WasteHeading";
+import "./guide-tri-content.scss";
 
 interface IGuideTriPageProps {
   guidetriData: WasteFormEntity | null | undefined;
@@ -41,18 +41,19 @@ export default function ServiceGuideTriPage({
     },
   ];
   if (guidetriData?.attributes?.name) {
-    breadcrumbPages.push({ label: guidetriData?.attributes?.name, slug: "" });
+    breadcrumbPages.push({ label: guidetriData.attributes.name, slug: "" });
   }
 
   return (
     <>
       <CommonBreadcrumb pages={breadcrumbPages} />
       <section className="c-GuideTriContent">
-        {/*TODO : Header of wasteForm*/}
         {guidetriData?.attributes?.name && (
-          <EditoHeading
+          <WasteHeading
             title={guidetriData.attributes.name}
-            tags={guidetriData.attributes.tags?.data}
+            picto={guidetriData.attributes.picto}
+            gestureText={guidetriData.attributes.recyclingGestureText}
+            collectItems={guidetriData.attributes.flow?.data?.attributes}
           />
         )}
         {guidetriData?.attributes?.contentBlock &&

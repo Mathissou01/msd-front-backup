@@ -1,4 +1,6 @@
+@use "src/styles/01-settings/settings.colors" as colors;
 @use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.shadows" as shadows;
 
 .c-MyHomeData {
   margin-top: 34px;
@@ -22,7 +24,7 @@
 
   &__TextInfo {
     margin-top: 16px;
-    color: #767c97;
+    color: colors.$blue-2;
     font-weight: 600;
     font-size: 12px;
   }
@@ -53,7 +55,7 @@
   }
 
   &__TitleContentAddress_labelValue {
-    color: #6c757d;
+    color: colors.$gray-600;
     font-weight: 600;
     font-size: 12px;
   }
@@ -91,6 +93,8 @@
   }
 
   &__Barometer {
+    @include shadows.shadow(1);
+
     position: relative;
     display: flex;
     flex: 1;
@@ -101,8 +105,7 @@
     margin-right: 24px;
     margin-bottom: 16px;
     padding: 24px 16px;
-    background-color: #fff;
+    background-color: colors.$white;
     border-radius: 8px;
-    box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
   }
 }

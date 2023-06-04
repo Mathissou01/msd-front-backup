@@ -5,18 +5,19 @@ query getRecyclingWasteFormItemById($wasteFormId: ID) {
       __typename
       attributes {
         name
-        createdAt
-        updatedAt
-        isHidden
         tags {
           data {
+            id
             attributes {
               name
             }
           }
         }
+        recyclingGestureText
+        isHidden
         picto {
           data {
+            id
             attributes {
               name
               url
@@ -39,20 +40,78 @@ query getRecyclingWasteFormItemById($wasteFormId: ID) {
                     hexaCode
                     shouldChangeHexaCode
                   }
+                  id
                 }
               }
               recyclingGesture
               code
-              collectDoorToDoors {
+              isActivated
+              collectVoluntaries {
                 data {
+                  id
                   attributes {
                     name
+                    picto {
+                      data {
+                        id
+                        attributes {
+                          name
+                          hash
+                          mime
+                          size
+                          url
+                          provider
+                          alternativeText
+                        }
+                      }
+                    }
                   }
                 }
               }
-              isActivated
-              createdAt
-              updatedAt
+              collectDropOffs {
+                data {
+                  id
+                  attributes {
+                    name
+                    picto {
+                      data {
+                        id
+                        attributes {
+                          name
+                          hash
+                          mime
+                          size
+                          url
+                          provider
+                          alternativeText
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              collectDoorToDoors {
+                data {
+                  id
+                  attributes {
+                    name
+                    picto {
+                      data {
+                        id
+                        attributes {
+                          name
+                          hash
+                          mime
+                          size
+                          url
+                          provider
+                          alternativeText
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
             id
           }
