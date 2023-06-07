@@ -42,7 +42,7 @@ const MyHomeDataComponent = ({
           type="button"
           style="secondary"
           label="Voir le détail"
-          onClick={() => handleClick}
+          onClick={() => handleClick()}
         />
       </div>
     </>

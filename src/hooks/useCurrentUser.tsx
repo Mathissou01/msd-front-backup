@@ -44,7 +44,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     // TODO: fetch user from API and stock it in sessionStorage
     const storedUser = sessionStorage.getItem("user");
-    if (storedUser) {
+    if (storedUser && storedUser !== "undefined") {
       setCurrentUser(JSON.parse(storedUser));
     }
   }, []);

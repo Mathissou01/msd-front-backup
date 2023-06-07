@@ -1,0 +1,117 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.typography" as typo;
+
+.c-SectionHeader {
+  width: 100%;
+
+  &__Desktop {
+    display: none;
+    @include im.media(">=mobile") {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &__Mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    @include im.media(">=mobile") {
+      display: none;
+    }
+  }
+
+  &__ArrowContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: colors.$white;
+    border-radius: 8px;
+    cursor: pointer;
+    @include im.media(">=mobile") {
+      width: 75px;
+      height: 80px;
+      box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
+    }
+  }
+
+  &__Arrow {
+    width: 50;
+    height: 50;
+    @include im.media(">=mobile") {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &__Content {
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 52px;
+    padding: 8px;
+    background-color: colors.$white;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
+    @include im.media(">=mobile") {
+      width: 70%;
+      height: 80px;
+      padding: 0 40px;
+      border-radius: 8px;
+    }
+  }
+
+  &__Title {
+    color: colors.$blue-1;
+    font-size: 16px;
+    font-size: 30px;
+
+    @include im.media(">=mobile") {
+      font-size: 24px;
+    }
+  }
+
+  &__DateContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 48px;
+    padding: 8px;
+    text-transform: capitalize;
+    background-color: colors.$white;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
+    @include im.media(">=mobile") {
+      display: flex;
+      justify-content: flex-start;
+      width: 177px;
+      height: 40px;
+      padding: 8px 16px;
+      background: colors.$gray-0;
+    }
+  }
+
+  &__DateContent {
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    padding: 8px 16px;
+    background: colors.$gray-0;
+    border-radius: 8px;
+  }
+
+  &__Date {
+    margin-left: 8px;
+    color: colors.$expert-blue;
+    font-size: 16px;
+  }
+}

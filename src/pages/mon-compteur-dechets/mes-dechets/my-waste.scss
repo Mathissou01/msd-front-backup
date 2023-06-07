@@ -1,0 +1,26 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-MyWaste {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  &__Content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-top: 16px;
+    background-color: transparent;
+    border-radius: 8px;
+    @include im.media(">=mobile") {
+      width: calc(70% + 75px + 16px);
+      background-color: $white;
+    }
+  }
+}

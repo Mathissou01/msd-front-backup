@@ -116,7 +116,7 @@ const MyHomeData = () => {
           text={`C'est l'équivalent de la production d'un foyer d'environ ${
             homeData?.equivalentOfProduction || 0
           } personnes`}
-          path="/block1"
+          path="/mon-compteur-dechets/mes-dechets"
         />
         <MyHomeDataComponent
           isFirstBlock={false}

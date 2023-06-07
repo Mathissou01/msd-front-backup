@@ -1,0 +1,52 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-CommonChips {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+  width: 90%;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  @include im.media(">=mobile") {
+    gap: 16px;
+    justify-content: center;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: unset;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &__Chip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    padding: 7px 16px;
+    color: $expert-blue;
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    border: 1px solid colors.$expert-blue;
+    border-radius: 48px;
+    @include im.media(">=mobile") {
+      height: 36px;
+      padding: 8px 16px;
+      border: 2px solid colors.$expert-blue;
+    }
+
+    &:focus,
+    &:active {
+      text-decoration: none;
+      outline: none;
+    }
+
+    &_active {
+      background: rgb(155 205 65 / 10%);
+      border: 2px solid rgb(104 156 0);
+    }
+  }
+}
