@@ -1,6 +1,8 @@
-import React, { Dispatch, SetStateAction } from "react";
-import "./autocomplete-address.scss";
+import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import { useRouter } from "next/router";
 import { IError } from "../../../../pages/mon-compteur-dechets/eligibilite/index.page";
+import "./autocomplete-address.scss";
+import { AddressOption } from "../../../../lib/address-option";
 
 interface AutocompleteAddressProps {
   value: string;
@@ -8,12 +10,13 @@ interface AutocompleteAddressProps {
   debouncedValue: string;
   isVisibled: boolean;
   setIsVisibled: Dispatch<SetStateAction<boolean>>;
-  handleClick: (option: string) => void;
-  filteredOptions: string[];
+  handleClick: (option: AddressOption) => void;
+  filteredOptions: AddressOption[];
   inputName: string;
   inputLabel?: string;
   inputPlaceholder?: string;
-  handleError: (updates: Partial<IError>) => void;
+  handleError?: (updates: Partial<IError>) => void;
+  isEdit?: boolean;
 }
 
 const AutocompleteAddress: React.FC<AutocompleteAddressProps> = ({
@@ -28,7 +31,27 @@ const AutocompleteAddress: React.FC<AutocompleteAddressProps> = ({
   inputLabel = "",
   inputPlaceholder = "",
   handleError,
+  isEdit = false,
 }) => {
+  const selectorRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    setIsVisibled(false);
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        selectorRef.current &&
+        !selectorRef.current.contains(event.target as Node)
+      ) {
+        setIsVisibled(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setIsVisibled]);
+
   return (
     <div className="c-AutocompleteAddress">
       <div className="c-AutocompleteAddress__Container">
@@ -45,35 +68,39 @@ const AutocompleteAddress: React.FC<AutocompleteAddressProps> = ({
           placeholder={inputPlaceholder}
         />
         {debouncedValue && isVisibled && (
-          <div className="c-AutocompleteAddress__Selector">
+          <div className="c-AutocompleteAddress__Selector" ref={selectorRef}>
             {filteredOptions.length ? (
-              filteredOptions.map((option: string) => (
+              filteredOptions.map((option: AddressOption, i: number) => (
                 <button
                   className="c-AutocompleteAddress__Option"
-                  key={option}
+                  key={i}
                   onClick={() => handleClick(option)}
                 >
-                  {option}
+                  {option?.houseNumber} {option?.street} {option?.postcode}{" "}
+                  {option?.city}
                 </button>
               ))
             ) : (
-              <div
+              <button
                 className="c-AutocompleteAddress__Option"
-                onClick={() =>
-                  handleError({
-                    isActive: true,
-                    title:
-                      "Malheureusement, nous ne trouvons pas votre adresse dans notre base de données",
-                    isAddressVisible: false,
-                    isReasonVisible: false,
-                    isContactVisible: true,
-                  })
-                }
+                onClick={() => {
+                  isEdit
+                    ? router.push("/mon-compteur-dechets/erreur-adresse")
+                    : handleError &&
+                      handleError({
+                        isActive: true,
+                        title:
+                          "Malheureusement, nous ne trouvons pas votre adresse dans notre base de données",
+                        isAddressVisible: false,
+                        isReasonVisible: false,
+                        isContactVisible: true,
+                      });
+                }}
               >
                 <p>
                   <strong>{"Mon adresse n'est pas dans la liste"}</strong>
                 </p>
-              </div>
+              </button>
             )}
           </div>
         )}

@@ -25,12 +25,12 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
   return (
     <div className="c-SectionHeader">
       <div className="c-SectionHeader__Desktop">
-        <div
+        <button
           className="c-SectionHeader__ArrowContainer"
           onClick={() => router.back()}
         >
           <ArrowBackBold />
-        </div>
+        </button>
         <div className="c-SectionHeader__Content">
           <h1 className="c-SectionHeader__Title">{title}</h1>
           <div>
@@ -45,12 +45,12 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       </div>
       <div className="c-SectionHeader__Mobile">
         <div className="c-SectionHeader__Content">
-          <div
+          <button
             className="c-SectionHeader__ArrowContainer"
             onClick={() => router.back()}
           >
             <ArrowBack />
-          </div>
+          </button>
           <h1 className="c-SectionHeader__TitleMobile">{title}</h1>
           <Info />
         </div>

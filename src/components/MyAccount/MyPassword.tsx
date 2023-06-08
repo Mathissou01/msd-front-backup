@@ -24,7 +24,7 @@ export default function CommonInfoPerso({ title }: ICommonInfoPersoProps) {
         <CommonButton
           type="button"
           style="primary"
-          label="modifier"
+          label="Modifier"
           onClick={() => window.open("https://www.keycloak.org/", "_blank")}
         />
       </div>

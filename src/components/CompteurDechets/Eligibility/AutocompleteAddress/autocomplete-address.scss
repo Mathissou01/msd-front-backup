@@ -30,6 +30,7 @@
     width: 100%;
     max-height: 232px;
     margin-top: 2px;
+    margin-bottom: 16px;
     padding: 4px;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -43,6 +44,7 @@
       position: absolute;
       bottom: calc(100% - 20px);
       z-index: 999;
+      margin-top: 20px;
     }
 
     &::-webkit-scrollbar {
@@ -76,8 +78,11 @@
       display: block;
       width: calc(100% - 8px);
       height: 1px;
-      background-color: colors.$blue-4;
       content: "";
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid colors.$blue-4;
     }
 
     &:hover {

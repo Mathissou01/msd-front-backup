@@ -7,7 +7,7 @@ const MyWasteCounter = () => {
   return (
     <>
       {currentUser &&
-      currentUser?.activeMeters &&
+      currentUser?.activeCounter &&
       currentUser?.dwellingType === "house" &&
       currentUser?.userType === "particular" ? (
         <DashboardWaste />

@@ -195,7 +195,21 @@ export type ActivationAndService = Activation | Service;
 
 export type Address = {
   __typename?: "Address";
+  city?: Maybe<Scalars["String"]>;
+  citycode?: Maybe<Scalars["String"]>;
+  context?: Maybe<Scalars["String"]>;
+  district?: Maybe<Scalars["String"]>;
+  houseNumber?: Maybe<Scalars["Int"]>;
+  id?: Maybe<Scalars["String"]>;
+  importance?: Maybe<Scalars["Float"]>;
   label?: Maybe<Scalars["String"]>;
+  name?: Maybe<Scalars["String"]>;
+  postcode?: Maybe<Scalars["String"]>;
+  score?: Maybe<Scalars["Float"]>;
+  street?: Maybe<Scalars["String"]>;
+  type?: Maybe<Scalars["String"]>;
+  x?: Maybe<Scalars["Float"]>;
+  y?: Maybe<Scalars["Float"]>;
 };
 
 export type AlertNotification = {
@@ -1051,30 +1065,6 @@ export type ComponentBlocksQuestions = {
   questionTextLabel: Scalars["String"];
   questionTextPlaceholder: Scalars["String"];
   textStatus: Enum_Componentblocksquestions_Textstatus;
-};
-
-export type ComponentBlocksRequestType = {
-  __typename?: "ComponentBlocksRequestType";
-  email?: Maybe<Scalars["String"]>;
-  id: Scalars["ID"];
-  isEmail?: Maybe<Scalars["Boolean"]>;
-  title: Scalars["String"];
-};
-
-export type ComponentBlocksRequestTypeFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentBlocksRequestTypeFiltersInput>>>;
-  email?: InputMaybe<StringFilterInput>;
-  isEmail?: InputMaybe<BooleanFilterInput>;
-  not?: InputMaybe<ComponentBlocksRequestTypeFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<ComponentBlocksRequestTypeFiltersInput>>>;
-  title?: InputMaybe<StringFilterInput>;
-};
-
-export type ComponentBlocksRequestTypeInput = {
-  email?: InputMaybe<Scalars["String"]>;
-  id?: InputMaybe<Scalars["ID"]>;
-  isEmail?: InputMaybe<Scalars["Boolean"]>;
-  title?: InputMaybe<Scalars["String"]>;
 };
 
 export type ComponentBlocksSubHeading = {
@@ -3698,7 +3688,6 @@ export type GenericMorph =
   | ComponentBlocksProofOfReceipt
   | ComponentBlocksQcm
   | ComponentBlocksQuestions
-  | ComponentBlocksRequestType
   | ComponentBlocksSubHeading
   | ComponentBlocksTest
   | ComponentBlocksUser
@@ -6885,6 +6874,7 @@ export type QueryRequestServicesArgs = {
 export type QueryRequestsArgs = {
   filters?: InputMaybe<RequestFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
@@ -7476,18 +7466,11 @@ export type Request = {
   blockText?: Maybe<Scalars["String"]>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   description?: Maybe<Scalars["String"]>;
-  hasSeveralRequestTypes: Scalars["Boolean"];
   name?: Maybe<Scalars["String"]>;
+  publishedAt?: Maybe<Scalars["DateTime"]>;
   requestAggregate?: Maybe<RequestAggregateEntityResponse>;
   requestService: RequestServiceEntityResponse;
-  requestType?: Maybe<Array<Maybe<ComponentBlocksRequestType>>>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
-};
-
-export type RequestRequestTypeArgs = {
-  filters?: InputMaybe<ComponentBlocksRequestTypeFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type RequestAddableBlocksDynamicZone =
@@ -7512,6 +7495,7 @@ export type RequestAggregate = {
 export type RequestAggregateRequestsArgs = {
   filters?: InputMaybe<RequestFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
@@ -7576,14 +7560,13 @@ export type RequestFiltersInput = {
   blockText?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
-  hasSeveralRequestTypes?: InputMaybe<BooleanFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<RequestFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<RequestFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   requestAggregate?: InputMaybe<RequestAggregateFiltersInput>;
   requestService?: InputMaybe<RequestServiceFiltersInput>;
-  requestType?: InputMaybe<ComponentBlocksRequestTypeFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
@@ -7613,11 +7596,10 @@ export type RequestInput = {
   >;
   blockText?: InputMaybe<Scalars["String"]>;
   description?: InputMaybe<Scalars["String"]>;
-  hasSeveralRequestTypes?: InputMaybe<Scalars["Boolean"]>;
   name?: InputMaybe<Scalars["String"]>;
+  publishedAt?: InputMaybe<Scalars["DateTime"]>;
   requestAggregate?: InputMaybe<Scalars["ID"]>;
   requestService?: InputMaybe<Scalars["ID"]>;
-  requestType?: InputMaybe<Array<InputMaybe<ComponentBlocksRequestTypeInput>>>;
 };
 
 export type RequestRelationResponseCollection = {
@@ -7654,6 +7636,7 @@ export type RequestServiceCitiesArgs = {
 export type RequestServiceRequestsArgs = {
   filters?: InputMaybe<RequestFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
@@ -11032,6 +11015,20 @@ export type SearchAddressQuery = {
   searchAddress?: Array<{
     __typename?: "Address";
     label?: string | null;
+    score?: number | null;
+    id?: string | null;
+    name?: string | null;
+    postcode?: string | null;
+    citycode?: string | null;
+    x?: number | null;
+    y?: number | null;
+    city?: string | null;
+    district?: string | null;
+    context?: string | null;
+    type?: string | null;
+    importance?: number | null;
+    street?: string | null;
+    houseNumber?: number | null;
   } | null> | null;
 };
 
@@ -14504,6 +14501,20 @@ export const SearchAddressDocument = gql`
   query SearchAddress($address: String, $limit: Int) {
     searchAddress(address: $address, limit: $limit) {
       label
+      score
+      id
+      name
+      postcode
+      citycode
+      x
+      y
+      city
+      district
+      context
+      type
+      importance
+      street
+      houseNumber
     }
   }
 `;

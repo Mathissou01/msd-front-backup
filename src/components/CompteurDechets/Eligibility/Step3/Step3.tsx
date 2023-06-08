@@ -15,12 +15,16 @@ import AddressBlock from "../AddressBlock/AddressBlock";
 import { IError } from "../../../../pages/mon-compteur-dechets/eligibilite/index.page";
 import AutocompleteAddress from "../AutocompleteAddress/AutocompleteAddress";
 import { useSearchAddressQuery } from "../../../../graphql/codegen/generated-types";
+import { AddressOption } from "../../../../lib/address-option";
+import { User } from "../../../../lib/user";
 
 interface Step3Props {
   question: IQuestion;
   handleOptionClick: (next: string | number) => void;
-  selectedAddress: string;
-  setSelectedAddress: Dispatch<SetStateAction<string>>;
+  selectedAddress: Partial<User> | null | undefined;
+  setSelectedAddress: Dispatch<
+    SetStateAction<Partial<User> | null | undefined>
+  >;
   handleError: (updates: Partial<IError>) => void;
 }
 
@@ -31,9 +35,12 @@ const Step3: React.FC<Step3Props> = ({
   setSelectedAddress,
   handleError,
 }) => {
-  const [value, setValue] = useState("");
+  const addressString = `${selectedAddress?.streetNumber || ""} ${
+    selectedAddress?.streetName || ""
+  } ${selectedAddress?.postalCode || ""} ${selectedAddress?.city || ""}`;
+  const [value, setValue] = useState(addressString || "");
   const debouncedValue = useDebounce<string>(value, 500);
-  const [filteredOptions, setFilteredOptions] = useState<string[]>([]);
+  const [filteredOptions, setFilteredOptions] = useState<AddressOption[]>([]);
   const [isVisibled, setIsVisibled] = useState(true);
 
   const { data: searchAddressData } = useSearchAddressQuery({
@@ -41,17 +48,10 @@ const Step3: React.FC<Step3Props> = ({
   });
 
   useEffect(() => {
-    if (!searchAddressData) {
-      return;
-    }
-    if (searchAddressData && searchAddressData.searchAddress) {
-      const addresses = searchAddressData.searchAddress
-        .map((address) => address?.label)
-        .filter((label) => label !== null && label !== undefined) as string[];
-
-      setFilteredOptions(addresses);
-    } else {
-      setFilteredOptions([]);
+    if (searchAddressData) {
+      setFilteredOptions(
+        (searchAddressData?.searchAddress || []) as AddressOption[],
+      );
     }
   }, [searchAddressData]);
 
@@ -59,12 +59,17 @@ const Step3: React.FC<Step3Props> = ({
     setValue(event.target.value);
   }
 
-  function handleClick(option: string) {
-    setSelectedAddress(option);
-    setValue(option);
+  function handleClick(option: Partial<AddressOption>) {
+    setSelectedAddress({
+      streetNumber: option.houseNumber || null,
+      streetName: option.street || null,
+      city: option.city || null,
+      postalCode: option.postcode || null,
+      idAddress: option.id || null,
+    });
+    setValue(option.label || "");
     setIsVisibled(false);
   }
-
   return (
     <div className="o-Steps c-StepAddress">
       <EligibilityAdress className="o-Steps__Image" />
@@ -76,7 +81,7 @@ const Step3: React.FC<Step3Props> = ({
         />
         <div className="o-Steps__CardContainer">
           <p className="o-Steps__SubText">{question.subText}</p>
-          {selectedAddress ? (
+          {selectedAddress !== null && selectedAddress !== undefined ? (
             <AddressBlock
               selectedAddress={selectedAddress}
               setSelectedAddress={setSelectedAddress}

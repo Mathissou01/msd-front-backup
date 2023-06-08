@@ -5,9 +5,12 @@ import AddressBlock from "../AddressBlock/AddressBlock";
 import { IError } from "../../../../pages/mon-compteur-dechets/eligibilite/index.page";
 import ErrorReason from "../ErrorReason/ErrorReason";
 import ErrorContactBlock from "../ErrorContactBlock/ErrorContactBlock";
+import { User } from "../../../../lib/user";
 interface ErrorPageProps {
-  selectedAddress: string;
-  setSelectedAddress: Dispatch<SetStateAction<string>>;
+  selectedAddress: Partial<User> | null | undefined;
+  setSelectedAddress: Dispatch<
+    SetStateAction<Partial<User> | null | undefined>
+  >;
   error: IError;
   handleError: (updates: Partial<IError>) => void;
 }

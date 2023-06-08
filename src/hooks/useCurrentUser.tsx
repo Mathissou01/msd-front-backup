@@ -6,22 +6,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-
-//TODO: Move the interface to a another folder
-interface User {
-  id: string;
-  firstname: string;
-  lastname: string;
-  email: string;
-  activeMeters: boolean;
-  streetNumber: number;
-  streetName: string;
-  postalCode: string;
-  city: string;
-  dwellingType: string;
-  userType: string;
-  householdSize: number;
-}
+import { User } from "../lib/user";
 
 interface UserContextValues {
   currentUser: User | null;

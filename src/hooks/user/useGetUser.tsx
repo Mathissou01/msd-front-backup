@@ -20,10 +20,6 @@ const useGetUser = (userId: string | null) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    console.log(process.env.NEXT_PUBLIC_USER_API_URL);
-  }, []);
-
   const fetchUser = async () => {
     try {
       setLoading(true);

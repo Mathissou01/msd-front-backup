@@ -15,6 +15,7 @@ import StepError from "../../../components/CompteurDechets/Eligibility/StepError
 import { useCurrentUser } from "../../../hooks/useCurrentUser";
 
 import "./eligibilite-page.scss";
+import { User } from "../../../lib/user";
 
 export interface IError {
   isActive: boolean;
@@ -38,7 +39,9 @@ const breadcrumbPages = [
 const Eligibilite = () => {
   const router = useRouter();
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selectedAddress, setSelectedAddress] = useState("");
+  const [selectedAddress, setSelectedAddress] = useState<
+    Partial<User> | null | undefined
+  >();
   const [personsCount, setPersonsCount] = useState(1);
   const { currentUser } = useCurrentUser();
   const [error, setError] = useState({
