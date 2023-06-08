@@ -1,0 +1,88 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.typography" as typo;
+@use "src/styles/02-tools/tools.inputs" as input;
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-SearchEngineBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+  padding: 40px 16px;
+  background-color: colors.$white;
+
+  @include im.media(">=tablet") {
+    padding: 60px 160px 40px;
+  }
+
+  @include im.media(">=laptop") {
+    padding: 80px 160px 40px;
+  }
+
+  @include im.media(">=desktop") {
+    padding: 80px 124px 40px;
+  }
+
+  @include im.media(">=large-desktop") {
+    padding: 80px 224px 40px;
+  }
+
+  &__Heading,
+  &__SearchContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 648px;
+
+    @include im.media(">=tablet") {
+      max-width: 703px;
+    }
+
+    @include im.media(">=desktop") {
+      max-width: 785px;
+    }
+
+    @include im.media(">=large-desktop") {
+      max-width: 945px;
+    }
+  }
+
+  &__Title {
+    @include typo.text;
+
+    color: colors.$expert-blue;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  &__Subtitle {
+    @include typo.heading(2);
+
+    color: colors.$expert-blue;
+    text-align: center;
+  }
+
+  &__SearchContainer {
+    gap: 12px;
+  }
+
+  &__SearchBar {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    @include im.media(">=mobile") {
+      flex-direction: row;
+
+      button {
+        width: unset;
+      }
+    }
+  }
+
+  &__Input {
+    @include input.input;
+
+    height: 56px;
+  }
+}

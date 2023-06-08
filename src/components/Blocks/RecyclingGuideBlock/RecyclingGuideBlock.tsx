@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import {
   RecyclingGuideBlockEntity,
@@ -32,14 +33,22 @@ export default function RecyclingGuideBlock({
     });
   }
 
-  function handleChange(event: { target: HTMLInputElement }) {
-    setDisabled(event.target.value.length < 3);
-    if (event.target.value.length <= 2) {
-      onUpdateRecyclingGuideSearchData([]);
+  function handleChange(event: { target: HTMLInputElement } | string) {
+    if (typeof event === "string") {
+      setDisabled(event.length < minLengthSearch);
+      if (event.length < minLengthSearch) {
+        onUpdateRecyclingGuideSearchData([]);
+      }
+    } else {
+      setDisabled(event.target.value.length < minLengthSearch);
+      if (event.target.value.length < minLengthSearch) {
+        onUpdateRecyclingGuideSearchData([]);
+      }
     }
   }
 
   /* Local Data */
+  const router = useRouter();
   const titleContent = data.attributes?.titleContent;
   const subtitleContent = data.attributes?.subtitleContent;
   const recyclingGuideDisplayContent =
@@ -50,9 +59,6 @@ export default function RecyclingGuideBlock({
   const { contractId } = useContract();
   const [getRecyclingGuideSearchEngine, { data: searchData }] =
     useGetRecyclingGuideSearchEngineLazyQuery();
-
-  //IF NEEDED FOR THE NEXT USE : Result of the query search *
-  // const recyclingGuideSearch = searchData?.recyclingGuideSearchEngine;
 
   useEffect(
     () => {
@@ -69,6 +75,15 @@ export default function RecyclingGuideBlock({
     /* eslint-disable */
     [searchData],
   );
+
+  useEffect(() => {
+    if (router.query) {
+      var searchData: IFormInput;
+      searchData = { searchTerm: `${router.query.search}` };
+      onSubmit(searchData);
+      handleChange(`${router.query.search}`); // Manually call handleChange
+    }
+  }, [router.query.search]);
 
   return (
     <section className="c-RecyclingGuideBlock">
@@ -89,6 +104,7 @@ export default function RecyclingGuideBlock({
               minLength: minLengthSearch,
             })}
             type="text"
+            defaultValue={router.query.search}
             onChange={handleChange}
           />
           <CommonButton
@@ -120,14 +136,6 @@ export default function RecyclingGuideBlock({
           </div>
         )}
       </div>
-
-      {/*IF NEEDED FOR THE NEXT USE : Result of the query search */}
-      {/*<ul>*/}
-      {/*  {recyclingGuideSearch &&*/}
-      {/*    recyclingGuideSearch.map((recyclingGuide) => (*/}
-      {/*      <li key={recyclingGuide?.id}>{recyclingGuide?.name}</li>*/}
-      {/*    ))}*/}
-      {/*</ul>*/}
     </section>
   );
 }

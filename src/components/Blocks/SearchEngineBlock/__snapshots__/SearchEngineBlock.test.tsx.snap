@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchEngineBlock renders the block properly with all props 1`] = `
+<div>
+  <section
+    class="c-SearchEngineBlock"
+  >
+    <div
+      class="c-SearchEngineBlock__Heading"
+    >
+      <span
+        class="c-SearchEngineBlock__Title"
+      >
+        Titre
+      </span>
+      <h2
+        class="c-SearchEngineBlock__Subtitle"
+      >
+        Sous-titre
+      </h2>
+    </div>
+    <div
+      class="c-SearchEngineBlock__SearchContainer"
+    >
+      <div
+        class="c-SearchEngineBlock__SearchBar"
+      >
+        <input
+          class="c-SearchEngineBlock__Input"
+          placeholder="Lampes"
+          type="text"
+        />
+        <button
+          class="c-CommonButton c-CommonButton_primary c-CommonButton_fontLarge c-CommonButton_paddingLarge c-CommonButton_fullWidth"
+          disabled=""
+          type="button"
+        >
+          <div
+            class="c-CommonButton__Picto c-CommonButton__Picto_search"
+          />
+          Rechercher
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+`;
+
+exports[`SearchEngineBlock should modify input value by firing onChangeEvent 1`] = `
+<div>
+  <section
+    class="c-SearchEngineBlock"
+  >
+    <div
+      class="c-SearchEngineBlock__Heading"
+    >
+      <span
+        class="c-SearchEngineBlock__Title"
+      >
+        Titre
+      </span>
+      <h2
+        class="c-SearchEngineBlock__Subtitle"
+      >
+        Sous-titre
+      </h2>
+    </div>
+    <div
+      class="c-SearchEngineBlock__SearchContainer"
+    >
+      <div
+        class="c-SearchEngineBlock__SearchBar"
+      >
+        <input
+          class="c-SearchEngineBlock__Input"
+          placeholder="Lampes"
+          type="text"
+        />
+        <button
+          class="c-CommonButton c-CommonButton_primary c-CommonButton_fontLarge c-CommonButton_paddingLarge c-CommonButton_fullWidth"
+          disabled=""
+          type="button"
+        >
+          <div
+            class="c-CommonButton__Picto c-CommonButton__Picto_search"
+          />
+          Rechercher
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+`;

@@ -18,7 +18,6 @@ import {
   GetTopContentBlockQuery,
   QuizAndTipsBlockEntity,
   RecyclingGuideBlockEntity,
-  SearchResult,
   TopContentBlockEntity,
 } from "../graphql/codegen/generated-types";
 import {
@@ -30,11 +29,12 @@ import {
 } from "../lib/graphql-data";
 import { IServiceLink } from "../lib/service-links";
 import WelcomeBlock from "../components/Blocks/WelcomeBlock/WelcomeBlock";
-import RecyclingGuideBlock from "../components/Blocks/RecyclingGuideBlock/RecyclingGuideBlock";
 import ServicesBlock from "../components/Blocks/ServicesBlock/ServicesBlock";
 import QuizAndTipsBlock from "../components/Blocks/QuizAndTipsBlock/QuizAndTipsBlock";
 import TopContentBlock from "../components/Blocks/TopContentBlock/TopContentBlock";
 import EditoBlock from "../components/Blocks/EditoBlock/EditoBlock";
+import SearchEngineBlock from "../components/Blocks/SearchEngineBlock/SearchEngineBlock";
+import { useRouter } from "next/router";
 
 interface IHomePageProps {
   servicesData: GetServicesActiveQuery;
@@ -90,24 +90,35 @@ export default function HomePage({
       servicesData.editorialServices?.data[0]?.attributes?.newsSubService?.data
         ?.attributes?.isActivated);
 
-  // SearchResult function
-  /* eslint-disable */
-  const [recyclingGuideSearchData, setRecyclingGuideSearchData] = useState<
-    SearchResult[] | null
-  >(null);
+  const router = useRouter();
 
-  function updateRecyclingGuideSearchData(data: (SearchResult | null)[]) {
-    const filteredData = data.filter((item) => item !== null) as SearchResult[];
-    setRecyclingGuideSearchData(filteredData);
+  const [recyclingGuideSearchTerm, setRecyclingGuideSearchTerm] = useState("");
+
+  function handleChangeRecyclingGuideSearchTerm(data: string) {
+    setRecyclingGuideSearchTerm(data);
+  }
+
+  function onRecyclingGuideSubmit() {
+    router.push({
+      pathname: "/service/guide-tri",
+      query: { search: recyclingGuideSearchTerm },
+    });
   }
 
   return (
     <>
       <WelcomeBlock />
       {displayRecyclingGuideBlock && (
-        <RecyclingGuideBlock
-          data={recyclingGuideBlock}
-          onUpdateRecyclingGuideSearchData={updateRecyclingGuideSearchData}
+        <SearchEngineBlock
+          searchTerm={recyclingGuideSearchTerm}
+          title={recyclingGuideBlock.attributes?.titleContent}
+          subtitle={recyclingGuideBlock.attributes?.subtitleContent}
+          placeholder={
+            recyclingGuideBlock.attributes?.recyclingGuideDisplayContent
+          }
+          minLengthSearch={3}
+          onSearchTermChange={handleChangeRecyclingGuideSearchTerm}
+          onSearchSubmit={onRecyclingGuideSubmit}
         />
       )}
       {displayServicesBlock && <ServicesBlock remappedData={servicesBlock} />}
