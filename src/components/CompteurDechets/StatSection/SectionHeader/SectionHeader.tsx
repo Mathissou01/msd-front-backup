@@ -1,27 +1,27 @@
 import React from "react";
 import ArrowBack from "public/images/pictos/arrow-back.svg";
+import ArrowBackBold from "public/images/pictos/arrow-back-bold.svg";
 import Calendar from "public/images/pictos/calendar.svg";
 import Info from "public/images/pictos/info.svg";
 import "./section-header.scss";
-import { format, subMonths } from "date-fns";
-import { fr } from "date-fns/locale";
+import { format } from "date-fns";
 import { useRouter } from "next/router";
 
 export interface SectionHeaderProps {
   title: string;
-  isDateDisplay?: boolean;
+  date: string;
+  isDateDisplayMobile?: boolean;
+  isYearDisplay?: boolean;
 }
-
-const date = format(subMonths(new Date(), 1), "MMMM yyyy", {
-  locale: fr,
-  useAdditionalWeekYearTokens: false,
-});
 
 const SectionHeader: React.FC<SectionHeaderProps> = ({
   title,
-  isDateDisplay = false,
+  date,
+  isDateDisplayMobile = true,
+  isYearDisplay = false,
 }) => {
   const router = useRouter();
+  const formattedYear = format(new Date(date), "yyyy");
   return (
     <div className="c-SectionHeader">
       <div className="c-SectionHeader__Desktop">
@@ -29,17 +29,17 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
           className="c-SectionHeader__ArrowContainer"
           onClick={() => router.back()}
         >
-          <ArrowBack style={{ width: 50, height: 50 }} />
+          <ArrowBackBold />
         </div>
         <div className="c-SectionHeader__Content">
           <h1 className="c-SectionHeader__Title">{title}</h1>
           <div>
-            {isDateDisplay && (
-              <div className="c-SectionHeader__DateContainer">
-                <Calendar />
-                <p className="c-SectionHeader__Date">{date}</p>
-              </div>
-            )}
+            <div className="c-SectionHeader__DateContainer">
+              <Calendar />
+              <p className="c-SectionHeader__Date">
+                {!isYearDisplay ? date : formattedYear}
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -54,13 +54,15 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
           <h1 className="c-SectionHeader__TitleMobile">{title}</h1>
           <Info />
         </div>
-        <div className="c-SectionHeader__DateContainer">
-          {isDateDisplay && (
+        {isDateDisplayMobile && (
+          <div className="c-SectionHeader__DateContainer">
             <div className="c-SectionHeader__DateContent">
-              <p className="c-SectionHeader__Date">{date}</p>
+              <p className="c-SectionHeader__Date">
+                {!isYearDisplay ? date : formattedYear}
+              </p>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

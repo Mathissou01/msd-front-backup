@@ -129,7 +129,7 @@ const MyHomeData = () => {
             </div>
           }
           text={arrowColorClass.text}
-          path="/block2"
+          path="/mon-compteur-dechets/mon-evolution"
         />
         <div className="c-MyHomeData__Barometer">
           {/* TODO: Add Diagram here and remove lorem  */}

@@ -1,9 +1,9 @@
 @use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/01-settings/settings.colors" as colors;
 
-.c-MyWaste {
+.c-MyEvolution {
   display: flex;
   flex-direction: column;
-  gap: 16px;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -15,14 +15,19 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding-top: 16px;
+    margin-top: 0;
     background-color: transparent;
-    border-radius: 8px;
-
     @include im.media(">=mobile") {
       width: calc(70% + 75px + 16px);
+      margin-top: 16px;
       background-color: $white;
+      border-radius: 8px;
       box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
     }
+  }
+
+  &__DateSelectorContent {
+    width: 100%;
+    background-color: colors.$white;
   }
 }

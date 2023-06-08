@@ -36,15 +36,10 @@
       width: 75px;
       height: 80px;
       box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
-    }
-  }
 
-  &__Arrow {
-    width: 50;
-    height: 50;
-    @include im.media(">=mobile") {
-      width: 24px;
-      height: 24px;
+      &:hover {
+        transform: scale(0.99);
+      }
     }
   }
 
@@ -57,22 +52,20 @@
     height: 52px;
     padding: 8px;
     background-color: colors.$white;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
     box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
     @include im.media(">=mobile") {
       width: 70%;
       height: 80px;
       padding: 0 40px;
       border-radius: 8px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
     }
   }
 
   &__Title {
     color: colors.$blue-1;
-    font-size: 16px;
     font-size: 30px;
-
     @include im.media(">=mobile") {
       font-size: 24px;
     }
@@ -93,7 +86,6 @@
     @include im.media(">=mobile") {
       display: flex;
       justify-content: flex-start;
-      width: 177px;
       height: 40px;
       padding: 8px 16px;
       background: colors.$gray-0;

@@ -1,0 +1,35 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-CommonMonthSelector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__Date {
+    padding: 16px;
+    color: $expert-blue;
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+
+  &__Arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: colors.$gray-200;
+      border-radius: 50%;
+    }
+
+    &:focus,
+    &:active {
+      text-decoration: none;
+      outline: none;
+    }
+  }
+}

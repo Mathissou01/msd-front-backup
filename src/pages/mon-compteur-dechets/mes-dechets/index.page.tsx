@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import SectionHeader from "../../../components/CompteurDechets/StatSection/SectionHeader/SectionHeader";
-import SectionContent from "../../../components/CompteurDechets/StatSection/SectionContent/SectionContent";
-import "./my-waste.scss";
 import CommonChips from "../../../components/Common/CommonChips/CommonChips";
 import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
+import { format, subMonths } from "date-fns";
+import { fr } from "date-fns/locale";
+import "./my-waste.scss";
+
 const breadcrumbPages = [
   {
     label: "Accueil",
@@ -37,19 +39,23 @@ const chips = [
 
 const MyWastePage = () => {
   const [selectedChip, setSelectedChip] = useState("packaging");
+  const [currentDate] = useState(subMonths(new Date(), 1));
 
+  const formattedDate = format(currentDate, "MMMM yyyy", {
+    locale: fr,
+    useAdditionalWeekYearTokens: false,
+  });
   return (
     <>
       <CommonBreadcrumb pages={breadcrumbPages} />
       <div className="c-MyWaste">
-        <SectionHeader title="Mes déchets" isDateDisplay={true} />
+        <SectionHeader title="Mes déchets" date={formattedDate} />
         <div className="c-MyWaste__Content">
           <CommonChips
             chips={chips}
             selectedChip={selectedChip}
             setSelectedChip={setSelectedChip}
           />
-          <SectionContent />
         </div>
       </div>
     </>
