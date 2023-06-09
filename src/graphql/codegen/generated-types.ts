@@ -984,6 +984,24 @@ export type ComponentBlocksCheckbox = {
   labelCheckbox: Scalars["String"];
 };
 
+export type ComponentBlocksCommentary = {
+  __typename?: "ComponentBlocksCommentary";
+  commentaryLabel: Scalars["String"];
+  commentaryPlaceholder?: Maybe<Scalars["String"]>;
+  commentaryStatus: Enum_Componentblockscommentary_Commentarystatus;
+  id: Scalars["ID"];
+};
+
+export type ComponentBlocksCumbersome = {
+  __typename?: "ComponentBlocksCumbersome";
+  cumbersomeLabel: Scalars["String"];
+  cumbersomeLimitMessage: Scalars["String"];
+  id: Scalars["ID"];
+  isNumberAndVolume: Scalars["Boolean"];
+  maxNumberOfCumbersome?: Maybe<Scalars["Int"]>;
+  maxVolumeOfCumbersome?: Maybe<Scalars["Float"]>;
+};
+
 export type ComponentBlocksDateChoice = {
   __typename?: "ComponentBlocksDateChoice";
   fieldLabelDateChoice: Scalars["String"];
@@ -1065,6 +1083,30 @@ export type ComponentBlocksQuestions = {
   questionTextLabel: Scalars["String"];
   questionTextPlaceholder: Scalars["String"];
   textStatus: Enum_Componentblocksquestions_Textstatus;
+};
+
+export type ComponentBlocksRequestType = {
+  __typename?: "ComponentBlocksRequestType";
+  email?: Maybe<Scalars["String"]>;
+  id: Scalars["ID"];
+  isEmail?: Maybe<Scalars["Boolean"]>;
+  title: Scalars["String"];
+};
+
+export type ComponentBlocksRequestTypeFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentBlocksRequestTypeFiltersInput>>>;
+  email?: InputMaybe<StringFilterInput>;
+  isEmail?: InputMaybe<BooleanFilterInput>;
+  not?: InputMaybe<ComponentBlocksRequestTypeFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentBlocksRequestTypeFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentBlocksRequestTypeInput = {
+  email?: InputMaybe<Scalars["String"]>;
+  id?: InputMaybe<Scalars["ID"]>;
+  isEmail?: InputMaybe<Scalars["Boolean"]>;
+  title?: InputMaybe<Scalars["String"]>;
 };
 
 export type ComponentBlocksSubHeading = {
@@ -2460,6 +2502,11 @@ export enum Enum_Componentblockscheckbox_Fieldstatuscheckbox {
   Optionnel = "Optionnel",
 }
 
+export enum Enum_Componentblockscommentary_Commentarystatus {
+  Facultatif = "Facultatif",
+  Obligatoire = "Obligatoire",
+}
+
 export enum Enum_Componentblocksdatechoice_Fieldstatus {
   Obligatoire = "Obligatoire",
   Optionnel = "Optionnel",
@@ -3679,6 +3726,8 @@ export type GenericMorph =
   | ComponentBlocksAddress
   | ComponentBlocksAttachments
   | ComponentBlocksCheckbox
+  | ComponentBlocksCommentary
+  | ComponentBlocksCumbersome
   | ComponentBlocksDateChoice
   | ComponentBlocksDownloadBlock
   | ComponentBlocksFile
@@ -3688,6 +3737,7 @@ export type GenericMorph =
   | ComponentBlocksProofOfReceipt
   | ComponentBlocksQcm
   | ComponentBlocksQuestions
+  | ComponentBlocksRequestType
   | ComponentBlocksSubHeading
   | ComponentBlocksTest
   | ComponentBlocksUser
@@ -4307,6 +4357,7 @@ export type Mutation = {
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
   servicesActivation?: Maybe<ServiceActivated>;
+  setFlowIsActivated?: Maybe<FlowEntity>;
   singleUploadCustom: File;
   updateAccessibility?: Maybe<AccessibilityEntityResponse>;
   updateAccessibilitySubService?: Maybe<AccessibilitySubServiceEntityResponse>;
@@ -5113,6 +5164,12 @@ export type MutationServicesActivationArgs = {
   startDate?: InputMaybe<Scalars["Date"]>;
 };
 
+export type MutationSetFlowIsActivatedArgs = {
+  code: Scalars["String"];
+  id: Scalars["ID"];
+  isActivated: Scalars["Boolean"];
+};
+
 export type MutationSingleUploadCustomArgs = {
   file: Scalars["Upload"];
 };
@@ -5899,17 +5956,25 @@ export type PaginationArg = {
 export type PickUpDay = {
   __typename?: "PickUpDay";
   cities?: Maybe<CityRelationResponseCollection>;
+  collectDoorToDoor?: Maybe<CollectDoorToDoorEntityResponse>;
+  collectVoluntary?: Maybe<CollectVoluntaryEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   description?: Maybe<Scalars["String"]>;
   flow?: Maybe<FlowEntityResponse>;
   name: Scalars["String"];
   pickUpDayService?: Maybe<PickUpDayServiceEntityResponse>;
-  sectorization?: Maybe<SectorizationEntityResponse>;
+  sectorizations?: Maybe<SectorizationRelationResponseCollection>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
 
 export type PickUpDayCitiesArgs = {
   filters?: InputMaybe<CityFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type PickUpDaySectorizationsArgs = {
+  filters?: InputMaybe<SectorizationFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
@@ -5934,6 +5999,8 @@ export type PickUpDayEntityResponseCollection = {
 export type PickUpDayFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<PickUpDayFiltersInput>>>;
   cities?: InputMaybe<CityFiltersInput>;
+  collectDoorToDoor?: InputMaybe<CollectDoorToDoorFiltersInput>;
+  collectVoluntary?: InputMaybe<CollectVoluntaryFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
   flow?: InputMaybe<FlowFiltersInput>;
@@ -5942,17 +6009,19 @@ export type PickUpDayFiltersInput = {
   not?: InputMaybe<PickUpDayFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<PickUpDayFiltersInput>>>;
   pickUpDayService?: InputMaybe<PickUpDayServiceFiltersInput>;
-  sectorization?: InputMaybe<SectorizationFiltersInput>;
+  sectorizations?: InputMaybe<SectorizationFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type PickUpDayInput = {
   cities?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  collectDoorToDoor?: InputMaybe<Scalars["ID"]>;
+  collectVoluntary?: InputMaybe<Scalars["ID"]>;
   description?: InputMaybe<Scalars["String"]>;
   flow?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
   pickUpDayService?: InputMaybe<Scalars["ID"]>;
-  sectorization?: InputMaybe<Scalars["ID"]>;
+  sectorizations?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
 };
 
 export type PickUpDayRelationResponseCollection = {
@@ -6874,7 +6943,6 @@ export type QueryRequestServicesArgs = {
 export type QueryRequestsArgs = {
   filters?: InputMaybe<RequestFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
@@ -7464,19 +7532,30 @@ export type Request = {
   __typename?: "Request";
   addableBlocks?: Maybe<Array<Maybe<RequestAddableBlocksDynamicZone>>>;
   blockText?: Maybe<Scalars["String"]>;
+  confirmationMessage?: Maybe<Scalars["String"]>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   description?: Maybe<Scalars["String"]>;
+  hasSeveralRequestTypes: Scalars["Boolean"];
+  isActivated?: Maybe<Scalars["Boolean"]>;
   name?: Maybe<Scalars["String"]>;
-  publishedAt?: Maybe<Scalars["DateTime"]>;
   requestAggregate?: Maybe<RequestAggregateEntityResponse>;
   requestService: RequestServiceEntityResponse;
+  requestType?: Maybe<Array<Maybe<ComponentBlocksRequestType>>>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type RequestRequestTypeArgs = {
+  filters?: InputMaybe<ComponentBlocksRequestTypeFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type RequestAddableBlocksDynamicZone =
   | ComponentBlocksAddress
   | ComponentBlocksAttachments
   | ComponentBlocksCheckbox
+  | ComponentBlocksCommentary
+  | ComponentBlocksCumbersome
   | ComponentBlocksDateChoice
   | ComponentBlocksProofOfReceipt
   | ComponentBlocksQcm
@@ -7495,7 +7574,6 @@ export type RequestAggregate = {
 export type RequestAggregateRequestsArgs = {
   filters?: InputMaybe<RequestFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
@@ -7558,15 +7636,18 @@ export type RequestFileOrFolder = Files | Folders;
 export type RequestFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<RequestFiltersInput>>>;
   blockText?: InputMaybe<StringFilterInput>;
+  confirmationMessage?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
+  hasSeveralRequestTypes?: InputMaybe<BooleanFilterInput>;
   id?: InputMaybe<IdFilterInput>;
+  isActivated?: InputMaybe<BooleanFilterInput>;
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<RequestFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<RequestFiltersInput>>>;
-  publishedAt?: InputMaybe<DateTimeFilterInput>;
   requestAggregate?: InputMaybe<RequestAggregateFiltersInput>;
   requestService?: InputMaybe<RequestServiceFiltersInput>;
+  requestType?: InputMaybe<ComponentBlocksRequestTypeFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
@@ -7595,11 +7676,14 @@ export type RequestInput = {
     Array<Scalars["RequestAddableBlocksDynamicZoneInput"]>
   >;
   blockText?: InputMaybe<Scalars["String"]>;
+  confirmationMessage?: InputMaybe<Scalars["String"]>;
   description?: InputMaybe<Scalars["String"]>;
+  hasSeveralRequestTypes?: InputMaybe<Scalars["Boolean"]>;
+  isActivated?: InputMaybe<Scalars["Boolean"]>;
   name?: InputMaybe<Scalars["String"]>;
-  publishedAt?: InputMaybe<Scalars["DateTime"]>;
   requestAggregate?: InputMaybe<Scalars["ID"]>;
   requestService?: InputMaybe<Scalars["ID"]>;
+  requestType?: InputMaybe<Array<InputMaybe<ComponentBlocksRequestTypeInput>>>;
 };
 
 export type RequestRelationResponseCollection = {
@@ -7636,7 +7720,6 @@ export type RequestServiceCitiesArgs = {
 export type RequestServiceRequestsArgs = {
   filters?: InputMaybe<RequestFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 

@@ -4,7 +4,7 @@ import {
   IQuestionOption,
 } from "../../../../pages/mon-compteur-dechets/eligibilite/questionDatas";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
-import EligibilityRecycling from "public/images/formes_gray.svg";
+import EligibilityRecycling from "public/images/particulier-professionnel.svg";
 
 interface Step1Props {
   question: IQuestion;
@@ -16,12 +16,12 @@ const Step1: React.FC<Step1Props> = ({ question, handleOptionClick }) => {
     <div className="o-Steps">
       <EligibilityRecycling className="o-Steps__Image" />
       <div className="o-Steps__Container">
-        <EligibilityRecycling className="o-Steps__Image" />
         {/* <div className="o-Steps__TitleContainer"> */}
         <CommonBlockHeading
           titleContent={question.title}
           subTitle={question.text}
         />
+        <EligibilityRecycling className="o-Steps__Image" />
         <div className="o-Steps__CardContainer">
           <p className="o-Steps__SubText">{question.subText}</p>
           {question.options.map((option: IQuestionOption, index: number) => (

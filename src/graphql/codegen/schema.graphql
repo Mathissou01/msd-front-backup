@@ -841,6 +841,22 @@ type ComponentBlocksCheckbox {
   labelCheckbox: String!
 }
 
+type ComponentBlocksCommentary {
+  commentaryLabel: String!
+  commentaryPlaceholder: String
+  commentaryStatus: ENUM_COMPONENTBLOCKSCOMMENTARY_COMMENTARYSTATUS!
+  id: ID!
+}
+
+type ComponentBlocksCumbersome {
+  cumbersomeLabel: String!
+  cumbersomeLimitMessage: String!
+  id: ID!
+  isNumberAndVolume: Boolean!
+  maxNumberOfCumbersome: Int
+  maxVolumeOfCumbersome: Float
+}
+
 type ComponentBlocksDateChoice {
   fieldLabelDateChoice: String!
   fieldStatus: ENUM_COMPONENTBLOCKSDATECHOICE_FIELDSTATUS!
@@ -913,6 +929,29 @@ type ComponentBlocksQuestions {
   questionTextLabel: String!
   questionTextPlaceholder: String!
   textStatus: ENUM_COMPONENTBLOCKSQUESTIONS_TEXTSTATUS!
+}
+
+type ComponentBlocksRequestType {
+  email: String
+  id: ID!
+  isEmail: Boolean
+  title: String!
+}
+
+input ComponentBlocksRequestTypeFiltersInput {
+  and: [ComponentBlocksRequestTypeFiltersInput]
+  email: StringFilterInput
+  isEmail: BooleanFilterInput
+  not: ComponentBlocksRequestTypeFiltersInput
+  or: [ComponentBlocksRequestTypeFiltersInput]
+  title: StringFilterInput
+}
+
+input ComponentBlocksRequestTypeInput {
+  email: String
+  id: ID
+  isEmail: Boolean
+  title: String
 }
 
 type ComponentBlocksSubHeading {
@@ -2168,6 +2207,11 @@ enum ENUM_COMPONENTBLOCKSCHECKBOX_FIELDSTATUSCHECKBOX {
   Optionnel
 }
 
+enum ENUM_COMPONENTBLOCKSCOMMENTARY_COMMENTARYSTATUS {
+  Facultatif
+  Obligatoire
+}
+
 enum ENUM_COMPONENTBLOCKSDATECHOICE_FIELDSTATUS {
   Obligatoire
   Optionnel
@@ -3286,6 +3330,8 @@ union GenericMorph =
   | ComponentBlocksAddress
   | ComponentBlocksAttachments
   | ComponentBlocksCheckbox
+  | ComponentBlocksCommentary
+  | ComponentBlocksCumbersome
   | ComponentBlocksDateChoice
   | ComponentBlocksDownloadBlock
   | ComponentBlocksFile
@@ -3295,6 +3341,7 @@ union GenericMorph =
   | ComponentBlocksProofOfReceipt
   | ComponentBlocksQcm
   | ComponentBlocksQuestions
+  | ComponentBlocksRequestType
   | ComponentBlocksSubHeading
   | ComponentBlocksTest
   | ComponentBlocksUser
@@ -4031,6 +4078,7 @@ type Mutation {
     serviceId: ID!
     startDate: Date
   ): ServiceActivated
+  setFlowIsActivated(code: String!, id: ID!, isActivated: Boolean!): FlowEntity
   singleUploadCustom(file: Upload!): File!
   updateAccessibility(
     data: AccessibilityInput!
@@ -4610,12 +4658,18 @@ type PickUpDay {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): CityRelationResponseCollection
+  collectDoorToDoor: CollectDoorToDoorEntityResponse
+  collectVoluntary: CollectVoluntaryEntityResponse
   createdAt: DateTime
   description: String
   flow: FlowEntityResponse
   name: String!
   pickUpDayService: PickUpDayServiceEntityResponse
-  sectorization: SectorizationEntityResponse
+  sectorizations(
+    filters: SectorizationFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): SectorizationRelationResponseCollection
   updatedAt: DateTime
 }
 
@@ -4636,6 +4690,8 @@ type PickUpDayEntityResponseCollection {
 input PickUpDayFiltersInput {
   and: [PickUpDayFiltersInput]
   cities: CityFiltersInput
+  collectDoorToDoor: CollectDoorToDoorFiltersInput
+  collectVoluntary: CollectVoluntaryFiltersInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
   flow: FlowFiltersInput
@@ -4644,17 +4700,19 @@ input PickUpDayFiltersInput {
   not: PickUpDayFiltersInput
   or: [PickUpDayFiltersInput]
   pickUpDayService: PickUpDayServiceFiltersInput
-  sectorization: SectorizationFiltersInput
+  sectorizations: SectorizationFiltersInput
   updatedAt: DateTimeFilterInput
 }
 
 input PickUpDayInput {
   cities: [ID]
+  collectDoorToDoor: ID
+  collectVoluntary: ID
   description: String
   flow: ID
   name: String
   pickUpDayService: ID
-  sectorization: ID
+  sectorizations: [ID]
 }
 
 type PickUpDayRelationResponseCollection {
@@ -5124,7 +5182,6 @@ type Query {
   requests(
     filters: RequestFiltersInput
     pagination: PaginationArg = {}
-    publicationState: PublicationState = LIVE
     sort: [String] = []
   ): RequestEntityResponseCollection
   searchAddress(address: String, limit: Int): [Address]
@@ -5586,12 +5643,19 @@ type RecyclingGuideServiceRelationResponseCollection {
 type Request {
   addableBlocks: [RequestAddableBlocksDynamicZone]
   blockText: String
+  confirmationMessage: String
   createdAt: DateTime
   description: String
+  hasSeveralRequestTypes: Boolean!
+  isActivated: Boolean
   name: String
-  publishedAt: DateTime
   requestAggregate: RequestAggregateEntityResponse
   requestService: RequestServiceEntityResponse!
+  requestType(
+    filters: ComponentBlocksRequestTypeFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): [ComponentBlocksRequestType]
   updatedAt: DateTime
 }
 
@@ -5599,6 +5663,8 @@ union RequestAddableBlocksDynamicZone =
     ComponentBlocksAddress
   | ComponentBlocksAttachments
   | ComponentBlocksCheckbox
+  | ComponentBlocksCommentary
+  | ComponentBlocksCumbersome
   | ComponentBlocksDateChoice
   | ComponentBlocksProofOfReceipt
   | ComponentBlocksQcm
@@ -5614,7 +5680,6 @@ type RequestAggregate {
   requests(
     filters: RequestFiltersInput
     pagination: PaginationArg = {}
-    publicationState: PublicationState = LIVE
     sort: [String] = []
   ): RequestRelationResponseCollection
   updatedAt: DateTime
@@ -5673,15 +5738,18 @@ union RequestFileOrFolder = Files | Folders
 input RequestFiltersInput {
   and: [RequestFiltersInput]
   blockText: StringFilterInput
+  confirmationMessage: StringFilterInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
+  hasSeveralRequestTypes: BooleanFilterInput
   id: IDFilterInput
+  isActivated: BooleanFilterInput
   name: StringFilterInput
   not: RequestFiltersInput
   or: [RequestFiltersInput]
-  publishedAt: DateTimeFilterInput
   requestAggregate: RequestAggregateFiltersInput
   requestService: RequestServiceFiltersInput
+  requestType: ComponentBlocksRequestTypeFiltersInput
   updatedAt: DateTimeFilterInput
 }
 
@@ -5706,11 +5774,14 @@ type RequestFolders {
 input RequestInput {
   addableBlocks: [RequestAddableBlocksDynamicZoneInput!]
   blockText: String
+  confirmationMessage: String
   description: String
+  hasSeveralRequestTypes: Boolean
+  isActivated: Boolean
   name: String
-  publishedAt: DateTime
   requestAggregate: ID
   requestService: ID
+  requestType: [ComponentBlocksRequestTypeInput]
 }
 
 type RequestRelationResponseCollection {
@@ -5736,7 +5807,6 @@ type RequestService {
   requests(
     filters: RequestFiltersInput
     pagination: PaginationArg = {}
-    publicationState: PublicationState = LIVE
     sort: [String] = []
   ): RequestRelationResponseCollection
   startDate: Date

@@ -5,18 +5,18 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import { useSearchAddressQuery } from "../../../../graphql/codegen/generated-types";
+import useDebounce from "../../../../hooks/useDebounce";
 import { IQuestion } from "../../../../pages/mon-compteur-dechets/eligibilite/questionDatas";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
 import CommonButton from "../../../Common/CommonButton/CommonButton";
-import EligibilityAdress from "public/images/eligibility-recycle.svg";
-import useDebounce from "../../../../hooks/useDebounce";
-import "./step3.scss";
 import AddressBlock from "../AddressBlock/AddressBlock";
-import { IError } from "../../../../pages/mon-compteur-dechets/eligibilite/index.page";
 import AutocompleteAddress from "../AutocompleteAddress/AutocompleteAddress";
-import { useSearchAddressQuery } from "../../../../graphql/codegen/generated-types";
 import { AddressOption } from "../../../../lib/address-option";
 import { User } from "../../../../lib/user";
+import { IError } from "../../../../pages/mon-compteur-dechets/eligibilite/index.page";
+import EligibilityAdress from "public/images/adresse-postale.svg";
+import "./step3.scss";
 
 interface Step3Props {
   question: IQuestion;
@@ -74,11 +74,11 @@ const Step3: React.FC<Step3Props> = ({
     <div className="o-Steps c-StepAddress">
       <EligibilityAdress className="o-Steps__Image" />
       <div className="o-Steps__Container">
-        <EligibilityAdress className="o-Steps__Image" />
         <CommonBlockHeading
           titleContent={question.title}
           subTitle={question.text}
         />
+        <EligibilityAdress className="o-Steps__Image" />
         <div className="o-Steps__CardContainer">
           <p className="o-Steps__SubText">{question.subText}</p>
           {selectedAddress !== null && selectedAddress !== undefined ? (

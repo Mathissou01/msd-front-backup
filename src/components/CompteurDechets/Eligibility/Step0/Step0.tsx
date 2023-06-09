@@ -1,6 +1,6 @@
 import React from "react";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
-import EligibilityRecycling from "public/images/formes_gray.svg";
+import EligibilityRecycling from "public/images/verification-compte.svg";
 import {
   IQuestion,
   IQuestionOption,
@@ -16,22 +16,24 @@ const Step0: React.FC<Step0Props> = ({ question, handleOptionClick }) => {
     <div className="o-Steps">
       <EligibilityRecycling className="o-Steps__Image" />
       <div className="o-Steps__Container">
-        <EligibilityRecycling className="o-Steps__Image" />
         <CommonBlockHeading
           titleContent={question.title}
           subTitle={question.text}
         />
+        <EligibilityRecycling className="o-Steps__Image" />
 
         <div className="o-Steps__CardContainer">
-          {question.options.map((option: IQuestionOption, index: number) => (
-            <CommonButton
-              key={index}
-              type="button"
-              style={option.buttonStyle}
-              label={option.text}
-              onClick={() => handleOptionClick(option.next || 0)}
-            />
-          ))}
+          <div className="o-Steps__CardButtons">
+            {question.options.map((option: IQuestionOption, index: number) => (
+              <CommonButton
+                key={index}
+                type="button"
+                style={option.buttonStyle}
+                label={option.text}
+                onClick={() => handleOptionClick(option.next || 0)}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

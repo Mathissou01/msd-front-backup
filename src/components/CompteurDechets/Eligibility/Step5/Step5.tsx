@@ -1,9 +1,9 @@
 import React, { Dispatch, SetStateAction } from "react";
 import "./step5.scss";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
-import { IQuestion } from "../../../../pages/mon-compteur-dechets/eligibilite/questionDatas";
 import CommonButton from "../../../Common/CommonButton/CommonButton";
-import EligibilityPersons from "public/images/eligibility-recycle.svg";
+import { IQuestion } from "../../../../pages/mon-compteur-dechets/eligibilite/questionDatas";
+import EligibilityPersons from "public/images/membre-foyer.svg";
 
 interface Step5Props {
   question: IQuestion;
@@ -37,8 +37,8 @@ const Step5: React.FC<Step5Props> = ({
     <div className="o-Steps c-Step5">
       <EligibilityPersons className="o-Steps__Image" />
       <div className="o-Steps__Container">
-        <EligibilityPersons className="o-Steps__Image" />
         <CommonBlockHeading titleContent={question.title} />
+        <EligibilityPersons className="o-Steps__Image" />
 
         <div className="o-Steps__CardContainer">
           <label className="o-Steps__SubText" htmlFor="personsCount">
@@ -68,7 +68,7 @@ const Step5: React.FC<Step5Props> = ({
               +
             </button>
           </div>
-          <div className="c-Step5__ButtonContainer">
+          <div className="o-Steps__ButtonContainer">
             <CommonButton
               type="button"
               style="primary"

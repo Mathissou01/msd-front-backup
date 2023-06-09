@@ -1,18 +1,18 @@
 import React from "react";
 import Image from "next/image";
 import { useState } from "react";
+import CommonButton from "../../../Common/CommonButton/CommonButton";
+import CommonModal from "../../../Common/CommonModal/CommonModal";
+import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
+import GetDataChipId from "../../../Common/CommonChipIdMwc/CommonChipIdMwc";
+import CommonLoader from "../../../Common/CommonLoader/CommonLoader";
 import {
   IQuestion,
   IQuestionOption,
 } from "../../../../pages/mon-compteur-dechets/eligibilite/questionDatas";
-import CommonButton from "../../../Common/CommonButton/CommonButton";
-import CommonModal from "../../../Common/CommonModal/CommonModal";
-import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
 import { IError } from "../../../../pages/mon-compteur-dechets/eligibilite/index.page";
-import EligibilityRecycling from "public/images/formes_gray.svg";
+import EligibilityRecycling from "public/images/id-bac.svg";
 import BacIcon from "public/images/pictos/search.svg";
-import GetDataChipId from "../../../Common/CommonChipIdMwc/CommonChipIdMwc";
-import CommonLoader from "../../../Common/CommonLoader/CommonLoader";
 import "./step4.scss";
 
 interface Step4Props {
@@ -64,7 +64,7 @@ const Step4: React.FC<Step4Props> = ({
               titleContent={question.title}
               subTitle={question.text}
             />
-
+            <EligibilityRecycling className="o-Steps__Image" />
             <div className="o-Steps__CardContainer c-StepIdentiteBacs__CardContainer">
               <CommonLoader isLoading={loading} errors={[error]}>
                 <>
@@ -96,7 +96,7 @@ const Step4: React.FC<Step4Props> = ({
                   </div>
                 </>
               </CommonLoader>
-              <div className="c-StepIdentiteBacs__CardButtons">
+              <div className="o-Steps__CardButtons">
                 {question.options?.map(
                   (option: IQuestionOption, index: number) => (
                     <>
