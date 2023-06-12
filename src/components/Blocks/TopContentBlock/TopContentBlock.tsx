@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import {
+  ComponentLinksTopContent,
   EventEntity,
   GetNewestTopContentsQuery,
   NewEntity,
@@ -37,18 +38,23 @@ export default function TopContentBlock({
 
   /* Local Data */
   const hasTopContent = data.attributes?.hasTopContent;
-  const contentTopNewsOrEvent: NewEntityWithType | EventEntityWithType | null =
-    data.attributes?.topContent?.data?.attributes?.new?.data
+  let contentTopNewsOrEvent: NewEntityWithType | EventEntityWithType | null =
+    null;
+  if (data.attributes?.topContent?.[0]) {
+    const topContent: ComponentLinksTopContent = data.attributes
+      .topContent[0] as ComponentLinksTopContent;
+    contentTopNewsOrEvent = topContent?.new?.data
       ? {
-          ...data.attributes?.topContent?.data?.attributes.new.data,
+          ...topContent.new.data,
           type: "new",
         }
-      : data.attributes?.topContent?.data?.attributes?.event?.data
+      : topContent?.event?.data
       ? {
-          ...data.attributes?.topContent?.data?.attributes?.event?.data,
+          ...topContent.event.data,
           type: "event",
         }
       : null;
+  }
   const displayLastThreeContents = data.attributes?.displayLastThreeContents;
   const threeTopContents =
     newestTopContents?.getNewestTopContents?.filter(removeNulls) ?? [];

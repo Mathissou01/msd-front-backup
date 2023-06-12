@@ -14,69 +14,70 @@ query getTopContentBlock($contractId: ID!) {
                     displayLastThreeContents
                     hasTopContent
                     topContent {
-                      data {
-                        attributes {
-                          new {
-                            data {
-                              id
-                              attributes {
-                                title
-                                shortDescription
-                                publishedDate
-                                tags {
-                                  data {
-                                    attributes {
-                                      name
-                                    }
-                                  }
-                                }
-                                image {
-                                  data {
-                                    attributes {
-                                      hash
-                                      mime
-                                      name
-                                      provider
-                                      size
-                                      url
-                                      alternativeText
-                                    }
+                      ... on ComponentLinksTopContent {
+                        id
+                        event {
+                          data {
+                            id
+                            attributes {
+                              title
+                              shortDescription
+                              tags {
+                                data {
+                                  attributes {
+                                    name
                                   }
                                 }
                               }
-                            }
-                          }
-                          event {
-                            data {
-                              id
-                              attributes {
-                                title
-                                shortDescription
-                                publishedDate
-                                tags {
-                                  data {
-                                    attributes {
-                                      name
-                                    }
-                                  }
-                                }
-                                image {
-                                  data {
-                                    attributes {
-                                      hash
-                                      mime
-                                      name
-                                      provider
-                                      size
-                                      url
-                                      alternativeText
-                                    }
+                              image {
+                                data {
+                                  attributes {
+                                    hash
+                                    mime
+                                    name
+                                    provider
+                                    size
+                                    url
+                                    alternativeText
                                   }
                                 }
                               }
                             }
                           }
                         }
+                        new {
+                          data {
+                            id
+                            attributes {
+                              title
+                              shortDescription
+                              tags {
+                                data {
+                                  attributes {
+                                    name
+                                  }
+                                }
+                              }
+                              image {
+                                data {
+                                  attributes {
+                                    hash
+                                    mime
+                                    name
+                                    provider
+                                    size
+                                    url
+                                    alternativeText
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                      ... on Error {
+                        code
+                        message
                       }
                     }
                   }

@@ -2,6 +2,7 @@ import {
   EditoBlockEntity,
   QuizEntity,
   TipEntity,
+  ComponentLinksEditoContent,
 } from "../../../graphql/codegen/generated-types";
 import {
   editoFields,
@@ -26,7 +27,7 @@ export default function EditoBlock({ data }: IEditoBlockProps) {
   };
   /* Local Data */
   const titleContent = data.attributes?.titleContent ?? "";
-  const editoContents = data.attributes?.editoContents?.data ?? [];
+  const editoContents = data.attributes?.editoContents ?? [];
 
   function renderCardType(
     content: TEditoTypes,
@@ -81,7 +82,9 @@ export default function EditoBlock({ data }: IEditoBlockProps) {
       <div className="c-EditoBlock__Content">
         {editoContents?.map((editoContent, index) => {
           return editoFields.map((typeBlock) => {
-            const content = editoContent.attributes?.[typeBlock]?.data;
+            const content = (editoContent as ComponentLinksEditoContent)[
+              typeBlock
+            ]?.data;
             if (content) {
               return renderCardType(content, typeBlock, index);
             }

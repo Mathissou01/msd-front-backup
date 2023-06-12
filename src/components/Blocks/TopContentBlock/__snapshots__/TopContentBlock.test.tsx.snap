@@ -9,7 +9,7 @@ exports[`TopContentBlock renders titleContent 1`] = `
       class="c-CommonBlockHeading c-CommonBlockHeading_alignLeft"
     >
       <h2>
-        Actualités & Evénements
+        Actualités et événements
       </h2>
       <div
         class="c-CommonBlockHeading__Line"
@@ -17,7 +17,271 @@ exports[`TopContentBlock renders titleContent 1`] = `
     </div>
     <div
       class="c-TopContentBlock__Content"
-    />
+    >
+      <a
+        class="c-TopContentCard"
+        href="/actualites/1"
+      >
+        <div
+          class="c-TopContentCard__Banner"
+        />
+        <div
+          class="c-TopContentCard__CardContainer"
+        >
+          <div
+            class="c-TopContentCard__Card"
+          >
+            <div
+              class="c-TopContentCard__Header"
+            >
+              <div
+                class="c-TopContentCard__Tags"
+              />
+            </div>
+            <div
+              class="c-TopContentCard__Content"
+            >
+              <h2
+                class="c-TopContentCard__Title"
+              >
+                Actu test
+              </h2>
+              <p
+                class="c-TopContentCard__Description"
+              >
+                Test
+              </p>
+            </div>
+            <div
+              class="c-TopContentCard__KnowMore"
+            >
+              <span>
+                En savoir plus
+              </span>
+              <div />
+            </div>
+          </div>
+        </div>
+      </a>
+      <div
+        class="c-TopContentBlock__LastThreeContents"
+      >
+        <a
+          class="c-CommonCardBlock__Container"
+          href="/actualites/1"
+        >
+          <div
+            class="c-CommonCardBlock"
+          >
+            <div
+              class="c-CommonCardBlock__Image"
+            >
+              <img
+                alt=""
+                data-nimg="1"
+                decoding="async"
+                height="309"
+                loading="lazy"
+                src="/_next/image?url=https%3A%2F%2Fstomsdmediadev.blob.core.windows.net%2Fmsd-media-dev%2Fassets-local-modeste%2FCut%2520Down%2520Living%2520Tree.png&w=1080&q=75"
+                srcset="/_next/image?url=https%3A%2F%2Fstomsdmediadev.blob.core.windows.net%2Fmsd-media-dev%2Fassets-local-modeste%2FCut%2520Down%2520Living%2520Tree.png&w=640&q=75 1x, /_next/image?url=https%3A%2F%2Fstomsdmediadev.blob.core.windows.net%2Fmsd-media-dev%2Fassets-local-modeste%2FCut%2520Down%2520Living%2520Tree.png&w=1080&q=75 2x"
+                style="color: transparent;"
+                width="482"
+              />
+            </div>
+            <div
+              class="c-CommonCardBlock__Content"
+            >
+              <div
+                class="c-CommonCardBlock__ContentHeader"
+              >
+                <div
+                  class="c-CommonCardBlock__Tags"
+                >
+                  <span
+                    class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+                  >
+                    Biodéchets
+                  </span>
+                </div>
+                <div
+                  class="c-CommonCardBlock__Date"
+                >
+                  29 décembre 2022
+                </div>
+              </div>
+              <div
+                class="c-CommonCardBlock__ContentBody"
+              >
+                <h3
+                  class="c-CommonCardBlock__Title"
+                >
+                  Suspendisse et est sem
+                </h3>
+                <p
+                  class="c-CommonCardBlock__Description"
+                >
+                  Vestibulum cursus eros ut ligula lobortis auctor. Quisque luctus sagittis tellus
+                </p>
+              </div>
+              <div
+                class="c-CommonCardBlock__Link"
+              >
+                <span>
+                  En savoir plus
+                </span>
+                <div />
+              </div>
+            </div>
+          </div>
+        </a>
+        <a
+          class="c-CommonCardBlock__Container"
+          href="/actualites/2"
+        >
+          <div
+            class="c-CommonCardBlock"
+          >
+            <div
+              class="c-CommonCardBlock__Image"
+            >
+              <img
+                alt=""
+                data-nimg="1"
+                decoding="async"
+                height="309"
+                loading="lazy"
+                src="/_next/image?url=https%3A%2F%2Fstomsdmediadev.blob.core.windows.net%2Fmsd-media-dev%2Fassets-local-modeste%2FCut%2520Down%2520Living%2520Tree.png&w=1080&q=75"
+                srcset="/_next/image?url=https%3A%2F%2Fstomsdmediadev.blob.core.windows.net%2Fmsd-media-dev%2Fassets-local-modeste%2FCut%2520Down%2520Living%2520Tree.png&w=640&q=75 1x, /_next/image?url=https%3A%2F%2Fstomsdmediadev.blob.core.windows.net%2Fmsd-media-dev%2Fassets-local-modeste%2FCut%2520Down%2520Living%2520Tree.png&w=1080&q=75 2x"
+                style="color: transparent;"
+                width="482"
+              />
+            </div>
+            <div
+              class="c-CommonCardBlock__Content"
+            >
+              <div
+                class="c-CommonCardBlock__ContentHeader"
+              >
+                <div
+                  class="c-CommonCardBlock__Tags"
+                >
+                  <span
+                    class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+                  >
+                    Biodéchets
+                  </span>
+                  <span
+                    class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+                  >
+                    Compostage
+                  </span>
+                </div>
+                <div
+                  class="c-CommonCardBlock__Date"
+                >
+                  5 décembre 2022
+                </div>
+              </div>
+              <div
+                class="c-CommonCardBlock__ContentBody"
+              >
+                <h3
+                  class="c-CommonCardBlock__Title"
+                >
+                  Café préparation
+                </h3>
+                <p
+                  class="c-CommonCardBlock__Description"
+                >
+                  Participer à un café réparation avec La Recyclade au café restaurant de la Maison Phare. Vous apprendrez à faire un diagnostic et à réparer votre petit appareil électrique ou électronique de la vie quotidienne
+                </p>
+              </div>
+              <div
+                class="c-CommonCardBlock__Link"
+              >
+                <span>
+                  En savoir plus
+                </span>
+                <div />
+              </div>
+            </div>
+          </div>
+        </a>
+        <a
+          class="c-CommonCardBlock__Container"
+          href="/evenements/3"
+        >
+          <div
+            class="c-CommonCardBlock"
+          >
+            <div
+              class="c-CommonCardBlock__Image"
+            >
+              <img
+                alt=""
+                data-nimg="1"
+                decoding="async"
+                height="309"
+                loading="lazy"
+                src="/_next/image?url=https%3A%2F%2Fstomsdmediadev.blob.core.windows.net%2Fmsd-media-dev%2Fassets-local-modeste%2FCut%2520Down%2520Living%2520Tree.png&w=1080&q=75"
+                srcset="/_next/image?url=https%3A%2F%2Fstomsdmediadev.blob.core.windows.net%2Fmsd-media-dev%2Fassets-local-modeste%2FCut%2520Down%2520Living%2520Tree.png&w=640&q=75 1x, /_next/image?url=https%3A%2F%2Fstomsdmediadev.blob.core.windows.net%2Fmsd-media-dev%2Fassets-local-modeste%2FCut%2520Down%2520Living%2520Tree.png&w=1080&q=75 2x"
+                style="color: transparent;"
+                width="482"
+              />
+            </div>
+            <div
+              class="c-CommonCardBlock__Content"
+            >
+              <div
+                class="c-CommonCardBlock__ContentHeader"
+              >
+                <div
+                  class="c-CommonCardBlock__Tags"
+                >
+                  <span
+                    class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+                  >
+                    Biodéchets
+                  </span>
+                  <span
+                    class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+                  >
+                    Compostage
+                  </span>
+                </div>
+                <div
+                  class="c-CommonCardBlock__Date"
+                >
+                  5 décembre 2022
+                </div>
+              </div>
+              <div
+                class="c-CommonCardBlock__ContentBody"
+              >
+                <h3
+                  class="c-CommonCardBlock__Title"
+                >
+                  Café préparation
+                </h3>
+                <p
+                  class="c-CommonCardBlock__Description"
+                >
+                  Participer à un café réparation avec La Recyclade au café restaurant de la Maison Phare. Vous apprendrez à faire un diagnostic et à réparer votre petit appareil électrique ou électronique de la vie quotidienne
+                </p>
+              </div>
+              <div
+                class="c-CommonCardBlock__Link"
+              >
+                <span>
+                  En savoir plus
+                </span>
+                <div />
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
     <a
       href="/actualites-evenements"
     >
@@ -41,7 +305,7 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
       class="c-CommonBlockHeading c-CommonBlockHeading_alignLeft"
     >
       <h2>
-        Actualités & Evénements
+        Actualités et événements
       </h2>
       <div
         class="c-CommonBlockHeading__Line"
@@ -52,7 +316,7 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
     >
       <a
         class="c-TopContentCard"
-        href="/actualites/15"
+        href="/actualites/1"
       >
         <div
           class="c-TopContentCard__Banner"
@@ -68,23 +332,7 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
             >
               <div
                 class="c-TopContentCard__Tags"
-              >
-                <span
-                  class="c-TopContentCard__Tag c-TopContentCard__Tag_hasBackground"
-                >
-                  Evénement
-                </span>
-                <span
-                  class="c-TopContentCard__Tag c-TopContentCard__Tag_hasBackground"
-                >
-                  Réparation
-                </span>
-              </div>
-              <div
-                class="c-TopContentCard__Date"
-              >
-                5 décembre 2022
-              </div>
+              />
             </div>
             <div
               class="c-TopContentCard__Content"
@@ -92,12 +340,12 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
               <h2
                 class="c-TopContentCard__Title"
               >
-                Lorem ipsum dolor sit amet
+                Actu test
               </h2>
               <p
                 class="c-TopContentCard__Description"
               >
-                consectetur adipiscing elit. Aliquam facilisis tincidunt est
+                Test
               </p>
             </div>
             <div

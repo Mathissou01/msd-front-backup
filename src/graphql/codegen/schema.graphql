@@ -1017,6 +1017,15 @@ type ComponentLinksDropOffMap {
   pointToDisplayOnTheMap: ENUM_COMPONENTLINKSDROPOFFMAP_POINTTODISPLAYONTHEMAP
 }
 
+type ComponentLinksEditoContent {
+  event: EventEntityResponse
+  freeContent: FreeContentEntityResponse
+  id: ID!
+  new: NewEntityResponse
+  quiz: QuizEntityResponse
+  tip: TipEntityResponse
+}
+
 type ComponentLinksEditorial {
   event_sub_service: EventSubServiceEntityResponse
   id: ID!
@@ -1152,6 +1161,12 @@ type ComponentLinksTips {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): TipSubServiceRelationResponseCollection
+}
+
+type ComponentLinksTopContent {
+  event: EventEntityResponse
+  id: ID!
+  new: NewEntityResponse
 }
 
 type Confidentiality {
@@ -2380,11 +2395,7 @@ enum ENUM_WASTEFORM_STATUS {
 type EditoBlock {
   createdAt: DateTime
   displayBlock: Boolean!
-  editoContents(
-    filters: EditoContentFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): EditoContentRelationResponseCollection
+  editoContents: [EditoBlockEditoContentsDynamicZone]
   homepage: HomepageEntityResponse
   titleContent: String!
   updatedAt: DateTime
@@ -2396,6 +2407,10 @@ type EditoBlockDTO {
   id: ID!
   titleContent: String!
 }
+
+union EditoBlockEditoContentsDynamicZone = ComponentLinksEditoContent | Error
+
+scalar EditoBlockEditoContentsDynamicZoneInput
 
 type EditoBlockEntity {
   attributes: EditoBlock
@@ -2415,7 +2430,6 @@ input EditoBlockFiltersInput {
   and: [EditoBlockFiltersInput]
   createdAt: DateTimeFilterInput
   displayBlock: BooleanFilterInput
-  editoContents: EditoContentFiltersInput
   homepage: HomepageFiltersInput
   id: IDFilterInput
   not: EditoBlockFiltersInput
@@ -2426,78 +2440,24 @@ input EditoBlockFiltersInput {
 
 input EditoBlockInput {
   displayBlock: Boolean
-  editoContents: [ID]
+  editoContents: [EditoBlockEditoContentsDynamicZoneInput!]
   homepage: ID
   titleContent: String
 }
 
-type EditoContent {
-  createdAt: DateTime
-  editoBlock: EditoBlockEntityResponse
-  editorialService: EditorialServiceEntityResponse
-  event: EventEntityResponse
-  freeContent: FreeContentEntityResponse
-  new: NewEntityResponse
-  quiz: QuizEntityResponse
-  tip: TipEntityResponse
-  updatedAt: DateTime
-}
-
 type EditoContentDTO {
   attributes: EditoContentDTOAttributes!
+  componentId: ID
   contentType: String!
   id: ID!
   typeName: String!
+  uniqueId: ID!
 }
 
 type EditoContentDTOAttributes {
   publishedDate: DateTime
   status: ENUM_EDITOCONTENTDTO_STATUS
   title: String!
-}
-
-type EditoContentEntity {
-  attributes: EditoContent
-  id: ID
-}
-
-type EditoContentEntityResponse {
-  data: EditoContentEntity
-}
-
-type EditoContentEntityResponseCollection {
-  data: [EditoContentEntity!]!
-  meta: ResponseCollectionMeta!
-}
-
-input EditoContentFiltersInput {
-  and: [EditoContentFiltersInput]
-  createdAt: DateTimeFilterInput
-  editoBlock: EditoBlockFiltersInput
-  editorialService: EditorialServiceFiltersInput
-  event: EventFiltersInput
-  freeContent: FreeContentFiltersInput
-  id: IDFilterInput
-  new: NewFiltersInput
-  not: EditoContentFiltersInput
-  or: [EditoContentFiltersInput]
-  quiz: QuizFiltersInput
-  tip: TipFiltersInput
-  updatedAt: DateTimeFilterInput
-}
-
-input EditoContentInput {
-  editoBlock: ID
-  editorialService: ID
-  event: ID
-  freeContent: ID
-  new: ID
-  quiz: ID
-  tip: ID
-}
-
-type EditoContentRelationResponseCollection {
-  data: [EditoContentEntity!]!
 }
 
 type EditorialService {
@@ -2513,11 +2473,6 @@ type EditorialService {
   contract: ContractEntityResponse
   cookiesSubService: CookiesSubServiceEntityResponse
   createdAt: DateTime
-  editoContents(
-    filters: EditoContentFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): EditoContentRelationResponseCollection
   eventSubService: EventSubServiceEntityResponse
   freeContentSubServices(
     filters: FreeContentSubServiceFiltersInput
@@ -2527,11 +2482,6 @@ type EditorialService {
   newsSubService: NewsSubServiceEntityResponse
   quizSubService: QuizSubServiceEntityResponse
   tipSubService: TipSubServiceEntityResponse
-  topContents(
-    filters: TopContentFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): TopContentRelationResponseCollection
   updatedAt: DateTime
 }
 
@@ -2559,7 +2509,6 @@ input EditorialServiceFiltersInput {
   contract: ContractFiltersInput
   cookiesSubService: CookiesSubServiceFiltersInput
   createdAt: DateTimeFilterInput
-  editoContents: EditoContentFiltersInput
   eventSubService: EventSubServiceFiltersInput
   freeContentSubServices: FreeContentSubServiceFiltersInput
   id: IDFilterInput
@@ -2568,7 +2517,6 @@ input EditorialServiceFiltersInput {
   or: [EditorialServiceFiltersInput]
   quizSubService: QuizSubServiceFiltersInput
   tipSubService: TipSubServiceFiltersInput
-  topContents: TopContentFiltersInput
   updatedAt: DateTimeFilterInput
 }
 
@@ -2580,13 +2528,11 @@ input EditorialServiceInput {
   contactUsSubService: ID
   contract: ID
   cookiesSubService: ID
-  editoContents: [ID]
   eventSubService: ID
   freeContentSubServices: [ID]
   newsSubService: ID
   quizSubService: ID
   tipSubService: ID
-  topContents: [ID]
 }
 
 type Epci {
@@ -2652,7 +2598,6 @@ type Event {
     sort: [String] = []
   ): DocumentRelationResponseCollection
   draftCreationId: String
-  editoContent: EditoContentEntityResponse
   eventSubService: EventSubServiceEntityResponse
   events(
     filters: EventFiltersInput
@@ -2672,7 +2617,6 @@ type Event {
   ): TagRelationResponseCollection
   title: String!
   toBeUpdated: Boolean
-  topContent: TopContentEntityResponse
   unpublishedDate: DateTime
   updatedAt: DateTime
   versionNumber: Int
@@ -2709,7 +2653,6 @@ input EventFiltersInput {
   customId: StringFilterInput
   documents: DocumentFiltersInput
   draftCreationId: StringFilterInput
-  editoContent: EditoContentFiltersInput
   eventSubService: EventSubServiceFiltersInput
   events: EventFiltersInput
   hasDraft: BooleanFilterInput
@@ -2722,7 +2665,6 @@ input EventFiltersInput {
   tags: TagFiltersInput
   title: StringFilterInput
   toBeUpdated: BooleanFilterInput
-  topContent: TopContentFiltersInput
   unpublishedDate: DateTimeFilterInput
   updatedAt: DateTimeFilterInput
   versionNumber: IntFilterInput
@@ -2733,7 +2675,6 @@ input EventInput {
   customId: String
   documents: [ID]
   draftCreationId: String
-  editoContent: ID
   eventSubService: ID
   events: [ID]
   hasDraft: Boolean
@@ -2745,7 +2686,6 @@ input EventInput {
   tags: [ID]
   title: String
   toBeUpdated: Boolean
-  topContent: ID
   unpublishedDate: DateTime
   versionNumber: Int
 }
@@ -3138,7 +3078,6 @@ type FreeContent {
   createdAt: DateTime
   customId: String
   draftCreationId: String
-  editoContent: EditoContentEntityResponse
   freeContentSubService: FreeContentSubServiceEntityResponse
   hasDraft: Boolean
   image: UploadFileEntityResponse!
@@ -3188,7 +3127,6 @@ input FreeContentFiltersInput {
   createdAt: DateTimeFilterInput
   customId: StringFilterInput
   draftCreationId: StringFilterInput
-  editoContent: EditoContentFiltersInput
   freeContentSubService: FreeContentSubServiceFiltersInput
   hasDraft: BooleanFilterInput
   id: IDFilterInput
@@ -3209,7 +3147,6 @@ input FreeContentInput {
   blocks: [FreeContentBlocksDynamicZoneInput!]
   customId: String
   draftCreationId: String
-  editoContent: ID
   freeContentSubService: ID
   hasDraft: Boolean
   image: ID
@@ -3350,6 +3287,7 @@ union GenericMorph =
   | ComponentLinksAlertNotification
   | ComponentLinksContactUs
   | ComponentLinksDropOffMap
+  | ComponentLinksEditoContent
   | ComponentLinksEditorial
   | ComponentLinksEvents
   | ComponentLinksExternal
@@ -3362,6 +3300,7 @@ union GenericMorph =
   | ComponentLinksRecyclingGuide
   | ComponentLinksRequest
   | ComponentLinksTips
+  | ComponentLinksTopContent
   | Confidentiality
   | ConfidentialitySubService
   | ContactUs
@@ -3376,7 +3315,6 @@ union GenericMorph =
   | DropOffMap
   | DropOffMapService
   | EditoBlock
-  | EditoContent
   | EditorialService
   | Epci
   | Event
@@ -3414,7 +3352,6 @@ union GenericMorph =
   | TerritoryType
   | Tip
   | TipSubService
-  | TopContent
   | TopContentBlock
   | UploadFile
   | UploadFolder
@@ -3842,7 +3779,6 @@ type Mutation {
     data: DropOffMapServiceInput!
   ): DropOffMapServiceEntityResponse
   createEditoBlock(data: EditoBlockInput!): EditoBlockEntityResponse
-  createEditoContent(data: EditoContentInput!): EditoContentEntityResponse
   createEditorialService(
     data: EditorialServiceInput!
   ): EditorialServiceEntityResponse
@@ -3919,7 +3855,6 @@ type Mutation {
   createTerritoryType(data: TerritoryTypeInput!): TerritoryTypeEntityResponse
   createTip(data: TipInput!): TipEntityResponse
   createTipSubService(data: TipSubServiceInput!): TipSubServiceEntityResponse
-  createTopContent(data: TopContentInput!): TopContentEntityResponse
   createTopContentBlock(
     data: TopContentBlockInput!
   ): TopContentBlockEntityResponse
@@ -3977,7 +3912,6 @@ type Mutation {
   deleteDropOffMap(id: ID!): DropOffMapEntityResponse
   deleteDropOffMapService(id: ID!): DropOffMapServiceEntityResponse
   deleteEditoBlock(id: ID!): EditoBlockEntityResponse
-  deleteEditoContent(id: ID!): EditoContentEntityResponse
   deleteEditorialService(id: ID!): EditorialServiceEntityResponse
   deleteEpci(id: ID!): EpciEntityResponse
   deleteEvent(id: ID!): EventEntityResponse
@@ -4014,7 +3948,6 @@ type Mutation {
   deleteTerritoryType(id: ID!): TerritoryTypeEntityResponse
   deleteTip(id: ID!): TipEntityResponse
   deleteTipSubService(id: ID!): TipSubServiceEntityResponse
-  deleteTopContent(id: ID!): TopContentEntityResponse
   deleteTopContentBlock(id: ID!): TopContentBlockEntityResponse
   deleteUploadFile(id: ID!): UploadFileEntityResponse
   deleteUploadFolder(id: ID!): UploadFolderEntityResponse
@@ -4165,10 +4098,6 @@ type Mutation {
     id: ID!
   ): DropOffMapServiceEntityResponse
   updateEditoBlock(data: EditoBlockInput!, id: ID!): EditoBlockEntityResponse
-  updateEditoContent(
-    data: EditoContentInput!
-    id: ID!
-  ): EditoContentEntityResponse
   updateEditorialService(
     data: EditorialServiceInput!
     id: ID!
@@ -4271,7 +4200,6 @@ type Mutation {
     data: TipSubServiceInput!
     id: ID!
   ): TipSubServiceEntityResponse
-  updateTopContent(data: TopContentInput!, id: ID!): TopContentEntityResponse
   updateTopContentBlock(
     data: TopContentBlockInput!
     id: ID!
@@ -4456,7 +4384,6 @@ type New {
   createdAt: DateTime
   customId: String
   draftCreationId: String
-  editoContent: EditoContentEntityResponse
   hasDraft: Boolean
   image: UploadFileEntityResponse
   linkToServices: [NewLinkToServicesDynamicZone]
@@ -4471,7 +4398,6 @@ type New {
   ): TagRelationResponseCollection
   title: String!
   toBeUpdated: Boolean
-  topContent: TopContentEntityResponse
   unpublishedDate: DateTime
   updatedAt: DateTime
   versionNumber: Int
@@ -4509,7 +4435,6 @@ input NewFiltersInput {
   createdAt: DateTimeFilterInput
   customId: StringFilterInput
   draftCreationId: StringFilterInput
-  editoContent: EditoContentFiltersInput
   hasDraft: BooleanFilterInput
   id: IDFilterInput
   newsSubService: NewsSubServiceFiltersInput
@@ -4521,7 +4446,6 @@ input NewFiltersInput {
   tags: TagFiltersInput
   title: StringFilterInput
   toBeUpdated: BooleanFilterInput
-  topContent: TopContentFiltersInput
   unpublishedDate: DateTimeFilterInput
   updatedAt: DateTimeFilterInput
   versionNumber: IntFilterInput
@@ -4533,7 +4457,6 @@ input NewInput {
   channels: [ID]
   customId: String
   draftCreationId: String
-  editoContent: ID
   hasDraft: Boolean
   image: ID
   linkToServices: [NewLinkToServicesDynamicZoneInput!]
@@ -4544,7 +4467,6 @@ input NewInput {
   tags: [ID]
   title: String
   toBeUpdated: Boolean
-  topContent: ID
   unpublishedDate: DateTime
   versionNumber: Int
 }
@@ -4970,12 +4892,6 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): EditoBlockEntityResponseCollection
-  editoContent(id: ID): EditoContentEntityResponse
-  editoContents(
-    filters: EditoContentFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): EditoContentEntityResponseCollection
   editorialService(id: ID): EditorialServiceEntityResponse
   editorialServices(
     filters: EditorialServiceFiltersInput
@@ -5066,7 +4982,7 @@ type Query {
   getTopContentDTOs(
     contractId: ID!
     status: ENUM_TOPCONTENTDTO_STATUS
-  ): [TopContentDTO]
+  ): [EditoContentDTO]
   global: GlobalEntityResponse
   homepage(id: ID): HomepageEntityResponse
   homepages(
@@ -5236,18 +5152,12 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): TipEntityResponseCollection
-  topContent(id: ID): TopContentEntityResponse
   topContentBlock(id: ID): TopContentBlockEntityResponse
   topContentBlocks(
     filters: TopContentBlockFiltersInput
     pagination: PaginationArg = {}
     sort: [String] = []
   ): TopContentBlockEntityResponseCollection
-  topContents(
-    filters: TopContentFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): TopContentEntityResponseCollection
   uploadFile(id: ID): UploadFileEntityResponse
   uploadFiles(
     filters: UploadFileFiltersInput
@@ -5297,7 +5207,6 @@ type Quiz {
   createdAt: DateTime
   customId: String
   draftCreationId: String
-  editoContent: EditoContentEntityResponse
   hasDraft: Boolean
   publishedDate: DateTime
   quizSubService: QuizSubServiceEntityResponse
@@ -5390,7 +5299,6 @@ input QuizFiltersInput {
   createdAt: DateTimeFilterInput
   customId: StringFilterInput
   draftCreationId: StringFilterInput
-  editoContent: EditoContentFiltersInput
   hasDraft: BooleanFilterInput
   id: IDFilterInput
   not: QuizFiltersInput
@@ -5410,7 +5318,6 @@ input QuizFiltersInput {
 input QuizInput {
   customId: String
   draftCreationId: String
-  editoContent: ID
   hasDraft: Boolean
   publishedDate: DateTime
   quizSubService: ID
@@ -6217,7 +6124,6 @@ type Tip {
   createdAt: DateTime
   customId: String
   draftCreationId: String
-  editoContent: EditoContentEntityResponse
   hasDraft: Boolean
   image: UploadFileEntityResponse!
   link: String
@@ -6269,7 +6175,6 @@ input TipFiltersInput {
   createdAt: DateTimeFilterInput
   customId: StringFilterInput
   draftCreationId: StringFilterInput
-  editoContent: EditoContentFiltersInput
   hasDraft: BooleanFilterInput
   id: IDFilterInput
   isSystem: BooleanFilterInput
@@ -6293,7 +6198,6 @@ input TipInput {
   blocks: [TipBlocksDynamicZoneInput!]
   customId: String
   draftCreationId: String
-  editoContent: ID
   hasDraft: Boolean
   image: ID
   isSystem: Boolean
@@ -6400,15 +6304,6 @@ type TipSubServiceRelationResponseCollection {
   data: [TipSubServiceEntity!]!
 }
 
-type TopContent {
-  createdAt: DateTime
-  editorialService: EditorialServiceEntityResponse
-  event: EventEntityResponse
-  new: NewEntityResponse
-  topContentBlock: TopContentBlockEntityResponse
-  updatedAt: DateTime
-}
-
 type TopContentBlock {
   createdAt: DateTime
   displayBlock: Boolean!
@@ -6416,7 +6311,7 @@ type TopContentBlock {
   hasTopContent: Boolean!
   homepage: HomepageEntityResponse
   titleContent: String!
-  topContent: TopContentEntityResponse
+  topContent: [TopContentBlockTopContentDynamicZone]
   updatedAt: DateTime
 }
 
@@ -6426,7 +6321,7 @@ type TopContentBlockDTO {
   hasTopContent: Boolean!
   id: ID!
   titleContent: String!
-  topContent: TopContentDTO
+  topContent: EditoContentDTO
 }
 
 type TopContentBlockEntity {
@@ -6454,7 +6349,6 @@ input TopContentBlockFiltersInput {
   not: TopContentBlockFiltersInput
   or: [TopContentBlockFiltersInput]
   titleContent: StringFilterInput
-  topContent: TopContentFiltersInput
   updatedAt: DateTimeFilterInput
 }
 
@@ -6464,59 +6358,12 @@ input TopContentBlockInput {
   hasTopContent: Boolean
   homepage: ID
   titleContent: String
-  topContent: ID
+  topContent: [TopContentBlockTopContentDynamicZoneInput!]
 }
 
-type TopContentDTO {
-  attributes: TopContentDTOAttributes!
-  contentType: String!
-  id: ID!
-  typeName: String!
-}
+union TopContentBlockTopContentDynamicZone = ComponentLinksTopContent | Error
 
-type TopContentDTOAttributes {
-  publishedDate: DateTime
-  status: ENUM_TOPCONTENTDTO_STATUS
-  title: String!
-}
-
-type TopContentEntity {
-  attributes: TopContent
-  id: ID
-}
-
-type TopContentEntityResponse {
-  data: TopContentEntity
-}
-
-type TopContentEntityResponseCollection {
-  data: [TopContentEntity!]!
-  meta: ResponseCollectionMeta!
-}
-
-input TopContentFiltersInput {
-  and: [TopContentFiltersInput]
-  createdAt: DateTimeFilterInput
-  editorialService: EditorialServiceFiltersInput
-  event: EventFiltersInput
-  id: IDFilterInput
-  new: NewFiltersInput
-  not: TopContentFiltersInput
-  or: [TopContentFiltersInput]
-  topContentBlock: TopContentBlockFiltersInput
-  updatedAt: DateTimeFilterInput
-}
-
-input TopContentInput {
-  editorialService: ID
-  event: ID
-  new: ID
-  topContentBlock: ID
-}
-
-type TopContentRelationResponseCollection {
-  data: [TopContentEntity!]!
-}
+scalar TopContentBlockTopContentDynamicZoneInput
 
 scalar Upload
 

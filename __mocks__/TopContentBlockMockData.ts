@@ -3,118 +3,40 @@ import {
   TopContentBlockEntity,
 } from "../src/graphql/codegen/generated-types";
 
-export const defaultMockMinData = {
+export const topContentBlockMockData = {
   __typename: "TopContentBlockEntity",
   id: "1",
   attributes: {
     __typename: "TopContentBlock",
-    titleContent: "Actualités & Evénements",
-    displayBlock: true,
-    displayLastThreeContents: false,
-    hasTopContent: false,
-    topContent: {
-      __typename: "TopContentEntityResponse",
-      data: {
-        __typename: "TopContentEntity",
-        attributes: {
-          __typename: "TopContent",
-          news: {
-            __typename: "NewEntityResponse",
-            data: {
-              __typename: "NewEntity",
-              attributes: {
-                __typename: "New",
-                title: "Café préparation",
-                shortDescription:
-                  "Participer à un café réparation avec La Recyclade au café restaurant de la Maison Phare. Vous apprendrez à faire un diagnostic et à réparer votre petit appareil électrique ou électronique de la vie quotidienne",
-                tags: {
-                  __typename: "TagRelationResponseCollection",
-                  data: [
-                    {
-                      __typename: "TagEntity",
-                      attributes: {
-                        __typename: "Tag",
-                        name: "Evénement",
-                      },
-                    },
-                    {
-                      __typename: "TagEntity",
-                      attributes: {
-                        __typename: "Tag",
-                        name: "Réparation",
-                      },
-                    },
-                  ],
-                },
-                publishedDate: "2022-12-05T15:59:19.503Z",
-                image: {
-                  __typename: "UploadFileEntityResponse",
-                  data: null,
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  },
-} as TopContentBlockEntity;
-
-export const defaultMockFullData = {
-  __typename: "TopContentBlockEntity",
-  id: "1",
-  attributes: {
-    __typename: "TopContentBlock",
-    titleContent: "Actualités & Evénements",
+    titleContent: "Actualités et événements",
     displayBlock: true,
     displayLastThreeContents: true,
     hasTopContent: true,
-    topContent: {
-      __typename: "TopContentEntityResponse",
-      data: {
-        __typename: "TopContentEntity",
-        attributes: {
-          __typename: "TopContent",
-          new: {
-            __typename: "NewEntityResponse",
-            data: {
-              __typename: "NewEntity",
-              id: "15",
-              attributes: {
-                __typename: "New",
-                title: "Lorem ipsum dolor sit amet",
-                shortDescription:
-                  "consectetur adipiscing elit. Aliquam facilisis tincidunt est",
-                tags: {
-                  __typename: "TagRelationResponseCollection",
-                  data: [
-                    {
-                      __typename: "TagEntity",
-                      attributes: {
-                        __typename: "Tag",
-                        name: "Evénement",
-                      },
-                    },
-                    {
-                      __typename: "TagEntity",
-                      attributes: {
-                        __typename: "Tag",
-                        name: "Réparation",
-                      },
-                    },
-                  ],
-                },
-                publishedDate: "2022-12-05T15:59:19.503Z",
-                image: {
+    topContent: [
+      {
+        __typename: "ComponentLinksTopContent",
+        id: "15",
+        event: { __typename: "EventEntityResponse", data: null },
+        new: {
+          __typename: "NewEntityResponse",
+          data: {
+            __typename: "NewEntity",
+            id: "1",
+            attributes: {
+              __typename: "New",
+              title: "Actu test",
+              shortDescription: "Test",
+              image: [
+                {
                   __typename: "UploadFileEntityResponse",
                   data: null,
                 },
-              },
+              ],
             },
           },
         },
       },
-    },
+    ],
   },
 } as TopContentBlockEntity;
 
