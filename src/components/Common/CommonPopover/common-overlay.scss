@@ -1,7 +1,8 @@
 @use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
 
 .c-Overlay {
-  &__Content {
+  &__Container {
     position: fixed;
     top: 0;
     right: 0;
@@ -16,17 +17,56 @@
   }
 
   &__Modal {
-    max-width: 500px;
+    max-height: 800px;
     padding: 30px;
+    overflow-y: scroll;
     background: colors.$white;
     border-radius: 10px;
-  }
 
-  &__Modal_fullWidth {
-    width: 100%;
-    height: 100%;
-    padding: 20px;
-    border-radius: 0;
+    &_large {
+      width: 100%;
+      @include im.media(">mobile") {
+        width: 80%;
+      }
+    }
+
+    &_small {
+      width: 100%;
+      @include im.media(">mobile") {
+        width: 30%;
+      }
+    }
+
+    &_default {
+      width: 100%;
+      @include im.media(">mobile") {
+        width: 40%;
+      }
+    }
+
+    &_fullWidth {
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      border-radius: 0;
+    }
+
+    &::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+      background-color: colors.$white;
+      border-radius: 15px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: colors.$blue-4;
+      border-radius: 15px;
+    }
+
+    &::-webkit-scrollbar-track {
+      border: 1px solid colors.$blue-4;
+      border-radius: 15px;
+    }
   }
 
   &__CloseIcon {
@@ -39,5 +79,9 @@
     align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 40px;
+  }
+
+  &__BottomButton {
+    margin-top: 32px;
   }
 }

@@ -4,6 +4,7 @@ import CommonMonthSelector from "../../../components/Common/CommonMonthSelector/
 import SectionHeader from "../../../components/CompteurDechets/StatSection/SectionHeader/SectionHeader";
 import { format, subMonths } from "date-fns";
 import { fr } from "date-fns/locale";
+import { useCurrentUser } from "../../../hooks/useCurrentUser";
 import "./my-evolution.scss";
 
 const breadcrumbPages = [
@@ -23,6 +24,7 @@ const breadcrumbPages = [
 
 const MyEvolution = () => {
   const [currentDate, setCurrentDate] = useState(subMonths(new Date(), 1));
+  const { currentUser } = useCurrentUser();
 
   const formattedDate = format(currentDate, "MMMM yyyy", {
     locale: fr,
@@ -41,7 +43,11 @@ const MyEvolution = () => {
         />
         <div className="c-MyEvolution__Content">
           <div className="c-MyEvolution__DateSelectorContent">
-            <CommonMonthSelector date={currentDate} setDate={setCurrentDate} />
+            <CommonMonthSelector
+              date={currentDate}
+              setDate={setCurrentDate}
+              minDate={currentUser?.activationDate}
+            />
           </div>
         </div>
       </div>

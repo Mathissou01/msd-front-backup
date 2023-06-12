@@ -6,6 +6,7 @@ import FlowsBox from "../FlowsBox";
 import MyHomeData from "../../MyHomeData/MyHomeData";
 import Illu_1 from "public/images/illu_1.svg";
 import "./dashboard-waste.scss";
+import LearnMore from "../LearnMore/LearnMore";
 
 const DashboardWaste: React.FC = () => {
   const [showModal, setShowModal] = useState(true);
@@ -72,6 +73,9 @@ const DashboardWaste: React.FC = () => {
         <FlowsBox />
 
         <MyHomeData />
+      </section>
+      <section>
+        <LearnMore />
       </section>
     </div>
   );

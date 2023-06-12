@@ -100,6 +100,7 @@ const MyHomeData = () => {
             button={<Info />}
             content={renderOverlayContent}
             title="Les données de mon foyer"
+            modalSize="large"
           />
         </div>
       </div>

@@ -10,6 +10,7 @@ interface CommonMonthSelectorProps {
   setDate: Dispatch<SetStateAction<Date>>;
   dateFormat?: string;
   amount?: number;
+  minDate?: Date;
 }
 
 const CommonMonthSelector: React.FC<CommonMonthSelectorProps> = ({
@@ -17,17 +18,26 @@ const CommonMonthSelector: React.FC<CommonMonthSelectorProps> = ({
   setDate,
   dateFormat = "MMMM yyyy",
   amount = 1,
+  minDate,
 }) => {
   const handleChangeDate = (amount: number) => {
     setDate((prevDate: Date) => {
       const newDate = addMonths(prevDate, amount);
-      const currentDate = new Date();
-      const previousMonth = subMonths(currentDate, 1);
-      if (newDate > previousMonth) {
-        return previousMonth;
+      const previousMonth = subMonths(new Date(), 1);
+      if (minDate) {
+        const effectiveMinDate = subMonths(new Date(minDate), 1);
+        if (newDate > previousMonth) {
+          return previousMonth;
+        } else if (newDate < effectiveMinDate) {
+          return effectiveMinDate;
+        }
       } else {
-        return newDate;
+        if (newDate > previousMonth) {
+          return previousMonth;
+        }
       }
+
+      return newDate;
     });
   };
 
@@ -38,19 +48,25 @@ const CommonMonthSelector: React.FC<CommonMonthSelectorProps> = ({
 
   return (
     <div className="c-CommonMonthSelector">
-      <button
-        className="c-CommonMonthSelector__Arrow"
-        onClick={() => handleChangeDate(-amount)}
-      >
-        <ArrowBack />
-      </button>
+      {minDate && subMonths(new Date(minDate), 1) < new Date(date) && (
+        <button
+          className="c-CommonMonthSelector__Arrow"
+          onClick={() => handleChangeDate(-amount)}
+        >
+          <ArrowBack />
+        </button>
+      )}
+
       <span className="c-CommonMonthSelector__Date">{formattedDate}</span>
-      <button
-        className="c-CommonMonthSelector__Arrow"
-        onClick={() => handleChangeDate(amount)}
-      >
-        <ArrowRegular />
-      </button>
+      {new Date(date).toISOString().substring(0, 10) !==
+        subMonths(new Date(), 1).toISOString().substring(0, 10) && (
+        <button
+          className="c-CommonMonthSelector__Arrow"
+          onClick={() => handleChangeDate(amount)}
+        >
+          <ArrowRegular />
+        </button>
+      )}
     </div>
   );
 };
