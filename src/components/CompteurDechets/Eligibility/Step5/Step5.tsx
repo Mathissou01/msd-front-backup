@@ -68,12 +68,20 @@ const Step5: React.FC<Step5Props> = ({
               +
             </button>
           </div>
+          <p className="c-Step5__ErrorMessage">
+            {personsCount > 20 &&
+              "Merci de vérifier le nombre de personnes dans votre foyer"}
+          </p>
           <div className="o-Steps__ButtonContainer">
             <CommonButton
               type="button"
               style="primary"
               label={question.options[0].text}
-              onClick={() => handleOptionClick(question.options[0].next)}
+              onClick={() =>
+                personsCount <= 20 &&
+                handleOptionClick(question.options[0].next)
+              }
+              isDisabled={personsCount > 20}
             />
             <p className="c-Step5__RGPD">
               L’activation de Mon Compteur Déchets entrainera le traitement de
