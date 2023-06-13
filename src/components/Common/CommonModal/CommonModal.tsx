@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-import CommonButton from "../../Common/CommonButton/CommonButton";
 import "./common-modal.scss";
 
 type ModalProps = {
@@ -20,14 +19,11 @@ const CommonModal = ({
   return (
     <>
       <div className="c-CommonModal">
-        <div className="c-CommonModal__Closebtn">
-          <CommonButton
-            style={null}
-            type={"button"}
-            isDisabled={false}
-            onClick={handleClose}
-          />
-        </div>
+        <button
+          className="c-CommonModal__Closebtn"
+          type="button"
+          onClick={handleClose}
+        ></button>
         <div className="c-CommonModal__Container">
           {headerIllu && (
             <div className="c-CommonModal__Illustration">{headerIllu}</div>

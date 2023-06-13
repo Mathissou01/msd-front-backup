@@ -2,8 +2,8 @@
 
 .c-CommonModal {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: calc(50% - 30px);
+  left: calc(50% - 103px);
   z-index: 11;
   display: flex;
   flex-direction: column;
