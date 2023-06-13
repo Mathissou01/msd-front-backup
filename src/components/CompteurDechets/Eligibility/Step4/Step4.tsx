@@ -130,7 +130,20 @@ const Step4: React.FC<Step4Props> = ({
                   className="o-Steps__CardButtons_openmodal"
                   onClick={() => setShowModal(true)}
                 >
-                  Où trouver mon numéro de bac ?
+                  <CommonButton
+                    type="button"
+                    style={null}
+                    label="Où trouver mon numéro de bac ?"
+                    onClick={() =>
+                      handleError({
+                        isActive: true,
+                        isAddressVisible: false,
+                        isReasonVisible: false,
+                        isContactVisible: true,
+                        title: "Votre code est détérioré ou introuvable ?",
+                      })
+                    }
+                  />
                 </button>
               </div>
             </div>
