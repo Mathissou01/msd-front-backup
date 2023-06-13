@@ -44,12 +44,15 @@ parameters:
       - smile
       - production
 
+pool:
+  vmImage: ubuntu-latest
+
 stages:
   - stage: Build
-    pool:
-      name: "MSD Self hosted agents"
-      demands:
-        - environment -equals ${{ variables.env }}
+    # pool:
+      # name: "MSD Self hosted agents"
+      # demands:
+        # - environment -equals ${{ variables.env }}
     displayName: CI tasks
     jobs:
       - template: azure-pipelines/build.yml
@@ -57,8 +60,6 @@ stages:
           env: ${{ variables.env }}
 
   - stage: Release
-    pool:
-      vmImage: ubuntu-latest
     displayName: Service update on Azure Cloud
     condition: and(eq(variables.release${{ upper(variables.env) }}, 'true'), succeeded())
     variables:

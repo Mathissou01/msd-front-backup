@@ -5,17 +5,19 @@ parameters:
 
 jobs:
   - job: msd_fo_site_build_install
-    displayName: Install node modules
+    displayName: Build and test tasks
+    # displayName: Install node modules
+    # FIXME: Restore parallel jobs when IT4US solves self-hosted agents issues
     steps:
       - template: build/node.yml
 
       - template: build/install.yml
 
-  - job: msd_fo_site_build_test
-    displayName: Run tests
-    dependsOn: msd_fo_site_build_install
-    steps:
-      - template: build/node.yml
+  # - job: msd_fo_site_build_test
+    # displayName: Run tests
+    # dependsOn: msd_fo_site_build_install
+    # steps:
+      # - template: build/node.yml
 
       - template: build/pre-tests.yml
 
@@ -23,11 +25,11 @@ jobs:
         parameters:
           env: ${{ parameters.env }}
 
-  - job: msd_fo_site_build_package
-    dependsOn: msd_fo_site_build_install
-    displayName: Build package
-    steps:
-      - template: build/node.yml
+  # - job: msd_fo_site_build_package
+    # dependsOn: msd_fo_site_build_install
+    # displayName: Build package
+    # steps:
+      # - template: build/node.yml
 
       - template: build/export.yml
         parameters:
