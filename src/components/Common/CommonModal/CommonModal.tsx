@@ -20,12 +20,14 @@ const CommonModal = ({
   return (
     <>
       <div className="c-CommonModal">
-        <CommonButton
-          style={null}
-          type={"button"}
-          isDisabled={false}
-          onClick={handleClose}
-        />
+        <div className="c-CommonModal__Closebtn">
+          <CommonButton
+            style={null}
+            type={"button"}
+            isDisabled={false}
+            onClick={handleClose}
+          />
+        </div>
         <div className="c-CommonModal__Container">
           {headerIllu && (
             <div className="c-CommonModal__Illustration">{headerIllu}</div>
