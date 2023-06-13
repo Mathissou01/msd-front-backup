@@ -3,60 +3,73 @@ import "./error-contact-block.scss";
 import MailIcon from "public/images/pictos/send_mail.svg";
 import AdressIcon from "public/images/pictos/maps_pin.svg";
 import PhoneIcon from "public/images/pictos/headphones.svg";
+import { useGetContactMwcQuery } from "../../../../graphql/codegen/generated-types";
 
 const ErrorContactBlock = () => {
-  const a: { [key: string]: { [key: string]: string }[] } = {
-    email: [
-      {
-        label: "Par email",
-        value: "support.tri@collectivite.fr",
-        type: "email",
-      },
-    ],
-    address: [
-      {
-        label: "Par courrier",
-        value: "24 rue de la gare 82000 Montauban",
-        type: "address",
-      },
-    ],
-    phone: [
-      {
-        label: "Par téléphone",
-        value: "01 23 45 67 89",
-        type: "phone",
-      },
-    ],
-  };
+  const contractIdString = process.env.NEXT_PUBLIC_CONTRACT_ID;
+  const contractId = contractIdString;
 
-  const renderIcon = (type: string) => {
-    switch (type) {
-      case "email":
-        return <MailIcon />;
-      case "address":
-        return <AdressIcon />;
-      case "phone":
-        return <PhoneIcon />;
-    }
-  };
+  const { data } = useGetContactMwcQuery({
+    variables: {
+      filters: {
+        contract: {
+          id: {
+            eq: contractId,
+          },
+        },
+      },
+    },
+  });
+
+  const contactData =
+    data?.mwCounterServices?.data[0]?.attributes?.mwcContact?.data?.attributes;
+
+  const contactBlocks = [
+    {
+      key: "email",
+      label: "Par email",
+      value: contactData?.contactEmail || "",
+      type: "email",
+      icon: <MailIcon />,
+      hasData: !!contactData?.contactEmail,
+    },
+    {
+      key: "address",
+      label: "Par courrier",
+      value: contactData?.postalAddress || "",
+      type: "address",
+      icon: <AdressIcon />,
+      hasData: !!contactData?.postalAddress,
+    },
+    {
+      key: "phone",
+      label: "Par téléphone",
+      value: contactData?.phoneNumber
+        ? contactData?.phoneNumber.toString()
+        : "",
+      type: "phone",
+      icon: <PhoneIcon />,
+      hasData: !!contactData?.phoneNumber,
+    },
+  ];
 
   return (
     <div className="c-ContactBlock">
-      {Object.keys(a).map((key: string, i: number) => (
-        <div key={i} className="c-ContactBlock__CardContainer">
-          {a[key].map((item: { [key: string]: string }, index: number) => (
-            <div key={index} className="c-ContactBlock__Card">
-              {renderIcon(item.type)}
+      {contactBlocks
+        .filter((block) => block.hasData)
+        .map((block, index) => (
+          <div key={index} className="c-ContactBlock__CardContainer">
+            <div className="c-ContactBlock__Card">
+              {block.icon}
               <div>
-                <p>{item.label}</p>
+                <p>{block.label}</p>
                 <p>
-                  <strong>{item.value}</strong>
+                  <strong>{block.value}</strong>
                 </p>
               </div>
             </div>
-          ))}
-        </div>
-      ))}
+          </div>
+        ))}
     </div>
   );
 };

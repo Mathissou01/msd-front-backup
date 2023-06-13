@@ -1299,6 +1299,16 @@ input ConfidentialitySubServiceInput {
   name: String
 }
 
+type ContactResponse {
+  city: String
+  contactEmail: String
+  contractId: Int
+  phoneNumber: Int
+  postalAddress: String
+  postalCode: Int
+  serviceName: String
+}
+
 type ContactUs {
   blocks: [ContactUsBlocksDynamicZone]
   createdAt: DateTime
@@ -3331,6 +3341,7 @@ union GenericMorph =
   | KeyMetric
   | KeyMetricsService
   | MwCounterService
+  | MwcContact
   | MyWasteCounter
   | New
   | NewsSubService
@@ -3816,6 +3827,7 @@ type Mutation {
   createMwCounterService(
     data: MwCounterServiceInput!
   ): MwCounterServiceEntityResponse
+  createMwcContact(data: MwcContactInput!): MwcContactEntityResponse
   createMyWasteCounter(data: MyWasteCounterInput!): MyWasteCounterEntityResponse
   createNew(data: NewInput!): NewEntityResponse
   createNewFolder(
@@ -3927,6 +3939,7 @@ type Mutation {
   deleteKeyMetric(id: ID!): KeyMetricEntityResponse
   deleteKeyMetricsService(id: ID!): KeyMetricsServiceEntityResponse
   deleteMwCounterService(id: ID!): MwCounterServiceEntityResponse
+  deleteMwcContact(id: ID!): MwcContactEntityResponse
   deleteMyWasteCounter(id: ID!): MyWasteCounterEntityResponse
   deleteNew(id: ID!): NewEntityResponse
   deleteNewsSubService(id: ID!): NewsSubServiceEntityResponse
@@ -4064,6 +4077,15 @@ type Mutation {
     data: ConfidentialitySubServiceInput!
     id: ID!
   ): ConfidentialitySubServiceEntityResponse
+  updateContactMwc(
+    city: String
+    contactEmail: String
+    contractId: Int
+    phoneNumber: Int
+    postalAddress: String
+    postalCode: Int
+    serviceName: String
+  ): ContactResponse
   updateContactUs(data: ContactUsInput!, id: ID!): ContactUsEntityResponse
   updateContactUsSubService(
     data: ContactUsSubServiceInput!
@@ -4137,6 +4159,7 @@ type Mutation {
     data: MwCounterServiceInput!
     id: ID!
   ): MwCounterServiceEntityResponse
+  updateMwcContact(data: MwcContactInput!, id: ID!): MwcContactEntityResponse
   updateMyWasteCounter(
     data: MyWasteCounterInput!
     id: ID!
@@ -4272,6 +4295,7 @@ type MwCounterService {
   description: String
   endDate: Date
   isActivated: Boolean!
+  mwcContact: MwcContactEntityResponse
   name: String
   startDate: Date
   updatedAt: DateTime
@@ -4302,6 +4326,7 @@ input MwCounterServiceFiltersInput {
   endDate: DateFilterInput
   id: IDFilterInput
   isActivated: BooleanFilterInput
+  mwcContact: MwcContactFiltersInput
   name: StringFilterInput
   not: MwCounterServiceFiltersInput
   or: [MwCounterServiceFiltersInput]
@@ -4317,12 +4342,68 @@ input MwCounterServiceInput {
   description: String
   endDate: Date
   isActivated: Boolean
+  mwcContact: ID
   name: String
   startDate: Date
 }
 
 type MwCounterServiceRelationResponseCollection {
   data: [MwCounterServiceEntity!]!
+}
+
+type MwcContact {
+  MwCounterService: MwCounterServiceEntityResponse
+  city: String
+  contactEmail: String
+  contractId: Int
+  createdAt: DateTime
+  phoneNumber: Long
+  postalAddress: String
+  postalCode: Int
+  serviceName: String
+  updatedAt: DateTime
+}
+
+type MwcContactEntity {
+  attributes: MwcContact
+  id: ID
+}
+
+type MwcContactEntityResponse {
+  data: MwcContactEntity
+}
+
+type MwcContactEntityResponseCollection {
+  data: [MwcContactEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input MwcContactFiltersInput {
+  MwCounterService: MwCounterServiceFiltersInput
+  and: [MwcContactFiltersInput]
+  city: StringFilterInput
+  contactEmail: StringFilterInput
+  contractId: IntFilterInput
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  not: MwcContactFiltersInput
+  or: [MwcContactFiltersInput]
+  phoneNumber: LongFilterInput
+  postalAddress: StringFilterInput
+  postalCode: IntFilterInput
+  serviceName: StringFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input MwcContactInput {
+  MwCounterService: ID
+  city: String
+  contactEmail: String
+  contractId: Int
+  phoneNumber: Long
+  postalAddress: String
+  postalCode: Int
+  serviceName: String
 }
 
 type MyWasteCounter {
@@ -4961,6 +5042,7 @@ type Query {
     houseNumber: String
     street: String
   ): [Data]
+  getContactMwc(contractId: Int): ContactResponse
   getContentTypeDTOs(contractId: ID!): [ContentTypeDTO]
   getDropOffCollectType(contractId: ID!): [collectType]
   getEditoBlockDTO(
@@ -5018,6 +5100,12 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): MwCounterServiceEntityResponseCollection
+  mwcContact(id: ID): MwcContactEntityResponse
+  mwcContacts(
+    filters: MwcContactFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): MwcContactEntityResponseCollection
   myWasteCounter(id: ID): MyWasteCounterEntityResponse
   myWasteCounters(
     filters: MyWasteCounterFiltersInput

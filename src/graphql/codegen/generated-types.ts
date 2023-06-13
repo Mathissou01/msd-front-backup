@@ -1513,6 +1513,17 @@ export type ConfidentialitySubServiceInput = {
   name?: InputMaybe<Scalars["String"]>;
 };
 
+export type ContactResponse = {
+  __typename?: "ContactResponse";
+  city?: Maybe<Scalars["String"]>;
+  contactEmail?: Maybe<Scalars["String"]>;
+  contractId?: Maybe<Scalars["Int"]>;
+  phoneNumber?: Maybe<Scalars["Int"]>;
+  postalAddress?: Maybe<Scalars["String"]>;
+  postalCode?: Maybe<Scalars["Int"]>;
+  serviceName?: Maybe<Scalars["String"]>;
+};
+
 export type ContactUs = {
   __typename?: "ContactUs";
   blocks?: Maybe<Array<Maybe<ContactUsBlocksDynamicZone>>>;
@@ -3722,6 +3733,7 @@ export type GenericMorph =
   | KeyMetric
   | KeyMetricsService
   | MwCounterService
+  | MwcContact
   | MyWasteCounter
   | New
   | NewsSubService
@@ -4158,6 +4170,7 @@ export type Mutation = {
   createKeyMetric?: Maybe<KeyMetricEntityResponse>;
   createKeyMetricsService?: Maybe<KeyMetricsServiceEntityResponse>;
   createMwCounterService?: Maybe<MwCounterServiceEntityResponse>;
+  createMwcContact?: Maybe<MwcContactEntityResponse>;
   createMyWasteCounter?: Maybe<MyWasteCounterEntityResponse>;
   createNew?: Maybe<NewEntityResponse>;
   createNewFolder?: Maybe<RequestFolderEntity>;
@@ -4235,6 +4248,7 @@ export type Mutation = {
   deleteKeyMetric?: Maybe<KeyMetricEntityResponse>;
   deleteKeyMetricsService?: Maybe<KeyMetricsServiceEntityResponse>;
   deleteMwCounterService?: Maybe<MwCounterServiceEntityResponse>;
+  deleteMwcContact?: Maybe<MwcContactEntityResponse>;
   deleteMyWasteCounter?: Maybe<MyWasteCounterEntityResponse>;
   deleteNew?: Maybe<NewEntityResponse>;
   deleteNewsSubService?: Maybe<NewsSubServiceEntityResponse>;
@@ -4302,6 +4316,7 @@ export type Mutation = {
   updateCollectVoluntary?: Maybe<CollectVoluntaryEntityResponse>;
   updateConfidentiality?: Maybe<ConfidentialityEntityResponse>;
   updateConfidentialitySubService?: Maybe<ConfidentialitySubServiceEntityResponse>;
+  updateContactMwc?: Maybe<ContactResponse>;
   updateContactUs?: Maybe<ContactUsEntityResponse>;
   updateContactUsSubService?: Maybe<ContactUsSubServiceEntityResponse>;
   updateContract?: Maybe<ContractEntityResponse>;
@@ -4332,6 +4347,7 @@ export type Mutation = {
   updateKeyMetric?: Maybe<KeyMetricEntityResponse>;
   updateKeyMetricsService?: Maybe<KeyMetricsServiceEntityResponse>;
   updateMwCounterService?: Maybe<MwCounterServiceEntityResponse>;
+  updateMwcContact?: Maybe<MwcContactEntityResponse>;
   updateMyWasteCounter?: Maybe<MyWasteCounterEntityResponse>;
   updateNew?: Maybe<NewEntityResponse>;
   updateNewsSubService?: Maybe<NewsSubServiceEntityResponse>;
@@ -4590,6 +4606,10 @@ export type MutationCreateKeyMetricsServiceArgs = {
 
 export type MutationCreateMwCounterServiceArgs = {
   data: MwCounterServiceInput;
+};
+
+export type MutationCreateMwcContactArgs = {
+  data: MwcContactInput;
 };
 
 export type MutationCreateMyWasteCounterArgs = {
@@ -4893,6 +4913,10 @@ export type MutationDeleteMwCounterServiceArgs = {
   id: Scalars["ID"];
 };
 
+export type MutationDeleteMwcContactArgs = {
+  id: Scalars["ID"];
+};
+
 export type MutationDeleteMyWasteCounterArgs = {
   id: Scalars["ID"];
 };
@@ -5159,6 +5183,16 @@ export type MutationUpdateConfidentialitySubServiceArgs = {
   id: Scalars["ID"];
 };
 
+export type MutationUpdateContactMwcArgs = {
+  city?: InputMaybe<Scalars["String"]>;
+  contactEmail?: InputMaybe<Scalars["String"]>;
+  contractId?: InputMaybe<Scalars["Int"]>;
+  phoneNumber?: InputMaybe<Scalars["Int"]>;
+  postalAddress?: InputMaybe<Scalars["String"]>;
+  postalCode?: InputMaybe<Scalars["Int"]>;
+  serviceName?: InputMaybe<Scalars["String"]>;
+};
+
 export type MutationUpdateContactUsArgs = {
   data: ContactUsInput;
   id: Scalars["ID"];
@@ -5306,6 +5340,11 @@ export type MutationUpdateKeyMetricsServiceArgs = {
 
 export type MutationUpdateMwCounterServiceArgs = {
   data: MwCounterServiceInput;
+  id: Scalars["ID"];
+};
+
+export type MutationUpdateMwcContactArgs = {
+  data: MwcContactInput;
   id: Scalars["ID"];
 };
 
@@ -5497,6 +5536,7 @@ export type MwCounterService = {
   description?: Maybe<Scalars["String"]>;
   endDate?: Maybe<Scalars["Date"]>;
   isActivated: Scalars["Boolean"];
+  mwcContact?: Maybe<MwcContactEntityResponse>;
   name?: Maybe<Scalars["String"]>;
   startDate?: Maybe<Scalars["Date"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
@@ -5548,6 +5588,7 @@ export type MwCounterServiceFiltersInput = {
   endDate?: InputMaybe<DateFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   isActivated?: InputMaybe<BooleanFilterInput>;
+  mwcContact?: InputMaybe<MwcContactFiltersInput>;
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<MwCounterServiceFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<MwCounterServiceFiltersInput>>>;
@@ -5563,6 +5604,7 @@ export type MwCounterServiceInput = {
   description?: InputMaybe<Scalars["String"]>;
   endDate?: InputMaybe<Scalars["Date"]>;
   isActivated?: InputMaybe<Scalars["Boolean"]>;
+  mwcContact?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
   startDate?: InputMaybe<Scalars["Date"]>;
 };
@@ -5570,6 +5612,65 @@ export type MwCounterServiceInput = {
 export type MwCounterServiceRelationResponseCollection = {
   __typename?: "MwCounterServiceRelationResponseCollection";
   data: Array<MwCounterServiceEntity>;
+};
+
+export type MwcContact = {
+  __typename?: "MwcContact";
+  MwCounterService?: Maybe<MwCounterServiceEntityResponse>;
+  city?: Maybe<Scalars["String"]>;
+  contactEmail?: Maybe<Scalars["String"]>;
+  contractId?: Maybe<Scalars["Int"]>;
+  createdAt?: Maybe<Scalars["DateTime"]>;
+  phoneNumber?: Maybe<Scalars["Long"]>;
+  postalAddress?: Maybe<Scalars["String"]>;
+  postalCode?: Maybe<Scalars["Int"]>;
+  serviceName?: Maybe<Scalars["String"]>;
+  updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type MwcContactEntity = {
+  __typename?: "MwcContactEntity";
+  attributes?: Maybe<MwcContact>;
+  id?: Maybe<Scalars["ID"]>;
+};
+
+export type MwcContactEntityResponse = {
+  __typename?: "MwcContactEntityResponse";
+  data?: Maybe<MwcContactEntity>;
+};
+
+export type MwcContactEntityResponseCollection = {
+  __typename?: "MwcContactEntityResponseCollection";
+  data: Array<MwcContactEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type MwcContactFiltersInput = {
+  MwCounterService?: InputMaybe<MwCounterServiceFiltersInput>;
+  and?: InputMaybe<Array<InputMaybe<MwcContactFiltersInput>>>;
+  city?: InputMaybe<StringFilterInput>;
+  contactEmail?: InputMaybe<StringFilterInput>;
+  contractId?: InputMaybe<IntFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<MwcContactFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<MwcContactFiltersInput>>>;
+  phoneNumber?: InputMaybe<LongFilterInput>;
+  postalAddress?: InputMaybe<StringFilterInput>;
+  postalCode?: InputMaybe<IntFilterInput>;
+  serviceName?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type MwcContactInput = {
+  MwCounterService?: InputMaybe<Scalars["ID"]>;
+  city?: InputMaybe<Scalars["String"]>;
+  contactEmail?: InputMaybe<Scalars["String"]>;
+  contractId?: InputMaybe<Scalars["Int"]>;
+  phoneNumber?: InputMaybe<Scalars["Long"]>;
+  postalAddress?: InputMaybe<Scalars["String"]>;
+  postalCode?: InputMaybe<Scalars["Int"]>;
+  serviceName?: InputMaybe<Scalars["String"]>;
 };
 
 export type MyWasteCounter = {
@@ -6093,6 +6194,7 @@ export type Query = {
   getAddressCoordinates?: Maybe<Array<Maybe<SearchResultAddress>>>;
   getAllFoldersHierarchy?: Maybe<Array<Maybe<RequestFolders>>>;
   getBinId?: Maybe<Array<Maybe<Data>>>;
+  getContactMwc?: Maybe<ContactResponse>;
   getContentTypeDTOs?: Maybe<Array<Maybe<ContentTypeDto>>>;
   getDropOffCollectType?: Maybe<Array<Maybe<CollectType>>>;
   getEditoBlockDTO?: Maybe<EditoBlockDto>;
@@ -6117,6 +6219,8 @@ export type Query = {
   me?: Maybe<UsersPermissionsMe>;
   mwCounterService?: Maybe<MwCounterServiceEntityResponse>;
   mwCounterServices?: Maybe<MwCounterServiceEntityResponseCollection>;
+  mwcContact?: Maybe<MwcContactEntityResponse>;
+  mwcContacts?: Maybe<MwcContactEntityResponseCollection>;
   myWasteCounter?: Maybe<MyWasteCounterEntityResponse>;
   myWasteCounters?: Maybe<MyWasteCounterEntityResponseCollection>;
   new?: Maybe<NewEntityResponse>;
@@ -6587,6 +6691,10 @@ export type QueryGetBinIdArgs = {
   street?: InputMaybe<Scalars["String"]>;
 };
 
+export type QueryGetContactMwcArgs = {
+  contractId?: InputMaybe<Scalars["Int"]>;
+};
+
 export type QueryGetContentTypeDtOsArgs = {
   contractId: Scalars["ID"];
 };
@@ -6687,6 +6795,16 @@ export type QueryMwCounterServiceArgs = {
 
 export type QueryMwCounterServicesArgs = {
   filters?: InputMaybe<MwCounterServiceFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type QueryMwcContactArgs = {
+  id?: InputMaybe<Scalars["ID"]>;
+};
+
+export type QueryMwcContactsArgs = {
+  filters?: InputMaybe<MwcContactFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
@@ -10921,6 +11039,39 @@ export type SearchAddressQuery = {
   } | null> | null;
 };
 
+export type GetContactMwcQueryVariables = Exact<{
+  filters?: InputMaybe<MwCounterServiceFiltersInput>;
+}>;
+
+export type GetContactMwcQuery = {
+  __typename?: "Query";
+  mwCounterServices?: {
+    __typename?: "MwCounterServiceEntityResponseCollection";
+    data: Array<{
+      __typename?: "MwCounterServiceEntity";
+      attributes?: {
+        __typename?: "MwCounterService";
+        mwcContact?: {
+          __typename?: "MwcContactEntityResponse";
+          data?: {
+            __typename?: "MwcContactEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "MwcContact";
+              city?: string | null;
+              serviceName?: string | null;
+              postalAddress?: string | null;
+              postalCode?: number | null;
+              contactEmail?: string | null;
+              phoneNumber?: any | null;
+            } | null;
+          } | null;
+        } | null;
+      } | null;
+    }>;
+  } | null;
+};
+
 export type GetContactUsSubServiceByContractIdQueryVariables = Exact<{
   contractId: Scalars["ID"];
 }>;
@@ -14462,6 +14613,80 @@ export type SearchAddressLazyQueryHookResult = ReturnType<
 export type SearchAddressQueryResult = Apollo.QueryResult<
   SearchAddressQuery,
   SearchAddressQueryVariables
+>;
+export const GetContactMwcDocument = gql`
+  query GetContactMwc($filters: MwCounterServiceFiltersInput) {
+    mwCounterServices(filters: $filters) {
+      data {
+        attributes {
+          mwcContact {
+            data {
+              id
+              attributes {
+                city
+                serviceName
+                postalAddress
+                postalCode
+                contactEmail
+                phoneNumber
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetContactMwcQuery__
+ *
+ * To run a query within a React component, call `useGetContactMwcQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetContactMwcQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetContactMwcQuery({
+ *   variables: {
+ *      filters: // value for 'filters'
+ *   },
+ * });
+ */
+export function useGetContactMwcQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetContactMwcQuery,
+    GetContactMwcQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetContactMwcQuery, GetContactMwcQueryVariables>(
+    GetContactMwcDocument,
+    options,
+  );
+}
+export function useGetContactMwcLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetContactMwcQuery,
+    GetContactMwcQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetContactMwcQuery, GetContactMwcQueryVariables>(
+    GetContactMwcDocument,
+    options,
+  );
+}
+export type GetContactMwcQueryHookResult = ReturnType<
+  typeof useGetContactMwcQuery
+>;
+export type GetContactMwcLazyQueryHookResult = ReturnType<
+  typeof useGetContactMwcLazyQuery
+>;
+export type GetContactMwcQueryResult = Apollo.QueryResult<
+  GetContactMwcQuery,
+  GetContactMwcQueryVariables
 >;
 export const GetContactUsSubServiceByContractIdDocument = gql`
   query getContactUsSubServiceByContractId($contractId: ID!) {

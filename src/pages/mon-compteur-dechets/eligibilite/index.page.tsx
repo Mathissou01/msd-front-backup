@@ -45,9 +45,9 @@ const Eligibilite = () => {
   const [personsCount, setPersonsCount] = useState(1);
   const { currentUser } = useCurrentUser();
   const [error, setError] = useState({
-    isActive: false,
+    isActive: true,
     title: "",
-    isAddressVisible: true,
+    isAddressVisible: false,
     isReasonVisible: true,
     isContactVisible: true,
   });
