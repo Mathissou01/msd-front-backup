@@ -46,6 +46,15 @@ const Step4: React.FC<Step4Props> = ({
           handleClose={() => setShowModal(false)}
           content="Le numéro de votre bac se trouve toujours sous le code barres situé sur l’étiquette collée sur un des côtés de votre bac de déchets."
           bottomText="Votre numéro de bac est illisible ou introuvable ?"
+          hasError={() =>
+            handleError({
+              isActive: true,
+              isAddressVisible: false,
+              isReasonVisible: false,
+              isContactVisible: true,
+              title: "Votre code est détérioré ou introuvable ?",
+            })
+          }
           headerIllu={
             <Image
               src={"/images/emplacement_puce.jpg"}
@@ -130,20 +139,7 @@ const Step4: React.FC<Step4Props> = ({
                   className="o-Steps__CardButtons_openmodal"
                   onClick={() => setShowModal(true)}
                 >
-                  <CommonButton
-                    type="button"
-                    style={null}
-                    label="Où trouver mon numéro de bac ?"
-                    onClick={() =>
-                      handleError({
-                        isActive: true,
-                        isAddressVisible: false,
-                        isReasonVisible: false,
-                        isContactVisible: true,
-                        title: "Votre code est détérioré ou introuvable ?",
-                      })
-                    }
-                  />
+                  Où trouver mon numéro de bac ?
                 </button>
               </div>
             </div>

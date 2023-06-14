@@ -1,8 +1,10 @@
 import React, { ReactNode } from "react";
 import "./common-modal.scss";
+import CommonButton from "../CommonButton/CommonButton";
 
 type ModalProps = {
   handleClose?: () => void;
+  hasError?: () => void;
   headerTitle?: string;
   headerSubTitle?: string;
   headerIllu?: ReactNode;
@@ -15,6 +17,7 @@ const CommonModal = ({
   headerIllu,
   content,
   bottomText,
+  hasError,
 }: ModalProps) => {
   return (
     <>
@@ -30,7 +33,14 @@ const CommonModal = ({
           )}
           {content && <div className="c-CommonModal__Body">{content}</div>}
           {bottomText && (
-            <div className="c-CommonModal__Bottom">{bottomText}</div>
+            <div className="c-CommonModal__Bottom">
+              <CommonButton
+                type="button"
+                style={null}
+                label={bottomText}
+                onClick={hasError}
+              />
+            </div>
           )}
         </div>
       </div>

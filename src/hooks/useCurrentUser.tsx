@@ -24,21 +24,7 @@ export const useCurrentUser = (): UserContextValues => {
 const UserContext = createContext<UserContextValues>({} as UserContextValues);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [currentUser, setCurrentUser] = useState<User | null>({
-    id: "1",
-    firstname: "John",
-    lastname: "Doe",
-    email: "john.doe@exemple.fr",
-    activeCounter: true,
-    activationDate: new Date("01/01/2023"),
-    streetNumber: 1,
-    streetName: "rue de la paix",
-    postalCode: "75000",
-    city: "Paris",
-    dwellingType: "house",
-    userType: "particular",
-    householdSize: 4,
-  });
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   useEffect(() => {
     // TODO: fetch user from API and stock it in sessionStorage
