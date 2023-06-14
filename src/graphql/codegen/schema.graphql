@@ -1303,9 +1303,9 @@ type ContactResponse {
   city: String
   contactEmail: String
   contractId: Int
-  phoneNumber: Int
+  phoneNumber: String
   postalAddress: String
-  postalCode: Int
+  postalCode: String
   serviceName: String
 }
 
@@ -2372,6 +2372,16 @@ enum ENUM_FREECONTENT_STATUS {
   published
 }
 
+enum ENUM_MWCFLOW_NAME {
+  householdWaste
+  packaging
+}
+
+enum ENUM_MWCFLOW_WEIGHINGSYSTEM {
+  Dynamic
+  Outlet
+}
+
 enum ENUM_NEW_STATUS {
   archived
   draft
@@ -3338,10 +3348,12 @@ union GenericMorph =
   | Global
   | Homepage
   | I18NLocale
+  | InformationMessage
   | KeyMetric
   | KeyMetricsService
   | MwCounterService
   | MwcContact
+  | MwcFlow
   | MyWasteCounter
   | New
   | NewsSubService
@@ -3510,6 +3522,53 @@ input IDFilterInput {
   null: Boolean
   or: [ID]
   startsWith: ID
+}
+
+type InformationMessage {
+  createdAt: DateTime
+  dateEnd: String
+  dateStart: String!
+  infoMessage: String!
+  pickUpDays(
+    filters: PickUpDayFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): PickUpDayRelationResponseCollection
+  updatedAt: DateTime
+}
+
+type InformationMessageEntity {
+  attributes: InformationMessage
+  id: ID
+}
+
+type InformationMessageEntityResponse {
+  data: InformationMessageEntity
+}
+
+type InformationMessageEntityResponseCollection {
+  data: [InformationMessageEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input InformationMessageFiltersInput {
+  and: [InformationMessageFiltersInput]
+  createdAt: DateTimeFilterInput
+  dateEnd: StringFilterInput
+  dateStart: StringFilterInput
+  id: IDFilterInput
+  infoMessage: StringFilterInput
+  not: InformationMessageFiltersInput
+  or: [InformationMessageFiltersInput]
+  pickUpDays: PickUpDayFiltersInput
+  updatedAt: DateTimeFilterInput
+}
+
+input InformationMessageInput {
+  dateEnd: String
+  dateStart: String
+  infoMessage: String
+  pickUpDays: [ID]
 }
 
 input IntFilterInput {
@@ -3820,6 +3879,9 @@ type Mutation {
     data: FreeContentSubServiceInput!
   ): FreeContentSubServiceEntityResponse
   createHomepage(data: HomepageInput!): HomepageEntityResponse
+  createInformationMessage(
+    data: InformationMessageInput!
+  ): InformationMessageEntityResponse
   createKeyMetric(data: KeyMetricInput!): KeyMetricEntityResponse
   createKeyMetricsService(
     data: KeyMetricsServiceInput!
@@ -3828,6 +3890,7 @@ type Mutation {
     data: MwCounterServiceInput!
   ): MwCounterServiceEntityResponse
   createMwcContact(data: MwcContactInput!): MwcContactEntityResponse
+  createMwcFlow(data: MwcFlowInput!): MwcFlowEntityResponse
   createMyWasteCounter(data: MyWasteCounterInput!): MyWasteCounterEntityResponse
   createNew(data: NewInput!): NewEntityResponse
   createNewFolder(
@@ -3936,10 +3999,12 @@ type Mutation {
   deleteFreeContentSubService(id: ID!): FreeContentSubServiceEntityResponse
   deleteGlobal: GlobalEntityResponse
   deleteHomepage(id: ID!): HomepageEntityResponse
+  deleteInformationMessage(id: ID!): InformationMessageEntityResponse
   deleteKeyMetric(id: ID!): KeyMetricEntityResponse
   deleteKeyMetricsService(id: ID!): KeyMetricsServiceEntityResponse
   deleteMwCounterService(id: ID!): MwCounterServiceEntityResponse
   deleteMwcContact(id: ID!): MwcContactEntityResponse
+  deleteMwcFlow(id: ID!): MwcFlowEntityResponse
   deleteMyWasteCounter(id: ID!): MyWasteCounterEntityResponse
   deleteNew(id: ID!): NewEntityResponse
   deleteNewsSubService(id: ID!): NewsSubServiceEntityResponse
@@ -4081,9 +4146,9 @@ type Mutation {
     city: String
     contactEmail: String
     contractId: Int
-    phoneNumber: Int
+    phoneNumber: String
     postalAddress: String
-    postalCode: Int
+    postalCode: String
     serviceName: String
   ): ContactResponse
   updateContactUs(data: ContactUsInput!, id: ID!): ContactUsEntityResponse
@@ -4150,6 +4215,10 @@ type Mutation {
   ): Boolean
   updateGlobal(data: GlobalInput!): GlobalEntityResponse
   updateHomepage(data: HomepageInput!, id: ID!): HomepageEntityResponse
+  updateInformationMessage(
+    data: InformationMessageInput!
+    id: ID!
+  ): InformationMessageEntityResponse
   updateKeyMetric(data: KeyMetricInput!, id: ID!): KeyMetricEntityResponse
   updateKeyMetricsService(
     data: KeyMetricsServiceInput!
@@ -4160,6 +4229,7 @@ type Mutation {
     id: ID!
   ): MwCounterServiceEntityResponse
   updateMwcContact(data: MwcContactInput!, id: ID!): MwcContactEntityResponse
+  updateMwcFlow(data: MwcFlowInput!, id: ID!): MwcFlowEntityResponse
   updateMyWasteCounter(
     data: MyWasteCounterInput!
     id: ID!
@@ -4296,6 +4366,11 @@ type MwCounterService {
   endDate: Date
   isActivated: Boolean!
   mwcContact: MwcContactEntityResponse
+  mwcFlows(
+    filters: MwcFlowFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): MwcFlowRelationResponseCollection
   name: String
   startDate: Date
   updatedAt: DateTime
@@ -4327,6 +4402,7 @@ input MwCounterServiceFiltersInput {
   id: IDFilterInput
   isActivated: BooleanFilterInput
   mwcContact: MwcContactFiltersInput
+  mwcFlows: MwcFlowFiltersInput
   name: StringFilterInput
   not: MwCounterServiceFiltersInput
   or: [MwCounterServiceFiltersInput]
@@ -4343,6 +4419,7 @@ input MwCounterServiceInput {
   endDate: Date
   isActivated: Boolean
   mwcContact: ID
+  mwcFlows: [ID]
   name: String
   startDate: Date
 }
@@ -4355,11 +4432,10 @@ type MwcContact {
   MwCounterService: MwCounterServiceEntityResponse
   city: String
   contactEmail: String
-  contractId: Int
   createdAt: DateTime
-  phoneNumber: Long
+  phoneNumber: String
   postalAddress: String
-  postalCode: Int
+  postalCode: String
   serviceName: String
   updatedAt: DateTime
 }
@@ -4383,14 +4459,13 @@ input MwcContactFiltersInput {
   and: [MwcContactFiltersInput]
   city: StringFilterInput
   contactEmail: StringFilterInput
-  contractId: IntFilterInput
   createdAt: DateTimeFilterInput
   id: IDFilterInput
   not: MwcContactFiltersInput
   or: [MwcContactFiltersInput]
-  phoneNumber: LongFilterInput
+  phoneNumber: StringFilterInput
   postalAddress: StringFilterInput
-  postalCode: IntFilterInput
+  postalCode: StringFilterInput
   serviceName: StringFilterInput
   updatedAt: DateTimeFilterInput
 }
@@ -4399,11 +4474,68 @@ input MwcContactInput {
   MwCounterService: ID
   city: String
   contactEmail: String
-  contractId: Int
-  phoneNumber: Long
+  phoneNumber: String
   postalAddress: String
-  postalCode: Int
+  postalCode: String
   serviceName: String
+}
+
+type MwcFlow {
+  averageProductionPerson: Long
+  blocks: [MwcFlowBlocksDynamicZone]
+  createdAt: DateTime
+  mwCounterService: MwCounterServiceEntityResponse
+  name: ENUM_MWCFLOW_NAME
+  updatedAt: DateTime
+  weighingSystem: ENUM_MWCFLOW_WEIGHINGSYSTEM
+}
+
+union MwcFlowBlocksDynamicZone =
+    ComponentBlocksImage
+  | ComponentBlocksSubHeading
+  | ComponentBlocksVideo
+  | ComponentBlocksWysiwyg
+  | Error
+
+scalar MwcFlowBlocksDynamicZoneInput
+
+type MwcFlowEntity {
+  attributes: MwcFlow
+  id: ID
+}
+
+type MwcFlowEntityResponse {
+  data: MwcFlowEntity
+}
+
+type MwcFlowEntityResponseCollection {
+  data: [MwcFlowEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input MwcFlowFiltersInput {
+  and: [MwcFlowFiltersInput]
+  averageProductionPerson: LongFilterInput
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  mwCounterService: MwCounterServiceFiltersInput
+  name: StringFilterInput
+  not: MwcFlowFiltersInput
+  or: [MwcFlowFiltersInput]
+  updatedAt: DateTimeFilterInput
+  weighingSystem: StringFilterInput
+}
+
+input MwcFlowInput {
+  averageProductionPerson: Long
+  blocks: [MwcFlowBlocksDynamicZoneInput!]
+  mwCounterService: ID
+  name: ENUM_MWCFLOW_NAME
+  weighingSystem: ENUM_MWCFLOW_WEIGHINGSYSTEM
+}
+
+type MwcFlowRelationResponseCollection {
+  data: [MwcFlowEntity!]!
 }
 
 type MyWasteCounter {
@@ -4666,6 +4798,7 @@ type PickUpDay {
   createdAt: DateTime
   description: String
   flow: FlowEntityResponse
+  informationMessage: InformationMessageEntityResponse
   name: String!
   pickUpDayService: PickUpDayServiceEntityResponse
   sectorizations(
@@ -4699,6 +4832,7 @@ input PickUpDayFiltersInput {
   description: StringFilterInput
   flow: FlowFiltersInput
   id: IDFilterInput
+  informationMessage: InformationMessageFiltersInput
   name: StringFilterInput
   not: PickUpDayFiltersInput
   or: [PickUpDayFiltersInput]
@@ -4713,6 +4847,7 @@ input PickUpDayInput {
   collectVoluntary: ID
   description: String
   flow: ID
+  informationMessage: ID
   name: String
   pickUpDayService: ID
   sectorizations: [ID]
@@ -5042,7 +5177,6 @@ type Query {
     houseNumber: String
     street: String
   ): [Data]
-  getContactMwc(contractId: Int): ContactResponse
   getContentTypeDTOs(contractId: ID!): [ContentTypeDTO]
   getDropOffCollectType(contractId: ID!): [collectType]
   getEditoBlockDTO(
@@ -5078,6 +5212,12 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): I18NLocaleEntityResponseCollection
+  informationMessage(id: ID): InformationMessageEntityResponse
+  informationMessages(
+    filters: InformationMessageFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): InformationMessageEntityResponseCollection
   keyMetric(id: ID): KeyMetricEntityResponse
   keyMetrics(
     filters: KeyMetricFiltersInput
@@ -5106,6 +5246,12 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): MwcContactEntityResponseCollection
+  mwcFlow(id: ID): MwcFlowEntityResponse
+  mwcFlows(
+    filters: MwcFlowFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): MwcFlowEntityResponseCollection
   myWasteCounter(id: ID): MyWasteCounterEntityResponse
   myWasteCounters(
     filters: MyWasteCounterFiltersInput
@@ -5645,7 +5791,7 @@ type Request {
   isActivated: Boolean
   name: String
   requestAggregate: RequestAggregateEntityResponse
-  requestService: RequestServiceEntityResponse!
+  requestService: RequestServiceEntityResponse
   requestType(
     filters: ComponentBlocksRequestTypeFiltersInput
     pagination: PaginationArg = {}
@@ -5672,6 +5818,7 @@ scalar RequestAddableBlocksDynamicZoneInput
 type RequestAggregate {
   createdAt: DateTime
   name: String!
+  requestService: RequestServiceEntityResponse
   requests(
     filters: RequestFiltersInput
     pagination: PaginationArg = {}
@@ -5701,13 +5848,19 @@ input RequestAggregateFiltersInput {
   name: StringFilterInput
   not: RequestAggregateFiltersInput
   or: [RequestAggregateFiltersInput]
+  requestService: RequestServiceFiltersInput
   requests: RequestFiltersInput
   updatedAt: DateTimeFilterInput
 }
 
 input RequestAggregateInput {
   name: String
+  requestService: ID
   requests: [ID]
+}
+
+type RequestAggregateRelationResponseCollection {
+  data: [RequestAggregateEntity!]!
 }
 
 type RequestEntity {
@@ -5799,6 +5952,11 @@ type RequestService {
   endDate: Date
   isActivated: Boolean!
   name: String!
+  requestAggregates(
+    filters: RequestAggregateFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): RequestAggregateRelationResponseCollection
   requests(
     filters: RequestFiltersInput
     pagination: PaginationArg = {}
@@ -5834,6 +5992,7 @@ input RequestServiceFiltersInput {
   name: StringFilterInput
   not: RequestServiceFiltersInput
   or: [RequestServiceFiltersInput]
+  requestAggregates: RequestAggregateFiltersInput
   requests: RequestFiltersInput
   startDate: DateFilterInput
   updatedAt: DateTimeFilterInput
@@ -5846,6 +6005,7 @@ input RequestServiceInput {
   endDate: Date
   isActivated: Boolean
   name: String
+  requestAggregates: [ID]
   requests: [ID]
   startDate: Date
 }

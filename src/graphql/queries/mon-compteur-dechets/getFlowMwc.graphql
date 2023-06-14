@@ -1,0 +1,22 @@
+query getFlowMwc($contractId: ID) {
+  contract(id: $contractId) {
+    data {
+      attributes {
+        MwCounterService {
+          data {
+            attributes {
+              mwcFlows {
+                data {
+                  attributes {
+                    weighingSystem
+                    name
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

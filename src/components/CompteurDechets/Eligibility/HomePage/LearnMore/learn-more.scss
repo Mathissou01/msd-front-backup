@@ -2,7 +2,7 @@
 @use "src/styles/02-tools/tools.include-media" as im;
 
 .c-LearnMore {
-  padding: 0 8px;
+  padding: 32px 8px;
   @include im.media(">=tablet") {
     width: 100%;
     padding: 0 124px;
@@ -23,6 +23,13 @@
 
     @include im.media(">=mobile") {
       width: 500px;
+    }
+  }
+
+  &__Title {
+    margin-left: 32px;
+    @include im.media(">=tablet") {
+      margin-left: 0;
     }
   }
 
@@ -47,5 +54,9 @@
       width: 36px;
       height: 36px;
     }
+  }
+
+  &__MultipleFlowContainer {
+    margin-top: 16px;
   }
 }

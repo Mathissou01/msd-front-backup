@@ -42,27 +42,25 @@ const CommonOverlay: React.FC<CommonOverlayProps> = ({
             <div className={modalClass}>
               <div className="c-Overlay__Header">
                 {title && <CommonBlockHeading titleContent={title} />}
-                <div>
+                <button className="c-Overlay__Close">
                   <CloseIcon
                     className="c-Overlay__CloseIcon"
                     onClick={() => setIsVisible(false)}
                   />
-                </div>
+                </button>
               </div>
               <div className="c-Overlay__Content">{content()}</div>
-              <div className="c-Overlay__BottomButton">
-                {isBottomButton && (
-                  <CommonButton
-                    label={bottomButtonLabel}
-                    type="button"
-                    style="primary"
-                    onClick={() => {
-                      if (onButtonClick) onButtonClick();
-                      setIsVisible(false);
-                    }}
-                  />
-                )}
-              </div>
+              {isBottomButton && (
+                <CommonButton
+                  label={bottomButtonLabel}
+                  type="button"
+                  style="primary"
+                  onClick={() => {
+                    if (onButtonClick) onButtonClick();
+                    setIsVisible(false);
+                  }}
+                />
+              )}
             </div>
           </div>
         </div>

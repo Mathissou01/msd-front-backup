@@ -18,7 +18,7 @@ const CommonMonthSelector: React.FC<CommonMonthSelectorProps> = ({
   setDate,
   dateFormat = "MMMM yyyy",
   amount = 1,
-  minDate,
+  minDate = new Date("2000-01-01"),
 }) => {
   const handleChangeDate = (amount: number) => {
     setDate((prevDate: Date) => {
@@ -46,9 +46,17 @@ const CommonMonthSelector: React.FC<CommonMonthSelectorProps> = ({
     useAdditionalWeekYearTokens: false,
   });
 
+  const formattedMinDateToMMYYY = `${subMonths(
+    new Date(minDate),
+    1,
+  ).getMonth()}-${subMonths(new Date(minDate), 1).getFullYear()}`;
+  const formattedDateToMMYYY = `${new Date(date).getMonth()}-${new Date(
+    date,
+  ).getFullYear()}`;
+
   return (
     <div className="c-CommonMonthSelector">
-      {minDate && subMonths(new Date(minDate), 1) < new Date(date) && (
+      {formattedMinDateToMMYYY !== formattedDateToMMYYY && (
         <button
           className="c-CommonMonthSelector__Arrow"
           onClick={() => handleChangeDate(-amount)}

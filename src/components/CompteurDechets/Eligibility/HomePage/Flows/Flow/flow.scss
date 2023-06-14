@@ -1,0 +1,55 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-Flow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  &:not(:last-child) {
+    margin-right: 8px;
+    @include im.media(">=mobile") {
+      margin-right: 23px;
+    }
+  }
+
+  &__BacSvg_gray,
+  &__BacSvg_yellow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin-right: 4px;
+    border-radius: 8px;
+
+    svg {
+      width: 13px;
+      height: 16px;
+    }
+  }
+
+  &__BacSvg {
+    &_gray {
+      background-color: #808080;
+
+      svg path {
+        fill: #fff;
+      }
+    }
+
+    &_yellow {
+      background-color: #fad609;
+    }
+  }
+
+  &__ItemData {
+    display: block;
+  }
+
+  &__Name {
+    padding-left: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 15px;
+  }
+}

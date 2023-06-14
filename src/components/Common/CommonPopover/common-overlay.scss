@@ -25,21 +25,21 @@
 
     &_large {
       width: 100%;
-      @include im.media(">mobile") {
+      @include im.media(">tablet") {
         width: 80%;
       }
     }
 
     &_small {
       width: 100%;
-      @include im.media(">mobile") {
+      @include im.media(">tablet") {
         width: 30%;
       }
     }
 
     &_default {
       width: 100%;
-      @include im.media(">mobile") {
+      @include im.media(">tablet") {
         width: 40%;
       }
     }
@@ -74,14 +74,14 @@
     margin-left: 10px;
   }
 
+  &__Close {
+    cursor: pointer;
+  }
+
   &__Header {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 40px;
-  }
-
-  &__BottomButton {
-    margin-top: 32px;
   }
 }
