@@ -52,7 +52,11 @@ export default function EditoBlock({ data }: IEditoBlockProps) {
               ? content.attributes.image?.data?.attributes ?? null
               : null
           }
-          href={`/${EEditoTypeRoutes[typeBlock]}/${content.id}`}
+          href={
+            typeBlock === "freeContent"
+              ? `/${EEditoTypeRoutes[typeBlock]}/contenu/${content.id}`
+              : `/${EEditoTypeRoutes[typeBlock]}/${content.id}`
+          }
           isEventDisplay={typeBlock === "event"}
           isAlignTextCenter={typeBlock === "event"}
         />
