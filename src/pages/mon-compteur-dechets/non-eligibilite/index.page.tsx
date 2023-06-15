@@ -6,9 +6,9 @@ export default function ActualitesPage() {
   const router = useRouter();
 
   const firstText =
-    "Malheuresement, le compteur déchets n'est pas encore disponible pour vous";
+    "malheureusement, le compteur déchets n'est pas encore disponible pour vous";
   const secondText =
-    " mais vous pouvez accéder à dautres services et conseils pour mieux comprendre et améliorer la gestion de vos déchets !";
+    " mais vous pouvez accéder à d'autres services et conseils pour mieux comprendre et améliorer la gestion de vos déchets !";
 
   const formLabels = {
     submitButtonLabel: "J'accède à l'accueil",
