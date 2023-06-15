@@ -32,12 +32,12 @@ const Step4: React.FC<Step4Props> = ({
 
   const chipIdOrduresMenageres: string = findChipIdByTrashFlow(
     binIdData,
-    "Bacs ordures ménagères",
+    "OMR",
   );
 
   const chipIdCollecteSelective: string = findChipIdByTrashFlow(
     binIdData,
-    "Bacs collecte sélective",
+    "CS",
   );
   return (
     <>

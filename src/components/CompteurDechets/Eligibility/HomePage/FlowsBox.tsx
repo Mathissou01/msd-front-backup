@@ -32,12 +32,12 @@ const FlowsBox = () => {
 
   const chipIdOrduresMenageres: string = findChipIdByTrashFlow(
     binIdData,
-    "Bacs ordures ménagères",
+    "OMR",
   );
 
   const chipIdCollecteSelective: string = findChipIdByTrashFlow(
     binIdData,
-    "Bacs collecte sélective",
+    "CS",
   );
 
   return (
