@@ -4,13 +4,13 @@ import CommonButton from "../../../Common/CommonButton/CommonButton";
 import Flows from "../HomePage/Flows/Flows";
 import { useRouter } from "next/router";
 import MyHomeDataComponent from "../HomePage/myHomeDataComponent/myHomeDataComponent";
-import DecliningProduction from "public/images/pictos/arrowData.svg";
 import { useGetDataHomePageMwcQuery } from "../../../../graphql/codegen/generated-types";
 
 import PencilWrite from "public/images/pictos/pencilwrite.svg";
 import Info from "public/images/pictos/info.svg";
 import CommonOverlay from "../../../Common/CommonPopover/CommonOverlay";
 import "./my-home-data.scss";
+import CommonStatsArrow from "../../../Common/CommonStatsArrow/CommonStatsArrow";
 
 const MyHomeData = () => {
   const router = useRouter();
@@ -54,19 +54,16 @@ const MyHomeData = () => {
 
     if (variationPercent > 5) {
       return {
-        className: "c-MyHomeData__DataArrowRed",
         text: `Votre production a augmenté de ${variationPercent}% le mois dernier`,
       };
     } else if (variationPercent < -5) {
       return {
-        className: "c-MyHomeData__DataArrowGreen",
         text: `Votre production a baissé de ${Math.abs(
           variationPercent,
         )}% le mois dernier`,
       };
     } else {
       return {
-        className: "c-MyHomeData__DataArrowBlue",
         text: "Votre production est stable depuis le mois dernier",
       };
     }
@@ -123,11 +120,7 @@ const MyHomeData = () => {
           isFirstBlock={false}
           title="Mon évolution"
           logoOrWeight={
-            <div
-              className={`c-MyHomeData__DataArrow ${arrowColorClass.className}`}
-            >
-              <DecliningProduction />{" "}
-            </div>
+            <CommonStatsArrow percent={homeData?.variationPercent || 0} />
           }
           text={arrowColorClass.text}
           path="/mon-compteur-dechets/mon-evolution"

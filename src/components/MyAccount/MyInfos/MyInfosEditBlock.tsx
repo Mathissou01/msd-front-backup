@@ -75,10 +75,6 @@ const MyInfosEditBlock: React.FC<MyInfosEditProps> = ({
     );
   }, [searchAddressData]);
 
-  useEffect(() => {
-    if (debouncedValue) setIsVisibled(true);
-  }, [debouncedValue]);
-
   const onSubmit = (data: MyInfosFormData) => {
     const datas = {
       ...data,

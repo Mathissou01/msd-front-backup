@@ -37,7 +37,6 @@ const AutocompleteAddress: React.FC<AutocompleteAddressProps> = ({
   const router = useRouter();
 
   useEffect(() => {
-    setIsVisibled(false);
     const handleClickOutside = (event: MouseEvent) => {
       if (
         selectorRef.current &&

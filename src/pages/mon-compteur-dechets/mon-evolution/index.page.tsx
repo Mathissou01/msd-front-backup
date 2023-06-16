@@ -6,6 +6,7 @@ import { format, subMonths } from "date-fns";
 import { fr } from "date-fns/locale";
 import { useCurrentUser } from "../../../hooks/useCurrentUser";
 import "./my-evolution.scss";
+import MyEvolutionDetailBlock from "../../../components/CompteurDechets/MyEvolution/MyEvolutionDetailBlock";
 
 const breadcrumbPages = [
   {
@@ -48,6 +49,19 @@ const MyEvolution = () => {
               setDate={setCurrentDate}
               minDate={currentUser?.activationDate}
             />
+          </div>
+        </div>
+        <div className="c-MyEvolution__EvolutionContainer">
+          <div className="c-MyEvolution__BlockContainer">
+            <div className="c-MyEvolution__StatsContainer">BarComponent</div>
+            <div className="c-MyEvolution__ProgressionBlockContainer">
+              <MyEvolutionDetailBlock date={formattedDate} />
+            </div>
+          </div>
+          <div className="c-MyEvolution__DataTextContent">
+            <p className="c-MyEvolution__DataText">
+              Les données affichées sont des données mensuelles estimées.
+            </p>
           </div>
         </div>
       </div>

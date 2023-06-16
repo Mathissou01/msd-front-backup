@@ -1,0 +1,18 @@
+.c-ProductionTextBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 16px 0;
+  padding: 16px;
+  color: $expert-blue;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+
+  &_red {
+    background-color: #fbe9e5;
+  }
+
+  &_green {
+    background: #f6faec;
+  }
+}
