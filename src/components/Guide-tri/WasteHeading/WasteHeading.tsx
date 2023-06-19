@@ -1,7 +1,9 @@
 import React from "react";
 import Image from "next/image";
 import {
+  Enum_Flow_Recyclinggesture,
   Flow,
+  FlowEntity,
   Maybe,
   UploadFileEntityResponse,
 } from "../../../graphql/codegen/generated-types";
@@ -15,17 +17,18 @@ interface IWasteHeadingProps {
   title: string;
   gestureText?: Maybe<string> | undefined;
   picto?: Maybe<UploadFileEntityResponse>;
+  flowData?: FlowEntity;
   collectItems?: Maybe<Flow> | undefined;
 }
 export default function WasteHeading({
   title,
   gestureText,
   picto,
+  flowData,
   collectItems,
 }: IWasteHeadingProps) {
   /* Static DATA */
   const filteredFlowData = filterAndDisplayPictos(collectItems);
-
   return (
     <div className="c-WasteHeading">
       <div className="c-WasteHeading__SvgContainer">
@@ -38,16 +41,31 @@ export default function WasteHeading({
           <div className="c-WasteHeading__BlocConsignes">
             {gestureText && (
               <div className="c-WasteHeading__Bloc c-WasteHeading__Bloc_left">
-                {/*TODO Gesture picto not defined */}
-                {/* <div className="c-WasteHeading__GesturePicto">
+                <div className="c-WasteHeading__GesturePicto">
                   <Image
-                    src={"/images/pictos-temp/poubelle-barree.svg"}
+                    src={
+                      flowData?.attributes?.recyclingGesture ===
+                      Enum_Flow_Recyclinggesture.NoTrash
+                        ? "/images/pictos-temp/poubelle-barree.svg"
+                        : flowData?.attributes?.recyclingGesture ===
+                          Enum_Flow_Recyclinggesture.ToSort
+                        ? "/images/pictos-temp/picto-triman.svg"
+                        : "/images/pictos-temp/sac-poubelle.svg"
+                    }
                     alt=""
                     width="48"
                     height="48"
                   />
-                </div> */}
-                <span className="WasteHeading__GestureText">{gestureText}</span>
+                </div>
+                <span className="WasteHeading__GestureText">{`${
+                  flowData?.attributes?.recyclingGesture ===
+                  Enum_Flow_Recyclinggesture.NoTrash
+                    ? "Poubelle interdite"
+                    : flowData?.attributes?.recyclingGesture ===
+                      Enum_Flow_Recyclinggesture.ToSort
+                    ? "A trier"
+                    : "A jeter"
+                } - ${gestureText}`}</span>{" "}
               </div>
             )}
             <div className="c-WasteHeading__Bloc c-WasteHeading__Bloc_right">

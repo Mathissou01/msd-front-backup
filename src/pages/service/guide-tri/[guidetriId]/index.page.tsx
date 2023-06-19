@@ -53,6 +53,7 @@ export default function ServiceGuideTriPage({
             title={guidetriData.attributes.name}
             picto={guidetriData.attributes.picto}
             gestureText={guidetriData.attributes.recyclingGestureText}
+            flowData={guidetriData.attributes.flow?.data ?? {}}
             collectItems={guidetriData.attributes.flow?.data?.attributes}
           />
         )}
