@@ -1,0 +1,30 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-MyWasteStatsBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  padding: 16px 32px;
+  background-color: $white;
+  border-radius: 8px;
+  box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
+  @include im.media(">=tablet") {
+    width: 35%;
+    padding: 16px 32px 133px;
+  }
+
+  &__TotalCountContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 0;
+  }
+
+  &__TotalValue {
+    color: colors.$expert-blue;
+    font-weight: 700;
+    font-size: 32px;
+  }
+}

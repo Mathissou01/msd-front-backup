@@ -13,10 +13,10 @@ jobs:
 
       - template: build/install.yml
 
-  # - job: msd_fo_site_build_test
-    # displayName: Run tests
-    # dependsOn: msd_fo_site_build_install
-    # steps:
+      # - job: msd_fo_site_build_test
+      # displayName: Run tests
+      # dependsOn: msd_fo_site_build_install
+      # steps:
       # - template: build/node.yml
 
       - template: build/pre-tests.yml
@@ -25,10 +25,10 @@ jobs:
         parameters:
           env: ${{ parameters.env }}
 
-  # - job: msd_fo_site_build_package
-    # dependsOn: msd_fo_site_build_install
-    # displayName: Build package
-    # steps:
+      # - job: msd_fo_site_build_package
+      # dependsOn: msd_fo_site_build_install
+      # displayName: Build package
+      # steps:
       # - template: build/node.yml
 
       - template: build/export.yml

@@ -3,15 +3,17 @@ import classNames from "classnames";
 import "./common-chips.scss";
 
 interface CommonChipsProps {
-  chips: { [key: string]: string }[];
+  chips: string[];
   selectedChip: string;
   setSelectedChip: Dispatch<SetStateAction<string>>;
+  renderChipName?: (chip: string) => string;
 }
 
 const CommonTabs: React.FC<CommonChipsProps> = ({
   chips,
   selectedChip,
   setSelectedChip,
+  renderChipName,
 }) => {
   return (
     <div className="c-CommonChips">
@@ -19,11 +21,11 @@ const CommonTabs: React.FC<CommonChipsProps> = ({
         <button
           key={i}
           className={classNames("c-CommonChips__Chip", {
-            "c-CommonChips__Chip_active": selectedChip === chip.name,
+            "c-CommonChips__Chip_active": selectedChip === chip,
           })}
-          onClick={() => setSelectedChip(chip.name)}
+          onClick={() => setSelectedChip(chip)}
         >
-          <p>{chip.label}</p>
+          {chip && <p>{renderChipName ? renderChipName(chip) : chip}</p>}
         </button>
       ))}
     </div>
