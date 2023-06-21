@@ -11,6 +11,7 @@ import Info from "public/images/pictos/info.svg";
 import CommonOverlay from "../../../Common/CommonPopover/CommonOverlay";
 import "./my-home-data.scss";
 import CommonStatsArrow from "../../../Common/CommonStatsArrow/CommonStatsArrow";
+import CommonPie from "../../../Common/CommonGraphs/CommonPie";
 
 const MyHomeData = () => {
   const router = useRouter();
@@ -126,8 +127,43 @@ const MyHomeData = () => {
           path="/mon-compteur-dechets/mon-evolution"
         />
         <div className="c-MyHomeData__Barometer">
-          {/* TODO: Add Diagram here and remove lorem  */}
-          Barometer
+          {/* TODO: Change values when API's ready */}
+          <p className="c-MyHomeData__BarometerTopInfo">
+            Pour votre foyer, la production est de{" "}
+            <span> 34.5 kg/personne</span>
+          </p>
+          <CommonPie />
+          <div className="c-MyHomeData__BarometerLegend">
+            <p>
+              <span className="c-MyHomeData__BarometerLegend_low"></span> Faible
+            </p>
+            <p>
+              <span className="c-MyHomeData__BarometerLegend_medium"></span>
+              Moyen
+            </p>
+            <p>
+              <span className="c-MyHomeData__BarometerLegend_hot"></span> Élevé
+            </p>
+            <p>
+              <span className="c-MyHomeData__BarometerLegend_veryHot"></span>
+              Trés élevé
+            </p>
+          </div>
+
+          {/* TODO: Change values when API's ready */}
+          <div className="c-MyHomeData__BarometerBottomInfo">
+            <p>
+              Votre foyer est constitué de : <span>X personne(s)</span>
+            </p>
+            <button
+              type="button"
+              onClick={() => router.push(`/`)}
+              className="c-MyHomeData__BarometerBottomInfoEdit"
+            >
+              {" "}
+              <PencilWrite />
+            </button>
+          </div>
         </div>
       </div>
       <p className="c-MyHomeData__TextInfo">

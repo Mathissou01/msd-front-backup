@@ -21,4 +21,5 @@ export type TPictoStyles =
   | "eye"
   | "printer"
   | "compteurDechets"
-  | "close";
+  | "close"
+  | "edit";
