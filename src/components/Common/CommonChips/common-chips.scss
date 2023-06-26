@@ -3,8 +3,9 @@
 
 .c-CommonChips {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
-  justify-content: flex-start;
+  justify-content: center;
   width: 90%;
   overflow-x: scroll;
   -webkit-overflow-scrolling: touch;

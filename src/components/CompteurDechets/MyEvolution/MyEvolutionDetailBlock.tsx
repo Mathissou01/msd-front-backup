@@ -18,10 +18,12 @@ const MyEvolutionDetailBlock: React.FC<MyEvolutionDetailBlockProps> = ({
       {
         name: "householdWaste",
         total: 100,
+        poid: 90,
       },
       {
         name: "packaging",
         total: 45,
+        poid: 20,
       },
     ],
   };

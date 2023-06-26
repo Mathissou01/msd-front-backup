@@ -2,11 +2,16 @@ import React, { useEffect, useState } from "react";
 import SectionHeader from "../../../components/CompteurDechets/StatSection/SectionHeader/SectionHeader";
 import CommonChips from "../../../components/Common/CommonChips/CommonChips";
 import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
+import { useContract } from "../../../hooks/useContract";
 import { format, subMonths } from "date-fns";
 import { fr } from "date-fns/locale";
 import { useGetFlowMwcQuery } from "../../../graphql/codegen/generated-types";
 import { renderFlowName } from "../../../lib/flows";
 import MyWasteStatsBlock from "../../../components/CompteurDechets/MyWaste/MyWasteStatsBlock";
+
+import CommonDonut from "../../../components/Common/CommonGraphs/CommonDonut";
+
+import Illu_idea from "../../../../public/images/pictos/Idea.svg";
 import "./my-waste.scss";
 
 const breadcrumbPages = [
@@ -28,6 +33,7 @@ interface Flow {
   name: string;
   total: number;
   percent: number;
+  poid: number;
 }
 
 interface Flows {
@@ -38,7 +44,7 @@ interface Flows {
 }
 
 const flows: Flows = {
-  total: 145,
+  total: 150,
   percent: 3,
   date: "01/06/2023",
   flow: [
@@ -46,19 +52,22 @@ const flows: Flows = {
       name: "householdWaste",
       total: 100,
       percent: 78,
+      poid: 90,
     },
     {
       name: "packaging",
       total: 45,
       percent: 22,
+      poid: 25,
     },
   ],
 };
 
 const MyWastePage = () => {
+  const { contractId } = useContract();
   const { data } = useGetFlowMwcQuery({
     variables: {
-      contractId: "1",
+      contractId: contractId,
     },
   });
   const [chips, setChips] = useState<string[]>([]);
@@ -69,7 +78,6 @@ const MyWastePage = () => {
         data?.contract?.data?.attributes?.MwCounterService?.data?.attributes?.mwcFlows?.data
           ?.map((flow) => flow?.attributes?.name || "")
           .filter((name) => name !== undefined) || [];
-
       if (mappedChips) {
         setChips([...mappedChips, "all"]);
       }
@@ -78,7 +86,6 @@ const MyWastePage = () => {
 
   const [selectedChip, setSelectedChip] = useState("packaging");
   const [currentDate] = useState(subMonths(new Date(), 1));
-  console.log(data);
   const formattedDate = format(currentDate, "MMMM yyyy", {
     locale: fr,
     useAdditionalWeekYearTokens: false,
@@ -97,8 +104,41 @@ const MyWastePage = () => {
           />
           <div className="c-MyWaste__EvolutionContainer">
             <div className="c-MyWaste__BlockContainer">
-              <div>Content</div>
-              {selectedChip === "all" && <MyWasteStatsBlock flows={flows} />}
+              <div className="c-MyWaste__DonutChart">
+                <CommonDonut selectedChip={selectedChip} flows={flows} />
+
+                <div className="c-MyWaste__DonutLegend">
+                  <p>
+                    <span
+                      className={`c-MyWaste__DonutLegend${
+                        selectedChip === "householdWaste"
+                          ? "_color1"
+                          : selectedChip === "packaging"
+                          ? "_color4"
+                          : "_color1"
+                      }`}
+                    ></span>
+                    Ordures ménagères
+                  </p>
+                  <p>
+                    <span
+                      className={`c-MyWaste__DonutLegend${
+                        selectedChip === "packaging"
+                          ? "_color2"
+                          : selectedChip === "householdWaste"
+                          ? "_color3"
+                          : "_color2"
+                      }`}
+                    ></span>
+                    Emballages
+                  </p>
+                </div>
+                <div className="c-MyWaste__DonutChartBottomInfo">
+                  <Illu_idea />
+                  <p>Equivalent d’un foyer d’environ X personne(s)</p>
+                </div>
+              </div>
+              {<MyWasteStatsBlock flows={flows} />}
             </div>
           </div>
         </div>

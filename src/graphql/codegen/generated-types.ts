@@ -28,7 +28,7 @@ export type Scalars = {
   CookieBlocksDynamicZoneInput: any;
   Date: any;
   DateTime: any;
-  DropOffMapOpeningHoursBlockDynamicZoneInput: any;
+  DropOffMapOpeningHoursBlocksDynamicZoneInput: any;
   EditoBlockEditoContentsDynamicZoneInput: any;
   EventBlocksDynamicZoneInput: any;
   EventLinkToServicesDynamicZoneInput: any;
@@ -217,10 +217,12 @@ export type Address = {
 
 export type AlertNotification = {
   __typename?: "AlertNotification";
+  alertMessage?: Maybe<Scalars["String"]>;
   createdAt?: Maybe<Scalars["DateTime"]>;
-  description?: Maybe<Scalars["String"]>;
-  name?: Maybe<Scalars["String"]>;
   publishedAt?: Maybe<Scalars["DateTime"]>;
+  scheduledAt: Scalars["Date"];
+  sendMail?: Maybe<Scalars["Boolean"]>;
+  subject?: Maybe<Scalars["String"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
 
@@ -242,21 +244,25 @@ export type AlertNotificationEntityResponseCollection = {
 };
 
 export type AlertNotificationFiltersInput = {
+  alertMessage?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<AlertNotificationFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  description?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
-  name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<AlertNotificationFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<AlertNotificationFiltersInput>>>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
+  scheduledAt?: InputMaybe<DateFilterInput>;
+  sendMail?: InputMaybe<BooleanFilterInput>;
+  subject?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type AlertNotificationInput = {
-  description?: InputMaybe<Scalars["String"]>;
-  name?: InputMaybe<Scalars["String"]>;
+  alertMessage?: InputMaybe<Scalars["String"]>;
   publishedAt?: InputMaybe<Scalars["DateTime"]>;
+  scheduledAt?: InputMaybe<Scalars["Date"]>;
+  sendMail?: InputMaybe<Scalars["Boolean"]>;
+  subject?: InputMaybe<Scalars["String"]>;
 };
 
 export type AlertNotificationRelationResponseCollection = {
@@ -605,6 +611,7 @@ export type ChannelTypeRelationResponseCollection = {
 export type City = {
   __typename?: "City";
   MwCounter?: Maybe<MwCounterServiceEntityResponse>;
+  contract?: Maybe<ContractEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   department?: Maybe<Scalars["String"]>;
   epci?: Maybe<EpciRelationResponseCollection>;
@@ -650,6 +657,7 @@ export type CityEntityResponseCollection = {
 export type CityFiltersInput = {
   MwCounter?: InputMaybe<MwCounterServiceFiltersInput>;
   and?: InputMaybe<Array<InputMaybe<CityFiltersInput>>>;
+  contract?: InputMaybe<ContractFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   department?: InputMaybe<StringFilterInput>;
   epci?: InputMaybe<EpciFiltersInput>;
@@ -668,6 +676,7 @@ export type CityFiltersInput = {
 
 export type CityInput = {
   MwCounter?: InputMaybe<Scalars["ID"]>;
+  contract?: InputMaybe<Scalars["ID"]>;
   department?: InputMaybe<Scalars["String"]>;
   epci?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   insee?: InputMaybe<Scalars["Long"]>;
@@ -820,18 +829,11 @@ export type CollectDropOff = {
   __typename?: "CollectDropOff";
   contract?: Maybe<ContractEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
-  dropOffMaps?: Maybe<DropOffMapRelationResponseCollection>;
   flows?: Maybe<FlowRelationResponseCollection>;
   grammaticalGender?: Maybe<Enum_Collectdropoff_Grammaticalgender>;
   name?: Maybe<Scalars["String"]>;
   picto?: Maybe<UploadFileEntityResponse>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
-};
-
-export type CollectDropOffDropOffMapsArgs = {
-  filters?: InputMaybe<DropOffMapFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type CollectDropOffFlowsArgs = {
@@ -861,7 +863,6 @@ export type CollectDropOffFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<CollectDropOffFiltersInput>>>;
   contract?: InputMaybe<ContractFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  dropOffMaps?: InputMaybe<DropOffMapFiltersInput>;
   flows?: InputMaybe<FlowFiltersInput>;
   grammaticalGender?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
@@ -873,7 +874,6 @@ export type CollectDropOffFiltersInput = {
 
 export type CollectDropOffInput = {
   contract?: InputMaybe<Scalars["ID"]>;
-  dropOffMaps?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   flows?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   grammaticalGender?: InputMaybe<Enum_Collectdropoff_Grammaticalgender>;
   name?: InputMaybe<Scalars["String"]>;
@@ -885,22 +885,24 @@ export type CollectDropOffRelationResponseCollection = {
   data: Array<CollectDropOffEntity>;
 };
 
+export type CollectEntity = {
+  __typename?: "CollectEntity";
+  entityTypeName: Scalars["String"];
+  grammaticalGender: Scalars["String"];
+  name: Scalars["String"];
+  originalId: Scalars["ID"];
+  uniqueId: Scalars["String"];
+};
+
 export type CollectVoluntary = {
   __typename?: "CollectVoluntary";
   contract?: Maybe<ContractEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
-  dropOffMaps?: Maybe<DropOffMapRelationResponseCollection>;
   flows?: Maybe<FlowRelationResponseCollection>;
   grammaticalGender?: Maybe<Enum_Collectvoluntary_Grammaticalgender>;
   name?: Maybe<Scalars["String"]>;
   picto?: Maybe<UploadFileEntityResponse>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
-};
-
-export type CollectVoluntaryDropOffMapsArgs = {
-  filters?: InputMaybe<DropOffMapFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type CollectVoluntaryFlowsArgs = {
@@ -930,7 +932,6 @@ export type CollectVoluntaryFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<CollectVoluntaryFiltersInput>>>;
   contract?: InputMaybe<ContractFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  dropOffMaps?: InputMaybe<DropOffMapFiltersInput>;
   flows?: InputMaybe<FlowFiltersInput>;
   grammaticalGender?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
@@ -942,7 +943,6 @@ export type CollectVoluntaryFiltersInput = {
 
 export type CollectVoluntaryInput = {
   contract?: InputMaybe<Scalars["ID"]>;
-  dropOffMaps?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   flows?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   grammaticalGender?: InputMaybe<Enum_Collectvoluntary_Grammaticalgender>;
   name?: InputMaybe<Scalars["String"]>;
@@ -956,13 +956,6 @@ export type CollectVoluntaryRelationResponseCollection = {
 
 export type CommuneInput = {
   insee: Scalars["Int"];
-};
-
-export type ComponentBlocksAddress = {
-  __typename?: "ComponentBlocksAddress";
-  fieldLabelAddress: Scalars["String"];
-  fixedPosition: Scalars["Boolean"];
-  id: Scalars["ID"];
 };
 
 export type ComponentBlocksAttachments = {
@@ -1093,6 +1086,7 @@ export type ComponentBlocksRequestType = {
   email?: Maybe<Scalars["String"]>;
   id: Scalars["ID"];
   isEmail?: Maybe<Scalars["Boolean"]>;
+  isTSMS?: Maybe<Scalars["Boolean"]>;
   title: Scalars["String"];
 };
 
@@ -1100,6 +1094,7 @@ export type ComponentBlocksRequestTypeFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ComponentBlocksRequestTypeFiltersInput>>>;
   email?: InputMaybe<StringFilterInput>;
   isEmail?: InputMaybe<BooleanFilterInput>;
+  isTSMS?: InputMaybe<BooleanFilterInput>;
   not?: InputMaybe<ComponentBlocksRequestTypeFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentBlocksRequestTypeFiltersInput>>>;
   title?: InputMaybe<StringFilterInput>;
@@ -1109,6 +1104,7 @@ export type ComponentBlocksRequestTypeInput = {
   email?: InputMaybe<Scalars["String"]>;
   id?: InputMaybe<Scalars["ID"]>;
   isEmail?: InputMaybe<Scalars["Boolean"]>;
+  isTSMS?: InputMaybe<Scalars["Boolean"]>;
   title?: InputMaybe<Scalars["String"]>;
 };
 
@@ -1121,16 +1117,6 @@ export type ComponentBlocksSubHeading = {
 
 export type ComponentBlocksTest = {
   __typename?: "ComponentBlocksTest";
-  id: Scalars["ID"];
-};
-
-export type ComponentBlocksUser = {
-  __typename?: "ComponentBlocksUser";
-  alertSms?: Maybe<Scalars["Boolean"]>;
-  civility: Enum_Componentblocksuser_Civility;
-  fieldStatusEmail: Enum_Componentblocksuser_Fieldstatusemail;
-  fieldStatusName: Enum_Componentblocksuser_Fieldstatusname;
-  fieldStatusPhone: Enum_Componentblocksuser_Fieldstatusphone;
   id: Scalars["ID"];
 };
 
@@ -2330,25 +2316,27 @@ export type DocumentRelationResponseCollection = {
 
 export type DropOffMap = {
   __typename?: "DropOffMap";
+  BANFeatureProperties?: Maybe<Scalars["JSON"]>;
   address?: Maybe<Scalars["String"]>;
   city?: Maybe<Scalars["String"]>;
   collectDropOff?: Maybe<CollectDropOffEntityResponse>;
   collectVoluntary?: Maybe<CollectVoluntaryEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   description?: Maybe<Scalars["String"]>;
-  downloadableFile?: Maybe<Array<Maybe<ComponentBlocksDownloadBlock>>>;
+  downloadableFiles?: Maybe<Array<Maybe<ComponentBlocksDownloadBlock>>>;
   dropOffMapService?: Maybe<DropOffMapServiceEntityResponse>;
-  gpsCoordinates?: Maybe<Scalars["String"]>;
+  latitude?: Maybe<Scalars["Float"]>;
+  longitude?: Maybe<Scalars["Float"]>;
   mustKnow?: Maybe<Scalars["String"]>;
   name?: Maybe<Scalars["String"]>;
-  openingHoursBlock?: Maybe<
-    Array<Maybe<DropOffMapOpeningHoursBlockDynamicZone>>
+  openingHoursBlocks?: Maybe<
+    Array<Maybe<DropOffMapOpeningHoursBlocksDynamicZone>>
   >;
   phoneNumber?: Maybe<Scalars["String"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
 
-export type DropOffMapDownloadableFileArgs = {
+export type DropOffMapDownloadableFilesArgs = {
   filters?: InputMaybe<ComponentBlocksDownloadBlockFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
@@ -2372,6 +2360,7 @@ export type DropOffMapEntityResponseCollection = {
 };
 
 export type DropOffMapFiltersInput = {
+  BANFeatureProperties?: InputMaybe<JsonFilterInput>;
   address?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<DropOffMapFiltersInput>>>;
   city?: InputMaybe<StringFilterInput>;
@@ -2379,10 +2368,11 @@ export type DropOffMapFiltersInput = {
   collectVoluntary?: InputMaybe<CollectVoluntaryFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
-  downloadableFile?: InputMaybe<ComponentBlocksDownloadBlockFiltersInput>;
+  downloadableFiles?: InputMaybe<ComponentBlocksDownloadBlockFiltersInput>;
   dropOffMapService?: InputMaybe<DropOffMapServiceFiltersInput>;
-  gpsCoordinates?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
+  latitude?: InputMaybe<FloatFilterInput>;
+  longitude?: InputMaybe<FloatFilterInput>;
   mustKnow?: InputMaybe<StringFilterInput>;
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<DropOffMapFiltersInput>;
@@ -2392,25 +2382,27 @@ export type DropOffMapFiltersInput = {
 };
 
 export type DropOffMapInput = {
+  BANFeatureProperties?: InputMaybe<Scalars["JSON"]>;
   address?: InputMaybe<Scalars["String"]>;
   city?: InputMaybe<Scalars["String"]>;
   collectDropOff?: InputMaybe<Scalars["ID"]>;
   collectVoluntary?: InputMaybe<Scalars["ID"]>;
   description?: InputMaybe<Scalars["String"]>;
-  downloadableFile?: InputMaybe<
+  downloadableFiles?: InputMaybe<
     Array<InputMaybe<ComponentBlocksDownloadBlockInput>>
   >;
   dropOffMapService?: InputMaybe<Scalars["ID"]>;
-  gpsCoordinates?: InputMaybe<Scalars["String"]>;
+  latitude?: InputMaybe<Scalars["Float"]>;
+  longitude?: InputMaybe<Scalars["Float"]>;
   mustKnow?: InputMaybe<Scalars["String"]>;
   name?: InputMaybe<Scalars["String"]>;
-  openingHoursBlock?: InputMaybe<
-    Array<Scalars["DropOffMapOpeningHoursBlockDynamicZoneInput"]>
+  openingHoursBlocks?: InputMaybe<
+    Array<Scalars["DropOffMapOpeningHoursBlocksDynamicZoneInput"]>
   >;
   phoneNumber?: InputMaybe<Scalars["String"]>;
 };
 
-export type DropOffMapOpeningHoursBlockDynamicZone =
+export type DropOffMapOpeningHoursBlocksDynamicZone =
   | ComponentBlocksOpeningDay
   | Error;
 
@@ -2571,26 +2563,6 @@ export enum Enum_Componentblockssubheading_Subheadingtag {
   H6 = "h6",
 }
 
-export enum Enum_Componentblocksuser_Civility {
-  Cache = "Cache",
-  Visible = "Visible",
-}
-
-export enum Enum_Componentblocksuser_Fieldstatusemail {
-  Obligatoire = "Obligatoire",
-  Optionnel = "Optionnel",
-}
-
-export enum Enum_Componentblocksuser_Fieldstatusname {
-  Obligatoire = "Obligatoire",
-  Optionnel = "Optionnel",
-}
-
-export enum Enum_Componentblocksuser_Fieldstatusphone {
-  Obligatoire = "Obligatoire",
-  Optionnel = "Optionnel",
-}
-
 export enum Enum_Componentlinksdropoffmap_Pointtodisplayonthemap {
   A = "A",
   B = "B",
@@ -2687,6 +2659,11 @@ export enum Enum_New_Status {
   Archived = "archived",
   Draft = "draft",
   Published = "published",
+}
+
+export enum Enum_Pickupday_Periodicity {
+  Hebdomadaire = "hebdomadaire",
+  Mensuel = "mensuel",
 }
 
 export enum Enum_Quiz_Status {
@@ -3677,7 +3654,6 @@ export type GenericMorph =
   | CollectDoorToDoor
   | CollectDropOff
   | CollectVoluntary
-  | ComponentBlocksAddress
   | ComponentBlocksAttachments
   | ComponentBlocksCheckbox
   | ComponentBlocksCommentary
@@ -3694,7 +3670,6 @@ export type GenericMorph =
   | ComponentBlocksRequestType
   | ComponentBlocksSubHeading
   | ComponentBlocksTest
-  | ComponentBlocksUser
   | ComponentBlocksVideo
   | ComponentBlocksWysiwyg
   | ComponentLinksAlertNotification
@@ -4368,6 +4343,7 @@ export type Mutation = {
   removeFile?: Maybe<UploadFileEntityResponse>;
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
+  sendEmail?: Maybe<Scalars["String"]>;
   servicesActivation?: Maybe<ServiceActivated>;
   setFlowIsActivated?: Maybe<FlowEntity>;
   singleUploadCustom: File;
@@ -5175,6 +5151,13 @@ export type MutationResetPasswordArgs = {
   code: Scalars["String"];
   password: Scalars["String"];
   passwordConfirmation: Scalars["String"];
+};
+
+export type MutationSendEmailArgs = {
+  content?: InputMaybe<Scalars["String"]>;
+  recipientEmail: Scalars["String"];
+  subject?: InputMaybe<Scalars["String"]>;
+  templateId?: InputMaybe<Scalars["Int"]>;
 };
 
 export type MutationServicesActivationArgs = {
@@ -6115,15 +6098,20 @@ export type PaginationArg = {
 
 export type PickUpDay = {
   __typename?: "PickUpDay";
+  advancedSelection: Scalars["JSON"];
   cities?: Maybe<CityRelationResponseCollection>;
   collectDoorToDoor?: Maybe<CollectDoorToDoorEntityResponse>;
   collectVoluntary?: Maybe<CollectVoluntaryEntityResponse>;
+  complementaryMention?: Maybe<Scalars["String"]>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   description?: Maybe<Scalars["String"]>;
-  flow?: Maybe<FlowEntityResponse>;
+  flow: FlowEntityResponse;
+  includeHoliday: Scalars["Boolean"];
   informationMessage?: Maybe<InformationMessageEntityResponse>;
   name: Scalars["String"];
+  periodicity?: Maybe<Enum_Pickupday_Periodicity>;
   pickUpDayService?: Maybe<PickUpDayServiceEntityResponse>;
+  pickUpHours?: Maybe<Scalars["String"]>;
   sectorizations?: Maybe<SectorizationRelationResponseCollection>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
@@ -6158,32 +6146,42 @@ export type PickUpDayEntityResponseCollection = {
 };
 
 export type PickUpDayFiltersInput = {
+  advancedSelection?: InputMaybe<JsonFilterInput>;
   and?: InputMaybe<Array<InputMaybe<PickUpDayFiltersInput>>>;
   cities?: InputMaybe<CityFiltersInput>;
   collectDoorToDoor?: InputMaybe<CollectDoorToDoorFiltersInput>;
   collectVoluntary?: InputMaybe<CollectVoluntaryFiltersInput>;
+  complementaryMention?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
   flow?: InputMaybe<FlowFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
+  includeHoliday?: InputMaybe<BooleanFilterInput>;
   informationMessage?: InputMaybe<InformationMessageFiltersInput>;
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<PickUpDayFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<PickUpDayFiltersInput>>>;
+  periodicity?: InputMaybe<StringFilterInput>;
   pickUpDayService?: InputMaybe<PickUpDayServiceFiltersInput>;
+  pickUpHours?: InputMaybe<StringFilterInput>;
   sectorizations?: InputMaybe<SectorizationFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type PickUpDayInput = {
+  advancedSelection?: InputMaybe<Scalars["JSON"]>;
   cities?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   collectDoorToDoor?: InputMaybe<Scalars["ID"]>;
   collectVoluntary?: InputMaybe<Scalars["ID"]>;
+  complementaryMention?: InputMaybe<Scalars["String"]>;
   description?: InputMaybe<Scalars["String"]>;
   flow?: InputMaybe<Scalars["ID"]>;
+  includeHoliday?: InputMaybe<Scalars["Boolean"]>;
   informationMessage?: InputMaybe<Scalars["ID"]>;
   name?: InputMaybe<Scalars["String"]>;
+  periodicity?: InputMaybe<Enum_Pickupday_Periodicity>;
   pickUpDayService?: InputMaybe<Scalars["ID"]>;
+  pickUpHours?: InputMaybe<Scalars["String"]>;
   sectorizations?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
 };
 
@@ -6363,7 +6361,7 @@ export type Query = {
   getAllFoldersHierarchy?: Maybe<Array<Maybe<RequestFolders>>>;
   getBinId?: Maybe<Array<Maybe<Data>>>;
   getContentTypeDTOs?: Maybe<Array<Maybe<ContentTypeDto>>>;
-  getDropOffCollectType?: Maybe<Array<Maybe<CollectType>>>;
+  getDropOffCollectType?: Maybe<Array<Maybe<CollectEntity>>>;
   getEditoBlockDTO?: Maybe<EditoBlockDto>;
   getEditoContentDTOs?: Maybe<Array<Maybe<EditoContentDto>>>;
   getFilePath?: Maybe<Scalars["String"]>;
@@ -7707,13 +7705,22 @@ export type Request = {
   confirmationMessage?: Maybe<Scalars["String"]>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   description?: Maybe<Scalars["String"]>;
+  displayUserCivility?: Maybe<Scalars["Boolean"]>;
+  fieldAddressLabel?: Maybe<Scalars["String"]>;
+  hasAddress: Scalars["Boolean"];
+  hasAppointmentSlots?: Maybe<Scalars["Boolean"]>;
   hasSeveralRequestTypes: Scalars["Boolean"];
+  hasUser: Scalars["Boolean"];
   isActivated?: Maybe<Scalars["Boolean"]>;
+  isUserEmailMandatory?: Maybe<Scalars["Boolean"]>;
+  isUserNameMandatory?: Maybe<Scalars["Boolean"]>;
+  isUserPhoneMandatory?: Maybe<Scalars["Boolean"]>;
   name?: Maybe<Scalars["String"]>;
   requestAggregate?: Maybe<RequestAggregateEntityResponse>;
   requestService?: Maybe<RequestServiceEntityResponse>;
   requestType?: Maybe<Array<Maybe<ComponentBlocksRequestType>>>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
+  userAllowSMSNotification?: Maybe<Scalars["Boolean"]>;
 };
 
 export type RequestRequestTypeArgs = {
@@ -7723,7 +7730,6 @@ export type RequestRequestTypeArgs = {
 };
 
 export type RequestAddableBlocksDynamicZone =
-  | ComponentBlocksAddress
   | ComponentBlocksAttachments
   | ComponentBlocksCheckbox
   | ComponentBlocksCommentary
@@ -7732,7 +7738,6 @@ export type RequestAddableBlocksDynamicZone =
   | ComponentBlocksProofOfReceipt
   | ComponentBlocksQcm
   | ComponentBlocksQuestions
-  | ComponentBlocksUser
   | Error;
 
 export type RequestAggregate = {
@@ -7819,9 +7824,17 @@ export type RequestFiltersInput = {
   confirmationMessage?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
+  displayUserCivility?: InputMaybe<BooleanFilterInput>;
+  fieldAddressLabel?: InputMaybe<StringFilterInput>;
+  hasAddress?: InputMaybe<BooleanFilterInput>;
+  hasAppointmentSlots?: InputMaybe<BooleanFilterInput>;
   hasSeveralRequestTypes?: InputMaybe<BooleanFilterInput>;
+  hasUser?: InputMaybe<BooleanFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   isActivated?: InputMaybe<BooleanFilterInput>;
+  isUserEmailMandatory?: InputMaybe<BooleanFilterInput>;
+  isUserNameMandatory?: InputMaybe<BooleanFilterInput>;
+  isUserPhoneMandatory?: InputMaybe<BooleanFilterInput>;
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<RequestFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<RequestFiltersInput>>>;
@@ -7829,6 +7842,7 @@ export type RequestFiltersInput = {
   requestService?: InputMaybe<RequestServiceFiltersInput>;
   requestType?: InputMaybe<ComponentBlocksRequestTypeFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
+  userAllowSMSNotification?: InputMaybe<BooleanFilterInput>;
 };
 
 export type RequestFolder = {
@@ -7858,12 +7872,21 @@ export type RequestInput = {
   blockText?: InputMaybe<Scalars["String"]>;
   confirmationMessage?: InputMaybe<Scalars["String"]>;
   description?: InputMaybe<Scalars["String"]>;
+  displayUserCivility?: InputMaybe<Scalars["Boolean"]>;
+  fieldAddressLabel?: InputMaybe<Scalars["String"]>;
+  hasAddress?: InputMaybe<Scalars["Boolean"]>;
+  hasAppointmentSlots?: InputMaybe<Scalars["Boolean"]>;
   hasSeveralRequestTypes?: InputMaybe<Scalars["Boolean"]>;
+  hasUser?: InputMaybe<Scalars["Boolean"]>;
   isActivated?: InputMaybe<Scalars["Boolean"]>;
+  isUserEmailMandatory?: InputMaybe<Scalars["Boolean"]>;
+  isUserNameMandatory?: InputMaybe<Scalars["Boolean"]>;
+  isUserPhoneMandatory?: InputMaybe<Scalars["Boolean"]>;
   name?: InputMaybe<Scalars["String"]>;
   requestAggregate?: InputMaybe<Scalars["ID"]>;
   requestService?: InputMaybe<Scalars["ID"]>;
   requestType?: InputMaybe<Array<InputMaybe<ComponentBlocksRequestTypeInput>>>;
+  userAllowSMSNotification?: InputMaybe<Scalars["Boolean"]>;
 };
 
 export type RequestRelationResponseCollection = {
@@ -8025,7 +8048,9 @@ export type SearchResult = {
 
 export type SearchResultAddress = {
   __typename?: "SearchResultAddress";
-  coordinates: Scalars["String"];
+  banFeaturesProperties?: Maybe<Scalars["JSON"]>;
+  latitude?: Maybe<Scalars["Float"]>;
+  longitude?: Maybe<Scalars["Float"]>;
   name?: Maybe<Scalars["String"]>;
 };
 
@@ -9213,14 +9238,6 @@ export type YesWeScanServiceRelationResponseCollection = {
 export type ClientName = {
   __typename?: "clientName";
   clientName?: Maybe<Scalars["String"]>;
-};
-
-export type CollectType = {
-  __typename?: "collectType";
-  grammaticalGender: Scalars["String"];
-  name: Scalars["String"];
-  originalId: Scalars["ID"];
-  typeName: Scalars["String"];
 };
 
 export type ContractStatus = {

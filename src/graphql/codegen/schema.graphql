@@ -152,10 +152,12 @@ type Address {
 }
 
 type AlertNotification {
+  alertMessage: String
   createdAt: DateTime
-  description: String
-  name: String
   publishedAt: DateTime
+  scheduledAt: Date!
+  sendMail: Boolean
+  subject: String
   updatedAt: DateTime
 }
 
@@ -174,21 +176,25 @@ type AlertNotificationEntityResponseCollection {
 }
 
 input AlertNotificationFiltersInput {
+  alertMessage: StringFilterInput
   and: [AlertNotificationFiltersInput]
   createdAt: DateTimeFilterInput
-  description: StringFilterInput
   id: IDFilterInput
-  name: StringFilterInput
   not: AlertNotificationFiltersInput
   or: [AlertNotificationFiltersInput]
   publishedAt: DateTimeFilterInput
+  scheduledAt: DateFilterInput
+  sendMail: BooleanFilterInput
+  subject: StringFilterInput
   updatedAt: DateTimeFilterInput
 }
 
 input AlertNotificationInput {
-  description: String
-  name: String
+  alertMessage: String
   publishedAt: DateTime
+  scheduledAt: Date
+  sendMail: Boolean
+  subject: String
 }
 
 type AlertNotificationRelationResponseCollection {
@@ -504,6 +510,7 @@ type ChannelTypeRelationResponseCollection {
 
 type City {
   MwCounter: MwCounterServiceEntityResponse
+  contract: ContractEntityResponse
   createdAt: DateTime
   department: String
   epci(
@@ -542,6 +549,7 @@ type CityEntityResponseCollection {
 input CityFiltersInput {
   MwCounter: MwCounterServiceFiltersInput
   and: [CityFiltersInput]
+  contract: ContractFiltersInput
   createdAt: DateTimeFilterInput
   department: StringFilterInput
   epci: EpciFiltersInput
@@ -560,6 +568,7 @@ input CityFiltersInput {
 
 input CityInput {
   MwCounter: ID
+  contract: ID
   department: String
   epci: [ID]
   insee: Long
@@ -696,11 +705,6 @@ type CollectDoorToDoorRelationResponseCollection {
 type CollectDropOff {
   contract: ContractEntityResponse
   createdAt: DateTime
-  dropOffMaps(
-    filters: DropOffMapFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): DropOffMapRelationResponseCollection
   flows(
     filters: FlowFiltersInput
     pagination: PaginationArg = {}
@@ -730,7 +734,6 @@ input CollectDropOffFiltersInput {
   and: [CollectDropOffFiltersInput]
   contract: ContractFiltersInput
   createdAt: DateTimeFilterInput
-  dropOffMaps: DropOffMapFiltersInput
   flows: FlowFiltersInput
   grammaticalGender: StringFilterInput
   id: IDFilterInput
@@ -742,7 +745,6 @@ input CollectDropOffFiltersInput {
 
 input CollectDropOffInput {
   contract: ID
-  dropOffMaps: [ID]
   flows: [ID]
   grammaticalGender: ENUM_COLLECTDROPOFF_GRAMMATICALGENDER
   name: String
@@ -753,14 +755,17 @@ type CollectDropOffRelationResponseCollection {
   data: [CollectDropOffEntity!]!
 }
 
+type CollectEntity {
+  entityTypeName: String!
+  grammaticalGender: String!
+  name: String!
+  originalId: ID!
+  uniqueId: String!
+}
+
 type CollectVoluntary {
   contract: ContractEntityResponse
   createdAt: DateTime
-  dropOffMaps(
-    filters: DropOffMapFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): DropOffMapRelationResponseCollection
   flows(
     filters: FlowFiltersInput
     pagination: PaginationArg = {}
@@ -790,7 +795,6 @@ input CollectVoluntaryFiltersInput {
   and: [CollectVoluntaryFiltersInput]
   contract: ContractFiltersInput
   createdAt: DateTimeFilterInput
-  dropOffMaps: DropOffMapFiltersInput
   flows: FlowFiltersInput
   grammaticalGender: StringFilterInput
   id: IDFilterInput
@@ -802,7 +806,6 @@ input CollectVoluntaryFiltersInput {
 
 input CollectVoluntaryInput {
   contract: ID
-  dropOffMaps: [ID]
   flows: [ID]
   grammaticalGender: ENUM_COLLECTVOLUNTARY_GRAMMATICALGENDER
   name: String
@@ -815,12 +818,6 @@ type CollectVoluntaryRelationResponseCollection {
 
 input CommuneInput {
   insee: Int!
-}
-
-type ComponentBlocksAddress {
-  fieldLabelAddress: String!
-  fixedPosition: Boolean!
-  id: ID!
 }
 
 type ComponentBlocksAttachments {
@@ -935,6 +932,7 @@ type ComponentBlocksRequestType {
   email: String
   id: ID!
   isEmail: Boolean
+  isTSMS: Boolean
   title: String!
 }
 
@@ -942,6 +940,7 @@ input ComponentBlocksRequestTypeFiltersInput {
   and: [ComponentBlocksRequestTypeFiltersInput]
   email: StringFilterInput
   isEmail: BooleanFilterInput
+  isTSMS: BooleanFilterInput
   not: ComponentBlocksRequestTypeFiltersInput
   or: [ComponentBlocksRequestTypeFiltersInput]
   title: StringFilterInput
@@ -951,6 +950,7 @@ input ComponentBlocksRequestTypeInput {
   email: String
   id: ID
   isEmail: Boolean
+  isTSMS: Boolean
   title: String
 }
 
@@ -961,15 +961,6 @@ type ComponentBlocksSubHeading {
 }
 
 type ComponentBlocksTest {
-  id: ID!
-}
-
-type ComponentBlocksUser {
-  alertSms: Boolean
-  civility: ENUM_COMPONENTBLOCKSUSER_CIVILITY!
-  fieldStatusEmail: ENUM_COMPONENTBLOCKSUSER_FIELDSTATUSEMAIL!
-  fieldStatusName: ENUM_COMPONENTBLOCKSUSER_FIELDSTATUSNAME!
-  fieldStatusPhone: ENUM_COMPONENTBLOCKSUSER_FIELDSTATUSPHONE!
   id: ID!
 }
 
@@ -2052,22 +2043,24 @@ type DocumentRelationResponseCollection {
 }
 
 type DropOffMap {
+  BANFeatureProperties: JSON
   address: String
   city: String
   collectDropOff: CollectDropOffEntityResponse
   collectVoluntary: CollectVoluntaryEntityResponse
   createdAt: DateTime
   description: String
-  downloadableFile(
+  downloadableFiles(
     filters: ComponentBlocksDownloadBlockFiltersInput
     pagination: PaginationArg = {}
     sort: [String] = []
   ): [ComponentBlocksDownloadBlock]
   dropOffMapService: DropOffMapServiceEntityResponse
-  gpsCoordinates: String
+  latitude: Float
+  longitude: Float
   mustKnow: String
   name: String
-  openingHoursBlock: [DropOffMapOpeningHoursBlockDynamicZone]
+  openingHoursBlocks: [DropOffMapOpeningHoursBlocksDynamicZone]
   phoneNumber: String
   updatedAt: DateTime
 }
@@ -2087,6 +2080,7 @@ type DropOffMapEntityResponseCollection {
 }
 
 input DropOffMapFiltersInput {
+  BANFeatureProperties: JSONFilterInput
   address: StringFilterInput
   and: [DropOffMapFiltersInput]
   city: StringFilterInput
@@ -2094,10 +2088,11 @@ input DropOffMapFiltersInput {
   collectVoluntary: CollectVoluntaryFiltersInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
-  downloadableFile: ComponentBlocksDownloadBlockFiltersInput
+  downloadableFiles: ComponentBlocksDownloadBlockFiltersInput
   dropOffMapService: DropOffMapServiceFiltersInput
-  gpsCoordinates: StringFilterInput
   id: IDFilterInput
+  latitude: FloatFilterInput
+  longitude: FloatFilterInput
   mustKnow: StringFilterInput
   name: StringFilterInput
   not: DropOffMapFiltersInput
@@ -2107,23 +2102,27 @@ input DropOffMapFiltersInput {
 }
 
 input DropOffMapInput {
+  BANFeatureProperties: JSON
   address: String
   city: String
   collectDropOff: ID
   collectVoluntary: ID
   description: String
-  downloadableFile: [ComponentBlocksDownloadBlockInput]
+  downloadableFiles: [ComponentBlocksDownloadBlockInput]
   dropOffMapService: ID
-  gpsCoordinates: String
+  latitude: Float
+  longitude: Float
   mustKnow: String
   name: String
-  openingHoursBlock: [DropOffMapOpeningHoursBlockDynamicZoneInput!]
+  openingHoursBlocks: [DropOffMapOpeningHoursBlocksDynamicZoneInput!]
   phoneNumber: String
 }
 
-union DropOffMapOpeningHoursBlockDynamicZone = ComponentBlocksOpeningDay | Error
+union DropOffMapOpeningHoursBlocksDynamicZone =
+    ComponentBlocksOpeningDay
+  | Error
 
-scalar DropOffMapOpeningHoursBlockDynamicZoneInput
+scalar DropOffMapOpeningHoursBlocksDynamicZoneInput
 
 type DropOffMapRelationResponseCollection {
   data: [DropOffMapEntity!]!
@@ -2270,26 +2269,6 @@ enum ENUM_COMPONENTBLOCKSSUBHEADING_SUBHEADINGTAG {
   h6
 }
 
-enum ENUM_COMPONENTBLOCKSUSER_CIVILITY {
-  Cache
-  Visible
-}
-
-enum ENUM_COMPONENTBLOCKSUSER_FIELDSTATUSEMAIL {
-  Obligatoire
-  Optionnel
-}
-
-enum ENUM_COMPONENTBLOCKSUSER_FIELDSTATUSNAME {
-  Obligatoire
-  Optionnel
-}
-
-enum ENUM_COMPONENTBLOCKSUSER_FIELDSTATUSPHONE {
-  Obligatoire
-  Optionnel
-}
-
 enum ENUM_COMPONENTLINKSDROPOFFMAP_POINTTODISPLAYONTHEMAP {
   A
   B
@@ -2386,6 +2365,11 @@ enum ENUM_NEW_STATUS {
   archived
   draft
   published
+}
+
+enum ENUM_PICKUPDAY_PERIODICITY {
+  hebdomadaire
+  mensuel
 }
 
 enum ENUM_QUIZ_STATUS {
@@ -3284,7 +3268,6 @@ union GenericMorph =
   | CollectDoorToDoor
   | CollectDropOff
   | CollectVoluntary
-  | ComponentBlocksAddress
   | ComponentBlocksAttachments
   | ComponentBlocksCheckbox
   | ComponentBlocksCommentary
@@ -3301,7 +3284,6 @@ union GenericMorph =
   | ComponentBlocksRequestType
   | ComponentBlocksSubHeading
   | ComponentBlocksTest
-  | ComponentBlocksUser
   | ComponentBlocksVideo
   | ComponentBlocksWysiwyg
   | ComponentLinksAlertNotification
@@ -4081,6 +4063,12 @@ type Mutation {
     password: String!
     passwordConfirmation: String!
   ): UsersPermissionsLoginPayload
+  sendEmail(
+    content: String
+    recipientEmail: String!
+    subject: String
+    templateId: Int
+  ): String
   servicesActivation(
     ServiceName: String!
     contractId: ID!
@@ -4788,6 +4776,7 @@ input PaginationArg {
 }
 
 type PickUpDay {
+  advancedSelection: JSON!
   cities(
     filters: CityFiltersInput
     pagination: PaginationArg = {}
@@ -4795,12 +4784,16 @@ type PickUpDay {
   ): CityRelationResponseCollection
   collectDoorToDoor: CollectDoorToDoorEntityResponse
   collectVoluntary: CollectVoluntaryEntityResponse
+  complementaryMention: String
   createdAt: DateTime
   description: String
-  flow: FlowEntityResponse
+  flow: FlowEntityResponse!
+  includeHoliday: Boolean!
   informationMessage: InformationMessageEntityResponse
   name: String!
+  periodicity: ENUM_PICKUPDAY_PERIODICITY
   pickUpDayService: PickUpDayServiceEntityResponse
+  pickUpHours: String
   sectorizations(
     filters: SectorizationFiltersInput
     pagination: PaginationArg = {}
@@ -4824,32 +4817,42 @@ type PickUpDayEntityResponseCollection {
 }
 
 input PickUpDayFiltersInput {
+  advancedSelection: JSONFilterInput
   and: [PickUpDayFiltersInput]
   cities: CityFiltersInput
   collectDoorToDoor: CollectDoorToDoorFiltersInput
   collectVoluntary: CollectVoluntaryFiltersInput
+  complementaryMention: StringFilterInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
   flow: FlowFiltersInput
   id: IDFilterInput
+  includeHoliday: BooleanFilterInput
   informationMessage: InformationMessageFiltersInput
   name: StringFilterInput
   not: PickUpDayFiltersInput
   or: [PickUpDayFiltersInput]
+  periodicity: StringFilterInput
   pickUpDayService: PickUpDayServiceFiltersInput
+  pickUpHours: StringFilterInput
   sectorizations: SectorizationFiltersInput
   updatedAt: DateTimeFilterInput
 }
 
 input PickUpDayInput {
+  advancedSelection: JSON
   cities: [ID]
   collectDoorToDoor: ID
   collectVoluntary: ID
+  complementaryMention: String
   description: String
   flow: ID
+  includeHoliday: Boolean
   informationMessage: ID
   name: String
+  periodicity: ENUM_PICKUPDAY_PERIODICITY
   pickUpDayService: ID
+  pickUpHours: String
   sectorizations: [ID]
 }
 
@@ -5178,7 +5181,7 @@ type Query {
     street: String
   ): [Data]
   getContentTypeDTOs(contractId: ID!): [ContentTypeDTO]
-  getDropOffCollectType(contractId: ID!): [collectType]
+  getDropOffCollectType(contractId: ID!): [CollectEntity]
   getEditoBlockDTO(
     contractId: ID!
     status: ENUM_EDITOCONTENTDTO_STATUS
@@ -5787,8 +5790,16 @@ type Request {
   confirmationMessage: String
   createdAt: DateTime
   description: String
+  displayUserCivility: Boolean
+  fieldAddressLabel: String
+  hasAddress: Boolean!
+  hasAppointmentSlots: Boolean
   hasSeveralRequestTypes: Boolean!
+  hasUser: Boolean!
   isActivated: Boolean
+  isUserEmailMandatory: Boolean
+  isUserNameMandatory: Boolean
+  isUserPhoneMandatory: Boolean
   name: String
   requestAggregate: RequestAggregateEntityResponse
   requestService: RequestServiceEntityResponse
@@ -5798,11 +5809,11 @@ type Request {
     sort: [String] = []
   ): [ComponentBlocksRequestType]
   updatedAt: DateTime
+  userAllowSMSNotification: Boolean
 }
 
 union RequestAddableBlocksDynamicZone =
-    ComponentBlocksAddress
-  | ComponentBlocksAttachments
+    ComponentBlocksAttachments
   | ComponentBlocksCheckbox
   | ComponentBlocksCommentary
   | ComponentBlocksCumbersome
@@ -5810,7 +5821,6 @@ union RequestAddableBlocksDynamicZone =
   | ComponentBlocksProofOfReceipt
   | ComponentBlocksQcm
   | ComponentBlocksQuestions
-  | ComponentBlocksUser
   | Error
 
 scalar RequestAddableBlocksDynamicZoneInput
@@ -5889,9 +5899,17 @@ input RequestFiltersInput {
   confirmationMessage: StringFilterInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
+  displayUserCivility: BooleanFilterInput
+  fieldAddressLabel: StringFilterInput
+  hasAddress: BooleanFilterInput
+  hasAppointmentSlots: BooleanFilterInput
   hasSeveralRequestTypes: BooleanFilterInput
+  hasUser: BooleanFilterInput
   id: IDFilterInput
   isActivated: BooleanFilterInput
+  isUserEmailMandatory: BooleanFilterInput
+  isUserNameMandatory: BooleanFilterInput
+  isUserPhoneMandatory: BooleanFilterInput
   name: StringFilterInput
   not: RequestFiltersInput
   or: [RequestFiltersInput]
@@ -5899,6 +5917,7 @@ input RequestFiltersInput {
   requestService: RequestServiceFiltersInput
   requestType: ComponentBlocksRequestTypeFiltersInput
   updatedAt: DateTimeFilterInput
+  userAllowSMSNotification: BooleanFilterInput
 }
 
 input RequestFolder {
@@ -5924,12 +5943,21 @@ input RequestInput {
   blockText: String
   confirmationMessage: String
   description: String
+  displayUserCivility: Boolean
+  fieldAddressLabel: String
+  hasAddress: Boolean
+  hasAppointmentSlots: Boolean
   hasSeveralRequestTypes: Boolean
+  hasUser: Boolean
   isActivated: Boolean
+  isUserEmailMandatory: Boolean
+  isUserNameMandatory: Boolean
+  isUserPhoneMandatory: Boolean
   name: String
   requestAggregate: ID
   requestService: ID
   requestType: [ComponentBlocksRequestTypeInput]
+  userAllowSMSNotification: Boolean
 }
 
 type RequestRelationResponseCollection {
@@ -6069,7 +6097,9 @@ type SearchResult {
 }
 
 type SearchResultAddress {
-  coordinates: String!
+  banFeaturesProperties: JSON
+  latitude: Float
+  longitude: Float
   name: String
 }
 
@@ -7153,13 +7183,6 @@ type YesWeScanServiceRelationResponseCollection {
 
 type clientName {
   clientName: String
-}
-
-type collectType {
-  grammaticalGender: String!
-  name: String!
-  originalId: ID!
-  typeName: String!
 }
 
 type contractStatus {
