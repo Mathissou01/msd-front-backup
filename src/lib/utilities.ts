@@ -5,8 +5,10 @@ export function makePublicAssetPath(path: string) {
     : path;
 }
 
-export const removeNulls = <S>(value: S | undefined): value is S =>
-  value != null;
+export const removeNulls = <S>(
+  value: S | undefined | Record<string, never>,
+): value is Exclude<S, null> =>
+  value != null && Object.keys(value).length !== 0;
 
 export function isAbsoluteOrRelativeUrl(url: string) {
   const regex = new RegExp(

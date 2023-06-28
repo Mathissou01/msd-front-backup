@@ -32,6 +32,8 @@
   },
   "dependencies": {
     "@apollo/client": "3.7.4",
+    "@hookform/error-message": "2.0.1",
+    "@react-google-maps/api": "2.18.1",
     "@suezenv/react-theme-components": "2.8.3",
     "chroma-js": "2.4.2",
     "classnames": "2.3.2",
@@ -75,6 +77,7 @@
     "@types/chroma-js": "^2.1.4",
     "@types/dompurify": "2.4.0",
     "@types/jest": "29.2.5",
+    "@types/lodash": "4.14.195",
     "@types/node": "18.11.18",
     "@types/qs": "6.9.7",
     "@types/react": "18.0.26",

@@ -1,0 +1,43 @@
+@use "src/styles/02-tools/tools.inputs" as input;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.shadows" as shadows;
+
+// TO DO : name correctly each scss classes
+
+.c-SearchMap {
+  position: relative;
+  z-index: 1;
+  padding: 30px 30px 10px;
+  background-color: colors.$white;
+
+  &__SearchBar {
+    display: flex;
+    gap: 7.5px;
+    margin-top: 15px;
+
+    .c-CommonButton {
+      height: 48px;
+    }
+  }
+
+  &__InputContainer {
+    position: relative;
+    flex: 1;
+    height: 48px;
+  }
+
+  &__Input {
+    @include input.input;
+
+    flex: 1;
+    height: 48px;
+
+    @include im.media(">=mobile") {
+      flex: 1;
+    }
+    @include im.media(">=tablet") {
+      flex: 1;
+    }
+  }
+}

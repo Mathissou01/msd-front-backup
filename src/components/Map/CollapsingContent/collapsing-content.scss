@@ -1,0 +1,177 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/01-settings/settings.layout" as layout;
+@use "src/styles/02-tools/tools.shadows" as shadows;
+
+.c-CollapsingContent {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  z-index: 1;
+  width: 320px;
+  height: 100%;
+  padding: 20px;
+  overflow: hidden;
+  background-color: colors.$white;
+  border-left: 4px solid colors.$background-default;
+  border-radius: 0 8px 8px 0;
+
+  &_show {
+    z-index: 5;
+    width: 100%;
+    transform: translateX(0);
+    opacity: 1;
+    animation: slide-in 0.3s forwards;
+
+    @include im.media(">=tablet") {
+      left: 30%;
+      z-index: 1;
+      width: 360px;
+      transform: translateX(0);
+      opacity: 1;
+      animation: slide-in 0.3s forwards;
+    }
+  }
+
+  &_hide {
+    z-index: 1;
+    height: 100%;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: slide-out 0.3s backwards;
+  }
+
+  &__ButtonContainer {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    height: fit-content;
+    padding: 15px 0;
+    box-shadow: 0 2px 0 rgb(17 95 251 / 5%), 0 1px 0 rgb(17 95 251 / 10%);
+  }
+
+  &__ButtonWrapper {
+    width: 100%;
+    overflow: auto;
+    white-space: nowrap;
+    box-shadow: 0 2px 0 rgb(17 95 251 / 5%), 0 1px 0 rgb(17 95 251 / 10%);
+  }
+
+  &__Button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__MustKnow {
+    padding: 0 0 10px;
+    box-shadow: 0 2px 0 rgb(17 95 251 / 5%), 0 1px 0 rgb(17 95 251 / 10%);
+  }
+
+  &__Info {
+    display: flex;
+    flex-direction: column;
+    padding: 0 40px 10px 0;
+    box-shadow: 0 2px 0 rgb(17 95 251 / 5%), 0 1px 0 rgb(17 95 251 / 10%);
+  }
+
+  &__InfoText {
+    text-align: left;
+  }
+
+  &__WasteContainer {
+    padding: 0 0 10px;
+    box-shadow: 0 2px 0 rgb(17 95 251 / 5%), 0 1px 0 rgb(17 95 251 / 10%);
+  }
+
+  &__Waste {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-height: 35px;
+    overflow: hidden;
+  }
+
+  &__WasteName {
+    padding: 5px;
+  }
+
+  &__WasteDisplay {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-height: initial;
+  }
+
+  &__WasteText {
+    margin: 2px 0 4px;
+    font-size: 16px;
+    text-decoration: underline;
+  }
+
+  &__WasteText:focus {
+    outline: 0;
+  }
+
+  &__WasteText:active {
+    outline: none;
+  }
+
+  &__WasteDisplayContainer {
+    position: relative;
+    z-index: 2;
+  }
+
+  &__ButtonCrossContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: colors.$white;
+  }
+
+  &__WasteContent {
+    padding: 2px 5px;
+    border: 1px solid colors.$gray-200;
+    border-radius: 20px;
+  }
+
+  &__Title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: colors.$contrast-text;
+  }
+
+  &__MustKnowContent {
+    font-size: 16px;
+  }
+
+  @keyframes slide-in {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  @keyframes slide-out {
+    0% {
+      left: 30%;
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    100% {
+      left: 0%;
+      opacity: 0;
+    }
+  }
+}

@@ -1,0 +1,58 @@
+query getDropOffMapByDropOffMapByServiceId($dropOffMapServiceId: ID!) {
+  getDropOffMaps(dropOffMapServiceId: $dropOffMapServiceId) {
+    id
+    name
+    collect {
+      entityTypeName
+      name
+      originalId
+      uniqueId
+      picto {
+        alternativeText
+        id
+        name
+        url
+      }
+    }
+    BANFeatureProperties
+    address
+    city
+    latitude
+    longitude
+    mustKnow
+    description
+    phoneNumber
+    downloadableFiles {
+      linkText
+      id
+      file {
+        data {
+          id
+          attributes {
+            name
+            alternativeText
+            caption
+            formats
+            hash
+            ext
+            mime
+            size
+            url
+            previewUrl
+            provider
+            provider_metadata
+          }
+        }
+      }
+    }
+    openingHoursBlocks {
+      ... on ComponentBlocksOpeningDay {
+        id
+        afterNoonEnd
+        afterNoonStart
+        morningStart
+        morningEnd
+      }
+    }
+  }
+}

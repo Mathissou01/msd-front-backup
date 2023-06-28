@@ -217,13 +217,30 @@ export type Address = {
 
 export type AlertNotification = {
   __typename?: "AlertNotification";
+  alertDescription: Scalars["String"];
   alertMessage?: Maybe<Scalars["String"]>;
+  alertNotifService?: Maybe<AlertNotificationServiceEntityResponse>;
+  alertTitle?: Maybe<Scalars["String"]>;
+  cities?: Maybe<CityRelationResponseCollection>;
   createdAt?: Maybe<Scalars["DateTime"]>;
-  publishedAt?: Maybe<Scalars["DateTime"]>;
   scheduledAt: Scalars["Date"];
+  sectorizations?: Maybe<SectorizationRelationResponseCollection>;
   sendMail?: Maybe<Scalars["Boolean"]>;
+  sendSMS?: Maybe<Scalars["Boolean"]>;
   subject?: Maybe<Scalars["String"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type AlertNotificationCitiesArgs = {
+  filters?: InputMaybe<CityFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type AlertNotificationSectorizationsArgs = {
+  filters?: InputMaybe<SectorizationFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type AlertNotificationEntity = {
@@ -244,24 +261,34 @@ export type AlertNotificationEntityResponseCollection = {
 };
 
 export type AlertNotificationFiltersInput = {
+  alertDescription?: InputMaybe<StringFilterInput>;
   alertMessage?: InputMaybe<StringFilterInput>;
+  alertNotifService?: InputMaybe<AlertNotificationServiceFiltersInput>;
+  alertTitle?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<AlertNotificationFiltersInput>>>;
+  cities?: InputMaybe<CityFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<AlertNotificationFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<AlertNotificationFiltersInput>>>;
-  publishedAt?: InputMaybe<DateTimeFilterInput>;
   scheduledAt?: InputMaybe<DateFilterInput>;
+  sectorizations?: InputMaybe<SectorizationFiltersInput>;
   sendMail?: InputMaybe<BooleanFilterInput>;
+  sendSMS?: InputMaybe<BooleanFilterInput>;
   subject?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type AlertNotificationInput = {
+  alertDescription?: InputMaybe<Scalars["String"]>;
   alertMessage?: InputMaybe<Scalars["String"]>;
-  publishedAt?: InputMaybe<Scalars["DateTime"]>;
+  alertNotifService?: InputMaybe<Scalars["ID"]>;
+  alertTitle?: InputMaybe<Scalars["String"]>;
+  cities?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   scheduledAt?: InputMaybe<Scalars["Date"]>;
+  sectorizations?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   sendMail?: InputMaybe<Scalars["Boolean"]>;
+  sendSMS?: InputMaybe<Scalars["Boolean"]>;
   subject?: InputMaybe<Scalars["String"]>;
 };
 
@@ -287,7 +314,6 @@ export type AlertNotificationService = {
 export type AlertNotificationServiceAlertNotificationsArgs = {
   filters?: InputMaybe<AlertNotificationFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
@@ -891,6 +917,7 @@ export type CollectEntity = {
   grammaticalGender: Scalars["String"];
   name: Scalars["String"];
   originalId: Scalars["ID"];
+  picto: PictoDto;
   uniqueId: Scalars["String"];
 };
 
@@ -2337,6 +2364,31 @@ export type DropOffMap = {
 };
 
 export type DropOffMapDownloadableFilesArgs = {
+  filters?: InputMaybe<ComponentBlocksDownloadBlockFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type DropOffMapDto = {
+  __typename?: "DropOffMapDTO";
+  BANFeatureProperties?: Maybe<Scalars["JSON"]>;
+  address: Scalars["String"];
+  city: Scalars["String"];
+  collect?: Maybe<CollectEntity>;
+  description?: Maybe<Scalars["String"]>;
+  downloadableFiles?: Maybe<Array<Maybe<ComponentBlocksDownloadBlock>>>;
+  id: Scalars["String"];
+  latitude: Scalars["Float"];
+  longitude: Scalars["Float"];
+  mustKnow?: Maybe<Scalars["String"]>;
+  name: Scalars["String"];
+  openingHoursBlocks?: Maybe<
+    Array<Maybe<DropOffMapOpeningHoursBlocksDynamicZone>>
+  >;
+  phoneNumber?: Maybe<Scalars["String"]>;
+};
+
+export type DropOffMapDtoDownloadableFilesArgs = {
   filters?: InputMaybe<ComponentBlocksDownloadBlockFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
@@ -6105,6 +6157,7 @@ export type PickUpDay = {
   complementaryMention?: Maybe<Scalars["String"]>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   description?: Maybe<Scalars["String"]>;
+  externalLink?: Maybe<Scalars["String"]>;
   flow: FlowEntityResponse;
   includeHoliday: Scalars["Boolean"];
   informationMessage?: Maybe<InformationMessageEntityResponse>;
@@ -6112,6 +6165,7 @@ export type PickUpDay = {
   periodicity?: Maybe<Enum_Pickupday_Periodicity>;
   pickUpDayService?: Maybe<PickUpDayServiceEntityResponse>;
   pickUpHours?: Maybe<Scalars["String"]>;
+  request?: Maybe<RequestEntityResponse>;
   sectorizations?: Maybe<SectorizationRelationResponseCollection>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
@@ -6154,6 +6208,7 @@ export type PickUpDayFiltersInput = {
   complementaryMention?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
+  externalLink?: InputMaybe<StringFilterInput>;
   flow?: InputMaybe<FlowFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
   includeHoliday?: InputMaybe<BooleanFilterInput>;
@@ -6164,6 +6219,7 @@ export type PickUpDayFiltersInput = {
   periodicity?: InputMaybe<StringFilterInput>;
   pickUpDayService?: InputMaybe<PickUpDayServiceFiltersInput>;
   pickUpHours?: InputMaybe<StringFilterInput>;
+  request?: InputMaybe<RequestFiltersInput>;
   sectorizations?: InputMaybe<SectorizationFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
@@ -6175,6 +6231,7 @@ export type PickUpDayInput = {
   collectVoluntary?: InputMaybe<Scalars["ID"]>;
   complementaryMention?: InputMaybe<Scalars["String"]>;
   description?: InputMaybe<Scalars["String"]>;
+  externalLink?: InputMaybe<Scalars["String"]>;
   flow?: InputMaybe<Scalars["ID"]>;
   includeHoliday?: InputMaybe<Scalars["Boolean"]>;
   informationMessage?: InputMaybe<Scalars["ID"]>;
@@ -6182,6 +6239,7 @@ export type PickUpDayInput = {
   periodicity?: InputMaybe<Enum_Pickupday_Periodicity>;
   pickUpDayService?: InputMaybe<Scalars["ID"]>;
   pickUpHours?: InputMaybe<Scalars["String"]>;
+  request?: InputMaybe<Scalars["ID"]>;
   sectorizations?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
 };
 
@@ -6270,6 +6328,14 @@ export type PickUpDayServiceInput = {
 export type PickUpDayServiceRelationResponseCollection = {
   __typename?: "PickUpDayServiceRelationResponseCollection";
   data: Array<PickUpDayServiceEntity>;
+};
+
+export type PictoDto = {
+  __typename?: "PictoDTO";
+  alternativeText?: Maybe<Scalars["String"]>;
+  id: Scalars["String"];
+  name: Scalars["String"];
+  url: Scalars["String"];
 };
 
 export enum PublicationState {
@@ -6362,6 +6428,7 @@ export type Query = {
   getBinId?: Maybe<Array<Maybe<Data>>>;
   getContentTypeDTOs?: Maybe<Array<Maybe<ContentTypeDto>>>;
   getDropOffCollectType?: Maybe<Array<Maybe<CollectEntity>>>;
+  getDropOffMaps?: Maybe<Array<Maybe<DropOffMapDto>>>;
   getEditoBlockDTO?: Maybe<EditoBlockDto>;
   getEditoContentDTOs?: Maybe<Array<Maybe<EditoContentDto>>>;
   getFilePath?: Maybe<Scalars["String"]>;
@@ -6503,7 +6570,6 @@ export type QueryAlertNotificationServicesArgs = {
 export type QueryAlertNotificationsArgs = {
   filters?: InputMaybe<AlertNotificationFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
@@ -6866,6 +6932,10 @@ export type QueryGetContentTypeDtOsArgs = {
 
 export type QueryGetDropOffCollectTypeArgs = {
   contractId: Scalars["ID"];
+};
+
+export type QueryGetDropOffMapsArgs = {
+  dropOffMapServiceId: Scalars["ID"];
 };
 
 export type QueryGetEditoBlockDtoArgs = {
@@ -11330,6 +11400,95 @@ export type GetContactMwcQuery = {
   } | null;
 };
 
+export type GetDropOffMapByDropOffMapByServiceIdQueryVariables = Exact<{
+  dropOffMapServiceId: Scalars["ID"];
+}>;
+
+export type GetDropOffMapByDropOffMapByServiceIdQuery = {
+  __typename?: "Query";
+  getDropOffMaps?: Array<{
+    __typename?: "DropOffMapDTO";
+    id: string;
+    name: string;
+    BANFeatureProperties?: any | null;
+    address: string;
+    city: string;
+    latitude: number;
+    longitude: number;
+    mustKnow?: string | null;
+    description?: string | null;
+    phoneNumber?: string | null;
+    collect?: {
+      __typename?: "CollectEntity";
+      entityTypeName: string;
+      name: string;
+      originalId: string;
+      uniqueId: string;
+      picto: {
+        __typename?: "PictoDTO";
+        alternativeText?: string | null;
+        id: string;
+        name: string;
+        url: string;
+      };
+    } | null;
+    downloadableFiles?: Array<{
+      __typename?: "ComponentBlocksDownloadBlock";
+      linkText: string;
+      id: string;
+      file: {
+        __typename?: "UploadFileEntityResponse";
+        data?: {
+          __typename?: "UploadFileEntity";
+          id?: string | null;
+          attributes?: {
+            __typename?: "UploadFile";
+            name: string;
+            alternativeText?: string | null;
+            caption?: string | null;
+            formats?: any | null;
+            hash: string;
+            ext?: string | null;
+            mime: string;
+            size: number;
+            url: string;
+            previewUrl?: string | null;
+            provider: string;
+            provider_metadata?: any | null;
+          } | null;
+        } | null;
+      };
+    } | null> | null;
+    openingHoursBlocks?: Array<
+      | {
+          __typename?: "ComponentBlocksOpeningDay";
+          id: string;
+          afterNoonEnd?: any | null;
+          afterNoonStart?: any | null;
+          morningStart?: any | null;
+          morningEnd?: any | null;
+        }
+      | { __typename?: "Error" }
+      | null
+    > | null;
+  } | null> | null;
+};
+
+export type GetAddressCoordinatesQueryVariables = Exact<{
+  searchTerm: Scalars["String"];
+}>;
+
+export type GetAddressCoordinatesQuery = {
+  __typename?: "Query";
+  getAddressCoordinates?: Array<{
+    __typename?: "SearchResultAddress";
+    name?: string | null;
+    latitude?: number | null;
+    longitude?: number | null;
+    banFeaturesProperties?: any | null;
+  } | null> | null;
+};
+
 export type GetContactUsSubServiceByContractIdQueryVariables = Exact<{
   contractId: Scalars["ID"];
 }>;
@@ -15018,6 +15177,178 @@ export type GetContactMwcLazyQueryHookResult = ReturnType<
 export type GetContactMwcQueryResult = Apollo.QueryResult<
   GetContactMwcQuery,
   GetContactMwcQueryVariables
+>;
+export const GetDropOffMapByDropOffMapByServiceIdDocument = gql`
+  query getDropOffMapByDropOffMapByServiceId($dropOffMapServiceId: ID!) {
+    getDropOffMaps(dropOffMapServiceId: $dropOffMapServiceId) {
+      id
+      name
+      collect {
+        entityTypeName
+        name
+        originalId
+        uniqueId
+        picto {
+          alternativeText
+          id
+          name
+          url
+        }
+      }
+      BANFeatureProperties
+      address
+      city
+      latitude
+      longitude
+      mustKnow
+      description
+      phoneNumber
+      downloadableFiles {
+        linkText
+        id
+        file {
+          data {
+            id
+            attributes {
+              name
+              alternativeText
+              caption
+              formats
+              hash
+              ext
+              mime
+              size
+              url
+              previewUrl
+              provider
+              provider_metadata
+            }
+          }
+        }
+      }
+      openingHoursBlocks {
+        ... on ComponentBlocksOpeningDay {
+          id
+          afterNoonEnd
+          afterNoonStart
+          morningStart
+          morningEnd
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetDropOffMapByDropOffMapByServiceIdQuery__
+ *
+ * To run a query within a React component, call `useGetDropOffMapByDropOffMapByServiceIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetDropOffMapByDropOffMapByServiceIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetDropOffMapByDropOffMapByServiceIdQuery({
+ *   variables: {
+ *      dropOffMapServiceId: // value for 'dropOffMapServiceId'
+ *   },
+ * });
+ */
+export function useGetDropOffMapByDropOffMapByServiceIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetDropOffMapByDropOffMapByServiceIdQuery,
+    GetDropOffMapByDropOffMapByServiceIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetDropOffMapByDropOffMapByServiceIdQuery,
+    GetDropOffMapByDropOffMapByServiceIdQueryVariables
+  >(GetDropOffMapByDropOffMapByServiceIdDocument, options);
+}
+export function useGetDropOffMapByDropOffMapByServiceIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetDropOffMapByDropOffMapByServiceIdQuery,
+    GetDropOffMapByDropOffMapByServiceIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetDropOffMapByDropOffMapByServiceIdQuery,
+    GetDropOffMapByDropOffMapByServiceIdQueryVariables
+  >(GetDropOffMapByDropOffMapByServiceIdDocument, options);
+}
+export type GetDropOffMapByDropOffMapByServiceIdQueryHookResult = ReturnType<
+  typeof useGetDropOffMapByDropOffMapByServiceIdQuery
+>;
+export type GetDropOffMapByDropOffMapByServiceIdLazyQueryHookResult =
+  ReturnType<typeof useGetDropOffMapByDropOffMapByServiceIdLazyQuery>;
+export type GetDropOffMapByDropOffMapByServiceIdQueryResult =
+  Apollo.QueryResult<
+    GetDropOffMapByDropOffMapByServiceIdQuery,
+    GetDropOffMapByDropOffMapByServiceIdQueryVariables
+  >;
+export const GetAddressCoordinatesDocument = gql`
+  query GetAddressCoordinates($searchTerm: String!) {
+    getAddressCoordinates(searchTerm: $searchTerm) {
+      name
+      latitude
+      longitude
+      banFeaturesProperties
+    }
+  }
+`;
+
+/**
+ * __useGetAddressCoordinatesQuery__
+ *
+ * To run a query within a React component, call `useGetAddressCoordinatesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAddressCoordinatesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAddressCoordinatesQuery({
+ *   variables: {
+ *      searchTerm: // value for 'searchTerm'
+ *   },
+ * });
+ */
+export function useGetAddressCoordinatesQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetAddressCoordinatesQuery,
+    GetAddressCoordinatesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetAddressCoordinatesQuery,
+    GetAddressCoordinatesQueryVariables
+  >(GetAddressCoordinatesDocument, options);
+}
+export function useGetAddressCoordinatesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAddressCoordinatesQuery,
+    GetAddressCoordinatesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetAddressCoordinatesQuery,
+    GetAddressCoordinatesQueryVariables
+  >(GetAddressCoordinatesDocument, options);
+}
+export type GetAddressCoordinatesQueryHookResult = ReturnType<
+  typeof useGetAddressCoordinatesQuery
+>;
+export type GetAddressCoordinatesLazyQueryHookResult = ReturnType<
+  typeof useGetAddressCoordinatesLazyQuery
+>;
+export type GetAddressCoordinatesQueryResult = Apollo.QueryResult<
+  GetAddressCoordinatesQuery,
+  GetAddressCoordinatesQueryVariables
 >;
 export const GetContactUsSubServiceByContractIdDocument = gql`
   query getContactUsSubServiceByContractId($contractId: ID!) {

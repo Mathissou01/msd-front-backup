@@ -1,0 +1,89 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.shadows" as shadows;
+
+.c-ContentMap {
+  height: 100%;
+  overflow: auto;
+  background-color: colors.$white;
+
+  :hover {
+    background-color: colors.$gray-200;
+    cursor: pointer;
+
+    .c-Marker {
+      animation-name: bounce-marker;
+    }
+
+    .c-Marker__WavePin {
+      animation: shadow-marker 2s infinite;
+    }
+
+    .c-Marker__Content {
+      filter: drop-shadow(1px 2px 1px colors.$brand-primary);
+    }
+  }
+
+  &__Content {
+    @include shadows.shadow(1);
+
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    overflow: hidden;
+    background-color: transparent;
+  }
+
+  &__Info {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 40px 15px 0;
+    background-color: transparent;
+  }
+
+  &__Picto {
+    position: relative;
+    bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-color: transparent;
+  }
+
+  &__InfoName {
+    color: colors.$expert-blue;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  &__InfoOpeningTimeContainer {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__InfoAddress {
+    text-align: left;
+  }
+
+  &__InfoPostal {
+    text-align: left;
+  }
+
+  &__PictoContainer {
+    transform: scale(0.7) translateY(50px);
+  }
+
+  &__TextWarning {
+    color: colors.$error-dark;
+    font-weight: 600;
+  }
+
+  &__InfoTime {
+    color: colors.$blue-1;
+    font-weight: 600;
+  }
+
+  &__InfoDistance {
+    color: colors.$blue-1;
+    font-weight: 600;
+  }
+}

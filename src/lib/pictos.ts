@@ -22,4 +22,6 @@ export type TPictoStyles =
   | "printer"
   | "compteurDechets"
   | "close"
-  | "edit";
+  | "history"
+  | "edit"
+  | "polygon";

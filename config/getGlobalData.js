@@ -23,6 +23,15 @@ query getGlobalData($contractId: ID!) {
             }
           }
         }
+        dropOffMapService {
+          data {
+            id
+            attributes {
+              isActivated
+              name
+            }
+          }
+        }
         contractCustomization {
           data {
             id

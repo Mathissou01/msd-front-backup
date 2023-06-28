@@ -1,0 +1,82 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/01-settings/settings.layout" as layout;
+@use "src/styles/02-tools/tools.shadows" as shadows;
+
+.c-ServiceCartePage {
+  display: flex;
+  flex-direction: column;
+
+  @include im.media(">=tablet") {
+    display: grid;
+    grid-template:
+      "SearchMapContainer LayersMapContainer LayersMapContainer"
+      "ContentMapContainer LayersMapContainer LayersMapContainer"
+      "ContentMapContainer LayersMapContainer LayersMapContainer";
+    grid-template-rows: 180px 1fr 1fr;
+    grid-template-columns: 30% 70%;
+    gap: 0 0;
+    height: calc(100vh - #{layout.$header-height});
+  }
+
+  &__LayersMapContainer {
+    position: relative;
+    order: 3;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+
+    @include im.media(">=tablet") {
+      grid-area: LayersMapContainer;
+      height: 100%;
+    }
+  }
+
+  &__MarkerFilterContainer {
+    position: relative;
+    order: 2;
+    background-color: colors.$white;
+    @include im.media(">=tablet") {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+
+  &__ContentMapContainer {
+    order: 4;
+    @include im.media(">=tablet") {
+      z-index: 2;
+      grid-area: ContentMapContainer;
+      background-color: colors.$white;
+    }
+  }
+
+  &__SearchMapContainer {
+    @include shadows.shadow(1);
+
+    z-index: 4;
+    order: 1;
+    background-color: colors.$white;
+    @include im.media(">=tablet") {
+      @include shadows.shadow(1);
+
+      z-index: 4;
+      grid-area: SearchMapContainer;
+    }
+  }
+
+  &__MarkerCollapsingContent {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    @include im.media(">=tablet") {
+      position: absolute;
+      left: 0;
+      z-index: 1;
+      width: 340px;
+      height: 100%;
+    }
+  }
+}
