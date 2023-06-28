@@ -16,9 +16,23 @@ export interface User {
   consent?: Consent[];
   activeCounter?: boolean;
   activationDate?: Date;
+  communication?: Communication;
 }
 
 export interface Consent {
   acceptanceDate: Date;
   version: string;
+}
+
+export interface Communication {
+  alerts: CommunicationType;
+  tips: CommunicationType;
+  sociologicalSurveys: boolean;
+  evolutionServices: boolean;
+}
+
+export interface CommunicationType {
+  email: boolean;
+  sms: boolean;
+  push: boolean;
 }

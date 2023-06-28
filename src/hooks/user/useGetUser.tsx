@@ -1,24 +1,11 @@
 import { useState, useEffect } from "react";
-
-interface User {
-  id: string;
-  firstname: string;
-  lastname: string;
-  email: string;
-  phone: string;
-  streetNumber: string;
-  streetName: string;
-  city: string;
-  postalCode: string;
-  dwellingType: string;
-  userType: string;
-  createdAt: string;
-  householdSize: number;
-}
+import { User } from "../../lib/user";
+import { useRouter } from "next/router";
 
 const useGetUser = (userId: string | null) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   const fetchUser = async () => {
     try {
@@ -36,6 +23,8 @@ const useGetUser = (userId: string | null) => {
       }
     } catch (error) {
       console.error(error);
+      // TODO: redirect to error page
+      router.push("/");
     } finally {
       setLoading(false);
     }

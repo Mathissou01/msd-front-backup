@@ -1,7 +1,8 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import ArrowBold from "public/images/pictos/arrow_bold.svg";
 import "./common-tabs.scss";
 import classNames from "classnames";
+import { useRouter } from "next/router";
 
 interface CommonTabsProps {
   tabData: {
@@ -18,14 +19,33 @@ const CommonTabs: React.FC<CommonTabsProps> = ({
   initialTab = 0,
   align = "left",
 }) => {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState(initialTab);
+
+  useEffect(() => {
+    const tabFromUrl = tabData.findIndex(
+      (tab) =>
+        tab.title.split(" ").join("-").toLowerCase() === router.query.tab,
+    );
+    if (tabFromUrl !== -1) {
+      setActiveTab(tabFromUrl);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query.tab]);
 
   const handleTabClick = (tabIndex: number) => {
     setActiveTab(tabIndex);
+    router.push(
+      `?tab=${tabData[tabIndex].title.split(" ").join("-").toLowerCase()}`,
+    );
   };
 
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setActiveTab(Number(event.target.value));
+    const tabIndex = parseInt(event.target.value, 10);
+    setActiveTab(tabIndex);
+    router.push(
+      `?tab=${tabData[tabIndex].title.split(" ").join("-").toLowerCase()}`,
+    );
   };
 
   const renderContent = () => {

@@ -1,28 +1,43 @@
 import React from "react";
-import CommonTabs from "../../components/CommonTabs/CommonTabs";
+import CommonTabs from "../../components/Common/CommonTabs/CommonTabs";
 import CommonPageTitle from "../../components/Common/CommonPageTitle/CommonPageTitle";
-import "./my-account-page.scss";
 import MyPersonalInfos from "../../components/MyAccount/MyPersonnalInfos";
-import MyCommunicationPref from "../../components/MyAccount/MyCommunicationPref";
+import useGetUser from "../../hooks/user/useGetUser";
+import CommonSpinner from "../../components/Common/CommonSpinner/CommonSpinner";
+import MyCommunicationPref from "../../components/MyAccount/MyCommunicationPref/MyCommunicationPref";
+import "./my-account-page.scss";
 
 const MyAccountPage = () => {
+  const { user, refetch, loading } = useGetUser(
+    process.env.NEXT_PUBLIC_USER_ID || "",
+  );
   const tabData = [
     {
       title: "Mes informations personnelles",
-      content: <MyPersonalInfos />,
+      content: <MyPersonalInfos user={user} refetch={refetch} />,
       isActive: true,
     },
     {
       title: "Mes préférences de communication",
-      content: <MyCommunicationPref />,
+      content: <MyCommunicationPref user={user} refetch={refetch} />,
       isActive: true,
     },
   ];
 
   return (
     <div className="o-MyAccount">
-      <CommonPageTitle title="Mon compte" />
-      <CommonTabs tabData={tabData} align="center" />
+      {loading ? (
+        <CommonSpinner />
+      ) : (
+        <>
+          {user && user !== null && (
+            <>
+              <CommonPageTitle title="Mon compte" />
+              <CommonTabs tabData={tabData} align="center" />
+            </>
+          )}
+        </>
+      )}
     </div>
   );
 };
