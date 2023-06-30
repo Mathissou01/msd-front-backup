@@ -107,27 +107,29 @@ export default function ServiceCartePage() {
           />
         </div>
         <div className="c-ServiceCartePage__ContentMapContainer">
-          <ContentMap
-            contents={data[0].dropOffMaps
-              .filter(removeNulls)
-              ?.map((content) => {
-                return {
-                  infoPicto: content.picto,
-                  infoName: content.name,
-                  infoAddress: content.address,
-                  infoPostal: content.postal,
-                  infoDistance: content.distanceText,
-                  infoLat: content.lat,
-                  infoLng: content.lng,
-                  infoMustKnow: content.mustKnow,
-                  infoFiles: content.files,
-                } as IContentData;
-              })}
-            onContentClick={(content) => {
-              setSelectedContent(content);
-              setShowModal(true);
-            }}
-          />
+          {(geoLocation || selectedAddress) && (
+            <ContentMap
+              contents={data[0].dropOffMaps
+                .filter(removeNulls)
+                ?.map((content) => {
+                  return {
+                    infoPicto: content.picto,
+                    infoName: content.name,
+                    infoAddress: content.address,
+                    infoPostal: content.postal,
+                    infoDistance: content.distanceText,
+                    infoLat: content.lat,
+                    infoLng: content.lng,
+                    infoMustKnow: content.mustKnow,
+                    infoFiles: content.files,
+                  } as IContentData;
+                })}
+              onContentClick={(content) => {
+                setSelectedContent(content);
+                setShowModal(true);
+              }}
+            />
+          )}
         </div>
         <div className="c-ServiceCartePage__MarkerFilterContainer">
           <MarkerFilterMap

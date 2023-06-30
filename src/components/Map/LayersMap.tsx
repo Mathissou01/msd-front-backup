@@ -38,14 +38,22 @@ export default function LayersMap({
   }, [isLoaded, markers]);
 
   const fitMapToMarkers = useCallback(() => {
-    if (mapRef.current && markersLoaded) {
+    if (mapRef.current) {
       const bounds = new window.google.maps.LatLngBounds();
-      markers.map(({ lat, lng }) => {
-        bounds.extend(new window.google.maps.LatLng(lat, lng));
-      });
+
+      if (markersLoaded && markers.length > 0) {
+        markers.map(({ lat, lng }) => {
+          bounds.extend(new window.google.maps.LatLng(lat, lng));
+        });
+      } else if (position) {
+        bounds.extend(
+          new window.google.maps.LatLng(position.lat, position.lng),
+        );
+      }
+
       mapRef.current.fitBounds(bounds);
     }
-  }, [markers, markersLoaded]);
+  }, [markers, markersLoaded, position]);
 
   useEffect(loadMarkers, [loadMarkers]);
   useEffect(fitMapToMarkers, [fitMapToMarkers]);

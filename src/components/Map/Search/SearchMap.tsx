@@ -38,7 +38,8 @@ export default function SearchMap({
     useGetDropOffMapByDropOffMapByServiceIdLazyQuery();
 
   const searchTitle =
-    "Vous cherchez le point de collecte ou de réemploi le plus proche dechez vous ?";
+    "Vous cherchez le point de collecte ou de réemploi le plus proche de chez vous?";
+  const placeholder = "Entrez votre adresse";
 
   async function searchFunction(
     searchValue: string,
@@ -152,6 +153,7 @@ export default function SearchMap({
               selectTransformFunction={(result) => result.name ?? undefined}
               isLoading={loading}
               isRequired={true}
+              placeholder={placeholder}
               defaultValue={formMethods.getValues("address")}
             />
           </div>
