@@ -19,8 +19,7 @@ export function useGeolocation(): [GeolocationResult, () => void] {
   const [disable, setDisable] = useState<boolean>(false);
 
   const fetchGeolocation = useCallback(() => {
-    if (!("geolocation" in navigator)) {
-      //setError("Geolocation is not available.");
+    if (typeof window === "undefined" || !("geolocation" in navigator)) {
       setDisable(true);
       return;
     } else {
@@ -33,23 +32,45 @@ export function useGeolocation(): [GeolocationResult, () => void] {
         const lng = position.coords.longitude;
         setPosition({ lat, lng });
 
-        const geocoder = new window.google.maps.Geocoder();
+        if (
+          window &&
+          window.google &&
+          window.google.maps &&
+          window.google.maps.Geocoder
+        ) {
+          const geocoder = new window.google.maps.Geocoder();
 
-        geocoder.geocode({ location: { lat, lng } }, (results, status) => {
-          if (status === "OK") {
-            if (results && results[0]) {
-              setAddress(results[0].formatted_address);
+          geocoder.geocode({ location: { lat, lng } }, (results, status) => {
+            if (status === "OK") {
+              if (results && results[0]) {
+                setAddress(results[0].formatted_address);
+              } else {
+                setError("Position non trouvée");
+              }
             } else {
-              setError("Position non trouvée");
+              setError("Error");
             }
-          } else {
-            setError("Error");
-          }
-          navigator.geolocation.clearWatch(id);
-        });
+            navigator.geolocation.clearWatch(id);
+          });
+        } else {
+          setError("Google Maps API not loaded");
+        }
       },
-      () => {
-        setError("Permission de géolocalisation non accordée ");
+      (error) => {
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            setError("Permission de géolocalisation non accordée");
+            break;
+          case error.POSITION_UNAVAILABLE:
+            setError("Information de géolocalisation indisponible");
+            break;
+          case error.TIMEOUT:
+            setError("La demande de géolocalisation a expiré");
+            break;
+          default:
+            setError("Erreur de géolocalisation");
+            break;
+        }
       },
       {
         enableHighAccuracy: true,
