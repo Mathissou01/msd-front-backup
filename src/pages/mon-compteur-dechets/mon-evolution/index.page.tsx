@@ -7,6 +7,7 @@ import { fr } from "date-fns/locale";
 import { useCurrentUser } from "../../../hooks/useCurrentUser";
 import "./my-evolution.scss";
 import MyEvolutionDetailBlock from "../../../components/CompteurDechets/MyEvolution/MyEvolutionDetailBlock";
+import CommonBarChart from "../../../components/Common/CommonGraphs/CommonBarChart/CommonBarChart";
 
 const breadcrumbPages = [
   {
@@ -32,6 +33,12 @@ const MyEvolution = () => {
     useAdditionalWeekYearTokens: false,
   });
 
+  // TODO: Fonction de rappel pour récupérer les données du BarComponent
+  // const [chartData, setChartData] = useState([]);
+  // const handleDataUpdate = (data) => {
+  //   setChartData(data);
+  // };
+
   return (
     <>
       <CommonBreadcrumb pages={breadcrumbPages} />
@@ -53,7 +60,9 @@ const MyEvolution = () => {
         </div>
         <div className="c-MyEvolution__EvolutionContainer">
           <div className="c-MyEvolution__BlockContainer">
-            <div className="c-MyEvolution__StatsContainer">BarComponent</div>
+            <div className="c-MyEvolution__StatsContainer">
+              <CommonBarChart />
+            </div>
             <div className="c-MyEvolution__ProgressionBlockContainer">
               <MyEvolutionDetailBlock date={formattedDate} />
             </div>
