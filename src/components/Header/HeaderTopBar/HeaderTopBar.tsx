@@ -71,21 +71,6 @@ export default function HeaderTopBar({
                   <HeaderLinkSearch />
                 </div>
               </li>
-              <li className="c-HeaderTopBar__Item">
-                <NavigationLink
-                  href="/"
-                  pictoUrl="/images/pictos/localisation.svg"
-                  isDesktopMode
-                />
-              </li>
-              <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
-              <li className="c-HeaderTopBar__Item">
-                <NavigationLink
-                  href="/"
-                  pictoUrl="/images/pictos/calendar.svg"
-                  isDesktopMode
-                />
-              </li>
               <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
               <li className="c-HeaderTopBar__Item">
                 <NavigationLink
