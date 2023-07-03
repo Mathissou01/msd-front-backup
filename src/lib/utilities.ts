@@ -1,3 +1,5 @@
+import chroma from "chroma-js";
+
 export function makePublicAssetPath(path: string) {
   return process.env.NODE_ENV === "production" &&
     !!process.env.NEXT_PUBLIC_BASE_PATH
@@ -34,4 +36,42 @@ export function handleDateFrenchFormat(date: Date): string {
   };
 
   return date.toLocaleDateString("fr", options);
+}
+
+export function isString(value: unknown): value is string {
+  return typeof value === "string";
+}
+
+export function isSubArrayInOrder(arr: string[], subArr: string[]) {
+  if (subArr.length === 0) {
+    return true;
+  }
+
+  let subIndex = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === subArr[subIndex]) {
+      subIndex++;
+
+      if (subIndex === subArr.length) {
+        return true;
+      }
+    } else {
+      subIndex = 0;
+    }
+  }
+
+  return false;
+}
+
+export function createDateFromString(dateString: string): Date | null {
+  const [day, month, year] = dateString.split("/").map(Number);
+  const adjustedYear = year >= 0 && year <= 99 ? 2000 + year : year;
+  const date = new Date(adjustedYear, month - 1, day);
+
+  return isNaN(date.getTime()) ? null : date;
+}
+
+export function makeLighterColor(color: string): string {
+  return chroma(color).alpha(0.1).hex();
 }

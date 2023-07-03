@@ -1108,6 +1108,31 @@ export type ComponentBlocksQuestions = {
   textStatus: Enum_Componentblocksquestions_Textstatus;
 };
 
+export type ComponentBlocksRequestSlotsExceptions = {
+  __typename?: "ComponentBlocksRequestSlotsExceptions";
+  exceptionType?: Maybe<Enum_Componentblocksrequestslotsexceptions_Exceptiontype>;
+  id: Scalars["ID"];
+  slotException?: Maybe<Scalars["JSON"]>;
+};
+
+export type ComponentBlocksRequestSlotsExceptionsFiltersInput = {
+  and?: InputMaybe<
+    Array<InputMaybe<ComponentBlocksRequestSlotsExceptionsFiltersInput>>
+  >;
+  exceptionType?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentBlocksRequestSlotsExceptionsFiltersInput>;
+  or?: InputMaybe<
+    Array<InputMaybe<ComponentBlocksRequestSlotsExceptionsFiltersInput>>
+  >;
+  slotException?: InputMaybe<JsonFilterInput>;
+};
+
+export type ComponentBlocksRequestSlotsExceptionsInput = {
+  exceptionType?: InputMaybe<Enum_Componentblocksrequestslotsexceptions_Exceptiontype>;
+  id?: InputMaybe<Scalars["ID"]>;
+  slotException?: InputMaybe<Scalars["JSON"]>;
+};
+
 export type ComponentBlocksRequestType = {
   __typename?: "ComponentBlocksRequestType";
   email?: Maybe<Scalars["String"]>;
@@ -2607,6 +2632,11 @@ export enum Enum_Componentblocksquestions_Textstatus {
   Optionnel = "Optionnel",
 }
 
+export enum Enum_Componentblocksrequestslotsexceptions_Exceptiontype {
+  Daily = "daily",
+  DateRange = "dateRange",
+}
+
 export enum Enum_Componentblockssubheading_Subheadingtag {
   H2 = "h2",
   H3 = "h3",
@@ -3719,6 +3749,7 @@ export type GenericMorph =
   | ComponentBlocksProofOfReceipt
   | ComponentBlocksQcm
   | ComponentBlocksQuestions
+  | ComponentBlocksRequestSlotsExceptions
   | ComponentBlocksRequestType
   | ComponentBlocksSubHeading
   | ComponentBlocksTest
@@ -3787,6 +3818,8 @@ export type GenericMorph =
   | Request
   | RequestAggregate
   | RequestService
+  | RequestSlot
+  | RequestTaked
   | SearchEngineBlock
   | Sectorization
   | ServicesBlock
@@ -3798,6 +3831,7 @@ export type GenericMorph =
   | TopContentBlock
   | UploadFile
   | UploadFolder
+  | UserDataStorage
   | UsersPermissionsPermission
   | UsersPermissionsRole
   | UsersPermissionsUser
@@ -4281,6 +4315,8 @@ export type Mutation = {
   createRequest?: Maybe<RequestEntityResponse>;
   createRequestAggregate?: Maybe<RequestAggregateEntityResponse>;
   createRequestService?: Maybe<RequestServiceEntityResponse>;
+  createRequestSlot?: Maybe<RequestSlotEntityResponse>;
+  createRequestTaked?: Maybe<RequestTakedEntityResponse>;
   createSearchEngineBlock?: Maybe<SearchEngineBlockEntityResponse>;
   createSectorization?: Maybe<SectorizationEntityResponse>;
   createServicesBlock?: Maybe<ServicesBlockEntityResponse>;
@@ -4292,6 +4328,7 @@ export type Mutation = {
   createTopContentBlock?: Maybe<TopContentBlockEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
   createUploadFolder?: Maybe<UploadFolderEntityResponse>;
+  createUserDataStorage?: Maybe<UserDataStorageEntityResponse>;
   /** Create a new role */
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
@@ -4359,6 +4396,8 @@ export type Mutation = {
   deleteRequest?: Maybe<RequestEntityResponse>;
   deleteRequestAggregate?: Maybe<RequestAggregateEntityResponse>;
   deleteRequestService?: Maybe<RequestServiceEntityResponse>;
+  deleteRequestSlot?: Maybe<RequestSlotEntityResponse>;
+  deleteRequestTaked?: Maybe<RequestTakedEntityResponse>;
   deleteSearchEngineBlock?: Maybe<SearchEngineBlockEntityResponse>;
   deleteSectorization?: Maybe<SectorizationEntityResponse>;
   deleteServicesBlock?: Maybe<ServicesBlockEntityResponse>;
@@ -4370,6 +4409,7 @@ export type Mutation = {
   deleteTopContentBlock?: Maybe<TopContentBlockEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
+  deleteUserDataStorage?: Maybe<UserDataStorageEntityResponse>;
   /** Delete an existing role */
   deleteUsersPermissionsRole?: Maybe<UsersPermissionsDeleteRolePayload>;
   /** Delete an existing user */
@@ -4461,6 +4501,8 @@ export type Mutation = {
   updateRequest?: Maybe<RequestEntityResponse>;
   updateRequestAggregate?: Maybe<RequestAggregateEntityResponse>;
   updateRequestService?: Maybe<RequestServiceEntityResponse>;
+  updateRequestSlot?: Maybe<RequestSlotEntityResponse>;
+  updateRequestTaked?: Maybe<RequestTakedEntityResponse>;
   updateSearchEngineBlock?: Maybe<SearchEngineBlockEntityResponse>;
   updateSectorization?: Maybe<SectorizationEntityResponse>;
   updateServicesBlock?: Maybe<ServicesBlockEntityResponse>;
@@ -4472,6 +4514,7 @@ export type Mutation = {
   updateTopContentBlock?: Maybe<TopContentBlockEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
   updateUploadFolder?: Maybe<UploadFolderEntityResponse>;
+  updateUserDataStorage?: Maybe<UserDataStorageEntityResponse>;
   /** Update an existing role */
   updateUsersPermissionsRole?: Maybe<UsersPermissionsUpdateRolePayload>;
   /** Update an existing user */
@@ -4783,6 +4826,14 @@ export type MutationCreateRequestServiceArgs = {
   data: RequestServiceInput;
 };
 
+export type MutationCreateRequestSlotArgs = {
+  data: RequestSlotInput;
+};
+
+export type MutationCreateRequestTakedArgs = {
+  data: RequestTakedInput;
+};
+
 export type MutationCreateSearchEngineBlockArgs = {
   data: SearchEngineBlockInput;
 };
@@ -4825,6 +4876,10 @@ export type MutationCreateUploadFileArgs = {
 
 export type MutationCreateUploadFolderArgs = {
   data: UploadFolderInput;
+};
+
+export type MutationCreateUserDataStorageArgs = {
+  data: UserDataStorageInput;
 };
 
 export type MutationCreateUsersPermissionsRoleArgs = {
@@ -5085,6 +5140,14 @@ export type MutationDeleteRequestServiceArgs = {
   id: Scalars["ID"];
 };
 
+export type MutationDeleteRequestSlotArgs = {
+  id: Scalars["ID"];
+};
+
+export type MutationDeleteRequestTakedArgs = {
+  id: Scalars["ID"];
+};
+
 export type MutationDeleteSearchEngineBlockArgs = {
   id: Scalars["ID"];
 };
@@ -5126,6 +5189,10 @@ export type MutationDeleteUploadFileArgs = {
 };
 
 export type MutationDeleteUploadFolderArgs = {
+  id: Scalars["ID"];
+};
+
+export type MutationDeleteUserDataStorageArgs = {
   id: Scalars["ID"];
 };
 
@@ -5546,6 +5613,16 @@ export type MutationUpdateRequestServiceArgs = {
   id: Scalars["ID"];
 };
 
+export type MutationUpdateRequestSlotArgs = {
+  data: RequestSlotInput;
+  id: Scalars["ID"];
+};
+
+export type MutationUpdateRequestTakedArgs = {
+  data: RequestTakedInput;
+  id: Scalars["ID"];
+};
+
 export type MutationUpdateSearchEngineBlockArgs = {
   data: SearchEngineBlockInput;
   id: Scalars["ID"];
@@ -5598,6 +5675,11 @@ export type MutationUpdateUploadFileArgs = {
 
 export type MutationUpdateUploadFolderArgs = {
   data: UploadFolderInput;
+  id: Scalars["ID"];
+};
+
+export type MutationUpdateUserDataStorageArgs = {
+  data: UserDataStorageInput;
   id: Scalars["ID"];
 };
 
@@ -6151,6 +6233,7 @@ export type PaginationArg = {
 export type PickUpDay = {
   __typename?: "PickUpDay";
   advancedSelection: Scalars["JSON"];
+  buttonLabel?: Maybe<Scalars["String"]>;
   cities?: Maybe<CityRelationResponseCollection>;
   collectDoorToDoor?: Maybe<CollectDoorToDoorEntityResponse>;
   collectVoluntary?: Maybe<CollectVoluntaryEntityResponse>;
@@ -6202,6 +6285,7 @@ export type PickUpDayEntityResponseCollection = {
 export type PickUpDayFiltersInput = {
   advancedSelection?: InputMaybe<JsonFilterInput>;
   and?: InputMaybe<Array<InputMaybe<PickUpDayFiltersInput>>>;
+  buttonLabel?: InputMaybe<StringFilterInput>;
   cities?: InputMaybe<CityFiltersInput>;
   collectDoorToDoor?: InputMaybe<CollectDoorToDoorFiltersInput>;
   collectVoluntary?: InputMaybe<CollectVoluntaryFiltersInput>;
@@ -6226,6 +6310,7 @@ export type PickUpDayFiltersInput = {
 
 export type PickUpDayInput = {
   advancedSelection?: InputMaybe<Scalars["JSON"]>;
+  buttonLabel?: InputMaybe<Scalars["String"]>;
   cities?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   collectDoorToDoor?: InputMaybe<Scalars["ID"]>;
   collectVoluntary?: InputMaybe<Scalars["ID"]>;
@@ -6434,6 +6519,8 @@ export type Query = {
   getFilePath?: Maybe<Scalars["String"]>;
   getFolderHierarchy?: Maybe<Array<Maybe<RequestFolders>>>;
   getNewestTopContents?: Maybe<Array<Maybe<EventOrNews>>>;
+  getNextAvailableSlots?: Maybe<Array<Maybe<RequestSlots>>>;
+  getPickUpDaysByCoordinates?: Maybe<Array<Maybe<Scalars["ID"]>>>;
   getStatusExport?: Maybe<Scalars["String"]>;
   getTopContentBlockDTO?: Maybe<TopContentBlockDto>;
   getTopContentDTOs?: Maybe<Array<Maybe<EditoContentDto>>>;
@@ -6483,6 +6570,10 @@ export type Query = {
   requestAggregates?: Maybe<RequestAggregateEntityResponseCollection>;
   requestService?: Maybe<RequestServiceEntityResponse>;
   requestServices?: Maybe<RequestServiceEntityResponseCollection>;
+  requestSlot?: Maybe<RequestSlotEntityResponse>;
+  requestSlots?: Maybe<RequestSlotEntityResponseCollection>;
+  requestTaked?: Maybe<RequestTakedEntityResponse>;
+  requestTakeds?: Maybe<RequestTakedEntityResponseCollection>;
   requests?: Maybe<RequestEntityResponseCollection>;
   searchAddress?: Maybe<Array<Maybe<Address>>>;
   searchCities?: Maybe<Array<Maybe<CityResult>>>;
@@ -6510,6 +6601,8 @@ export type Query = {
   uploadFiles?: Maybe<UploadFileEntityResponseCollection>;
   uploadFolder?: Maybe<UploadFolderEntityResponse>;
   uploadFolders?: Maybe<UploadFolderEntityResponseCollection>;
+  userDataStorage?: Maybe<UserDataStorageEntityResponse>;
+  userDataStorages?: Maybe<UserDataStorageEntityResponseCollection>;
   usersPermissionsRole?: Maybe<UsersPermissionsRoleEntityResponse>;
   usersPermissionsRoles?: Maybe<UsersPermissionsRoleEntityResponseCollection>;
   usersPermissionsUser?: Maybe<UsersPermissionsUserEntityResponse>;
@@ -6960,6 +7053,18 @@ export type QueryGetNewestTopContentsArgs = {
   contractId: Scalars["ID"];
 };
 
+export type QueryGetNextAvailableSlotsArgs = {
+  lat: Scalars["Float"];
+  long: Scalars["Float"];
+  requestId: Scalars["ID"];
+};
+
+export type QueryGetPickUpDaysByCoordinatesArgs = {
+  lat: Scalars["Float"];
+  long: Scalars["Float"];
+  pickUpDayServiceId: Scalars["ID"];
+};
+
 export type QueryGetStatusExportArgs = {
   id: Scalars["ID"];
 };
@@ -7193,6 +7298,26 @@ export type QueryRequestServicesArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
+export type QueryRequestSlotArgs = {
+  id?: InputMaybe<Scalars["ID"]>;
+};
+
+export type QueryRequestSlotsArgs = {
+  filters?: InputMaybe<RequestSlotFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type QueryRequestTakedArgs = {
+  id?: InputMaybe<Scalars["ID"]>;
+};
+
+export type QueryRequestTakedsArgs = {
+  filters?: InputMaybe<RequestTakedFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
 export type QueryRequestsArgs = {
   filters?: InputMaybe<RequestFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -7323,6 +7448,16 @@ export type QueryUploadFolderArgs = {
 
 export type QueryUploadFoldersArgs = {
   filters?: InputMaybe<UploadFolderFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type QueryUserDataStorageArgs = {
+  id?: InputMaybe<Scalars["ID"]>;
+};
+
+export type QueryUserDataStoragesArgs = {
+  filters?: InputMaybe<UserDataStorageFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
@@ -7781,16 +7916,26 @@ export type Request = {
   hasAppointmentSlots?: Maybe<Scalars["Boolean"]>;
   hasSeveralRequestTypes: Scalars["Boolean"];
   hasUser: Scalars["Boolean"];
+  hoursBeforeReservationIsActivated?: Maybe<Scalars["Int"]>;
   isActivated?: Maybe<Scalars["Boolean"]>;
   isUserEmailMandatory?: Maybe<Scalars["Boolean"]>;
   isUserNameMandatory?: Maybe<Scalars["Boolean"]>;
   isUserPhoneMandatory?: Maybe<Scalars["Boolean"]>;
   name?: Maybe<Scalars["String"]>;
+  numberOfRequiredSlots?: Maybe<Scalars["Int"]>;
   requestAggregate?: Maybe<RequestAggregateEntityResponse>;
   requestService?: Maybe<RequestServiceEntityResponse>;
+  requestSlots?: Maybe<RequestSlotRelationResponseCollection>;
   requestType?: Maybe<Array<Maybe<ComponentBlocksRequestType>>>;
+  slotsReservationRules?: Maybe<Scalars["JSON"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
   userAllowSMSNotification?: Maybe<Scalars["Boolean"]>;
+};
+
+export type RequestRequestSlotsArgs = {
+  filters?: InputMaybe<RequestSlotFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type RequestRequestTypeArgs = {
@@ -7900,6 +8045,7 @@ export type RequestFiltersInput = {
   hasAppointmentSlots?: InputMaybe<BooleanFilterInput>;
   hasSeveralRequestTypes?: InputMaybe<BooleanFilterInput>;
   hasUser?: InputMaybe<BooleanFilterInput>;
+  hoursBeforeReservationIsActivated?: InputMaybe<IntFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   isActivated?: InputMaybe<BooleanFilterInput>;
   isUserEmailMandatory?: InputMaybe<BooleanFilterInput>;
@@ -7907,10 +8053,13 @@ export type RequestFiltersInput = {
   isUserPhoneMandatory?: InputMaybe<BooleanFilterInput>;
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<RequestFiltersInput>;
+  numberOfRequiredSlots?: InputMaybe<IntFilterInput>;
   or?: InputMaybe<Array<InputMaybe<RequestFiltersInput>>>;
   requestAggregate?: InputMaybe<RequestAggregateFiltersInput>;
   requestService?: InputMaybe<RequestServiceFiltersInput>;
+  requestSlots?: InputMaybe<RequestSlotFiltersInput>;
   requestType?: InputMaybe<ComponentBlocksRequestTypeFiltersInput>;
+  slotsReservationRules?: InputMaybe<JsonFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   userAllowSMSNotification?: InputMaybe<BooleanFilterInput>;
 };
@@ -7948,14 +8097,18 @@ export type RequestInput = {
   hasAppointmentSlots?: InputMaybe<Scalars["Boolean"]>;
   hasSeveralRequestTypes?: InputMaybe<Scalars["Boolean"]>;
   hasUser?: InputMaybe<Scalars["Boolean"]>;
+  hoursBeforeReservationIsActivated?: InputMaybe<Scalars["Int"]>;
   isActivated?: InputMaybe<Scalars["Boolean"]>;
   isUserEmailMandatory?: InputMaybe<Scalars["Boolean"]>;
   isUserNameMandatory?: InputMaybe<Scalars["Boolean"]>;
   isUserPhoneMandatory?: InputMaybe<Scalars["Boolean"]>;
   name?: InputMaybe<Scalars["String"]>;
+  numberOfRequiredSlots?: InputMaybe<Scalars["Int"]>;
   requestAggregate?: InputMaybe<Scalars["ID"]>;
   requestService?: InputMaybe<Scalars["ID"]>;
+  requestSlots?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   requestType?: InputMaybe<Array<InputMaybe<ComponentBlocksRequestTypeInput>>>;
+  slotsReservationRules?: InputMaybe<Scalars["JSON"]>;
   userAllowSMSNotification?: InputMaybe<Scalars["Boolean"]>;
 };
 
@@ -8055,11 +8208,149 @@ export type RequestServiceRelationResponseCollection = {
   data: Array<RequestServiceEntity>;
 };
 
+export type RequestSlot = {
+  __typename?: "RequestSlot";
+  createdAt?: Maybe<Scalars["DateTime"]>;
+  noSlotMessage?: Maybe<Scalars["String"]>;
+  sectorizations?: Maybe<SectorizationRelationResponseCollection>;
+  slotMessage?: Maybe<Scalars["String"]>;
+  slotsExceptions?: Maybe<Array<Maybe<ComponentBlocksRequestSlotsExceptions>>>;
+  timeSlots?: Maybe<Scalars["JSON"]>;
+  updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type RequestSlotSectorizationsArgs = {
+  filters?: InputMaybe<SectorizationFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type RequestSlotSlotsExceptionsArgs = {
+  filters?: InputMaybe<ComponentBlocksRequestSlotsExceptionsFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type RequestSlotEntity = {
+  __typename?: "RequestSlotEntity";
+  attributes?: Maybe<RequestSlot>;
+  id?: Maybe<Scalars["ID"]>;
+};
+
+export type RequestSlotEntityResponse = {
+  __typename?: "RequestSlotEntityResponse";
+  data?: Maybe<RequestSlotEntity>;
+};
+
+export type RequestSlotEntityResponseCollection = {
+  __typename?: "RequestSlotEntityResponseCollection";
+  data: Array<RequestSlotEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type RequestSlotFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<RequestSlotFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  noSlotMessage?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<RequestSlotFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<RequestSlotFiltersInput>>>;
+  sectorizations?: InputMaybe<SectorizationFiltersInput>;
+  slotMessage?: InputMaybe<StringFilterInput>;
+  slotsExceptions?: InputMaybe<ComponentBlocksRequestSlotsExceptionsFiltersInput>;
+  timeSlots?: InputMaybe<JsonFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type RequestSlotInput = {
+  noSlotMessage?: InputMaybe<Scalars["String"]>;
+  sectorizations?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  slotMessage?: InputMaybe<Scalars["String"]>;
+  slotsExceptions?: InputMaybe<
+    Array<InputMaybe<ComponentBlocksRequestSlotsExceptionsInput>>
+  >;
+  timeSlots?: InputMaybe<Scalars["JSON"]>;
+};
+
+export type RequestSlotRelationResponseCollection = {
+  __typename?: "RequestSlotRelationResponseCollection";
+  data: Array<RequestSlotEntity>;
+};
+
+export type RequestSlots = {
+  __typename?: "RequestSlots";
+  day?: Maybe<Scalars["String"]>;
+  exceptionId?: Maybe<Scalars["ID"]>;
+  requestSlotId: Scalars["ID"];
+  startTime?: Maybe<Scalars["Time"]>;
+};
+
 export type RequestTagEntity = {
   __typename?: "RequestTagEntity";
   contractId?: Maybe<Scalars["String"]>;
   id?: Maybe<Scalars["ID"]>;
   name?: Maybe<Scalars["String"]>;
+};
+
+export type RequestTaked = {
+  __typename?: "RequestTaked";
+  city?: Maybe<Scalars["String"]>;
+  createdAt?: Maybe<Scalars["DateTime"]>;
+  name: Scalars["String"];
+  requestType?: Maybe<ComponentBlocksRequestType>;
+  request_slot?: Maybe<RequestSlotEntityResponse>;
+  slotDate?: Maybe<Scalars["Date"]>;
+  slotTaken?: Maybe<Scalars["JSON"]>;
+  updatedAt?: Maybe<Scalars["DateTime"]>;
+  user_data_storage?: Maybe<UserDataStorageEntityResponse>;
+};
+
+export type RequestTakedEntity = {
+  __typename?: "RequestTakedEntity";
+  attributes?: Maybe<RequestTaked>;
+  id?: Maybe<Scalars["ID"]>;
+};
+
+export type RequestTakedEntityResponse = {
+  __typename?: "RequestTakedEntityResponse";
+  data?: Maybe<RequestTakedEntity>;
+};
+
+export type RequestTakedEntityResponseCollection = {
+  __typename?: "RequestTakedEntityResponseCollection";
+  data: Array<RequestTakedEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type RequestTakedFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<RequestTakedFiltersInput>>>;
+  city?: InputMaybe<StringFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<RequestTakedFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<RequestTakedFiltersInput>>>;
+  requestType?: InputMaybe<ComponentBlocksRequestTypeFiltersInput>;
+  request_slot?: InputMaybe<RequestSlotFiltersInput>;
+  slotDate?: InputMaybe<DateFilterInput>;
+  slotTaken?: InputMaybe<JsonFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+  user_data_storage?: InputMaybe<UserDataStorageFiltersInput>;
+};
+
+export type RequestTakedInput = {
+  city?: InputMaybe<Scalars["String"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  requestType?: InputMaybe<ComponentBlocksRequestTypeInput>;
+  request_slot?: InputMaybe<Scalars["ID"]>;
+  slotDate?: InputMaybe<Scalars["Date"]>;
+  slotTaken?: InputMaybe<Scalars["JSON"]>;
+  user_data_storage?: InputMaybe<Scalars["ID"]>;
+};
+
+export type RequestTakedRelationResponseCollection = {
+  __typename?: "RequestTakedRelationResponseCollection";
+  data: Array<RequestTakedEntity>;
 };
 
 export type ResponseCollectionMeta = {
@@ -8872,6 +9163,62 @@ export type UploadFolderRelationResponseCollection = {
 export type UploadResult = {
   __typename?: "UploadResult";
   id: Scalars["String"];
+};
+
+export type UserDataStorage = {
+  __typename?: "UserDataStorage";
+  createdAt?: Maybe<Scalars["DateTime"]>;
+  email: Scalars["String"];
+  firstname?: Maybe<Scalars["String"]>;
+  name?: Maybe<Scalars["String"]>;
+  phone?: Maybe<Scalars["String"]>;
+  request_takeds?: Maybe<RequestTakedRelationResponseCollection>;
+  updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type UserDataStorageRequest_TakedsArgs = {
+  filters?: InputMaybe<RequestTakedFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type UserDataStorageEntity = {
+  __typename?: "UserDataStorageEntity";
+  attributes?: Maybe<UserDataStorage>;
+  id?: Maybe<Scalars["ID"]>;
+};
+
+export type UserDataStorageEntityResponse = {
+  __typename?: "UserDataStorageEntityResponse";
+  data?: Maybe<UserDataStorageEntity>;
+};
+
+export type UserDataStorageEntityResponseCollection = {
+  __typename?: "UserDataStorageEntityResponseCollection";
+  data: Array<UserDataStorageEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type UserDataStorageFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<UserDataStorageFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  email?: InputMaybe<StringFilterInput>;
+  firstname?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<UserDataStorageFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<UserDataStorageFiltersInput>>>;
+  phone?: InputMaybe<StringFilterInput>;
+  request_takeds?: InputMaybe<RequestTakedFiltersInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type UserDataStorageInput = {
+  email?: InputMaybe<Scalars["String"]>;
+  firstname?: InputMaybe<Scalars["String"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  phone?: InputMaybe<Scalars["String"]>;
+  request_takeds?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
 };
 
 export type UsersPermissionsCreateRolePayload = {
@@ -9857,6 +10204,21 @@ export type GetFreeContentsPathsTotalQuery = {
       pagination: { __typename?: "Pagination"; total: number };
     };
   } | null;
+};
+
+export type GetBanAddressesAutoCompleteQueryVariables = Exact<{
+  searchTerm: Scalars["String"];
+}>;
+
+export type GetBanAddressesAutoCompleteQuery = {
+  __typename?: "Query";
+  getAddressCoordinates?: Array<{
+    __typename?: "SearchResultAddress";
+    name?: string | null;
+    latitude?: number | null;
+    longitude?: number | null;
+    banFeaturesProperties?: any | null;
+  } | null> | null;
 };
 
 export type GetContractByIdQueryVariables = Exact<{
@@ -11487,6 +11849,132 @@ export type GetAddressCoordinatesQuery = {
     longitude?: number | null;
     banFeaturesProperties?: any | null;
   } | null> | null;
+};
+
+export type GetPickUpDaysByCoordinatesLocalQueryVariables = Exact<{
+  pickUpDayServiceId: Scalars["ID"];
+  lat: Scalars["Float"];
+  long: Scalars["Float"];
+}>;
+
+export type GetPickUpDaysByCoordinatesLocalQuery = {
+  __typename?: "Query";
+  getPickUpDaysByCoordinates?: Array<string | null> | null;
+};
+
+export type GetPickUpDaysByIdsAndContratIdQueryVariables = Exact<{
+  pickUpDayIds?: InputMaybe<
+    Array<InputMaybe<Scalars["ID"]>> | InputMaybe<Scalars["ID"]>
+  >;
+  contractId?: InputMaybe<Scalars["ID"]>;
+}>;
+
+export type GetPickUpDaysByIdsAndContratIdQuery = {
+  __typename?: "Query";
+  pickUpDays?: {
+    __typename?: "PickUpDayEntityResponseCollection";
+    data: Array<{
+      __typename?: "PickUpDayEntity";
+      id?: string | null;
+      attributes?: {
+        __typename?: "PickUpDay";
+        name: string;
+        updatedAt?: any | null;
+        pickUpHours?: string | null;
+        periodicity?: Enum_Pickupday_Periodicity | null;
+        includeHoliday: boolean;
+        advancedSelection: any;
+        buttonLabel?: string | null;
+        externalLink?: string | null;
+        flow: {
+          __typename?: "FlowEntityResponse";
+          data?: {
+            __typename?: "FlowEntity";
+            attributes?: {
+              __typename?: "Flow";
+              name?: string | null;
+              color?: {
+                __typename?: "FlowColorEntityResponse";
+                data?: {
+                  __typename?: "FlowColorEntity";
+                  attributes?: {
+                    __typename?: "FlowColor";
+                    name: string;
+                    hexaCode: string;
+                  } | null;
+                } | null;
+              } | null;
+              wasteForms?: {
+                __typename?: "WasteFormRelationResponseCollection";
+                data: Array<{
+                  __typename?: "WasteFormEntity";
+                  attributes?: {
+                    __typename?: "WasteForm";
+                    name?: string | null;
+                  } | null;
+                }>;
+              } | null;
+            } | null;
+          } | null;
+        };
+        collectDoorToDoor?: {
+          __typename?: "CollectDoorToDoorEntityResponse";
+          data?: {
+            __typename?: "CollectDoorToDoorEntity";
+            attributes?: {
+              __typename?: "CollectDoorToDoor";
+              picto?: {
+                __typename?: "UploadFileEntityResponse";
+                data?: {
+                  __typename?: "UploadFileEntity";
+                  attributes?: {
+                    __typename?: "UploadFile";
+                    url: string;
+                  } | null;
+                } | null;
+              } | null;
+            } | null;
+          } | null;
+        } | null;
+        collectVoluntary?: {
+          __typename?: "CollectVoluntaryEntityResponse";
+          data?: {
+            __typename?: "CollectVoluntaryEntity";
+            attributes?: {
+              __typename?: "CollectVoluntary";
+              name?: string | null;
+              picto?: {
+                __typename?: "UploadFileEntityResponse";
+                data?: {
+                  __typename?: "UploadFileEntity";
+                  attributes?: {
+                    __typename?: "UploadFile";
+                    url: string;
+                  } | null;
+                } | null;
+              } | null;
+            } | null;
+          } | null;
+        } | null;
+        informationMessage?: {
+          __typename?: "InformationMessageEntityResponse";
+          data?: {
+            __typename?: "InformationMessageEntity";
+            attributes?: {
+              __typename?: "InformationMessage";
+              dateEnd?: string | null;
+              dateStart: string;
+              infoMessage: string;
+            } | null;
+          } | null;
+        } | null;
+        request?: {
+          __typename?: "RequestEntityResponse";
+          data?: { __typename?: "RequestEntity"; id?: string | null } | null;
+        } | null;
+      } | null;
+    }>;
+  } | null;
 };
 
 export type GetContactUsSubServiceByContractIdQueryVariables = Exact<{
@@ -13178,6 +13666,67 @@ export type GetFreeContentsPathsTotalLazyQueryHookResult = ReturnType<
 export type GetFreeContentsPathsTotalQueryResult = Apollo.QueryResult<
   GetFreeContentsPathsTotalQuery,
   GetFreeContentsPathsTotalQueryVariables
+>;
+export const GetBanAddressesAutoCompleteDocument = gql`
+  query getBanAddressesAutoComplete($searchTerm: String!) {
+    getAddressCoordinates(searchTerm: $searchTerm) {
+      name
+      latitude
+      longitude
+      banFeaturesProperties
+    }
+  }
+`;
+
+/**
+ * __useGetBanAddressesAutoCompleteQuery__
+ *
+ * To run a query within a React component, call `useGetBanAddressesAutoCompleteQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetBanAddressesAutoCompleteQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetBanAddressesAutoCompleteQuery({
+ *   variables: {
+ *      searchTerm: // value for 'searchTerm'
+ *   },
+ * });
+ */
+export function useGetBanAddressesAutoCompleteQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetBanAddressesAutoCompleteQuery,
+    GetBanAddressesAutoCompleteQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetBanAddressesAutoCompleteQuery,
+    GetBanAddressesAutoCompleteQueryVariables
+  >(GetBanAddressesAutoCompleteDocument, options);
+}
+export function useGetBanAddressesAutoCompleteLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetBanAddressesAutoCompleteQuery,
+    GetBanAddressesAutoCompleteQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetBanAddressesAutoCompleteQuery,
+    GetBanAddressesAutoCompleteQueryVariables
+  >(GetBanAddressesAutoCompleteDocument, options);
+}
+export type GetBanAddressesAutoCompleteQueryHookResult = ReturnType<
+  typeof useGetBanAddressesAutoCompleteQuery
+>;
+export type GetBanAddressesAutoCompleteLazyQueryHookResult = ReturnType<
+  typeof useGetBanAddressesAutoCompleteLazyQuery
+>;
+export type GetBanAddressesAutoCompleteQueryResult = Apollo.QueryResult<
+  GetBanAddressesAutoCompleteQuery,
+  GetBanAddressesAutoCompleteQueryVariables
 >;
 export const GetContractByIdDocument = gql`
   query getContractById($contractId: ID!) {
@@ -15349,6 +15898,211 @@ export type GetAddressCoordinatesLazyQueryHookResult = ReturnType<
 export type GetAddressCoordinatesQueryResult = Apollo.QueryResult<
   GetAddressCoordinatesQuery,
   GetAddressCoordinatesQueryVariables
+>;
+export const GetPickUpDaysByCoordinatesLocalDocument = gql`
+  query getPickUpDaysByCoordinatesLocal(
+    $pickUpDayServiceId: ID!
+    $lat: Float!
+    $long: Float!
+  ) {
+    getPickUpDaysByCoordinates(
+      pickUpDayServiceId: $pickUpDayServiceId
+      lat: $lat
+      long: $long
+    )
+  }
+`;
+
+/**
+ * __useGetPickUpDaysByCoordinatesLocalQuery__
+ *
+ * To run a query within a React component, call `useGetPickUpDaysByCoordinatesLocalQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPickUpDaysByCoordinatesLocalQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPickUpDaysByCoordinatesLocalQuery({
+ *   variables: {
+ *      pickUpDayServiceId: // value for 'pickUpDayServiceId'
+ *      lat: // value for 'lat'
+ *      long: // value for 'long'
+ *   },
+ * });
+ */
+export function useGetPickUpDaysByCoordinatesLocalQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetPickUpDaysByCoordinatesLocalQuery,
+    GetPickUpDaysByCoordinatesLocalQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetPickUpDaysByCoordinatesLocalQuery,
+    GetPickUpDaysByCoordinatesLocalQueryVariables
+  >(GetPickUpDaysByCoordinatesLocalDocument, options);
+}
+export function useGetPickUpDaysByCoordinatesLocalLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetPickUpDaysByCoordinatesLocalQuery,
+    GetPickUpDaysByCoordinatesLocalQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetPickUpDaysByCoordinatesLocalQuery,
+    GetPickUpDaysByCoordinatesLocalQueryVariables
+  >(GetPickUpDaysByCoordinatesLocalDocument, options);
+}
+export type GetPickUpDaysByCoordinatesLocalQueryHookResult = ReturnType<
+  typeof useGetPickUpDaysByCoordinatesLocalQuery
+>;
+export type GetPickUpDaysByCoordinatesLocalLazyQueryHookResult = ReturnType<
+  typeof useGetPickUpDaysByCoordinatesLocalLazyQuery
+>;
+export type GetPickUpDaysByCoordinatesLocalQueryResult = Apollo.QueryResult<
+  GetPickUpDaysByCoordinatesLocalQuery,
+  GetPickUpDaysByCoordinatesLocalQueryVariables
+>;
+export const GetPickUpDaysByIdsAndContratIdDocument = gql`
+  query getPickUpDaysByIdsAndContratId($pickUpDayIds: [ID], $contractId: ID) {
+    pickUpDays(
+      filters: {
+        id: { in: $pickUpDayIds }
+        pickUpDayService: { contract: { id: { eq: $contractId } } }
+      }
+    ) {
+      data {
+        id
+        attributes {
+          name
+          updatedAt
+          flow {
+            data {
+              attributes {
+                name
+                color {
+                  data {
+                    attributes {
+                      name
+                      hexaCode
+                    }
+                  }
+                }
+                wasteForms {
+                  data {
+                    attributes {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
+          pickUpHours
+          periodicity
+          includeHoliday
+          advancedSelection
+          collectDoorToDoor {
+            data {
+              attributes {
+                picto {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+          collectVoluntary {
+            data {
+              attributes {
+                picto {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
+                name
+              }
+            }
+          }
+          informationMessage {
+            data {
+              attributes {
+                dateEnd
+                dateStart
+                infoMessage
+              }
+            }
+          }
+          buttonLabel
+          externalLink
+          request {
+            data {
+              id
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetPickUpDaysByIdsAndContratIdQuery__
+ *
+ * To run a query within a React component, call `useGetPickUpDaysByIdsAndContratIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPickUpDaysByIdsAndContratIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPickUpDaysByIdsAndContratIdQuery({
+ *   variables: {
+ *      pickUpDayIds: // value for 'pickUpDayIds'
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetPickUpDaysByIdsAndContratIdQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetPickUpDaysByIdsAndContratIdQuery,
+    GetPickUpDaysByIdsAndContratIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetPickUpDaysByIdsAndContratIdQuery,
+    GetPickUpDaysByIdsAndContratIdQueryVariables
+  >(GetPickUpDaysByIdsAndContratIdDocument, options);
+}
+export function useGetPickUpDaysByIdsAndContratIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetPickUpDaysByIdsAndContratIdQuery,
+    GetPickUpDaysByIdsAndContratIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetPickUpDaysByIdsAndContratIdQuery,
+    GetPickUpDaysByIdsAndContratIdQueryVariables
+  >(GetPickUpDaysByIdsAndContratIdDocument, options);
+}
+export type GetPickUpDaysByIdsAndContratIdQueryHookResult = ReturnType<
+  typeof useGetPickUpDaysByIdsAndContratIdQuery
+>;
+export type GetPickUpDaysByIdsAndContratIdLazyQueryHookResult = ReturnType<
+  typeof useGetPickUpDaysByIdsAndContratIdLazyQuery
+>;
+export type GetPickUpDaysByIdsAndContratIdQueryResult = Apollo.QueryResult<
+  GetPickUpDaysByIdsAndContratIdQuery,
+  GetPickUpDaysByIdsAndContratIdQueryVariables
 >;
 export const GetContactUsSubServiceByContractIdDocument = gql`
   query getContactUsSubServiceByContractId($contractId: ID!) {

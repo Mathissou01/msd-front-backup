@@ -6,6 +6,7 @@ interface ICommonButtonProps {
   label?: string;
   type?: "button" | "submit" | "reset" | undefined;
   picto?: "search" | "cross" | "target" | "defaultPicto";
+  pictoPosition?: "left" | "right";
   isDisabled?: boolean;
   onClick?: () => void;
   formLabelId?: string;
@@ -20,6 +21,7 @@ interface ICommonButtonProps {
 export default function CommonButton({
   label,
   picto,
+  pictoPosition = "left",
   type = "button",
   isDisabled = false,
   onClick,
@@ -51,8 +53,11 @@ export default function CommonButton({
       id={formLabelId}
       ref={buttonRef}
     >
-      {picto && <div className={pictoClassNames} />}
+      {picto && pictoPosition === "left" && <div className={pictoClassNames} />}
       {label}
+      {picto && pictoPosition === "right" && (
+        <div className={pictoClassNames} />
+      )}
     </button>
   );
 }

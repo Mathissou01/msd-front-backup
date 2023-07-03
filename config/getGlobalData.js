@@ -32,6 +32,14 @@ query getGlobalData($contractId: ID!) {
             }
           }
         }
+        pickUpDayService {
+          data {
+            id
+            attributes {
+              isActivated
+            }
+          }
+        }
         contractCustomization {
           data {
             id

@@ -1,0 +1,18 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-PickUpDay__Geolocation {
+  align-items: start;
+}
+
+.c-PickUpDay__GeolocationBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: start;
+  justify-content: start;
+  padding: 20px 0;
+  @include im.media(">=mobile") {
+    flex-direction: row;
+    align-items: center;
+  }
+}

@@ -36,6 +36,7 @@ describe("FormAutoCompleteInput", () => {
           displayTransformFunction={(result) => result.name ?? ""}
           selectTransformFunction={(result) => result.name ?? undefined}
           isLoading={false}
+          labelProps={{ label: mock.label }}
         />
       </Wrapper>,
     );

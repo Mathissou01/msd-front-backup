@@ -1,0 +1,64 @@
+import React from "react";
+import { useFormContext } from "react-hook-form";
+import {
+  SearchResultAddress,
+  useGetBanAddressesAutoCompleteLazyQuery,
+} from "../../../graphql/codegen/generated-types";
+import { removeNulls } from "../../../lib/utilities";
+import CommonErrors from "../../Common/CommonErrors/CommonErrors";
+import FormAutoCompleteInput from "../../Form/FormAutoCompleteInput/FormAutoCompleteInput";
+import "./request-address-field.scss";
+
+interface RequestAddressProps {
+  label: string;
+  name: string;
+}
+
+export default function RequestAddressField({
+  label,
+  name,
+}: RequestAddressProps) {
+  /* Local Data */
+  const [getBanAddresses, { loading, error }] =
+    useGetBanAddressesAutoCompleteLazyQuery({
+      fetchPolicy: "network-only",
+    });
+  const { getValues } = useFormContext();
+
+  /* Methods */
+  async function searchFunction(
+    searchValue: string,
+  ): Promise<Array<SearchResultAddress>> {
+    let searchResults: Array<SearchResultAddress> = [];
+    await getBanAddresses({
+      variables: { searchTerm: searchValue },
+      onCompleted: (results) => {
+        if (
+          results.getAddressCoordinates &&
+          results.getAddressCoordinates?.length > 0
+        ) {
+          searchResults =
+            results.getAddressCoordinates?.filter(removeNulls) ?? [];
+        }
+      },
+    });
+    return searchResults;
+  }
+
+  return (
+    <div className="c-RequestAddressField">
+      <CommonErrors errors={[error]}>
+        <FormAutoCompleteInput<SearchResultAddress>
+          name={name}
+          searchFunction={searchFunction}
+          displayTransformFunction={(result) => result.name ?? ""}
+          selectTransformFunction={(result) => result.name ?? undefined}
+          isLoading={loading}
+          isRequired
+          defaultValue={getValues(name)}
+          labelProps={{ label: label }}
+        />
+      </CommonErrors>
+    </div>
+  );
+}

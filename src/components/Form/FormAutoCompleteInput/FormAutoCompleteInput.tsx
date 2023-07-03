@@ -4,6 +4,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import { Controller, useFormContext } from "react-hook-form";
 import { removeNulls } from "../../../lib/utilities";
 import CommonFormErrorText from "../../Common/CommonFormErrorText/CommonFormErrorText";
+import { IFormLabelProps } from "../FormLabel/FormLabel";
 import CommonInput from "../../Common/CommonInput/CommonInput";
 import "./form-auto-complete-input.scss";
 
@@ -18,6 +19,7 @@ interface IFormAutoCompleteInputProps<T> {
   isDisabled?: boolean;
   defaultValue?: string;
   placeholder?: string;
+  labelProps?: IFormLabelProps;
 }
 
 export default function FormAutoCompleteInput<T>({
@@ -49,8 +51,9 @@ export default function FormAutoCompleteInput<T>({
   }
 
   function handleInput(value: string) {
-    if (value && value.length >= minLength) {
-      searchFunction(value).then((results) => {
+    const trimmedValue = value.trim();
+    if (trimmedValue && trimmedValue.length >= minLength) {
+      searchFunction(trimmedValue).then((results) => {
         if (results && results.length > 0) {
           setResults(results.filter(removeNulls));
         } else {
@@ -124,7 +127,7 @@ export default function FormAutoCompleteInput<T>({
                 isInvalid={!!_.get(errors, name)}
                 isDisabled={isDisabled || isSubmitting}
                 dataTestid="form-auto-complete-input"
-                onChange={(value) => {
+                onChange={(value: string) => {
                   resetResults();
                   onChange(value);
                 }}
@@ -145,7 +148,6 @@ export default function FormAutoCompleteInput<T>({
           );
         }}
       />
-
       <ErrorMessage
         errors={errors}
         name={name}

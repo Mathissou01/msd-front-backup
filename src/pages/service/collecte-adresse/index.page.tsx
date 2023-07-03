@@ -1,7 +1,21 @@
+import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
+import PickUpDayBlock from "../../../components/PickUpDayBlock/PickUpDayBlock";
+
 export default function ServicePointsCollectePage() {
+  /* Local Data */
+  const pagesUrl = [
+    {
+      label: "Accueil",
+      slug: "/",
+    },
+    {
+      label: "Collecte à mon adresse",
+    },
+  ];
   return (
-    <section className="o-Page__Section">
-      <div>WIP service/collecte-adresse</div>
-    </section>
+    <div className="c-PickUpDay">
+      <CommonBreadcrumb pages={pagesUrl} />
+      <PickUpDayBlock />
+    </div>
   );
 }

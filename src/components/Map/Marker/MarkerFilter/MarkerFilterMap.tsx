@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { makePublicAssetPath } from "../../../../lib/utilities";
 import { IFilterData } from "../../../../lib/map-markers";
@@ -7,11 +7,13 @@ import "./marker-filter-map.scss";
 interface IMarkerDataProps {
   markers: Array<IFilterData>;
   setSelectedFilter: (filterName: string) => void;
+  pavQueryParam?: string;
 }
 
 export default function MarkerFilterMap({
   markers,
   setSelectedFilter,
+  pavQueryParam,
 }: IMarkerDataProps) {
   const [divWrapName, setDivWrapName] = useState(
     "c-MarkerFilterMap__ContainerScroll",
@@ -36,6 +38,41 @@ export default function MarkerFilterMap({
     setSelectedButtonIndex(index);
     setSelectedFilter(marker.name);
   };
+
+  const pavQueryParamIsValid = useCallback(
+    (pav: string | undefined) => {
+      return (
+        pav &&
+        typeof pav === "string" &&
+        Array.isArray(markers) &&
+        markers.length > 0
+      );
+    },
+    [markers],
+  );
+
+  const getPavIndex = useCallback((markers: IFilterData[], pav: string) => {
+    return markers
+      .sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()))
+      .findIndex((element) => element.name === pav);
+  }, []);
+
+  useEffect(() => {
+    if (pavQueryParam && pavQueryParamIsValid(pavQueryParam)) {
+      const markerIndex = getPavIndex(markers, pavQueryParam);
+      if (markerIndex !== -1) {
+        setSelectedFilter(pavQueryParam);
+        setSelectedButtonIndex(markerIndex);
+      }
+    }
+  }, [
+    pavQueryParam,
+    markers,
+    setSelectedFilter,
+    pavQueryParamIsValid,
+    getPavIndex,
+  ]);
+
   return (
     <div>
       <div className="c-MarkerFilterMap">

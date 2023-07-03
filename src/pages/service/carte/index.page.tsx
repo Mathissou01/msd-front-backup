@@ -1,16 +1,17 @@
 import React, { useEffect, useMemo, useState } from "react";
-import LayersMap from "../../../components/Map/LayersMap";
-import { removeNulls } from "../../../lib/utilities";
-import SearchMap from "../../../components/Map/Search/SearchMap";
-import ContentMap, {
-  IContentData,
-} from "../../../components/Map/Content/ContentMap";
+import { useRouter } from "next/router";
 import { useGeolocation } from "../../../hooks/geoLocation/useGeolocation";
 import useFilterMarkers from "../../../hooks/geoLocation/useNearbyLocations";
 import { IFilterData, IGeoPosition, IMarker } from "../../../lib/map-markers";
-import "./carte-page.scss";
+import { removeNulls } from "../../../lib/utilities";
 import CollapsingContent from "../../../components/Map/CollapsingContent/CollapsingContent";
 import MarkerFilterMap from "../../../components/Map/Marker/MarkerFilter/MarkerFilterMap";
+import ContentMap, {
+  IContentData,
+} from "../../../components/Map/Content/ContentMap";
+import LayersMap from "../../../components/Map/LayersMap";
+import SearchMap from "../../../components/Map/Search/SearchMap";
+import "./carte-page.scss";
 
 type Position = IGeoPosition | null;
 
@@ -44,6 +45,9 @@ export default function ServiceCartePage() {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedAddress, setSelectedAddress] = useState<Position>(null);
   const [autoUpdatePosition, setAutoUpdatePosition] = useState<boolean>(true);
+  const router = useRouter();
+  const { pav } = router.query;
+  const pavQueryParam = pav && typeof pav === "string" ? pav : undefined;
 
   const checkPosition = (): Position => geoLocation || selectedAddress;
 
@@ -141,6 +145,7 @@ export default function ServiceCartePage() {
                 count: marker?.count,
               } as IFilterData;
             })}
+            pavQueryParam={pavQueryParam}
           />
         </div>
         <div className="c-ServiceCartePage__LayersMapContainer">

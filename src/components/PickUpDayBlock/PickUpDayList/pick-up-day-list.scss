@@ -1,0 +1,151 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.functions" as func;
+
+.c-PickUpDayList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 40px 16px;
+  @include im.media(">=mobile") {
+    padding: 40px;
+  }
+  @include im.media(">=tablet") {
+    padding: 40px 124px;
+  }
+}
+
+.c-PickUpDayItem {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background-color: colors.$white;
+  border: 1px solid rgb(230 230 230);
+  border-radius: 10px;
+  box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
+  @include im.media(">=mobile") {
+    flex-direction: row;
+  }
+
+  &__FlowContainer {
+    display: flex;
+    flex: 0.5;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+    @include im.media(">=mobile") {
+      border-top-right-radius: 0;
+      border-bottom-left-radius: 10px;
+    }
+  }
+
+  &__FlowPictoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+  }
+
+  &__FlowInformation {
+    display: 1;
+    flex-basis: 70%;
+    flex-direction: column;
+    padding-left: 20px;
+  }
+
+  &__PickUpDayName {
+    color: #030f40;
+    font-weight: 500;
+  }
+
+  &__FlowName {
+    color: #3d466c;
+    font-weight: 400;
+  }
+
+  &__Calendar {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+  }
+
+  &__Information {
+    display: flex;
+    flex: 0.5;
+    flex-direction: column;
+    padding: 20px;
+    @include im.media(">=tablet") {
+      flex: 1;
+    }
+  }
+
+  &__Description {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__DescriptionText {
+    color: var(--gray-800);
+    font-weight: 800;
+  }
+
+  &__InformationMessageContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+  }
+
+  &__InformationMessage {
+    padding-top: 3px;
+  }
+
+  &__VerticalLine {
+    border: 1px solid var(--gray-200);
+    @include im.media(">=mobile") {
+      width: 0;
+      border-left: 1px solid var(--gray-200);
+    }
+  }
+
+  &__AcceptedWasteContainer {
+    display: flex;
+    flex: 0.5;
+    flex-direction: column;
+    justify-content: start;
+    padding: 20px;
+  }
+
+  &__Buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 10px;
+    @include im.media(">=mobile") {
+      align-items: flex-start;
+    }
+  }
+
+  &__AcceptedWaste {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  }
+
+  &__QuestionMarkPicto {
+    width: 17px;
+    height: 17px;
+    background-image: url("data:image/svg+xml,%3Csvg width='17' height='17' viewBox='0 0 17 17' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23clip0_13021_70430)'%3E%3Cpath d='M8.5 10.4993C8.224 10.4993 8 10.2753 8 9.99933V9.32867C7.99933 8.694 8.40133 8.12533 9 7.914C9.598 7.70267 10 7.134 10 6.5C10 6.09933 9.844 5.72267 9.56067 5.43933C9.278 5.156 8.90133 5 8.5 5C8.09933 5 7.72267 5.156 7.43933 5.43933C7.156 5.722 7 6.09867 7 6.49933C7 6.77467 6.776 6.99933 6.5 6.99933C6.224 6.99933 6 6.77467 6 6.49933C6 5.83133 6.26067 5.204 6.73267 4.732C7.20467 4.26 7.83267 4 8.5 4C9.87867 4 11 5.122 11 6.5C11 7.55733 10.33 8.504 9.33333 8.85667C9.134 8.92733 9 9.11667 9 9.328V9.99933C9 10.2753 8.776 10.4993 8.5 10.4993Z' fill='%23767C97'/%3E%3Cpath d='M8.5 13C8.91421 13 9.25 12.6642 9.25 12.25C9.25 11.8358 8.91421 11.5 8.5 11.5C8.08579 11.5 7.75 11.8358 7.75 12.25C7.75 12.6642 8.08579 13 8.5 13Z' fill='%23767C97'/%3E%3Cpath d='M8.5 16.5C4.08867 16.5 0.5 12.9113 0.5 8.5C0.5 4.08867 4.08867 0.5 8.5 0.5C12.9113 0.5 16.5 4.08867 16.5 8.5C16.5 12.9113 12.9113 16.5 8.5 16.5ZM8.5 1.5C4.64 1.5 1.5 4.64 1.5 8.5C1.5 12.36 4.64 15.5 8.5 15.5C12.36 15.5 15.5 12.36 15.5 8.5C15.5 4.64 12.36 1.5 8.5 1.5Z' fill='%23767C97'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='clip0_13021_70430'%3E%3Crect width='16' height='16' fill='white' transform='translate(0.5 0.5)'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E%0A");
+    cursor: pointer;
+  }
+
+  &__CalendarPictoContainer {
+    display: flex;
+    align-items: center;
+    padding: 10.3px;
+  }
+}

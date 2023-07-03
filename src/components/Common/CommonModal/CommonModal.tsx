@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
-import "./common-modal.scss";
 import CommonButton from "../CommonButton/CommonButton";
+import "./common-modal.scss";
 
 type ModalProps = {
   handleClose?: () => void;
@@ -8,13 +8,14 @@ type ModalProps = {
   headerTitle?: string;
   headerSubTitle?: string;
   headerIllu?: ReactNode;
-  content?: string;
+  content?: string | JSX.Element | JSX.Element[];
   bottomText?: string;
   modalButton?: ReactNode;
 };
 const CommonModal = ({
   handleClose,
   headerIllu,
+  headerTitle,
   content,
   bottomText,
   hasError,
@@ -28,6 +29,9 @@ const CommonModal = ({
           onClick={handleClose}
         ></button>
         <div className="c-CommonModal__Container">
+          {headerTitle && (
+            <div className="c-CommonModal__Title">{headerTitle}</div>
+          )}
           {headerIllu && (
             <div className="c-CommonModal__Illustration">{headerIllu}</div>
           )}

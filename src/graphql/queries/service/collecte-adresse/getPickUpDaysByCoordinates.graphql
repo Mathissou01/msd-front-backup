@@ -1,0 +1,11 @@
+query getPickUpDaysByCoordinatesLocal(
+  $pickUpDayServiceId: ID!
+  $lat: Float!
+  $long: Float!
+) {
+  getPickUpDaysByCoordinates(
+    pickUpDayServiceId: $pickUpDayServiceId
+    lat: $lat
+    long: $long
+  )
+}
