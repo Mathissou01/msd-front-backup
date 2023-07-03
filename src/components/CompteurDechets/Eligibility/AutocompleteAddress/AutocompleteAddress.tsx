@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { IError } from "../../../../pages/mon-compteur-dechets/eligibilite/index.page";
 import "./autocomplete-address.scss";
 import { AddressOption } from "../../../../lib/address-option";
+import CommonSpinner from "../../../Common/CommonSpinner/CommonSpinner";
 
 interface AutocompleteAddressProps {
   value: string;
@@ -17,13 +18,14 @@ interface AutocompleteAddressProps {
   inputPlaceholder?: string;
   handleError?: (updates: Partial<IError>) => void;
   isEdit?: boolean;
+  loading: boolean;
 }
 
 const AutocompleteAddress: React.FC<AutocompleteAddressProps> = ({
   value,
   handleChange,
   debouncedValue,
-  isVisibled,
+  isVisibled = false,
   setIsVisibled,
   handleClick,
   filteredOptions,
@@ -32,6 +34,7 @@ const AutocompleteAddress: React.FC<AutocompleteAddressProps> = ({
   inputPlaceholder = "",
   handleError,
   isEdit = false,
+  loading,
 }) => {
   const selectorRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -60,46 +63,54 @@ const AutocompleteAddress: React.FC<AutocompleteAddressProps> = ({
         <input
           type="text"
           className="c-AutocompleteAddress__Input"
+          autoComplete="off"
           value={value}
           name={inputName}
           onChange={handleChange}
           onFocus={() => setIsVisibled(true)}
           placeholder={inputPlaceholder}
         />
-        {debouncedValue && isVisibled && (
+        {debouncedValue && debouncedValue.length > 3 && isVisibled && (
           <div className="c-AutocompleteAddress__Selector" ref={selectorRef}>
-            {filteredOptions.length ? (
-              filteredOptions.map((option: AddressOption, i: number) => (
-                <button
-                  className="c-AutocompleteAddress__Option"
-                  key={i}
-                  onClick={() => handleClick(option)}
-                >
-                  {option?.houseNumber} {option?.street} {option?.postcode}{" "}
-                  {option?.city}
-                </button>
-              ))
+            {!loading ? (
+              <>
+                {filteredOptions.length ? (
+                  filteredOptions.map((option: AddressOption, i: number) => (
+                    <button
+                      className="c-AutocompleteAddress__Option"
+                      key={i}
+                      onClick={() => handleClick(option)}
+                    >
+                      {option.label}
+                    </button>
+                  ))
+                ) : (
+                  <button
+                    className="c-AutocompleteAddress__Option"
+                    onClick={() => {
+                      isEdit
+                        ? router.push("/mon-compteur-dechets/erreur-adresse")
+                        : handleError &&
+                          handleError({
+                            isActive: true,
+                            title:
+                              "Malheureusement, nous ne trouvons pas votre adresse dans notre base de données",
+                            isAddressVisible: false,
+                            isReasonVisible: false,
+                            isContactVisible: true,
+                          });
+                    }}
+                  >
+                    {debouncedValue && debouncedValue.length > 3 && (
+                      <p>
+                        <strong>{"Mon adresse n'est pas dans la liste"}</strong>
+                      </p>
+                    )}
+                  </button>
+                )}
+              </>
             ) : (
-              <button
-                className="c-AutocompleteAddress__Option"
-                onClick={() => {
-                  isEdit
-                    ? router.push("/mon-compteur-dechets/erreur-adresse")
-                    : handleError &&
-                      handleError({
-                        isActive: true,
-                        title:
-                          "Malheureusement, nous ne trouvons pas votre adresse dans notre base de données",
-                        isAddressVisible: false,
-                        isReasonVisible: false,
-                        isContactVisible: true,
-                      });
-                }}
-              >
-                <p>
-                  <strong>{"Mon adresse n'est pas dans la liste"}</strong>
-                </p>
-              </button>
+              <CommonSpinner />
             )}
           </div>
         )}

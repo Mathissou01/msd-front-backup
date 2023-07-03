@@ -1,3 +1,5 @@
+import { NextRouter } from "next/router";
+
 export interface User {
   id: string;
   firstname: string;
@@ -36,3 +38,29 @@ export interface CommunicationType {
   sms: boolean;
   push: boolean;
 }
+
+export const isUserAccessToMWC = (currentUser: User | null): boolean => {
+  return (
+    (currentUser && currentUser.activeCounter === false) ||
+    currentUser?.dwellingType !== "house" ||
+    currentUser?.userType !== "particular"
+  );
+};
+
+export const redirectUser = (currentUser: User | null, router: NextRouter) => {
+  if (!currentUser) {
+    router.push("/connexion");
+    return;
+  }
+};
+
+export const redirectMWCUser = (
+  currentUser: User | null,
+  router: NextRouter,
+) => {
+  redirectUser(currentUser, router);
+  if (isUserAccessToMWC(currentUser)) {
+    router.push("/mon-compteur-dechets/eligibilite");
+    return;
+  }
+};

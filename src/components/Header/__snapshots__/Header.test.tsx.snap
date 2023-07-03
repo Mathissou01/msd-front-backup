@@ -211,7 +211,7 @@ exports[`Header renders in desktop mode 1`] = `
       >
         <a
           class="c-HeaderLinkUser"
-          href="/mon-compte"
+          href="/connexion"
         >
           <div
             class="c-HeaderLinkUser__Circle"
@@ -265,7 +265,7 @@ exports[`Header renders in mobile mode 1`] = `
       >
         <a
           class="c-HeaderLinkUser"
-          href="/mon-compte"
+          href="/connexion"
         >
           <div
             class="c-HeaderLinkUser__Circle"

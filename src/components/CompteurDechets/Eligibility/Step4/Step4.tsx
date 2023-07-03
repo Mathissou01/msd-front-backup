@@ -1,33 +1,21 @@
 import React from "react";
 import Image from "next/image";
-import { useState } from "react";
 import CommonButton from "../../../Common/CommonButton/CommonButton";
-import CommonModal from "../../../Common/CommonModal/CommonModal";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
 import GetDataChipId from "../../../Common/CommonChipIdMwc/CommonChipIdMwc";
 import CommonLoader from "../../../Common/CommonLoader/CommonLoader";
-import {
-  IQuestion,
-  IQuestionOption,
-} from "../../../../pages/mon-compteur-dechets/eligibilite/questionDatas";
 import { IError } from "../../../../pages/mon-compteur-dechets/eligibilite/index.page";
 import EligibilityRecycling from "public/images/id-bac.svg";
 import BacIcon from "public/images/pictos/search.svg";
 import "./step4.scss";
+import CommonOverlay from "../../../Common/CommonPopover/CommonOverlay";
 
 interface Step4Props {
-  question: IQuestion;
   handleOptionClick: (next: string | number) => void;
   handleError: (updates: Partial<IError>) => void;
 }
 
-const Step4: React.FC<Step4Props> = ({
-  question,
-  handleOptionClick,
-  handleError,
-}) => {
-  const [showModal, setShowModal] = useState(false);
-
+const Step4: React.FC<Step4Props> = ({ handleOptionClick, handleError }) => {
   const { loading, error, findChipIdByTrashFlow, binIdData } = GetDataChipId();
 
   const chipIdOrduresMenageres: string = findChipIdByTrashFlow(
@@ -41,38 +29,11 @@ const Step4: React.FC<Step4Props> = ({
   );
   return (
     <>
-      {showModal && (
-        <CommonModal
-          handleClose={() => setShowModal(false)}
-          content="Le numéro de votre bac se trouve toujours sous le code barres situé sur l’étiquette collée sur un des côtés de votre bac de déchets."
-          bottomText="Votre numéro de bac est illisible ou introuvable ?"
-          hasError={() =>
-            handleError({
-              isActive: true,
-              isAddressVisible: false,
-              isReasonVisible: false,
-              isContactVisible: true,
-              title: "Votre code est détérioré ou introuvable ?",
-            })
-          }
-          headerIllu={
-            <Image
-              src={"/images/emplacement_puce.jpg"}
-              alt="Illustration Emplacement Puce"
-              width={170}
-              height={180}
-            />
-          }
-        />
-      )}
       <div>
         <div className="o-Steps c-StepIdentiteBacs">
           <EligibilityRecycling className="o-Steps__Image" />
           <div className="o-Steps__Container">
-            <CommonBlockHeading
-              titleContent={question.title}
-              subTitle={question.text}
-            />
+            <CommonBlockHeading titleContent="Nous avons identifiés 2 bacs pour votre adresse" />
             <EligibilityRecycling className="o-Steps__Image" />
             <div className="o-Steps__CardContainer c-StepIdentiteBacs__CardContainer">
               <CommonLoader isLoading={loading} errors={[error]}>
@@ -106,19 +67,13 @@ const Step4: React.FC<Step4Props> = ({
                 </>
               </CommonLoader>
               <div className="o-Steps__CardButtons">
-                {question.options?.map(
-                  (option: IQuestionOption, index: number) => (
-                    <>
-                      <CommonButton
-                        key={index}
-                        type="button"
-                        style={option.buttonStyle}
-                        label={option.text}
-                        onClick={() => handleOptionClick(option.next)}
-                      />
-                    </>
-                  ),
-                )}
+                <CommonButton
+                  type="button"
+                  style="primary"
+                  label="Suivant"
+                  onClick={() => handleOptionClick(5)}
+                />
+
                 <CommonButton
                   type="button"
                   style="secondary"
@@ -129,18 +84,49 @@ const Step4: React.FC<Step4Props> = ({
                       isAddressVisible: false,
                       isReasonVisible: false,
                       isContactVisible: true,
+                      bins: [
+                        {
+                          name: "Bac ordure ménagère",
+                          value: chipIdOrduresMenageres,
+                        },
+                        {
+                          name: "Bac emballage",
+                          value: chipIdCollecteSelective,
+                        },
+                      ],
                       title:
                         "Les numéros rattachés à votre adresse ne correspondent pas à ceux inscrits sur vos bacs ?",
                     })
                   }
                 />
-                <button
-                  type="button"
-                  className="o-Steps__CardButtons_openmodal"
-                  onClick={() => setShowModal(true)}
-                >
-                  Où trouver mon numéro de bac ?
-                </button>
+                <CommonOverlay
+                  modalSize="default"
+                  button={
+                    <button
+                      type="button"
+                      className="o-Steps__CardButtons_openmodal"
+                    >
+                      Où trouver mon numéro de bac ?
+                    </button>
+                  }
+                  content={() => {
+                    return (
+                      <div className="c-StepIdentiteBacs__ModalContainer">
+                        <Image
+                          src={"/images/emplacement_puce.jpg"}
+                          alt="Illustration Emplacement Puce"
+                          width={350}
+                          height={340}
+                        />
+                        <p>
+                          Le numéro de votre bac se trouve toujours sous le code
+                          barres situé sur l’étiquette collée sur un des côtés
+                          de votre bac de déchets.
+                        </p>
+                      </div>
+                    );
+                  }}
+                />
               </div>
             </div>
           </div>

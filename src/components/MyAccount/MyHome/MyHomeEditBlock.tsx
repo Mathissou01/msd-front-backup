@@ -29,11 +29,7 @@ const MyHomeEditBlock: React.FC<MyHomeProps> = ({
   setIsEdit,
   isMyHomeInfosCompleted,
 }) => {
-  const { updateUser } = useUpdateUser(
-    process.env.NEXT_PUBLIC_USER_API_URL || "",
-    // TODO: change to currentUser.id
-    process.env.NEXT_PUBLIC_USER_ID || "",
-  );
+  const { updateUser } = useUpdateUser(process.env.NEXT_PUBLIC_USER_ID || "");
   const { control, handleSubmit, getValues, setValue } = useForm({
     defaultValues: {
       dwellingType: user?.dwellingType || "house",

@@ -20,7 +20,7 @@ const CommonOverlay: React.FC<CommonOverlayProps> = ({
   content,
   title,
   modalSize = "default",
-  isBottomButton = true,
+  isBottomButton = false,
   bottomButtonLabel,
   onButtonClick,
 }) => {
@@ -33,6 +33,10 @@ const CommonOverlay: React.FC<CommonOverlayProps> = ({
     "c-Overlay__Modal_default": modalSize === "default",
   });
 
+  const headerClass = classNames("c-Overlay__Header", {
+    "c-Overlay__Header_noTitle": !title,
+  });
+
   return (
     <>
       <div onClick={() => setIsVisible(true)}>{button}</div>
@@ -40,7 +44,7 @@ const CommonOverlay: React.FC<CommonOverlayProps> = ({
         <div className="c-Overlay">
           <div className="c-Overlay__Container">
             <div className={modalClass}>
-              <div className="c-Overlay__Header">
+              <div className={headerClass}>
                 {title && <CommonBlockHeading titleContent={title} />}
                 <button className="c-Overlay__Close">
                   <CloseIcon

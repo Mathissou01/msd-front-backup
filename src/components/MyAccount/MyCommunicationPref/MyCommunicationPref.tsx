@@ -17,10 +17,7 @@ const MyCommunicationPref: React.FC<MyCommunicationPrefProps> = ({
   user,
   refetch,
 }) => {
-  const { updateUser } = useUpdateUser(
-    process.env.NEXT_PUBLIC_USER_API_URL || "",
-    process.env.NEXT_PUBLIC_USER_ID || "",
-  );
+  const { updateUser } = useUpdateUser(process.env.NEXT_PUBLIC_USER_ID || "");
 
   const { control, handleSubmit } = useForm<Communication>({
     defaultValues: {

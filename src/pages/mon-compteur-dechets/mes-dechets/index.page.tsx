@@ -95,53 +95,55 @@ const MyWastePage = () => {
       <CommonBreadcrumb pages={breadcrumbPages} />
       <div className="c-MyWaste">
         <SectionHeader title="Mes déchets" date={formattedDate} />
-        <div className="c-MyWaste__Content">
-          <CommonChips
-            chips={chips}
-            selectedChip={selectedChip}
-            setSelectedChip={setSelectedChip}
-            renderChipName={renderFlowName}
-          />
-          <div className="c-MyWaste__EvolutionContainer">
-            <div className="c-MyWaste__BlockContainer">
-              <div className="c-MyWaste__DonutChart">
-                <CommonDonut selectedChip={selectedChip} flows={flows} />
+        {data && (
+          <div className="c-MyWaste__Content">
+            <CommonChips
+              chips={chips}
+              selectedChip={selectedChip}
+              setSelectedChip={setSelectedChip}
+              renderChipName={renderFlowName}
+            />
+            <div className="c-MyWaste__EvolutionContainer">
+              <div className="c-MyWaste__BlockContainer">
+                <div className="c-MyWaste__DonutChart">
+                  <CommonDonut selectedChip={selectedChip} flows={flows} />
 
-                <div className="c-MyWaste__DonutLegend">
-                  <p>
-                    <span
-                      className={`c-MyWaste__DonutLegend${
-                        selectedChip === "householdWaste"
-                          ? "_color1"
-                          : selectedChip === "packaging"
-                          ? "_color4"
-                          : "_color1"
-                      }`}
-                    ></span>
-                    Ordures ménagères
-                  </p>
-                  <p>
-                    <span
-                      className={`c-MyWaste__DonutLegend${
-                        selectedChip === "packaging"
-                          ? "_color2"
-                          : selectedChip === "householdWaste"
-                          ? "_color3"
-                          : "_color2"
-                      }`}
-                    ></span>
-                    Emballages
-                  </p>
+                  <div className="c-MyWaste__DonutLegend">
+                    <p>
+                      <span
+                        className={`c-MyWaste__DonutLegend${
+                          selectedChip === "householdWaste"
+                            ? "_color1"
+                            : selectedChip === "packaging"
+                            ? "_color4"
+                            : "_color1"
+                        }`}
+                      ></span>
+                      Ordures ménagères
+                    </p>
+                    <p>
+                      <span
+                        className={`c-MyWaste__DonutLegend${
+                          selectedChip === "packaging"
+                            ? "_color2"
+                            : selectedChip === "householdWaste"
+                            ? "_color3"
+                            : "_color2"
+                        }`}
+                      ></span>
+                      Emballages
+                    </p>
+                  </div>
+                  <div className="c-MyWaste__DonutChartBottomInfo">
+                    <Illu_idea />
+                    <p>Equivalent d’un foyer d’environ X personne(s)</p>
+                  </div>
                 </div>
-                <div className="c-MyWaste__DonutChartBottomInfo">
-                  <Illu_idea />
-                  <p>Equivalent d’un foyer d’environ X personne(s)</p>
-                </div>
+                {<MyWasteStatsBlock flows={flows} />}
               </div>
-              {<MyWasteStatsBlock flows={flows} />}
             </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );

@@ -12,9 +12,11 @@ import CommonOverlay from "../../../Common/CommonPopover/CommonOverlay";
 import "./my-home-data.scss";
 import CommonStatsArrow from "../../../Common/CommonStatsArrow/CommonStatsArrow";
 import CommonPie from "../../../Common/CommonGraphs/CommonPie";
+import { useCurrentUser } from "../../../../hooks/useCurrentUser";
 
 const MyHomeData = () => {
   const router = useRouter();
+  const { currentUser } = useCurrentUser();
 
   const { data } = useGetDataHomePageMwcQuery({
     variables: {
@@ -34,7 +36,7 @@ const MyHomeData = () => {
       <div className="c-MyHomeData__Overlay">
         <div>
           <h4>Votre adresse</h4>
-          <p>160 rue du chemin, 0000 Ville</p>
+          <p>{currentUser?.addressLabel}</p>
         </div>
         <div className="c-MyHomeData__Flows">
           <h4>Vos bacs</h4>
@@ -83,7 +85,7 @@ const MyHomeData = () => {
               Votre adresse
             </p>
             <p className="c-MyHomeData__TitleContentAddress_labelValue">
-              160 rue du chemin, 0000 Ville
+              {currentUser?.addressLabel}
             </p>
           </div>
           <div

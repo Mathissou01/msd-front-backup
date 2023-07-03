@@ -1,0 +1,38 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+
+.c-BinsError {
+  width: 100%;
+  margin-bottom: 32px;
+  padding: 16px;
+  background-color: colors.$white;
+  border: 1px solid colors.$blue-4;
+  border-radius: 8px;
+
+  &__Title {
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  &__BinsContainer {
+    display: flex;
+    gap: 32px;
+    padding: 16px;
+  }
+
+  &__BinsContent {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__Name {
+    color: colors.$gray-600;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  &__Value {
+    color: colors.$expert-blue;
+    font-size: 18px;
+  }
+}

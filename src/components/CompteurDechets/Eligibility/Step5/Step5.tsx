@@ -2,18 +2,15 @@ import React, { Dispatch, SetStateAction } from "react";
 import "./step5.scss";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
 import CommonButton from "../../../Common/CommonButton/CommonButton";
-import { IQuestion } from "../../../../pages/mon-compteur-dechets/eligibilite/questionDatas";
 import EligibilityPersons from "public/images/membre-foyer.svg";
 
 interface Step5Props {
-  question: IQuestion;
   handleOptionClick: (next: string | number) => void;
   personsCount: number;
   setPersonsCount: Dispatch<SetStateAction<number>>;
 }
 
 const Step5: React.FC<Step5Props> = ({
-  question,
   handleOptionClick,
   personsCount,
   setPersonsCount,
@@ -37,12 +34,12 @@ const Step5: React.FC<Step5Props> = ({
     <div className="o-Steps c-Step5">
       <EligibilityPersons className="o-Steps__Image" />
       <div className="o-Steps__Container">
-        <CommonBlockHeading titleContent={question.title} />
+        <CommonBlockHeading titleContent="Vous y êtes presque !" />
         <EligibilityPersons className="o-Steps__Image" />
 
         <div className="o-Steps__CardContainer">
           <label className="o-Steps__SubText" htmlFor="personsCount">
-            {question.text}
+            Combien de personne composent votre foyer :
           </label>
           <div className="c-Step5__InputNumber">
             <button
@@ -76,11 +73,8 @@ const Step5: React.FC<Step5Props> = ({
             <CommonButton
               type="button"
               style="primary"
-              label={question.options[0].text}
-              onClick={() =>
-                personsCount <= 20 &&
-                handleOptionClick(question.options[0].next)
-              }
+              label="Valider"
+              onClick={() => personsCount <= 20 && handleOptionClick(6)}
               isDisabled={personsCount > 20}
             />
             <p className="c-Step5__RGPD">

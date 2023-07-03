@@ -11,12 +11,14 @@ interface AddressBlockProps {
   handleError: (
     updates: Partial<{ [key: string]: string | boolean | number }>,
   ) => void;
+  setCurrentQuestion?: Dispatch<SetStateAction<number>>;
 }
 
 const AddressBlock: React.FC<AddressBlockProps> = ({
   selectedAddress,
   setSelectedAddress,
   handleError,
+  setCurrentQuestion,
 }) => {
   return (
     <div className="c-StepAddress__AddressBlockContainer">
@@ -30,6 +32,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       <button type="button" className="c-StepAddress__PencilIcon">
         <PencilWrite
           onClick={() => {
+            setCurrentQuestion && setCurrentQuestion(3);
             setSelectedAddress(null);
             handleError({ isActive: false });
           }}

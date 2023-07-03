@@ -11,6 +11,8 @@ import { User } from "../lib/user";
 interface UserContextValues {
   currentUser: User | null;
   setCurrentUser: Dispatch<SetStateAction<User | null>>;
+  login: () => void;
+  logout: () => void;
 }
 
 export const useCurrentUser = (): UserContextValues => {
@@ -26,21 +28,51 @@ const UserContext = createContext<UserContextValues>({} as UserContextValues);
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
 
-  useEffect(() => {
-    // TODO: fetch user from API and stock it in sessionStorage
-    const storedUser = sessionStorage.getItem("user");
-    if (storedUser && storedUser !== "undefined") {
-      setCurrentUser(JSON.parse(storedUser));
+  const getUser = async () => {
+    try {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser && storedUser !== "null") {
+        setCurrentUser(JSON.parse(storedUser));
+      }
+    } catch (error) {
+      console.error(error);
     }
+  };
+
+  const login = () => {
+    const user = {
+      id: "1",
+      email: "john.doe@gmail.com",
+      firstname: "John",
+      lastname: "Doe",
+      activeCounter: true,
+      householdSize: 1,
+      userType: "particular",
+      dwellingType: "house",
+      addressLabel: "1 rue de la paix, 75000 Paris",
+    };
+    setCurrentUser(user);
+    localStorage.setItem("user", JSON.stringify(user));
+  };
+
+  const logout = () => {
+    setCurrentUser(null);
+    localStorage.removeItem("user");
+  };
+
+  useEffect(() => {
+    getUser();
   }, []);
 
   useEffect(() => {
-    sessionStorage.setItem("user", JSON.stringify(currentUser));
+    localStorage.setItem("user", JSON.stringify(currentUser));
   }, [currentUser]);
 
   const contextValue: UserContextValues = {
     currentUser,
     setCurrentUser,
+    login,
+    logout,
   };
 
   return (

@@ -7,7 +7,6 @@ import React, {
 } from "react";
 import { useSearchAddressQuery } from "../../../../graphql/codegen/generated-types";
 import useDebounce from "../../../../hooks/useDebounce";
-import { IQuestion } from "../../../../pages/mon-compteur-dechets/eligibilite/questionDatas";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
 import CommonButton from "../../../Common/CommonButton/CommonButton";
 import AddressBlock from "../AddressBlock/AddressBlock";
@@ -19,7 +18,6 @@ import EligibilityAdress from "public/images/adresse-postale.svg";
 import "./step3.scss";
 
 interface Step3Props {
-  question: IQuestion;
   handleOptionClick: (next: string | number) => void;
   selectedAddress: Partial<User> | null | undefined;
   setSelectedAddress: Dispatch<
@@ -29,7 +27,6 @@ interface Step3Props {
 }
 
 const Step3: React.FC<Step3Props> = ({
-  question,
   handleOptionClick,
   selectedAddress,
   setSelectedAddress,
@@ -41,9 +38,9 @@ const Step3: React.FC<Step3Props> = ({
   const [value, setValue] = useState(addressString || "");
   const debouncedValue = useDebounce<string>(value, 500);
   const [filteredOptions, setFilteredOptions] = useState<AddressOption[]>([]);
-  const [isVisibled, setIsVisibled] = useState(true);
+  const [isVisibled, setIsVisibled] = useState(false);
 
-  const { data: searchAddressData } = useSearchAddressQuery({
+  const { data: searchAddressData, loading } = useSearchAddressQuery({
     variables: { address: debouncedValue, limit: 5 },
   });
 
@@ -74,13 +71,10 @@ const Step3: React.FC<Step3Props> = ({
     <div className="o-Steps c-StepAddress">
       <EligibilityAdress className="o-Steps__Image" />
       <div className="o-Steps__Container">
-        <CommonBlockHeading
-          titleContent={question.title}
-          subTitle={question.text}
-        />
+        <CommonBlockHeading titleContent="Suivez mois par mois l'évolution de votre production" />
         <EligibilityAdress className="o-Steps__Image" />
         <div className="o-Steps__CardContainer">
-          <p className="o-Steps__SubText">{question.subText}</p>
+          <p className="o-Steps__SubText">Quelle est votre adresse ?</p>
           {selectedAddress !== null && selectedAddress !== undefined ? (
             <AddressBlock
               selectedAddress={selectedAddress}
@@ -100,6 +94,7 @@ const Step3: React.FC<Step3Props> = ({
               inputLabel="Adresse complète"
               inputPlaceholder="ex: 10 rue des fleurs 82000 Montauban"
               handleError={handleError}
+              loading={loading}
             />
           )}
           <div className="o-Steps__ButtonContainer">
@@ -107,8 +102,8 @@ const Step3: React.FC<Step3Props> = ({
               type="button"
               style="primary"
               isDisabled={!selectedAddress}
-              label={question.options[0].text}
-              onClick={() => handleOptionClick(question.options[0].next)}
+              label="Valider"
+              onClick={() => handleOptionClick(4)}
             />
             <button
               className="o-Steps__CardButtons_openmodal"

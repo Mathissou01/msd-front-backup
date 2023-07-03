@@ -19,9 +19,11 @@
   &__Modal {
     max-height: 800px;
     padding: 30px;
-    overflow-y: scroll;
+    overflow-y: auto;
     background: colors.$white;
     border-radius: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: colors.$blue-4 colors.$white;
 
     &_large {
       width: 100%;
@@ -52,6 +54,7 @@
     }
 
     &::-webkit-scrollbar {
+      right: 20px;
       width: 4px;
       height: 4px;
       background-color: colors.$white;
@@ -66,6 +69,11 @@
     &::-webkit-scrollbar-track {
       border: 1px solid colors.$blue-4;
       border-radius: 15px;
+    }
+
+    &::after {
+      right: 10px; /* Ajustez la valeur pour correspondre à la position de la barre de défilement */
+      content: "";
     }
   }
 
@@ -83,5 +91,9 @@
     align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 40px;
+
+    &_noTitle {
+      justify-content: flex-end;
+    }
   }
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { questions } from "./questionDatas";
+import { useRouter } from "next/router";
 import Step0 from "../../../components/CompteurDechets/Eligibility/Step0/Step0";
 import Step1 from "../../../components/CompteurDechets/Eligibility/Step1/Step1";
 import Step2 from "../../../components/CompteurDechets/Eligibility/Step2/Step2";
@@ -7,15 +7,11 @@ import Step3 from "../../../components/CompteurDechets/Eligibility/Step3/Step3";
 import Step4 from "../../../components/CompteurDechets/Eligibility/Step4/Step4";
 import Step5 from "../../../components/CompteurDechets/Eligibility/Step5/Step5";
 import ProgressBar from "../../../components/CompteurDechets/Eligibility/ProgressBar/ProgressBar";
-
-import { useRouter } from "next/router";
 import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
-
 import StepError from "../../../components/CompteurDechets/Eligibility/StepError/StepError";
 import { useCurrentUser } from "../../../hooks/useCurrentUser";
-
-import "./eligibilite-page.scss";
 import { User } from "../../../lib/user";
+import "./eligibilite-page.scss";
 
 export interface IError {
   isActive: boolean;
@@ -23,6 +19,8 @@ export interface IError {
   isAddressVisible: boolean;
   isReasonVisible: boolean;
   isContactVisible: boolean;
+  isNoBinsLinked: boolean;
+  bins?: { name: string; value: string }[];
 }
 
 const breadcrumbPages = [
@@ -47,9 +45,10 @@ const Eligibilite = () => {
   const [error, setError] = useState({
     isActive: false,
     title: "",
-    isAddressVisible: true,
-    isReasonVisible: true,
-    isContactVisible: true,
+    isAddressVisible: false,
+    isReasonVisible: false,
+    isNoBinsLinked: false,
+    isContactVisible: false,
   });
 
   const handleError = (updates: Partial<IError>) => {
@@ -71,30 +70,14 @@ const Eligibilite = () => {
   const renderQuestion = () => {
     switch (currentQuestion) {
       case 0:
-        return (
-          <Step0
-            question={questions[currentQuestion]}
-            handleOptionClick={handleOptionClick}
-          />
-        );
+        return <Step0 handleOptionClick={handleOptionClick} />;
       case 1:
-        return (
-          <Step1
-            question={questions[currentQuestion]}
-            handleOptionClick={handleOptionClick}
-          />
-        );
+        return <Step1 handleOptionClick={handleOptionClick} />;
       case 2:
-        return (
-          <Step2
-            question={questions[currentQuestion]}
-            handleOptionClick={handleOptionClick}
-          />
-        );
+        return <Step2 handleOptionClick={handleOptionClick} />;
       case 3:
         return (
           <Step3
-            question={questions[currentQuestion]}
             handleOptionClick={handleOptionClick}
             selectedAddress={selectedAddress}
             setSelectedAddress={setSelectedAddress}
@@ -104,7 +87,6 @@ const Eligibilite = () => {
       case 4:
         return (
           <Step4
-            question={questions[currentQuestion]}
             handleOptionClick={handleOptionClick}
             handleError={handleError}
           />
@@ -112,7 +94,6 @@ const Eligibilite = () => {
       case 5:
         return (
           <Step5
-            question={questions[currentQuestion]}
             handleOptionClick={handleOptionClick}
             personsCount={personsCount}
             setPersonsCount={setPersonsCount}
@@ -138,7 +119,7 @@ const Eligibilite = () => {
       <ProgressBar
         title="Activation du compteur déchets"
         currentQuestion={currentQuestion}
-        maxQuestions={questions.length}
+        maxQuestions={5}
         handleBackClick={handleBackClick}
       />
       <div className="c-Steps">
@@ -149,6 +130,7 @@ const Eligibilite = () => {
             setSelectedAddress={setSelectedAddress}
             error={error}
             handleError={handleError}
+            setCurrentQuestion={setCurrentQuestion}
           />
         ) : (
           renderQuestion()

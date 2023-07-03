@@ -6,11 +6,16 @@ import useGetUser from "../../hooks/user/useGetUser";
 import CommonSpinner from "../../components/Common/CommonSpinner/CommonSpinner";
 import MyCommunicationPref from "../../components/MyAccount/MyCommunicationPref/MyCommunicationPref";
 import "./my-account-page.scss";
+import CommonButton from "../../components/Common/CommonButton/CommonButton";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
+import { useRouter } from "next/router";
 
 const MyAccountPage = () => {
+  const router = useRouter();
   const { user, refetch, loading } = useGetUser(
     process.env.NEXT_PUBLIC_USER_ID || "",
   );
+  const { logout } = useCurrentUser();
   const tabData = [
     {
       title: "Mes informations personnelles",
@@ -30,11 +35,24 @@ const MyAccountPage = () => {
         <CommonSpinner />
       ) : (
         <>
-          {user && user !== null && (
+          {user && user !== null ? (
             <>
               <CommonPageTitle title="Mon compte" />
               <CommonTabs tabData={tabData} align="center" />
             </>
+          ) : (
+            <p>
+              <br />
+              <br />
+              Une erreur est survenue lors de la récupération de votre profile.
+              <CommonButton
+                label="Deconnexion"
+                onClick={() => {
+                  logout();
+                  router.push("/connexion");
+                }}
+              />
+            </p>
           )}
         </>
       )}

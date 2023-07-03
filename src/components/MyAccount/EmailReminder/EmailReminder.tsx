@@ -14,11 +14,13 @@ const EmailReminder: React.FC<EmailReminderProps> = ({ user }) => {
         <div className="c-EmailReminder__Text">
           {user?.email ? (
             <p>
-              Vous recevrez vos alertes à l&apos;adresse suivante:{" "}
+              Vous recevrez vos alertes &aacute; l&apos;adresse suivante:{" "}
               <strong>{user.email}</strong>
             </p>
           ) : (
-            <strong>Vous n&apos;avez pas renseigné d&apos;adresse email</strong>
+            <strong>
+              Vous n&apos;avez pas renseign&eacute; d&apos;adresse email
+            </strong>
           )}
         </div>
         <div className="c-EmailReminder__Text">
@@ -35,7 +37,7 @@ const EmailReminder: React.FC<EmailReminderProps> = ({ user }) => {
         </div>
       </div>
       <div className="c-EmailReminder__Text">
-        Vous pouvez modifier vos coordonnées dans l&apos;onglet:{" "}
+        Vous pouvez modifier vos coordonn&eacute;es dans l&apos;onglet:{" "}
         <button
           className="c-EmailReminder__Link"
           onClick={() =>

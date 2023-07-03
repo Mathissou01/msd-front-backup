@@ -6,6 +6,7 @@ import ErrorReason from "../ErrorReason/ErrorReason";
 import ErrorContactBlock from "../ErrorContactBlock/ErrorContactBlock";
 import { User } from "../../../../lib/user";
 import EligibilityRecycling from "public/images/non-eligible.svg";
+import BinsError from "../BinsError/BinsError";
 
 interface ErrorPageProps {
   selectedAddress: Partial<User> | null | undefined;
@@ -14,6 +15,7 @@ interface ErrorPageProps {
   >;
   error: IError;
   handleError: (updates: Partial<IError>) => void;
+  setCurrentQuestion: Dispatch<SetStateAction<number>>;
 }
 
 const StepError: React.FC<ErrorPageProps> = ({
@@ -21,6 +23,7 @@ const StepError: React.FC<ErrorPageProps> = ({
   setSelectedAddress,
   error,
   handleError,
+  setCurrentQuestion,
 }) => {
   return (
     <div className="o-Steps">
@@ -31,14 +34,18 @@ const StepError: React.FC<ErrorPageProps> = ({
         </div>
         <EligibilityRecycling className="o-Steps__Image" />
         <div className="o-Steps__CardContainer">
+          {error.bins && <BinsError bins={error.bins} />}
           {error.isAddressVisible && selectedAddress && (
             <AddressBlock
               selectedAddress={selectedAddress}
               setSelectedAddress={setSelectedAddress}
               handleError={handleError}
+              setCurrentQuestion={setCurrentQuestion}
             />
           )}
-          {error.isReasonVisible && <ErrorReason />}
+          {error.isReasonVisible && (
+            <ErrorReason isNoBinsLinked={error.isNoBinsLinked} />
+          )}
           {error.isContactVisible && (
             <div>
               {error.isReasonVisible ? (

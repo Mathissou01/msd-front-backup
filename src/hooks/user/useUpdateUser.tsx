@@ -1,15 +1,18 @@
 import { User } from "../../lib/user";
 
-const useUpdateUser = (url: string, userId: string) => {
+const useUpdateUser = (userId: string) => {
   const updateUser = async (data: Partial<User>, refetch?: () => void) => {
     try {
-      const response = await fetch(`${url}/user/${userId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/user/${userId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
         },
-        body: JSON.stringify(data),
-      });
+      );
 
       if (response.ok && refetch) {
         refetch();

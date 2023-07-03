@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
 import { User } from "../../lib/user";
-import { useRouter } from "next/router";
 
 const useGetUser = (userId: string | null) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
 
   const fetchUser = async () => {
     try {
       setLoading(true);
 
       if (userId) {
-        const response = await fetch(`http://localhost:5000/user/${userId}`);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_USER_API_URL}/user/${userId}`,
+        );
         if (!response.ok) {
           throw new Error("An error occurred");
         }
@@ -23,8 +23,6 @@ const useGetUser = (userId: string | null) => {
       }
     } catch (error) {
       console.error(error);
-      // TODO: redirect to error page
-      router.push("/");
     } finally {
       setLoading(false);
     }

@@ -44,11 +44,8 @@ const MyInfosEditBlock: React.FC<MyInfosEditProps> = ({
     control,
     formState: { errors },
   } = useForm();
-  const { updateUser } = useUpdateUser(
-    process.env.NEXT_PUBLIC_USER_API_URL || "",
-    process.env.NEXT_PUBLIC_USER_ID || "",
-  );
-  const { data: searchAddressData } = useSearchAddressQuery({
+  const { updateUser } = useUpdateUser(process.env.NEXT_PUBLIC_USER_ID || "");
+  const { data: searchAddressData, loading } = useSearchAddressQuery({
     variables: { address: debouncedValue, limit: 5 },
   });
 
@@ -115,6 +112,7 @@ const MyInfosEditBlock: React.FC<MyInfosEditProps> = ({
           inputLabel="Adresse complète"
           inputPlaceholder="ex: 10 rue des fleurs 82000 Montauban"
           isEdit={true}
+          loading={loading}
         />
         <div className="c-CommonInfoPersoEdit__Row">
           <label className="c-CommonInfoPersoEdit__Label" htmlFor="firstName">
