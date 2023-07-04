@@ -58,7 +58,7 @@ const AutocompleteAddress: React.FC<AutocompleteAddressProps> = ({
     <div className="c-AutocompleteAddress">
       <div className="c-AutocompleteAddress__Container">
         <label htmlFor={inputName} className="c-AutocompleteAddress__Label">
-          {inputLabel} *
+          {inputLabel}
         </label>
         <input
           type="text"

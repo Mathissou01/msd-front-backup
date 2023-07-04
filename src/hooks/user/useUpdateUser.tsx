@@ -4,7 +4,7 @@ const useUpdateUser = (userId: string) => {
   const updateUser = async (data: Partial<User>, refetch?: () => void) => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/${userId}`,
+        `${process.env.NEXT_PUBLIC_USER_API_URL}/user/${userId}`,
         {
           method: "PUT",
           headers: {

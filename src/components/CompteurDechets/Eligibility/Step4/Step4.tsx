@@ -33,7 +33,7 @@ const Step4: React.FC<Step4Props> = ({ handleOptionClick, handleError }) => {
         <div className="o-Steps c-StepIdentiteBacs">
           <EligibilityRecycling className="o-Steps__Image" />
           <div className="o-Steps__Container">
-            <CommonBlockHeading titleContent="Nous avons identifiés 2 bacs pour votre adresse" />
+            <CommonBlockHeading titleContent="Nous avons identifiés des bacs pour votre adresse" />
             <EligibilityRecycling className="o-Steps__Image" />
             <div className="o-Steps__CardContainer c-StepIdentiteBacs__CardContainer">
               <CommonLoader isLoading={loading} errors={[error]}>
@@ -118,10 +118,11 @@ const Step4: React.FC<Step4Props> = ({ handleOptionClick, handleError }) => {
                           width={350}
                           height={340}
                         />
-                        <p>
-                          Le numéro de votre bac se trouve toujours sous le code
-                          barres situé sur l’étiquette collée sur un des côtés
-                          de votre bac de déchets.
+                        <p className="c-StepIdentiteBacs__Text">
+                          <b>Le numéro de votre bac se trouve </b>
+                          toujours <b>sous le code barres</b> situé sur
+                          l’étiquette collée
+                          <b>sur un des côtés de votre bac</b> de déchets.
                         </p>
                       </div>
                     );

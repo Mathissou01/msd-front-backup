@@ -13,6 +13,7 @@ import { User } from "../../../lib/user";
 import { AddressOption } from "../../../lib/address-option";
 import CommonButton from "../../Common/CommonButton/CommonButton";
 import AutocompleteAddress from "../../CompteurDechets/Eligibility/AutocompleteAddress/AutocompleteAddress";
+import classNames from "classnames";
 
 interface MyInfosEditProps {
   user: User;
@@ -116,29 +117,42 @@ const MyInfosEditBlock: React.FC<MyInfosEditProps> = ({
         />
         <div className="c-CommonInfoPersoEdit__Row">
           <label className="c-CommonInfoPersoEdit__Label" htmlFor="firstName">
-            Prénom
+            Prénom *
           </label>
           <Controller
             control={control}
             name="firstname"
             defaultValue={user?.firstname}
+            rules={{
+              required: "Le prénom est obligatoire",
+            }}
             render={({ field }) => (
               <input
                 {...field}
-                className="c-CommonInfoPersoEdit__Input"
+                className={classNames("c-CommonInfoPersoEdit__Input", {
+                  "c-CommonInfoPersoEdit__Input_error": errors.firstname,
+                })}
                 type="text"
               />
             )}
           />
+          {errors.firstname && (
+            <span className="c-CommonInfoPersoEdit__ErrorMessage">
+              {errors.firstname.message as string}
+            </span>
+          )}
         </div>
         <div className="c-CommonInfoPersoEdit__Row">
           <label className="c-CommonInfoPersoEdit__Label" htmlFor="lastName">
-            Nom
+            Nom *
           </label>
           <Controller
             control={control}
             name="lastname"
             defaultValue={user?.lastname}
+            rules={{
+              required: "Le nom est obligatoire",
+            }}
             render={({ field }) => (
               <input
                 {...field}
@@ -147,6 +161,11 @@ const MyInfosEditBlock: React.FC<MyInfosEditProps> = ({
               />
             )}
           />
+          {errors.lastname && (
+            <p className="c-CommonInfoPersoEdit__ErrorMessage">
+              {errors.lastname.message as string}
+            </p>
+          )}
         </div>
         <div className="c-CommonInfoPersoEdit__Row">
           <label className="c-CommonInfoPersoEdit__Label" htmlFor="tel">
