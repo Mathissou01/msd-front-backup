@@ -42,59 +42,72 @@
 
     @include im.media(">tablet") {
       width: calc(70% + 75px + 16px);
-
-      // margin-top: 32px;
       padding: 30px;
       background: #fff;
     }
   }
 
-  &__BlockContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    align-items: center;
-    justify-content: center;
-    width: calc(70% + 75px + 16px);
+  &__EvolutionWrapper {
+    padding: 16px 8px;
+    border-radius: 8px;
 
     @include im.media(">=tablet") {
-      flex-direction: row;
-      align-items: flex-start;
-      justify-content: space-between;
-      width: 100%;
-      padding: 47px 43px;
+      padding: 24px 24px 16px;
       background: #f8f9fa;
-      border-radius: 8px;
+    }
+  }
+
+  &__BlockContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    @include im.media(">=tablet") {
+      width: 100%;
     }
   }
 
   &__ProgressionBlockContainer {
+    display: flex;
     width: 100%;
-    padding: 16px;
-    background-color: $white;
-    border: 1px solid #d5d6de;
-    border-radius: 8px;
+    min-height: 450px;
 
     @include im.media(">=tablet") {
       width: 35%;
+      padding-left: 24px;
+    }
+
+    > * {
+      width: 100%;
+      padding: 16px;
+      background-color: $white;
+      border: 1px solid #d5d6de;
+      border-radius: 8px;
     }
   }
 
   &__StatsContainer {
+    display: flex;
     width: 100%;
-    padding: 5px 0 40px;
+    margin-bottom: 16px;
     background-color: $white;
     border: 1px solid #d5d6de;
     border-radius: 8px;
 
     @include im.media(">=tablet") {
       width: 65%;
+      margin-bottom: 0;
+    }
+
+    > * {
+      width: 100%;
+      padding: 10px 0 40px;
     }
   }
 
   &__DataTextContent {
     width: calc(70% + 75px + 16px);
-    padding: 16px 0;
+    padding: 30px 0 0;
 
     @include im.media(">=tablet") {
       width: 100%;

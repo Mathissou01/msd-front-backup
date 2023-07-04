@@ -20,6 +20,8 @@ interface Data {
 
 const BarComponent = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+
+  // TODO: Replace data by API when ready
   const data: Data[] = [
     {
       name: "Jan",
@@ -169,17 +171,25 @@ const BarComponent = () => {
             bottom: 5,
           }}
         >
-          <CartesianGrid strokeDasharray="0 0" vertical={false} />
+          {/* Vertical lines in the BarChart */}
+          <CartesianGrid
+            strokeDasharray="0 0"
+            vertical={false}
+            stroke="#E9ECEF"
+          />
+          {/* The horizontal values of the BarChart */}
           <XAxis
             dataKey="name"
             tick={{ fill: "#767C97", fontSize: 12 }}
             axisLine={{ stroke: "#E9ECEF", strokeWidth: 1 }}
           />
+          {/* The vertical values of the BarChart */}
           <YAxis
             tick={{ fill: "#767C97", fontSize: 12 }}
-            // axisLine={{ stroke: "#6C757D", strokeWidth: 1 }}
             domain={[0, modifiedMaxValue]}
             tickCount={Math.ceil(modifiedMaxValue / 25) + 1}
+            tickFormatter={(value) => `${value > 0 ? value + " kg" : value}`}
+            tickMargin={15}
           />
           <Bar
             barSize={16}
@@ -215,11 +225,11 @@ const BarComponent = () => {
             ))}
           </Bar>
           <Legend
-            align="center"
             iconType="circle"
             iconSize={12}
-            wrapperStyle={{ marginBottom: "-10px" }}
+            wrapperStyle={{ bottom: "-15px", height: "50px", fontSize: "14px" }}
           />
+          {/* Set number of bars to display */}
           <Brush
             stroke="#808080"
             leaveTimeOut={1000}
