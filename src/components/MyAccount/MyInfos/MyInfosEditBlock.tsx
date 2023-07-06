@@ -247,7 +247,11 @@ const MyInfosEditBlock: React.FC<MyInfosEditProps> = ({
             onClick={() => setIsEdit(!isEdit)}
           />
 
-          <CommonButton type="submit" style="primary" label="Enregistrer" />
+          <CommonButton
+            type="submit"
+            style="primary"
+            label="Enregistrer les modifications"
+          />
         </div>
       </div>
     </form>

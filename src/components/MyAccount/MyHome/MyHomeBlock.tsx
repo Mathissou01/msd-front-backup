@@ -36,7 +36,7 @@ const MyHomeBlock: React.FC<MyHomeNotCompleteBlockProps> = ({
       <div className="c-CommonInfoPerso__Button">
         <CommonButton
           type="button"
-          style="primary"
+          style="secondary"
           label="Modifier"
           onClick={() => {
             setIsEdit(!isEdit);
