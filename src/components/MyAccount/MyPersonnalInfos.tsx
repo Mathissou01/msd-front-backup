@@ -5,6 +5,7 @@ import MyPassword from "./MyPassword";
 import { User } from "../../lib/user";
 import "./common-infoPerso.scss";
 import "./common-infoPersoEdit.scss";
+import DeleteAccount from "./DeleteAccount/DeleteAccount";
 
 interface MyPersonalInfosProps {
   user: User | null;
@@ -19,6 +20,8 @@ const MyPersonalInfos: React.FC<MyPersonalInfosProps> = ({ user, refetch }) => {
           <MyInfos user={user} refetch={refetch} />
           <MyPassword title="Mot de passe" />
           <MyHome user={user} refetch={refetch} />
+
+          <DeleteAccount />
         </div>
       )}
     </div>

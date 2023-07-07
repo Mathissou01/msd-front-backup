@@ -77,6 +77,13 @@
     }
   }
 
+  &__ButtonsContainer {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+    margin-top: 40px;
+  }
+
   &__CloseIcon {
     width: 16px;
     margin-left: 10px;

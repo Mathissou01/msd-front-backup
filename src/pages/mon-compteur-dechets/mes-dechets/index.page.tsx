@@ -139,7 +139,7 @@ const MyWastePage = () => {
                     <p>Equivalent d’un foyer d’environ X personne(s)</p>
                   </div>
                 </div>
-                {<MyWasteStatsBlock flows={flows} />}
+                {selectedChip === "all" && <MyWasteStatsBlock flows={flows} />}
               </div>
             </div>
           </div>

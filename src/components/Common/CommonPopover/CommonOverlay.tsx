@@ -11,6 +11,7 @@ interface CommonOverlayProps {
   title?: string;
   modalSize?: "default" | "small" | "fullWidth" | "large";
   isBottomButton?: boolean;
+  isCancelButton?: boolean;
   bottomButtonLabel?: string;
   onButtonClick?: () => void;
 }
@@ -21,6 +22,7 @@ const CommonOverlay: React.FC<CommonOverlayProps> = ({
   title,
   modalSize = "default",
   isBottomButton = false,
+  isCancelButton = false,
   bottomButtonLabel,
   onButtonClick,
 }) => {
@@ -54,17 +56,27 @@ const CommonOverlay: React.FC<CommonOverlayProps> = ({
                 </button>
               </div>
               <div className="c-Overlay__Content">{content()}</div>
-              {isBottomButton && (
-                <CommonButton
-                  label={bottomButtonLabel}
-                  type="button"
-                  style="primary"
-                  onClick={() => {
-                    if (onButtonClick) onButtonClick();
-                    setIsVisible(false);
-                  }}
-                />
-              )}
+              <div className="c-Overlay__ButtonsContainer">
+                {isCancelButton && (
+                  <CommonButton
+                    label="Annuler"
+                    type="button"
+                    style="secondary"
+                    onClick={() => setIsVisible(false)}
+                  />
+                )}
+                {isBottomButton && (
+                  <CommonButton
+                    label={bottomButtonLabel}
+                    type="button"
+                    style="primary"
+                    onClick={() => {
+                      if (onButtonClick) onButtonClick();
+                      setIsVisible(false);
+                    }}
+                  />
+                )}
+              </div>
             </div>
           </div>
         </div>

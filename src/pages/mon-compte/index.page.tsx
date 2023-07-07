@@ -5,10 +5,10 @@ import MyPersonalInfos from "../../components/MyAccount/MyPersonnalInfos";
 import useGetUser from "../../hooks/user/useGetUser";
 import CommonSpinner from "../../components/Common/CommonSpinner/CommonSpinner";
 import MyCommunicationPref from "../../components/MyAccount/MyCommunicationPref/MyCommunicationPref";
-import "./my-account-page.scss";
 import CommonButton from "../../components/Common/CommonButton/CommonButton";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { useRouter } from "next/router";
+import "./my-account-page.scss";
 
 const MyAccountPage = () => {
   const router = useRouter();

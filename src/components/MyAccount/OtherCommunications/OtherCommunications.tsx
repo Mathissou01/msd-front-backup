@@ -10,7 +10,7 @@ interface OtherCommunicationsProps {
 }
 
 const communications = [
-  { title: "Enquêtes sociologique", type: "sociologicalSurveys" },
+  { title: "Enquêtes sociologiques", type: "sociologicalSurveys" },
   { title: "Evolutions des services", type: "evolutionServices" },
 ];
 
