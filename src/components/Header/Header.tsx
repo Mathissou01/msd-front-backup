@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import Head from "next/head";
+import Script from "next/script";
 import { useState } from "react";
 import { useIsDesktopContext } from "../../hooks/useScreenWidth";
 import HeaderTopBar from "./HeaderTopBar/HeaderTopBar";
@@ -21,6 +22,19 @@ export default function Header() {
         <meta name="description" content="wip" />
         <link rel="icon" href={makePublicAssetPath("/favicon.ico")} />
       </Head>
+      <Script
+        id="Cookiebot"
+        src="https://consent.cookiebot.com/uc.js"
+        data-cbid="55b34c7d-edcf-48ab-9699-f43dc595ad2b"
+        data-blockingmode="auto"
+        type="text/javascript"
+      ></Script>
+      <Script
+        id="CookieDeclaration"
+        src="https://consent.cookiebot.com/55b34c7d-edcf-48ab-9699-f43dc595ad2b/cd.js"
+        type="text/javascript"
+        async
+      ></Script>
       <HeaderTopBar
         isMenuOpen={sidebarExpanded}
         isDesktopMode={isDesktop}
