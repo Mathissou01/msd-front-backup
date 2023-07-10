@@ -20,7 +20,7 @@ interface IWasteFamilyTable {
   wasteForms: Array<WasteFormEntity>;
   wasteFamilies: Array<WasteFamilyEntity>;
   filteredChildren: Array<WasteFormEntity>;
-  filteredFamily: Array<WasteFamilyEntity>;
+  isFamilyPicked: boolean;
 }
 
 interface IWasteFamilyBlockProps {
@@ -58,9 +58,20 @@ export default function WasteFamilyBlock({
           getGuideDuTriData.recyclingGuideService?.data?.attributes?.wasteFamilies?.data
             .map((item: WasteFamilyEntity) => {
               if (item && item.id && item.attributes) {
+                // Filter WasteFamily
+                const isFamilyPicked =
+                  (filteredData?.length !== 0 &&
+                    filteredData &&
+                    filteredData?.some(
+                      (searchItem) =>
+                        searchItem.id === item.id &&
+                        searchItem.typeName === "wasteFamily",
+                    )) ??
+                  false;
+
                 // Filter WasteForm
                 const filteredChildren =
-                  filteredData?.length === 0 || !filteredData
+                  filteredData?.length === 0 || !filteredData || isFamilyPicked
                     ? item.attributes.wasteForms?.data ?? []
                     : item.attributes.wasteForms?.data?.filter((form) =>
                         filteredData?.some(
@@ -70,35 +81,20 @@ export default function WasteFamilyBlock({
                         ),
                       ) ?? [];
 
-                // Filter WasteFamily
-                const filteredFamily =
-                  filteredData?.length === 0 || !filteredData
-                    ? Array.isArray(item.attributes.familyName)
-                      ? item.attributes.familyName
-                      : []
-                    : (Array.isArray(item.attributes.familyName)
-                        ? item.attributes.familyName
-                        : []
-                      ).filter((family) =>
-                        filteredData?.some(
-                          (searchItem) => searchItem.wasteFamilyName === family,
-                        ),
-                      ) ?? [];
-
                 return {
                   id: item.id,
                   familyName: item.attributes.familyName,
                   wasteForms: item.attributes.wasteForms?.data ?? [],
                   wasteFamilies: [],
                   filteredChildren,
-                  filteredFamily,
+                  isFamilyPicked,
                 };
               }
             })
             .filter(removeNulls) ?? [];
 
         const filteredTableData = updatedTableData.filter(
-          (data) => data.filteredChildren.length > 0,
+          (data) => data.filteredChildren.length > 0 || data.isFamilyPicked,
         );
 
         setTableData(filteredTableData);

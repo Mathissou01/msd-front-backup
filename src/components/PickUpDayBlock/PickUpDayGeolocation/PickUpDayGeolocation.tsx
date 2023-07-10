@@ -13,7 +13,7 @@ export default function PickUpDayGeolocation({
 }: PickUpDayGeolocationProps) {
   /* Local Data */
   const informativeText =
-    "*Les champs marqués d'une astérisque sont obligatoire";
+    "*Les champs marqués d'une astérisque sont obligatoires.";
   const otherOptionText = "ou je rentre mon adresse : ";
   const submitButtonLabel = "Me géolocaliser";
 
