@@ -1,12 +1,14 @@
 query getDropOffMapByDropOffMapByServiceId($dropOffMapServiceId: ID!) {
   getDropOffMaps(dropOffMapServiceId: $dropOffMapServiceId) {
     id
+    __typename
     name
     collect {
       entityTypeName
       name
       originalId
       uniqueId
+      grammaticalGender
       picto {
         alternativeText
         id
@@ -23,8 +25,8 @@ query getDropOffMapByDropOffMapByServiceId($dropOffMapServiceId: ID!) {
     description
     phoneNumber
     downloadableFiles {
-      linkText
       id
+      linkText
       file {
         data {
           id
@@ -48,10 +50,17 @@ query getDropOffMapByDropOffMapByServiceId($dropOffMapServiceId: ID!) {
     openingHoursBlocks {
       ... on ComponentBlocksOpeningDay {
         id
+        __typename
         afterNoonEnd
         afterNoonStart
         morningStart
         morningEnd
+        weekDay
+      }
+      ... on Error {
+        __typename
+        code
+        message
       }
     }
   }

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { makePublicAssetPath } from "../../../../lib/utilities";
-import { IFilterData } from "../../../../lib/map-markers";
+import { IFilterData } from "../../../../lib/map";
 import "./marker-filter-map.scss";
 
 interface IMarkerDataProps {

@@ -2,7 +2,7 @@ import { ReactElement, useCallback, useEffect, useRef, useState } from "react";
 import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import MarkerClusterMap from "./Marker/MarkerClusterMap/MarkerClusterMap";
 import MarkerGeoloc from "./Marker/MarkerGeoloc/MarkerGeoloc";
-import { IGeoPosition, IMarker } from "../../lib/map-markers";
+import { IGeoPosition, IMarker } from "../../lib/map";
 import useCalculateRoute from "../../hooks/geoLocation/useCalculateRoute";
 import mapStyles from "./mapStyles.json";
 import "./layers-map.scss";

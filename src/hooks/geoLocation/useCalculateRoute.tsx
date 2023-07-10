@@ -1,5 +1,5 @@
 import { useCallback, useRef } from "react";
-import { IGeoPosition } from "../../lib/map-markers";
+import { IGeoPosition } from "../../lib/map";
 
 const useCalculateRoute = (mapRef: React.RefObject<google.maps.Map | null>) => {
   const directionsRendererRef = useRef<google.maps.DirectionsRenderer | null>(

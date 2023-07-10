@@ -1,4 +1,8 @@
-import { ComponentBlocksDownloadBlock } from "../graphql/codegen/generated-types";
+import {
+  ComponentBlocksDownloadBlock,
+  ComponentBlocksOpeningDay,
+  Error,
+} from "../graphql/codegen/generated-types";
 
 export interface ICollect {
   name: string;
@@ -24,10 +28,22 @@ export interface IMarker {
   picto: string | null;
   collect: ICollect;
   distanceText?: string;
+  collectGender: string;
+  time?: ComponentBlocksOpeningDay[];
   files?: ComponentBlocksDownloadBlock[];
 }
 
 export interface IGeoPosition {
   lat: number;
   lng: number;
+}
+
+export function isComponentBlocksOpeningDay(
+  block: Partial<ComponentBlocksOpeningDay | Error> | null,
+): block is ComponentBlocksOpeningDay {
+  return (
+    !!block &&
+    "__typename" in block &&
+    block.__typename === "ComponentBlocksOpeningDay"
+  );
 }

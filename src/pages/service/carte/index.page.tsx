@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { useGeolocation } from "../../../hooks/geoLocation/useGeolocation";
 import useFilterMarkers from "../../../hooks/geoLocation/useNearbyLocations";
-import { IFilterData, IGeoPosition, IMarker } from "../../../lib/map-markers";
+import { IFilterData, IGeoPosition, IMarker } from "../../../lib/map";
 import { removeNulls } from "../../../lib/utilities";
 import CollapsingContent from "../../../components/Map/CollapsingContent/CollapsingContent";
 import MarkerFilterMap from "../../../components/Map/Marker/MarkerFilter/MarkerFilterMap";
@@ -45,6 +45,7 @@ export default function ServiceCartePage() {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedAddress, setSelectedAddress] = useState<Position>(null);
   const [autoUpdatePosition, setAutoUpdatePosition] = useState<boolean>(true);
+  const [message, setMessage] = useState("");
   const router = useRouter();
   const { pav } = router.query;
   const pavQueryParam = pav && typeof pav === "string" ? pav : undefined;
@@ -96,6 +97,7 @@ export default function ServiceCartePage() {
       <div className="c-ServiceCartePage">
         {showModal && selectedContent && (
           <CollapsingContent
+            message={message}
             setDestination={setDestination}
             markers={[selectedContent]}
             closeModal={closeModal}
@@ -111,29 +113,30 @@ export default function ServiceCartePage() {
           />
         </div>
         <div className="c-ServiceCartePage__ContentMapContainer">
-          {(geoLocation || selectedAddress) && (
-            <ContentMap
-              contents={data[0].dropOffMaps
-                .filter(removeNulls)
-                ?.map((content) => {
-                  return {
-                    infoPicto: content.picto,
-                    infoName: content.name,
-                    infoAddress: content.address,
-                    infoPostal: content.postal,
-                    infoDistance: content.distanceText,
-                    infoLat: content.lat,
-                    infoLng: content.lng,
-                    infoMustKnow: content.mustKnow,
-                    infoFiles: content.files,
-                  } as IContentData;
-                })}
-              onContentClick={(content) => {
-                setSelectedContent(content);
-                setShowModal(true);
-              }}
-            />
-          )}
+          <ContentMap
+            contents={data[0].dropOffMaps
+              .filter(removeNulls)
+              ?.map((content) => {
+                return {
+                  infoPicto: content.picto,
+                  infoName: content.name,
+                  infoAddress: content.address,
+                  infoPostal: content.postal,
+                  infoDistance: content.distanceText,
+                  infoLat: content.lat,
+                  infoLng: content.lng,
+                  infoMustKnow: content.mustKnow,
+                  infoTime: content.time,
+                  infoFiles: content.files,
+                  infoCollectGender: content.collectGender,
+                } as IContentData;
+              })}
+            onContentClick={(content, message) => {
+              setMessage(message);
+              setSelectedContent(content);
+              setShowModal(true);
+            }}
+          />
         </div>
         <div className="c-ServiceCartePage__MarkerFilterContainer">
           <MarkerFilterMap

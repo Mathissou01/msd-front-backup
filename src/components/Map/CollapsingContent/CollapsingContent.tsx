@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import CommonButton from "../../Common/CommonButton/CommonButton";
+import parse from "html-react-parser";
 import fileDownload from "js-file-download";
+import CommonButton from "../../Common/CommonButton/CommonButton";
 import { IContentData } from "../Content/ContentMap";
 import CollapsingButton from "./CollapsingButton/CollapsingButton";
 import {
@@ -12,12 +13,14 @@ import classNames from "classnames";
 import "./collapsing-content.scss";
 
 interface IContentDataProps {
+  message: string;
   markers: Array<IContentData>;
   setDestination: (destination: { lat: number; lng: number }) => void;
   closeModal: () => void;
 }
 
 export default function CollapsingContentPage({
+  message,
   markers,
   closeModal,
   setDestination,
@@ -77,6 +80,7 @@ export default function CollapsingContentPage({
         });
     }
   };
+  const parsedHtmlMustKnow = parse(marker.infoMustKnow);
   return (
     <>
       {markers.map((marker, index) => (
@@ -110,8 +114,17 @@ export default function CollapsingContentPage({
               <span className="c-CollapsingContent__InfoText">
                 {marker.infoPostal}
               </span>
-              <span className="c-CollapsingContent__InfoText">
-                {marker.infoTime}
+              <span
+                className={`c-ContentMap__Open ${
+                  message
+                    .normalize("NFD")
+                    .replace(/\p{Diacritic}/gu, "")
+                    .includes("Ferme")
+                    ? "c-ContentMap__Close"
+                    : ""
+                }`}
+              >
+                {message}
               </span>
             </div>
             <div className="c-CollapsingContent__ButtonWrapper">
@@ -236,7 +249,7 @@ export default function CollapsingContentPage({
                   {title.MustKnowTitle}
                 </h4>
                 <p className="c-CollapsingContent__MustKnowContent">
-                  {marker.infoMustKnow}
+                  {parsedHtmlMustKnow}
                 </p>
               </div>
             )}

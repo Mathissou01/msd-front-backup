@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IMarker } from "../../lib/map-markers";
+import { IMarker } from "../../lib/map";
 
 interface GeoPosition {
   lat: number;

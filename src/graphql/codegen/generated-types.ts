@@ -11769,7 +11769,7 @@ export type GetDropOffMapByDropOffMapByServiceIdQueryVariables = Exact<{
 export type GetDropOffMapByDropOffMapByServiceIdQuery = {
   __typename?: "Query";
   getDropOffMaps?: Array<{
-    __typename?: "DropOffMapDTO";
+    __typename: "DropOffMapDTO";
     id: string;
     name: string;
     BANFeatureProperties?: any | null;
@@ -11786,6 +11786,7 @@ export type GetDropOffMapByDropOffMapByServiceIdQuery = {
       name: string;
       originalId: string;
       uniqueId: string;
+      grammaticalGender: string;
       picto: {
         __typename?: "PictoDTO";
         alternativeText?: string | null;
@@ -11796,8 +11797,8 @@ export type GetDropOffMapByDropOffMapByServiceIdQuery = {
     } | null;
     downloadableFiles?: Array<{
       __typename?: "ComponentBlocksDownloadBlock";
-      linkText: string;
       id: string;
+      linkText: string;
       file: {
         __typename?: "UploadFileEntityResponse";
         data?: {
@@ -11823,14 +11824,15 @@ export type GetDropOffMapByDropOffMapByServiceIdQuery = {
     } | null> | null;
     openingHoursBlocks?: Array<
       | {
-          __typename?: "ComponentBlocksOpeningDay";
+          __typename: "ComponentBlocksOpeningDay";
           id: string;
           afterNoonEnd?: any | null;
           afterNoonStart?: any | null;
           morningStart?: any | null;
           morningEnd?: any | null;
+          weekDay: Enum_Componentblocksopeningday_Weekday;
         }
-      | { __typename?: "Error" }
+      | { __typename: "Error"; code: string; message?: string | null }
       | null
     > | null;
   } | null> | null;
@@ -15731,12 +15733,14 @@ export const GetDropOffMapByDropOffMapByServiceIdDocument = gql`
   query getDropOffMapByDropOffMapByServiceId($dropOffMapServiceId: ID!) {
     getDropOffMaps(dropOffMapServiceId: $dropOffMapServiceId) {
       id
+      __typename
       name
       collect {
         entityTypeName
         name
         originalId
         uniqueId
+        grammaticalGender
         picto {
           alternativeText
           id
@@ -15753,8 +15757,8 @@ export const GetDropOffMapByDropOffMapByServiceIdDocument = gql`
       description
       phoneNumber
       downloadableFiles {
-        linkText
         id
+        linkText
         file {
           data {
             id
@@ -15778,10 +15782,17 @@ export const GetDropOffMapByDropOffMapByServiceIdDocument = gql`
       openingHoursBlocks {
         ... on ComponentBlocksOpeningDay {
           id
+          __typename
           afterNoonEnd
           afterNoonStart
           morningStart
           morningEnd
+          weekDay
+        }
+        ... on Error {
+          __typename
+          code
+          message
         }
       }
     }

@@ -8,6 +8,25 @@ const path = require("path");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const generateColors = require("./config/color-config").generateColors;
 
+// Check if .env exist and if it missing important info
+function validateEnvInfo() {
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
+
+  if (!apiKey) {
+    throw new Error(
+      "La clé Google Maps API est manquante ou vide dans le fichier .env",
+    );
+  }
+
+  if (apiKey.length < 35) {
+    throw new Error(
+      "La clé Google Maps API doit avoir au moins 35 caractères dans le fichier .env",
+    );
+  }
+}
+
+validateEnvInfo();
+
 function writeGlobalData(contract, customColors) {
   let colorsObj = {
     "external-primary": customColors.primaryColor,

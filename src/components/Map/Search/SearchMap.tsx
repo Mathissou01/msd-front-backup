@@ -7,7 +7,11 @@ import {
   useGetDropOffMapByDropOffMapByServiceIdLazyQuery,
 } from "../../../graphql/codegen/generated-types";
 import { useContract } from "../../../hooks/useContract";
-import { IGeoPosition, IMarker } from "../../../lib/map-markers";
+import {
+  IGeoPosition,
+  IMarker,
+  isComponentBlocksOpeningDay,
+} from "../../../lib/map";
 import FormAutoCompleteInput from "../../Form/FormAutoCompleteInput/FormAutoCompleteInput";
 import { removeNulls } from "../../../lib/utilities";
 import "./search-map.scss";
@@ -91,7 +95,6 @@ export default function SearchMap({
             dropOffMapServiceId: `${dropOffMapServiceId}`,
           },
         });
-
         const responseData = response.data;
         if (responseData?.getDropOffMaps) {
           const mapData: IMarker[] = responseData.getDropOffMaps.map(
@@ -99,7 +102,6 @@ export default function SearchMap({
               const BANFeatureProperties = JSON.parse(
                 dropOffMapData?.BANFeatureProperties || "{}",
               );
-
               const collect = {
                 name: dropOffMapData?.collect?.name
                   ? dropOffMapData?.collect.name
@@ -110,7 +112,6 @@ export default function SearchMap({
                     : "",
                 },
               };
-
               return {
                 id: dropOffMapData?.id,
                 name: dropOffMapData?.name ?? null,
@@ -124,12 +125,23 @@ export default function SearchMap({
                   (BANFeatureProperties.city ?? ""),
                 picto: dropOffMapData?.collect?.picto.url ?? null,
                 collect,
-                files: dropOffMapData?.downloadableFiles
-                  ?.filter((child) => child?.__typename)
-                  .filter(removeNulls),
+                collectGender: dropOffMapData?.collect?.grammaticalGender ?? "",
+                files:
+                  dropOffMapData?.downloadableFiles
+                    ?.filter((child) => child?.__typename)
+                    .filter(removeNulls) ?? [],
+                time:
+                  dropOffMapData?.openingHoursBlocks
+                    ?.map((block) => {
+                      if (isComponentBlocksOpeningDay(block)) {
+                        return block;
+                      }
+                    })
+                    .filter(removeNulls) ?? [],
               };
             },
           );
+
           setMarkers(mapData);
         }
       } catch (error) {

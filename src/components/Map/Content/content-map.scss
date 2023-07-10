@@ -77,13 +77,20 @@
     font-weight: 600;
   }
 
-  &__InfoTime {
+  &__InfoDistance {
     color: colors.$blue-1;
     font-weight: 600;
   }
 
-  &__InfoDistance {
-    color: colors.$blue-1;
-    font-weight: 600;
+  &__Open {
+    color: colors.$success-dark;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  &__Close {
+    color: colors.$error-dark;
+    font-weight: bold;
+    text-align: left;
   }
 }
