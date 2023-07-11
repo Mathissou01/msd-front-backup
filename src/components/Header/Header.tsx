@@ -14,6 +14,10 @@ export default function Header() {
     "c-Header__ContentCover_active": sidebarExpanded && !isDesktop,
   });
 
+  const cookieBotCbid = process.env.COOKIE_BOT_CBID;
+  const scriptUrl = `https://consent.cookiebot.com/uc.js`;
+  const scriptUrlCbId = scriptUrl + `?cbid=${cookieBotCbid}`;
+
   return (
     <>
       <Head>
@@ -23,15 +27,15 @@ export default function Header() {
         <script
           async
           data-blockingmode="auto"
-          data-cbid="55b34c7d-edcf-48ab-9699-f43dc595ad2b"
+          data-cbid={cookieBotCbid}
           id="Cookiebot"
-          src="https://consent.cookiebot.com/uc.js"
+          src={scriptUrl}
           type="text/javascript"
         ></script>
         <script
           async
           id="CookieDeclaration"
-          src="https://consent.cookiebot.com/55b34c7d-edcf-48ab-9699-f43dc595ad2b/cd.js"
+          src={scriptUrlCbId}
           type="text/javascript"
         ></script>
       </Head>

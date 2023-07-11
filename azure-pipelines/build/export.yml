@@ -11,6 +11,7 @@ steps:
       customCommand: "run build"
     env:
       NEXT_PUBLIC_API_URL: https://func-msd-${{ parameters.env }}-foapi.azurewebsites.net/api
+      COOKIE_BOT_CBID: $(COOKIE_BOT_CBID)
 
   - task: Npm@1
     displayName: "Export FO Static Website assets"
@@ -19,3 +20,7 @@ steps:
       customCommand: "run export"
     env:
       NEXT_PUBLIC_API_URL: https://func-msd-${{ parameters.env }}-foapi.azurewebsites.net/api
+      COOKIE_BOT_CBID: $(COOKIE_BOT_CBID)
+
+
+
