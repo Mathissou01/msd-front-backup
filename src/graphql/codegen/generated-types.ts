@@ -224,6 +224,7 @@ export type AlertNotification = {
   cities?: Maybe<CityRelationResponseCollection>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   scheduledAt: Scalars["Date"];
+  scheduledAtTime: Scalars["String"];
   sectorizations?: Maybe<SectorizationRelationResponseCollection>;
   sendMail?: Maybe<Scalars["Boolean"]>;
   sendSMS?: Maybe<Scalars["Boolean"]>;
@@ -272,6 +273,7 @@ export type AlertNotificationFiltersInput = {
   not?: InputMaybe<AlertNotificationFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<AlertNotificationFiltersInput>>>;
   scheduledAt?: InputMaybe<DateFilterInput>;
+  scheduledAtTime?: InputMaybe<StringFilterInput>;
   sectorizations?: InputMaybe<SectorizationFiltersInput>;
   sendMail?: InputMaybe<BooleanFilterInput>;
   sendSMS?: InputMaybe<BooleanFilterInput>;
@@ -286,6 +288,7 @@ export type AlertNotificationInput = {
   alertTitle?: InputMaybe<Scalars["String"]>;
   cities?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   scheduledAt?: InputMaybe<Scalars["Date"]>;
+  scheduledAtTime?: InputMaybe<Scalars["String"]>;
   sectorizations?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   sendMail?: InputMaybe<Scalars["Boolean"]>;
   sendSMS?: InputMaybe<Scalars["Boolean"]>;
@@ -418,6 +421,14 @@ export type AudienceTypeInput = {
 export type AudienceTypeRelationResponseCollection = {
   __typename?: "AudienceTypeRelationResponseCollection";
   data: Array<AudienceTypeEntity>;
+};
+
+export type AvailableSlot = {
+  __typename?: "AvailableSlot";
+  day?: Maybe<Scalars["String"]>;
+  exceptionId?: Maybe<Scalars["ID"]>;
+  openingTime?: Maybe<Scalars["String"]>;
+  slotId: Scalars["ID"];
 };
 
 export type BooleanFilterInput = {
@@ -1080,14 +1091,6 @@ export type ComponentBlocksOpeningDay = {
   morningEnd?: Maybe<Scalars["Time"]>;
   morningStart?: Maybe<Scalars["Time"]>;
   weekDay: Enum_Componentblocksopeningday_Weekday;
-};
-
-export type ComponentBlocksProofOfReceipt = {
-  __typename?: "ComponentBlocksProofOfReceipt";
-  id: Scalars["ID"];
-  proofOfReceiptHeader: Scalars["String"];
-  proofOfReceiptSubject: Scalars["String"];
-  sendProofOfReceipt: Scalars["Boolean"];
 };
 
 export type ComponentBlocksQcm = {
@@ -3746,7 +3749,6 @@ export type GenericMorph =
   | ComponentBlocksHorizontalRule
   | ComponentBlocksImage
   | ComponentBlocksOpeningDay
-  | ComponentBlocksProofOfReceipt
   | ComponentBlocksQcm
   | ComponentBlocksQuestions
   | ComponentBlocksRequestSlotsExceptions
@@ -4430,6 +4432,7 @@ export type Mutation = {
   logicalDeleteContract?: Maybe<Scalars["Boolean"]>;
   login: UsersPermissionsLoginPayload;
   multipleUpload: Array<Maybe<UploadFileEntityResponse>>;
+  programmedSend?: Maybe<Scalars["String"]>;
   /** Register a user */
   register: UsersPermissionsLoginPayload;
   removeFile?: Maybe<UploadFileEntityResponse>;
@@ -4526,6 +4529,7 @@ export type Mutation = {
   uploadFileAndGetId?: Maybe<UploadResult>;
   uploadGraphQL?: Maybe<Scalars["Boolean"]>;
   urlUploader?: Maybe<Scalars["Boolean"]>;
+  validateRequest?: Maybe<Scalars["Boolean"]>;
   ywsActivation?: Maybe<Scalars["Boolean"]>;
   ywsDeactivation?: Maybe<Scalars["Boolean"]>;
 };
@@ -5258,6 +5262,18 @@ export type MutationMultipleUploadArgs = {
   refId?: InputMaybe<Scalars["ID"]>;
 };
 
+export type MutationProgrammedSendArgs = {
+  alertMessage?: InputMaybe<Scalars["String"]>;
+  isEmail?: InputMaybe<Scalars["Boolean"]>;
+  isImmediate?: InputMaybe<Scalars["Boolean"]>;
+  isSMS?: InputMaybe<Scalars["Boolean"]>;
+  mailSubject?: InputMaybe<Scalars["String"]>;
+  recipientEmail?: InputMaybe<Scalars["String"]>;
+  scheduledAt?: InputMaybe<Scalars["Date"]>;
+  smsTitle?: InputMaybe<Scalars["String"]>;
+  time?: InputMaybe<Scalars["String"]>;
+};
+
 export type MutationRegisterArgs = {
   input: UsersPermissionsRegisterInput;
 };
@@ -5731,6 +5747,10 @@ export type MutationUploadGraphQlArgs = {
 export type MutationUrlUploaderArgs = {
   imageName: Scalars["String"];
   url: Scalars["String"];
+};
+
+export type MutationValidateRequestArgs = {
+  requestJSON?: InputMaybe<Scalars["JSON"]>;
 };
 
 export type MutationYwsActivationArgs = {
@@ -6519,7 +6539,7 @@ export type Query = {
   getFilePath?: Maybe<Scalars["String"]>;
   getFolderHierarchy?: Maybe<Array<Maybe<RequestFolders>>>;
   getNewestTopContents?: Maybe<Array<Maybe<EventOrNews>>>;
-  getNextAvailableSlots?: Maybe<Array<Maybe<RequestSlots>>>;
+  getNextAvailableSlots?: Maybe<Array<Maybe<AvailableSlot>>>;
   getPickUpDaysByCoordinates?: Maybe<Array<Maybe<Scalars["ID"]>>>;
   getStatusExport?: Maybe<Scalars["String"]>;
   getTopContentBlockDTO?: Maybe<TopContentBlockDto>;
@@ -7923,10 +7943,13 @@ export type Request = {
   isUserPhoneMandatory?: Maybe<Scalars["Boolean"]>;
   name?: Maybe<Scalars["String"]>;
   numberOfRequiredSlots?: Maybe<Scalars["Int"]>;
+  proofOfReceiptHeader?: Maybe<Scalars["String"]>;
+  proofOfReceiptSubject?: Maybe<Scalars["String"]>;
   requestAggregate?: Maybe<RequestAggregateEntityResponse>;
   requestService?: Maybe<RequestServiceEntityResponse>;
   requestSlots?: Maybe<RequestSlotRelationResponseCollection>;
   requestType?: Maybe<Array<Maybe<ComponentBlocksRequestType>>>;
+  sendProofOfReceipt?: Maybe<Scalars["Boolean"]>;
   slotsReservationRules?: Maybe<Scalars["JSON"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
   userAllowSMSNotification?: Maybe<Scalars["Boolean"]>;
@@ -7950,7 +7973,6 @@ export type RequestAddableBlocksDynamicZone =
   | ComponentBlocksCommentary
   | ComponentBlocksCumbersome
   | ComponentBlocksDateChoice
-  | ComponentBlocksProofOfReceipt
   | ComponentBlocksQcm
   | ComponentBlocksQuestions
   | Error;
@@ -8055,10 +8077,13 @@ export type RequestFiltersInput = {
   not?: InputMaybe<RequestFiltersInput>;
   numberOfRequiredSlots?: InputMaybe<IntFilterInput>;
   or?: InputMaybe<Array<InputMaybe<RequestFiltersInput>>>;
+  proofOfReceiptHeader?: InputMaybe<StringFilterInput>;
+  proofOfReceiptSubject?: InputMaybe<StringFilterInput>;
   requestAggregate?: InputMaybe<RequestAggregateFiltersInput>;
   requestService?: InputMaybe<RequestServiceFiltersInput>;
   requestSlots?: InputMaybe<RequestSlotFiltersInput>;
   requestType?: InputMaybe<ComponentBlocksRequestTypeFiltersInput>;
+  sendProofOfReceipt?: InputMaybe<BooleanFilterInput>;
   slotsReservationRules?: InputMaybe<JsonFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   userAllowSMSNotification?: InputMaybe<BooleanFilterInput>;
@@ -8104,10 +8129,13 @@ export type RequestInput = {
   isUserPhoneMandatory?: InputMaybe<Scalars["Boolean"]>;
   name?: InputMaybe<Scalars["String"]>;
   numberOfRequiredSlots?: InputMaybe<Scalars["Int"]>;
+  proofOfReceiptHeader?: InputMaybe<Scalars["String"]>;
+  proofOfReceiptSubject?: InputMaybe<Scalars["String"]>;
   requestAggregate?: InputMaybe<Scalars["ID"]>;
   requestService?: InputMaybe<Scalars["ID"]>;
   requestSlots?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   requestType?: InputMaybe<Array<InputMaybe<ComponentBlocksRequestTypeInput>>>;
+  sendProofOfReceipt?: InputMaybe<Scalars["Boolean"]>;
   slotsReservationRules?: InputMaybe<Scalars["JSON"]>;
   userAllowSMSNotification?: InputMaybe<Scalars["Boolean"]>;
 };
@@ -8212,11 +8240,18 @@ export type RequestSlot = {
   __typename?: "RequestSlot";
   createdAt?: Maybe<Scalars["DateTime"]>;
   noSlotMessage?: Maybe<Scalars["String"]>;
+  requestTakeds?: Maybe<RequestTakedRelationResponseCollection>;
   sectorizations?: Maybe<SectorizationRelationResponseCollection>;
   slotMessage?: Maybe<Scalars["String"]>;
   slotsExceptions?: Maybe<Array<Maybe<ComponentBlocksRequestSlotsExceptions>>>;
   timeSlots?: Maybe<Scalars["JSON"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type RequestSlotRequestTakedsArgs = {
+  filters?: InputMaybe<RequestTakedFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type RequestSlotSectorizationsArgs = {
@@ -8255,6 +8290,7 @@ export type RequestSlotFiltersInput = {
   noSlotMessage?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<RequestSlotFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<RequestSlotFiltersInput>>>;
+  requestTakeds?: InputMaybe<RequestTakedFiltersInput>;
   sectorizations?: InputMaybe<SectorizationFiltersInput>;
   slotMessage?: InputMaybe<StringFilterInput>;
   slotsExceptions?: InputMaybe<ComponentBlocksRequestSlotsExceptionsFiltersInput>;
@@ -8264,6 +8300,7 @@ export type RequestSlotFiltersInput = {
 
 export type RequestSlotInput = {
   noSlotMessage?: InputMaybe<Scalars["String"]>;
+  requestTakeds?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   sectorizations?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   slotMessage?: InputMaybe<Scalars["String"]>;
   slotsExceptions?: InputMaybe<
@@ -8275,14 +8312,6 @@ export type RequestSlotInput = {
 export type RequestSlotRelationResponseCollection = {
   __typename?: "RequestSlotRelationResponseCollection";
   data: Array<RequestSlotEntity>;
-};
-
-export type RequestSlots = {
-  __typename?: "RequestSlots";
-  day?: Maybe<Scalars["String"]>;
-  exceptionId?: Maybe<Scalars["ID"]>;
-  requestSlotId: Scalars["ID"];
-  startTime?: Maybe<Scalars["Time"]>;
 };
 
 export type RequestTagEntity = {
@@ -8297,12 +8326,11 @@ export type RequestTaked = {
   city?: Maybe<Scalars["String"]>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   name: Scalars["String"];
+  requestSlot?: Maybe<RequestSlotEntityResponse>;
   requestType?: Maybe<ComponentBlocksRequestType>;
-  request_slot?: Maybe<RequestSlotEntityResponse>;
-  slotDate?: Maybe<Scalars["Date"]>;
   slotTaken?: Maybe<Scalars["JSON"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
-  user_data_storage?: Maybe<UserDataStorageEntityResponse>;
+  userDataStorage?: Maybe<UserDataStorageEntityResponse>;
 };
 
 export type RequestTakedEntity = {
@@ -8330,22 +8358,20 @@ export type RequestTakedFiltersInput = {
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<RequestTakedFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<RequestTakedFiltersInput>>>;
+  requestSlot?: InputMaybe<RequestSlotFiltersInput>;
   requestType?: InputMaybe<ComponentBlocksRequestTypeFiltersInput>;
-  request_slot?: InputMaybe<RequestSlotFiltersInput>;
-  slotDate?: InputMaybe<DateFilterInput>;
   slotTaken?: InputMaybe<JsonFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
-  user_data_storage?: InputMaybe<UserDataStorageFiltersInput>;
+  userDataStorage?: InputMaybe<UserDataStorageFiltersInput>;
 };
 
 export type RequestTakedInput = {
   city?: InputMaybe<Scalars["String"]>;
   name?: InputMaybe<Scalars["String"]>;
+  requestSlot?: InputMaybe<Scalars["ID"]>;
   requestType?: InputMaybe<ComponentBlocksRequestTypeInput>;
-  request_slot?: InputMaybe<Scalars["ID"]>;
-  slotDate?: InputMaybe<Scalars["Date"]>;
   slotTaken?: InputMaybe<Scalars["JSON"]>;
-  user_data_storage?: InputMaybe<Scalars["ID"]>;
+  userDataStorage?: InputMaybe<Scalars["ID"]>;
 };
 
 export type RequestTakedRelationResponseCollection = {
@@ -9172,11 +9198,11 @@ export type UserDataStorage = {
   firstname?: Maybe<Scalars["String"]>;
   name?: Maybe<Scalars["String"]>;
   phone?: Maybe<Scalars["String"]>;
-  request_takeds?: Maybe<RequestTakedRelationResponseCollection>;
+  requestTakeds?: Maybe<RequestTakedRelationResponseCollection>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
 
-export type UserDataStorageRequest_TakedsArgs = {
+export type UserDataStorageRequestTakedsArgs = {
   filters?: InputMaybe<RequestTakedFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
@@ -9209,7 +9235,7 @@ export type UserDataStorageFiltersInput = {
   not?: InputMaybe<UserDataStorageFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<UserDataStorageFiltersInput>>>;
   phone?: InputMaybe<StringFilterInput>;
-  request_takeds?: InputMaybe<RequestTakedFiltersInput>;
+  requestTakeds?: InputMaybe<RequestTakedFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
@@ -9218,7 +9244,7 @@ export type UserDataStorageInput = {
   firstname?: InputMaybe<Scalars["String"]>;
   name?: InputMaybe<Scalars["String"]>;
   phone?: InputMaybe<Scalars["String"]>;
-  request_takeds?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  requestTakeds?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
 };
 
 export type UsersPermissionsCreateRolePayload = {
@@ -12072,6 +12098,113 @@ export type GetContactUsSubServiceByContractIdQuery = {
           | { __typename?: "Error"; code: string; message?: string | null }
           | null
         > | null;
+      } | null;
+    }>;
+  } | null;
+};
+
+export type GetRequestByIdQueryVariables = Exact<{
+  requestId?: InputMaybe<Scalars["ID"]>;
+}>;
+
+export type GetRequestByIdQuery = {
+  __typename?: "Query";
+  request?: {
+    __typename?: "RequestEntityResponse";
+    data?: {
+      __typename?: "RequestEntity";
+      id?: string | null;
+      attributes?: {
+        __typename?: "Request";
+        name?: string | null;
+        description?: string | null;
+        blockText?: string | null;
+        isActivated?: boolean | null;
+        hasSeveralRequestTypes: boolean;
+        hasUser: boolean;
+        displayUserCivility?: boolean | null;
+        isUserNameMandatory?: boolean | null;
+        isUserEmailMandatory?: boolean | null;
+        isUserPhoneMandatory?: boolean | null;
+        requestService?: {
+          __typename?: "RequestServiceEntityResponse";
+          data?: {
+            __typename?: "RequestServiceEntity";
+            id?: string | null;
+          } | null;
+        } | null;
+        requestAggregate?: {
+          __typename?: "RequestAggregateEntityResponse";
+          data?: {
+            __typename?: "RequestAggregateEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "RequestAggregate";
+              name: string;
+            } | null;
+          } | null;
+        } | null;
+        requestType?: Array<{
+          __typename?: "ComponentBlocksRequestType";
+          id: string;
+          title: string;
+          isEmail?: boolean | null;
+          email?: string | null;
+        } | null> | null;
+      } | null;
+    } | null;
+  } | null;
+};
+
+export type GetRequestsByRequestAggregateIdQueryVariables = Exact<{
+  requestAggregateId: Scalars["ID"];
+}>;
+
+export type GetRequestsByRequestAggregateIdQuery = {
+  __typename?: "Query";
+  requests?: {
+    __typename?: "RequestEntityResponseCollection";
+    data: Array<{
+      __typename?: "RequestEntity";
+      id?: string | null;
+      attributes?: { __typename?: "Request"; name?: string | null } | null;
+    }>;
+  } | null;
+};
+
+export type GetRequestsLevelsQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+}>;
+
+export type GetRequestsLevelsQuery = {
+  __typename?: "Query";
+  requestAggregates?: {
+    __typename?: "RequestAggregateEntityResponseCollection";
+    data: Array<{
+      __typename?: "RequestAggregateEntity";
+      id?: string | null;
+      attributes?: { __typename?: "RequestAggregate"; name: string } | null;
+    }>;
+  } | null;
+  requests?: {
+    __typename?: "RequestEntityResponseCollection";
+    data: Array<{
+      __typename?: "RequestEntity";
+      id?: string | null;
+      attributes?: {
+        __typename?: "Request";
+        name?: string | null;
+        requestAggregate?: {
+          __typename?: "RequestAggregateEntityResponse";
+          data?: {
+            __typename?: "RequestAggregateEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "RequestAggregate";
+              name: string;
+            } | null;
+          } | null;
+        } | null;
       } | null;
     }>;
   } | null;
@@ -16248,6 +16381,252 @@ export type GetContactUsSubServiceByContractIdLazyQueryHookResult = ReturnType<
 export type GetContactUsSubServiceByContractIdQueryResult = Apollo.QueryResult<
   GetContactUsSubServiceByContractIdQuery,
   GetContactUsSubServiceByContractIdQueryVariables
+>;
+export const GetRequestByIdDocument = gql`
+  query getRequestById($requestId: ID) {
+    request(id: $requestId) {
+      data {
+        id
+        attributes {
+          name
+          description
+          blockText
+          isActivated
+          hasSeveralRequestTypes
+          requestService {
+            data {
+              id
+            }
+          }
+          requestAggregate {
+            data {
+              id
+              attributes {
+                name
+              }
+            }
+          }
+          requestType {
+            id
+            title
+            isEmail
+            email
+          }
+          hasUser
+          displayUserCivility
+          isUserNameMandatory
+          isUserEmailMandatory
+          isUserPhoneMandatory
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetRequestByIdQuery__
+ *
+ * To run a query within a React component, call `useGetRequestByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRequestByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRequestByIdQuery({
+ *   variables: {
+ *      requestId: // value for 'requestId'
+ *   },
+ * });
+ */
+export function useGetRequestByIdQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetRequestByIdQuery,
+    GetRequestByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetRequestByIdQuery, GetRequestByIdQueryVariables>(
+    GetRequestByIdDocument,
+    options,
+  );
+}
+export function useGetRequestByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetRequestByIdQuery,
+    GetRequestByIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetRequestByIdQuery, GetRequestByIdQueryVariables>(
+    GetRequestByIdDocument,
+    options,
+  );
+}
+export type GetRequestByIdQueryHookResult = ReturnType<
+  typeof useGetRequestByIdQuery
+>;
+export type GetRequestByIdLazyQueryHookResult = ReturnType<
+  typeof useGetRequestByIdLazyQuery
+>;
+export type GetRequestByIdQueryResult = Apollo.QueryResult<
+  GetRequestByIdQuery,
+  GetRequestByIdQueryVariables
+>;
+export const GetRequestsByRequestAggregateIdDocument = gql`
+  query getRequestsByRequestAggregateId($requestAggregateId: ID!) {
+    requests(
+      filters: {
+        requestAggregate: { id: { eq: $requestAggregateId } }
+        isActivated: { eq: true }
+      }
+    ) {
+      data {
+        id
+        attributes {
+          name
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetRequestsByRequestAggregateIdQuery__
+ *
+ * To run a query within a React component, call `useGetRequestsByRequestAggregateIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRequestsByRequestAggregateIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRequestsByRequestAggregateIdQuery({
+ *   variables: {
+ *      requestAggregateId: // value for 'requestAggregateId'
+ *   },
+ * });
+ */
+export function useGetRequestsByRequestAggregateIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetRequestsByRequestAggregateIdQuery,
+    GetRequestsByRequestAggregateIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetRequestsByRequestAggregateIdQuery,
+    GetRequestsByRequestAggregateIdQueryVariables
+  >(GetRequestsByRequestAggregateIdDocument, options);
+}
+export function useGetRequestsByRequestAggregateIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetRequestsByRequestAggregateIdQuery,
+    GetRequestsByRequestAggregateIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetRequestsByRequestAggregateIdQuery,
+    GetRequestsByRequestAggregateIdQueryVariables
+  >(GetRequestsByRequestAggregateIdDocument, options);
+}
+export type GetRequestsByRequestAggregateIdQueryHookResult = ReturnType<
+  typeof useGetRequestsByRequestAggregateIdQuery
+>;
+export type GetRequestsByRequestAggregateIdLazyQueryHookResult = ReturnType<
+  typeof useGetRequestsByRequestAggregateIdLazyQuery
+>;
+export type GetRequestsByRequestAggregateIdQueryResult = Apollo.QueryResult<
+  GetRequestsByRequestAggregateIdQuery,
+  GetRequestsByRequestAggregateIdQueryVariables
+>;
+export const GetRequestsLevelsDocument = gql`
+  query getRequestsLevels($contractId: ID!) {
+    requestAggregates(
+      filters: { requestService: { contract: { id: { eq: $contractId } } } }
+    ) {
+      data {
+        id
+        attributes {
+          name
+        }
+      }
+    }
+    requests(
+      filters: {
+        requestAggregate: { id: { eq: null } }
+        requestService: { contract: { id: { eq: $contractId } } }
+        isActivated: { eq: true }
+      }
+    ) {
+      data {
+        id
+        attributes {
+          name
+          requestAggregate {
+            data {
+              id
+              attributes {
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetRequestsLevelsQuery__
+ *
+ * To run a query within a React component, call `useGetRequestsLevelsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRequestsLevelsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRequestsLevelsQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetRequestsLevelsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetRequestsLevelsQuery,
+    GetRequestsLevelsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetRequestsLevelsQuery,
+    GetRequestsLevelsQueryVariables
+  >(GetRequestsLevelsDocument, options);
+}
+export function useGetRequestsLevelsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetRequestsLevelsQuery,
+    GetRequestsLevelsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetRequestsLevelsQuery,
+    GetRequestsLevelsQueryVariables
+  >(GetRequestsLevelsDocument, options);
+}
+export type GetRequestsLevelsQueryHookResult = ReturnType<
+  typeof useGetRequestsLevelsQuery
+>;
+export type GetRequestsLevelsLazyQueryHookResult = ReturnType<
+  typeof useGetRequestsLevelsLazyQuery
+>;
+export type GetRequestsLevelsQueryResult = Apollo.QueryResult<
+  GetRequestsLevelsQuery,
+  GetRequestsLevelsQueryVariables
 >;
 export const GetMemoTriBlockByContractIdDocument = gql`
   query getMemoTriBlockByContractId($contractId: ID!) {

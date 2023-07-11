@@ -1,0 +1,38 @@
+query getRequestById($requestId: ID) {
+  request(id: $requestId) {
+    data {
+      id
+      attributes {
+        name
+        description
+        blockText
+        isActivated
+        hasSeveralRequestTypes
+        requestService {
+          data {
+            id
+          }
+        }
+        requestAggregate {
+          data {
+            id
+            attributes {
+              name
+            }
+          }
+        }
+        requestType {
+          id
+          title
+          isEmail
+          email
+        }
+        hasUser
+        displayUserCivility
+        isUserNameMandatory
+        isUserEmailMandatory
+        isUserPhoneMandatory
+      }
+    }
+  }
+}
