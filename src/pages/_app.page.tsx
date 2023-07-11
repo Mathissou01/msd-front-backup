@@ -22,7 +22,6 @@ function MsdFrontApp({ Component, pageProps }: AppProps) {
   );
   return (
     <>
-      {/*<CookieBot />*/}
       <ApolloProvider client={client}>
         <ContractContext.Provider
           value={{

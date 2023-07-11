@@ -1,7 +1,6 @@
 import { useState } from "react";
 import classNames from "classnames";
 import Head from "next/head";
-import Script from "next/script";
 import { useIsDesktopContext } from "../../hooks/useScreenWidth";
 import HeaderTopBar from "./HeaderTopBar/HeaderTopBar";
 import HeaderSideBar from "./HeaderSideBar/HeaderSideBar";
@@ -21,20 +20,21 @@ export default function Header() {
         <title>MSD-FRONT</title>
         <meta name="description" content="wip" />
         <link rel="icon" href={makePublicAssetPath("/favicon.ico")} />
+        <script
+          async
+          data-blockingmode="auto"
+          data-cbid="55b34c7d-edcf-48ab-9699-f43dc595ad2b"
+          id="Cookiebot"
+          src="https://consent.cookiebot.com/uc.js"
+          type="text/javascript"
+        ></script>
+        <script
+          async
+          id="CookieDeclaration"
+          src="https://consent.cookiebot.com/55b34c7d-edcf-48ab-9699-f43dc595ad2b/cd.js"
+          type="text/javascript"
+        ></script>
       </Head>
-      <Script
-        data-blockingmode="auto"
-        data-cbid="55b34c7d-edcf-48ab-9699-f43dc595ad2b"
-        id="Cookiebot"
-        src="https://consent.cookiebot.com/uc.js"
-        type="text/javascript"
-      ></Script>
-      <Script
-        async
-        id="CookieDeclaration"
-        src="https://consent.cookiebot.com/55b34c7d-edcf-48ab-9699-f43dc595ad2b/cd.js"
-        type="text/javascript"
-      ></Script>
       <HeaderTopBar
         isMenuOpen={sidebarExpanded}
         isDesktopMode={isDesktop}
