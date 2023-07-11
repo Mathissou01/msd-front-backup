@@ -12,7 +12,6 @@ import useScreenWidth, { IsDesktopContext } from "../hooks/useScreenWidth";
 import CommonSvgDefs from "../components/Common/CommonSvgDefs/CommonSvgDefs";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import CookieBot from "../components/CookieBot/CookieBot";
 import "../styles/main.scss";
 
 function MsdFrontApp({ Component, pageProps }: AppProps) {
@@ -23,7 +22,7 @@ function MsdFrontApp({ Component, pageProps }: AppProps) {
   );
   return (
     <>
-      <CookieBot />
+      {/*<CookieBot />*/}
       <ApolloProvider client={client}>
         <ContractContext.Provider
           value={{

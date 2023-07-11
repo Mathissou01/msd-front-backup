@@ -1,11 +1,12 @@
+import { useState } from "react";
 import classNames from "classnames";
 import Head from "next/head";
-import { useState } from "react";
+import Script from "next/script";
 import { useIsDesktopContext } from "../../hooks/useScreenWidth";
 import HeaderTopBar from "./HeaderTopBar/HeaderTopBar";
 import HeaderSideBar from "./HeaderSideBar/HeaderSideBar";
-import "./header.scss";
 import { makePublicAssetPath } from "../../lib/utilities";
+import "./header.scss";
 
 export default function Header() {
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
@@ -21,7 +22,19 @@ export default function Header() {
         <meta name="description" content="wip" />
         <link rel="icon" href={makePublicAssetPath("/favicon.ico")} />
       </Head>
-
+      <Script
+        data-blockingmode="auto"
+        data-cbid="55b34c7d-edcf-48ab-9699-f43dc595ad2b"
+        id="Cookiebot"
+        src="https://consent.cookiebot.com/uc.js"
+        type="text/javascript"
+      ></Script>
+      <Script
+        async
+        id="CookieDeclaration"
+        src="https://consent.cookiebot.com/55b34c7d-edcf-48ab-9699-f43dc595ad2b/cd.js"
+        type="text/javascript"
+      ></Script>
       <HeaderTopBar
         isMenuOpen={sidebarExpanded}
         isDesktopMode={isDesktop}
