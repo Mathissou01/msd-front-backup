@@ -35,6 +35,7 @@ import TopContentBlock from "../components/Blocks/TopContentBlock/TopContentBloc
 import EditoBlock from "../components/Blocks/EditoBlock/EditoBlock";
 import SearchEngineBlock from "../components/Blocks/SearchEngineBlock/SearchEngineBlock";
 import { useRouter } from "next/router";
+import Script from "next/script";
 
 interface IHomePageProps {
   servicesData: GetServicesActiveQuery;
@@ -47,6 +48,7 @@ interface IHomePageProps {
   editoBlock: EditoBlockEntity | null;
   topContentBlock: TopContentBlockEntity | null;
   newestTopContents: GetNewestTopContentsQuery;
+  cookieBotCbid: string;
 }
 
 export default function HomePage({
@@ -57,6 +59,7 @@ export default function HomePage({
   editoBlock,
   topContentBlock,
   newestTopContents,
+  cookieBotCbid,
 }: IHomePageProps) {
   /* StaticProps data */
   const displayRecyclingGuideBlock =
@@ -90,6 +93,8 @@ export default function HomePage({
       servicesData.editorialServices?.data[0]?.attributes?.newsSubService?.data
         ?.attributes?.isActivated);
 
+  const scriptUrl = `https://consent.cookiebot.com/uc.js`;
+
   const router = useRouter();
 
   const [recyclingGuideSearchTerm, setRecyclingGuideSearchTerm] = useState("");
@@ -107,6 +112,13 @@ export default function HomePage({
 
   return (
     <>
+      <Script
+        data-blockingmode="auto"
+        data-cbid={cookieBotCbid}
+        id="Cookiebot"
+        src={scriptUrl}
+        type="text/javascript"
+      ></Script>
       <WelcomeBlock />
       {displayRecyclingGuideBlock && (
         <SearchEngineBlock
@@ -184,7 +196,7 @@ export async function getStaticProps() {
     variables: { contractId },
   });
   const editoBlock = extractEditoBlock(editoBlockData);
-
+  const cookieBotCbid = process.env.COOKIE_BOT_CBID?.toString();
   return {
     props: {
       servicesData,
@@ -194,6 +206,7 @@ export async function getStaticProps() {
       editoBlock,
       topContentBlock,
       newestTopContents,
+      cookieBotCbid,
     },
   };
 }

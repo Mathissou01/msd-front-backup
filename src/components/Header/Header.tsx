@@ -14,30 +14,12 @@ export default function Header() {
     "c-Header__ContentCover_active": sidebarExpanded && !isDesktop,
   });
 
-  const cookieBotCbid = process.env.COOKIE_BOT_CBID;
-  const scriptUrl = `https://consent.cookiebot.com/uc.js`;
-  const scriptUrlCbId = scriptUrl + `?cbid=${cookieBotCbid}`;
-
   return (
     <>
       <Head>
         <title>MSD-FRONT</title>
         <meta name="description" content="wip" />
         <link rel="icon" href={makePublicAssetPath("/favicon.ico")} />
-        <script
-          async
-          data-blockingmode="auto"
-          data-cbid={cookieBotCbid}
-          id="Cookiebot"
-          src={scriptUrl}
-          type="text/javascript"
-        ></script>
-        <script
-          async
-          id="CookieDeclaration"
-          src={scriptUrlCbId}
-          type="text/javascript"
-        ></script>
       </Head>
       <HeaderTopBar
         isMenuOpen={sidebarExpanded}
