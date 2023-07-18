@@ -10,7 +10,7 @@ import FormAutoCompleteInput from "../../Form/FormAutoCompleteInput/FormAutoComp
 import "./request-address-field.scss";
 
 interface RequestAddressProps {
-  label: string;
+  label?: string;
   name: string;
 }
 
@@ -23,7 +23,7 @@ export default function RequestAddressField({
     useGetBanAddressesAutoCompleteLazyQuery({
       fetchPolicy: "network-only",
     });
-  const { getValues } = useFormContext();
+  const { getValues, setValue } = useFormContext();
 
   /* Methods */
   async function searchFunction(
@@ -45,6 +45,12 @@ export default function RequestAddressField({
     return searchResults;
   }
 
+  function selectTransform(result: SearchResultAddress): string {
+    setValue("lat", result.latitude);
+    setValue("long", result.longitude);
+    return result.name ?? "";
+  }
+
   return (
     <div className="c-RequestAddressField">
       <CommonErrors errors={[error]}>
@@ -52,7 +58,7 @@ export default function RequestAddressField({
           name={name}
           searchFunction={searchFunction}
           displayTransformFunction={(result) => result.name ?? ""}
-          selectTransformFunction={(result) => result.name ?? undefined}
+          selectTransformFunction={selectTransform}
           isLoading={loading}
           isRequired
           defaultValue={getValues(name)}

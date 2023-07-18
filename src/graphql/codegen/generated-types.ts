@@ -12035,15 +12035,58 @@ export type GetRequestByIdQuery = {
       attributes?: {
         __typename?: "Request";
         name?: string | null;
-        description?: string | null;
         blockText?: string | null;
+        confirmationMessage?: string | null;
+        description?: string | null;
         isActivated?: boolean | null;
-        hasSeveralRequestTypes: boolean;
+        hasAppointmentSlots?: boolean | null;
         hasUser: boolean;
         displayUserCivility?: boolean | null;
         isUserNameMandatory?: boolean | null;
         isUserEmailMandatory?: boolean | null;
         isUserPhoneMandatory?: boolean | null;
+        userAllowSMSNotification?: boolean | null;
+        hasAddress: boolean;
+        fieldAddressLabel?: string | null;
+        slotsReservationRules?: any | null;
+        numberOfRequiredSlots?: number | null;
+        hoursBeforeReservationIsActivated?: number | null;
+        proofOfReceiptHeader?: string | null;
+        proofOfReceiptSubject?: string | null;
+        sendProofOfReceipt?: boolean | null;
+        hasSeveralRequestTypes: boolean;
+        requestSlots?: {
+          __typename?: "RequestSlotRelationResponseCollection";
+          data: Array<{
+            __typename?: "RequestSlotEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "RequestSlot";
+              slotMessage?: string | null;
+              noSlotMessage?: string | null;
+              timeSlots?: any | null;
+              sectorizations?: {
+                __typename?: "SectorizationRelationResponseCollection";
+                data: Array<{
+                  __typename?: "SectorizationEntity";
+                  id?: string | null;
+                  attributes?: {
+                    __typename?: "Sectorization";
+                    name: string;
+                    polygonCoordinates?: any | null;
+                    description: string;
+                  } | null;
+                }>;
+              } | null;
+              slotsExceptions?: Array<{
+                __typename?: "ComponentBlocksRequestSlotsExceptions";
+                exceptionType?: Enum_Componentblocksrequestslotsexceptions_Exceptiontype | null;
+                id: string;
+                slotException?: any | null;
+              } | null> | null;
+            } | null;
+          }>;
+        } | null;
         requestService?: {
           __typename?: "RequestServiceEntityResponse";
           data?: {
@@ -12056,12 +12099,89 @@ export type GetRequestByIdQuery = {
           data?: {
             __typename?: "RequestAggregateEntity";
             id?: string | null;
-            attributes?: {
-              __typename?: "RequestAggregate";
-              name: string;
-            } | null;
           } | null;
         } | null;
+        addableBlocks?: Array<
+          | {
+              __typename?: "ComponentBlocksAttachments";
+              id: string;
+              attachmentLabel: string;
+              multipleAttachments?: boolean | null;
+              renderField: boolean;
+              attachment?: {
+                __typename?: "UploadFileRelationResponseCollection";
+                data: Array<{
+                  __typename?: "UploadFileEntity";
+                  id?: string | null;
+                  attributes?: {
+                    __typename?: "UploadFile";
+                    name: string;
+                    alternativeText?: string | null;
+                    caption?: string | null;
+                    width?: number | null;
+                    height?: number | null;
+                    formats?: any | null;
+                    hash: string;
+                    ext?: string | null;
+                    mime: string;
+                    size: number;
+                    url: string;
+                    previewUrl?: string | null;
+                    provider: string;
+                    provider_metadata?: any | null;
+                    createdAt?: any | null;
+                    updatedAt?: any | null;
+                  } | null;
+                }>;
+              } | null;
+            }
+          | {
+              __typename?: "ComponentBlocksCheckbox";
+              id: string;
+              labelCheckbox: string;
+              fieldStatusCheckbox: Enum_Componentblockscheckbox_Fieldstatuscheckbox;
+            }
+          | {
+              __typename?: "ComponentBlocksCommentary";
+              id: string;
+              commentaryLabel: string;
+              commentaryPlaceholder?: string | null;
+              commentaryStatus: Enum_Componentblockscommentary_Commentarystatus;
+            }
+          | {
+              __typename?: "ComponentBlocksCumbersome";
+              id: string;
+              cumbersomeLabel: string;
+              maxNumberOfCumbersome?: number | null;
+              maxVolumeOfCumbersome?: number | null;
+              cumbersomeLimitMessage: string;
+              isNumberAndVolume: boolean;
+            }
+          | {
+              __typename?: "ComponentBlocksDateChoice";
+              id: string;
+              fieldLabelDateChoice: string;
+              fieldStatus: Enum_Componentblocksdatechoice_Fieldstatus;
+            }
+          | {
+              __typename?: "ComponentBlocksQcm";
+              id: string;
+              fieldLabelQCM: string;
+              fieldStatusQCM: Enum_Componentblocksqcm_Fieldstatusqcm;
+              multipleChoice: boolean;
+              responses: string;
+            }
+          | {
+              __typename?: "ComponentBlocksQuestions";
+              id: string;
+              height: boolean;
+              questionTextLabel: string;
+              questionTextPlaceholder: string;
+              textStatus: Enum_Componentblocksquestions_Textstatus;
+            }
+          | { __typename?: "Error"; code: string; message?: string | null }
+          | null
+        > | null;
         requestType?: Array<{
           __typename?: "ComponentBlocksRequestType";
           id: string;
@@ -16330,10 +16450,50 @@ export const GetRequestByIdDocument = gql`
         id
         attributes {
           name
-          description
           blockText
+          confirmationMessage
+          description
           isActivated
-          hasSeveralRequestTypes
+          hasAppointmentSlots
+          hasUser
+          displayUserCivility
+          isUserNameMandatory
+          isUserEmailMandatory
+          isUserPhoneMandatory
+          userAllowSMSNotification
+          hasAddress
+          fieldAddressLabel
+          slotsReservationRules
+          numberOfRequiredSlots
+          hoursBeforeReservationIsActivated
+          proofOfReceiptHeader
+          proofOfReceiptSubject
+          sendProofOfReceipt
+          requestSlots {
+            data {
+              id
+              attributes {
+                sectorizations {
+                  data {
+                    id
+                    attributes {
+                      name
+                      polygonCoordinates
+                      description
+                    }
+                  }
+                }
+                slotMessage
+                noSlotMessage
+                slotsExceptions {
+                  exceptionType
+                  id
+                  slotException
+                }
+                timeSlots
+              }
+            }
+          }
           requestService {
             data {
               id
@@ -16342,22 +16502,90 @@ export const GetRequestByIdDocument = gql`
           requestAggregate {
             data {
               id
-              attributes {
-                name
-              }
             }
           }
-          requestType {
-            id
-            title
-            isEmail
-            email
+          addableBlocks {
+            ... on ComponentBlocksAttachments {
+              id
+              attachmentLabel
+              multipleAttachments
+              renderField
+              attachment {
+                data {
+                  id
+                  attributes {
+                    name
+                    alternativeText
+                    caption
+                    width
+                    height
+                    formats
+                    hash
+                    ext
+                    mime
+                    size
+                    url
+                    previewUrl
+                    provider
+                    provider_metadata
+                    createdAt
+                    updatedAt
+                  }
+                }
+              }
+            }
+            ... on ComponentBlocksCheckbox {
+              id
+              labelCheckbox
+              fieldStatusCheckbox
+            }
+            ... on ComponentBlocksCommentary {
+              id
+              commentaryLabel
+              commentaryPlaceholder
+              commentaryStatus
+            }
+            ... on ComponentBlocksCumbersome {
+              id
+              cumbersomeLabel
+              maxNumberOfCumbersome
+              maxVolumeOfCumbersome
+              cumbersomeLimitMessage
+              isNumberAndVolume
+            }
+            ... on ComponentBlocksDateChoice {
+              id
+              fieldLabelDateChoice
+              fieldStatus
+            }
+            ... on ComponentBlocksQcm {
+              id
+              fieldLabelQCM
+              fieldStatusQCM
+              multipleChoice
+              responses
+            }
+            ... on ComponentBlocksQuestions {
+              id
+              height
+              questionTextLabel
+              questionTextPlaceholder
+              textStatus
+            }
+            ... on Error {
+              code
+              message
+            }
           }
-          hasUser
-          displayUserCivility
-          isUserNameMandatory
-          isUserEmailMandatory
-          isUserPhoneMandatory
+          hasSeveralRequestTypes
+          requestType {
+            ... on ComponentBlocksRequestType {
+              id
+              title
+              isEmail
+              email
+            }
+          }
         }
       }
     }

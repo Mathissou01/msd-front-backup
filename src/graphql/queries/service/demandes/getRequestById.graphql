@@ -4,10 +4,50 @@ query getRequestById($requestId: ID) {
       id
       attributes {
         name
-        description
         blockText
+        confirmationMessage
+        description
         isActivated
-        hasSeveralRequestTypes
+        hasAppointmentSlots
+        hasUser
+        displayUserCivility
+        isUserNameMandatory
+        isUserEmailMandatory
+        isUserPhoneMandatory
+        userAllowSMSNotification
+        hasAddress
+        fieldAddressLabel
+        slotsReservationRules
+        numberOfRequiredSlots
+        hoursBeforeReservationIsActivated
+        proofOfReceiptHeader
+        proofOfReceiptSubject
+        sendProofOfReceipt
+        requestSlots {
+          data {
+            id
+            attributes {
+              sectorizations {
+                data {
+                  id
+                  attributes {
+                    name
+                    polygonCoordinates
+                    description
+                  }
+                }
+              }
+              slotMessage
+              noSlotMessage
+              slotsExceptions {
+                exceptionType
+                id
+                slotException
+              }
+              timeSlots
+            }
+          }
+        }
         requestService {
           data {
             id
@@ -16,22 +56,90 @@ query getRequestById($requestId: ID) {
         requestAggregate {
           data {
             id
-            attributes {
-              name
-            }
           }
         }
-        requestType {
-          id
-          title
-          isEmail
-          email
+        addableBlocks {
+          ... on ComponentBlocksAttachments {
+            id
+            attachmentLabel
+            multipleAttachments
+            renderField
+            attachment {
+              data {
+                id
+                attributes {
+                  name
+                  alternativeText
+                  caption
+                  width
+                  height
+                  formats
+                  hash
+                  ext
+                  mime
+                  size
+                  url
+                  previewUrl
+                  provider
+                  provider_metadata
+                  createdAt
+                  updatedAt
+                }
+              }
+            }
+          }
+          ... on ComponentBlocksCheckbox {
+            id
+            labelCheckbox
+            fieldStatusCheckbox
+          }
+          ... on ComponentBlocksCommentary {
+            id
+            commentaryLabel
+            commentaryPlaceholder
+            commentaryStatus
+          }
+          ... on ComponentBlocksCumbersome {
+            id
+            cumbersomeLabel
+            maxNumberOfCumbersome
+            maxVolumeOfCumbersome
+            cumbersomeLimitMessage
+            isNumberAndVolume
+          }
+          ... on ComponentBlocksDateChoice {
+            id
+            fieldLabelDateChoice
+            fieldStatus
+          }
+          ... on ComponentBlocksQcm {
+            id
+            fieldLabelQCM
+            fieldStatusQCM
+            multipleChoice
+            responses
+          }
+          ... on ComponentBlocksQuestions {
+            id
+            height
+            questionTextLabel
+            questionTextPlaceholder
+            textStatus
+          }
+          ... on Error {
+            code
+            message
+          }
         }
-        hasUser
-        displayUserCivility
-        isUserNameMandatory
-        isUserEmailMandatory
-        isUserPhoneMandatory
+        hasSeveralRequestTypes
+        requestType {
+          ... on ComponentBlocksRequestType {
+            id
+            title
+            isEmail
+            email
+          }
+        }
       }
     }
   }

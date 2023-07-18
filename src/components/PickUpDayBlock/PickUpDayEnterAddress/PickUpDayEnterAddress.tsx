@@ -4,17 +4,13 @@ import {
   useGetBanAddressesAutoCompleteLazyQuery,
 } from "../../../graphql/codegen/generated-types";
 import { removeNulls } from "../../../lib/utilities";
-import RequestAddressFields from "../../Request/RequestAddressField/RequestAddressField";
+import { Coordinates } from "../../../lib/pickup-days";
 import CommonButton from "../../Common/CommonButton/CommonButton";
+import RequestAddressFields from "../../Request/RequestAddressField/RequestAddressField";
 import "./pick-up-day-enter-address.scss";
 
 interface IFormInput {
   addressInput: string;
-}
-
-export interface Coordinates {
-  longitude: number;
-  latitude: number;
 }
 
 interface PickUpDayEnterAddressProps {

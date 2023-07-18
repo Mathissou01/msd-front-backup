@@ -56,6 +56,11 @@ export const informationMessageIsRelevant = (
   }
 };
 
+export interface Coordinates {
+  longitude: number;
+  latitude: number;
+}
+
 export { EMonthlyStatus, EDaysOfTheWeek };
 
 export type {

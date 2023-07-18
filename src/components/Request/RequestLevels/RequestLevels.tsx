@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
+  RequestEntity,
   useGetRequestByIdLazyQuery,
   useGetRequestsByRequestAggregateIdLazyQuery,
 } from "../../../graphql/codegen/generated-types";
@@ -12,11 +13,13 @@ import RequestLevelGroup from "../RequestLevelGroup/RequestLevelGroup";
 interface IRequestLevelsProps {
   firstLevelDatas: Array<ILevelDatas>;
   setAllSelectedCards: (allSelectedCards: boolean) => void;
+  setCurrentRequest: (request: RequestEntity) => void;
 }
 
 export default function RequestLevels({
   firstLevelDatas,
   setAllSelectedCards,
+  setCurrentRequest,
 }: IRequestLevelsProps) {
   const labels = {
     requestFirstLevel: "Votre demande concerne*",
@@ -62,6 +65,9 @@ export default function RequestLevels({
         getRequestsByAggregateId({
           variables: { requestAggregateId: idLevel },
         });
+        getRequestById({
+          variables: { requestId: "-1" },
+        });
         setAllSelectedCards(false);
         break;
       case E_LEVEL_TYPE.REQUEST_WITHOUT_AGGREGATE:
@@ -87,6 +93,18 @@ export default function RequestLevels({
         break;
     }
   };
+
+  useEffect(() => {
+    if (
+      data &&
+      data.request &&
+      data.request.data &&
+      data.request.data.id &&
+      data.request.data.attributes
+    ) {
+      setCurrentRequest(data.request.data);
+    }
+  }, [data, setCurrentRequest]);
 
   return (
     <div className="c-RequestLevels">

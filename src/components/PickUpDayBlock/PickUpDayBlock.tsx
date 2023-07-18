@@ -5,10 +5,9 @@ import {
   useGetPickUpDaysByCoordinatesLocalLazyQuery,
   useGetPickUpDaysByIdsAndContratIdLazyQuery,
 } from "../../graphql/codegen/generated-types";
-import PickUpDayEnterAddress, {
-  Coordinates,
-} from "./PickUpDayEnterAddress/PickUpDayEnterAddress";
-import PickUpDayGeolocation from "./PickUpDayGeolocation/PickUpDayGeolocation";
+import { Coordinates } from "../../lib/pickup-days";
+import CommonGeolocationButton from "../Common/CommonGeolocationButton/CommonGeolocationButton";
+import PickUpDayEnterAddress from "./PickUpDayEnterAddress/PickUpDayEnterAddress";
 import PickUpDayList from "./PickUpDayList/PickUpDayList";
 import "./pick-up-day-block.scss";
 
@@ -92,7 +91,10 @@ export default function PickUpDayBlock() {
       <div className="c-PickUpDayBlock__Heading">
         <h2 className="c-PickUpDayBlock__Title">{pickUpDayTitle}</h2>
         <div className="c-PickUpDayBlock__Search">
-          <PickUpDayGeolocation onUpdateCoordinates={submitSearch} />
+          <CommonGeolocationButton
+            informativeText
+            onUpdateCoordinates={submitSearch}
+          />
           <PickUpDayEnterAddress onUpdateCoordinates={submitSearch} />
         </div>
       </div>

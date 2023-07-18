@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react";
 import { useGeolocation } from "../../../hooks/geoLocation/useGeolocation";
 import CommonButton from "../../Common/CommonButton/CommonButton";
-import { Coordinates } from "../PickUpDayEnterAddress/PickUpDayEnterAddress";
-import "./pick-up-day-geolocation.scss";
+import { Coordinates } from "../../../lib/pickup-days";
+import "./common-geolocation-button.scss";
 
-interface PickUpDayGeolocationProps {
+interface CommonGeolocationButtonProps {
   onUpdateCoordinates: (coordinates: Coordinates) => void;
+  informativeText?: boolean;
 }
 
-export default function PickUpDayGeolocation({
+export default function CommonGeolocationButton({
   onUpdateCoordinates,
-}: PickUpDayGeolocationProps) {
+  informativeText = false,
+}: CommonGeolocationButtonProps) {
   /* Local Data */
-  const informativeText =
-    "*Les champs marqués d'une astérisque sont obligatoires.";
-  const otherOptionText = "ou je rentre mon adresse : ";
-  const submitButtonLabel = "Me géolocaliser";
+  const labels = {
+    informativeText: "*Les champs marqués d'une astérisque sont obligatoires.",
+    otherOptionText: "ou je rentre mon adresse : ",
+    submitButtonLabel: "Me géolocaliser",
+  };
 
   const [{ position }, fetchGeolocation] = useGeolocation();
   const [isInitializedLocation, setIsInitializedLocation] =
@@ -35,11 +38,13 @@ export default function PickUpDayGeolocation({
 
   return (
     <div className="c-PickUpDay__Geolocation">
-      <p className="c-PickUpDay__InformativeText">{informativeText}</p>
+      {informativeText && (
+        <p className="c-PickUpDay__InformativeText">{labels.informativeText}</p>
+      )}
       <div className="c-PickUpDay__GeolocationBlock">
         <CommonButton
-          label={submitButtonLabel}
-          type="submit"
+          label={labels.submitButtonLabel}
+          type="button"
           style="secondary"
           fontStyle="fontLarge"
           paddingStyle="paddingLarge"
@@ -48,7 +53,7 @@ export default function PickUpDayGeolocation({
           pictoPosition="right"
           onClick={fetchGeolocation}
         />
-        <p>{otherOptionText}</p>
+        <p>{labels.otherOptionText}</p>
       </div>
     </div>
   );

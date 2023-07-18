@@ -4,11 +4,13 @@ import client from "../../../graphql/client";
 import {
   GetRequestsLevelsDocument,
   GetRequestsLevelsQuery,
+  RequestEntity,
 } from "../../../graphql/codegen/generated-types";
 import { removeNulls } from "../../../lib/utilities";
 import { E_LEVEL_TYPE, ILevelDatas } from "../../../lib/request";
 import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 import RequestLevels from "../../../components/Request/RequestLevels/RequestLevels";
+import RequestForm from "../../../components/Request/RequestForm/RequestForm";
 import "./demandes-page.scss";
 
 interface IRequestLevelProps {
@@ -18,13 +20,18 @@ interface IRequestLevelProps {
 export default function ServiceDemandesPage({
   requestLevels,
 }: IRequestLevelProps) {
-  const [allSelectedCards, setAllSelectedCards] = useState<boolean>(false);
+  /* Static datas */
   const labels = {
     mandatoryFields: "*Les champs marqués d’une astérisque sont obligatoires.",
   };
 
+  /* Local datas */
+  const [allSelectedCards, setAllSelectedCards] = useState<boolean>(false);
+  const [currentRequest, setCurrentRequest] = useState<RequestEntity>();
+
   return (
     <section className="c-RequestPage">
+      {/* TODO PROGRESS BAR */}
       <CommonBreadcrumb
         pages={[
           { label: "Accueil" },
@@ -40,10 +47,13 @@ export default function ServiceDemandesPage({
           <RequestLevels
             firstLevelDatas={requestLevels}
             setAllSelectedCards={setAllSelectedCards}
+            setCurrentRequest={setCurrentRequest}
           />
         ) : null}
-        {allSelectedCards && <>{/* TODO IN NEXT USs*/}</>}
       </div>
+      {allSelectedCards && currentRequest && (
+        <RequestForm data={currentRequest} />
+      )}
     </section>
   );
 }
