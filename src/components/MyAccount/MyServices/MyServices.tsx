@@ -45,7 +45,7 @@ const MyServices: React.FC<MyServicesProps> = ({ control }) => {
                       }) => (
                         <CommonCheckbox
                           {...field}
-                          checked={field.value}
+                          defaultChecked={field.value}
                           onChange={(e) => {
                             field.onChange(e.target.checked);
                           }}
@@ -88,7 +88,7 @@ const MyServices: React.FC<MyServicesProps> = ({ control }) => {
                       }) => (
                         <CommonCheckbox
                           {...field}
-                          checked={field.value}
+                          defaultChecked={field.value}
                           onChange={(e) => {
                             field.onChange(e.target.checked);
                           }}
