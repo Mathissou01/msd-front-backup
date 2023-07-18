@@ -4,8 +4,8 @@ import {
   useGetBanAddressesAutoCompleteLazyQuery,
 } from "../../../graphql/codegen/generated-types";
 import { removeNulls } from "../../../lib/utilities";
-import { Coordinates } from "../../../lib/pickup-days";
 import CommonButton from "../../Common/CommonButton/CommonButton";
+import { IAddressInfo, ICoordinates } from "../../../lib/pickup-days";
 import RequestAddressFields from "../../Request/RequestAddressField/RequestAddressField";
 import "./pick-up-day-enter-address.scss";
 
@@ -14,25 +14,38 @@ interface IFormInput {
 }
 
 interface PickUpDayEnterAddressProps {
-  onUpdateCoordinates: (coordinates: Coordinates) => void;
+  onUpdateCoordinates: (coordinates: ICoordinates) => void;
+  onUpdateAddressInfo: (addressInfo: IAddressInfo) => void;
 }
 
 export default function PickUpDayEnterAddress({
   onUpdateCoordinates,
+  onUpdateAddressInfo,
 }: PickUpDayEnterAddressProps) {
   /* Methods */
   async function onSubmit(address: IFormInput) {
     if (address.addressInput) {
-      const coordinates = await getCoordinatesFromAddress(address.addressInput);
-      if (coordinates?.longitude && coordinates?.latitude) {
-        onUpdateCoordinates(coordinates);
+      const infoFromAddress = await getInfoFromAddress(address.addressInput);
+      if (
+        infoFromAddress?.coordinates?.longitude &&
+        infoFromAddress.coordinates.latitude
+      ) {
+        onUpdateCoordinates(infoFromAddress.coordinates);
+      }
+      if (
+        infoFromAddress?.addressInfo?.city &&
+        infoFromAddress.addressInfo.street
+      ) {
+        onUpdateAddressInfo(infoFromAddress.addressInfo);
       }
     }
   }
 
-  async function getCoordinatesFromAddress(
+  async function getInfoFromAddress(
     searchValue: string,
-  ): Promise<Coordinates | undefined> {
+  ): Promise<
+    { coordinates: ICoordinates; addressInfo: IAddressInfo } | undefined
+  > {
     let searchResults: Array<SearchResultAddress> = [];
     await getBanAddresses({
       variables: { searchTerm: searchValue },
@@ -49,11 +62,21 @@ export default function PickUpDayEnterAddress({
     if (
       searchResults.length > 0 &&
       searchResults[0].longitude &&
-      searchResults[0].latitude
+      searchResults[0].latitude &&
+      searchResults[0].banFeaturesProperties
     ) {
+      const banFeaturesProperties = JSON.parse(
+        searchResults[0].banFeaturesProperties,
+      );
       return {
-        longitude: searchResults[0].longitude,
-        latitude: searchResults[0].latitude,
+        coordinates: {
+          longitude: searchResults[0].longitude,
+          latitude: searchResults[0].latitude,
+        },
+        addressInfo: {
+          city: banFeaturesProperties.city,
+          street: banFeaturesProperties.street,
+        },
       };
     }
     return undefined;
@@ -69,11 +92,11 @@ export default function PickUpDayEnterAddress({
   return (
     <FormProvider {...form}>
       <form
-        className="c-PickUpDayBlock__EnterAddress"
+        className="c-PickUpDayEnterAddress"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div
-          className="c-PickUpDayBlock__AddressInput"
+          className="c-PickUpDayEnterAddress__AddressInput"
           onBlur={() => clearErrors("addressInput")}
         >
           <RequestAddressFields name={"addressInput"} label="Adresse" />

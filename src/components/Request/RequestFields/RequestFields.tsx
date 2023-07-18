@@ -4,7 +4,7 @@ import {
   Enum_Componentblockscheckbox_Fieldstatuscheckbox,
   RequestEntity,
 } from "../../../graphql/codegen/generated-types";
-import { Coordinates } from "../../../lib/pickup-days";
+import { ICoordinates } from "../../../lib/pickup-days";
 import { removeNulls } from "../../../lib/utilities";
 import CommonBlockHeading from "../../Common/CommonBlockHeading/CommonBlockHeading";
 import CommonGeolocationButton from "../../Common/CommonGeolocationButton/CommonGeolocationButton";
@@ -23,7 +23,7 @@ export default function RequestFields({ data }: IRequestFieldsProps) {
   register("long", { value: undefined, required: true });
 
   const submitSearch = useCallback(
-    async (newCoordinates: Coordinates) => {
+    async (newCoordinates: ICoordinates) => {
       setValue("lat", newCoordinates.latitude);
       setValue("long", newCoordinates.longitude);
     },

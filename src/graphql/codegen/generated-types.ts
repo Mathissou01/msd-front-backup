@@ -8160,6 +8160,14 @@ export type RequestTakedRelationResponseCollection = {
   data: Array<RequestTakedEntity>;
 };
 
+export type RequestTakeds = {
+  __typename?: "RequestTakeds";
+  city?: Maybe<Scalars["String"]>;
+  id?: Maybe<Scalars["String"]>;
+  name?: Maybe<Scalars["String"]>;
+  user?: Maybe<User>;
+};
+
 export type ResponseCollectionMeta = {
   __typename?: "ResponseCollectionMeta";
   pagination: Pagination;
@@ -8546,8 +8554,8 @@ export type TimeSlotWithUser = {
   date?: Maybe<Scalars["String"]>;
   dynamic?: Maybe<Scalars["String"]>;
   fixed?: Maybe<Scalars["String"]>;
+  requestTakeds?: Maybe<Array<Maybe<RequestTakeds>>>;
   slot?: Maybe<Scalars["String"]>;
-  users?: Maybe<Array<Maybe<User>>>;
 };
 
 export type Tip = {

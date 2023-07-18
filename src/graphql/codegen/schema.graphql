@@ -6173,6 +6173,13 @@ type RequestTakedRelationResponseCollection {
   data: [RequestTakedEntity!]!
 }
 
+type RequestTakeds {
+  city: String
+  id: String
+  name: String
+  user: User
+}
+
 type ResponseCollectionMeta {
   pagination: Pagination!
 }
@@ -6526,8 +6533,8 @@ type TimeSlotWithUser {
   date: String
   dynamic: String
   fixed: String
+  requestTakeds: [RequestTakeds]
   slot: String
-  users: [User]
 }
 
 type Tip {

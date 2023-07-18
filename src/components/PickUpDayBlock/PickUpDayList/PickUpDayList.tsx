@@ -1,53 +1,72 @@
-import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
+import { useEffect, useState } from "react";
+import { pdf } from "@react-pdf/renderer";
 import {
-  Enum_Pickupday_Periodicity,
-  Maybe,
   PickUpDayEntity,
   WasteFormEntity,
 } from "../../../graphql/codegen/generated-types";
-import { useContract } from "../../../hooks/useContract";
 import {
-  EMonthlyStatus,
-  IHebdomadireAdvancedSelection,
-  IMensuelAdvancedSelection,
-  areConsecutiveDays,
-  informationMessageIsRelevant,
+  IAddressInfo,
+  IFormattedPickUpDay,
+  formatPickUpDays,
 } from "./../../../lib/pickup-days";
-import { makeLighterColor, makePublicAssetPath } from "../../../lib/utilities";
+import {
+  downloadFile,
+  getPNGUrlFromSVGUrl,
+  makePublicAssetPath,
+} from "../../../lib/utilities";
+import { useContract } from "../../../hooks/useContract";
 import CommonModal from "../../Common/CommonModal/CommonModal";
 import CommonButton from "../../Common/CommonButton/CommonButton";
-import CommonSpinner from "../../Common/CommonSpinner/CommonSpinner";
+import CommonLoader from "../../Common/CommonLoader/CommonLoader";
+import PickUpDayCalendar from "../PickUpDayCalendar/PickUpDayCalendar";
+import PickUpDayItem from "../PickUpDayItem/PickUpDayItem";
 import "./pick-up-day-list.scss";
 
 interface PickUpDayListProps {
-  pickUpDays: PickUpDayEntity[];
+  pickUpDays?: PickUpDayEntity[];
   isLoading: boolean;
+  addressInfo?: IAddressInfo;
 }
 
 export default function PickUpDayList({
   pickUpDays,
   isLoading,
+  addressInfo,
 }: PickUpDayListProps) {
   /* Static Data */
-  const dropOffMapRoute = "/service/carte";
-  const fullWeekDescription = "Tous les jours de la semaine";
-  const includeHolidayDescription = "(Y compris les jours fériés)";
-  const acceptedWasteTitle = "Déchets acceptés";
-  const noResults = "Aucun résultat";
-  const findRecyclingCenterLabel = "Trouver une décheterie";
+  const suezLogoSvgUrl = makePublicAssetPath("/images/suez-logo.svg");
+  const calendarIconSvgUrl = makePublicAssetPath("/images/pictos/calendar.svg");
+  const infoIconSvgUrl = makePublicAssetPath("/images/pictos/info.svg");
+  const labels = {
+    fullWeekDescription: "Tous les jours de la semaine",
+    fromText: "À partir de ",
+    acceptedWasteTitle: "Déchets acceptés",
+    noResults: "Aucun résultat",
+    downloadPDFLabel: "Télécharger mon calendrier de collecte",
+    myPickupDaysLabel: "Mes jours de collecte",
+  };
 
   /* Local Data */
   const { contract } = useContract();
+  const logoCommunity = contract.attributes?.logo.data?.attributes?.url;
   const dropOffMapIsActivated =
     contract?.attributes?.dropOffMapService?.data?.attributes?.isActivated;
   const [displayedAcceptedWaste, setDisplayedAcceptedWaste] = useState<
     Array<WasteFormEntity> | undefined
   >(undefined);
+  const [formattedPickUpDays, setFormattedPickUpDays] =
+    useState<IFormattedPickUpDay[]>();
+
+  const [suezLogoUrl, setSuezLogoUrl] = useState<string>();
+  const [calendarIconUrl, setCalendarIconUrl] = useState<string>();
+  const [infoIconUrl, setInfoIconUrl] = useState<string>();
+  const [contributedPictoUrls, setContributedPictoUrls] = useState<{
+    [key: string]: string;
+  }>();
+  const [pngImagesAreLoading, setPngImagesAreLoading] =
+    useState<boolean>(false);
 
   /* Methods */
-
   const displayAcceptedWaste = (
     currentAcceptedWaste: Array<WasteFormEntity> | undefined,
   ) => {
@@ -58,244 +77,159 @@ export default function PickUpDayList({
     setDisplayedAcceptedWaste(undefined);
   };
 
-  const getMonthlyText = (advancedSelection: IMensuelAdvancedSelection) => {
-    const monthlySelection = advancedSelection.mensuel;
-    const weekday = Array.isArray(monthlySelection.selection)
-      ? monthlySelection.selection[0]
-      : "";
-    switch (monthlySelection?.choice) {
-      case EMonthlyStatus.MONTHLY_FIRST:
-        return "Le premier " + weekday + " du mois";
-      case EMonthlyStatus.MONTHLY_LAST:
-        return "Le dernier " + weekday + " du mois";
-      case EMonthlyStatus.MONTHLY_DATE:
-        return "Tous les " + monthlySelection?.selection + " du mois";
-    }
-  };
-
-  const getWeeklyText = (advancedSelection: IHebdomadireAdvancedSelection) => {
-    const weeklySelection = advancedSelection?.hebdomadaire;
-    const selectionLength: number = weeklySelection?.selection?.length;
-    if (selectionLength === 1) {
-      return weeklySelection?.selection[0];
-    } else if (selectionLength === 7) {
-      return fullWeekDescription;
-    } else if (
-      selectionLength >= 2 &&
-      areConsecutiveDays(weeklySelection?.selection)
-    ) {
-      const firstDay = weeklySelection?.selection[0];
-      const lastDay = weeklySelection?.selection[selectionLength - 1];
-      return "Du " + firstDay + " au " + lastDay;
-    } else if (selectionLength !== 0) {
-      return (
-        weeklySelection?.selection?.slice(0, -1).join(", ") +
-        " et " +
-        weeklySelection?.selection?.slice(-1)
-      );
-    }
-  };
-
-  const getPeriodicityJSX = (
-    advancedSelection:
-      | IHebdomadireAdvancedSelection
-      | IMensuelAdvancedSelection,
-    periodicity: Maybe<Enum_Pickupday_Periodicity> | undefined,
-  ) => {
-    if (periodicity === Enum_Pickupday_Periodicity.Hebdomadaire) {
-      return (
-        <p className="c-PickUpDayItem__DescriptionText">
-          {getWeeklyText(advancedSelection as IHebdomadireAdvancedSelection)}
-        </p>
-      );
-    } else if (periodicity === Enum_Pickupday_Periodicity.Mensuel) {
-      return (
-        <p className="c-PickUpDayItem__DescriptionText">
-          {getMonthlyText(advancedSelection as IMensuelAdvancedSelection)}
-        </p>
-      );
-    }
-  };
-
-  const pickUpDaysMapped = pickUpDays.map((data, index) => {
-    const pictoUrl =
-      data?.attributes?.collectDoorToDoor?.data?.attributes?.picto?.data
-        ?.attributes?.url ??
-      data?.attributes?.collectVoluntary?.data?.attributes?.picto?.data
-        ?.attributes?.url;
-    const pictoAlternativeText =
-      data?.attributes?.collectDoorToDoor?.data?.attributes?.picto?.data
-        ?.attributes?.alternativeText ??
-      data?.attributes?.collectVoluntary?.data?.attributes?.picto?.data
-        ?.attributes?.alternativeText;
-
-    const pavName =
-      data?.attributes?.collectDoorToDoor?.data?.attributes?.name ??
-      data?.attributes?.collectVoluntary?.data?.attributes?.name;
-    const periodicityJSX = getPeriodicityJSX(
-      data?.attributes?.advancedSelection,
-      data?.attributes?.periodicity,
-    );
-    const currentAcceptedWaste =
-      data.attributes?.flow?.data?.attributes?.wasteForms?.data;
-    const currentInformationMessage = data?.attributes?.informationMessage;
-    const displayFindRecyclingCenterButton =
-      !!data.attributes?.collectVoluntary?.data?.attributes &&
-      dropOffMapIsActivated;
-
-    const customButtonLabel = data?.attributes?.buttonLabel;
-    const externalLink = data?.attributes?.externalLink;
-    const requestFormId = data?.attributes?.request?.data?.id;
-    const displayCustomButton =
-      customButtonLabel && (externalLink || requestFormId);
-    const requestLink = `/services/demandes/${requestFormId}`;
-    const color =
-      data?.attributes?.flow?.data?.attributes?.color?.data?.attributes
-        ?.hexaCode;
-    return (
-      <li key={index} className="c-PickUpDayItem">
-        <div
-          className="c-PickUpDayItem__FlowContainer"
-          style={
-            color ? { backgroundColor: makeLighterColor(color) } : undefined
-          }
-        >
-          <div
-            className="c-PickUpDayItem__FlowPictoContainer"
-            style={{
-              backgroundColor:
-                data?.attributes?.flow?.data?.attributes?.color?.data
-                  ?.attributes?.hexaCode,
-            }}
-          >
-            {pictoUrl && (
-              <Image
-                src={makePublicAssetPath(pictoUrl)}
-                alt={pictoAlternativeText ?? ""}
-                width="32"
-                height="32"
-              />
-            )}
-          </div>
-
-          <div className="c-PickUpDayItem__FlowInformation">
-            <h3 className="c-PickUpDayItem__PickUpDayName">
-              {data?.attributes?.name}
-            </h3>
-            <p className="c-PickUpDayItem__FlowName">
-              {data?.attributes?.flow?.data?.attributes?.name}
-            </p>
-          </div>
-        </div>
-        <div className="c-PickUpDayItem__Information">
-          <div className="c-PickUpDayItem__Calendar">
-            <div className="c-PickUpDayItem__CalendarPictoContainer">
-              <Image
-                src={makePublicAssetPath("/images/pictos/calendar.svg")}
-                alt={"information icon"}
-                width="16"
-                height="16"
-              />
-            </div>
-            <div className="c-PickUpDayItem__Description">
-              {periodicityJSX}
-              {data?.attributes?.includeHoliday && (
-                <p className="c-PickUpDayItem__DescriptionText">
-                  {includeHolidayDescription}
-                </p>
-              )}
-              {data?.attributes?.pickUpHours && (
-                <p className="c-PickUpDayItem__DescriptionText">
-                  À partir de {data.attributes.pickUpHours}
-                </p>
-              )}
-            </div>
-          </div>
-          {!!currentInformationMessage?.data?.attributes &&
-            informationMessageIsRelevant(
-              currentInformationMessage?.data?.attributes,
-            ) && (
-              <div className="c-PickUpDayItem__InformationMessageContainer">
-                <Image
-                  src={makePublicAssetPath("/images/pictos/info.svg")}
-                  alt={"information icon"}
-                  width="36"
-                  height="36"
-                />
-                <p className="c-PickUpDayItem__InformationMessage">
-                  {currentInformationMessage?.data?.attributes?.infoMessage}
-                </p>
-              </div>
-            )}
-        </div>
-        <div className="c-PickUpDayItem__VerticalLine"></div>
-        <div className="c-PickUpDayItem__AcceptedWasteContainer">
-          <div className="c-PickUpDayItem__Buttons">
-            {displayCustomButton && (
-              <Link href={externalLink ?? requestLink}>
-                <CommonButton
-                  label={customButtonLabel}
-                  type="button"
-                  style="secondary"
-                  fontStyle="fontLarge"
-                  paddingStyle="paddingSmall"
-                />
-              </Link>
-            )}
-            {displayFindRecyclingCenterButton && pavName && (
-              <Link
-                href={{
-                  pathname: dropOffMapRoute,
-                  query: { pav: pavName },
-                }}
-              >
-                <CommonButton
-                  label={findRecyclingCenterLabel}
-                  type="button"
-                  style="secondary"
-                  fontStyle="fontLarge"
-                  paddingStyle="paddingSmall"
-                />
-              </Link>
-            )}
-          </div>
-          <div className="c-PickUpDayItem__AcceptedWaste">
-            <p>{acceptedWasteTitle}</p>
-            <div
-              className="c-PickUpDayItem__QuestionMarkPicto"
-              onClick={() => displayAcceptedWaste(currentAcceptedWaste)}
-            ></div>
-          </div>
-        </div>
-      </li>
-    );
-  });
-
-  const acceptedWasteContent = (
-    <>
-      {displayedAcceptedWaste && (
-        <ul>
-          {Array.isArray(displayedAcceptedWaste) &&
-            displayedAcceptedWaste.map((data, index) => (
-              <li key={index}>{data?.attributes?.name}</li>
-            ))}
-        </ul>
-      )}
-      {!displayedAcceptedWaste && <p>{noResults}</p>}
-    </>
+  const acceptedWasteModalContent = displayedAcceptedWaste ? (
+    <ul>
+      {Array.isArray(displayedAcceptedWaste) &&
+        displayedAcceptedWaste.map((data, index) => (
+          <li key={index}>{data?.attributes?.name}</li>
+        ))}
+    </ul>
+  ) : (
+    <p>{labels.noResults}</p>
   );
 
+  const handleDownloadPDF = async () => {
+    if (
+      formattedPickUpDays &&
+      contributedPictoUrls &&
+      suezLogoUrl &&
+      calendarIconUrl &&
+      infoIconUrl
+    ) {
+      const blob = await pdf(
+        <PickUpDayCalendar
+          logoCommunity={logoCommunity}
+          pickUpDays={formattedPickUpDays}
+          addressInfo={addressInfo}
+          contributedPictoUrls={contributedPictoUrls}
+          suezLogoUrl={suezLogoUrl}
+          calendarIconUrl={calendarIconUrl}
+          infoIconUrl={infoIconUrl}
+        />,
+      ).toBlob();
+      const pdfBlob = new Blob([blob], { type: "application/pdf" });
+      downloadFile(
+        pdfBlob,
+        `${labels.myPickupDaysLabel} - ${
+          addressInfo?.city
+        } - ${addressInfo?.street?.toUpperCase()}`,
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (pickUpDays) {
+      setFormattedPickUpDays(
+        formatPickUpDays(
+          pickUpDays,
+          labels.fullWeekDescription,
+          labels.fromText,
+          dropOffMapIsActivated,
+        ),
+      );
+    }
+  }, [
+    pickUpDays,
+    dropOffMapIsActivated,
+    labels.fullWeekDescription,
+    labels.fromText,
+  ]);
+
+  useEffect(() => {
+    const getPngUrls = async () => {
+      if (pickUpDays) {
+        try {
+          setPngImagesAreLoading(true);
+          const suezLogoPngURl = await getPNGUrlFromSVGUrl(suezLogoSvgUrl);
+          setSuezLogoUrl(suezLogoPngURl);
+          const calendarIconPngUrl = await getPNGUrlFromSVGUrl(
+            calendarIconSvgUrl,
+          );
+          setCalendarIconUrl(calendarIconPngUrl);
+          const infoIconPngUrl = await getPNGUrlFromSVGUrl(infoIconSvgUrl);
+          setInfoIconUrl(infoIconPngUrl);
+
+          const pictoSvgUrls = pickUpDays.map((pickUpDay, index) => {
+            return {
+              pictoUrl:
+                pickUpDay?.attributes?.collectDoorToDoor?.data?.attributes
+                  ?.picto?.data?.attributes?.url ??
+                pickUpDay?.attributes?.collectVoluntary?.data?.attributes?.picto
+                  ?.data?.attributes?.url,
+              key: index,
+            };
+          });
+
+          for (const pictoSvgUrl of pictoSvgUrls) {
+            if (pictoSvgUrl?.pictoUrl && pictoSvgUrl?.key !== undefined) {
+              const pictoPngUrl = await getPNGUrlFromSVGUrl(
+                pictoSvgUrl?.pictoUrl,
+              );
+              setContributedPictoUrls((prevState) => ({
+                ...prevState,
+                [pictoSvgUrl.key]: pictoPngUrl,
+              }));
+            } else if (pictoSvgUrl?.key !== undefined) {
+              setContributedPictoUrls((prevState) => ({
+                ...prevState,
+                [pictoSvgUrl.key]: undefined,
+              }));
+            }
+          }
+          setPngImagesAreLoading(false);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+    getPngUrls();
+  }, [
+    suezLogoSvgUrl,
+    calendarIconSvgUrl,
+    infoIconSvgUrl,
+    pickUpDays,
+    dropOffMapIsActivated,
+  ]);
+
   return (
-    <>
-      <ul className="c-PickUpDayList">{pickUpDays && pickUpDaysMapped}</ul>
+    <CommonLoader isLoading={isLoading}>
+      <div className="c-PickUpDayList">
+        <ul className="c-PickUpDayList__List">
+          {formattedPickUpDays?.map((data, index) => {
+            return (
+              <PickUpDayItem
+                pickUpDay={data}
+                key={index}
+                onDisplayAcceptedWaste={displayAcceptedWaste}
+              />
+            );
+          })}
+        </ul>
+        {formattedPickUpDays && formattedPickUpDays?.length > 0 && (
+          <div className="c-PickUpDayList__DownloadPDF">
+            <CommonButton
+              label={labels.downloadPDFLabel}
+              style="primary"
+              picto="download"
+              pictoPosition="right"
+              onClick={handleDownloadPDF}
+              isDisabled={pngImagesAreLoading}
+            />
+          </div>
+        )}
+        {formattedPickUpDays?.length === 0 && (
+          <div className="c-PickUpDayList__NoResult">
+            <p>{labels.noResults}</p>
+          </div>
+        )}
+      </div>
       {displayedAcceptedWaste && (
         <CommonModal
           handleClose={hideAcceptedWaste}
-          headerTitle={`${acceptedWasteTitle} : `}
-          content={acceptedWasteContent}
+          headerTitle={`${labels.acceptedWasteTitle} : `}
+          content={acceptedWasteModalContent}
         ></CommonModal>
       )}
-      {isLoading && <CommonSpinner />}
-    </>
+    </CommonLoader>
   );
 }

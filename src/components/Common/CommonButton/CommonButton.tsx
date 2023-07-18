@@ -5,7 +5,7 @@ import "./common-button.scss";
 interface ICommonButtonProps {
   label?: string;
   type?: "button" | "submit" | "reset" | undefined;
-  picto?: "search" | "cross" | "target" | "defaultPicto";
+  picto?: "search" | "cross" | "target" | "defaultPicto" | "download";
   pictoPosition?: "left" | "right";
   isDisabled?: boolean;
   onClick?: () => void;
@@ -39,6 +39,7 @@ export default function CommonButton({
     [`c-CommonButton_${paddingStyle}`]: paddingStyle,
     "c-CommonButton_fullWidth": isFullWidth,
     "c-CommonButton_isRounded": isRound,
+    "c-CommonButton_disabled": isDisabled,
   });
   const pictoClassNames = classNames("c-CommonButton__Picto", {
     [`c-CommonButton__Picto_${picto}`]: picto,

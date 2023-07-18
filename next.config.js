@@ -198,6 +198,7 @@ module.exports = async (phase) => {
           type: "asset",
           resourceQuery: /url/, // *.svg?url
         },
+        { test: /\.ttf$/i, type: "asset/resource" },
         {
           test: /\.svg$/i,
           issuer: /\.[jt]sx?$/,

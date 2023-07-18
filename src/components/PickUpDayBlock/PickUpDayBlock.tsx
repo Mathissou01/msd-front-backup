@@ -1,24 +1,26 @@
 import { useCallback, useState } from "react";
-import { useContract } from "../../hooks/useContract";
 import {
   PickUpDayEntity,
   useGetPickUpDaysByCoordinatesLocalLazyQuery,
   useGetPickUpDaysByIdsAndContratIdLazyQuery,
 } from "../../graphql/codegen/generated-types";
-import { Coordinates } from "../../lib/pickup-days";
-import CommonGeolocationButton from "../Common/CommonGeolocationButton/CommonGeolocationButton";
+import { IAddressInfo, ICoordinates } from "../../lib/pickup-days";
+import { useContract } from "../../hooks/useContract";
 import PickUpDayEnterAddress from "./PickUpDayEnterAddress/PickUpDayEnterAddress";
+import CommonGeolocationButton from "../Common/CommonGeolocationButton/CommonGeolocationButton";
 import PickUpDayList from "./PickUpDayList/PickUpDayList";
 import "./pick-up-day-block.scss";
 
 export default function PickUpDayBlock() {
+  /* Static Data */
+  const pickUpDayTitle = "Collecte à mon adresse";
+
   /* Local Data */
-  const pickUpDayTitle = "Collecte à Mon Adresse";
-  const [pickUpDayResults, setPickUpDayResults] = useState<PickUpDayEntity[]>(
-    [],
-  );
+  const [pickUpDayResults, setPickUpDayResults] = useState<PickUpDayEntity[]>();
+  const [addressInfo, setAddressInfo] = useState<IAddressInfo>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { contract } = useContract();
+
   const [getPickUpDaysByCoordinatesLocalLazyQuery] =
     useGetPickUpDaysByCoordinatesLocalLazyQuery({
       fetchPolicy: "network-only",
@@ -30,8 +32,8 @@ export default function PickUpDayBlock() {
 
   /* Methods */
   const submitSearch = useCallback(
-    async (newCoordinates: Coordinates) => {
-      setPickUpDayResults([]);
+    async (newCoordinates: ICoordinates) => {
+      setPickUpDayResults(undefined);
       setIsLoading(true);
       const contractId = contract?.id;
       const pickUpDayIsActivated =
@@ -70,12 +72,19 @@ export default function PickUpDayBlock() {
                 },
               });
             } else {
+              setPickUpDayResults([]);
               setIsLoading(false);
             }
           },
+          onError: async () => {
+            setPickUpDayResults([]);
+            setIsLoading(false);
+          },
         });
+      } else {
+        setPickUpDayResults(undefined);
+        setIsLoading(false);
       }
-      setIsLoading(false);
     },
     [
       contract?.attributes?.pickUpDayService?.data?.id,
@@ -86,6 +95,10 @@ export default function PickUpDayBlock() {
     ],
   );
 
+  const updateAddressInfo = (addressInfo: IAddressInfo) => {
+    setAddressInfo(addressInfo);
+  };
+
   return (
     <section className="c-PickUpDayBlock">
       <div className="c-PickUpDayBlock__Heading">
@@ -94,12 +107,20 @@ export default function PickUpDayBlock() {
           <CommonGeolocationButton
             informativeText
             onUpdateCoordinates={submitSearch}
+            onUpdateAddressInfo={updateAddressInfo}
           />
-          <PickUpDayEnterAddress onUpdateCoordinates={submitSearch} />
+          <PickUpDayEnterAddress
+            onUpdateCoordinates={submitSearch}
+            onUpdateAddressInfo={updateAddressInfo}
+          />
         </div>
       </div>
       <div className="c-PickUpDayBlock__Main">
-        <PickUpDayList pickUpDays={pickUpDayResults} isLoading={isLoading} />
+        <PickUpDayList
+          pickUpDays={pickUpDayResults}
+          isLoading={isLoading}
+          addressInfo={addressInfo}
+        />
       </div>
     </section>
   );

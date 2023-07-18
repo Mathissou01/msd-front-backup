@@ -75,3 +75,107 @@ export function createDateFromString(dateString: string): Date | null {
 export function makeLighterColor(color: string): string {
   return chroma(color).alpha(0.1).hex();
 }
+
+export function downloadFile(blobData: Blob, fileName: string) {
+  const anchorElement = document.createElement("a");
+
+  document.body.appendChild(anchorElement);
+
+  anchorElement.style.display = "none";
+
+  const url = window.URL.createObjectURL(blobData);
+
+  anchorElement.href = url;
+  anchorElement.download = fileName;
+  anchorElement.click();
+
+  window.URL.revokeObjectURL(url);
+}
+
+function modifySVGDimensions(
+  svgData: string,
+  newWidth: number,
+  newHeight: number,
+) {
+  // Create a temporary HTML element to manipulate the SVG data
+  const tempElement = document.createElement("div");
+  tempElement.innerHTML = svgData;
+
+  // Find the SVG element and modify the width and height attributes
+  const svgElement = tempElement.querySelector("svg");
+  if (svgElement) {
+    svgElement.setAttribute("width", newWidth.toString());
+    svgElement.setAttribute("height", newHeight.toString());
+  }
+
+  // Return the modified SVG data as a string
+  return tempElement.innerHTML;
+}
+
+export async function getPNGUrlFromSVGUrl(svgUrl: string) {
+  return new Promise<string>((resolve, reject) => {
+    fetch(svgUrl)
+      .then((response) => response.text())
+      .then((svgData) => {
+        const parser = new DOMParser();
+
+        // Parse the SVG data string into an SVG document
+        const svgDoc = parser.parseFromString(svgData, "image/svg+xml");
+
+        // Get the root SVG element from the document
+        const svgElement = svgDoc.documentElement;
+
+        // Retrieve the width and height attributes
+        const svgWidth = svgElement.getAttribute("width");
+        const svgHeight = svgElement.getAttribute("height");
+
+        // Create a canvas element
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+
+        // // Set canvas dimensions to match the SVG size
+        if (svgWidth && svgHeight) {
+          canvas.width = parseInt(svgWidth, 10);
+          canvas.height = parseInt(svgHeight, 10);
+        } else {
+          canvas.width = 32;
+          canvas.height = 32;
+        }
+
+        const finalSvgData =
+          svgWidth && svgHeight
+            ? svgData
+            : modifySVGDimensions(svgData, 32, 32);
+
+        // Render the SVG on the canvas
+        const DOMURL = self.URL || self.webkitURL || self;
+        const svgBlob = new Blob([finalSvgData], { type: "image/svg+xml" });
+        const svgUrl = DOMURL.createObjectURL(svgBlob);
+        const img = new Image();
+        img.onload = () => {
+          if (context) {
+            context.drawImage(img, 0, 0);
+
+            // Convert canvas to a Blob
+            canvas.toBlob((blob) => {
+              if (blob) {
+                // Create a Blob URL for the PNG image
+                const blobUrl = DOMURL.createObjectURL(blob);
+                DOMURL.revokeObjectURL(svgUrl);
+                resolve(blobUrl);
+              } else {
+                reject();
+              }
+            }, "image/png");
+            img.remove();
+          } else {
+            reject();
+          }
+        };
+        img.src = svgUrl;
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
