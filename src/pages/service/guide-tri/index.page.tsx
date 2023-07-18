@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./guide-tri.scss";
 import WasteFamilyBlock from "../../../components/Guide-tri/WasteFamilyBlock";
 import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 import MemoTriBlock from "../../../components/Guide-tri/MemoTriBlock/MemoTriBlock";
@@ -16,6 +15,7 @@ import {
 } from "../../../graphql/codegen/generated-types";
 import { extractRecyclingGuideBlock } from "../../../lib/graphql-data";
 import client from "../../../graphql/client";
+import "./guide-tri.scss";
 
 interface IGuideTriProps {
   servicesData: GetServicesActiveQuery;
@@ -108,7 +108,7 @@ export async function getStaticProps() {
     await client.query<GetMemoTriBlockByContractIdQuery>({
       query: GetMemoTriBlockByContractIdDocument,
       variables: { contractId },
-      fetchPolicy: "cache-first",
+      fetchPolicy: "no-cache",
     });
 
   return {
