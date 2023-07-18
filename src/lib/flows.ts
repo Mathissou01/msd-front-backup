@@ -1,8 +1,8 @@
 export const renderFlowName: (name: string) => string = (name: string) => {
   switch (name) {
-    case "householdWaste":
+    case "OMR":
       return "Ordures ménagères";
-    case "packaging":
+    case "CS":
       return "Emballages";
     case "all":
       return "Tous";

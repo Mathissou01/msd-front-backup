@@ -5,29 +5,41 @@ import CommonBlockHeading from "../../../../Common/CommonBlockHeading/CommonBloc
 import CommonOverlay from "../../../../Common/CommonPopover/CommonOverlay";
 import "./learn-more.scss";
 import Flow from "../Flows/Flow/Flow";
-import { useGetFlowMwcQuery } from "../../../../../graphql/codegen/generated-types";
+import { useGetMwcFlowsByContractIdQuery } from "../../../../../graphql/codegen/generated-types";
 
 interface Flow {
   name: string;
-  weighingSystem: string;
+  weightSystem: string;
+  code: string;
 }
+
+const { NEXT_PUBLIC_CONTRACT_ID } = process.env;
 
 const LearnMore = () => {
   const [flows, setFlows] = React.useState<Flow[]>([]);
-  const { data } = useGetFlowMwcQuery({
+  const { data } = useGetMwcFlowsByContractIdQuery({
     variables: {
-      contractId: "1",
+      filters: {
+        mwCounterService: {
+          contract: {
+            id: {
+              eq: NEXT_PUBLIC_CONTRACT_ID,
+            },
+          },
+        },
+      },
     },
   });
 
   useEffect(() => {
     if (data) {
       setFlows(
-        data?.contract?.data?.attributes?.MwCounterService?.data?.attributes?.mwcFlows?.data.map(
+        data.mwcFlows?.data.map(
           (flow) =>
             ({
-              name: flow?.attributes?.name,
-              weighingSystem: flow?.attributes?.weighingSystem,
+              name: flow?.attributes?.flow?.data?.attributes?.name,
+              weightSystem: flow?.attributes?.weightSystem,
+              code: flow?.attributes?.flow?.data?.attributes?.code,
             } as Flow),
         ) || [],
       );
@@ -36,7 +48,7 @@ const LearnMore = () => {
 
   const renderOverlayContent = () => {
     const uniqueWeighingSystems = Array.from(
-      new Set(flows.map((flow) => flow.weighingSystem)),
+      new Set(flows.map((flow) => flow.weightSystem)),
     );
 
     return (
@@ -55,7 +67,7 @@ const LearnMore = () => {
               <h4>Méthode de calculs pour les déchets</h4>
               <div className="c-LearnMore__MultipleFlowContainer">
                 {flows
-                  .filter((flow) => flow.weighingSystem === weighingSystem)
+                  .filter((flow) => flow.weightSystem === weighingSystem)
                   .map((flow) => (
                     <Flow key={flow.name} flow={flow} />
                   ))}

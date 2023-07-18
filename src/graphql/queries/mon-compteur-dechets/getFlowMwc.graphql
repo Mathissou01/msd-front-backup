@@ -1,18 +1,48 @@
-query getFlowMwc($contractId: ID) {
-  contract(id: $contractId) {
+query getMwcFlowsByContractId($filters: MwcFlowFiltersInput) {
+  mwcFlows(filters: $filters) {
     data {
+      id
       attributes {
-        MwCounterService {
-          data {
-            attributes {
-              mwcFlows {
-                data {
-                  attributes {
-                    weighingSystem
-                    name
-                  }
+        weightSystem
+        averageProductionPerson
+        blocks {
+          ... on ComponentBlocksSubHeading {
+            id
+            subHeadingText
+            subHeadingTag
+          }
+          ... on ComponentBlocksVideo {
+            id
+            videoLink
+            transcriptText
+          }
+          ... on ComponentBlocksWysiwyg {
+            id
+            textEditor
+          }
+          ... on ComponentBlocksImage {
+            id
+            picture {
+              data {
+                attributes {
+                  name
                 }
               }
+            }
+            isDecorative
+            altText
+          }
+          ... on Error {
+            code
+            message
+          }
+        }
+        flow {
+          data {
+            attributes {
+              isActivated
+              code
+              name
             }
           }
         }

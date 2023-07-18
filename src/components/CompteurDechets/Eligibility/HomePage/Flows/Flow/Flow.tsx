@@ -4,7 +4,7 @@ import "./flow.scss";
 
 interface FlowProps {
   flow: {
-    name: string;
+    code: string;
   };
 }
 
@@ -15,12 +15,12 @@ interface FlowConfig {
 }
 
 const flowConfig: Record<string, FlowConfig> = {
-  householdWaste: {
+  OMR: {
     color: "gray",
     displayName: "Ordures ménagères",
     bacTestId: "bac1",
   },
-  packaging: {
+  CS: {
     color: "yellow",
     displayName: "Emballages",
     bacTestId: "bac2",
@@ -28,7 +28,7 @@ const flowConfig: Record<string, FlowConfig> = {
 };
 
 const Flow: React.FC<FlowProps> = ({ flow }) => {
-  const config: FlowConfig = flowConfig[flow.name];
+  const config: FlowConfig = flowConfig[flow.code];
 
   if (!config) {
     return null;

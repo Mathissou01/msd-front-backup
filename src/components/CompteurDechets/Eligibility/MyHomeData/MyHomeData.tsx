@@ -155,11 +155,12 @@ const MyHomeData = () => {
           {/* TODO: Change values when API's ready */}
           <div className="c-MyHomeData__BarometerBottomInfo">
             <p>
-              Votre foyer est constitué de : <span>X personne(s)</span>
+              Votre foyer est constitué de :{" "}
+              <span>{currentUser?.householdSize || "X"} personne(s)</span>
             </p>
             <button
               type="button"
-              onClick={() => router.push(`/`)}
+              onClick={() => router.push(`/mon-compte`)}
               className="c-MyHomeData__BarometerBottomInfoEdit"
             >
               {" "}

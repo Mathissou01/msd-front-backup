@@ -6,6 +6,7 @@ interface Flow {
   name: string;
   total: number;
   percent: number;
+  code: string;
 }
 
 interface Flows {

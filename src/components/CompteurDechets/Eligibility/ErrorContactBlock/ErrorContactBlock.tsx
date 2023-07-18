@@ -1,28 +1,26 @@
 import React from "react";
-import "./error-contact-block.scss";
 import MailIcon from "public/images/pictos/send_mail.svg";
 import AdressIcon from "public/images/pictos/maps_pin.svg";
 import PhoneIcon from "public/images/pictos/headphones.svg";
-import { useGetContactMwcQuery } from "../../../../graphql/codegen/generated-types";
+import { useGetContactQuery } from "../../../../graphql/codegen/generated-types";
+import "./error-contact-block.scss";
 
-const ErrorContactBlock = () => {
-  const contractIdString = process.env.NEXT_PUBLIC_CONTRACT_ID;
-  const contractId = contractIdString;
+const { NEXT_PUBLIC_CONTRACT_ID } = process.env;
 
-  const { data } = useGetContactMwcQuery({
+export default function ErrorContactBlock() {
+  const { data } = useGetContactQuery({
     variables: {
       filters: {
         contract: {
           id: {
-            eq: contractId,
+            eq: NEXT_PUBLIC_CONTRACT_ID,
           },
         },
       },
     },
   });
 
-  const contactData =
-    data?.mwCounterServices?.data[0]?.attributes?.mwcContact?.data?.attributes;
+  const contactData = data?.mwCounterServices?.data?.[0]?.attributes;
 
   const contactBlocks = [
     {
@@ -72,6 +70,4 @@ const ErrorContactBlock = () => {
         ))}
     </div>
   );
-};
-
-export default ErrorContactBlock;
+}

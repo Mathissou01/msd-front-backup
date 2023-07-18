@@ -16,14 +16,16 @@ const MyEvolutionDetailBlock: React.FC<MyEvolutionDetailBlockProps> = ({
     date: "01/06/2023",
     flow: [
       {
-        name: "householdWaste",
+        name: "OMR",
         total: 100,
         poid: 90,
+        code: "OMR",
       },
       {
-        name: "packaging",
+        name: "CS",
         total: 45,
         poid: 20,
+        code: "CS",
       },
     ],
   };

@@ -74,11 +74,6 @@ type AccessibilitySubService {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): AccessibilityRelationResponseCollection
-  audienceTypes(
-    filters: AudienceTypeFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): AudienceTypeRelationResponseCollection
   createdAt: DateTime
   description: String
   editorialService: EditorialServiceEntityResponse
@@ -104,7 +99,6 @@ type AccessibilitySubServiceEntityResponseCollection {
 input AccessibilitySubServiceFiltersInput {
   accessibilities: AccessibilityFiltersInput
   and: [AccessibilitySubServiceFiltersInput]
-  audienceTypes: AudienceTypeFiltersInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
   editorialService: EditorialServiceFiltersInput
@@ -118,7 +112,6 @@ input AccessibilitySubServiceFiltersInput {
 
 input AccessibilitySubServiceInput {
   accessibilities: [ID]
-  audienceTypes: [ID]
   description: String
   editorialService: ID
   link: String
@@ -233,11 +226,11 @@ type AlertNotificationService {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): AlertNotificationRelationResponseCollection
-  audienceTypes(
-    filters: AudienceTypeFiltersInput
+  audiences(
+    filters: AudienceFiltersInput
     pagination: PaginationArg = {}
     sort: [String] = []
-  ): AudienceTypeRelationResponseCollection
+  ): AudienceRelationResponseCollection
   cities(
     filters: CityFiltersInput
     pagination: PaginationArg = {}
@@ -269,7 +262,7 @@ type AlertNotificationServiceEntityResponseCollection {
 input AlertNotificationServiceFiltersInput {
   alertNotifications: AlertNotificationFiltersInput
   and: [AlertNotificationServiceFiltersInput]
-  audienceTypes: AudienceTypeFiltersInput
+  audiences: AudienceFiltersInput
   cities: CityFiltersInput
   contract: ContractFiltersInput
   createdAt: DateTimeFilterInput
@@ -285,7 +278,7 @@ input AlertNotificationServiceFiltersInput {
 
 input AlertNotificationServiceInput {
   alertNotifications: [ID]
-  audienceTypes: [ID]
+  audiences: [ID]
   cities: [ID]
   contract: ID
   endDate: Date
@@ -294,45 +287,55 @@ input AlertNotificationServiceInput {
   startDate: Date
 }
 
-type AudienceType {
-  MwCounter: MwCounterServiceEntityResponse
+type Appointment {
+  sectorNames: [String]
+  timeSlotsWithUsers: [TimeSlotWithUser]
+}
+
+type AppointmentDetails {
+  appointments: [Appointment]
+  title: String
+}
+
+type Audience {
   createdAt: DateTime
-  type: String
+  isActive: Boolean!
+  type: ENUM_AUDIENCE_TYPE!
   updatedAt: DateTime
 }
 
-type AudienceTypeEntity {
-  attributes: AudienceType
+type AudienceEntity {
+  attributes: Audience
   id: ID
 }
 
-type AudienceTypeEntityResponse {
-  data: AudienceTypeEntity
+type AudienceEntityResponse {
+  data: AudienceEntity
 }
 
-type AudienceTypeEntityResponseCollection {
-  data: [AudienceTypeEntity!]!
+type AudienceEntityResponseCollection {
+  data: [AudienceEntity!]!
   meta: ResponseCollectionMeta!
 }
 
-input AudienceTypeFiltersInput {
-  MwCounter: MwCounterServiceFiltersInput
-  and: [AudienceTypeFiltersInput]
+input AudienceFiltersInput {
+  and: [AudienceFiltersInput]
   createdAt: DateTimeFilterInput
   id: IDFilterInput
-  not: AudienceTypeFiltersInput
-  or: [AudienceTypeFiltersInput]
+  isActive: BooleanFilterInput
+  not: AudienceFiltersInput
+  or: [AudienceFiltersInput]
   type: StringFilterInput
   updatedAt: DateTimeFilterInput
 }
 
-input AudienceTypeInput {
-  MwCounter: ID
-  type: String
+input AudienceInput {
+  isActive: Boolean
+  type: ENUM_AUDIENCE_TYPE
 }
 
-type AudienceTypeRelationResponseCollection {
-  data: [AudienceTypeEntity!]!
+type AudienceRelationResponseCollection {
+  data: [AudienceEntity!]!
 }
 
 type AvailableSlot {
@@ -440,11 +443,6 @@ type CguRelationResponseCollection {
 }
 
 type CguSubService {
-  audienceTypes(
-    filters: AudienceTypeFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): AudienceTypeRelationResponseCollection
   cgus(
     filters: CguFiltersInput
     pagination: PaginationArg = {}
@@ -474,7 +472,6 @@ type CguSubServiceEntityResponseCollection {
 
 input CguSubServiceFiltersInput {
   and: [CguSubServiceFiltersInput]
-  audienceTypes: AudienceTypeFiltersInput
   cgus: CguFiltersInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
@@ -488,7 +485,6 @@ input CguSubServiceFiltersInput {
 }
 
 input CguSubServiceInput {
-  audienceTypes: [ID]
   cgus: [ID]
   description: String
   editorialService: ID
@@ -1280,11 +1276,6 @@ type ConfidentialityRelationResponseCollection {
 }
 
 type ConfidentialitySubService {
-  audienceTypes(
-    filters: AudienceTypeFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): AudienceTypeRelationResponseCollection
   confidentialities(
     filters: ConfidentialityFiltersInput
     pagination: PaginationArg = {}
@@ -1314,7 +1305,6 @@ type ConfidentialitySubServiceEntityResponseCollection {
 
 input ConfidentialitySubServiceFiltersInput {
   and: [ConfidentialitySubServiceFiltersInput]
-  audienceTypes: AudienceTypeFiltersInput
   confidentialities: ConfidentialityFiltersInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
@@ -1328,7 +1318,6 @@ input ConfidentialitySubServiceFiltersInput {
 }
 
 input ConfidentialitySubServiceInput {
-  audienceTypes: [ID]
   confidentialities: [ID]
   description: String
   editorialService: ID
@@ -1339,7 +1328,6 @@ input ConfidentialitySubServiceInput {
 type ContactResponse {
   city: String
   contactEmail: String
-  contractId: Int
   phoneNumber: String
   postalAddress: String
   postalCode: String
@@ -1429,11 +1417,6 @@ type ContactUsRelationResponseCollection {
 }
 
 type ContactUsSubService {
-  audienceTypes(
-    filters: AudienceTypeFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): AudienceTypeRelationResponseCollection
   contactUses(
     filters: ContactUsFiltersInput
     pagination: PaginationArg = {}
@@ -1467,7 +1450,6 @@ type ContactUsSubServiceEntityResponseCollection {
 
 input ContactUsSubServiceFiltersInput {
   and: [ContactUsSubServiceFiltersInput]
-  audienceTypes: AudienceTypeFiltersInput
   contactUses: ContactUsFiltersInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
@@ -1485,7 +1467,6 @@ input ContactUsSubServiceFiltersInput {
 }
 
 input ContactUsSubServiceInput {
-  audienceTypes: [ID]
   contactUses: [ID]
   description: String
   editorialService: ID
@@ -1874,11 +1855,6 @@ type CookieRelationResponseCollection {
 }
 
 type CookiesSubService {
-  audienceTypes(
-    filters: AudienceTypeFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): AudienceTypeRelationResponseCollection
   cookies(
     filters: CookieFiltersInput
     pagination: PaginationArg = {}
@@ -1908,7 +1884,6 @@ type CookiesSubServiceEntityResponseCollection {
 
 input CookiesSubServiceFiltersInput {
   and: [CookiesSubServiceFiltersInput]
-  audienceTypes: AudienceTypeFiltersInput
   cookies: CookieFiltersInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
@@ -1922,7 +1897,6 @@ input CookiesSubServiceFiltersInput {
 }
 
 input CookiesSubServiceInput {
-  audienceTypes: [ID]
   cookies: [ID]
   description: String
   editorialService: ID
@@ -2005,11 +1979,11 @@ type DeletedMessage {
 }
 
 type DescriptionService {
-  audienceTypes(
-    filters: AudienceTypeFiltersInput
+  audiences(
+    filters: AudienceFiltersInput
     pagination: PaginationArg = {}
     sort: [String] = []
-  ): AudienceTypeRelationResponseCollection
+  ): AudienceRelationResponseCollection
   createdAt: DateTime
   name: String
   updatedAt: DateTime
@@ -2031,7 +2005,7 @@ type DescriptionServiceEntityResponseCollection {
 
 input DescriptionServiceFiltersInput {
   and: [DescriptionServiceFiltersInput]
-  audienceTypes: AudienceTypeFiltersInput
+  audiences: AudienceFiltersInput
   createdAt: DateTimeFilterInput
   id: IDFilterInput
   name: StringFilterInput
@@ -2041,7 +2015,7 @@ input DescriptionServiceFiltersInput {
 }
 
 input DescriptionServiceInput {
-  audienceTypes: [ID]
+  audiences: [ID]
   name: String
 }
 
@@ -2195,11 +2169,11 @@ type DropOffMapRelationResponseCollection {
 }
 
 type DropOffMapService {
-  audienceTypes(
-    filters: AudienceTypeFiltersInput
+  audiences(
+    filters: AudienceFiltersInput
     pagination: PaginationArg = {}
     sort: [String] = []
-  ): AudienceTypeRelationResponseCollection
+  ): AudienceRelationResponseCollection
   cities(
     filters: CityFiltersInput
     pagination: PaginationArg = {}
@@ -2235,7 +2209,7 @@ type DropOffMapServiceEntityResponseCollection {
 
 input DropOffMapServiceFiltersInput {
   and: [DropOffMapServiceFiltersInput]
-  audienceTypes: AudienceTypeFiltersInput
+  audiences: AudienceFiltersInput
   cities: CityFiltersInput
   contract: ContractFiltersInput
   createdAt: DateTimeFilterInput
@@ -2251,7 +2225,7 @@ input DropOffMapServiceFiltersInput {
 }
 
 input DropOffMapServiceInput {
-  audienceTypes: [ID]
+  audiences: [ID]
   cities: [ID]
   contract: ID
   dropOffMaps: [ID]
@@ -2269,6 +2243,12 @@ enum ENUM_ACCESSIBILITY_STATUS {
   archived
   draft
   published
+}
+
+enum ENUM_AUDIENCE_TYPE {
+  Bailleurs
+  Particuliers
+  Professionnels
 }
 
 enum ENUM_CGU_STATUS {
@@ -2422,12 +2402,7 @@ enum ENUM_FREECONTENT_STATUS {
   published
 }
 
-enum ENUM_MWCFLOW_NAME {
-  householdWaste
-  packaging
-}
-
-enum ENUM_MWCFLOW_WEIGHINGSYSTEM {
+enum ENUM_MWCFLOW_WEIGHTSYSTEM {
   Dynamic
   Outlet
 }
@@ -2791,11 +2766,6 @@ type EventRelationResponseCollection {
 }
 
 type EventSubService {
-  audienceTypes(
-    filters: AudienceTypeFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): AudienceTypeRelationResponseCollection
   cities(
     filters: CityFiltersInput
     pagination: PaginationArg = {}
@@ -2832,7 +2802,6 @@ type EventSubServiceEntityResponseCollection {
 
 input EventSubServiceFiltersInput {
   and: [EventSubServiceFiltersInput]
-  audienceTypes: AudienceTypeFiltersInput
   cities: CityFiltersInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
@@ -2849,7 +2818,6 @@ input EventSubServiceFiltersInput {
 }
 
 input EventSubServiceInput {
-  audienceTypes: [ID]
   cities: [ID]
   description: String
   editorialService: ID
@@ -2979,6 +2947,7 @@ type Flow {
   contract: ContractEntityResponse
   createdAt: DateTime
   isActivated: Boolean
+  mwcFlow: MwcFlowEntityResponse
   name: String
   pickUpDays(
     filters: PickUpDayFiltersInput
@@ -3062,6 +3031,7 @@ input FlowFiltersInput {
   createdAt: DateTimeFilterInput
   id: IDFilterInput
   isActivated: BooleanFilterInput
+  mwcFlow: MwcFlowFiltersInput
   name: StringFilterInput
   not: FlowFiltersInput
   or: [FlowFiltersInput]
@@ -3079,6 +3049,7 @@ input FlowInput {
   color: ID
   contract: ID
   isActivated: Boolean
+  mwcFlow: ID
   name: String
   pickUpDays: [ID]
   recyclingGesture: ENUM_FLOW_RECYCLINGGESTURE
@@ -3252,11 +3223,6 @@ type FreeContentRelationResponseCollection {
 }
 
 type FreeContentSubService {
-  audienceTypes(
-    filters: AudienceTypeFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): AudienceTypeRelationResponseCollection
   cities(
     filters: CityFiltersInput
     pagination: PaginationArg = {}
@@ -3293,7 +3259,6 @@ type FreeContentSubServiceEntityResponseCollection {
 
 input FreeContentSubServiceFiltersInput {
   and: [FreeContentSubServiceFiltersInput]
-  audienceTypes: AudienceTypeFiltersInput
   cities: CityFiltersInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
@@ -3310,7 +3275,6 @@ input FreeContentSubServiceFiltersInput {
 }
 
 input FreeContentSubServiceInput {
-  audienceTypes: [ID]
   cities: [ID]
   description: String
   editorialService: ID
@@ -3330,7 +3294,7 @@ union GenericMorph =
   | AccessibilitySubService
   | AlertNotification
   | AlertNotificationService
-  | AudienceType
+  | Audience
   | Cgu
   | CguSubService
   | ChannelType
@@ -3405,9 +3369,7 @@ union GenericMorph =
   | KeyMetric
   | KeyMetricsService
   | MwCounterService
-  | MwcContact
   | MwcFlow
-  | MyWasteCounter
   | New
   | NewsSubService
   | PickUpDay
@@ -3722,11 +3684,11 @@ type KeyMetricRelationResponseCollection {
 }
 
 type KeyMetricsService {
-  audienceTypes(
-    filters: AudienceTypeFiltersInput
+  audiences(
+    filters: AudienceFiltersInput
     pagination: PaginationArg = {}
     sort: [String] = []
-  ): AudienceTypeRelationResponseCollection
+  ): AudienceRelationResponseCollection
   cities(
     filters: CityFiltersInput
     pagination: PaginationArg = {}
@@ -3763,7 +3725,7 @@ type KeyMetricsServiceEntityResponseCollection {
 
 input KeyMetricsServiceFiltersInput {
   and: [KeyMetricsServiceFiltersInput]
-  audienceTypes: AudienceTypeFiltersInput
+  audiences: AudienceFiltersInput
   cities: CityFiltersInput
   contract: ContractFiltersInput
   createdAt: DateTimeFilterInput
@@ -3779,7 +3741,7 @@ input KeyMetricsServiceFiltersInput {
 }
 
 input KeyMetricsServiceInput {
-  audienceTypes: [ID]
+  audiences: [ID]
   cities: [ID]
   contract: ID
   endDate: Date
@@ -3859,7 +3821,7 @@ type Mutation {
   createAlertNotificationService(
     data: AlertNotificationServiceInput!
   ): AlertNotificationServiceEntityResponse
-  createAudienceType(data: AudienceTypeInput!): AudienceTypeEntityResponse
+  createAudience(data: AudienceInput!): AudienceEntityResponse
   createCgu(data: CguInput!): CguEntityResponse
   createCguSubService(data: CguSubServiceInput!): CguSubServiceEntityResponse
   createChannelType(data: ChannelTypeInput!): ChannelTypeEntityResponse
@@ -3945,9 +3907,7 @@ type Mutation {
   createMwCounterService(
     data: MwCounterServiceInput!
   ): MwCounterServiceEntityResponse
-  createMwcContact(data: MwcContactInput!): MwcContactEntityResponse
   createMwcFlow(data: MwcFlowInput!): MwcFlowEntityResponse
-  createMyWasteCounter(data: MyWasteCounterInput!): MyWasteCounterEntityResponse
   createNew(data: NewInput!): NewEntityResponse
   createNewFolder(
     name: String!
@@ -4022,7 +3982,7 @@ type Mutation {
   deleteAlertNotificationService(
     id: ID!
   ): AlertNotificationServiceEntityResponse
-  deleteAudienceType(id: ID!): AudienceTypeEntityResponse
+  deleteAudience(id: ID!): AudienceEntityResponse
   deleteCgu(id: ID!): CguEntityResponse
   deleteCguSubService(id: ID!): CguSubServiceEntityResponse
   deleteChannelType(id: ID!): ChannelTypeEntityResponse
@@ -4064,9 +4024,7 @@ type Mutation {
   deleteKeyMetric(id: ID!): KeyMetricEntityResponse
   deleteKeyMetricsService(id: ID!): KeyMetricsServiceEntityResponse
   deleteMwCounterService(id: ID!): MwCounterServiceEntityResponse
-  deleteMwcContact(id: ID!): MwcContactEntityResponse
   deleteMwcFlow(id: ID!): MwcFlowEntityResponse
-  deleteMyWasteCounter(id: ID!): MyWasteCounterEntityResponse
   deleteNew(id: ID!): NewEntityResponse
   deleteNewsSubService(id: ID!): NewsSubServiceEntityResponse
   deletePickUpDay(id: ID!): PickUpDayEntityResponse
@@ -4162,6 +4120,12 @@ type Mutation {
     subject: String
     templateId: Int
   ): String
+  sendSMS(
+    content: String!
+    phoneNumber: [String]!
+    scheduledAt: String
+    sendMultiple: Boolean
+  ): String
   servicesActivation(
     ServiceName: String!
     contractId: ID!
@@ -4188,10 +4152,7 @@ type Mutation {
     data: AlertNotificationServiceInput!
     id: ID!
   ): AlertNotificationServiceEntityResponse
-  updateAudienceType(
-    data: AudienceTypeInput!
-    id: ID!
-  ): AudienceTypeEntityResponse
+  updateAudience(data: AudienceInput!, id: ID!): AudienceEntityResponse
   updateCgu(data: CguInput!, id: ID!): CguEntityResponse
   updateCguSubService(
     data: CguSubServiceInput!
@@ -4226,7 +4187,7 @@ type Mutation {
   updateContactMwc(
     city: String
     contactEmail: String
-    contractId: Int
+    contractId: ID!
     phoneNumber: String
     postalAddress: String
     postalCode: String
@@ -4309,12 +4270,7 @@ type Mutation {
     data: MwCounterServiceInput!
     id: ID!
   ): MwCounterServiceEntityResponse
-  updateMwcContact(data: MwcContactInput!, id: ID!): MwcContactEntityResponse
   updateMwcFlow(data: MwcFlowInput!, id: ID!): MwcFlowEntityResponse
-  updateMyWasteCounter(
-    data: MyWasteCounterInput!
-    id: ID!
-  ): MyWasteCounterEntityResponse
   updateNew(data: NewInput!, id: ID!): NewEntityResponse
   updateNewsSubService(
     data: NewsSubServiceInput!
@@ -4436,33 +4392,29 @@ type Mutation {
 }
 
 type MwCounterService {
-  MwCounter(
-    filters: MyWasteCounterFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): MyWasteCounterRelationResponseCollection
-  audience_types(
-    filters: AudienceTypeFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): AudienceTypeRelationResponseCollection
+  barometerParams: JSON
   cities(
     filters: CityFiltersInput
     pagination: PaginationArg = {}
     sort: [String] = []
   ): CityRelationResponseCollection
+  city: String
+  contactEmail: String
   contract: ContractEntityResponse
   createdAt: DateTime
   description: String
   endDate: Date
   isActivated: Boolean!
-  mwcContact: MwcContactEntityResponse
   mwcFlows(
     filters: MwcFlowFiltersInput
     pagination: PaginationArg = {}
     sort: [String] = []
   ): MwcFlowRelationResponseCollection
   name: String
+  phoneNumber: Long
+  postalAddress: String
+  postalCode: Long
+  serviceName: String
   startDate: Date
   updatedAt: DateTime
 }
@@ -4482,36 +4434,44 @@ type MwCounterServiceEntityResponseCollection {
 }
 
 input MwCounterServiceFiltersInput {
-  MwCounter: MyWasteCounterFiltersInput
   and: [MwCounterServiceFiltersInput]
-  audience_types: AudienceTypeFiltersInput
+  barometerParams: JSONFilterInput
   cities: CityFiltersInput
+  city: StringFilterInput
+  contactEmail: StringFilterInput
   contract: ContractFiltersInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
   endDate: DateFilterInput
   id: IDFilterInput
   isActivated: BooleanFilterInput
-  mwcContact: MwcContactFiltersInput
   mwcFlows: MwcFlowFiltersInput
   name: StringFilterInput
   not: MwCounterServiceFiltersInput
   or: [MwCounterServiceFiltersInput]
+  phoneNumber: LongFilterInput
+  postalAddress: StringFilterInput
+  postalCode: LongFilterInput
+  serviceName: StringFilterInput
   startDate: DateFilterInput
   updatedAt: DateTimeFilterInput
 }
 
 input MwCounterServiceInput {
-  MwCounter: [ID]
-  audience_types: [ID]
+  barometerParams: JSON
   cities: [ID]
+  city: String
+  contactEmail: String
   contract: ID
   description: String
   endDate: Date
   isActivated: Boolean
-  mwcContact: ID
   mwcFlows: [ID]
   name: String
+  phoneNumber: Long
+  postalAddress: String
+  postalCode: Long
+  serviceName: String
   startDate: Date
 }
 
@@ -4519,66 +4479,14 @@ type MwCounterServiceRelationResponseCollection {
   data: [MwCounterServiceEntity!]!
 }
 
-type MwcContact {
-  MwCounterService: MwCounterServiceEntityResponse
-  city: String
-  contactEmail: String
-  createdAt: DateTime
-  phoneNumber: String
-  postalAddress: String
-  postalCode: String
-  serviceName: String
-  updatedAt: DateTime
-}
-
-type MwcContactEntity {
-  attributes: MwcContact
-  id: ID
-}
-
-type MwcContactEntityResponse {
-  data: MwcContactEntity
-}
-
-type MwcContactEntityResponseCollection {
-  data: [MwcContactEntity!]!
-  meta: ResponseCollectionMeta!
-}
-
-input MwcContactFiltersInput {
-  MwCounterService: MwCounterServiceFiltersInput
-  and: [MwcContactFiltersInput]
-  city: StringFilterInput
-  contactEmail: StringFilterInput
-  createdAt: DateTimeFilterInput
-  id: IDFilterInput
-  not: MwcContactFiltersInput
-  or: [MwcContactFiltersInput]
-  phoneNumber: StringFilterInput
-  postalAddress: StringFilterInput
-  postalCode: StringFilterInput
-  serviceName: StringFilterInput
-  updatedAt: DateTimeFilterInput
-}
-
-input MwcContactInput {
-  MwCounterService: ID
-  city: String
-  contactEmail: String
-  phoneNumber: String
-  postalAddress: String
-  postalCode: String
-  serviceName: String
-}
-
 type MwcFlow {
   averageProductionPerson: Long
   blocks: [MwcFlowBlocksDynamicZone]
   createdAt: DateTime
+  flow: FlowEntityResponse
   mwCounterService: MwCounterServiceEntityResponse
-  name: ENUM_MWCFLOW_NAME
   updatedAt: DateTime
-  weighingSystem: ENUM_MWCFLOW_WEIGHINGSYSTEM
+  weightSystem: ENUM_MWCFLOW_WEIGHTSYSTEM
 }
 
 union MwcFlowBlocksDynamicZone =
@@ -4608,77 +4516,33 @@ input MwcFlowFiltersInput {
   and: [MwcFlowFiltersInput]
   averageProductionPerson: LongFilterInput
   createdAt: DateTimeFilterInput
+  flow: FlowFiltersInput
   id: IDFilterInput
   mwCounterService: MwCounterServiceFiltersInput
-  name: StringFilterInput
   not: MwcFlowFiltersInput
   or: [MwcFlowFiltersInput]
   updatedAt: DateTimeFilterInput
-  weighingSystem: StringFilterInput
+  weightSystem: StringFilterInput
 }
 
 input MwcFlowInput {
   averageProductionPerson: Long
   blocks: [MwcFlowBlocksDynamicZoneInput!]
+  flow: ID
   mwCounterService: ID
-  name: ENUM_MWCFLOW_NAME
-  weighingSystem: ENUM_MWCFLOW_WEIGHINGSYSTEM
+  weightSystem: ENUM_MWCFLOW_WEIGHTSYSTEM
 }
 
 type MwcFlowRelationResponseCollection {
   data: [MwcFlowEntity!]!
 }
 
-type MyWasteCounter {
-  MwCounterService: MwCounterServiceEntityResponse
-  createdAt: DateTime
-  description: String
-  name: String
-  updatedAt: DateTime
-}
-
-type MyWasteCounterEntity {
-  attributes: MyWasteCounter
-  id: ID
-}
-
-type MyWasteCounterEntityResponse {
-  data: MyWasteCounterEntity
-}
-
-type MyWasteCounterEntityResponseCollection {
-  data: [MyWasteCounterEntity!]!
-  meta: ResponseCollectionMeta!
-}
-
-input MyWasteCounterFiltersInput {
-  MwCounterService: MwCounterServiceFiltersInput
-  and: [MyWasteCounterFiltersInput]
-  createdAt: DateTimeFilterInput
-  description: StringFilterInput
-  id: IDFilterInput
-  name: StringFilterInput
-  not: MyWasteCounterFiltersInput
-  or: [MyWasteCounterFiltersInput]
-  updatedAt: DateTimeFilterInput
-}
-
-input MyWasteCounterInput {
-  MwCounterService: ID
-  description: String
-  name: String
-}
-
-type MyWasteCounterRelationResponseCollection {
-  data: [MyWasteCounterEntity!]!
-}
-
 type New {
   audiences(
-    filters: AudienceTypeFiltersInput
+    filters: AudienceFiltersInput
     pagination: PaginationArg = {}
     sort: [String] = []
-  ): AudienceTypeRelationResponseCollection
+  ): AudienceRelationResponseCollection
   blocks: [NewBlocksDynamicZone]
   channels(
     filters: ChannelTypeFiltersInput
@@ -4734,7 +4598,7 @@ type NewEntityResponseCollection {
 
 input NewFiltersInput {
   and: [NewFiltersInput]
-  audiences: AudienceTypeFiltersInput
+  audiences: AudienceFiltersInput
   channels: ChannelTypeFiltersInput
   createdAt: DateTimeFilterInput
   customId: StringFilterInput
@@ -4791,11 +4655,6 @@ type NewRelationResponseCollection {
 }
 
 type NewsSubService {
-  audienceTypes(
-    filters: AudienceTypeFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): AudienceTypeRelationResponseCollection
   cities(
     filters: CityFiltersInput
     pagination: PaginationArg = {}
@@ -4832,7 +4691,6 @@ type NewsSubServiceEntityResponseCollection {
 
 input NewsSubServiceFiltersInput {
   and: [NewsSubServiceFiltersInput]
-  audienceTypes: AudienceTypeFiltersInput
   cities: CityFiltersInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
@@ -4849,7 +4707,6 @@ input NewsSubServiceFiltersInput {
 }
 
 input NewsSubServiceInput {
-  audienceTypes: [ID]
   cities: [ID]
   description: String
   editorialService: ID
@@ -4973,11 +4830,11 @@ type PickUpDayRelationResponseCollection {
 }
 
 type PickUpDayService {
-  audienceTypes(
-    filters: AudienceTypeFiltersInput
+  audiences(
+    filters: AudienceFiltersInput
     pagination: PaginationArg = {}
     sort: [String] = []
-  ): AudienceTypeRelationResponseCollection
+  ): AudienceRelationResponseCollection
   cities(
     filters: CityFiltersInput
     pagination: PaginationArg = {}
@@ -5013,7 +4870,7 @@ type PickUpDayServiceEntityResponseCollection {
 
 input PickUpDayServiceFiltersInput {
   and: [PickUpDayServiceFiltersInput]
-  audienceTypes: AudienceTypeFiltersInput
+  audiences: AudienceFiltersInput
   cities: CityFiltersInput
   contract: ContractFiltersInput
   createdAt: DateTimeFilterInput
@@ -5029,7 +4886,7 @@ input PickUpDayServiceFiltersInput {
 }
 
 input PickUpDayServiceInput {
-  audienceTypes: [ID]
+  audiences: [ID]
   cities: [ID]
   contract: ID
   endDate: Date
@@ -5089,12 +4946,12 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): AlertNotificationEntityResponseCollection
-  audienceType(id: ID): AudienceTypeEntityResponse
-  audienceTypes(
-    filters: AudienceTypeFiltersInput
+  audience(id: ID): AudienceEntityResponse
+  audiences(
+    filters: AudienceFiltersInput
     pagination: PaginationArg = {}
     sort: [String] = []
-  ): AudienceTypeEntityResponseCollection
+  ): AudienceEntityResponseCollection
   cgu(id: ID): CguEntityResponse
   cguSubService(id: ID): CguSubServiceEntityResponse
   cguSubServices(
@@ -5292,6 +5149,7 @@ type Query {
   ): FreeContentEntityResponseCollection
   getAddressCoordinates(searchTerm: String!): [SearchResultAddress]
   getAllFoldersHierarchy(path: String!): [RequestFolders]
+  getAppointmentsDetails(requestId: ID!): AppointmentDetails
   getBinId(
     city: String
     contractMetadataKey: String
@@ -5311,6 +5169,7 @@ type Query {
   ): [EditoContentDTO]
   getFilePath(id: ID!): String
   getFolderHierarchy(path: String!): [RequestFolders]
+  getMwcAverageProduction(contractId: ID): Int
   getNewestTopContents(contractId: ID!): [EventOrNews]
   getNextAvailableSlots(
     lat: Float!
@@ -5372,24 +5231,12 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): MwCounterServiceEntityResponseCollection
-  mwcContact(id: ID): MwcContactEntityResponse
-  mwcContacts(
-    filters: MwcContactFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): MwcContactEntityResponseCollection
   mwcFlow(id: ID): MwcFlowEntityResponse
   mwcFlows(
     filters: MwcFlowFiltersInput
     pagination: PaginationArg = {}
     sort: [String] = []
   ): MwcFlowEntityResponseCollection
-  myWasteCounter(id: ID): MyWasteCounterEntityResponse
-  myWasteCounters(
-    filters: MyWasteCounterFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): MyWasteCounterEntityResponseCollection
   new(id: ID): NewEntityResponse
   news(
     filters: NewFiltersInput
@@ -5719,11 +5566,6 @@ type QuizRelationResponseCollection {
 }
 
 type QuizSubService {
-  audienceTypes(
-    filters: AudienceTypeFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): AudienceTypeRelationResponseCollection
   cities(
     filters: CityFiltersInput
     pagination: PaginationArg = {}
@@ -5760,7 +5602,6 @@ type QuizSubServiceEntityResponseCollection {
 
 input QuizSubServiceFiltersInput {
   and: [QuizSubServiceFiltersInput]
-  audienceTypes: AudienceTypeFiltersInput
   cities: CityFiltersInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
@@ -5777,7 +5618,6 @@ input QuizSubServiceFiltersInput {
 }
 
 input QuizSubServiceInput {
-  audienceTypes: [ID]
   cities: [ID]
   description: String
   editorialService: ID
@@ -5843,11 +5683,11 @@ input RecyclingGuideBlockInput {
 }
 
 type RecyclingGuideService {
-  audienceTypes(
-    filters: AudienceTypeFiltersInput
+  audiences(
+    filters: AudienceFiltersInput
     pagination: PaginationArg = {}
     sort: [String] = []
-  ): AudienceTypeRelationResponseCollection
+  ): AudienceRelationResponseCollection
   cities(
     filters: CityFiltersInput
     pagination: PaginationArg = {}
@@ -5892,7 +5732,7 @@ type RecyclingGuideServiceEntityResponseCollection {
 
 input RecyclingGuideServiceFiltersInput {
   and: [RecyclingGuideServiceFiltersInput]
-  audienceTypes: AudienceTypeFiltersInput
+  audiences: AudienceFiltersInput
   cities: CityFiltersInput
   contract: ContractFiltersInput
   createdAt: DateTimeFilterInput
@@ -5912,7 +5752,7 @@ input RecyclingGuideServiceFiltersInput {
 }
 
 input RecyclingGuideServiceInput {
-  audienceTypes: [ID]
+  audiences: [ID]
   cities: [ID]
   contract: ID
   endDate: Date
@@ -6136,11 +5976,11 @@ type RequestRelationResponseCollection {
 }
 
 type RequestService {
-  audienceTypes(
-    filters: AudienceTypeFiltersInput
+  audiences(
+    filters: AudienceFiltersInput
     pagination: PaginationArg = {}
     sort: [String] = []
-  ): AudienceTypeRelationResponseCollection
+  ): AudienceRelationResponseCollection
   cities(
     filters: CityFiltersInput
     pagination: PaginationArg = {}
@@ -6181,7 +6021,7 @@ type RequestServiceEntityResponseCollection {
 
 input RequestServiceFiltersInput {
   and: [RequestServiceFiltersInput]
-  audienceTypes: AudienceTypeFiltersInput
+  audiences: AudienceFiltersInput
   cities: CityFiltersInput
   contract: ContractFiltersInput
   createdAt: DateTimeFilterInput
@@ -6198,7 +6038,7 @@ input RequestServiceFiltersInput {
 }
 
 input RequestServiceInput {
-  audienceTypes: [ID]
+  audiences: [ID]
   cities: [ID]
   contract: ID
   endDate: Date
@@ -6686,6 +6526,14 @@ A time string with format HH:mm:ss.SSS
 """
 scalar Time
 
+type TimeSlotWithUser {
+  date: String
+  dynamic: String
+  fixed: String
+  slot: String
+  users: [User]
+}
+
 type Tip {
   blocks: [TipBlocksDynamicZone]
   createdAt: DateTime
@@ -6798,11 +6646,6 @@ type TipRelationResponseCollection {
 }
 
 type TipSubService {
-  audienceTypes(
-    filters: AudienceTypeFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): AudienceTypeRelationResponseCollection
   cities(
     filters: CityFiltersInput
     pagination: PaginationArg = {}
@@ -6839,7 +6682,6 @@ type TipSubServiceEntityResponseCollection {
 
 input TipSubServiceFiltersInput {
   and: [TipSubServiceFiltersInput]
-  audienceTypes: AudienceTypeFiltersInput
   cities: CityFiltersInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
@@ -6856,7 +6698,6 @@ input TipSubServiceFiltersInput {
 }
 
 input TipSubServiceInput {
-  audienceTypes: [ID]
   cities: [ID]
   description: String
   editorialService: ID
@@ -7079,6 +6920,14 @@ type UploadFolderRelationResponseCollection {
 
 type UploadResult {
   id: String!
+}
+
+type User {
+  email: String
+  id: String
+  name: String
+  phone: String
+  surname: String
 }
 
 type UserDataStorage {
