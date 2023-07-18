@@ -29,27 +29,31 @@ export default function TipCard({
 
   return (
     <Link className="c-TipCard" href={href}>
-      <div className="c-TipCard__Tags">
-        {tags?.map((tag, index) => (
-          <span
-            key={index}
-            className="c-TipCard__Tag c-TipCard__Tag_background"
-          >
-            {tag.attributes?.name}
-          </span>
-        ))}
-      </div>
-      <p className="c-TipCard__Content">{content}</p>
-      <span className="c-TipCard__Link">{linkLabel}</span>
-      <div className="o-Blob c-TipCard__Svg">
-        {isValidUrl && (
-          <Image
-            src={makePublicAssetPath(pictoUrl)}
-            alt={pictoAlt}
-            width={72}
-            height={72}
-          />
-        )}
+      <div className="c-TipCard__Wrapper">
+        <div className="c-TipCard__Tags">
+          {tags?.map((tag, index) => (
+            <span
+              key={index}
+              className="c-TipCard__Tag c-TipCard__Tag_background"
+            >
+              {tag.attributes?.name}
+            </span>
+          ))}
+        </div>
+        <p className="c-TipCard__Content">
+          {content.length > 80 ? `${content.slice(0, 80)}...` : content}
+        </p>
+        <span className="c-TipCard__Link">{linkLabel}</span>
+        <div className="o-Blob c-TipCard__Svg">
+          {isValidUrl && (
+            <Image
+              src={makePublicAssetPath(pictoUrl)}
+              alt={pictoAlt}
+              width={72}
+              height={72}
+            />
+          )}
+        </div>
       </div>
     </Link>
   );

@@ -23,31 +23,35 @@ exports[`QuizAndTipsBlock renders one tip 1`] = `
         href="/astuces/2"
       >
         <div
-          class="c-TipCard__Tags"
-        />
-        <p
-          class="c-TipCard__Content"
+          class="c-TipCard__Wrapper"
         >
-          Découper vos peaux de bananes avant de les jeter dans votre compost.
-        </p>
-        <span
-          class="c-TipCard__Link"
-        >
-          En savoir plus
-        </span>
-        <div
-          class="o-Blob c-TipCard__Svg"
-        >
-          <img
-            alt=""
-            data-nimg="1"
-            decoding="async"
-            height="72"
-            loading="lazy"
-            src="/banana.svg"
-            style="color: transparent;"
-            width="72"
+          <div
+            class="c-TipCard__Tags"
           />
+          <p
+            class="c-TipCard__Content"
+          >
+            Découper vos peaux de bananes avant de les jeter dans votre compost.
+          </p>
+          <span
+            class="c-TipCard__Link"
+          >
+            En savoir plus
+          </span>
+          <div
+            class="o-Blob c-TipCard__Svg"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="72"
+              loading="lazy"
+              src="/banana.svg"
+              style="color: transparent;"
+              width="72"
+            />
+          </div>
         </div>
       </a>
       <div
@@ -88,31 +92,35 @@ exports[`QuizAndTipsBlock renders three tips 1`] = `
         href="/astuces/2"
       >
         <div
-          class="c-TipCard__Tags"
-        />
-        <p
-          class="c-TipCard__Content"
+          class="c-TipCard__Wrapper"
         >
-          Découper vos peaux de bananes avant de les jeter dans votre compost.
-        </p>
-        <span
-          class="c-TipCard__Link"
-        >
-          En savoir plus
-        </span>
-        <div
-          class="o-Blob c-TipCard__Svg"
-        >
-          <img
-            alt=""
-            data-nimg="1"
-            decoding="async"
-            height="72"
-            loading="lazy"
-            src="/banana.svg"
-            style="color: transparent;"
-            width="72"
+          <div
+            class="c-TipCard__Tags"
           />
+          <p
+            class="c-TipCard__Content"
+          >
+            Découper vos peaux de bananes avant de les jeter dans votre compost.
+          </p>
+          <span
+            class="c-TipCard__Link"
+          >
+            En savoir plus
+          </span>
+          <div
+            class="o-Blob c-TipCard__Svg"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="72"
+              loading="lazy"
+              src="/banana.svg"
+              style="color: transparent;"
+              width="72"
+            />
+          </div>
         </div>
       </a>
       <a
@@ -120,31 +128,35 @@ exports[`QuizAndTipsBlock renders three tips 1`] = `
         href="/astuces/5"
       >
         <div
-          class="c-TipCard__Tags"
-        />
-        <p
-          class="c-TipCard__Content"
+          class="c-TipCard__Wrapper"
         >
-          Pas besoin de nettoyer vos pots de yaourts avant de les jeter
-        </p>
-        <span
-          class="c-TipCard__Link"
-        >
-          En savoir plus
-        </span>
-        <div
-          class="o-Blob c-TipCard__Svg"
-        >
-          <img
-            alt=""
-            data-nimg="1"
-            decoding="async"
-            height="72"
-            loading="lazy"
-            src="/banana.svg"
-            style="color: transparent;"
-            width="72"
+          <div
+            class="c-TipCard__Tags"
           />
+          <p
+            class="c-TipCard__Content"
+          >
+            Pas besoin de nettoyer vos pots de yaourts avant de les jeter
+          </p>
+          <span
+            class="c-TipCard__Link"
+          >
+            En savoir plus
+          </span>
+          <div
+            class="o-Blob c-TipCard__Svg"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="72"
+              loading="lazy"
+              src="/banana.svg"
+              style="color: transparent;"
+              width="72"
+            />
+          </div>
         </div>
       </a>
       <a
@@ -152,31 +164,35 @@ exports[`QuizAndTipsBlock renders three tips 1`] = `
         href="/astuces/1"
       >
         <div
-          class="c-TipCard__Tags"
-        />
-        <p
-          class="c-TipCard__Content"
+          class="c-TipCard__Wrapper"
         >
-          Remplacez vos sacs en plastique par des sacs réutilisables, un caddie ou des paniers.
-        </p>
-        <span
-          class="c-TipCard__Link"
-        >
-          En savoir plus
-        </span>
-        <div
-          class="o-Blob c-TipCard__Svg"
-        >
-          <img
-            alt=""
-            data-nimg="1"
-            decoding="async"
-            height="72"
-            loading="lazy"
-            src="/banana.svg"
-            style="color: transparent;"
-            width="72"
+          <div
+            class="c-TipCard__Tags"
           />
+          <p
+            class="c-TipCard__Content"
+          >
+            Remplacez vos sacs en plastique par des sacs réutilisables, un caddie ou des pan...
+          </p>
+          <span
+            class="c-TipCard__Link"
+          >
+            En savoir plus
+          </span>
+          <div
+            class="o-Blob c-TipCard__Svg"
+          >
+            <img
+              alt=""
+              data-nimg="1"
+              decoding="async"
+              height="72"
+              loading="lazy"
+              src="/banana.svg"
+              style="color: transparent;"
+              width="72"
+            />
+          </div>
         </div>
       </a>
       <div
