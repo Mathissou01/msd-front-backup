@@ -1,7 +1,75 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/01-settings/settings.layout" as layout;
+@use "src/styles/02-tools/tools.shadows" as shadows;
+
 .c-HeaderLinkProfile {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  align-items: center;
-  padding: 0;
+  &__Content {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  &__PopUpHead {
+    position: relative;
+    top: 0;
+    left: 75%;
+    width: 0;
+    height: 0;
+    background-color: transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 20px solid colors.$white;
+    border-left: 20px solid transparent;
+  }
+
+  &__PopUp {
+    position: absolute;
+    top: layout.$header-height;
+    right: 50px;
+    display: none;
+    width: fit-content;
+    height: fit-content;
+    opacity: 0;
+    transition: max-height 0.2s ease, opacity 0.2s ease;
+
+    &.Visible {
+      display: block;
+      max-height: 500px;
+      opacity: 1;
+      pointer-events: auto; /* Ensure the PopUp is interactive when visible */
+    }
+  }
+
+  &__PopUpTitle {
+    margin-bottom: 20px;
+    color: colors.$black;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: start;
+  }
+
+  &__PopUpForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  &__PopUpButton {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__PopUpContent {
+    @include shadows.shadow(2);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    background-color: colors.$white;
+    border-radius: 5px;
+  }
 }

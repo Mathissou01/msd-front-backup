@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useFormContext } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 import _ from "lodash";
 import classNames from "classnames";
+import { useFormContext } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
+import React, { useEffect, useState } from "react";
+import { IOptionWrapper } from "../FormMultiselect/FormMultiselect";
 import FormLabel from "../FormLabel/FormLabel";
-import CommonErrorText from "../../Common/CommonErrorText/CommonErrorText";
-import "./../../../styles/05-objects/_objects.select.scss";
+import CommonFormErrorText from "../../Common/CommonFormErrorText/CommonFormErrorText";
 import "./form-select.scss";
-
-export interface IOptionWrapper<T> {
-  group?: string;
-  label?: string;
-  option: T | null;
-}
 
 interface IFormSelectProps<T> {
   name: string;
@@ -124,13 +118,13 @@ export default function FormSelect<T>({
         label={label}
         isRequired={isRequired}
         secondaryLabel={secondaryLabel}
-        validationLabel={informationLabel}
+        informationLabel={informationLabel}
       />
       <div className="o-SelectWrapper">
         <select
           className={classNames("o-SelectWrapper__Select", {
             "o-SelectWrapper__Select_placeholder": selectedIndex < 0,
-            "o-SelectWrapper__Select_invalid": !!_.get(errors, name),
+            "o-SelectWrapper__Select_invalid": _.get(errors, name),
           })}
           id={name}
           value={selectedIndex}
@@ -158,7 +152,7 @@ export default function FormSelect<T>({
         errors={errors}
         name={name}
         render={({ message }: { message: string }) => (
-          <CommonErrorText message={message} errorId={`${name}_error`} />
+          <CommonFormErrorText message={message} errorId={`${name}_error`} />
         )}
       />
     </div>

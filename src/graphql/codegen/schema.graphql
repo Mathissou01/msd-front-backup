@@ -2609,6 +2609,12 @@ input EditorialServiceInput {
   tipSubService: ID
 }
 
+type EnrichRequest {
+  dynamicAppointments: Int
+  requestId: ID
+  requestName: String
+}
+
 type Epci {
   cities: CityEntityResponse
   createdAt: DateTime
@@ -5221,6 +5227,7 @@ type Query {
     contractId: ID!
     status: ENUM_EDITOCONTENTDTO_STATUS
   ): [EditoContentDTO]
+  getEnrichRequests(requestServiceId: ID!): [EnrichRequest]
   getFilePath(id: ID!): String
   getFolderHierarchy(path: String!): [RequestFolders]
   getMwcAverageProduction(contractId: ID): Int

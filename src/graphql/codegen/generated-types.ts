@@ -2932,6 +2932,13 @@ export type EditorialServiceInput = {
   tipSubService?: InputMaybe<Scalars["ID"]>;
 };
 
+export type EnrichRequest = {
+  __typename?: "EnrichRequest";
+  dynamicAppointments?: Maybe<Scalars["Int"]>;
+  requestId?: Maybe<Scalars["ID"]>;
+  requestName?: Maybe<Scalars["String"]>;
+};
+
 export type Epci = {
   __typename?: "Epci";
   cities?: Maybe<CityEntityResponse>;
@@ -6416,6 +6423,7 @@ export type Query = {
   getDropOffMaps?: Maybe<Array<Maybe<DropOffMapDto>>>;
   getEditoBlockDTO?: Maybe<EditoBlockDto>;
   getEditoContentDTOs?: Maybe<Array<Maybe<EditoContentDto>>>;
+  getEnrichRequests?: Maybe<Array<Maybe<EnrichRequest>>>;
   getFilePath?: Maybe<Scalars["String"]>;
   getFolderHierarchy?: Maybe<Array<Maybe<RequestFolders>>>;
   getMwcAverageProduction?: Maybe<Scalars["Int"]>;
@@ -6940,6 +6948,10 @@ export type QueryGetEditoBlockDtoArgs = {
 export type QueryGetEditoContentDtOsArgs = {
   contractId: Scalars["ID"];
   status?: InputMaybe<Enum_Editocontentdto_Status>;
+};
+
+export type QueryGetEnrichRequestsArgs = {
+  requestServiceId: Scalars["ID"];
 };
 
 export type QueryGetFilePathArgs = {

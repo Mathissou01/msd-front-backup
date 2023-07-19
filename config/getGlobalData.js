@@ -9,6 +9,15 @@ query getGlobalData($contractId: ID!) {
         contractStatus
         isNonExclusive
         isRVFrance
+          audiences {
+          data {
+            attributes {
+              isActive
+              type
+            }
+            id
+          }
+        }
         logo {
           data {
             id
@@ -37,6 +46,7 @@ query getGlobalData($contractId: ID!) {
             id
             attributes {
               isActivated
+              name
             }
           }
         }

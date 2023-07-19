@@ -13,6 +13,8 @@ interface UserContextValues {
   setCurrentUser: Dispatch<SetStateAction<User | null>>;
   login: () => void;
   logout: () => void;
+  currentAudience: string | null;
+  setUserAudience: (audienceType: string) => void;
 }
 
 export const useCurrentUser = (): UserContextValues => {
@@ -27,6 +29,7 @@ const UserContext = createContext<UserContextValues>({} as UserContextValues);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [currentAudience, setCurrentAudience] = useState<string | null>(null);
 
   const getUser = async () => {
     try {
@@ -34,6 +37,25 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       if (storedUser && storedUser !== "null") {
         setCurrentUser(JSON.parse(storedUser));
       }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getAudience = async () => {
+    try {
+      const audience = localStorage.getItem("audience");
+      if (audience && audience !== "null") {
+        setCurrentAudience(audience);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const setUserAudience = async (audienceType: string) => {
+    try {
+      localStorage.setItem("audience", audienceType);
     } catch (error) {
       console.error(error);
     }
@@ -65,6 +87,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   useEffect(() => {
+    getAudience();
+  }, []);
+
+  useEffect(() => {
     localStorage.setItem("user", JSON.stringify(currentUser));
   }, [currentUser]);
 
@@ -73,6 +99,8 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     setCurrentUser,
     login,
     logout,
+    setUserAudience,
+    currentAudience,
   };
 
   return (

@@ -12,6 +12,7 @@ export interface IFormLabelProps {
   labelDescription?: string;
   secondaryLabel?: string;
   validationLabel?: string;
+  informationLabel?: string;
   forId?: string;
   tagType?: "label" | "legend";
   isRequired?: boolean;
