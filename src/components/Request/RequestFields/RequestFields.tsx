@@ -10,13 +10,21 @@ import CommonBlockHeading from "../../Common/CommonBlockHeading/CommonBlockHeadi
 import CommonGeolocationButton from "../../Common/CommonGeolocationButton/CommonGeolocationButton";
 import RequestAddressField from "../RequestAddressField/RequestAddressField";
 import RequestCheckboxBlock from "../RequestCheckboxBlock/RequestCheckboxBlock";
+import RequestAppointmentSlots from "../RequestAppointmentSlots/RequestAppointmentSlots";
+import "./request-fields.scss";
 
 interface IRequestFieldsProps {
   data: RequestEntity;
 }
 
 export default function RequestFields({ data }: IRequestFieldsProps) {
-  const { setValue, register } = useFormContext();
+  /* Static Data */
+  const labels = {
+    appointmentSlots: "Créneaux disponibles*",
+  };
+
+  /* Local Data */
+  const { setValue, register, getValues } = useFormContext();
 
   /* Hidden inputs linked to RequestAddressField */
   register("lat", { value: undefined, required: true });
@@ -37,13 +45,29 @@ export default function RequestFields({ data }: IRequestFieldsProps) {
           {data.attributes.hasAddress && (
             <div className="c-RequestFields__AddressField">
               <CommonBlockHeading
-                titleContent={data.attributes.fieldAddressLabel ?? ""}
+                titleContent={`${data.attributes.fieldAddressLabel ?? ""}*`}
                 isAlignLeft
               />
               <CommonGeolocationButton onUpdateCoordinates={submitSearch} />
               <RequestAddressField name="address" />
             </div>
           )}
+          {data.attributes.hasAddress &&
+            data.attributes.hasAppointmentSlots &&
+            getValues("lat") &&
+            getValues("long") && (
+              <div className="c-RequestFields__AppointmentSlots">
+                <CommonBlockHeading
+                  titleContent={labels.appointmentSlots}
+                  isAlignLeft
+                />
+                <RequestAppointmentSlots
+                  requestId={data.id}
+                  lat={getValues("lat")}
+                  long={getValues("long")}
+                />
+              </div>
+            )}
           {data.attributes.addableBlocks &&
             data.attributes.addableBlocks.length >= 1 && (
               <div className="c-RequestFields__BlocksField">
