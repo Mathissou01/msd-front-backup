@@ -4,7 +4,8 @@ import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import client from "../graphql/client";
 import { ContractEntity } from "../graphql/codegen/generated-types";
-import globalData from "../../config/global.json";
+import _globalData from "../../config/global.json";
+import { GlobalDataType } from "../../config/globalData.type";
 import { ENavigationPages, NavigationContext } from "../hooks/useNavigation";
 import { ContractContext } from "../hooks/useContract";
 import { UserProvider } from "../hooks/useCurrentUser";
@@ -15,6 +16,7 @@ import Footer from "../components/Footer/Footer";
 import "../styles/main.scss";
 
 function MsdFrontApp({ Component, pageProps }: AppProps) {
+  const globalData = _globalData as GlobalDataType;
   const router = useRouter();
   const { isDesktop } = useScreenWidth();
   const [currentPage, setCurrentPage] = useState<ENavigationPages | string>(

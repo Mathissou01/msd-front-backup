@@ -1,12 +1,10 @@
-import {
-  ContractMenuEntityResponse,
-  FooterEntityResponse,
-} from "../src/graphql/codegen/generated-types";
+import { Contract } from "../src/graphql/codegen/generated-types";
 
 export type GlobalDataType = {
-  contractId: string;
-  contractMenu: ContractMenuEntityResponse;
-  footer: FooterEntityResponse;
+  contract: {
+    id: string;
+    attributes: Contract;
+  };
   colors: {
     "external-contrast-text": string;
     "external-primary": string;
