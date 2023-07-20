@@ -1,7 +1,6 @@
 import _ from "lodash";
 import classNames from "classnames";
 import { ErrorMessage } from "@hookform/error-message";
-import { ValidationRule } from "react-hook-form";
 import { useFormContext } from "react-hook-form";
 import React from "react";
 import CommonErrorText from "../../Common/CommonErrorText/CommonErrorText";
@@ -18,7 +17,7 @@ interface IFormInputProps {
   isDisabled?: boolean;
   minLengthValidation?: number;
   maxLengthValidation?: number;
-  patternValidation?: ValidationRule<RegExp>;
+  patternValidation?: RegExp;
   patternValidationErrorMessage?: string;
   lengthHardValidation?: boolean;
   defaultValue?: string;
@@ -99,7 +98,12 @@ export default function FormInput({
                     message: errorMessages.maxLength,
                   }
                 : undefined,
-            pattern: patternValidation ? patternValidation : undefined,
+            pattern: patternValidation
+              ? {
+                  value: patternValidation,
+                  message: errorMessages.pattern,
+                }
+              : undefined,
           })}
           type={type}
           id={name}

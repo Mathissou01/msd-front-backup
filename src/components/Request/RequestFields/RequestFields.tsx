@@ -8,6 +8,7 @@ import CommonGeolocationButton from "../../Common/CommonGeolocationButton/Common
 import FormInput from "../../Form/FormInput/FormInput";
 import RequestAddressField from "../RequestAddressField/RequestAddressField";
 import RequestAppointmentSlots from "../RequestAppointmentSlots/RequestAppointmentSlots";
+import RequestUser from "../RequestUser/RequestUser";
 import "./request-fields.scss";
 import RequestBlocks from "../RequestBlocks/RequestBlocks";
 
@@ -81,6 +82,14 @@ export default function RequestFields({ data }: IRequestFieldsProps) {
                 blocks={data.attributes.addableBlocks.filter(removeNulls)}
               />
             )}
+          {data.attributes.hasUser && (
+            <RequestUser
+              isNameRequired={data.attributes.isUserNameMandatory ?? true}
+              isPhoneRequired={data.attributes.isUserPhoneMandatory ?? true}
+              isEmailRequired={data.attributes.isUserEmailMandatory ?? true}
+              hasSMS={data.attributes.userAllowSMSNotification ?? false}
+            />
+          )}
         </div>
       )}
     </>
