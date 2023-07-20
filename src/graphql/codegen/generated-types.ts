@@ -382,7 +382,6 @@ export type AppointmentDetails = {
 
 export type Audience = {
   __typename?: "Audience";
-  contract?: Maybe<ContractEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   isActive: Scalars["Boolean"];
   type: Enum_Audience_Type;
@@ -407,6 +406,7 @@ export type AudienceEntityResponseCollection = {
 };
 
 export type AudienceFiltersInput = {
+  MwCounter?: InputMaybe<MwCounterServiceFiltersInput>;
   and?: InputMaybe<Array<InputMaybe<AudienceFiltersInput>>>;
   contract?: InputMaybe<ContractFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
@@ -419,7 +419,6 @@ export type AudienceFiltersInput = {
 };
 
 export type AudienceInput = {
-  contract?: InputMaybe<Scalars["ID"]>;
   isActive?: InputMaybe<Scalars["Boolean"]>;
   type?: InputMaybe<Enum_Audience_Type>;
 };
@@ -2576,7 +2575,7 @@ export enum Enum_Accessibility_Status {
 }
 
 export enum Enum_Audience_Type {
-  Bailleurs = "Bailleurs",
+  Collectif = "Collectif",
   Particuliers = "Particuliers",
   Professionnels = "Professionnels",
 }
@@ -5744,7 +5743,6 @@ export type MutationYwsDeactivationArgs = {
 
 export type MwCounterService = {
   __typename?: "MwCounterService";
-  barometerParams?: Maybe<Scalars["JSON"]>;
   cities?: Maybe<CityRelationResponseCollection>;
   city?: Maybe<Scalars["String"]>;
   contactEmail?: Maybe<Scalars["String"]>;
@@ -5762,6 +5760,12 @@ export type MwCounterService = {
   serviceName?: Maybe<Scalars["String"]>;
   startDate?: Maybe<Scalars["Date"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type MwCounterServiceAudiencesArgs = {
+  filters?: InputMaybe<AudienceFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type MwCounterServiceCitiesArgs = {
@@ -5795,7 +5799,6 @@ export type MwCounterServiceEntityResponseCollection = {
 
 export type MwCounterServiceFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<MwCounterServiceFiltersInput>>>;
-  barometerParams?: InputMaybe<JsonFilterInput>;
   cities?: InputMaybe<CityFiltersInput>;
   city?: InputMaybe<StringFilterInput>;
   contactEmail?: InputMaybe<StringFilterInput>;
@@ -5819,7 +5822,6 @@ export type MwCounterServiceFiltersInput = {
 };
 
 export type MwCounterServiceInput = {
-  barometerParams?: InputMaybe<Scalars["JSON"]>;
   cities?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   city?: InputMaybe<Scalars["String"]>;
   contactEmail?: InputMaybe<Scalars["String"]>;
@@ -16812,7 +16814,10 @@ export type GetRequestsByRequestAggregateIdQueryResult = Apollo.QueryResult<
 export const GetRequestsLevelsDocument = gql`
   query getRequestsLevels($contractId: ID!) {
     requestAggregates(
-      filters: { requestService: { contract: { id: { eq: $contractId } } } }
+      filters: {
+        requestService: { contract: { id: { eq: $contractId } } }
+        requests: { name: { notNull: true } }
+      }
     ) {
       data {
         id

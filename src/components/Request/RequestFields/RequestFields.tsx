@@ -1,17 +1,15 @@
 import { useCallback } from "react";
 import { useFormContext } from "react-hook-form";
-import {
-  Enum_Componentblockscheckbox_Fieldstatuscheckbox,
-  RequestEntity,
-} from "../../../graphql/codegen/generated-types";
+import { RequestEntity } from "../../../graphql/codegen/generated-types";
 import { ICoordinates } from "../../../lib/pickup-days";
 import { removeNulls } from "../../../lib/utilities";
 import CommonBlockHeading from "../../Common/CommonBlockHeading/CommonBlockHeading";
 import CommonGeolocationButton from "../../Common/CommonGeolocationButton/CommonGeolocationButton";
+import FormInput from "../../Form/FormInput/FormInput";
 import RequestAddressField from "../RequestAddressField/RequestAddressField";
-import RequestCheckboxBlock from "../RequestCheckboxBlock/RequestCheckboxBlock";
 import RequestAppointmentSlots from "../RequestAppointmentSlots/RequestAppointmentSlots";
 import "./request-fields.scss";
+import RequestBlocks from "../RequestBlocks/RequestBlocks";
 
 interface IRequestFieldsProps {
   data: RequestEntity;
@@ -21,9 +19,10 @@ export default function RequestFields({ data }: IRequestFieldsProps) {
   /* Static Data */
   const labels = {
     appointmentSlots: "Créneaux disponibles*",
+    additionalAddress: "Complément d'adresse",
   };
 
-  /* Local Data */
+  /* Local data */
   const { setValue, register, getValues } = useFormContext();
 
   /* Hidden inputs linked to RequestAddressField */
@@ -48,8 +47,16 @@ export default function RequestFields({ data }: IRequestFieldsProps) {
                 titleContent={`${data.attributes.fieldAddressLabel ?? ""}*`}
                 isAlignLeft
               />
-              <CommonGeolocationButton onUpdateCoordinates={submitSearch} />
+              <CommonGeolocationButton
+                onUpdateCoordinates={submitSearch}
+                type="button"
+              />
               <RequestAddressField name="address" />
+              <FormInput
+                name="additionalAddress"
+                label={labels.additionalAddress}
+                placeholder={labels.additionalAddress}
+              />
             </div>
           )}
           {data.attributes.hasAddress &&
@@ -70,41 +77,9 @@ export default function RequestFields({ data }: IRequestFieldsProps) {
             )}
           {data.attributes.addableBlocks &&
             data.attributes.addableBlocks.length >= 1 && (
-              <div className="c-RequestFields__BlocksField">
-                {data.attributes.addableBlocks
-                  .map((block, blockIndex) => {
-                    if (block) {
-                      const id = `request-block-${blockIndex}`;
-                      switch (block.__typename) {
-                        case "ComponentBlocksAttachments":
-                          return <></>;
-                        case "ComponentBlocksCheckbox":
-                          return (
-                            <RequestCheckboxBlock
-                              id={id}
-                              label={block.labelCheckbox}
-                              isRequired={
-                                block.fieldStatusCheckbox ===
-                                Enum_Componentblockscheckbox_Fieldstatuscheckbox.Obligatoire
-                              }
-                              key={id}
-                            />
-                          );
-                        case "ComponentBlocksCommentary":
-                          return <></>;
-                        case "ComponentBlocksCumbersome":
-                          return <></>;
-                        case "ComponentBlocksDateChoice":
-                          return <></>;
-                        case "ComponentBlocksQcm":
-                          return <></>;
-                        case "ComponentBlocksQuestions":
-                          return <></>;
-                      }
-                    }
-                  })
-                  .filter(removeNulls) ?? []}
-              </div>
+              <RequestBlocks
+                blocks={data.attributes.addableBlocks.filter(removeNulls)}
+              />
             )}
         </div>
       )}

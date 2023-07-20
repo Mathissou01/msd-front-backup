@@ -1,9 +1,14 @@
 @use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
 
 .c-RequestAddressField {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: 100%;
+  @include im.media(">=tablet") {
+    width: 60%;
+  }
 
   &__Radio {
     display: flex;

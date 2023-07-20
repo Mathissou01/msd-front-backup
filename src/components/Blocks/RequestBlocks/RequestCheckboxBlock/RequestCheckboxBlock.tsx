@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useFormContext } from "react-hook-form";
-import CommonCheckbox from "../../Common/CommonCheckbox/CommonCheckbox";
-import "./request-checkbox-block.scss";
+import CommonCheckbox from "../../../Common/CommonCheckbox/CommonCheckbox";
 
 interface RequestCheckboxBlockProps {
   id: string;

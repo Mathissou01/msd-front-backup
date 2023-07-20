@@ -27,6 +27,7 @@ export default function RequestForm({ data }: IRequestFormProps) {
       <FormProvider {...form}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <RequestFields data={data} />
+          {/*<button type="submit"> CONSOLE.LOG </button> -- KEEP IT FOR KNOW THE DATAS WHILE TESTING */}
         </form>
       </FormProvider>
     </div>

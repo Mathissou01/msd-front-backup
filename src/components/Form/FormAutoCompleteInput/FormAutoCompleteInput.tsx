@@ -101,6 +101,7 @@ export default function FormAutoCompleteInput<T>({
   const {
     control,
     setValue,
+    watch,
     formState: { isSubmitting, errors },
   } = useFormContext();
 
@@ -112,7 +113,9 @@ export default function FormAutoCompleteInput<T>({
         rules={{
           required: { value: isRequired, message: errorMessages.required },
           minLength: { value: minLength, message: errorMessages.minLength },
-          validate: () => hasResultSelected.current,
+          validate: () =>
+            hasResultSelected.current ||
+            (watch("lat") !== undefined && watch("long") !== undefined),
         }}
         defaultValue={defaultValue}
         render={({ field: { onChange, value, ref } }) => {

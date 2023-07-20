@@ -1,6 +1,9 @@
 query getRequestsLevels($contractId: ID!) {
   requestAggregates(
-    filters: { requestService: { contract: { id: { eq: $contractId } } } }
+    filters: {
+      requestService: { contract: { id: { eq: $contractId } } }
+      requests: { name: { notNull: true } }
+    }
   ) {
     data {
       id

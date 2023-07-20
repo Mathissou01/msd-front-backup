@@ -298,7 +298,6 @@ type AppointmentDetails {
 }
 
 type Audience {
-  contract: ContractEntityResponse
   createdAt: DateTime
   isActive: Boolean!
   type: ENUM_AUDIENCE_TYPE!
@@ -320,6 +319,7 @@ type AudienceEntityResponseCollection {
 }
 
 input AudienceFiltersInput {
+  MwCounter: MwCounterServiceFiltersInput
   and: [AudienceFiltersInput]
   contract: ContractFiltersInput
   createdAt: DateTimeFilterInput
@@ -332,7 +332,6 @@ input AudienceFiltersInput {
 }
 
 input AudienceInput {
-  contract: ID
   isActive: Boolean
   type: ENUM_AUDIENCE_TYPE
 }
@@ -2270,7 +2269,7 @@ enum ENUM_ACCESSIBILITY_STATUS {
 }
 
 enum ENUM_AUDIENCE_TYPE {
-  Bailleurs
+  Collectif
   Particuliers
   Professionnels
 }
@@ -4436,7 +4435,6 @@ type Mutation {
 }
 
 type MwCounterService {
-  barometerParams: JSON
   cities(
     filters: CityFiltersInput
     pagination: PaginationArg = {}
@@ -4480,7 +4478,6 @@ type MwCounterServiceEntityResponseCollection {
 
 input MwCounterServiceFiltersInput {
   and: [MwCounterServiceFiltersInput]
-  barometerParams: JSONFilterInput
   cities: CityFiltersInput
   city: StringFilterInput
   contactEmail: StringFilterInput
@@ -4504,7 +4501,6 @@ input MwCounterServiceFiltersInput {
 }
 
 input MwCounterServiceInput {
-  barometerParams: JSON
   cities: [ID]
   city: String
   contactEmail: String

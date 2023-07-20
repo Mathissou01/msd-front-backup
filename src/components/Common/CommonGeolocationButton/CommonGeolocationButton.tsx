@@ -13,12 +13,14 @@ interface CommonGeolocationButtonProps {
   onUpdateCoordinates: (coordinates: ICoordinates) => void;
   informativeText?: boolean;
   onUpdateAddressInfo?: (adressInfo: IAddressInfo) => void;
+  type?: "button" | "submit" | "reset" | undefined;
 }
 
 export default function CommonGeolocationButton({
   onUpdateCoordinates,
   informativeText = false,
   onUpdateAddressInfo,
+  type = "submit",
 }: CommonGeolocationButtonProps) {
   /* Static Data */
   const labels = {
@@ -103,7 +105,7 @@ export default function CommonGeolocationButton({
       <div className="c-PickUpDayGeolocation__GeolocationBlock">
         <CommonButton
           label={labels.submitButtonLabel}
-          type="submit"
+          type={type}
           style="secondary"
           fontStyle="fontLarge"
           paddingStyle="paddingLarge"

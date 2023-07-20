@@ -23,8 +23,7 @@ export default function RequestAddressField({
     useGetBanAddressesAutoCompleteLazyQuery({
       fetchPolicy: "network-only",
     });
-  const { getValues, setValue } = useFormContext();
-
+  const { getValues, setValue, watch } = useFormContext();
   /* Methods */
   async function searchFunction(
     searchValue: string,
@@ -60,7 +59,7 @@ export default function RequestAddressField({
           displayTransformFunction={(result) => result.name ?? ""}
           selectTransformFunction={selectTransform}
           isLoading={loading}
-          isRequired
+          isRequired={watch("lat") === undefined && watch("long") === undefined}
           defaultValue={getValues(name)}
           labelProps={{ label: label }}
         />
