@@ -1,4 +1,6 @@
 @use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.z-index" as index;
 @use "src/styles/01-settings/settings.layout" as layout;
 @use "src/styles/02-tools/tools.shadows" as shadows;
 
@@ -10,29 +12,62 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+
+    @include im.media(">=mobile") {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
   }
 
   &__PopUpHead {
     position: relative;
     top: 0;
-    left: 75%;
+    left: 15%;
     width: 0;
     height: 0;
     background-color: transparent;
     border-right: 20px solid transparent;
     border-bottom: 20px solid colors.$white;
     border-left: 20px solid transparent;
+
+    @include im.media(">=mobile") {
+      position: relative;
+      top: 0;
+      left: 75%;
+      width: 0;
+      height: 0;
+      background-color: transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 20px solid colors.$white;
+      border-left: 20px solid transparent;
+    }
   }
 
   &__PopUp {
     position: absolute;
-    top: layout.$header-height;
-    right: 50px;
+    top: layout.$header-height + 70px;
+    right: 10%;
+    z-index: index.z("modal");
     display: none;
-    width: fit-content;
+    width: 80%;
     height: fit-content;
     opacity: 0;
     transition: max-height 0.2s ease, opacity 0.2s ease;
+
+    @include im.media(">=mobile") {
+      position: absolute;
+      top: layout.$header-height;
+      right: 50px;
+      display: none;
+      width: fit-content;
+      height: fit-content;
+      opacity: 0;
+      transition: max-height 0.2s ease, opacity 0.2s ease;
+    }
 
     &.Visible {
       display: block;

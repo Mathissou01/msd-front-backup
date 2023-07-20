@@ -57,7 +57,9 @@ export default function HeaderLinkProfile() {
         (audiencesSelect) => audiencesSelect.type === selectedAudience,
       ) ?? undefined
     : undefined;
-
+  const activeAudiencesSelectData = audiencesSelectData?.filter(
+    (data) => data.isActive === true,
+  );
   /* Animation Popup properties */
   const [isPopUpVisible, setPopUpVisible] = useState<boolean>(false);
   const [isMirrored, setMirrored] = useState<boolean>(false);
@@ -97,8 +99,8 @@ export default function HeaderLinkProfile() {
                 name="audience"
                 label={audiencesLabels.subtitle}
                 options={
-                  audiencesSelectData
-                    ? audiencesSelectData.map((data) => ({
+                  activeAudiencesSelectData
+                    ? activeAudiencesSelectData.map((data) => ({
                         label: data.type,
                         option: { id: data.id },
                       }))

@@ -81,6 +81,7 @@ export default function ContentMap({
                   </div>
                 </div>
               </div>
+              {infoDistance && <div className="c-ContentMap__CarPicto"></div>}
               <span className="c-ContentMap__InfoDistance">{infoDistance}</span>
             </div>
             <div className="c-ContentMap__Info">

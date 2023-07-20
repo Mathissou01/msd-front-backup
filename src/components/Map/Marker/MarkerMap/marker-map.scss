@@ -5,7 +5,7 @@
   width: 100px;
   height: 100px;
   margin: 0;
-  animation: 1s ease-in-out infinite both;
+  animation: 1s ease-in-out both;
 
   &__Content {
     position: absolute;
@@ -75,7 +75,7 @@
       border-radius: 300px / 150px;
       transform: translateX(-50%);
       opacity: 0;
-      animation: shadow-marker 2s infinite;
+      animation: shadow-marker 2s;
     }
   }
 }
