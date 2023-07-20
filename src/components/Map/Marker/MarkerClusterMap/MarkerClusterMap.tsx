@@ -1,11 +1,12 @@
 import CustomMaker from "../MarkerMap/MarkerMap";
 
 interface MarkerData {
-  id: number;
+  id: string | undefined;
   picto: string;
   lat: number;
   lng: number;
   onClick: () => void;
+  selectedMarkerId: string | undefined;
 }
 
 export default function MarkerClusterMap({
@@ -14,6 +15,7 @@ export default function MarkerClusterMap({
   lng,
   picto,
   onClick,
+  selectedMarkerId,
 }: MarkerData) {
   // FUTURE FEATURE : Add maker cluster here
   return (
@@ -22,6 +24,8 @@ export default function MarkerClusterMap({
       key={id}
       picto={picto}
       onClick={onClick}
+      id={id}
+      selectedMarkerId={selectedMarkerId}
     />
   );
 }

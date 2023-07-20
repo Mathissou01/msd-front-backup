@@ -13,6 +13,7 @@ interface ILayersMapProps {
   position: IGeoPosition | null;
   setIsMapLoaded: (isLoaded: boolean) => void;
   destination: IGeoPosition | null;
+  selectedMarkerId: string | undefined;
   onMarkerClick: (index: IMarker) => void;
 }
 
@@ -22,6 +23,7 @@ export default function LayersMap({
   setIsMapLoaded,
   destination,
   onMarkerClick,
+  selectedMarkerId,
 }: ILayersMapProps) {
   const mapRef = useRef<google.maps.Map | null>(null);
   const { isLoaded } = useContext(GoogleMapsContext);
@@ -82,13 +84,14 @@ export default function LayersMap({
             minZoom: 5,
           }}
         >
-          {markers.map(({ lat, lng, picto }, ind) => (
+          {markers.map(({ lat, lng, picto, id }, ind) => (
             <MarkerClusterMap
               key={ind}
-              id={ind}
+              id={id}
               lng={Number(lng)}
               lat={Number(lat)}
               picto={picto ?? ""}
+              selectedMarkerId={selectedMarkerId}
               onClick={() => onMarkerClick(markers[ind])}
             />
           ))}

@@ -38,6 +38,7 @@ export interface IGeoPosition {
   lng: number;
 }
 export interface IContentData {
+  infoId: string;
   infoPicto: string;
   infoName: string;
   infoAddress: string;

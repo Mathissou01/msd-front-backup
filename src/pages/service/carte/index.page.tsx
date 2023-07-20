@@ -76,6 +76,7 @@ export default function ServiceCartePage() {
 
   const onMarkerClick = (marker: IMarker) => {
     const data = {
+      infoId: marker.id,
       infoPicto: marker.picto,
       infoName: marker.name,
       infoAddress: marker.address,
@@ -142,6 +143,7 @@ export default function ServiceCartePage() {
                 .filter(removeNulls)
                 ?.map((content) => {
                   return {
+                    infoId: content.id,
                     infoPicto: content.picto,
                     infoName: content.name,
                     infoAddress: content.address,
@@ -183,6 +185,7 @@ export default function ServiceCartePage() {
             setIsMapLoaded={setIsMapLoaded}
             destination={destination}
             onMarkerClick={onMarkerClick}
+            selectedMarkerId={selectedContent?.infoId}
           />
         </div>
       </div>
