@@ -37,6 +37,20 @@ export interface IGeoPosition {
   lat: number;
   lng: number;
 }
+export interface IContentData {
+  infoPicto: string;
+  infoName: string;
+  infoAddress: string;
+  infoPostal: string;
+  infoMustKnow: string;
+  infoDistance: string;
+  infoLat: number;
+  infoLng: number;
+  infoCollectGender: string;
+  infoTime: Array<ComponentBlocksOpeningDay>;
+  infoFiles: Array<ComponentBlocksDownloadBlock>;
+  message: string;
+}
 
 export function isComponentBlocksOpeningDay(
   block: Partial<ComponentBlocksOpeningDay | Error> | null,

@@ -12,6 +12,7 @@ interface ILayersMapProps {
   position: IGeoPosition | null;
   setIsMapLoaded: (isLoaded: boolean) => void;
   destination: IGeoPosition | null;
+  onMarkerClick: (index: IMarker) => void;
 }
 
 const libraries: "geometry"[] = ["geometry"];
@@ -20,6 +21,7 @@ export default function LayersMap({
   position,
   setIsMapLoaded,
   destination,
+  onMarkerClick,
 }: ILayersMapProps): ReactElement | null {
   const mapRef = useRef<google.maps.Map | null>(null);
   const { isLoaded } = useLoadScript({
@@ -88,6 +90,7 @@ export default function LayersMap({
               lng={Number(lng)}
               lat={Number(lat)}
               picto={picto ?? ""}
+              onClick={() => onMarkerClick(markers[ind])}
             />
           ))}
           {position && position.lat && (

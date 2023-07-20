@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import parse from "html-react-parser";
 import fileDownload from "js-file-download";
 import CommonButton from "../../Common/CommonButton/CommonButton";
-import { IContentData } from "../Content/ContentMap";
 import CollapsingButton from "./CollapsingButton/CollapsingButton";
+import useOpeningHours from "../../../hooks/Map/useOpeningHours";
+import { IContentData } from "../../../lib/map";
 import {
   UploadFile,
   UploadFileEntityResponse,
@@ -20,11 +21,12 @@ interface IContentDataProps {
 }
 
 export default function CollapsingContentPage({
-  message,
   markers,
   closeModal,
   setDestination,
 }: IContentDataProps) {
+  const { getFormattedTime, getMessage, currentDayName, currentTime } =
+    useOpeningHours({ contents: markers });
   /* Static variables */
   const title = {
     WasteTitle: "Déchets acceptés",
@@ -80,116 +82,143 @@ export default function CollapsingContentPage({
         });
     }
   };
-  const parsedHtmlMustKnow = parse(marker.infoMustKnow);
+  const parsedHtmlMustKnow = parse(`${marker.infoMustKnow}`);
   return (
     <>
-      {markers.map((marker, index) => (
-        <div
-          className={classNames("c-CollapsingContent", {
-            "c-CollapsingContent_show": isVisible === true,
-            "c-CollapsingContent_hide": isVisible === false,
-            "c-CollapsingContent": isVisible === null,
-          })}
-          key={index}
-        >
-          <div className="c-CollapsingContent__Content">
-            <div className="c-CollapsingContent__ButtonCrossContainer">
-              <CommonButton
-                picto="cross"
-                type="button"
-                style="tertiary"
-                fontStyle="fontSmall"
-                isFullWidth={true}
-                isDisabled={false}
-                onClick={handleCrossButtonClick}
-              />
-            </div>
-            <div className="c-CollapsingContent__Info">
-              <h3 className="c-CollapsingContent__InfoText">
-                {marker.infoName}
-              </h3>
-              <span className="c-CollapsingContent__InfoText">
-                {marker.infoAddress}
-              </span>
-              <span className="c-CollapsingContent__InfoText">
-                {marker.infoPostal}
-              </span>
-              <span
-                className={`c-ContentMap__Open ${
-                  message
-                    .normalize("NFD")
-                    .replace(/\p{Diacritic}/gu, "")
-                    .includes("Ferme")
-                    ? "c-ContentMap__Close"
-                    : ""
-                }`}
-              >
-                {message}
-              </span>
-            </div>
-            <div className="c-CollapsingContent__ButtonWrapper">
-              <div className="c-CollapsingContent__ButtonContainer">
-                <div className="c-CollapsingContent__Button">
-                  <CollapsingButton
-                    label={label.ItinaryLabel}
-                    picto="direction"
-                    type="button"
-                    style="secondary"
-                    paddingStyle={"paddingSmall"}
-                    fontStyle="fontSmall"
-                    isFullWidth={false}
-                    isDisabled={false}
-                    onClick={handleDestination}
-                    isRounded={true}
-                  />
-                </div>
-                {/* FUTURE FEATURE : Button */}
-                {/*<div className="c-CollapsingContent__Button">*/}
-                {/*  <CollapsingButton*/}
-                {/*    label="Prendre rendez-vous"*/}
-                {/*    picto="map"*/}
-                {/*    type="button"*/}
-                {/*    style="secondary"*/}
-                {/*    paddingStyle={"paddingSmall"}*/}
-                {/*    fontStyle="fontSmall"*/}
-                {/*    isFullWidth={false}*/}
-                {/*    isDisabled={false}*/}
-                {/*    isRound={true}*/}
-                {/*  />*/}
-                {/*</div>*/}
-                {/*<div className="c-CollapsingContent__Button">*/}
-                {/*  <CollapsingButton*/}
-                {/*    label="Signaler"*/}
-                {/*    picto="event"*/}
-                {/*    type="button"*/}
-                {/*    style="secondary"*/}
-                {/*    isFullWidth={false}*/}
-                {/*    paddingStyle={"paddingSmall"}*/}
-                {/*    isDisabled={false}*/}
-                {/*    isRound={true}*/}
-                {/*  />*/}
-                {/*</div>*/}
-                {marker &&
-                  marker.infoFiles?.map((marker, index) => (
-                    <div className="c-CollapsingContent__Button" key={index}>
-                      <CollapsingButton
-                        label={marker.linkText}
-                        onClick={() => handleDownload(marker.file)}
-                        picto="map"
-                        type="button"
-                        style="secondary"
-                        paddingStyle={"paddingSmall"}
-                        fontStyle="fontSmall"
-                        isFullWidth={false}
-                        isDisabled={false}
-                        isRounded={true}
-                      />
-                    </div>
-                  ))}
+      {markers.map((marker, index) => {
+        const todayOpeningDay = marker.infoTime.find(
+          (day) => day.weekDay === currentDayName,
+        );
+
+        // Get the formatted opening and closing times for the morning and afternoon
+        const formattedMorningStart =
+          todayOpeningDay?.morningStart &&
+          getFormattedTime(todayOpeningDay.morningStart);
+        const formattedMorningEnd =
+          todayOpeningDay?.morningEnd &&
+          getFormattedTime(todayOpeningDay.morningEnd);
+        const formattedAfterNoonStart =
+          todayOpeningDay?.afterNoonStart &&
+          getFormattedTime(todayOpeningDay.afterNoonStart);
+        const formattedAfterNoonEnd =
+          todayOpeningDay?.afterNoonEnd &&
+          getFormattedTime(todayOpeningDay.afterNoonEnd);
+        const message = getMessage(
+          index,
+          marker.infoCollectGender === "féminin",
+          currentTime,
+          formattedMorningStart || "",
+          formattedMorningEnd || "",
+          formattedAfterNoonStart || "",
+          formattedAfterNoonEnd || "",
+        );
+        return (
+          <div
+            className={classNames("c-CollapsingContent", {
+              "c-CollapsingContent_show": isVisible === true,
+              "c-CollapsingContent_hide": isVisible === false,
+              "c-CollapsingContent": isVisible === null,
+            })}
+            key={index}
+          >
+            <div className="c-CollapsingContent__Content">
+              <div className="c-CollapsingContent__ButtonCrossContainer">
+                <CommonButton
+                  picto="cross"
+                  type="button"
+                  style="tertiary"
+                  fontStyle="fontSmall"
+                  isFullWidth={true}
+                  isDisabled={false}
+                  onClick={handleCrossButtonClick}
+                />
               </div>
-            </div>
-            {/*FUTURE FEATURE : Feature "Déchets acceptées" block */}
-            {/* <div className="c-CollapsingContent__WasteContainer">
+              <div className="c-CollapsingContent__Info">
+                <h3 className="c-CollapsingContent__InfoText">
+                  {marker.infoName}
+                </h3>
+                <span className="c-CollapsingContent__InfoText">
+                  {marker.infoAddress}
+                </span>
+                <span className="c-CollapsingContent__InfoText">
+                  {marker.infoPostal}
+                </span>
+                <span
+                  className={`c-ContentMap__Open ${
+                    message
+                      .normalize("NFD")
+                      .replace(/\p{Diacritic}/gu, "")
+                      .includes("Ferme")
+                      ? "c-ContentMap__Close"
+                      : ""
+                  }`}
+                >
+                  {message}
+                </span>
+              </div>
+              <div className="c-CollapsingContent__ButtonWrapper">
+                <div className="c-CollapsingContent__ButtonContainer">
+                  <div className="c-CollapsingContent__Button">
+                    <CollapsingButton
+                      label={label.ItinaryLabel}
+                      picto="direction"
+                      type="button"
+                      style="secondary"
+                      paddingStyle={"paddingSmall"}
+                      fontStyle="fontSmall"
+                      isFullWidth={false}
+                      isDisabled={false}
+                      onClick={handleDestination}
+                      isRounded={true}
+                    />
+                  </div>
+                  {/* FUTURE FEATURE : Button */}
+                  {/*<div className="c-CollapsingContent__Button">*/}
+                  {/*  <CollapsingButton*/}
+                  {/*    label="Prendre rendez-vous"*/}
+                  {/*    picto="map"*/}
+                  {/*    type="button"*/}
+                  {/*    style="secondary"*/}
+                  {/*    paddingStyle={"paddingSmall"}*/}
+                  {/*    fontStyle="fontSmall"*/}
+                  {/*    isFullWidth={false}*/}
+                  {/*    isDisabled={false}*/}
+                  {/*    isRound={true}*/}
+                  {/*  />*/}
+                  {/*</div>*/}
+                  {/*<div className="c-CollapsingContent__Button">*/}
+                  {/*  <CollapsingButton*/}
+                  {/*    label="Signaler"*/}
+                  {/*    picto="event"*/}
+                  {/*    type="button"*/}
+                  {/*    style="secondary"*/}
+                  {/*    isFullWidth={false}*/}
+                  {/*    paddingStyle={"paddingSmall"}*/}
+                  {/*    isDisabled={false}*/}
+                  {/*    isRound={true}*/}
+                  {/*  />*/}
+                  {/*</div>*/}
+                  {marker &&
+                    marker.infoFiles?.map((marker, index) => (
+                      <div className="c-CollapsingContent__Button" key={index}>
+                        <CollapsingButton
+                          label={marker.linkText}
+                          onClick={() => handleDownload(marker.file)}
+                          picto="map"
+                          type="button"
+                          style="secondary"
+                          paddingStyle={"paddingSmall"}
+                          fontStyle="fontSmall"
+                          isFullWidth={false}
+                          isDisabled={false}
+                          isRounded={true}
+                        />
+                      </div>
+                    ))}
+                </div>
+              </div>
+              {/*FUTURE FEATURE : Feature "Déchets acceptées" block */}
+              {/* <div className="c-CollapsingContent__WasteContainer">
               <h4 className="c-CollapsingContent__Title">{title.WasteTitle}</h4>
               <div
                 className={`c-CollapsingContent__Waste ${
@@ -243,19 +272,20 @@ export default function CollapsingContentPage({
                 </button>
               </div>
             </div> */}
-            {marker.infoMustKnow && (
-              <div className="c-CollapsingContent__MustKnow">
-                <h4 className="c-CollapsingContent__Title">
-                  {title.MustKnowTitle}
-                </h4>
-                <p className="c-CollapsingContent__MustKnowContent">
-                  {parsedHtmlMustKnow}
-                </p>
-              </div>
-            )}
+              {marker.infoMustKnow && (
+                <div className="c-CollapsingContent__MustKnow">
+                  <h4 className="c-CollapsingContent__Title">
+                    {title.MustKnowTitle}
+                  </h4>
+                  <p className="c-CollapsingContent__MustKnowContent">
+                    {parsedHtmlMustKnow}
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </>
   );
 }

@@ -2,13 +2,16 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { useGeolocation } from "../../../hooks/geoLocation/useGeolocation";
 import useFilterMarkers from "../../../hooks/geoLocation/useNearbyLocations";
-import { IFilterData, IGeoPosition, IMarker } from "../../../lib/map";
+import {
+  IContentData,
+  IFilterData,
+  IGeoPosition,
+  IMarker,
+} from "../../../lib/map";
 import { removeNulls } from "../../../lib/utilities";
 import CollapsingContent from "../../../components/Map/CollapsingContent/CollapsingContent";
 import MarkerFilterMap from "../../../components/Map/Marker/MarkerFilter/MarkerFilterMap";
-import ContentMap, {
-  IContentData,
-} from "../../../components/Map/Content/ContentMap";
+import ContentMap from "../../../components/Map/Content/ContentMap";
 import LayersMap from "../../../components/Map/LayersMap";
 import SearchMap from "../../../components/Map/Search/SearchMap";
 import "./carte-page.scss";
@@ -69,6 +72,26 @@ export default function ServiceCartePage() {
   const fetchGeolocationWithAutoUpdate = () => {
     setAutoUpdatePosition(true);
     fetchGeolocation();
+  };
+
+  const onMarkerClick = (marker: IMarker) => {
+    const data = {
+      infoPicto: marker.picto,
+      infoName: marker.name,
+      infoAddress: marker.address,
+      infoPostal: marker.postal,
+      infoDistance: marker.distanceText,
+      infoLat: marker.lat,
+      infoLng: marker.lng,
+      infoMustKnow: marker.mustKnow,
+      infoTime: marker.time,
+      infoFiles: marker.files,
+      infoCollectGender: marker.collectGender,
+    } as IContentData;
+
+    setMessage(message);
+    setSelectedContent(data);
+    setShowModal(true);
   };
 
   const filteredMarkers = useFilterMarkers(
@@ -157,6 +180,7 @@ export default function ServiceCartePage() {
             position={checkPosition()}
             setIsMapLoaded={setIsMapLoaded}
             destination={destination}
+            onMarkerClick={onMarkerClick}
           />
         </div>
       </div>

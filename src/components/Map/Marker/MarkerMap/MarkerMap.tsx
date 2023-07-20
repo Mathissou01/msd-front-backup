@@ -4,9 +4,14 @@ import "./marker-map.scss";
 type MarkerMapProps = {
   position: google.maps.LatLngLiteral;
   picto: string;
+  onClick: () => void;
 };
 
-export default function MarkerMap({ position, picto }: MarkerMapProps) {
+export default function MarkerMap({
+  position,
+  picto,
+  onClick,
+}: MarkerMapProps) {
   function getPixelPositionOffset(
     width: number,
     height: number,
@@ -20,7 +25,7 @@ export default function MarkerMap({ position, picto }: MarkerMapProps) {
       mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
       getPixelPositionOffset={getPixelPositionOffset}
     >
-      <div className="c-Marker">
+      <div className="c-Marker" onClick={onClick}>
         <div className="c-Marker__Content">
           <div
             className="c-Marker__TopPin"
