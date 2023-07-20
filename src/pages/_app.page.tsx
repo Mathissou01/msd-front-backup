@@ -10,6 +10,7 @@ import { ENavigationPages, NavigationContext } from "../hooks/useNavigation";
 import { ContractContext } from "../hooks/useContract";
 import { UserProvider } from "../hooks/useCurrentUser";
 import useScreenWidth, { IsDesktopContext } from "../hooks/useScreenWidth";
+import { GoogleMapsProvider } from "../hooks/geoLocation/GoogleMapsContext";
 import CommonSvgDefs from "../components/Common/CommonSvgDefs/CommonSvgDefs";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
@@ -35,17 +36,19 @@ function MsdFrontApp({ Component, pageProps }: AppProps) {
           <UserProvider>
             <NavigationContext.Provider value={{ currentPage, setCurrentPage }}>
               <IsDesktopContext.Provider value={isDesktop}>
-                <div id={"app"}>
-                  <CommonSvgDefs />
-                  <Header />
-                  <div className="o-Page__Container">
-                    <main role="main" className="o-Page__Main">
-                      <Component {...pageProps} />
-                    </main>
-                    <Footer />
+                <GoogleMapsProvider>
+                  <div id={"app"}>
+                    <CommonSvgDefs />
+                    <Header />
+                    <div className="o-Page__Container">
+                      <main role="main" className="o-Page__Main">
+                        <Component {...pageProps} />
+                      </main>
+                      <Footer />
+                    </div>
+                    <div id="modal-portal" />
                   </div>
-                  <div id="modal-portal" />
-                </div>
+                </GoogleMapsProvider>
               </IsDesktopContext.Provider>
             </NavigationContext.Provider>
           </UserProvider>

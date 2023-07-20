@@ -88,6 +88,8 @@ export default function SearchMap({
   };
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchData = async () => {
       try {
         const response = await getDropOffMapByServiceId({
@@ -96,7 +98,7 @@ export default function SearchMap({
           },
         });
         const responseData = response.data;
-        if (responseData?.getDropOffMaps) {
+        if (responseData?.getDropOffMaps && isMounted) {
           const mapData: IMarker[] = responseData.getDropOffMaps.map(
             (dropOffMapData) => {
               const BANFeatureProperties = JSON.parse(
@@ -145,11 +147,16 @@ export default function SearchMap({
           setMarkers(mapData);
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        if (isMounted) {
+          console.error("Error fetching data:", error);
+        }
       }
     };
 
     fetchData();
+    return () => {
+      isMounted = false;
+    };
   }, [dropOffMapServiceId, getDropOffMapByServiceId, setMarkers]);
 
   return (

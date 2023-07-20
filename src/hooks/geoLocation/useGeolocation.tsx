@@ -1,4 +1,5 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useContext } from "react";
+import { GoogleMapsContext } from "./GoogleMapsContext";
 
 interface GeoPosition {
   lat: number;
@@ -15,8 +16,9 @@ interface GeolocationResult {
 export function useGeolocation(): [GeolocationResult, () => void] {
   const [address, setAddress] = useState<string | null>(null);
   const [position, setPosition] = useState<GeoPosition | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const [disable, setDisable] = useState<boolean>(false);
+  const [geolocationError, setGeolocationError] = useState<string | null>(null);
+  const { isLoaded, error: apiLoadError } = useContext(GoogleMapsContext);
 
   const fetchGeolocation = useCallback(() => {
     if (typeof window === "undefined" || !("geolocation" in navigator)) {
@@ -26,18 +28,17 @@ export function useGeolocation(): [GeolocationResult, () => void] {
       setDisable(false);
     }
 
+    if (!isLoaded) {
+      return;
+    }
+
     const id = navigator.geolocation.watchPosition(
       (position) => {
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
         setPosition({ lat, lng });
 
-        if (
-          window &&
-          window.google &&
-          window.google.maps &&
-          window.google.maps.Geocoder
-        ) {
+        if (window.google.maps.Geocoder) {
           const geocoder = new window.google.maps.Geocoder();
 
           geocoder.geocode({ location: { lat, lng } }, (results, status) => {
@@ -45,30 +46,30 @@ export function useGeolocation(): [GeolocationResult, () => void] {
               if (results && results[0]) {
                 setAddress(results[0].formatted_address);
               } else {
-                setError("Position non trouvée");
+                setGeolocationError("Position non trouvée");
               }
             } else {
-              setError("Error");
+              setGeolocationError("Error");
             }
             navigator.geolocation.clearWatch(id);
           });
         } else {
-          setError("Google Maps API not loaded");
+          setGeolocationError("Google Maps Geocoder not loaded");
         }
       },
       (error) => {
         switch (error.code) {
           case error.PERMISSION_DENIED:
-            setError("Permission de géolocalisation non accordée");
+            setGeolocationError("Permission de géolocalisation non accordée");
             break;
           case error.POSITION_UNAVAILABLE:
-            setError("Information de géolocalisation indisponible");
+            setGeolocationError("Information de géolocalisation indisponible");
             break;
           case error.TIMEOUT:
-            setError("La demande de géolocalisation a expiré");
+            setGeolocationError("La demande de géolocalisation a expiré");
             break;
           default:
-            setError("Erreur de géolocalisation");
+            setGeolocationError("Erreur de géolocalisation");
             break;
         }
       },
@@ -78,7 +79,10 @@ export function useGeolocation(): [GeolocationResult, () => void] {
         timeout: 5000, // If no new position within 5 seconds, invoke error callback
       },
     );
-  }, []);
+  }, [isLoaded]);
 
-  return [{ address, error, disable, position }, fetchGeolocation];
+  return [
+    { address, error: geolocationError || apiLoadError, disable, position },
+    fetchGeolocation,
+  ];
 }

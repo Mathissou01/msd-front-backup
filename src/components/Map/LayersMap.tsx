@@ -1,10 +1,11 @@
-import { ReactElement, useCallback, useEffect, useRef, useState } from "react";
-import { GoogleMap, useLoadScript } from "@react-google-maps/api";
+import { useCallback, useEffect, useRef, useState, useContext } from "react";
+import { GoogleMap } from "@react-google-maps/api";
 import MarkerClusterMap from "./Marker/MarkerClusterMap/MarkerClusterMap";
 import MarkerGeoloc from "./Marker/MarkerGeoloc/MarkerGeoloc";
 import { IGeoPosition, IMarker } from "../../lib/map";
 import useCalculateRoute from "../../hooks/geoLocation/useCalculateRoute";
 import mapStyles from "./mapStyles.json";
+import { GoogleMapsContext } from "../../hooks/geoLocation/GoogleMapsContext";
 import "./layers-map.scss";
 
 interface ILayersMapProps {
@@ -15,21 +16,19 @@ interface ILayersMapProps {
   onMarkerClick: (index: IMarker) => void;
 }
 
-const libraries: "geometry"[] = ["geometry"];
 export default function LayersMap({
   markers,
   position,
   setIsMapLoaded,
   destination,
   onMarkerClick,
-}: ILayersMapProps): ReactElement | null {
+}: ILayersMapProps) {
   const mapRef = useRef<google.maps.Map | null>(null);
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY ?? "",
-    libraries,
-  });
+  const { isLoaded } = useContext(GoogleMapsContext);
 
-  setIsMapLoaded(isLoaded);
+  useEffect(() => {
+    setIsMapLoaded(isLoaded);
+  }, [isLoaded, setIsMapLoaded]);
 
   const [markersLoaded, setMarkersLoaded] = useState(false);
   const calculateRoute = useCalculateRoute(mapRef);
