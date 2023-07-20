@@ -1,0 +1,11 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-RequestQuestionsBlock {
+  .c-FormInput {
+    width: 100%;
+    margin-top: 14px;
+    @include im.media(">=tablet") {
+      width: 60%;
+    }
+  }
+}

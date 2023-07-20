@@ -1,12 +1,14 @@
 import {
   Enum_Componentblockscheckbox_Fieldstatuscheckbox,
   Enum_Componentblockscommentary_Commentarystatus,
+  Enum_Componentblocksquestions_Textstatus,
   RequestAddableBlocksDynamicZone,
 } from "../../../graphql/codegen/generated-types";
 import { removeNulls } from "../../../lib/utilities";
 import RequestCheckboxBlock from "../../Blocks/RequestBlocks/RequestCheckboxBlock/RequestCheckboxBlock";
 import RequestCommentaryBlock from "../../Blocks/RequestBlocks/RequestCommentaryBlock/RequestCommentaryBlock";
 import RequestDatePickerBlock from "../../Blocks/RequestBlocks/RequestDatePickerBlock/RequestDatePickerBlock";
+import RequestQuestionsBlock from "../../Blocks/RequestBlocks/RequestQuestionsBlock/RequestQuestionsBlock";
 import "./request-blocks.scss";
 
 interface IRequestBlocksProps {
@@ -22,7 +24,7 @@ export default function RequestBlocks({ blocks }: IRequestBlocksProps) {
             const id = `request-block-${index}`;
             switch (block.__typename) {
               /*case "ComponentBlocksAttachments":
-                          return <></>;*/
+                return <></>;*/
               case "ComponentBlocksCheckbox":
                 return (
                   <RequestCheckboxBlock
@@ -59,9 +61,21 @@ export default function RequestBlocks({ blocks }: IRequestBlocksProps) {
                   />
                 );
               /*case "ComponentBlocksQcm":
-                          return <></>;
-                        case "ComponentBlocksQuestions":
-                          return <></>;*/
+                return <></>;*/
+              case "ComponentBlocksQuestions":
+                return (
+                  <RequestQuestionsBlock
+                    id={id}
+                    label={block.questionTextLabel}
+                    placeholder={block.questionTextPlaceholder}
+                    isMultiLine={block.height}
+                    isRequired={
+                      block.textStatus ===
+                      Enum_Componentblocksquestions_Textstatus.Obligatoire
+                    }
+                    key={index}
+                  />
+                );
             }
           }
         })
