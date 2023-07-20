@@ -1,9 +1,11 @@
 import {
   Enum_Componentblockscheckbox_Fieldstatuscheckbox,
+  Enum_Componentblockscommentary_Commentarystatus,
   RequestAddableBlocksDynamicZone,
 } from "../../../graphql/codegen/generated-types";
 import { removeNulls } from "../../../lib/utilities";
 import RequestCheckboxBlock from "../../Blocks/RequestBlocks/RequestCheckboxBlock/RequestCheckboxBlock";
+import RequestCommentaryBlock from "../../Blocks/RequestBlocks/RequestCommentaryBlock/RequestCommentaryBlock";
 import RequestDatePickerBlock from "../../Blocks/RequestBlocks/RequestDatePickerBlock/RequestDatePickerBlock";
 import "./request-blocks.scss";
 
@@ -33,9 +35,20 @@ export default function RequestBlocks({ blocks }: IRequestBlocksProps) {
                     key={index}
                   />
                 );
-              /*case "ComponentBlocksCommentary":
-                          return <></>;
-                        case "ComponentBlocksCumbersome":
+              case "ComponentBlocksCommentary":
+                return (
+                  <RequestCommentaryBlock
+                    id={id}
+                    label={block.commentaryLabel}
+                    placeholder={block.commentaryPlaceholder ?? ""}
+                    isRequired={
+                      block.commentaryStatus ===
+                      Enum_Componentblockscommentary_Commentarystatus.Obligatoire
+                    }
+                    key={index}
+                  />
+                );
+              /*case "ComponentBlocksCumbersome":
                           return <></>;*/
               case "ComponentBlocksDateChoice":
                 return (
