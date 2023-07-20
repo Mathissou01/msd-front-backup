@@ -22,9 +22,9 @@ export default function RequestLevels({
   setCurrentRequest,
 }: IRequestLevelsProps) {
   const labels = {
-    requestFirstLevel: "Votre demande concerne*",
-    requestSecondLevel: "Merci de préciser*",
-    requestThirdLevel: "Type de demande*",
+    requestFirstLevel: "Votre demande concerne *",
+    requestSecondLevel: "Merci de préciser *",
+    requestThirdLevel: "Type de demande *",
   };
 
   const [firstLevel, setFirstLevel] = useState<ILevel>({

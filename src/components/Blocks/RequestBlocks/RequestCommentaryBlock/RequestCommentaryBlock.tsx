@@ -43,7 +43,7 @@ export default function RequestCommentaryBlock({
         type="text"
         tagType="textarea"
         name={id}
-        label={label}
+        label={`${label} ${!isRequired ? "(facultatif)" : ""}`}
         isRequired={isRequired}
         placeholder={placeholder}
         maxLengthValidation={300}

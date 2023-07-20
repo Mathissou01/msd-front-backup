@@ -10,7 +10,7 @@ import "./form-select.scss";
 
 interface IFormSelectProps<T> {
   name: string;
-  label: string;
+  label?: string;
   secondaryLabel?: string;
   displayTransform?: (...args: Array<T>) => string;
   isRequired?: boolean;
@@ -113,13 +113,16 @@ export default function FormSelect<T>({
 
   return (
     <div className="c-FormSelect">
-      <FormLabel
-        forId={name}
-        label={label}
-        isRequired={isRequired}
-        secondaryLabel={secondaryLabel}
-        informationLabel={informationLabel}
-      />
+      {label && (
+        <FormLabel
+          forId={name}
+          label={label}
+          isRequired={isRequired}
+          secondaryLabel={secondaryLabel}
+          validationLabel={informationLabel}
+          informationLabel={informationLabel}
+        />
+      )}
       <div className="o-SelectWrapper">
         <select
           className={classNames("o-SelectWrapper__Select", {

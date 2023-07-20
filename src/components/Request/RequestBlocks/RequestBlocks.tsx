@@ -6,6 +6,7 @@ import {
 } from "../../../graphql/codegen/generated-types";
 import { removeNulls } from "../../../lib/utilities";
 import RequestCheckboxBlock from "../../Blocks/RequestBlocks/RequestCheckboxBlock/RequestCheckboxBlock";
+import RequestQCMBlock from "../../Blocks/RequestBlocks/RequestQCMBlock/RequestQCMBlock";
 import RequestCommentaryBlock from "../../Blocks/RequestBlocks/RequestCommentaryBlock/RequestCommentaryBlock";
 import RequestDatePickerBlock from "../../Blocks/RequestBlocks/RequestDatePickerBlock/RequestDatePickerBlock";
 import RequestQuestionsBlock from "../../Blocks/RequestBlocks/RequestQuestionsBlock/RequestQuestionsBlock";
@@ -60,8 +61,8 @@ export default function RequestBlocks({ blocks }: IRequestBlocksProps) {
                     name={`dateChoice.${block.id}.date`}
                   />
                 );
-              /*case "ComponentBlocksQcm":
-                return <></>;*/
+              case "ComponentBlocksQcm":
+                return <RequestQCMBlock key={index} blockDataQCM={block} />;
               case "ComponentBlocksQuestions":
                 return (
                   <RequestQuestionsBlock

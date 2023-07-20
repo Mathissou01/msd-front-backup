@@ -9,8 +9,8 @@ import FormInput from "../../Form/FormInput/FormInput";
 import RequestAddressField from "../RequestAddressField/RequestAddressField";
 import RequestAppointmentSlots from "../RequestAppointmentSlots/RequestAppointmentSlots";
 import RequestUser from "../RequestUser/RequestUser";
-import "./request-fields.scss";
 import RequestBlocks from "../RequestBlocks/RequestBlocks";
+import "./request-fields.scss";
 
 interface IRequestFieldsProps {
   data: RequestEntity;
