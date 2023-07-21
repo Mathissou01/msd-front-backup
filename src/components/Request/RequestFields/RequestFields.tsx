@@ -7,7 +7,6 @@ import CommonBlockHeading from "../../Common/CommonBlockHeading/CommonBlockHeadi
 import CommonGeolocationButton from "../../Common/CommonGeolocationButton/CommonGeolocationButton";
 import FormInput from "../../Form/FormInput/FormInput";
 import RequestAddressField from "../RequestAddressField/RequestAddressField";
-import RequestAppointmentSlots from "../RequestAppointmentSlots/RequestAppointmentSlots";
 import RequestUser from "../RequestUser/RequestUser";
 import RequestBlocks from "../RequestBlocks/RequestBlocks";
 import "./request-fields.scss";
@@ -24,7 +23,7 @@ export default function RequestFields({ data }: IRequestFieldsProps) {
   };
 
   /* Local data */
-  const { setValue, register, getValues } = useFormContext();
+  const { setValue, register } = useFormContext();
 
   /* Hidden inputs linked to RequestAddressField */
   register("lat", { value: undefined, required: true });
@@ -60,6 +59,7 @@ export default function RequestFields({ data }: IRequestFieldsProps) {
               />
             </div>
           )}
+          {/* TODO : Uncomment after Sprint 12 demo
           {data.attributes.hasAddress &&
             data.attributes.hasAppointmentSlots &&
             getValues("lat") &&
@@ -76,6 +76,7 @@ export default function RequestFields({ data }: IRequestFieldsProps) {
                 />
               </div>
             )}
+          */}
           {data.attributes.addableBlocks &&
             data.attributes.addableBlocks.length >= 1 && (
               <RequestBlocks
