@@ -18,8 +18,11 @@ export default function RequestCommentaryBlock({
   placeholder,
 }: RequestCommentaryBlockProps) {
   /* Static Data */
-  const messageLabel =
-    "Il est vivement recommandé d'éviter toute communication de toute donnée à caractère personnel via ces zones de texte ou en tout état de cause de limiter cette communication à ce qui est strictement nécessaire au traitement de votre demande.";
+  const staticLabels = {
+    title: "Laisser un commentaire",
+    message:
+      "Il est vivement recommandé d'éviter toute communication de toute donnée à caractère personnel via ces zones de texte ou en tout état de cause de limiter cette communication à ce qui est strictement nécessaire au traitement de votre demande.",
+  };
 
   /* Local Data */
   const { register } = useFormContext();
@@ -43,12 +46,14 @@ export default function RequestCommentaryBlock({
         type="text"
         tagType="textarea"
         name={id}
-        label={`${label} ${!isRequired ? "(facultatif)" : ""}`}
+        label={staticLabels.title}
         isRequired={isRequired}
         placeholder={placeholder}
         maxLengthValidation={300}
       />
-      <span className="c-RequestCommentaryBlock__Message">{messageLabel}</span>
+      <span className="c-RequestCommentaryBlock__Message">
+        {staticLabels.message}
+      </span>
     </div>
   );
 }
