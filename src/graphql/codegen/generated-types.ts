@@ -382,6 +382,7 @@ export type AppointmentDetails = {
 
 export type Audience = {
   __typename?: "Audience";
+  contract?: Maybe<ContractEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   isActive: Scalars["Boolean"];
   type: Enum_Audience_Type;
@@ -406,7 +407,6 @@ export type AudienceEntityResponseCollection = {
 };
 
 export type AudienceFiltersInput = {
-  MwCounter?: InputMaybe<MwCounterServiceFiltersInput>;
   and?: InputMaybe<Array<InputMaybe<AudienceFiltersInput>>>;
   contract?: InputMaybe<ContractFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
@@ -419,6 +419,7 @@ export type AudienceFiltersInput = {
 };
 
 export type AudienceInput = {
+  contract?: InputMaybe<Scalars["ID"]>;
   isActive?: InputMaybe<Scalars["Boolean"]>;
   type?: InputMaybe<Enum_Audience_Type>;
 };
@@ -997,8 +998,8 @@ export type ComponentBlocksAttachments = {
   attachment?: Maybe<UploadFileRelationResponseCollection>;
   attachmentLabel: Scalars["String"];
   id: Scalars["ID"];
+  isMandatory: Scalars["Boolean"];
   multipleAttachments?: Maybe<Scalars["Boolean"]>;
-  renderField: Scalars["Boolean"];
 };
 
 export type ComponentBlocksAttachmentsAttachmentArgs = {
@@ -2575,7 +2576,7 @@ export enum Enum_Accessibility_Status {
 }
 
 export enum Enum_Audience_Type {
-  Collectif = "Collectif",
+  Collectifs = "Collectifs",
   Particuliers = "Particuliers",
   Professionnels = "Professionnels",
 }
@@ -3994,6 +3995,18 @@ export type IdFilterInput = {
   null?: InputMaybe<Scalars["Boolean"]>;
   or?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   startsWith?: InputMaybe<Scalars["ID"]>;
+};
+
+export type Image = {
+  __typename?: "Image";
+  alternativeText?: Maybe<Scalars["String"]>;
+  hash?: Maybe<Scalars["String"]>;
+  height?: Maybe<Scalars["String"]>;
+  mime?: Maybe<Scalars["String"]>;
+  name?: Maybe<Scalars["String"]>;
+  size?: Maybe<Scalars["String"]>;
+  url?: Maybe<Scalars["String"]>;
+  width?: Maybe<Scalars["String"]>;
 };
 
 export type InformationMessage = {
@@ -5743,6 +5756,7 @@ export type MutationYwsDeactivationArgs = {
 
 export type MwCounterService = {
   __typename?: "MwCounterService";
+  barometerParams?: Maybe<Scalars["JSON"]>;
   cities?: Maybe<CityRelationResponseCollection>;
   city?: Maybe<Scalars["String"]>;
   contactEmail?: Maybe<Scalars["String"]>;
@@ -5760,12 +5774,6 @@ export type MwCounterService = {
   serviceName?: Maybe<Scalars["String"]>;
   startDate?: Maybe<Scalars["Date"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
-};
-
-export type MwCounterServiceAudiencesArgs = {
-  filters?: InputMaybe<AudienceFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type MwCounterServiceCitiesArgs = {
@@ -5799,6 +5807,7 @@ export type MwCounterServiceEntityResponseCollection = {
 
 export type MwCounterServiceFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<MwCounterServiceFiltersInput>>>;
+  barometerParams?: InputMaybe<JsonFilterInput>;
   cities?: InputMaybe<CityFiltersInput>;
   city?: InputMaybe<StringFilterInput>;
   contactEmail?: InputMaybe<StringFilterInput>;
@@ -5822,6 +5831,7 @@ export type MwCounterServiceFiltersInput = {
 };
 
 export type MwCounterServiceInput = {
+  barometerParams?: InputMaybe<Scalars["JSON"]>;
   cities?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   city?: InputMaybe<Scalars["String"]>;
   contactEmail?: InputMaybe<Scalars["String"]>;
@@ -6433,6 +6443,7 @@ export type Query = {
   getNextAvailableSlots?: Maybe<NextAvailableSlots>;
   getPickUpDaysByCoordinates?: Maybe<Array<Maybe<Scalars["ID"]>>>;
   getStatusExport?: Maybe<Scalars["String"]>;
+  getThreeRandomTips?: Maybe<Array<Maybe<Tips>>>;
   getTopContentBlockDTO?: Maybe<TopContentBlockDto>;
   getTopContentDTOs?: Maybe<Array<Maybe<EditoContentDto>>>;
   global?: Maybe<GlobalEntityResponse>;
@@ -6986,6 +6997,10 @@ export type QueryGetPickUpDaysByCoordinatesArgs = {
 
 export type QueryGetStatusExportArgs = {
   id: Scalars["ID"];
+};
+
+export type QueryGetThreeRandomTipsArgs = {
+  contractId: Scalars["ID"];
 };
 
 export type QueryGetTopContentBlockDtoArgs = {
@@ -8858,6 +8873,15 @@ export type TipSubServiceInput = {
 export type TipSubServiceRelationResponseCollection = {
   __typename?: "TipSubServiceRelationResponseCollection";
   data: Array<TipSubServiceEntity>;
+};
+
+export type Tips = {
+  __typename?: "Tips";
+  image?: Maybe<Image>;
+  originalId: Scalars["ID"];
+  shortDescription?: Maybe<Scalars["String"]>;
+  tags?: Maybe<Array<Maybe<Tag>>>;
+  title: Scalars["String"];
 };
 
 export type TopContentBlock = {
@@ -12141,7 +12165,7 @@ export type GetRequestByIdQuery = {
               id: string;
               attachmentLabel: string;
               multipleAttachments?: boolean | null;
-              renderField: boolean;
+              isMandatory: boolean;
               attachment?: {
                 __typename?: "UploadFileRelationResponseCollection";
                 data: Array<{
@@ -16610,7 +16634,7 @@ export const GetRequestByIdDocument = gql`
               id
               attachmentLabel
               multipleAttachments
-              renderField
+              isMandatory
               attachment {
                 data {
                   id

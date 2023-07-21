@@ -63,7 +63,7 @@ query getRequestById($requestId: ID) {
             id
             attachmentLabel
             multipleAttachments
-            renderField
+            isMandatory
             attachment {
               data {
                 id

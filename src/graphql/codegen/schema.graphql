@@ -298,6 +298,7 @@ type AppointmentDetails {
 }
 
 type Audience {
+  contract: ContractEntityResponse
   createdAt: DateTime
   isActive: Boolean!
   type: ENUM_AUDIENCE_TYPE!
@@ -319,7 +320,6 @@ type AudienceEntityResponseCollection {
 }
 
 input AudienceFiltersInput {
-  MwCounter: MwCounterServiceFiltersInput
   and: [AudienceFiltersInput]
   contract: ContractFiltersInput
   createdAt: DateTimeFilterInput
@@ -332,6 +332,7 @@ input AudienceFiltersInput {
 }
 
 input AudienceInput {
+  contract: ID
   isActive: Boolean
   type: ENUM_AUDIENCE_TYPE
 }
@@ -859,8 +860,8 @@ type ComponentBlocksAttachments {
   ): UploadFileRelationResponseCollection
   attachmentLabel: String!
   id: ID!
+  isMandatory: Boolean!
   multipleAttachments: Boolean
-  renderField: Boolean!
 }
 
 type ComponentBlocksCheckbox {
@@ -2269,7 +2270,7 @@ enum ENUM_ACCESSIBILITY_STATUS {
 }
 
 enum ENUM_AUDIENCE_TYPE {
-  Collectif
+  Collectifs
   Particuliers
   Professionnels
 }
@@ -3585,6 +3586,17 @@ input IDFilterInput {
   startsWith: ID
 }
 
+type Image {
+  alternativeText: String
+  hash: String
+  height: String
+  mime: String
+  name: String
+  size: String
+  url: String
+  width: String
+}
+
 type InformationMessage {
   createdAt: DateTime
   dateEnd: String
@@ -4435,6 +4447,7 @@ type Mutation {
 }
 
 type MwCounterService {
+  barometerParams: JSON
   cities(
     filters: CityFiltersInput
     pagination: PaginationArg = {}
@@ -4478,6 +4491,7 @@ type MwCounterServiceEntityResponseCollection {
 
 input MwCounterServiceFiltersInput {
   and: [MwCounterServiceFiltersInput]
+  barometerParams: JSONFilterInput
   cities: CityFiltersInput
   city: StringFilterInput
   contactEmail: StringFilterInput
@@ -4501,6 +4515,7 @@ input MwCounterServiceFiltersInput {
 }
 
 input MwCounterServiceInput {
+  barometerParams: JSON
   cities: [ID]
   city: String
   contactEmail: String
@@ -5239,6 +5254,7 @@ type Query {
     pickUpDayServiceId: ID!
   ): [ID]
   getStatusExport(id: ID!): String
+  getThreeRandomTips(contractId: ID!): [Tips]
   getTopContentBlockDTO(
     contractId: ID!
     status: ENUM_TOPCONTENTDTO_STATUS
@@ -6791,6 +6807,14 @@ input TipSubServiceInput {
 
 type TipSubServiceRelationResponseCollection {
   data: [TipSubServiceEntity!]!
+}
+
+type Tips {
+  image: Image
+  originalId: ID!
+  shortDescription: String
+  tags: [Tag]
+  title: String!
 }
 
 type TopContentBlock {
