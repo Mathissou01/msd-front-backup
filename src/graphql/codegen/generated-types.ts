@@ -11719,6 +11719,29 @@ export type SearchAddressQuery = {
   } | null> | null;
 };
 
+export type GetThreeRandomTipsQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+}>;
+
+export type GetThreeRandomTipsQuery = {
+  __typename?: "Query";
+  getThreeRandomTips?: Array<{
+    __typename?: "Tips";
+    originalId: string;
+    title: string;
+    shortDescription?: string | null;
+    tags?: Array<{ __typename?: "Tag"; name: string } | null> | null;
+    image?: {
+      __typename?: "Image";
+      url?: string | null;
+      name?: string | null;
+      alternativeText?: string | null;
+      height?: string | null;
+      width?: string | null;
+    } | null;
+  } | null> | null;
+};
+
 export type GetContactQueryVariables = Exact<{
   filters?: InputMaybe<MwCounterServiceFiltersInput>;
 }>;
@@ -15915,6 +15938,76 @@ export type SearchAddressLazyQueryHookResult = ReturnType<
 export type SearchAddressQueryResult = Apollo.QueryResult<
   SearchAddressQuery,
   SearchAddressQueryVariables
+>;
+export const GetThreeRandomTipsDocument = gql`
+  query GetThreeRandomTips($contractId: ID!) {
+    getThreeRandomTips(contractId: $contractId) {
+      originalId
+      title
+      shortDescription
+      tags {
+        name
+      }
+      image {
+        url
+        name
+        alternativeText
+        height
+        width
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetThreeRandomTipsQuery__
+ *
+ * To run a query within a React component, call `useGetThreeRandomTipsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetThreeRandomTipsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetThreeRandomTipsQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetThreeRandomTipsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetThreeRandomTipsQuery,
+    GetThreeRandomTipsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetThreeRandomTipsQuery,
+    GetThreeRandomTipsQueryVariables
+  >(GetThreeRandomTipsDocument, options);
+}
+export function useGetThreeRandomTipsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetThreeRandomTipsQuery,
+    GetThreeRandomTipsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetThreeRandomTipsQuery,
+    GetThreeRandomTipsQueryVariables
+  >(GetThreeRandomTipsDocument, options);
+}
+export type GetThreeRandomTipsQueryHookResult = ReturnType<
+  typeof useGetThreeRandomTipsQuery
+>;
+export type GetThreeRandomTipsLazyQueryHookResult = ReturnType<
+  typeof useGetThreeRandomTipsLazyQuery
+>;
+export type GetThreeRandomTipsQueryResult = Apollo.QueryResult<
+  GetThreeRandomTipsQuery,
+  GetThreeRandomTipsQueryVariables
 >;
 export const GetContactDocument = gql`
   query getContact($filters: MwCounterServiceFiltersInput) {

@@ -1,0 +1,62 @@
+@use "src/styles/01-settings/settings.layout" as layout;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.z-index" as index;
+
+@use "sass:list";
+@use "sass:math";
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/01-settings/settings.blobs" as b;
+@use "src/styles/02-tools/tools.blobs" as blobs;
+
+.c-MwcTips {
+  position: relative;
+  width: 100%;
+  margin-bottom: 32px;
+  padding: 32px 8px;
+
+  @include im.media(">=tablet") {
+    padding-left: 124px;
+  }
+
+  &__Title {
+    margin-left: 16px;
+    @include im.media(">=tablet") {
+      margin-left: 0;
+    }
+  }
+
+  &__Tips {
+    // Generate a random blob SVG with random rotation for any child element with "o-Blob" class
+    $random-start: math.random(6);
+    @for $i from 1 through (list.length(b.$blobs) * 2) {
+      *:nth-child(#{(length(b.$blobs) * 2)}n + #{$i}) {
+        // stylelint-disable-next-line
+        .o-Blob::after {
+          @include blobs.blob(
+            (($random-start + $i) % list.length(b.$blobs)) + 1
+          );
+
+          transform: rotate(#{math.random(360deg)}deg);
+        }
+      }
+    }
+
+    display: flex;
+    gap: 32px;
+    width: 100%;
+    height: 220px;
+    margin-top: 16px;
+
+    @include im.media("<mobile") {
+      > *:not(:first-child) {
+        display: none;
+      }
+    }
+
+    @include im.media("<tablet") {
+      > *:nth-child(n + 3) {
+        display: none;
+      }
+    }
+  }
+}

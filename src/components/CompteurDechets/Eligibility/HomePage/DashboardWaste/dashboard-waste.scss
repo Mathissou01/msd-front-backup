@@ -2,6 +2,12 @@
 @use "src/styles/02-tools/tools.include-media" as im;
 @use "src/styles/02-tools/tools.z-index" as index;
 
+@use "sass:list";
+@use "sass:math";
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/01-settings/settings.blobs" as b;
+@use "src/styles/02-tools/tools.blobs" as blobs;
+
 .c-DashboardWaste {
   position: relative;
   min-height: calc(100vh - 60px);

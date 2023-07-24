@@ -27,7 +27,7 @@
   }
 
   &__Title {
-    margin-left: 32px;
+    margin-left: 16px;
     @include im.media(">=tablet") {
       margin-left: 0;
     }

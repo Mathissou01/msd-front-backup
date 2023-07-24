@@ -5,8 +5,9 @@ import CommonBreadcrumb from "../../../../Common/CommonBreadcrumb/CommonBreadcru
 import FlowsBox from "../FlowsBox";
 import MyHomeData from "../../MyHomeData/MyHomeData";
 import Illu_1 from "public/images/illu_1.svg";
-import "./dashboard-waste.scss";
 import LearnMore from "../LearnMore/LearnMore";
+import MwcTips from "./MwcTips/MwcTips";
+import "./dashboard-waste.scss";
 
 const DashboardWaste: React.FC = () => {
   const [showModal, setShowModal] = useState(true);
@@ -73,6 +74,9 @@ const DashboardWaste: React.FC = () => {
         <FlowsBox />
 
         <MyHomeData />
+      </section>
+      <section>
+        <MwcTips />
       </section>
       <section>
         <LearnMore />
