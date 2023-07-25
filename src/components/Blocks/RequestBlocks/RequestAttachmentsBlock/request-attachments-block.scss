@@ -1,0 +1,26 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.inputs" as inputs;
+
+.c-RequestAttachmentsBlock {
+  &__Input {
+    display: grid;
+    margin-top: 16px;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  &__InformativeText {
+    color: colors.$gray-600;
+    font-size: small;
+  }
+
+  &__AttachmentsList {
+    display: grid;
+    gap: 5px;
+    padding: 16px;
+    color: colors.$gray-800;
+    font-size: medium;
+  }
+}

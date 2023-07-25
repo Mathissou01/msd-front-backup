@@ -1,5 +1,8 @@
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
-import { RequestEntity } from "../../../graphql/codegen/generated-types";
+import {
+  AvailableSlot,
+  RequestEntity,
+} from "../../../graphql/codegen/generated-types";
 import RequestFields from "../RequestFields/RequestFields";
 import "./request-form.scss";
 
@@ -10,6 +13,11 @@ interface IRequestFormProps {
 interface IFormFields {
   lat: number;
   long: number;
+  slot: AvailableSlot;
+  clientName: string;
+  requestId: string;
+  allowSmsNotification: boolean;
+  attachments: Array<FileList>;
 }
 
 export default function RequestForm({ data }: IRequestFormProps) {
@@ -19,7 +27,17 @@ export default function RequestForm({ data }: IRequestFormProps) {
 
   /* Methods */
   function onSubmit(submitData: FieldValues) {
-    return submitData;
+    const variables: IFormFields = {
+      lat: submitData.lat,
+      long: submitData.long,
+      slot: submitData.appointmentSlot,
+      requestId: data.id ?? "",
+      allowSmsNotification: submitData["user-allow-sms"],
+      clientName: `${submitData["user-surname"]}`,
+      attachments: submitData.attachments,
+    };
+
+    return variables;
   }
 
   return (
@@ -27,7 +45,6 @@ export default function RequestForm({ data }: IRequestFormProps) {
       <FormProvider {...form}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <RequestFields data={data} />
-          {/*<button type="submit"> CONSOLE.LOG </button> -- KEEP IT FOR KNOW THE DATAS WHILE TESTING */}
         </form>
       </FormProvider>
     </div>

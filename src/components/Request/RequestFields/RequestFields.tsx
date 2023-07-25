@@ -28,6 +28,7 @@ export default function RequestFields({ data }: IRequestFieldsProps) {
   /* Hidden inputs linked to RequestAddressField */
   register("lat", { value: undefined, required: true });
   register("long", { value: undefined, required: true });
+  register("attachments", { value: [] });
 
   const submitSearch = useCallback(
     async (newCoordinates: ICoordinates) => {

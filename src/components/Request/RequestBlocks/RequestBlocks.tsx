@@ -10,6 +10,7 @@ import RequestQCMBlock from "../../Blocks/RequestBlocks/RequestQCMBlock/RequestQ
 import RequestCommentaryBlock from "../../Blocks/RequestBlocks/RequestCommentaryBlock/RequestCommentaryBlock";
 import RequestDatePickerBlock from "../../Blocks/RequestBlocks/RequestDatePickerBlock/RequestDatePickerBlock";
 import RequestQuestionsBlock from "../../Blocks/RequestBlocks/RequestQuestionsBlock/RequestQuestionsBlock";
+import RequestAttachmentsBlock from "../../Blocks/RequestBlocks/RequestAttachmentsBlock/RequestAttachmentsBlock";
 import "./request-blocks.scss";
 
 interface IRequestBlocksProps {
@@ -24,8 +25,14 @@ export default function RequestBlocks({ blocks }: IRequestBlocksProps) {
           if (block) {
             const id = `request-block-${index}`;
             switch (block.__typename) {
-              /*case "ComponentBlocksAttachments":
-                return <></>;*/
+              case "ComponentBlocksAttachments":
+                return (
+                  <RequestAttachmentsBlock
+                    attachmentsBlockData={block}
+                    name={`attachments.${index}`}
+                    key={index}
+                  />
+                );
               case "ComponentBlocksCheckbox":
                 return (
                   <RequestCheckboxBlock
@@ -51,8 +58,8 @@ export default function RequestBlocks({ blocks }: IRequestBlocksProps) {
                     key={index}
                   />
                 );
-              /*case "ComponentBlocksCumbersome":
-                          return <></>;*/
+              case "ComponentBlocksCumbersome":
+                return <></>;
               case "ComponentBlocksDateChoice":
                 return (
                   <RequestDatePickerBlock
