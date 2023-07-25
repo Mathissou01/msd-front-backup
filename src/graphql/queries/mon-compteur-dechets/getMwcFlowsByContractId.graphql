@@ -40,9 +40,9 @@ query getMwcFlowsByContractId($filters: MwcFlowFiltersInput) {
         flow {
           data {
             attributes {
+              name
               isActivated
               code
-              name
             }
           }
         }

@@ -9,11 +9,13 @@ import "./video-block.scss";
 interface IVideoBlockProps {
   videoLink: string;
   transcriptText?: string;
+  hasMaxWith?: boolean;
 }
 
 export default function VideoBlock({
   videoLink,
   transcriptText,
+  hasMaxWith,
 }: IVideoBlockProps) {
   /* Static Data */
   const labelButtons = {
@@ -39,9 +41,16 @@ export default function VideoBlock({
     }
   }, []);
 
+  const videoBlockClasses = classNames({
+    hasMaxWith: hasMaxWith,
+  });
   return ReactPlayer.canPlay(videoLink) ? (
     <div className="c-VideoBlock">
-      <div className="c-VideoBlock__WrapperPlayer">
+      <div
+        className={`c-VideoBlock__WrapperPlayer ${
+          videoBlockClasses && "c-VideoBlock_hasMaxWith"
+        }`}
+      >
         {hasWindow && (
           <ReactPlayer
             className="c-VideoBlock__Player"

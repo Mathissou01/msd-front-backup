@@ -5263,6 +5263,18 @@ type Query {
     contractId: ID!
     status: ENUM_TOPCONTENTDTO_STATUS
   ): [EditoContentDTO]
+  getUserWasteManagement(
+    city: String!
+    contractID: ID!
+    name: String!
+    postcode: String!
+  ): [UserWasteData]
+  getUserWasteManagementHistory(
+    city: String!
+    contractID: ID!
+    name: String!
+    postcode: String!
+  ): [UserWasteData]
   global: GlobalEntityResponse
   homepage(id: ID): HomepageEntityResponse
   homepages(
@@ -5398,7 +5410,7 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): RequestEntityResponseCollection
-  searchAddress(address: String, limit: Int): [Address]
+  searchAddress(address: String!, citycode: String, limit: Int!): [Address]
   searchCities(contractId: ID!, searchTerm: String!): [CityResult]
   searchClientsByName(name: String!): [clientName]
   searchEngineBlock(id: ID): SearchEngineBlockEntityResponse
@@ -6878,6 +6890,13 @@ union TopContentBlockTopContentDynamicZone = ComponentLinksTopContent | Error
 
 scalar TopContentBlockTopContentDynamicZoneInput
 
+type TrashFlow {
+  name: String
+  percentage: Int
+  trashFlow: String
+  weight: Int
+}
+
 scalar Upload
 
 type UploadFile {
@@ -7083,6 +7102,14 @@ input UserDataStorageInput {
   name: String
   phone: String
   requestTakeds: [ID]
+}
+
+type UserWasteData {
+  averageProduction: String
+  barometerParams: String
+  flows: [TrashFlow]
+  lastDayOfRange: String
+  totalWeight: Int
 }
 
 type UsersPermissionsCreateRolePayload {
@@ -7329,6 +7356,11 @@ type WasteFamilyRelationResponseCollection {
 }
 
 type WasteForm {
+  audiences(
+    filters: AudienceFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): AudienceRelationResponseCollection
   contentBlock: [WasteFormContentBlockDynamicZone]
   createdAt: DateTime
   customId: String
@@ -7381,6 +7413,7 @@ type WasteFormEntityResponseCollection {
 
 input WasteFormFiltersInput {
   and: [WasteFormFiltersInput]
+  audiences: AudienceFiltersInput
   createdAt: DateTimeFilterInput
   customId: StringFilterInput
   draftCreationId: StringFilterInput
@@ -7404,6 +7437,7 @@ input WasteFormFiltersInput {
 }
 
 input WasteFormInput {
+  audiences: [ID]
   contentBlock: [WasteFormContentBlockDynamicZoneInput!]
   customId: String
   draftCreationId: String

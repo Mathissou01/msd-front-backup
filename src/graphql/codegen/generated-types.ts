@@ -6446,6 +6446,8 @@ export type Query = {
   getThreeRandomTips?: Maybe<Array<Maybe<Tips>>>;
   getTopContentBlockDTO?: Maybe<TopContentBlockDto>;
   getTopContentDTOs?: Maybe<Array<Maybe<EditoContentDto>>>;
+  getUserWasteManagement?: Maybe<Array<Maybe<UserWasteData>>>;
+  getUserWasteManagementHistory?: Maybe<Array<Maybe<UserWasteData>>>;
   global?: Maybe<GlobalEntityResponse>;
   homepage?: Maybe<HomepageEntityResponse>;
   homepages?: Maybe<HomepageEntityResponseCollection>;
@@ -7013,6 +7015,20 @@ export type QueryGetTopContentDtOsArgs = {
   status?: InputMaybe<Enum_Topcontentdto_Status>;
 };
 
+export type QueryGetUserWasteManagementArgs = {
+  city: Scalars["String"];
+  contractID: Scalars["ID"];
+  name: Scalars["String"];
+  postcode: Scalars["String"];
+};
+
+export type QueryGetUserWasteManagementHistoryArgs = {
+  city: Scalars["String"];
+  contractID: Scalars["ID"];
+  name: Scalars["String"];
+  postcode: Scalars["String"];
+};
+
 export type QueryHomepageArgs = {
   id?: InputMaybe<Scalars["ID"]>;
 };
@@ -7239,8 +7255,9 @@ export type QueryRequestsArgs = {
 };
 
 export type QuerySearchAddressArgs = {
-  address?: InputMaybe<Scalars["String"]>;
-  limit?: InputMaybe<Scalars["Int"]>;
+  address: Scalars["String"];
+  citycode?: InputMaybe<Scalars["String"]>;
+  limit: Scalars["Int"];
 };
 
 export type QuerySearchCitiesArgs = {
@@ -8952,6 +8969,14 @@ export type TopContentBlockTopContentDynamicZone =
   | ComponentLinksTopContent
   | Error;
 
+export type TrashFlow = {
+  __typename?: "TrashFlow";
+  name?: Maybe<Scalars["String"]>;
+  percentage?: Maybe<Scalars["Int"]>;
+  trashFlow?: Maybe<Scalars["String"]>;
+  weight?: Maybe<Scalars["Int"]>;
+};
+
 export type UploadFile = {
   __typename?: "UploadFile";
   alternativeText?: Maybe<Scalars["String"]>;
@@ -9177,6 +9202,15 @@ export type UserDataStorageInput = {
   name?: InputMaybe<Scalars["String"]>;
   phone?: InputMaybe<Scalars["String"]>;
   requestTakeds?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+};
+
+export type UserWasteData = {
+  __typename?: "UserWasteData";
+  averageProduction?: Maybe<Scalars["String"]>;
+  barometerParams?: Maybe<Scalars["String"]>;
+  flows?: Maybe<Array<Maybe<TrashFlow>>>;
+  lastDayOfRange?: Maybe<Scalars["String"]>;
+  totalWeight?: Maybe<Scalars["Int"]>;
 };
 
 export type UsersPermissionsCreateRolePayload = {
@@ -9454,6 +9488,7 @@ export type WasteFamilyRelationResponseCollection = {
 
 export type WasteForm = {
   __typename?: "WasteForm";
+  audiences?: Maybe<AudienceRelationResponseCollection>;
   contentBlock?: Maybe<Array<Maybe<WasteFormContentBlockDynamicZone>>>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   customId?: Maybe<Scalars["String"]>;
@@ -9473,6 +9508,12 @@ export type WasteForm = {
   updatedAt?: Maybe<Scalars["DateTime"]>;
   versionNumber?: Maybe<Scalars["Int"]>;
   wasteFamily?: Maybe<WasteFamilyEntityResponse>;
+};
+
+export type WasteFormAudiencesArgs = {
+  filters?: InputMaybe<AudienceFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type WasteFormTagsArgs = {
@@ -9509,6 +9550,7 @@ export type WasteFormEntityResponseCollection = {
 
 export type WasteFormFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<WasteFormFiltersInput>>>;
+  audiences?: InputMaybe<AudienceFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   customId?: InputMaybe<StringFilterInput>;
   draftCreationId?: InputMaybe<StringFilterInput>;
@@ -9532,6 +9574,7 @@ export type WasteFormFiltersInput = {
 };
 
 export type WasteFormInput = {
+  audiences?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   contentBlock?: InputMaybe<
     Array<Scalars["WasteFormContentBlockDynamicZoneInput"]>
   >;
@@ -11681,9 +11724,9 @@ export type GetMwcFlowsByContractIdQuery = {
             __typename?: "FlowEntity";
             attributes?: {
               __typename?: "Flow";
+              name?: string | null;
               isActivated?: boolean | null;
               code?: string | null;
-              name?: string | null;
             } | null;
           } | null;
         } | null;
@@ -11693,8 +11736,8 @@ export type GetMwcFlowsByContractIdQuery = {
 };
 
 export type SearchAddressQueryVariables = Exact<{
-  address?: InputMaybe<Scalars["String"]>;
-  limit?: InputMaybe<Scalars["Int"]>;
+  address: Scalars["String"];
+  limit: Scalars["Int"];
 }>;
 
 export type SearchAddressQuery = {
@@ -15804,9 +15847,9 @@ export const GetMwcFlowsByContractIdDocument = gql`
           flow {
             data {
               attributes {
+                name
                 isActivated
                 code
-                name
               }
             }
           }
@@ -15867,7 +15910,7 @@ export type GetMwcFlowsByContractIdQueryResult = Apollo.QueryResult<
   GetMwcFlowsByContractIdQueryVariables
 >;
 export const SearchAddressDocument = gql`
-  query SearchAddress($address: String, $limit: Int) {
+  query SearchAddress($address: String!, $limit: Int!) {
     searchAddress(address: $address, limit: $limit) {
       label
       score
@@ -15906,7 +15949,7 @@ export const SearchAddressDocument = gql`
  * });
  */
 export function useSearchAddressQuery(
-  baseOptions?: Apollo.QueryHookOptions<
+  baseOptions: Apollo.QueryHookOptions<
     SearchAddressQuery,
     SearchAddressQueryVariables
   >,

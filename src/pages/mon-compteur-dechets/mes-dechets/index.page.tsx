@@ -7,8 +7,11 @@ import { fr } from "date-fns/locale";
 import { useGetMwcFlowsByContractIdQuery } from "../../../graphql/codegen/generated-types";
 import { renderFlowName } from "../../../lib/flows";
 import MyWasteStatsBlock from "../../../components/CompteurDechets/MyWaste/MyWasteStatsBlock";
+import MyFlowEdito from "../../../components/CompteurDechets/MyWaste/MyFlowEdito/MyFlowEdito";
+
 import CommonDonut from "../../../components/Common/CommonGraphs/CommonDonut";
 import Illu_idea from "../../../../public/images/pictos/Idea.svg";
+
 import "./my-waste.scss";
 
 const breadcrumbPages = [
@@ -40,6 +43,16 @@ interface Flows {
   date: string;
   flow: Flow[];
 }
+interface IMyWasteFlowEdito {
+  __typename?: string;
+  id?: string;
+  subHeadingText?: string;
+  subHeadingTag?: string;
+  transcriptText?: string;
+  videoLink?: string;
+  textEditor?: string;
+  picture?: string[];
+}
 
 const flows: Flows = {
   total: 150,
@@ -66,7 +79,6 @@ const flows: Flows = {
 const { NEXT_PUBLIC_CONTRACT_ID } = process.env;
 
 export default function MyWastePage() {
-  const [chips, setChips] = useState<string[]>([]);
   const { data } = useGetMwcFlowsByContractIdQuery({
     variables: {
       filters: {
@@ -80,25 +92,50 @@ export default function MyWastePage() {
       },
     },
   });
-
-  useEffect(() => {
-    if (data) {
-      const mappedChips =
-        data.mwcFlows?.data
-          .map((flow) => flow?.attributes?.flow?.data?.attributes?.code || "")
-          .filter((name) => name !== undefined) || [];
-      if (mappedChips) {
-        setChips([...mappedChips, "all"]);
-      }
-    }
-  }, [data]);
-
+  const [chips, setChips] = useState<string[]>([]);
+  const [wasteFlows, setWasteFlows] = useState<IMyWasteFlowEdito[]>([]);
   const [selectedChip, setSelectedChip] = useState("all");
   const [currentDate] = useState(subMonths(new Date(), 1));
   const formattedDate = format(currentDate, "MMMM yyyy", {
     locale: fr,
     useAdditionalWeekYearTokens: false,
   });
+  useEffect(() => {
+    if (data) {
+      const mappedChips =
+        data.mwcFlows?.data
+          .map((flow) => flow?.attributes?.flow?.data?.attributes?.name || "")
+          .filter((name) => name !== undefined) || [];
+
+      if (mappedChips) {
+        setChips([...mappedChips, "all"]);
+      }
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (data) {
+      const mappedFlows =
+        data.mwcFlows?.data
+          ?.filter(
+            (flowdata) =>
+              flowdata.attributes?.flow?.data?.attributes?.name ===
+              selectedChip,
+          )
+          .map((flowBlock) => flowBlock?.attributes?.blocks)
+          .filter((blocks) => blocks !== undefined) || [];
+
+      if (mappedFlows) {
+        setWasteFlows(mappedFlows[0] as IMyWasteFlowEdito[]);
+      }
+    }
+  }, [data, selectedChip]);
+  //TODO: if collapse
+  // const [isCollapsed, setIsCollapsed] = useState(false);
+  // const toggleCollapse = () => {
+  //   setIsCollapsed(!isCollapsed);
+  // };
+
   return (
     <>
       <CommonBreadcrumb pages={breadcrumbPages} />
@@ -149,6 +186,13 @@ export default function MyWastePage() {
                   </div>
                 </div>
                 {selectedChip === "all" && <MyWasteStatsBlock flows={flows} />}
+                {selectedChip !== "all" && (
+                  <div className="c-MyFlowEdito">
+                    {wasteFlows?.map((wasteFlow, index) => (
+                      <MyFlowEdito wasteFlow={wasteFlow} key={index} />
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>
