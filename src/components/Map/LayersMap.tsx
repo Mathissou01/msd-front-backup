@@ -15,6 +15,7 @@ interface ILayersMapProps {
   destination: IGeoPosition | null;
   selectedMarkerId: string | undefined;
   onMarkerClick: (index: IMarker) => void;
+  showModal: boolean;
 }
 
 export default function LayersMap({
@@ -24,6 +25,7 @@ export default function LayersMap({
   destination,
   onMarkerClick,
   selectedMarkerId,
+  showModal,
 }: ILayersMapProps) {
   const mapRef = useRef<google.maps.Map | null>(null);
   const { isLoaded } = useContext(GoogleMapsContext);
@@ -93,6 +95,7 @@ export default function LayersMap({
               picto={picto ?? ""}
               selectedMarkerId={selectedMarkerId}
               onClick={() => onMarkerClick(markers[ind])}
+              showModal={showModal}
             />
           ))}
           {position && position.lat && (

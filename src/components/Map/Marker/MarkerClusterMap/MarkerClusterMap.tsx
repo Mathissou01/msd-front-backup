@@ -7,6 +7,7 @@ interface MarkerData {
   lng: number;
   onClick: () => void;
   selectedMarkerId: string | undefined;
+  showModal: boolean;
 }
 
 export default function MarkerClusterMap({
@@ -16,6 +17,7 @@ export default function MarkerClusterMap({
   picto,
   onClick,
   selectedMarkerId,
+  showModal,
 }: MarkerData) {
   // FUTURE FEATURE : Add maker cluster here
   return (
@@ -26,6 +28,7 @@ export default function MarkerClusterMap({
       onClick={onClick}
       id={id}
       selectedMarkerId={selectedMarkerId}
+      showModal={showModal}
     />
   );
 }

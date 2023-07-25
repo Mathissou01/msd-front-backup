@@ -186,6 +186,7 @@ export default function ServiceCartePage() {
             destination={destination}
             onMarkerClick={onMarkerClick}
             selectedMarkerId={selectedContent?.infoId}
+            showModal={showModal}
           />
         </div>
       </div>

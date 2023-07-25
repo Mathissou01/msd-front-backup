@@ -7,6 +7,7 @@ type MarkerMapProps = {
   selectedMarkerId: string | undefined;
   onClick: () => void;
   id: string | undefined;
+  showModal: boolean;
 };
 
 export default function MarkerMap({
@@ -15,8 +16,9 @@ export default function MarkerMap({
   onClick,
   id,
   selectedMarkerId,
+  showModal,
 }: MarkerMapProps) {
-  const markerSize = id === selectedMarkerId ? 1.3 : 1;
+  const markerSize = id === selectedMarkerId && showModal ? 1.3 : 1;
   function getPixelPositionOffset(
     width: number,
     height: number,
