@@ -15,21 +15,7 @@
     border-radius: 8px;
     box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
 
-    // include en deuxième
-    @include im.media(">=mobile") {
-      flex-basis: 50%;
-      flex-direction: column;
-      width: 228px;
-      height: auto;
-      margin-bottom: 0;
-      padding: 32px 16px 24px;
-
-      &::after {
-        content: none;
-      }
-    }
-
-    // after en first
+    // stylelint-disable-next-line
     &::after {
       position: absolute;
       top: calc(50% - 21px);
@@ -41,6 +27,20 @@
       background-repeat: no-repeat;
       transform: rotate(180deg) translateY(-50%);
       content: "";
+    }
+
+    // stylelint-disable-next-line
+    @include im.media(">=mobile") {
+      flex-basis: 50%;
+      flex-direction: column;
+      width: 228px;
+      height: auto;
+      margin-bottom: 0;
+      padding: 32px 16px 24px;
+
+      &::after {
+        content: none;
+      }
     }
 
     button {
