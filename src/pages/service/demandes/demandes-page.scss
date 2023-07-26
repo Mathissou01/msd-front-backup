@@ -28,4 +28,18 @@
       text-align: right;
     }
   }
+
+  &__ConfirmationMessage {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20%;
+    text-align: center;
+
+    &_buttons {
+      display: flex;
+      gap: 12px;
+      align-self: center;
+      margin-top: 12px;
+    }
+  }
 }

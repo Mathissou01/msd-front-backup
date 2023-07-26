@@ -8,6 +8,7 @@ import "./request-form.scss";
 
 interface IRequestFormProps {
   data: RequestEntity;
+  pageOnSubmit: () => void;
 }
 
 interface IFormFields {
@@ -20,13 +21,10 @@ interface IFormFields {
   attachments: Array<FileList>;
 }
 
-export default function RequestForm({ data }: IRequestFormProps) {
-  /* Local data */
-  const form = useForm<IFormFields>({ mode: "onChange" });
-  const { handleSubmit } = form;
-
+export default function RequestForm({ data, pageOnSubmit }: IRequestFormProps) {
   /* Methods */
   function onSubmit(submitData: FieldValues) {
+    pageOnSubmit();
     const variables: IFormFields = {
       lat: submitData.lat,
       long: submitData.long,
@@ -39,6 +37,10 @@ export default function RequestForm({ data }: IRequestFormProps) {
 
     return variables;
   }
+
+  /* Local data */
+  const form = useForm<IFormFields>({ mode: "onChange" });
+  const { handleSubmit } = form;
 
   return (
     <div className="c-RequestForm">

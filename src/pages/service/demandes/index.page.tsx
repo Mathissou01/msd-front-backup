@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { GetStaticProps } from "next";
+import { useRouter } from "next/router";
 import client from "../../../graphql/client";
 import {
   GetRequestsLevelsDocument,
@@ -11,6 +12,7 @@ import { E_LEVEL_TYPE, ILevelDatas } from "../../../lib/request";
 import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 import RequestLevels from "../../../components/Request/RequestLevels/RequestLevels";
 import RequestForm from "../../../components/Request/RequestForm/RequestForm";
+import CommonButton from "../../../components/Common/CommonButton/CommonButton";
 import "./demandes-page.scss";
 
 interface IRequestLevelProps {
@@ -23,9 +25,24 @@ export default function ServiceDemandesPage({
   /* Static datas */
   const labels = {
     mandatoryFields: "*Les champs marqués d’une astérisque sont obligatoires.",
+    backToHome: "Revenir à l'accueil",
+    submitNewForm: "Soumettre un nouveau formulaire",
   };
 
+  /* Methods */
+  function onSubmit() {
+    setIsSubmitted(true);
+  }
+
+  function resetForm() {
+    setAllSelectedCards(false);
+    setCurrentRequest(undefined);
+    setIsSubmitted(false);
+  }
+
   /* Local datas */
+  const router = useRouter();
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [allSelectedCards, setAllSelectedCards] = useState<boolean>(false);
   const [currentRequest, setCurrentRequest] = useState<RequestEntity>();
 
@@ -39,20 +56,46 @@ export default function ServiceDemandesPage({
         ]}
       />
 
-      <div className="c-RequestPage__FirstLevel">
-        <p className="c-RequestPage__MandatoryFieldsLabel">
-          {labels.mandatoryFields}
-        </p>
-        {requestLevels && requestLevels.length > 0 ? (
-          <RequestLevels
-            firstLevelDatas={requestLevels}
-            setAllSelectedCards={setAllSelectedCards}
-            setCurrentRequest={setCurrentRequest}
+      {!isSubmitted ? (
+        <>
+          <div className="c-RequestPage__FirstLevel">
+            <p className="c-RequestPage__MandatoryFieldsLabel">
+              {labels.mandatoryFields}
+            </p>
+            {requestLevels && requestLevels.length > 0 ? (
+              <RequestLevels
+                firstLevelDatas={requestLevels}
+                setAllSelectedCards={setAllSelectedCards}
+                setCurrentRequest={setCurrentRequest}
+              />
+            ) : null}
+          </div>
+          {allSelectedCards && currentRequest && (
+            <RequestForm data={currentRequest} pageOnSubmit={onSubmit} />
+          )}
+        </>
+      ) : (
+        <div className="c-RequestPage__ConfirmationMessage">
+          <div
+            dangerouslySetInnerHTML={{
+              __html: currentRequest?.attributes?.confirmationMessage ?? "",
+            }}
           />
-        ) : null}
-      </div>
-      {allSelectedCards && currentRequest && (
-        <RequestForm data={currentRequest} />
+          <div className="c-RequestPage__ConfirmationMessage_buttons">
+            <CommonButton
+              type="button"
+              style="secondary"
+              onClick={() => router.push("/")}
+              label={labels.backToHome}
+            />
+            <CommonButton
+              type="button"
+              style="primary"
+              onClick={resetForm}
+              label={labels.submitNewForm}
+            />
+          </div>
+        </div>
       )}
     </section>
   );
