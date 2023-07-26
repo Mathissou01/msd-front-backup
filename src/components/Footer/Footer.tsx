@@ -19,7 +19,7 @@ export default function Footer() {
     contactUsSubService: "Contactez-nous",
   };
   const routes = {
-    accessibilityRoute: "/",
+    accessibilityRoute: "/accessibilite",
     siteRoute: "/",
     cguRoute: "/",
     cookiesRoute: "/",

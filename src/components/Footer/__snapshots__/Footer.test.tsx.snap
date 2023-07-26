@@ -8,7 +8,7 @@ exports[`Header renders 1`] = `
   >
     <a
       class="c-Footer__Link"
-      href="/"
+      href="/accessibilite"
     >
       <span>
         Accessibilité : non conforme
