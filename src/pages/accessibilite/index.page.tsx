@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import "./accessibility-page.scss";
 
@@ -46,9 +47,20 @@ export default function AccessibilityPage() {
     process.env["NEXT_PUBLIC_DELIVERY_DATE"] !== ""
       ? process.env["NEXT_PUBLIC_DELIVERY_DATE"]
       : "04/09/2023";
-  const siteUrl =
-    process.env["NEXT_PUBLIC_BASE_URL"] ?? process.env["NEXT_PUBLIC_BASE_HOST"];
+  const defaultSiteUrl =
+    process.env["NEXT_PUBLIC_BASE_URL"] ??
+    process.env["NEXT_PUBLIC_BASE_HOST"] ??
+    "";
   const contactPage = "/service/contact";
+
+  /* Local Data */
+  const [siteUrl, setSiteUrl] = useState<string>(defaultSiteUrl);
+
+  useEffect(() => {
+    if (window?.location.origin) {
+      setSiteUrl(window.location.origin);
+    }
+  }, []);
 
   return (
     <section className="c-AccessibilityPage">
