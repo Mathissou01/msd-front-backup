@@ -11,7 +11,8 @@ export default function DeleteAccount() {
     return (
       <div className="c-CommonOverlay__Content">
         <p className="c-CommonOverlay__Text">
-          Souhaitez-vous vraiment demander la suppression de votre compte.
+          Souhaitez-vous vraiment demander la suppression de votre compte?
+          <br />
           <br />
           Toutes les données rattachées à votre compte seront supprimées et ne
           pourront être récupérées.

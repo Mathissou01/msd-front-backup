@@ -8,8 +8,11 @@ import Illu_1 from "public/images/illu_1.svg";
 import LearnMore from "../LearnMore/LearnMore";
 import MwcTips from "./MwcTips/MwcTips";
 import "./dashboard-waste.scss";
+import { useGetHasTipsQuery } from "../../../../../graphql/codegen/generated-types";
+import { useContract } from "../../../../../hooks/useContract";
 
 const DashboardWaste: React.FC = () => {
+  const { contractId } = useContract();
   const [showModal, setShowModal] = useState(true);
   const router = useRouter();
 
@@ -23,7 +26,17 @@ const DashboardWaste: React.FC = () => {
       slug: "/mon-compteur-dechets",
     },
   ];
-
+  const { data: hasTips } = useGetHasTipsQuery({
+    variables: {
+      filters: {
+        contract: {
+          id: {
+            eq: contractId,
+          },
+        },
+      },
+    },
+  });
   return (
     <div className="c-DashboardWaste">
       {showModal && (
@@ -75,9 +88,12 @@ const DashboardWaste: React.FC = () => {
 
         <MyHomeData />
       </section>
-      <section>
-        <MwcTips />
-      </section>
+      {hasTips?.mwCounterServices?.data?.[0]?.attributes?.hasTips && (
+        <section>
+          <MwcTips />
+        </section>
+      )}
+
       <section>
         <LearnMore />
       </section>

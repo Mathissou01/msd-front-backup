@@ -1,23 +1,10 @@
 import React from "react";
 import "./my-waste-stats-block.scss";
 import FlowsStatsBlock from "../FlowsStatsBlock/FlowsStatsBlock";
-
-interface Flow {
-  name: string;
-  total: number;
-  percent: number;
-  code: string;
-}
-
-interface Flows {
-  total: number;
-  percent: number;
-  date: string;
-  flow: Flow[];
-}
+import { UserWasteData } from "../../../graphql/codegen/generated-types";
 
 interface MyWasteStatsBlockProps {
-  flows: Flows;
+  flows: UserWasteData;
 }
 
 const MyWasteStatsBlock: React.FC<MyWasteStatsBlockProps> = ({ flows }) => {
@@ -25,9 +12,11 @@ const MyWasteStatsBlock: React.FC<MyWasteStatsBlockProps> = ({ flows }) => {
     <div className="c-MyWasteStatsBlock">
       <div className="c-MyWasteStatsBlock__TotalCountContainer">
         <p className="c-MyWasteStatsBlock__Total">TOTAL</p>
-        <p className="c-MyWasteStatsBlock__TotalValue">{flows.total} kg</p>
+        <p className="c-MyWasteStatsBlock__TotalValue">
+          {flows?.totalWeight} kg
+        </p>
       </div>
-      <FlowsStatsBlock flows={flows.flow} type="percent" />
+      {flows && <FlowsStatsBlock flows={flows.flows} type="percent" />}
     </div>
   );
 };

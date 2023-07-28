@@ -212,6 +212,7 @@ export type AlertNotification = {
   alertMessage?: Maybe<Scalars["String"]>;
   alertNotifService?: Maybe<AlertNotificationServiceEntityResponse>;
   alertTitle?: Maybe<Scalars["String"]>;
+  alertUserStorages?: Maybe<AlertUserStorageRelationResponseCollection>;
   cities?: Maybe<CityRelationResponseCollection>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   scheduledAt: Scalars["Date"];
@@ -221,6 +222,12 @@ export type AlertNotification = {
   sendSMS?: Maybe<Scalars["Boolean"]>;
   subject?: Maybe<Scalars["String"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type AlertNotificationAlertUserStoragesArgs = {
+  filters?: InputMaybe<AlertUserStorageFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type AlertNotificationCitiesArgs = {
@@ -257,6 +264,7 @@ export type AlertNotificationFiltersInput = {
   alertMessage?: InputMaybe<StringFilterInput>;
   alertNotifService?: InputMaybe<AlertNotificationServiceFiltersInput>;
   alertTitle?: InputMaybe<StringFilterInput>;
+  alertUserStorages?: InputMaybe<AlertUserStorageFiltersInput>;
   and?: InputMaybe<Array<InputMaybe<AlertNotificationFiltersInput>>>;
   cities?: InputMaybe<CityFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
@@ -277,6 +285,7 @@ export type AlertNotificationInput = {
   alertMessage?: InputMaybe<Scalars["String"]>;
   alertNotifService?: InputMaybe<Scalars["ID"]>;
   alertTitle?: InputMaybe<Scalars["String"]>;
+  alertUserStorages?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   cities?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   scheduledAt?: InputMaybe<Scalars["Date"]>;
   scheduledAtTime?: InputMaybe<Scalars["String"]>;
@@ -366,6 +375,76 @@ export type AlertNotificationServiceInput = {
   isActivated?: InputMaybe<Scalars["Boolean"]>;
   name?: InputMaybe<Scalars["String"]>;
   startDate?: InputMaybe<Scalars["Date"]>;
+};
+
+export type AlertUserStorage = {
+  __typename?: "AlertUserStorage";
+  alertNotificationServiceId: Scalars["String"];
+  alertNotifications?: Maybe<AlertNotificationRelationResponseCollection>;
+  createdAt?: Maybe<Scalars["DateTime"]>;
+  email?: Maybe<Scalars["String"]>;
+  isEmail: Scalars["Boolean"];
+  isSMS: Scalars["Boolean"];
+  latitude?: Maybe<Scalars["String"]>;
+  longitude?: Maybe<Scalars["String"]>;
+  phoneNumber?: Maybe<Scalars["String"]>;
+  updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type AlertUserStorageAlertNotificationsArgs = {
+  filters?: InputMaybe<AlertNotificationFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type AlertUserStorageEntity = {
+  __typename?: "AlertUserStorageEntity";
+  attributes?: Maybe<AlertUserStorage>;
+  id?: Maybe<Scalars["ID"]>;
+};
+
+export type AlertUserStorageEntityResponse = {
+  __typename?: "AlertUserStorageEntityResponse";
+  data?: Maybe<AlertUserStorageEntity>;
+};
+
+export type AlertUserStorageEntityResponseCollection = {
+  __typename?: "AlertUserStorageEntityResponseCollection";
+  data: Array<AlertUserStorageEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type AlertUserStorageFiltersInput = {
+  alertNotificationServiceId?: InputMaybe<StringFilterInput>;
+  alertNotifications?: InputMaybe<AlertNotificationFiltersInput>;
+  and?: InputMaybe<Array<InputMaybe<AlertUserStorageFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  email?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  isEmail?: InputMaybe<BooleanFilterInput>;
+  isSMS?: InputMaybe<BooleanFilterInput>;
+  latitude?: InputMaybe<StringFilterInput>;
+  longitude?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<AlertUserStorageFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<AlertUserStorageFiltersInput>>>;
+  phoneNumber?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type AlertUserStorageInput = {
+  alertNotificationServiceId?: InputMaybe<Scalars["String"]>;
+  alertNotifications?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  email?: InputMaybe<Scalars["String"]>;
+  isEmail?: InputMaybe<Scalars["Boolean"]>;
+  isSMS?: InputMaybe<Scalars["Boolean"]>;
+  latitude?: InputMaybe<Scalars["String"]>;
+  longitude?: InputMaybe<Scalars["String"]>;
+  phoneNumber?: InputMaybe<Scalars["String"]>;
+};
+
+export type AlertUserStorageRelationResponseCollection = {
+  __typename?: "AlertUserStorageRelationResponseCollection";
+  data: Array<AlertUserStorageEntity>;
 };
 
 export type Appointment = {
@@ -473,21 +552,18 @@ export type Cgu = {
   blocks?: Maybe<Array<Maybe<CguBlocksDynamicZone>>>;
   cguSubService?: Maybe<CguSubServiceEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
-  customId?: Maybe<Scalars["String"]>;
-  draftCreationId?: Maybe<Scalars["String"]>;
-  hasDraft?: Maybe<Scalars["Boolean"]>;
-  publishedDate?: Maybe<Scalars["DateTime"]>;
-  status?: Maybe<Enum_Cgu_Status>;
+  hasMobile?: Maybe<Scalars["Boolean"]>;
+  isActivated?: Maybe<Scalars["Boolean"]>;
   title: Scalars["String"];
-  toBeUpdated?: Maybe<Scalars["Boolean"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
-  versionNumber?: Maybe<Scalars["Int"]>;
 };
 
 export type CguBlocksDynamicZone =
   | ComponentBlocksFile
   | ComponentBlocksHorizontalRule
+  | ComponentBlocksImage
   | ComponentBlocksSubHeading
+  | ComponentBlocksVideo
   | ComponentBlocksWysiwyg
   | Error;
 
@@ -512,31 +588,21 @@ export type CguFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<CguFiltersInput>>>;
   cguSubService?: InputMaybe<CguSubServiceFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  customId?: InputMaybe<StringFilterInput>;
-  draftCreationId?: InputMaybe<StringFilterInput>;
-  hasDraft?: InputMaybe<BooleanFilterInput>;
+  hasMobile?: InputMaybe<BooleanFilterInput>;
   id?: InputMaybe<IdFilterInput>;
+  isActivated?: InputMaybe<BooleanFilterInput>;
   not?: InputMaybe<CguFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<CguFiltersInput>>>;
-  publishedDate?: InputMaybe<DateTimeFilterInput>;
-  status?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
-  toBeUpdated?: InputMaybe<BooleanFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
-  versionNumber?: InputMaybe<IntFilterInput>;
 };
 
 export type CguInput = {
   blocks?: InputMaybe<Array<Scalars["CguBlocksDynamicZoneInput"]>>;
   cguSubService?: InputMaybe<Scalars["ID"]>;
-  customId?: InputMaybe<Scalars["String"]>;
-  draftCreationId?: InputMaybe<Scalars["String"]>;
-  hasDraft?: InputMaybe<Scalars["Boolean"]>;
-  publishedDate?: InputMaybe<Scalars["DateTime"]>;
-  status?: InputMaybe<Enum_Cgu_Status>;
+  hasMobile?: InputMaybe<Scalars["Boolean"]>;
+  isActivated?: InputMaybe<Scalars["Boolean"]>;
   title?: InputMaybe<Scalars["String"]>;
-  toBeUpdated?: InputMaybe<Scalars["Boolean"]>;
-  versionNumber?: InputMaybe<Scalars["Int"]>;
 };
 
 export type CguRelationResponseCollection = {
@@ -651,6 +717,7 @@ export type ChannelTypeRelationResponseCollection = {
 
 export type City = {
   __typename?: "City";
+  GeoJSON?: Maybe<Scalars["JSON"]>;
   MwCounter?: Maybe<MwCounterServiceEntityResponse>;
   contract?: Maybe<ContractEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
@@ -696,6 +763,7 @@ export type CityEntityResponseCollection = {
 };
 
 export type CityFiltersInput = {
+  GeoJSON?: InputMaybe<JsonFilterInput>;
   MwCounter?: InputMaybe<MwCounterServiceFiltersInput>;
   and?: InputMaybe<Array<InputMaybe<CityFiltersInput>>>;
   contract?: InputMaybe<ContractFiltersInput>;
@@ -716,6 +784,7 @@ export type CityFiltersInput = {
 };
 
 export type CityInput = {
+  GeoJSON?: InputMaybe<Scalars["JSON"]>;
   MwCounter?: InputMaybe<Scalars["ID"]>;
   contract?: InputMaybe<Scalars["ID"]>;
   department?: InputMaybe<Scalars["String"]>;
@@ -1423,21 +1492,18 @@ export type Confidentiality = {
   blocks?: Maybe<Array<Maybe<ConfidentialityBlocksDynamicZone>>>;
   confidentialitySubService?: Maybe<ConfidentialitySubServiceEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
-  customId?: Maybe<Scalars["String"]>;
-  draftCreationId?: Maybe<Scalars["String"]>;
-  hasDraft?: Maybe<Scalars["Boolean"]>;
-  publishedDate?: Maybe<Scalars["DateTime"]>;
-  status?: Maybe<Enum_Confidentiality_Status>;
+  hasMobile?: Maybe<Scalars["Boolean"]>;
+  isActivated?: Maybe<Scalars["Boolean"]>;
   title: Scalars["String"];
-  toBeUpdated?: Maybe<Scalars["Boolean"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
-  versionNumber?: Maybe<Scalars["Int"]>;
 };
 
 export type ConfidentialityBlocksDynamicZone =
   | ComponentBlocksFile
   | ComponentBlocksHorizontalRule
+  | ComponentBlocksImage
   | ComponentBlocksSubHeading
+  | ComponentBlocksVideo
   | ComponentBlocksWysiwyg
   | Error;
 
@@ -1462,31 +1528,21 @@ export type ConfidentialityFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ConfidentialityFiltersInput>>>;
   confidentialitySubService?: InputMaybe<ConfidentialitySubServiceFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  customId?: InputMaybe<StringFilterInput>;
-  draftCreationId?: InputMaybe<StringFilterInput>;
-  hasDraft?: InputMaybe<BooleanFilterInput>;
+  hasMobile?: InputMaybe<BooleanFilterInput>;
   id?: InputMaybe<IdFilterInput>;
+  isActivated?: InputMaybe<BooleanFilterInput>;
   not?: InputMaybe<ConfidentialityFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ConfidentialityFiltersInput>>>;
-  publishedDate?: InputMaybe<DateTimeFilterInput>;
-  status?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
-  toBeUpdated?: InputMaybe<BooleanFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
-  versionNumber?: InputMaybe<IntFilterInput>;
 };
 
 export type ConfidentialityInput = {
   blocks?: InputMaybe<Array<Scalars["ConfidentialityBlocksDynamicZoneInput"]>>;
   confidentialitySubService?: InputMaybe<Scalars["ID"]>;
-  customId?: InputMaybe<Scalars["String"]>;
-  draftCreationId?: InputMaybe<Scalars["String"]>;
-  hasDraft?: InputMaybe<Scalars["Boolean"]>;
-  publishedDate?: InputMaybe<Scalars["DateTime"]>;
-  status?: InputMaybe<Enum_Confidentiality_Status>;
+  hasMobile?: InputMaybe<Scalars["Boolean"]>;
+  isActivated?: InputMaybe<Scalars["Boolean"]>;
   title?: InputMaybe<Scalars["String"]>;
-  toBeUpdated?: InputMaybe<Scalars["Boolean"]>;
-  versionNumber?: InputMaybe<Scalars["Int"]>;
 };
 
 export type ConfidentialityRelationResponseCollection = {
@@ -1563,18 +1619,12 @@ export type ContactResponse = {
 export type ContactUs = {
   __typename?: "ContactUs";
   blocks?: Maybe<Array<Maybe<ContactUsBlocksDynamicZone>>>;
-  channelTypes?: Maybe<ChannelTypeRelationResponseCollection>;
+  contactUsSubService?: Maybe<ContactUsSubServiceEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
-  status?: Maybe<Enum_Contactus_Status>;
+  isActivated?: Maybe<Scalars["Boolean"]>;
   tags?: Maybe<TagRelationResponseCollection>;
   title: Scalars["String"];
   updatedAt?: Maybe<Scalars["DateTime"]>;
-};
-
-export type ContactUsChannelTypesArgs = {
-  filters?: InputMaybe<ChannelTypeFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type ContactUsTagsArgs = {
@@ -1611,12 +1661,12 @@ export type ContactUsEntityResponseCollection = {
 
 export type ContactUsFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ContactUsFiltersInput>>>;
-  channelTypes?: InputMaybe<ChannelTypeFiltersInput>;
+  contactUsSubService?: InputMaybe<ContactUsSubServiceFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
+  isActivated?: InputMaybe<BooleanFilterInput>;
   not?: InputMaybe<ContactUsFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ContactUsFiltersInput>>>;
-  status?: InputMaybe<StringFilterInput>;
   tags?: InputMaybe<TagFiltersInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -1624,8 +1674,8 @@ export type ContactUsFiltersInput = {
 
 export type ContactUsInput = {
   blocks?: InputMaybe<Array<Scalars["ContactUsBlocksDynamicZoneInput"]>>;
-  channelTypes?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
-  status?: InputMaybe<Enum_Contactus_Status>;
+  contactUsSubService?: InputMaybe<Scalars["ID"]>;
+  isActivated?: InputMaybe<Scalars["Boolean"]>;
   tags?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   title?: InputMaybe<Scalars["String"]>;
 };
@@ -1746,6 +1796,7 @@ export type Contract = {
   logicalDelete?: Maybe<Scalars["Boolean"]>;
   logo: UploadFileEntityResponse;
   numberOfInhabitants?: Maybe<Scalars["Long"]>;
+  oldClientName?: Maybe<Scalars["String"]>;
   pathId?: Maybe<Scalars["Long"]>;
   pickUpDayService?: Maybe<PickUpDayServiceEntityResponse>;
   recyclingGuideService?: Maybe<RecyclingGuideServiceEntityResponse>;
@@ -1935,6 +1986,7 @@ export type ContractFiltersInput = {
   logicalDelete?: InputMaybe<BooleanFilterInput>;
   not?: InputMaybe<ContractFiltersInput>;
   numberOfInhabitants?: InputMaybe<LongFilterInput>;
+  oldClientName?: InputMaybe<StringFilterInput>;
   or?: InputMaybe<Array<InputMaybe<ContractFiltersInput>>>;
   pathId?: InputMaybe<LongFilterInput>;
   pickUpDayService?: InputMaybe<PickUpDayServiceFiltersInput>;
@@ -1977,6 +2029,7 @@ export type ContractInput = {
   logicalDelete?: InputMaybe<Scalars["Boolean"]>;
   logo?: InputMaybe<Scalars["ID"]>;
   numberOfInhabitants?: InputMaybe<Scalars["Long"]>;
+  oldClientName?: InputMaybe<Scalars["String"]>;
   pathId?: InputMaybe<Scalars["Long"]>;
   pickUpDayService?: InputMaybe<Scalars["ID"]>;
   recyclingGuideService?: InputMaybe<Scalars["ID"]>;
@@ -2053,7 +2106,7 @@ export type Cookie = {
   blocks?: Maybe<Array<Maybe<CookieBlocksDynamicZone>>>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   hasMobile: Scalars["Boolean"];
-  status?: Maybe<Enum_Cookie_Status>;
+  isActivated?: Maybe<Scalars["Boolean"]>;
   title: Scalars["String"];
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
@@ -2089,9 +2142,9 @@ export type CookieFiltersInput = {
   createdAt?: InputMaybe<DateTimeFilterInput>;
   hasMobile?: InputMaybe<BooleanFilterInput>;
   id?: InputMaybe<IdFilterInput>;
+  isActivated?: InputMaybe<BooleanFilterInput>;
   not?: InputMaybe<CookieFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<CookieFiltersInput>>>;
-  status?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
@@ -2099,7 +2152,7 @@ export type CookieFiltersInput = {
 export type CookieInput = {
   blocks?: InputMaybe<Array<Scalars["CookieBlocksDynamicZoneInput"]>>;
   hasMobile?: InputMaybe<Scalars["Boolean"]>;
-  status?: InputMaybe<Enum_Cookie_Status>;
+  isActivated?: InputMaybe<Scalars["Boolean"]>;
   title?: InputMaybe<Scalars["String"]>;
 };
 
@@ -2162,12 +2215,6 @@ export type CookiesSubServiceInput = {
   editorialService?: InputMaybe<Scalars["ID"]>;
   link?: InputMaybe<Scalars["String"]>;
   name?: InputMaybe<Scalars["String"]>;
-};
-
-export type Data = {
-  __typename?: "Data";
-  chipId?: Maybe<Scalars["String"]>;
-  trashFlow?: Maybe<Scalars["String"]>;
 };
 
 export type DateFilterInput = {
@@ -2552,12 +2599,6 @@ export enum Enum_Audience_Type {
   Professionnels = "Professionnels",
 }
 
-export enum Enum_Cgu_Status {
-  Archived = "archived",
-  Draft = "draft",
-  Published = "published",
-}
-
 export enum Enum_Collectdoortodoor_Grammaticalgender {
   Feminin = "feminin",
   Masculin = "masculin",
@@ -2637,17 +2678,6 @@ export enum Enum_Componentlinksrequest_Demand {
   E = "E",
 }
 
-export enum Enum_Confidentiality_Status {
-  Archived = "archived",
-  Draft = "draft",
-  Published = "published",
-}
-
-export enum Enum_Contactus_Status {
-  Draft = "draft",
-  Published = "published",
-}
-
 export enum Enum_Contract_Clienttype {
   City = "city",
   Epci = "epci",
@@ -2658,12 +2688,6 @@ export enum Enum_Contract_Contractstatus {
   Actif = "Actif",
   EnCours = "En_cours",
   Initialisation = "Initialisation",
-}
-
-export enum Enum_Cookie_Status {
-  Archived = "archived",
-  Draft = "draft",
-  Published = "published",
 }
 
 export enum Enum_Editocontentdto_Status {
@@ -3707,6 +3731,7 @@ export type GenericMorph =
   | AccessibilitySubService
   | AlertNotification
   | AlertNotificationService
+  | AlertUserStorage
   | Audience
   | Cgu
   | CguSubService
@@ -4247,6 +4272,7 @@ export type Mutation = {
   createAccessibilitySubService?: Maybe<AccessibilitySubServiceEntityResponse>;
   createAlertNotification?: Maybe<AlertNotificationEntityResponse>;
   createAlertNotificationService?: Maybe<AlertNotificationServiceEntityResponse>;
+  createAlertUserStorage?: Maybe<AlertUserStorageEntityResponse>;
   createAudience?: Maybe<AudienceEntityResponse>;
   createCgu?: Maybe<CguEntityResponse>;
   createCguSubService?: Maybe<CguSubServiceEntityResponse>;
@@ -4328,6 +4354,7 @@ export type Mutation = {
   deleteAccessibilitySubService?: Maybe<AccessibilitySubServiceEntityResponse>;
   deleteAlertNotification?: Maybe<AlertNotificationEntityResponse>;
   deleteAlertNotificationService?: Maybe<AlertNotificationServiceEntityResponse>;
+  deleteAlertUserStorage?: Maybe<AlertUserStorageEntityResponse>;
   deleteAudience?: Maybe<AudienceEntityResponse>;
   deleteCgu?: Maybe<CguEntityResponse>;
   deleteCguSubService?: Maybe<CguSubServiceEntityResponse>;
@@ -4431,6 +4458,7 @@ export type Mutation = {
   updateAccessibilitySubService?: Maybe<AccessibilitySubServiceEntityResponse>;
   updateAlertNotification?: Maybe<AlertNotificationEntityResponse>;
   updateAlertNotificationService?: Maybe<AlertNotificationServiceEntityResponse>;
+  updateAlertUserStorage?: Maybe<AlertUserStorageEntityResponse>;
   updateAudience?: Maybe<AudienceEntityResponse>;
   updateCgu?: Maybe<CguEntityResponse>;
   updateCguSubService?: Maybe<CguSubServiceEntityResponse>;
@@ -4568,6 +4596,10 @@ export type MutationCreateAlertNotificationArgs = {
 
 export type MutationCreateAlertNotificationServiceArgs = {
   data: AlertNotificationServiceInput;
+};
+
+export type MutationCreateAlertUserStorageArgs = {
+  data: AlertUserStorageInput;
 };
 
 export type MutationCreateAudienceArgs = {
@@ -4899,6 +4931,10 @@ export type MutationDeleteAlertNotificationArgs = {
 };
 
 export type MutationDeleteAlertNotificationServiceArgs = {
+  id: Scalars["ID"];
+};
+
+export type MutationDeleteAlertUserStorageArgs = {
   id: Scalars["ID"];
 };
 
@@ -5309,6 +5345,11 @@ export type MutationUpdateAlertNotificationArgs = {
 
 export type MutationUpdateAlertNotificationServiceArgs = {
   data: AlertNotificationServiceInput;
+  id: Scalars["ID"];
+};
+
+export type MutationUpdateAlertUserStorageArgs = {
+  data: AlertUserStorageInput;
   id: Scalars["ID"];
 };
 
@@ -6332,6 +6373,8 @@ export type Query = {
   alertNotificationService?: Maybe<AlertNotificationServiceEntityResponse>;
   alertNotificationServices?: Maybe<AlertNotificationServiceEntityResponseCollection>;
   alertNotifications?: Maybe<AlertNotificationEntityResponseCollection>;
+  alertUserStorage?: Maybe<AlertUserStorageEntityResponse>;
+  alertUserStorages?: Maybe<AlertUserStorageEntityResponseCollection>;
   audience?: Maybe<AudienceEntityResponse>;
   audiences?: Maybe<AudienceEntityResponseCollection>;
   cgu?: Maybe<CguEntityResponse>;
@@ -6340,6 +6383,7 @@ export type Query = {
   cgus?: Maybe<CguEntityResponseCollection>;
   channelType?: Maybe<ChannelTypeEntityResponse>;
   channelTypes?: Maybe<ChannelTypeEntityResponseCollection>;
+  checkUserRequirements?: Maybe<Array<Maybe<UnregisteredUserData>>>;
   cities?: Maybe<CityEntityResponseCollection>;
   city?: Maybe<CityEntityResponse>;
   clientContact?: Maybe<ClientContactEntityResponse>;
@@ -6363,6 +6407,7 @@ export type Query = {
   contractCustomizations?: Maybe<ContractCustomizationEntityResponseCollection>;
   contractMenu?: Maybe<ContractMenuEntityResponse>;
   contractMenus?: Maybe<ContractMenuEntityResponseCollection>;
+  contractPublication?: Maybe<ContractStatus>;
   contracts?: Maybe<ContractEntityResponseCollection>;
   cookie?: Maybe<CookieEntityResponse>;
   cookies?: Maybe<CookieEntityResponseCollection>;
@@ -6403,7 +6448,6 @@ export type Query = {
   getAddressCoordinates?: Maybe<Array<Maybe<SearchResultAddress>>>;
   getAllFoldersHierarchy?: Maybe<Array<Maybe<RequestFolders>>>;
   getAppointmentsDetails?: Maybe<AppointmentDetails>;
-  getBinId?: Maybe<Array<Maybe<Data>>>;
   getContentTypeDTOs?: Maybe<Array<Maybe<ContentTypeDto>>>;
   getDropOffCollectType?: Maybe<Array<Maybe<CollectEntity>>>;
   getDropOffMaps?: Maybe<Array<Maybe<DropOffMapDto>>>;
@@ -6420,6 +6464,8 @@ export type Query = {
   getThreeRandomTips?: Maybe<Array<Maybe<Tips>>>;
   getTopContentBlockDTO?: Maybe<TopContentBlockDto>;
   getTopContentDTOs?: Maybe<Array<Maybe<EditoContentDto>>>;
+  getUserWasteManagement?: Maybe<Array<Maybe<UserWasteData>>>;
+  getUserWasteManagementHistory?: Maybe<Array<Maybe<UserWasteData>>>;
   global?: Maybe<GlobalEntityResponse>;
   homepage?: Maybe<HomepageEntityResponse>;
   homepages?: Maybe<HomepageEntityResponseCollection>;
@@ -6558,6 +6604,16 @@ export type QueryAlertNotificationsArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
+export type QueryAlertUserStorageArgs = {
+  id?: InputMaybe<Scalars["ID"]>;
+};
+
+export type QueryAlertUserStoragesArgs = {
+  filters?: InputMaybe<AlertUserStorageFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
 export type QueryAudienceArgs = {
   id?: InputMaybe<Scalars["ID"]>;
 };
@@ -6596,6 +6652,14 @@ export type QueryChannelTypesArgs = {
   filters?: InputMaybe<ChannelTypeFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type QueryCheckUserRequirementsArgs = {
+  city: Scalars["String"];
+  contractId: Scalars["ID"];
+  postalCode: Scalars["String"];
+  streetName: Scalars["String"];
+  streetNumber: Scalars["String"];
 };
 
 export type QueryCitiesArgs = {
@@ -6710,6 +6774,10 @@ export type QueryContractMenusArgs = {
   filters?: InputMaybe<ContractMenuFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type QueryContractPublicationArgs = {
+  contractId: Scalars["ID"];
 };
 
 export type QueryContractsArgs = {
@@ -6904,13 +6972,6 @@ export type QueryGetAppointmentsDetailsArgs = {
   requestId: Scalars["ID"];
 };
 
-export type QueryGetBinIdArgs = {
-  city?: InputMaybe<Scalars["String"]>;
-  contractMetadataKey?: InputMaybe<Scalars["String"]>;
-  houseNumber?: InputMaybe<Scalars["String"]>;
-  street?: InputMaybe<Scalars["String"]>;
-};
-
 export type QueryGetContentTypeDtOsArgs = {
   contractId: Scalars["ID"];
 };
@@ -6920,7 +6981,7 @@ export type QueryGetDropOffCollectTypeArgs = {
 };
 
 export type QueryGetDropOffMapsArgs = {
-  audienceId: Scalars["String"];
+  audienceId: Scalars["ID"];
   dropOffMapServiceId: Scalars["ID"];
 };
 
@@ -6982,6 +7043,21 @@ export type QueryGetTopContentBlockDtoArgs = {
 export type QueryGetTopContentDtOsArgs = {
   contractId: Scalars["ID"];
   status?: InputMaybe<Enum_Topcontentdto_Status>;
+};
+
+export type QueryGetUserWasteManagementArgs = {
+  city: Scalars["String"];
+  contractID: Scalars["ID"];
+  postcode: Scalars["String"];
+  street: Scalars["String"];
+};
+
+export type QueryGetUserWasteManagementHistoryArgs = {
+  city: Scalars["String"];
+  contractID: Scalars["ID"];
+  postcode: Scalars["String"];
+  signUpDate: Scalars["String"];
+  street: Scalars["String"];
 };
 
 export type QueryHomepageArgs = {
@@ -7210,8 +7286,9 @@ export type QueryRequestsArgs = {
 };
 
 export type QuerySearchAddressArgs = {
-  address?: InputMaybe<Scalars["String"]>;
-  limit?: InputMaybe<Scalars["Int"]>;
+  address: Scalars["String"];
+  citycode?: InputMaybe<Scalars["String"]>;
+  limit: Scalars["Int"];
 };
 
 export type QuerySearchCitiesArgs = {
@@ -8926,6 +9003,20 @@ export type TopContentBlockTopContentDynamicZone =
   | ComponentLinksTopContent
   | Error;
 
+export type TrashFlow = {
+  __typename?: "TrashFlow";
+  name?: Maybe<Scalars["String"]>;
+  percentage?: Maybe<Scalars["Float"]>;
+  trashFlow?: Maybe<Scalars["String"]>;
+  weight?: Maybe<Scalars["Float"]>;
+};
+
+export type UnregisteredUserData = {
+  __typename?: "UnregisteredUserData";
+  chipId?: Maybe<Scalars["String"]>;
+  trashFlow?: Maybe<Scalars["String"]>;
+};
+
 export type UploadFile = {
   __typename?: "UploadFile";
   alternativeText?: Maybe<Scalars["String"]>;
@@ -9151,6 +9242,15 @@ export type UserDataStorageInput = {
   name?: InputMaybe<Scalars["String"]>;
   phone?: InputMaybe<Scalars["String"]>;
   requestTakeds?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+};
+
+export type UserWasteData = {
+  __typename?: "UserWasteData";
+  averageProduction?: Maybe<Scalars["String"]>;
+  barometerParams?: Maybe<Scalars["String"]>;
+  flows?: Maybe<Array<Maybe<TrashFlow>>>;
+  lastDayOfRange?: Maybe<Scalars["String"]>;
+  totalWeight?: Maybe<Scalars["Float"]>;
 };
 
 export type UsersPermissionsCreateRolePayload = {
@@ -9598,41 +9698,16 @@ export type ClientName = {
   clientName?: Maybe<Scalars["String"]>;
 };
 
+export type ContractStatus = {
+  __typename?: "contractStatus";
+  contractId?: Maybe<Scalars["ID"]>;
+};
+
 export type TotalCountPerTag = {
   __typename?: "totalCountPerTag";
   count: Scalars["Int"];
   id: Scalars["ID"];
   name: Scalars["String"];
-};
-
-export type GetAudiencesIdQueryVariables = Exact<{
-  contractId?: InputMaybe<Scalars["ID"]>;
-}>;
-
-export type GetAudiencesIdQuery = {
-  __typename?: "Query";
-  contract?: {
-    __typename?: "ContractEntityResponse";
-    data?: {
-      __typename?: "ContractEntity";
-      id?: string | null;
-      attributes?: {
-        __typename?: "Contract";
-        audiences?: {
-          __typename?: "AudienceRelationResponseCollection";
-          data: Array<{
-            __typename?: "AudienceEntity";
-            id?: string | null;
-            attributes?: {
-              __typename?: "Audience";
-              isActive: boolean;
-              type: Enum_Audience_Type;
-            } | null;
-          }>;
-        } | null;
-      } | null;
-    } | null;
-  } | null;
 };
 
 export type GetNewByIdQueryVariables = Exact<{
@@ -10171,6 +10246,28 @@ export type GetFreeContentsPathsTotalQuery = {
       __typename?: "ResponseCollectionMeta";
       pagination: { __typename?: "Pagination"; total: number };
     };
+  } | null;
+};
+
+export type GetAudiencesIdQueryVariables = Exact<{
+  contractId?: InputMaybe<Scalars["ID"]>;
+}>;
+
+export type GetAudiencesIdQuery = {
+  __typename?: "Query";
+  contract?: {
+    __typename?: "ContractEntityResponse";
+    data?: {
+      __typename?: "ContractEntity";
+      id?: string | null;
+      attributes?: {
+        __typename?: "Contract";
+        audiences?: {
+          __typename?: "AudienceRelationResponseCollection";
+          data: Array<{ __typename?: "AudienceEntity"; id?: string | null }>;
+        } | null;
+      } | null;
+    } | null;
   } | null;
 };
 
@@ -11605,17 +11702,51 @@ export type GetTopContentBlockQuery = {
   } | null;
 };
 
-export type GetBinIdQueryVariables = Exact<{
-  city?: InputMaybe<Scalars["String"]>;
-  contractMetadataKey?: InputMaybe<Scalars["String"]>;
-  street?: InputMaybe<Scalars["String"]>;
-  houseNumber?: InputMaybe<Scalars["String"]>;
+export type GetUserWasteManagementQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+  street: Scalars["String"];
+  postcode: Scalars["String"];
+  city: Scalars["String"];
 }>;
 
-export type GetBinIdQuery = {
+export type GetUserWasteManagementQuery = {
   __typename?: "Query";
-  getBinId?: Array<{
-    __typename?: "Data";
+  getUserWasteManagement?: Array<{
+    __typename?: "UserWasteData";
+    lastDayOfRange?: string | null;
+    barometerParams?: string | null;
+    totalWeight?: number | null;
+    flows?: Array<{
+      __typename?: "TrashFlow";
+      name?: string | null;
+      percentage?: number | null;
+      weight?: number | null;
+      trashFlow?: string | null;
+    } | null> | null;
+  } | null> | null;
+};
+
+export type GetMwcAverageProductionQueryVariables = Exact<{
+  contractId?: InputMaybe<Scalars["ID"]>;
+}>;
+
+export type GetMwcAverageProductionQuery = {
+  __typename?: "Query";
+  getMwcAverageProduction?: number | null;
+};
+
+export type GetBinsQueryVariables = Exact<{
+  streetNumber: Scalars["String"];
+  streetName: Scalars["String"];
+  postalCode: Scalars["String"];
+  city: Scalars["String"];
+  contractId: Scalars["ID"];
+}>;
+
+export type GetBinsQuery = {
+  __typename?: "Query";
+  checkUserRequirements?: Array<{
+    __typename?: "UnregisteredUserData";
     chipId?: string | null;
     trashFlow?: string | null;
   } | null> | null;
@@ -11640,6 +11771,24 @@ export type GetDataHomePageMwcQuery = {
     averageProductionPerPerson?: number | null;
     equivalentOfProduction?: number | null;
     variationPercent?: number | null;
+  } | null;
+};
+
+export type GetHasTipsQueryVariables = Exact<{
+  filters?: InputMaybe<MwCounterServiceFiltersInput>;
+}>;
+
+export type GetHasTipsQuery = {
+  __typename?: "Query";
+  mwCounterServices?: {
+    __typename?: "MwCounterServiceEntityResponseCollection";
+    data: Array<{
+      __typename?: "MwCounterServiceEntity";
+      attributes?: {
+        __typename?: "MwCounterService";
+        hasTips?: boolean | null;
+      } | null;
+    }>;
   } | null;
 };
 
@@ -11762,6 +11911,32 @@ export type GetThreeRandomTipsQuery = {
   } | null> | null;
 };
 
+export type GetUserWasteManagementHistoryQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+  street: Scalars["String"];
+  postcode: Scalars["String"];
+  city: Scalars["String"];
+  signUpDate: Scalars["String"];
+}>;
+
+export type GetUserWasteManagementHistoryQuery = {
+  __typename?: "Query";
+  getUserWasteManagementHistory?: Array<{
+    __typename?: "UserWasteData";
+    lastDayOfRange?: string | null;
+    averageProduction?: string | null;
+    barometerParams?: string | null;
+    totalWeight?: number | null;
+    flows?: Array<{
+      __typename?: "TrashFlow";
+      name?: string | null;
+      percentage?: number | null;
+      trashFlow?: string | null;
+      weight?: number | null;
+    } | null> | null;
+  } | null> | null;
+};
+
 export type GetContactQueryVariables = Exact<{
   filters?: InputMaybe<MwCounterServiceFiltersInput>;
 }>;
@@ -11787,7 +11962,7 @@ export type GetContactQuery = {
 
 export type GetDropOffMapByDropOffMapByServiceIdQueryVariables = Exact<{
   dropOffMapServiceId: Scalars["ID"];
-  audienceId: Scalars["String"];
+  audienceId: Scalars["ID"];
 }>;
 
 export type GetDropOffMapByDropOffMapByServiceIdQuery = {
@@ -12888,77 +13063,6 @@ export type GetTipsPathsTotalQuery = {
   } | null;
 };
 
-export const GetAudiencesIdDocument = gql`
-  query getAudiencesId($contractId: ID) {
-    contract(id: $contractId) {
-      data {
-        id
-        attributes {
-          audiences {
-            data {
-              id
-              attributes {
-                isActive
-                type
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-/**
- * __useGetAudiencesIdQuery__
- *
- * To run a query within a React component, call `useGetAudiencesIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAudiencesIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAudiencesIdQuery({
- *   variables: {
- *      contractId: // value for 'contractId'
- *   },
- * });
- */
-export function useGetAudiencesIdQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetAudiencesIdQuery,
-    GetAudiencesIdQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetAudiencesIdQuery, GetAudiencesIdQueryVariables>(
-    GetAudiencesIdDocument,
-    options,
-  );
-}
-export function useGetAudiencesIdLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetAudiencesIdQuery,
-    GetAudiencesIdQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetAudiencesIdQuery, GetAudiencesIdQueryVariables>(
-    GetAudiencesIdDocument,
-    options,
-  );
-}
-export type GetAudiencesIdQueryHookResult = ReturnType<
-  typeof useGetAudiencesIdQuery
->;
-export type GetAudiencesIdLazyQueryHookResult = ReturnType<
-  typeof useGetAudiencesIdLazyQuery
->;
-export type GetAudiencesIdQueryResult = Apollo.QueryResult<
-  GetAudiencesIdQuery,
-  GetAudiencesIdQueryVariables
->;
 export const GetNewByIdDocument = gql`
   query getNewById($newId: ID!) {
     new(id: $newId) {
@@ -14021,6 +14125,73 @@ export type GetFreeContentsPathsTotalLazyQueryHookResult = ReturnType<
 export type GetFreeContentsPathsTotalQueryResult = Apollo.QueryResult<
   GetFreeContentsPathsTotalQuery,
   GetFreeContentsPathsTotalQueryVariables
+>;
+export const GetAudiencesIdDocument = gql`
+  query getAudiencesId($contractId: ID) {
+    contract(id: $contractId) {
+      data {
+        id
+        attributes {
+          audiences {
+            data {
+              id
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetAudiencesIdQuery__
+ *
+ * To run a query within a React component, call `useGetAudiencesIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAudiencesIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAudiencesIdQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetAudiencesIdQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetAudiencesIdQuery,
+    GetAudiencesIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetAudiencesIdQuery, GetAudiencesIdQueryVariables>(
+    GetAudiencesIdDocument,
+    options,
+  );
+}
+export function useGetAudiencesIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAudiencesIdQuery,
+    GetAudiencesIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetAudiencesIdQuery, GetAudiencesIdQueryVariables>(
+    GetAudiencesIdDocument,
+    options,
+  );
+}
+export type GetAudiencesIdQueryHookResult = ReturnType<
+  typeof useGetAudiencesIdQuery
+>;
+export type GetAudiencesIdLazyQueryHookResult = ReturnType<
+  typeof useGetAudiencesIdLazyQuery
+>;
+export type GetAudiencesIdQueryResult = Apollo.QueryResult<
+  GetAudiencesIdQuery,
+  GetAudiencesIdQueryVariables
 >;
 export const GetBanAddressesAutoCompleteDocument = gql`
   query getBanAddressesAutoComplete($searchTerm: String!) {
@@ -15721,18 +15892,155 @@ export type GetTopContentBlockQueryResult = Apollo.QueryResult<
   GetTopContentBlockQuery,
   GetTopContentBlockQueryVariables
 >;
-export const GetBinIdDocument = gql`
-  query getBinId(
-    $city: String
-    $contractMetadataKey: String
-    $street: String
-    $houseNumber: String
+export const GetUserWasteManagementDocument = gql`
+  query GetUserWasteManagement(
+    $contractId: ID!
+    $street: String!
+    $postcode: String!
+    $city: String!
   ) {
-    getBinId(
-      city: $city
-      contractMetadataKey: $contractMetadataKey
+    getUserWasteManagement(
+      contractID: $contractId
       street: $street
-      houseNumber: $houseNumber
+      postcode: $postcode
+      city: $city
+    ) {
+      lastDayOfRange
+      barometerParams
+      totalWeight
+      flows {
+        name
+        percentage
+        weight
+        trashFlow
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetUserWasteManagementQuery__
+ *
+ * To run a query within a React component, call `useGetUserWasteManagementQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserWasteManagementQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserWasteManagementQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *      street: // value for 'street'
+ *      postcode: // value for 'postcode'
+ *      city: // value for 'city'
+ *   },
+ * });
+ */
+export function useGetUserWasteManagementQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetUserWasteManagementQuery,
+    GetUserWasteManagementQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetUserWasteManagementQuery,
+    GetUserWasteManagementQueryVariables
+  >(GetUserWasteManagementDocument, options);
+}
+export function useGetUserWasteManagementLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetUserWasteManagementQuery,
+    GetUserWasteManagementQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetUserWasteManagementQuery,
+    GetUserWasteManagementQueryVariables
+  >(GetUserWasteManagementDocument, options);
+}
+export type GetUserWasteManagementQueryHookResult = ReturnType<
+  typeof useGetUserWasteManagementQuery
+>;
+export type GetUserWasteManagementLazyQueryHookResult = ReturnType<
+  typeof useGetUserWasteManagementLazyQuery
+>;
+export type GetUserWasteManagementQueryResult = Apollo.QueryResult<
+  GetUserWasteManagementQuery,
+  GetUserWasteManagementQueryVariables
+>;
+export const GetMwcAverageProductionDocument = gql`
+  query getMwcAverageProduction($contractId: ID) {
+    getMwcAverageProduction(contractId: $contractId)
+  }
+`;
+
+/**
+ * __useGetMwcAverageProductionQuery__
+ *
+ * To run a query within a React component, call `useGetMwcAverageProductionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMwcAverageProductionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMwcAverageProductionQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetMwcAverageProductionQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetMwcAverageProductionQuery,
+    GetMwcAverageProductionQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetMwcAverageProductionQuery,
+    GetMwcAverageProductionQueryVariables
+  >(GetMwcAverageProductionDocument, options);
+}
+export function useGetMwcAverageProductionLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetMwcAverageProductionQuery,
+    GetMwcAverageProductionQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetMwcAverageProductionQuery,
+    GetMwcAverageProductionQueryVariables
+  >(GetMwcAverageProductionDocument, options);
+}
+export type GetMwcAverageProductionQueryHookResult = ReturnType<
+  typeof useGetMwcAverageProductionQuery
+>;
+export type GetMwcAverageProductionLazyQueryHookResult = ReturnType<
+  typeof useGetMwcAverageProductionLazyQuery
+>;
+export type GetMwcAverageProductionQueryResult = Apollo.QueryResult<
+  GetMwcAverageProductionQuery,
+  GetMwcAverageProductionQueryVariables
+>;
+export const GetBinsDocument = gql`
+  query getBins(
+    $streetNumber: String!
+    $streetName: String!
+    $postalCode: String!
+    $city: String!
+    $contractId: ID!
+  ) {
+    checkUserRequirements(
+      streetNumber: $streetNumber
+      streetName: $streetName
+      postalCode: $postalCode
+      city: $city
+      contractId: $contractId
     ) {
       chipId
       trashFlow
@@ -15741,52 +16049,51 @@ export const GetBinIdDocument = gql`
 `;
 
 /**
- * __useGetBinIdQuery__
+ * __useGetBinsQuery__
  *
- * To run a query within a React component, call `useGetBinIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetBinIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetBinsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetBinsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetBinIdQuery({
+ * const { data, loading, error } = useGetBinsQuery({
  *   variables: {
+ *      streetNumber: // value for 'streetNumber'
+ *      streetName: // value for 'streetName'
+ *      postalCode: // value for 'postalCode'
  *      city: // value for 'city'
- *      contractMetadataKey: // value for 'contractMetadataKey'
- *      street: // value for 'street'
- *      houseNumber: // value for 'houseNumber'
+ *      contractId: // value for 'contractId'
  *   },
  * });
  */
-export function useGetBinIdQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetBinIdQuery, GetBinIdQueryVariables>,
+export function useGetBinsQuery(
+  baseOptions: Apollo.QueryHookOptions<GetBinsQuery, GetBinsQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetBinIdQuery, GetBinIdQueryVariables>(
-    GetBinIdDocument,
+  return Apollo.useQuery<GetBinsQuery, GetBinsQueryVariables>(
+    GetBinsDocument,
     options,
   );
 }
-export function useGetBinIdLazyQuery(
+export function useGetBinsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    GetBinIdQuery,
-    GetBinIdQueryVariables
+    GetBinsQuery,
+    GetBinsQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetBinIdQuery, GetBinIdQueryVariables>(
-    GetBinIdDocument,
+  return Apollo.useLazyQuery<GetBinsQuery, GetBinsQueryVariables>(
+    GetBinsDocument,
     options,
   );
 }
-export type GetBinIdQueryHookResult = ReturnType<typeof useGetBinIdQuery>;
-export type GetBinIdLazyQueryHookResult = ReturnType<
-  typeof useGetBinIdLazyQuery
->;
-export type GetBinIdQueryResult = Apollo.QueryResult<
-  GetBinIdQuery,
-  GetBinIdQueryVariables
+export type GetBinsQueryHookResult = ReturnType<typeof useGetBinsQuery>;
+export type GetBinsLazyQueryHookResult = ReturnType<typeof useGetBinsLazyQuery>;
+export type GetBinsQueryResult = Apollo.QueryResult<
+  GetBinsQuery,
+  GetBinsQueryVariables
 >;
 export const GetDataHomePageMwcDocument = gql`
   query getDataHomePageMwc(
@@ -15871,6 +16178,66 @@ export type GetDataHomePageMwcLazyQueryHookResult = ReturnType<
 export type GetDataHomePageMwcQueryResult = Apollo.QueryResult<
   GetDataHomePageMwcQuery,
   GetDataHomePageMwcQueryVariables
+>;
+export const GetHasTipsDocument = gql`
+  query getHasTips($filters: MwCounterServiceFiltersInput) {
+    mwCounterServices(filters: $filters) {
+      data {
+        attributes {
+          hasTips
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetHasTipsQuery__
+ *
+ * To run a query within a React component, call `useGetHasTipsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetHasTipsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetHasTipsQuery({
+ *   variables: {
+ *      filters: // value for 'filters'
+ *   },
+ * });
+ */
+export function useGetHasTipsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetHasTipsQuery,
+    GetHasTipsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetHasTipsQuery, GetHasTipsQueryVariables>(
+    GetHasTipsDocument,
+    options,
+  );
+}
+export function useGetHasTipsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetHasTipsQuery,
+    GetHasTipsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetHasTipsQuery, GetHasTipsQueryVariables>(
+    GetHasTipsDocument,
+    options,
+  );
+}
+export type GetHasTipsQueryHookResult = ReturnType<typeof useGetHasTipsQuery>;
+export type GetHasTipsLazyQueryHookResult = ReturnType<
+  typeof useGetHasTipsLazyQuery
+>;
+export type GetHasTipsQueryResult = Apollo.QueryResult<
+  GetHasTipsQuery,
+  GetHasTipsQueryVariables
 >;
 export const GetMwcFlowsByContractIdDocument = gql`
   query getMwcFlowsByContractId($filters: MwcFlowFiltersInput) {
@@ -16120,6 +16487,89 @@ export type GetThreeRandomTipsQueryResult = Apollo.QueryResult<
   GetThreeRandomTipsQuery,
   GetThreeRandomTipsQueryVariables
 >;
+export const GetUserWasteManagementHistoryDocument = gql`
+  query GetUserWasteManagementHistory(
+    $contractId: ID!
+    $street: String!
+    $postcode: String!
+    $city: String!
+    $signUpDate: String!
+  ) {
+    getUserWasteManagementHistory(
+      contractID: $contractId
+      street: $street
+      postcode: $postcode
+      city: $city
+      signUpDate: $signUpDate
+    ) {
+      lastDayOfRange
+      averageProduction
+      barometerParams
+      totalWeight
+      flows {
+        name
+        percentage
+        trashFlow
+        weight
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetUserWasteManagementHistoryQuery__
+ *
+ * To run a query within a React component, call `useGetUserWasteManagementHistoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserWasteManagementHistoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserWasteManagementHistoryQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *      street: // value for 'street'
+ *      postcode: // value for 'postcode'
+ *      city: // value for 'city'
+ *      signUpDate: // value for 'signUpDate'
+ *   },
+ * });
+ */
+export function useGetUserWasteManagementHistoryQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetUserWasteManagementHistoryQuery,
+    GetUserWasteManagementHistoryQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetUserWasteManagementHistoryQuery,
+    GetUserWasteManagementHistoryQueryVariables
+  >(GetUserWasteManagementHistoryDocument, options);
+}
+export function useGetUserWasteManagementHistoryLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetUserWasteManagementHistoryQuery,
+    GetUserWasteManagementHistoryQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetUserWasteManagementHistoryQuery,
+    GetUserWasteManagementHistoryQueryVariables
+  >(GetUserWasteManagementHistoryDocument, options);
+}
+export type GetUserWasteManagementHistoryQueryHookResult = ReturnType<
+  typeof useGetUserWasteManagementHistoryQuery
+>;
+export type GetUserWasteManagementHistoryLazyQueryHookResult = ReturnType<
+  typeof useGetUserWasteManagementHistoryLazyQuery
+>;
+export type GetUserWasteManagementHistoryQueryResult = Apollo.QueryResult<
+  GetUserWasteManagementHistoryQuery,
+  GetUserWasteManagementHistoryQueryVariables
+>;
 export const GetContactDocument = gql`
   query getContact($filters: MwCounterServiceFiltersInput) {
     mwCounterServices(filters: $filters) {
@@ -16188,7 +16638,7 @@ export type GetContactQueryResult = Apollo.QueryResult<
 export const GetDropOffMapByDropOffMapByServiceIdDocument = gql`
   query getDropOffMapByDropOffMapByServiceId(
     $dropOffMapServiceId: ID!
-    $audienceId: String!
+    $audienceId: ID!
   ) {
     getDropOffMaps(
       dropOffMapServiceId: $dropOffMapServiceId
@@ -16600,7 +17050,7 @@ export const GetContactUsSubServiceByContractIdDocument = gql`
         }
       }
     }
-    contactUses(filters: { status: { eq: "published" } }) {
+    contactUses(filters: { isActivated: { eq: true } }) {
       data {
         id
         attributes {

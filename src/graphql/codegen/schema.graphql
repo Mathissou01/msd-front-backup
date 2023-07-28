@@ -149,6 +149,11 @@ type AlertNotification {
   alertMessage: String
   alertNotifService: AlertNotificationServiceEntityResponse
   alertTitle: String
+  alertUserStorages(
+    filters: AlertUserStorageFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): AlertUserStorageRelationResponseCollection
   cities(
     filters: CityFiltersInput
     pagination: PaginationArg = {}
@@ -187,6 +192,7 @@ input AlertNotificationFiltersInput {
   alertMessage: StringFilterInput
   alertNotifService: AlertNotificationServiceFiltersInput
   alertTitle: StringFilterInput
+  alertUserStorages: AlertUserStorageFiltersInput
   and: [AlertNotificationFiltersInput]
   cities: CityFiltersInput
   createdAt: DateTimeFilterInput
@@ -207,6 +213,7 @@ input AlertNotificationInput {
   alertMessage: String
   alertNotifService: ID
   alertTitle: String
+  alertUserStorages: [ID]
   cities: [ID]
   scheduledAt: Date
   scheduledAtTime: String
@@ -285,6 +292,69 @@ input AlertNotificationServiceInput {
   isActivated: Boolean
   name: String
   startDate: Date
+}
+
+type AlertUserStorage {
+  alertNotificationServiceId: String!
+  alertNotifications(
+    filters: AlertNotificationFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): AlertNotificationRelationResponseCollection
+  createdAt: DateTime
+  email: String
+  isEmail: Boolean!
+  isSMS: Boolean!
+  latitude: String
+  longitude: String
+  phoneNumber: String
+  updatedAt: DateTime
+}
+
+type AlertUserStorageEntity {
+  attributes: AlertUserStorage
+  id: ID
+}
+
+type AlertUserStorageEntityResponse {
+  data: AlertUserStorageEntity
+}
+
+type AlertUserStorageEntityResponseCollection {
+  data: [AlertUserStorageEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input AlertUserStorageFiltersInput {
+  alertNotificationServiceId: StringFilterInput
+  alertNotifications: AlertNotificationFiltersInput
+  and: [AlertUserStorageFiltersInput]
+  createdAt: DateTimeFilterInput
+  email: StringFilterInput
+  id: IDFilterInput
+  isEmail: BooleanFilterInput
+  isSMS: BooleanFilterInput
+  latitude: StringFilterInput
+  longitude: StringFilterInput
+  not: AlertUserStorageFiltersInput
+  or: [AlertUserStorageFiltersInput]
+  phoneNumber: StringFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input AlertUserStorageInput {
+  alertNotificationServiceId: String
+  alertNotifications: [ID]
+  email: String
+  isEmail: Boolean
+  isSMS: Boolean
+  latitude: String
+  longitude: String
+  phoneNumber: String
+}
+
+type AlertUserStorageRelationResponseCollection {
+  data: [AlertUserStorageEntity!]!
 }
 
 type Appointment {
@@ -382,21 +452,18 @@ type Cgu {
   blocks: [CguBlocksDynamicZone]
   cguSubService: CguSubServiceEntityResponse
   createdAt: DateTime
-  customId: String
-  draftCreationId: String
-  hasDraft: Boolean
-  publishedDate: DateTime
-  status: ENUM_CGU_STATUS
+  hasMobile: Boolean
+  isActivated: Boolean
   title: String!
-  toBeUpdated: Boolean
   updatedAt: DateTime
-  versionNumber: Int
 }
 
 union CguBlocksDynamicZone =
     ComponentBlocksFile
   | ComponentBlocksHorizontalRule
+  | ComponentBlocksImage
   | ComponentBlocksSubHeading
+  | ComponentBlocksVideo
   | ComponentBlocksWysiwyg
   | Error
 
@@ -420,31 +487,21 @@ input CguFiltersInput {
   and: [CguFiltersInput]
   cguSubService: CguSubServiceFiltersInput
   createdAt: DateTimeFilterInput
-  customId: StringFilterInput
-  draftCreationId: StringFilterInput
-  hasDraft: BooleanFilterInput
+  hasMobile: BooleanFilterInput
   id: IDFilterInput
+  isActivated: BooleanFilterInput
   not: CguFiltersInput
   or: [CguFiltersInput]
-  publishedDate: DateTimeFilterInput
-  status: StringFilterInput
   title: StringFilterInput
-  toBeUpdated: BooleanFilterInput
   updatedAt: DateTimeFilterInput
-  versionNumber: IntFilterInput
 }
 
 input CguInput {
   blocks: [CguBlocksDynamicZoneInput!]
   cguSubService: ID
-  customId: String
-  draftCreationId: String
-  hasDraft: Boolean
-  publishedDate: DateTime
-  status: ENUM_CGU_STATUS
+  hasMobile: Boolean
+  isActivated: Boolean
   title: String
-  toBeUpdated: Boolean
-  versionNumber: Int
 }
 
 type CguRelationResponseCollection {
@@ -546,6 +603,7 @@ type ChannelTypeRelationResponseCollection {
 }
 
 type City {
+  GeoJSON: JSON
   MwCounter: MwCounterServiceEntityResponse
   contract: ContractEntityResponse
   createdAt: DateTime
@@ -584,6 +642,7 @@ type CityEntityResponseCollection {
 }
 
 input CityFiltersInput {
+  GeoJSON: JSONFilterInput
   MwCounter: MwCounterServiceFiltersInput
   and: [CityFiltersInput]
   contract: ContractFiltersInput
@@ -604,6 +663,7 @@ input CityFiltersInput {
 }
 
 input CityInput {
+  GeoJSON: JSON
   MwCounter: ID
   contract: ID
   department: String
@@ -1215,21 +1275,18 @@ type Confidentiality {
   blocks: [ConfidentialityBlocksDynamicZone]
   confidentialitySubService: ConfidentialitySubServiceEntityResponse
   createdAt: DateTime
-  customId: String
-  draftCreationId: String
-  hasDraft: Boolean
-  publishedDate: DateTime
-  status: ENUM_CONFIDENTIALITY_STATUS
+  hasMobile: Boolean
+  isActivated: Boolean
   title: String!
-  toBeUpdated: Boolean
   updatedAt: DateTime
-  versionNumber: Int
 }
 
 union ConfidentialityBlocksDynamicZone =
     ComponentBlocksFile
   | ComponentBlocksHorizontalRule
+  | ComponentBlocksImage
   | ComponentBlocksSubHeading
+  | ComponentBlocksVideo
   | ComponentBlocksWysiwyg
   | Error
 
@@ -1253,31 +1310,21 @@ input ConfidentialityFiltersInput {
   and: [ConfidentialityFiltersInput]
   confidentialitySubService: ConfidentialitySubServiceFiltersInput
   createdAt: DateTimeFilterInput
-  customId: StringFilterInput
-  draftCreationId: StringFilterInput
-  hasDraft: BooleanFilterInput
+  hasMobile: BooleanFilterInput
   id: IDFilterInput
+  isActivated: BooleanFilterInput
   not: ConfidentialityFiltersInput
   or: [ConfidentialityFiltersInput]
-  publishedDate: DateTimeFilterInput
-  status: StringFilterInput
   title: StringFilterInput
-  toBeUpdated: BooleanFilterInput
   updatedAt: DateTimeFilterInput
-  versionNumber: IntFilterInput
 }
 
 input ConfidentialityInput {
   blocks: [ConfidentialityBlocksDynamicZoneInput!]
   confidentialitySubService: ID
-  customId: String
-  draftCreationId: String
-  hasDraft: Boolean
-  publishedDate: DateTime
-  status: ENUM_CONFIDENTIALITY_STATUS
+  hasMobile: Boolean
+  isActivated: Boolean
   title: String
-  toBeUpdated: Boolean
-  versionNumber: Int
 }
 
 type ConfidentialityRelationResponseCollection {
@@ -1345,13 +1392,9 @@ type ContactResponse {
 
 type ContactUs {
   blocks: [ContactUsBlocksDynamicZone]
-  channelTypes(
-    filters: ChannelTypeFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): ChannelTypeRelationResponseCollection
+  contactUsSubService: ContactUsSubServiceEntityResponse
   createdAt: DateTime
-  status: ENUM_CONTACTUS_STATUS
+  isActivated: Boolean
   tags(
     filters: TagFiltersInput
     pagination: PaginationArg = {}
@@ -1388,12 +1431,12 @@ type ContactUsEntityResponseCollection {
 
 input ContactUsFiltersInput {
   and: [ContactUsFiltersInput]
-  channelTypes: ChannelTypeFiltersInput
+  contactUsSubService: ContactUsSubServiceFiltersInput
   createdAt: DateTimeFilterInput
   id: IDFilterInput
+  isActivated: BooleanFilterInput
   not: ContactUsFiltersInput
   or: [ContactUsFiltersInput]
-  status: StringFilterInput
   tags: TagFiltersInput
   title: StringFilterInput
   updatedAt: DateTimeFilterInput
@@ -1401,8 +1444,8 @@ input ContactUsFiltersInput {
 
 input ContactUsInput {
   blocks: [ContactUsBlocksDynamicZoneInput!]
-  channelTypes: [ID]
-  status: ENUM_CONTACTUS_STATUS
+  contactUsSubService: ID
+  isActivated: Boolean
   tags: [ID]
   title: String
 }
@@ -1537,6 +1580,7 @@ type Contract {
   logicalDelete: Boolean
   logo: UploadFileEntityResponse!
   numberOfInhabitants: Long
+  oldClientName: String
   pathId: Long
   pickUpDayService: PickUpDayServiceEntityResponse
   recyclingGuideService: RecyclingGuideServiceEntityResponse
@@ -1674,6 +1718,7 @@ input ContractFiltersInput {
   logicalDelete: BooleanFilterInput
   not: ContractFiltersInput
   numberOfInhabitants: LongFilterInput
+  oldClientName: StringFilterInput
   or: [ContractFiltersInput]
   pathId: LongFilterInput
   pickUpDayService: PickUpDayServiceFiltersInput
@@ -1716,6 +1761,7 @@ input ContractInput {
   logicalDelete: Boolean
   logo: ID
   numberOfInhabitants: Long
+  oldClientName: String
   pathId: Long
   pickUpDayService: ID
   recyclingGuideService: ID
@@ -1787,7 +1833,7 @@ type Cookie {
   blocks: [CookieBlocksDynamicZone]
   createdAt: DateTime
   hasMobile: Boolean!
-  status: ENUM_COOKIE_STATUS
+  isActivated: Boolean
   title: String!
   updatedAt: DateTime
 }
@@ -1822,9 +1868,9 @@ input CookieFiltersInput {
   createdAt: DateTimeFilterInput
   hasMobile: BooleanFilterInput
   id: IDFilterInput
+  isActivated: BooleanFilterInput
   not: CookieFiltersInput
   or: [CookieFiltersInput]
-  status: StringFilterInput
   title: StringFilterInput
   updatedAt: DateTimeFilterInput
 }
@@ -1832,7 +1878,7 @@ input CookieFiltersInput {
 input CookieInput {
   blocks: [CookieBlocksDynamicZoneInput!]
   hasMobile: Boolean
-  status: ENUM_COOKIE_STATUS
+  isActivated: Boolean
   title: String
 }
 
@@ -1888,11 +1934,6 @@ input CookiesSubServiceInput {
   editorialService: ID
   link: String
   name: String
-}
-
-type Data {
-  chipId: String
-  trashFlow: String
 }
 
 """
@@ -2245,12 +2286,6 @@ enum ENUM_AUDIENCE_TYPE {
   Professionnels
 }
 
-enum ENUM_CGU_STATUS {
-  archived
-  draft
-  published
-}
-
 enum ENUM_COLLECTDOORTODOOR_GRAMMATICALGENDER {
   feminin
   masculin
@@ -2330,17 +2365,6 @@ enum ENUM_COMPONENTLINKSREQUEST_DEMAND {
   E
 }
 
-enum ENUM_CONFIDENTIALITY_STATUS {
-  archived
-  draft
-  published
-}
-
-enum ENUM_CONTACTUS_STATUS {
-  draft
-  published
-}
-
 enum ENUM_CONTRACT_CLIENTTYPE {
   city
   epci
@@ -2351,12 +2375,6 @@ enum ENUM_CONTRACT_CONTRACTSTATUS {
   Actif
   En_cours
   Initialisation
-}
-
-enum ENUM_COOKIE_STATUS {
-  archived
-  draft
-  published
 }
 
 enum ENUM_EDITOCONTENTDTO_STATUS {
@@ -3307,6 +3325,7 @@ union GenericMorph =
   | AccessibilitySubService
   | AlertNotification
   | AlertNotificationService
+  | AlertUserStorage
   | Audience
   | Cgu
   | CguSubService
@@ -3845,6 +3864,9 @@ type Mutation {
   createAlertNotificationService(
     data: AlertNotificationServiceInput!
   ): AlertNotificationServiceEntityResponse
+  createAlertUserStorage(
+    data: AlertUserStorageInput!
+  ): AlertUserStorageEntityResponse
   createAudience(data: AudienceInput!): AudienceEntityResponse
   createCgu(data: CguInput!): CguEntityResponse
   createCguSubService(data: CguSubServiceInput!): CguSubServiceEntityResponse
@@ -4006,6 +4028,7 @@ type Mutation {
   deleteAlertNotificationService(
     id: ID!
   ): AlertNotificationServiceEntityResponse
+  deleteAlertUserStorage(id: ID!): AlertUserStorageEntityResponse
   deleteAudience(id: ID!): AudienceEntityResponse
   deleteCgu(id: ID!): CguEntityResponse
   deleteCguSubService(id: ID!): CguSubServiceEntityResponse
@@ -4177,6 +4200,10 @@ type Mutation {
     data: AlertNotificationServiceInput!
     id: ID!
   ): AlertNotificationServiceEntityResponse
+  updateAlertUserStorage(
+    data: AlertUserStorageInput!
+    id: ID!
+  ): AlertUserStorageEntityResponse
   updateAudience(data: AudienceInput!, id: ID!): AudienceEntityResponse
   updateCgu(data: CguInput!, id: ID!): CguEntityResponse
   updateCguSubService(
@@ -4987,6 +5014,12 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): AlertNotificationEntityResponseCollection
+  alertUserStorage(id: ID): AlertUserStorageEntityResponse
+  alertUserStorages(
+    filters: AlertUserStorageFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): AlertUserStorageEntityResponseCollection
   audience(id: ID): AudienceEntityResponse
   audiences(
     filters: AudienceFiltersInput
@@ -5011,6 +5044,13 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): ChannelTypeEntityResponseCollection
+  checkUserRequirements(
+    city: String!
+    contractId: ID!
+    postalCode: String!
+    streetName: String!
+    streetNumber: String!
+  ): [UnregisteredUserData]
   cities(
     filters: CityFiltersInput
     pagination: PaginationArg = {}
@@ -5191,15 +5231,9 @@ type Query {
   getAddressCoordinates(searchTerm: String!): [SearchResultAddress]
   getAllFoldersHierarchy(path: String!): [RequestFolders]
   getAppointmentsDetails(requestId: ID!): AppointmentDetails
-  getBinId(
-    city: String
-    contractMetadataKey: String
-    houseNumber: String
-    street: String
-  ): [Data]
   getContentTypeDTOs(contractId: ID!): [ContentTypeDTO]
   getDropOffCollectType(contractId: ID!): [CollectEntity]
-  getDropOffMaps(audienceId: String!, dropOffMapServiceId: ID!): [DropOffMapDTO]
+  getDropOffMaps(audienceId: ID!, dropOffMapServiceId: ID!): [DropOffMapDTO]
   getEditoBlockDTO(
     contractId: ID!
     status: ENUM_EDITOCONTENTDTO_STATUS
@@ -5233,6 +5267,19 @@ type Query {
     contractId: ID!
     status: ENUM_TOPCONTENTDTO_STATUS
   ): [EditoContentDTO]
+  getUserWasteManagement(
+    city: String!
+    contractID: ID!
+    postcode: String!
+    street: String!
+  ): [UserWasteData]
+  getUserWasteManagementHistory(
+    city: String!
+    contractID: ID!
+    postcode: String!
+    signUpDate: String!
+    street: String!
+  ): [UserWasteData]
   global: GlobalEntityResponse
   homepage(id: ID): HomepageEntityResponse
   homepages(
@@ -5368,7 +5415,7 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): RequestEntityResponseCollection
-  searchAddress(address: String, limit: Int): [Address]
+  searchAddress(address: String!, citycode: String, limit: Int!): [Address]
   searchCities(contractId: ID!, searchTerm: String!): [CityResult]
   searchClientsByName(name: String!): [clientName]
   searchEngineBlock(id: ID): SearchEngineBlockEntityResponse
@@ -6851,6 +6898,18 @@ union TopContentBlockTopContentDynamicZone = ComponentLinksTopContent | Error
 
 scalar TopContentBlockTopContentDynamicZoneInput
 
+type TrashFlow {
+  name: String
+  percentage: Float
+  trashFlow: String
+  weight: Float
+}
+
+type UnregisteredUserData {
+  chipId: String
+  trashFlow: String
+}
+
 scalar Upload
 
 type UploadFile {
@@ -7056,6 +7115,14 @@ input UserDataStorageInput {
   name: String
   phone: String
   requestTakeds: [ID]
+}
+
+type UserWasteData {
+  averageProduction: String
+  barometerParams: String
+  flows: [TrashFlow]
+  lastDayOfRange: String
+  totalWeight: Float
 }
 
 type UsersPermissionsCreateRolePayload {

@@ -1,0 +1,26 @@
+query GetUserWasteManagementHistory(
+  $contractId: ID!
+  $street: String!
+  $postcode: String!
+  $city: String!
+  $signUpDate: String!
+) {
+  getUserWasteManagementHistory(
+    contractID: $contractId
+    street: $street
+    postcode: $postcode
+    city: $city
+    signUpDate: $signUpDate
+  ) {
+    lastDayOfRange
+    averageProduction
+    barometerParams
+    totalWeight
+    flows {
+      name
+      percentage
+      trashFlow
+      weight
+    }
+  }
+}

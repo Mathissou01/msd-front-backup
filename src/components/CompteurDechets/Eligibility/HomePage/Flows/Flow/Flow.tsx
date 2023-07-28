@@ -1,11 +1,13 @@
 import React from "react";
 import Bac from "public/images/pictos/bac_2_roues.svg";
 import "./flow.scss";
+import {
+  Maybe,
+  TrashFlow,
+} from "../../../../../../graphql/codegen/generated-types";
 
 interface FlowProps {
-  flow: {
-    code: string;
-  };
+  flow: Maybe<TrashFlow> | undefined;
 }
 
 interface FlowConfig {
@@ -28,7 +30,7 @@ const flowConfig: Record<string, FlowConfig> = {
 };
 
 const Flow: React.FC<FlowProps> = ({ flow }) => {
-  const config: FlowConfig = flowConfig[flow.code];
+  const config = flow && flow.trashFlow && flowConfig[flow?.trashFlow];
 
   if (!config) {
     return null;

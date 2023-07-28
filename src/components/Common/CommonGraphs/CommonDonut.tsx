@@ -1,54 +1,11 @@
 import React, { SetStateAction, useEffect, useState, MouseEvent } from "react";
 import { PieChart, Pie, Cell, Sector, ResponsiveContainer } from "recharts";
 import "./common-donut.scss";
-
-// const data = [
-//   {
-//     date: "Décembre 2023",
-//     poidTotal: 118,
-//     flows: [
-//       {
-//         name: "householdWaste",
-//         poid: 90,
-//         percent: 88,
-//       },
-//       {
-//         name: "packaging",
-//         poid: 20,
-//         percent: 22,
-//       },
-//     ],
-//   },
-//   {
-//     date: "Janvier 2023",
-//     poidTotal: 118,
-//     flows: [
-//       {
-//         name: "householdWaste",
-//         poid: 100,
-//         percent: 65,
-//       },
-//       {
-//         name: "packaging",
-//         poid: 18,
-//         percent: 45,
-//       },
-//     ],
-//   },
-// ];
-interface Flow {
-  name: string;
-  total: number;
-  percent: number;
-  poid: number;
-}
-
-interface Flows {
-  total: number;
-  percent: number;
-  date: string;
-  flow: Flow[];
-}
+import {
+  Maybe,
+  TrashFlow,
+  UserWasteData,
+} from "../../../graphql/codegen/generated-types";
 
 interface RenderActiveShapeProps {
   cx: number;
@@ -62,21 +19,11 @@ interface RenderActiveShapeProps {
   percent: number;
   value: number;
   selectedChip: string;
-  flows: Flows;
+  flows: UserWasteData;
 }
 const renderActiveShape = (props: RenderActiveShapeProps) => {
-  const {
-    cx,
-    cy,
-    //  midAngle,
-    innerRadius,
-    outerRadius,
-    startAngle,
-    endAngle,
-    fill,
-    //  percent,
-    //  value,
-  } = props;
+  const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill } =
+    props;
 
   const fillColor =
     fill &&
@@ -105,36 +52,35 @@ const CommonDonut = ({
   flows,
 }: {
   selectedChip: string;
-  flows: Flows;
+  flows: UserWasteData;
 }) => {
-  const [activeDonut, setActiveDonut] = useState("");
-  useEffect(() => {
-    setActiveDonut(selectedChip);
-  }, [selectedChip]);
-
-  const selectedData = flows.flow;
-  //   const selectedData = data[0];
-  const combinedFlows = selectedData.map((flow) => ({
-    name: flow.name,
-    percent: flow.percent,
+  const [activeFlow, setActiveFlow] = useState<Maybe<TrashFlow> | undefined>();
+  const selectedData = flows.flows;
+  const combinedFlows = selectedData?.map((flow) => ({
+    name: flow?.name,
+    percent: flow?.percentage,
   }));
-  const reversedFlows = [...combinedFlows].reverse(); // Inverse l'ordre des données car le plugin les affiche à l'envers
+  const reversedFlows = combinedFlows && [...combinedFlows].reverse(); // Inverse l'ordre des données car le plugin les affiche à l'envers
 
-  const firstFlow =
-    selectedData.find((flow) => flow.name === activeDonut) || selectedData[0];
+  const findFlow = (code: string) => {
+    return selectedData?.find((flow) => flow?.trashFlow === code);
+  };
 
   const COLORS =
-    activeDonut === "packaging"
+    selectedChip === "CS"
       ? ["#F5C500", "#ecedee"]
-      : activeDonut === "householdWaste"
+      : selectedChip === "OMR"
       ? ["#f4f3e5", "#808080"]
       : ["#808080", "#F5C500"];
-  //   const COLORS =
-  //     activeDonut === "packaging"
-  //       ? ["#808080", "#f4f3e5"]
-  //       : activeDonut === "householdWaste"
-  //       ? ["#ecedee", "#F5C500"]
-  //       : ["#808080", "#F5C500"];
+
+  useEffect(() => {
+    if (selectedChip === "all") return;
+    if (selectedChip) {
+      const flow = findFlow(selectedChip);
+      setActiveFlow(flow);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedChip]);
 
   const renderCustomizedLabel = ({
     cx,
@@ -161,13 +107,25 @@ const CommonDonut = ({
     return (
       <>
         <text
-          x={firstFlow.poid < 100 || flows.total < 100 ? cx - 15 : cx - 50}
+          x={
+            selectedChip === "all" && flows.totalWeight
+              ? flows?.totalWeight >= 100
+                ? cx - 20
+                : flows?.totalWeight < 10
+                ? cx - 5
+                : cx - 15
+              : activeFlow?.weight && activeFlow?.weight >= 100
+              ? cx - 20
+              : activeFlow?.weight && activeFlow?.weight < 10
+              ? cx - 5
+              : cx - 15
+          }
           y={cy - 15}
           textAnchor={x > cx ? "start" : "end"}
           dominantBaseline="central"
           className="c-MyWaste__DonutChartPoid"
         >
-          {activeDonut === "all" ? flows.total : firstFlow.poid}
+          {selectedChip === "all" ? flows.totalWeight : activeFlow?.weight}
         </text>
 
         <text
@@ -187,7 +145,9 @@ const CommonDonut = ({
           dominantBaseline="central"
           className="c-MyWaste__DonutChartPercent"
         >
-          {`${firstFlow.percent.toFixed(0)}%`}
+          {`${
+            selectedChip === "all" ? 100 : activeFlow?.percentage?.toFixed(0)
+          }%`}
         </text>
       </>
     );
@@ -226,7 +186,7 @@ const CommonDonut = ({
             onMouseLeave={onPieLeave}
             stroke="none"
           >
-            {combinedFlows.map((entry, index) => (
+            {combinedFlows?.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index]} />
             ))}
           </Pie>

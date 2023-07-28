@@ -3,45 +3,40 @@ import CommonStatsArrow from "../../Common/CommonStatsArrow/CommonStatsArrow";
 import ProductionTextBlock from "./ProductionTextBlock/ProductionTextBlock";
 import FlowsStatsBlock from "../FlowsStatsBlock/FlowsStatsBlock";
 import "./my-evolution-detail-block.scss";
+import { Maybe, TrashFlow } from "../../../graphql/codegen/generated-types";
 
 interface MyEvolutionDetailBlockProps {
   date: string;
+  wasteUserHistory: {
+    totalWeight: number;
+    flows: Maybe<Maybe<TrashFlow>[]> | undefined;
+  };
+  productionCompare: number;
+  activeIndex: number;
 }
+
 const MyEvolutionDetailBlock: React.FC<MyEvolutionDetailBlockProps> = ({
   date,
+  wasteUserHistory,
+  productionCompare,
+  activeIndex,
 }) => {
-  const data = {
-    total: 145,
-    percent: 3,
-    date: "01/06/2023",
-    flow: [
-      {
-        name: "OMR",
-        total: 100,
-        poid: 90,
-        code: "OMR",
-      },
-      {
-        name: "CS",
-        total: 45,
-        poid: 20,
-        code: "CS",
-      },
-    ],
-  };
-
   return (
     <div className="c-MyEvolutionDetailBlock">
       <h4 className="c-MyEvolutionDetailBlock__Date">{date}</h4>
       <div className="c-MyEvolutionDetailBlock__Content">
         <p>TOTAL</p>
         <div className="c-MyEvolutionDetailBlock__TotalCountContainer">
-          <p>{data.total} kg</p>
-          <CommonStatsArrow percent={data.percent} />
+          <p>{wasteUserHistory?.totalWeight} kg</p>
+          {activeIndex !== 0 && (
+            <CommonStatsArrow percent={productionCompare} />
+          )}
         </div>
       </div>
-      <ProductionTextBlock percent={data.percent} />
-      <FlowsStatsBlock flows={data.flow} type="kg" />
+      <ProductionTextBlock
+        percent={activeIndex === 0 ? null : productionCompare}
+      />
+      <FlowsStatsBlock flows={wasteUserHistory?.flows} type="kg" />
     </div>
   );
 };

@@ -13,7 +13,7 @@ query getContactUsSubServiceByContractId($contractId: ID!) {
       }
     }
   }
-  contactUses(filters: { status: { eq: "published" } }) {
+  contactUses(filters: { isActivated: { eq: true } }) {
     data {
       id
       attributes {

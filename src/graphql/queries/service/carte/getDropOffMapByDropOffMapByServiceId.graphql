@@ -1,6 +1,6 @@
 query getDropOffMapByDropOffMapByServiceId(
   $dropOffMapServiceId: ID!
-  $audienceId: String!
+  $audienceId: ID!
 ) {
   getDropOffMaps(
     dropOffMapServiceId: $dropOffMapServiceId

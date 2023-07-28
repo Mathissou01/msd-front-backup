@@ -42,11 +42,21 @@ $error: #eb4a65ff;
 $error-light: #f5c4cc;
 $error-dark: #800e21;
 
-// Graph colors
+// Graph
 $graph-low: #4bc068;
 $graph-medium: #f5c500;
 $graph-hot: #ff8363;
 $graph-veryhot: #eb4a65;
+
+:root {
+  --white: #{$white};
+  --graph-low: #{$graph-low};
+  --graph-medium: #{$graph-medium};
+  --graph-hot: #{$graph-hot};
+  --graph-veryhot: #{$graph-veryhot};
+
+  /* Autres variables de couleur */
+}
 
 /* Dynamic */
 

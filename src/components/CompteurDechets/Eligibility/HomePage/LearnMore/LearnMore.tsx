@@ -10,7 +10,7 @@ import { useGetMwcFlowsByContractIdQuery } from "../../../../../graphql/codegen/
 interface Flow {
   name: string;
   weightSystem: string;
-  code: string;
+  trashFlow: string;
 }
 
 const { NEXT_PUBLIC_CONTRACT_ID } = process.env;
@@ -39,12 +39,14 @@ const LearnMore = () => {
             ({
               name: flow?.attributes?.flow?.data?.attributes?.name,
               weightSystem: flow?.attributes?.weightSystem,
-              code: flow?.attributes?.flow?.data?.attributes?.code,
+              trashFlow: flow?.attributes?.flow?.data?.attributes?.code,
             } as Flow),
         ) || [],
       );
     }
   }, [data]);
+
+  console.log(flows);
 
   const renderOverlayContent = () => {
     const uniqueWeighingSystems = Array.from(
@@ -69,7 +71,7 @@ const LearnMore = () => {
                 {flows
                   .filter((flow) => flow.weightSystem === weighingSystem)
                   .map((flow) => (
-                    <Flow key={flow.name} flow={flow} />
+                    <Flow key={flow.trashFlow} flow={flow} />
                   ))}
               </div>
               {renderWeighingSystemContent(weighingSystem)}

@@ -1,0 +1,18 @@
+query getBins(
+  $streetNumber: String!
+  $streetName: String!
+  $postalCode: String!
+  $city: String!
+  $contractId: ID!
+) {
+  checkUserRequirements(
+    streetNumber: $streetNumber
+    streetName: $streetName
+    postalCode: $postalCode
+    city: $city
+    contractId: $contractId
+  ) {
+    chipId
+    trashFlow
+  }
+}

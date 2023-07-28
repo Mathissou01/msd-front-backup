@@ -1,15 +1,18 @@
-import { useGetBinIdQuery } from "../../../graphql/codegen/generated-types";
+import { useGetBinsQuery } from "../../../graphql/codegen/generated-types";
+import { useContract } from "../../../hooks/useContract";
+import { useCurrentUser } from "../../../hooks/useCurrentUser";
 
 export const GetDataChipId = () => {
-  const queryVariables = {
-    houseNumber: "13",
-    street: "RUE JULES ALLEMAND",
-    city: "Rennes",
-    contractMetadataKey: "243500139",
-  };
-
-  const { data, loading, error } = useGetBinIdQuery({
-    variables: queryVariables,
+  const { currentUser } = useCurrentUser();
+  const { contractId } = useContract();
+  const { data, loading, error } = useGetBinsQuery({
+    variables: {
+      streetNumber: `${currentUser?.streetNumber}`,
+      streetName: `${currentUser?.streetName}`,
+      postalCode: `${currentUser?.postalCode}`,
+      city: `${currentUser?.city}`,
+      contractId: contractId,
+    },
   });
 
   const findChipIdByTrashFlow = (
@@ -41,7 +44,7 @@ export const GetDataChipId = () => {
         trashFlow?: string | null | undefined;
       }[]
     | null
-    | undefined = data?.getBinId as
+    | undefined = data?.checkUserRequirements as
     | {
         __typename?: string | undefined;
         chipId?: string | null | undefined;

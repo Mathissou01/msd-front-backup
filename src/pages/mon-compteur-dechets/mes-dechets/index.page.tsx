@@ -4,13 +4,21 @@ import CommonChips from "../../../components/Common/CommonChips/CommonChips";
 import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 import { format, subMonths } from "date-fns";
 import { fr } from "date-fns/locale";
-import { useGetMwcFlowsByContractIdQuery } from "../../../graphql/codegen/generated-types";
+import {
+  UserWasteData,
+  useGetMwcFlowsByContractIdQuery,
+  useGetUserWasteManagementQuery,
+} from "../../../graphql/codegen/generated-types";
 import { renderFlowName } from "../../../lib/flows";
 import MyWasteStatsBlock from "../../../components/CompteurDechets/MyWaste/MyWasteStatsBlock";
 import MyFlowEdito from "../../../components/CompteurDechets/MyWaste/MyFlowEdito/MyFlowEdito";
 
 import CommonDonut from "../../../components/Common/CommonGraphs/CommonDonut";
 import Illu_idea from "../../../../public/images/pictos/Idea.svg";
+
+import CommonSpinner from "../../../components/Common/CommonSpinner/CommonSpinner";
+import { useCurrentUser } from "../../../hooks/useCurrentUser";
+import { useContract } from "../../../hooks/useContract";
 
 import "./my-waste.scss";
 
@@ -29,20 +37,8 @@ const breadcrumbPages = [
   },
 ];
 
-interface Flow {
-  name: string;
-  total: number;
-  percent: number;
-  poid: number;
-  code: string;
-}
+const { NEXT_PUBLIC_CONTRACT_ID } = process.env;
 
-interface Flows {
-  total: number;
-  percent: number;
-  date: string;
-  flow: Flow[];
-}
 interface IMyWasteFlowEdito {
   __typename?: string;
   id?: string;
@@ -54,31 +50,9 @@ interface IMyWasteFlowEdito {
   picture?: string[];
 }
 
-const flows: Flows = {
-  total: 150,
-  percent: 3,
-  date: "01/06/2023",
-  flow: [
-    {
-      name: "Ordures ménagères",
-      total: 100,
-      percent: 78,
-      poid: 90,
-      code: "OMR",
-    },
-    {
-      name: "Emballages",
-      total: 45,
-      percent: 22,
-      poid: 25,
-      code: "CS",
-    },
-  ],
-};
-
-const { NEXT_PUBLIC_CONTRACT_ID } = process.env;
-
 export default function MyWastePage() {
+  const { contractId } = useContract();
+  const { currentUser } = useCurrentUser();
   const { data } = useGetMwcFlowsByContractIdQuery({
     variables: {
       filters: {
@@ -92,6 +66,16 @@ export default function MyWastePage() {
       },
     },
   });
+
+  const { data: flowsData, loading } = useGetUserWasteManagementQuery({
+    variables: {
+      contractId: contractId,
+      street: `${currentUser?.streetNumber} ${currentUser?.streetName}`,
+      postcode: `${currentUser?.postalCode}`,
+      city: `${currentUser?.city}`,
+    },
+  });
+
   const [chips, setChips] = useState<string[]>([]);
   const [wasteFlows, setWasteFlows] = useState<IMyWasteFlowEdito[]>([]);
   const [selectedChip, setSelectedChip] = useState("all");
@@ -104,7 +88,7 @@ export default function MyWastePage() {
     if (data) {
       const mappedChips =
         data.mwcFlows?.data
-          .map((flow) => flow?.attributes?.flow?.data?.attributes?.name || "")
+          .map((flow) => flow?.attributes?.flow?.data?.attributes?.code || "")
           .filter((name) => name !== undefined) || [];
 
       if (mappedChips) {
@@ -119,7 +103,7 @@ export default function MyWastePage() {
         data.mwcFlows?.data
           ?.filter(
             (flowdata) =>
-              flowdata.attributes?.flow?.data?.attributes?.name ===
+              flowdata.attributes?.flow?.data?.attributes?.code ===
               selectedChip,
           )
           .map((flowBlock) => flowBlock?.attributes?.blocks)
@@ -130,11 +114,6 @@ export default function MyWastePage() {
       }
     }
   }, [data, selectedChip]);
-  //TODO: if collapse
-  // const [isCollapsed, setIsCollapsed] = useState(false);
-  // const toggleCollapse = () => {
-  //   setIsCollapsed(!isCollapsed);
-  // };
 
   return (
     <>
@@ -149,52 +128,56 @@ export default function MyWastePage() {
               setSelectedChip={setSelectedChip}
               renderChipName={renderFlowName}
             />
-            <div className="c-MyWaste__EvolutionContainer">
-              <div className="c-MyWaste__BlockContainer">
-                <div className="c-MyWaste__DonutChart">
-                  <CommonDonut selectedChip={selectedChip} flows={flows} />
+            {flowsData && flowsData?.getUserWasteManagement && !loading ? (
+              <div className="c-MyWaste__EvolutionContainer">
+                <div className="c-MyWaste__BlockContainer">
+                  <div className="c-MyWaste__DonutChart">
+                    <CommonDonut
+                      selectedChip={selectedChip}
+                      flows={
+                        flowsData?.getUserWasteManagement[0] as UserWasteData
+                      }
+                    />
 
-                  <div className="c-MyWaste__DonutLegend">
-                    <p>
-                      <span
-                        className={`c-MyWaste__DonutLegend${
-                          selectedChip === "OMR"
-                            ? "_color1"
-                            : selectedChip === "CS"
-                            ? "_color4"
-                            : "_color1"
-                        }`}
-                      ></span>
-                      Ordures ménagères
-                    </p>
-                    <p>
-                      <span
-                        className={`c-MyWaste__DonutLegend${
-                          selectedChip === "CS"
-                            ? "_color2"
-                            : selectedChip === "OMR"
-                            ? "_color3"
-                            : "_color2"
-                        }`}
-                      ></span>
-                      Emballages
-                    </p>
+                    <div className="c-MyWaste__DonutLegend">
+                      <p>
+                        <span
+                          className={"c-MyWaste__DonutLegend_color1"}
+                        ></span>
+                        Ordures ménagères
+                      </p>
+                      <p>
+                        <span
+                          className={`c-MyWaste__DonutLegend_color2`}
+                        ></span>
+                        Emballages
+                      </p>
+                    </div>
+                    <div className="c-MyWaste__DonutChartBottomInfo">
+                      <Illu_idea />
+                      <p>Equivalent d’un foyer d’environ X personne(s)</p>
+                    </div>
                   </div>
-                  <div className="c-MyWaste__DonutChartBottomInfo">
-                    <Illu_idea />
-                    <p>Equivalent d’un foyer d’environ X personne(s)</p>
-                  </div>
+                  {flowsData &&
+                    flowsData.getUserWasteManagement &&
+                    flowsData?.getUserWasteManagement?.[0] &&
+                    selectedChip === "all" && (
+                      <MyWasteStatsBlock
+                        flows={flowsData?.getUserWasteManagement[0]}
+                      />
+                    )}
+                  {selectedChip !== "all" && (
+                    <div className="c-MyFlowEdito">
+                      {wasteFlows?.map((wasteFlow, index) => (
+                        <MyFlowEdito wasteFlow={wasteFlow} key={index} />
+                      ))}
+                    </div>
+                  )}
                 </div>
-                {selectedChip === "all" && <MyWasteStatsBlock flows={flows} />}
-                {selectedChip !== "all" && (
-                  <div className="c-MyFlowEdito">
-                    {wasteFlows?.map((wasteFlow, index) => (
-                      <MyFlowEdito wasteFlow={wasteFlow} key={index} />
-                    ))}
-                  </div>
-                )}
               </div>
-            </div>
+            ) : (
+              <CommonSpinner />
+            )}
           </div>
         )}
       </div>

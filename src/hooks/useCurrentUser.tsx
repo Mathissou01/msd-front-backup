@@ -74,7 +74,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const login = () => {
-    const user = {
+    const user: User = {
       id: "1",
       email: "john.doe@gmail.com",
       firstname: "John",
@@ -84,6 +84,11 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       userType: "particular",
       dwellingType: "house",
       addressLabel: "1 rue de la paix, 75000 Paris",
+      postalCode: "35000",
+      city: "Rennes",
+      streetNumber: "102",
+      streetName: "ALLEE SAINT-HELIER",
+      activationDate: new Date("2022-07-01"),
     };
     setCurrentUser(user);
     localStorage.setItem("user", JSON.stringify(user));
