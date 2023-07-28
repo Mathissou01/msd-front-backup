@@ -44,7 +44,7 @@ interface IHomePageProps {
     titleContent: string | null;
     serviceLinks: Array<IServiceLink> | null;
   };
-  quizAndTipsBlock: QuizAndTipsBlockEntity | null;
+  quizAndTipsBlock: Array<QuizAndTipsBlockEntity> | null;
   editoBlock: EditoBlockEntity | null;
   topContentBlock: TopContentBlockEntity | null;
   newestTopContents: GetNewestTopContentsQuery;
@@ -78,8 +78,10 @@ export default function HomePage({
       ?.attributes?.isActivated;
   const displayServicesBlock =
     servicesBlock.titleContent && editorialServicesActivated;
+  // TODO: Check if the condition work properly
   const displayQuizAndTipsBlock =
-    quizAndTipsBlock?.attributes?.displayBlock &&
+    quizAndTipsBlock &&
+    Object.values(quizAndTipsBlock)[0]?.attributes?.displayBlock &&
     (servicesData.editorialServices?.data[0]?.attributes?.quizSubService?.data
       ?.attributes?.isActivated ||
       servicesData.editorialServices?.data[0]?.attributes?.tipSubService?.data
@@ -96,7 +98,21 @@ export default function HomePage({
   const scriptUrl = `https://consent.cookiebot.com/uc.js`;
 
   const router = useRouter();
-
+  // ----------------------------------------------------------------
+  /* TODO: compare the id of quizAndTipsBlock to the currentAUdienceId to get the right block */
+  // const { currentAudience } = useCurrentUser();
+  // const currentAudienceId = currentAudience.id;
+  // //
+  // // find the QuizAndTipsBlockEntity that matches the currentAudienceId
+  // const findMatchingQuizAndTipsBlock = (): QuizAndTipsBlockEntity[] => {
+  //   if (currentAudienceId && quizAndTipsBlock[currentAudienceId]) {
+  //     return [quizAndTipsBlock[currentAudienceId]];
+  //   }
+  //   return [];
+  // };
+  //
+  // const matchingQuizAndTipsBlock = findMatchingQuizAndTipsBlock();
+  //----------------------------------------------------------------
   const [recyclingGuideSearchTerm, setRecyclingGuideSearchTerm] = useState("");
 
   function handleChangeRecyclingGuideSearchTerm(data: string) {
@@ -140,7 +156,13 @@ export default function HomePage({
           newestTopContents={newestTopContents}
         />
       )}
-      {displayQuizAndTipsBlock && <QuizAndTipsBlock data={quizAndTipsBlock} />}
+      {/* TODO: Check the structure of quizAndTipsBlock to fit with the data props */}
+      {/*{displayQuizAndTipsBlock && matchingQuizAndTipsBlock && (*/}
+      {/*  <QuizAndTipsBlock data={quizAndTipsBlock} />*/}
+      {/*)}*/}
+      {displayQuizAndTipsBlock && (
+        <QuizAndTipsBlock data={quizAndTipsBlock[0]} />
+      )}
       {displayEditoBlock && <EditoBlock data={editoBlock} />}
     </>
   );
@@ -171,10 +193,50 @@ export async function getStaticProps() {
 
   const servicesBlock = extractServicesBlock(servicesBlockData);
 
+  //----------------------------------------------------------------
+  // TODO: This function is working properly, just need to rename the const and maybe modify it if needed
+  // Task : Here we get the id of all the audiences and pass it the to "GetQuizAndTipsBlockQuery" to generate all the pages
+  // of the blocks. Like the block for the "Particuliers", "Professional",... It return an object of here 3 objects with the id of the audiences in it.
+  // Now we just need to compare the currentAudience.id of the user that is stock in the local storage and compare it with the object to display the right block.
+  // Everything commented at the top of the pages is already setup but need to be finish and clean.
+  // const { data: audiencesData } = await client.query<GetAudiencesIdQuery>({
+  //   query: GetAudiencesIdDocument,
+  //   variables: { contractId },
+  // });
+  //
+  // const audiencesArrayId =
+  //   audiencesData?.contract?.data?.attributes?.audiences?.data;
+  //
+  // const audienceId = audiencesArrayId?.map((x) => {
+  //   return x.id;
+  // });
+  //
+  // const quizAndTipsBlock: Record<string, QuizAndTipsBlockEntity> = {};
+  // // Async function to use await inside the loop
+  // const fetchDataForAudienceId = async (id: string) => {
+  //   const { data: quizAndTipsBlockData } =
+  //     await client.query<GetQuizAndTipsBlockQuery>({
+  //       query: GetQuizAndTipsBlockDocument,
+  //       variables: { contractId, audienceId: id },
+  //     });
+  //   const quizAndTipsBlockExtracted =
+  //     extractQuizAndTipsBlock(quizAndTipsBlockData);
+  //   if (quizAndTipsBlockExtracted) {
+  //     quizAndTipsBlock[id] = quizAndTipsBlockExtracted;
+  //   }
+  //
+  // };
+  //
+  // // Use loop to ensure await works as expected
+  // for (const id of audienceId || []) {
+  //   await fetchDataForAudienceId(id || "");
+  // }
+  //-------------------------------------------------------------
+
   const { data: quizAndTipsBlockData } =
     await client.query<GetQuizAndTipsBlockQuery>({
       query: GetQuizAndTipsBlockDocument,
-      variables: { contractId },
+      variables: { contractId, audienceId: "1" },
     });
   const quizAndTipsBlock = extractQuizAndTipsBlock(quizAndTipsBlockData);
 

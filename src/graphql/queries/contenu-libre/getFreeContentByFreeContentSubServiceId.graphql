@@ -1,10 +1,12 @@
 query getFreeContentsByFreeContentSubServiceId(
   $freeContentSubServiceId: ID!
   $pagination: PaginationArg
+  $audienceId: ID!
 ) {
   freeContents(
     filters: {
       freeContentSubService: { id: { eq: $freeContentSubServiceId } }
+      audiences: { id: { eq: $audienceId } }
       status: { eq: "published" }
     }
     sort: "publishedDate:desc"

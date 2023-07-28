@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import WasteFamilyItems from "./WasteFamilyItems/WasteFamilyItems";
 import CommonLoader from "../Common/CommonLoader/CommonLoader";
 import { useContract } from "../../hooks/useContract";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { removeNulls } from "../../lib/utilities";
 import {
   SearchResult,
@@ -30,8 +31,12 @@ interface IWasteFamilyBlockProps {
 export default function WasteFamilyBlock({
   filteredData,
 }: IWasteFamilyBlockProps) {
+  /* Local Data */
+  const noResultSearch = "Aucun résultat ne correspond à votre recherche";
+
   /* External Data */
   const { contractId } = useContract();
+  const { currentAudience } = useCurrentUser();
   const [tableData, setTableData] = useState<Array<IWasteFamilyTable>>([]);
   const {
     data: getContractData,
@@ -48,12 +53,15 @@ export default function WasteFamilyBlock({
       recyclingGuideServiceId:
         getContractData?.contract?.data?.attributes?.recyclingGuideService?.data
           ?.id,
+      audienceId: currentAudience.id,
     },
   });
+  const [filteredTableDataCount, setFilteredTableDataCount] =
+    useState<number>(0);
 
   useEffect(
     () => {
-      if (getGuideDuTriData) {
+      if (getGuideDuTriData && currentAudience.id !== "0") {
         const updatedTableData =
           getGuideDuTriData.recyclingGuideService?.data?.attributes?.wasteFamilies?.data
             .map((item: WasteFamilyEntity) => {
@@ -98,7 +106,7 @@ export default function WasteFamilyBlock({
         );
 
         setTableData(filteredTableData);
-
+        setFilteredTableDataCount(filteredTableData.length);
         if (filteredData && filteredData.length !== 0) {
           setIsSearchActive(true);
 
@@ -110,7 +118,7 @@ export default function WasteFamilyBlock({
       }
     },
     /* eslint-disable */
-    [getGuideDuTriData, filteredData],
+    [getGuideDuTriData, filteredData, currentAudience],
   );
 
   /* Static properties */
@@ -141,6 +149,9 @@ export default function WasteFamilyBlock({
       errors={[getGuideDuTriError, getContractError]}
       isFlexGrow={false}
     >
+      {filteredTableDataCount === 0 && (
+        <div className="c-WasteFamillyBlock__NoResults">{noResultSearch}</div>
+      )}
       {tableData &&
         tableData.map((data, index) => (
           <div key={index} className="c-WasteFamillyBlock">

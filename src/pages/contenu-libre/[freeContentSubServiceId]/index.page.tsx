@@ -1,6 +1,7 @@
 import { GetServerSideProps, GetStaticPaths } from "next";
 import { ParsedUrlQuery } from "querystring";
 import React, { useEffect, useState } from "react";
+import { useCurrentUser } from "../../../hooks/useCurrentUser";
 import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 import CommonCardBlock from "../../../components/Common/CommonCardBlock/CommonCardBlock";
 import CommonLoader from "../../../components/Common/CommonLoader/CommonLoader";
@@ -49,11 +50,12 @@ export default function FreeContentListPage({
   const defaultPage = 1;
   const id = freeContentSubServiceData?.id;
   const defaultHref = `/contenu-libre/contenu`;
-
+  const { currentAudience } = useCurrentUser();
   const defaultQueryVariables: GetFreeContentsByFreeContentSubServiceIdQueryVariables =
     {
       pagination: { page: defaultPage, pageSize: defaultRowsPerPage },
       freeContentSubServiceId: `${id}`,
+      audienceId: currentAudience.id,
     };
   const [
     getNewsAndEventsByContractId,
@@ -68,17 +70,20 @@ export default function FreeContentListPage({
   });
 
   useEffect(() => {
-    getNewsAndEventsByContractId({
-      variables: {
-        ...defaultQueryVariables,
-        pagination: {
-          page: currentPagination.page,
-          pageSize: defaultRowsPerPage,
+    if (currentAudience.id !== "0") {
+      defaultQueryVariables.audienceId = currentAudience.id;
+      getNewsAndEventsByContractId({
+        variables: {
+          ...defaultQueryVariables,
+          pagination: {
+            page: currentPagination.page,
+            pageSize: defaultRowsPerPage,
+          },
         },
-      },
-    });
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPagination]);
+  }, [currentPagination, currentAudience]);
 
   const freeContents =
     freeContentsData?.freeContents?.data.filter(removeNulls) ?? [];

@@ -1,20 +1,26 @@
 import React, {
+  createContext,
   Dispatch,
   SetStateAction,
-  createContext,
   useContext,
   useEffect,
   useState,
 } from "react";
 import { User } from "../lib/user";
+import { IAudience } from "../lib/audience";
+import { Enum_Audience_Type } from "../graphql/codegen/generated-types";
 
 interface UserContextValues {
   currentUser: User | null;
   setCurrentUser: Dispatch<SetStateAction<User | null>>;
   login: () => void;
   logout: () => void;
-  currentAudience: string | null;
-  setUserAudience: (audienceType: string) => void;
+  currentAudience: IAudience;
+  setUserAudience: (audienceData: {
+    id: string;
+    type: Enum_Audience_Type;
+  }) => void;
+  getAudience: () => void;
 }
 
 export const useCurrentUser = (): UserContextValues => {
@@ -29,7 +35,9 @@ const UserContext = createContext<UserContextValues>({} as UserContextValues);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [currentAudience, setCurrentAudience] = useState<string | null>(null);
+  const [currentAudience, setCurrentAudience] = useState<IAudience>({
+    id: "0",
+  });
 
   const getUser = async () => {
     try {
@@ -46,16 +54,20 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const audience = localStorage.getItem("audience");
       if (audience && audience !== "null") {
-        setCurrentAudience(audience);
+        setCurrentAudience(JSON.parse(audience));
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  const setUserAudience = async (audienceType: string) => {
+  const setUserAudience = async (audienceData: {
+    id: string;
+    type: Enum_Audience_Type;
+  }) => {
     try {
-      localStorage.setItem("audience", audienceType);
+      localStorage.setItem("audience", JSON.stringify(audienceData));
+      setCurrentAudience(audienceData);
     } catch (error) {
       console.error(error);
     }
@@ -101,6 +113,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     logout,
     setUserAudience,
     currentAudience,
+    getAudience,
   };
 
   return (

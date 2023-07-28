@@ -76,19 +76,17 @@ export default function CommonCardBlock({
         )}
         <div className={contentClasses}>
           <div className="c-CommonCardBlock__ContentHeader">
-            <div className="c-CommonCardBlock__Tags">
-              {tags?.map((tagLabel, index) => (
-                <span
-                  key={index}
-                  className="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
-                >
-                  {tagLabel.attributes?.name}
-                </span>
-              ))}
+            <div className="c-CommonCardBlock__DateContainer">
+              {dataFrenchFormat}
             </div>
-            {!isEventDisplay && date ? (
-              <div className="c-CommonCardBlock__Date">{dataFrenchFormat}</div>
-            ) : null}
+            {tags?.map((tagLabel, index) => (
+              <span
+                key={index}
+                className="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+              >
+                {tagLabel.attributes?.name}
+              </span>
+            ))}
           </div>
           <div className="c-CommonCardBlock__ContentBody">
             <h3 className="c-CommonCardBlock__Title">{title}</h3>

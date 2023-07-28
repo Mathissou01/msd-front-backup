@@ -135,7 +135,6 @@ exports[`Header renders in desktop mode 1`] = `
           <div
             class="c-HeaderLinkProfile__Content"
           >
-            <span />
             <div
               style="transform: scaleY(1); transition: transform 0.2s ease;"
             />
@@ -350,7 +349,6 @@ exports[`Header renders in mobile mode 1`] = `
             <div
               class="c-HeaderLinkProfile__Content"
             >
-              <span />
               <div
                 style="transform: scaleY(1); transition: transform 0.2s ease;"
               />

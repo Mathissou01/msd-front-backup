@@ -4,6 +4,7 @@ import {
   useGetNewsAndEventsByContractIdLazyQuery,
 } from "../../graphql/codegen/generated-types";
 import { useContract } from "../../hooks/useContract";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
 import CommonBreadcrumb from "../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 import DesktopTopRightAngle from "public/images/desktop_page_top-right-angle.svg";
 import MobileTopRightAngle from "public/images/mobile_page_top-right-angle.svg";
@@ -25,14 +26,16 @@ export default function ActualitesEvenementsPage() {
     },
   ];
   const titleContent = "Actualités et événements";
+
   /* Local Data */
   const { contractId } = useContract();
-
   const defaultRowsPerPage = 9;
   const defaultPage = 1;
+  const { currentAudience } = useCurrentUser();
   const defaultQueryVariables: GetNewsAndEventsByContractIdQueryVariables = {
     contractId: contractId,
     pagination: { page: defaultPage, pageSize: defaultRowsPerPage },
+    audienceId: currentAudience.id,
   };
   const [
     getNewsAndEventsByContractId,
@@ -47,17 +50,20 @@ export default function ActualitesEvenementsPage() {
   });
 
   useEffect(() => {
-    getNewsAndEventsByContractId({
-      variables: {
-        ...defaultQueryVariables,
-        pagination: {
-          page: currentPagination.page,
-          pageSize: defaultRowsPerPage,
+    if (currentAudience.id !== "0") {
+      defaultQueryVariables.audienceId = currentAudience.id;
+      getNewsAndEventsByContractId({
+        variables: {
+          ...defaultQueryVariables,
+          pagination: {
+            page: currentPagination.page,
+            pageSize: defaultRowsPerPage,
+          },
         },
-      },
-    });
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPagination]);
+  }, [currentPagination, currentAudience]);
 
   const newsAndEvents = newsAndEventsData?.news?.data.filter(removeNulls) ?? [];
   const rowCount = newsAndEventsData?.news?.meta.pagination.total;

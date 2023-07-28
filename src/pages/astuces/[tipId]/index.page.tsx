@@ -39,7 +39,6 @@ export default function TipPage({ tipData }: ITipPageProps) {
   if (tipData?.attributes?.title) {
     breadcrumbPages.push({ label: tipData.attributes.title, slug: "" });
   }
-
   return (
     <>
       <CommonBreadcrumb pages={breadcrumbPages} />
@@ -79,6 +78,7 @@ export const getStaticProps: GetStaticProps<ITipPageProps, Params> = async ({
   const { data } = await client.query<GetTipByIdQuery>({
     query: GetTipByIdDocument,
     variables: { tipId },
+    fetchPolicy: "cache-first",
   });
   const tipData = data.tip?.data;
   return {

@@ -21,6 +21,7 @@ export default function LogoCommunity() {
             alt={logoCommunity.alternativeText ?? ""}
             width={"160"}
             height={"56"}
+            priority
           />
         </Link>
       )}

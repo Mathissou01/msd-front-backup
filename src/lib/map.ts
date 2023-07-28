@@ -8,11 +8,13 @@ export interface ICollect {
   name: string;
   picto: {
     url: string;
+    name: string;
   };
 }
 
 export interface IFilterData {
   name: string;
+  pictoName: string;
   picto: string;
   count: number;
 }
@@ -26,6 +28,7 @@ export interface IMarker {
   address: string;
   postal: string;
   picto: string | null;
+  pictoName: string | null;
   collect: ICollect;
   distanceText?: string;
   collectGender: string;
@@ -37,8 +40,10 @@ export interface IGeoPosition {
   lat: number;
   lng: number;
 }
+
 export interface IContentData {
   infoId: string;
+  infoPictoName: string;
   infoPicto: string;
   infoName: string;
   infoAddress: string;
@@ -51,6 +56,7 @@ export interface IContentData {
   infoTime: Array<ComponentBlocksOpeningDay>;
   infoFiles: Array<ComponentBlocksDownloadBlock>;
   message: string;
+  selecetedMarkerId: string;
 }
 
 export function isComponentBlocksOpeningDay(

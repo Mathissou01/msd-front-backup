@@ -144,12 +144,14 @@
   }
 
   &__PictoFilter {
-    filter: brightness(1) invert(0);
+    margin: auto;
+    filter: url("#recolor-expert-blue");
     aspect-ratio: auto;
   }
 
   &__PictoFilterSelected {
-    filter: brightness(0) invert(1);
+    margin: auto;
+    filter: url("#recolor-white");
     aspect-ratio: auto;
   }
 }

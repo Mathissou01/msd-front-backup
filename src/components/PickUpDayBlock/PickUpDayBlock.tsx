@@ -6,6 +6,7 @@ import {
 } from "../../graphql/codegen/generated-types";
 import { IAddressInfo, ICoordinates } from "../../lib/pickup-days";
 import { useContract } from "../../hooks/useContract";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
 import PickUpDayEnterAddress from "./PickUpDayEnterAddress/PickUpDayEnterAddress";
 import CommonGeolocationButton from "../Common/CommonGeolocationButton/CommonGeolocationButton";
 import PickUpDayList from "./PickUpDayList/PickUpDayList";
@@ -29,25 +30,28 @@ export default function PickUpDayBlock() {
     useGetPickUpDaysByIdsAndContratIdLazyQuery({
       fetchPolicy: "network-only",
     });
+  const { currentAudience } = useCurrentUser();
+  const contractId = contract?.id;
+  const pickUpDayServiceId = contract?.attributes?.pickUpDayService?.data?.id;
+  const pickUpDayIsActivated =
+    contract?.attributes?.pickUpDayService?.data?.attributes?.isActivated;
 
   /* Methods */
   const submitSearch = useCallback(
     async (newCoordinates: ICoordinates) => {
       setPickUpDayResults(undefined);
       setIsLoading(true);
-      const contractId = contract?.id;
-      const pickUpDayIsActivated =
-        contract?.attributes?.pickUpDayService?.data?.attributes?.isActivated;
+
       if (
         pickUpDayIsActivated &&
-        contract?.attributes?.pickUpDayService?.data?.id
+        pickUpDayServiceId &&
+        currentAudience.id !== "0"
       ) {
         await getPickUpDaysByCoordinatesLocalLazyQuery({
           variables: {
             lat: newCoordinates.latitude,
             long: newCoordinates.longitude,
-            pickUpDayServiceId:
-              contract?.attributes?.pickUpDayService?.data?.id,
+            pickUpDayServiceId: pickUpDayServiceId,
           },
           onCompleted: async (pickUpDayIdResults) => {
             if (
@@ -58,6 +62,7 @@ export default function PickUpDayBlock() {
                 variables: {
                   pickUpDayIds: pickUpDayIdResults.getPickUpDaysByCoordinates,
                   contractId: contractId,
+                  audienceId: currentAudience.id,
                 },
                 onCompleted: (pickUpDayResults) => {
                   if (
@@ -87,9 +92,10 @@ export default function PickUpDayBlock() {
       }
     },
     [
-      contract?.attributes?.pickUpDayService?.data?.id,
-      contract?.id,
-      contract?.attributes?.pickUpDayService?.data?.attributes?.isActivated,
+      contractId,
+      pickUpDayServiceId,
+      pickUpDayIsActivated,
+      currentAudience,
       getPickUpDaysByIdsAndContratIdLazyQuery,
       getPickUpDaysByCoordinatesLocalLazyQuery,
     ],

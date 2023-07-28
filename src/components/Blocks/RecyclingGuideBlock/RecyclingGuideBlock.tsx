@@ -78,8 +78,7 @@ export default function RecyclingGuideBlock({
 
   useEffect(() => {
     if (router.query) {
-      var searchData: IFormInput;
-      searchData = { searchTerm: `${router.query.search}` };
+      const searchData: IFormInput = { searchTerm: `${router.query.search}` };
       onSubmit(searchData);
       handleChange(`${router.query.search}`); // Manually call handleChange
     }

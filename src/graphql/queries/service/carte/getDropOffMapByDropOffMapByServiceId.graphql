@@ -1,5 +1,11 @@
-query getDropOffMapByDropOffMapByServiceId($dropOffMapServiceId: ID!) {
-  getDropOffMaps(dropOffMapServiceId: $dropOffMapServiceId) {
+query getDropOffMapByDropOffMapByServiceId(
+  $dropOffMapServiceId: ID!
+  $audienceId: String!
+) {
+  getDropOffMaps(
+    dropOffMapServiceId: $dropOffMapServiceId
+    audienceId: $audienceId
+  ) {
     id
     __typename
     name

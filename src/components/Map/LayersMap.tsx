@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useRef, useState, useContext } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { GoogleMap } from "@react-google-maps/api";
 import MarkerClusterMap from "./Marker/MarkerClusterMap/MarkerClusterMap";
 import MarkerGeoloc from "./Marker/MarkerGeoloc/MarkerGeoloc";
 import { IGeoPosition, IMarker } from "../../lib/map";
 import useCalculateRoute from "../../hooks/geoLocation/useCalculateRoute";
-import mapStyles from "./mapStyles.json";
 import { GoogleMapsContext } from "../../hooks/geoLocation/GoogleMapsContext";
+import mapStyles from "./mapStyles.json";
 import "./layers-map.scss";
 
 interface ILayersMapProps {
@@ -86,13 +86,14 @@ export default function LayersMap({
             minZoom: 5,
           }}
         >
-          {markers.map(({ lat, lng, picto, id }, ind) => (
+          {markers.map(({ lat, lng, picto, pictoName, id }, ind) => (
             <MarkerClusterMap
               key={ind}
               id={id}
               lng={Number(lng)}
               lat={Number(lat)}
               picto={picto ?? ""}
+              pictoName={pictoName ?? ""}
               selectedMarkerId={selectedMarkerId}
               onClick={() => onMarkerClick(markers[ind])}
               showModal={showModal}

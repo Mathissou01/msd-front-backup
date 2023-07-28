@@ -55,27 +55,37 @@
     filter: url("#recolor-secondary");
   }
 
+  &__DateContainer {
+    @include typo.text("tag");
+
+    float: right;
+    width: fit-content;
+    height: fit-content;
+    margin-top: 8px;
+    white-space: nowrap;
+    text-transform: lowercase;
+  }
+
   &__ContentHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    float: right;
+    margin: 5px;
   }
 
   &__Tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
-    align-items: center;
   }
 
   &__Tag {
     @include typo.text("tag");
 
+    display: inline-block;
     padding: 6px 10px;
     border: 1px solid colors.$blue-4;
     border-radius: 4px;
 
     &_background {
+      margin: 3px 2px;
       background-color: colors.$gray-0;
       border: hidden;
     }
@@ -84,6 +94,7 @@
   &__Date {
     @include typo.text("tag");
 
+    margin-top: 5px;
     white-space: nowrap;
     text-transform: lowercase;
 

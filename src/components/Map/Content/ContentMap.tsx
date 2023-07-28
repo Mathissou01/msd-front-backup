@@ -1,4 +1,5 @@
 import React, { MouseEvent } from "react";
+import Image from "next/image";
 import useOpeningHours from "../../../hooks/Map/useOpeningHours";
 import { IContentData } from "../../../lib/map";
 import "./content-map.scss";
@@ -6,10 +7,15 @@ import "./content-map.scss";
 interface IContentDataProps {
   contents: Array<IContentData>;
   onContentClick: (content: IContentData, message: string) => void;
+  selectedMarkerId?: string | undefined;
+  showModal: boolean;
 }
+
 export default function ContentMap({
   contents,
   onContentClick,
+  selectedMarkerId,
+  showModal,
 }: IContentDataProps) {
   const { getFormattedTime, getMessage, currentDayName, currentTime } =
     useOpeningHours({ contents });
@@ -60,6 +66,8 @@ export default function ContentMap({
         ) => {
           onContentClick(content, message);
         };
+        const isSelectedMarker =
+          content?.infoId === selectedMarkerId && showModal;
         return (
           <div
             className="c-ContentMap__Content"
@@ -71,11 +79,23 @@ export default function ContentMap({
                 <div className="c-Marker">
                   <div className="c-Marker__Content">
                     <div
-                      className="c-Marker__TopPin"
-                      style={{
-                        backgroundImage: `url(${infoPicto})`,
-                      }}
+                      className={
+                        isSelectedMarker
+                          ? "c-Marker__TopPinSelected"
+                          : "c-Marker__TopPin"
+                      }
                     >
+                      <Image
+                        className={
+                          isSelectedMarker
+                            ? "c-Marker__SvgPictoSelected"
+                            : "c-Marker__SvgPicto"
+                        }
+                        src={infoPicto}
+                        alt={infoPicto}
+                        width={30}
+                        height={30}
+                      />
                       <div className="c-Marker__BottomPin"></div>
                     </div>
                   </div>

@@ -1,8 +1,13 @@
-query getPickUpDaysByIdsAndContratId($pickUpDayIds: [ID], $contractId: ID) {
+query getPickUpDaysByIdsAndContratId(
+  $pickUpDayIds: [ID]
+  $contractId: ID
+  $audienceId: ID!
+) {
   pickUpDays(
     filters: {
       id: { in: $pickUpDayIds }
       pickUpDayService: { contract: { id: { eq: $contractId } } }
+      audiences: { id: { eq: $audienceId } }
     }
   ) {
     data {

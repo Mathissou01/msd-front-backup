@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 import EditoHeading from "../../../components/Edito/EditoHeading/EditoHeading";
 import EditoDynamicBlock from "../../../components/Edito/EditoDynamicBlock";
@@ -26,7 +26,7 @@ export default function ContactUsPage() {
   ] = useGetContactUsSubServiceByContractIdLazyQuery({
     variables: defaultQueryVariables,
   });
-  const [contactUsSubServiceName, setContactUsSubServiceName] = useState("");
+
   useEffect(() => {
     getContactUsSubServiceByContractId({
       variables: {
@@ -34,17 +34,6 @@ export default function ContactUsPage() {
       },
     });
   }, [getContactUsSubServiceByContractId, defaultQueryVariables]);
-  useEffect(() => {
-    if (
-      ContactUsesData?.contactUsSubServices?.data &&
-      ContactUsesData.contactUsSubServices.data.length > 0 &&
-      ContactUsesData.contactUsSubServices.data[0].attributes?.name
-    ) {
-      setContactUsSubServiceName(
-        ContactUsesData.contactUsSubServices.data[0].attributes.name,
-      );
-    }
-  }, [ContactUsesData]);
 
   const breadcrumbPages = [
     {
@@ -55,14 +44,9 @@ export default function ContactUsPage() {
       label: "Service",
       slug: "/",
     },
-    {
-      label: `${contactUsSubServiceName}`,
-      slug: "service/contact",
-    },
   ];
 
   const contactUs = ContactUsesData?.contactUses?.data[0];
-
   if (contactUs?.attributes?.title) {
     breadcrumbPages.push({ label: contactUs.attributes.title, slug: "" });
   }

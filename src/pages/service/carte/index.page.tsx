@@ -22,8 +22,9 @@ const getAllNamesCount = (markers: IMarker[]): Record<string, IFilterData> => {
   return markers.reduce((acc, item) => {
     const name = item.collect?.name ? item.collect.name : "";
     const picto = item.collect?.picto.url ? item.collect?.picto.url : "";
+    const pictoName = item.collect?.picto.name ? item.collect?.picto.name : "";
     if (!acc[name]) {
-      acc[name] = { name, count: 0, picto };
+      acc[name] = { name, count: 0, picto, pictoName };
     }
     acc[name].count += 1;
     return acc;
@@ -46,6 +47,9 @@ export default function ServiceCartePage() {
   const [geoLocation, setGeoLocation] = useState<Position>(null);
   const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [selectedMarkerId, setSelectedMarkerId] = useState<string | undefined>(
+    undefined,
+  );
   const [selectedAddress, setSelectedAddress] = useState<Position>(null);
   const [autoUpdatePosition, setAutoUpdatePosition] = useState<boolean>(true);
   const [message, setMessage] = useState("");
@@ -78,6 +82,7 @@ export default function ServiceCartePage() {
     const data = {
       infoId: marker.id,
       infoPicto: marker.picto,
+      infoPictoName: marker.pictoName,
       infoName: marker.name,
       infoAddress: marker.address,
       infoPostal: marker.postal,
@@ -93,6 +98,7 @@ export default function ServiceCartePage() {
     setMessage(message);
     setSelectedContent(data);
     setShowModal(true);
+    setSelectedMarkerId(selectedMarkerId);
   };
 
   const filteredMarkers = useFilterMarkers(
@@ -115,7 +121,16 @@ export default function ServiceCartePage() {
       data: [{ name: selectedFilter, dropOffMaps }],
     };
   }, [filteredMarkers, selectedFilter]);
-
+  // Function to handle content clicks
+  const handleContentClick = (
+    content: IContentData | null,
+    message: string,
+  ) => {
+    setMessage(message);
+    setSelectedContent(content);
+    setShowModal(true);
+    setSelectedMarkerId(content?.infoId);
+  };
   return (
     <>
       <div className="c-ServiceCartePage">
@@ -145,6 +160,7 @@ export default function ServiceCartePage() {
                   return {
                     infoId: content.id,
                     infoPicto: content.picto,
+                    infoPictoName: content.pictoName,
                     infoName: content.name,
                     infoAddress: content.address,
                     infoPostal: content.postal,
@@ -157,11 +173,11 @@ export default function ServiceCartePage() {
                     infoCollectGender: content.collectGender,
                   } as IContentData;
                 })}
-              onContentClick={(content, message) => {
-                setMessage(message);
-                setSelectedContent(content);
-                setShowModal(true);
-              }}
+              onContentClick={(content, message) =>
+                handleContentClick(content, message)
+              }
+              selectedMarkerId={selectedMarkerId}
+              showModal={showModal}
             />
           )}
         </div>

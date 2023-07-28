@@ -1,4 +1,7 @@
-query getRecyclingFamiliesForms($recyclingGuideServiceId: ID) {
+query getRecyclingFamiliesForms(
+  $recyclingGuideServiceId: ID
+  $audienceId: ID!
+) {
   recyclingGuideService(id: $recyclingGuideServiceId) {
     data {
       __typename
@@ -14,7 +17,12 @@ query getRecyclingFamiliesForms($recyclingGuideServiceId: ID) {
               familyName
               isSystem
               updatedAt
-              wasteForms(filters: { status: { eq: "published" } }) {
+              wasteForms(
+                filters: {
+                  status: { eq: "published" }
+                  audiences: { id: { eq: $audienceId } }
+                }
+              ) {
                 data {
                   __typename
                   id

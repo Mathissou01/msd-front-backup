@@ -1,27 +1,59 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import FormSelect from "../../../Form/FormSelect/FormSelect";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
+import { IAudience } from "../../../../lib/audience";
 import { useContract } from "../../../../hooks/useContract";
 import { useCurrentUser } from "../../../../hooks/useCurrentUser";
-import { AudienceEntity } from "../../../../graphql/codegen/generated-types";
+import {
+  AudienceEntity,
+  Enum_Audience_Type,
+} from "../../../../graphql/codegen/generated-types";
 import CommonButton from "../../../Common/CommonButton/CommonButton";
 import ArrowDown from "public/images/pictos/arrow_bold.svg";
 import "./header-link-profile.scss";
 
 export default function HeaderLinkProfile() {
+  /* Static data */
+  const defaultAudience = {
+    id: "0",
+  };
+
   /* Methods */
+  function getDefaultAudienceFromData(): IAudience {
+    if (!audiencesSelectData) {
+      return defaultAudience;
+    }
+
+    const audience = audiencesSelectData[0];
+
+    if (!audience || !audience.id) {
+      return defaultAudience;
+    }
+
+    return {
+      id: audience.id,
+      type: audience.type,
+    };
+  }
+
   async function onSubmit(submitData: FieldValues) {
-    const audienceName =
-      audiencesSelectData?.find((audiencesSelect) => {
-        return audiencesSelect.id === submitData.audience.id;
-      })?.type ?? "";
-    setUserAudience(audienceName);
-    setSelectedAudienceType(audienceName);
+    const audienceData = audiencesSelectData?.find((audiencesSelect) => {
+      return audiencesSelect.id === submitData.audience.id;
+    });
+    if (audienceData) {
+      const newAudience = {
+        id: audienceData.id ?? "",
+        type: audienceData.type ?? Enum_Audience_Type.Particuliers,
+      };
+      setUserAudience(newAudience);
+      setSelectedAudienceType(newAudience);
+    }
     setPopUpVisible(false);
     setMirrored(false);
   }
 
   /* Local Data */
+  const isInitialized = useRef<boolean>(false);
   const { contract } = useContract();
   const audiencesSelectData = contract?.attributes?.audiences?.data?.map(
     (link) => ({
@@ -40,26 +72,29 @@ export default function HeaderLinkProfile() {
     mode: "onChange",
   });
   const { handleSubmit } = form;
-  const [selectedAudienceType, setSelectedAudienceType] = useState<string>();
+  const [selectedAudienceType, setSelectedAudienceType] =
+    useState<IAudience>(defaultAudience);
   const { setUserAudience, currentAudience } = useCurrentUser();
 
-  const selectedAudience = selectedAudienceType
-    ? selectedAudienceType
-    : currentAudience
-    ? currentAudience
-    : audiencesSelectData
-    ? audiencesSelectData?.find((audiencesSelect) => audiencesSelect.id === "1")
-        ?.type
-    : "";
+  const selectedAudience: IAudience =
+    selectedAudienceType.id !== defaultAudience.id
+      ? selectedAudienceType
+      : currentAudience?.id !== defaultAudience.id
+      ? currentAudience
+      : audiencesSelectData
+      ? getDefaultAudienceFromData()
+      : defaultAudience;
 
   const defaultSelectValue = audiencesSelectData
     ? audiencesSelectData.find(
-        (audiencesSelect) => audiencesSelect.type === selectedAudience,
+        (audiencesSelect) => audiencesSelect.id === selectedAudience.id,
       ) ?? undefined
     : undefined;
+
   const activeAudiencesSelectData = audiencesSelectData?.filter(
     (data) => data.isActive === true,
   );
+
   /* Animation Popup properties */
   const [isPopUpVisible, setPopUpVisible] = useState<boolean>(false);
   const [isMirrored, setMirrored] = useState<boolean>(false);
@@ -74,10 +109,25 @@ export default function HeaderLinkProfile() {
     transition: "transform 0.2s ease",
   };
 
+  useEffect(() => {
+    if (
+      !isInitialized.current &&
+      defaultSelectValue?.id &&
+      defaultSelectValue.type &&
+      !localStorage.getItem("audience")
+    ) {
+      setUserAudience({
+        id: defaultSelectValue.id,
+        type: defaultSelectValue.type,
+      });
+      isInitialized.current = true;
+    }
+  }, [defaultSelectValue, setUserAudience]);
+
   return (
     <div className="c-HeaderLinkProfile">
       <div className="c-HeaderLinkProfile__Content" onClick={togglePopUp}>
-        <span>{selectedAudience}</span>
+        {selectedAudience && <span>{selectedAudience.type}</span>}
         <ArrowDown style={arrowStyle} />
       </div>
       <div

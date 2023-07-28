@@ -31,19 +31,20 @@ exports[`CommonCardBlock renders 1`] = `
           class="c-CommonCardBlock__ContentHeader"
         >
           <div
-            class="c-CommonCardBlock__Tags"
+            class="c-CommonCardBlock__DateContainer"
           >
-            <span
-              class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
-            >
-              Prise de RDV
-            </span>
-            <span
-              class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
-            >
-              Evénement
-            </span>
+            Invalid Date
           </div>
+          <span
+            class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+          >
+            Prise de RDV
+          </span>
+          <span
+            class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+          >
+            Evénement
+          </span>
         </div>
         <div
           class="c-CommonCardBlock__ContentBody"

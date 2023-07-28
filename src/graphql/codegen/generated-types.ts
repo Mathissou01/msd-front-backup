@@ -389,6 +389,13 @@ export type Audience = {
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
 
+export type AudienceDto = {
+  __typename?: "AudienceDTO";
+  id: Scalars["ID"];
+  isActive: Scalars["Boolean"];
+  type: Scalars["String"];
+};
+
 export type AudienceEntity = {
   __typename?: "AudienceEntity";
   attributes?: Maybe<Audience>;
@@ -1555,24 +1562,17 @@ export type ContactResponse = {
 
 export type ContactUs = {
   __typename?: "ContactUs";
-  audiences?: Maybe<AudienceRelationResponseCollection>;
   blocks?: Maybe<Array<Maybe<ContactUsBlocksDynamicZone>>>;
+  channelTypes?: Maybe<ChannelTypeRelationResponseCollection>;
   createdAt?: Maybe<Scalars["DateTime"]>;
-  customId?: Maybe<Scalars["String"]>;
-  draftCreationId?: Maybe<Scalars["String"]>;
-  hasDraft?: Maybe<Scalars["Boolean"]>;
-  publishedDate?: Maybe<Scalars["DateTime"]>;
   status?: Maybe<Enum_Contactus_Status>;
   tags?: Maybe<TagRelationResponseCollection>;
   title: Scalars["String"];
-  toBeUpdated?: Maybe<Scalars["Boolean"]>;
-  unpublishedDate?: Maybe<Scalars["DateTime"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
-  versionNumber?: Maybe<Scalars["Int"]>;
 };
 
-export type ContactUsAudiencesArgs = {
-  filters?: InputMaybe<AudienceFiltersInput>;
+export type ContactUsChannelTypesArgs = {
+  filters?: InputMaybe<ChannelTypeFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
@@ -1611,37 +1611,23 @@ export type ContactUsEntityResponseCollection = {
 
 export type ContactUsFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ContactUsFiltersInput>>>;
-  audiences?: InputMaybe<AudienceFiltersInput>;
+  channelTypes?: InputMaybe<ChannelTypeFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  customId?: InputMaybe<StringFilterInput>;
-  draftCreationId?: InputMaybe<StringFilterInput>;
-  hasDraft?: InputMaybe<BooleanFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<ContactUsFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ContactUsFiltersInput>>>;
-  publishedDate?: InputMaybe<DateTimeFilterInput>;
   status?: InputMaybe<StringFilterInput>;
   tags?: InputMaybe<TagFiltersInput>;
   title?: InputMaybe<StringFilterInput>;
-  toBeUpdated?: InputMaybe<BooleanFilterInput>;
-  unpublishedDate?: InputMaybe<DateTimeFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
-  versionNumber?: InputMaybe<IntFilterInput>;
 };
 
 export type ContactUsInput = {
-  audiences?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   blocks?: InputMaybe<Array<Scalars["ContactUsBlocksDynamicZoneInput"]>>;
-  customId?: InputMaybe<Scalars["String"]>;
-  draftCreationId?: InputMaybe<Scalars["String"]>;
-  hasDraft?: InputMaybe<Scalars["Boolean"]>;
-  publishedDate?: InputMaybe<Scalars["DateTime"]>;
+  channelTypes?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   status?: InputMaybe<Enum_Contactus_Status>;
   tags?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   title?: InputMaybe<Scalars["String"]>;
-  toBeUpdated?: InputMaybe<Scalars["Boolean"]>;
-  unpublishedDate?: InputMaybe<Scalars["DateTime"]>;
-  versionNumber?: InputMaybe<Scalars["Int"]>;
 };
 
 export type ContactUsRelationResponseCollection = {
@@ -2066,21 +2052,18 @@ export type Cookie = {
   __typename?: "Cookie";
   blocks?: Maybe<Array<Maybe<CookieBlocksDynamicZone>>>;
   createdAt?: Maybe<Scalars["DateTime"]>;
-  customId?: Maybe<Scalars["String"]>;
-  draftCreationId?: Maybe<Scalars["String"]>;
-  hasDraft?: Maybe<Scalars["Boolean"]>;
-  publishedDate?: Maybe<Scalars["DateTime"]>;
+  hasMobile: Scalars["Boolean"];
   status?: Maybe<Enum_Cookie_Status>;
   title: Scalars["String"];
-  toBeUpdated?: Maybe<Scalars["Boolean"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
-  versionNumber?: Maybe<Scalars["Int"]>;
 };
 
 export type CookieBlocksDynamicZone =
   | ComponentBlocksFile
   | ComponentBlocksHorizontalRule
+  | ComponentBlocksImage
   | ComponentBlocksSubHeading
+  | ComponentBlocksVideo
   | ComponentBlocksWysiwyg
   | Error;
 
@@ -2104,30 +2087,20 @@ export type CookieEntityResponseCollection = {
 export type CookieFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<CookieFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  customId?: InputMaybe<StringFilterInput>;
-  draftCreationId?: InputMaybe<StringFilterInput>;
-  hasDraft?: InputMaybe<BooleanFilterInput>;
+  hasMobile?: InputMaybe<BooleanFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<CookieFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<CookieFiltersInput>>>;
-  publishedDate?: InputMaybe<DateTimeFilterInput>;
   status?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
-  toBeUpdated?: InputMaybe<BooleanFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
-  versionNumber?: InputMaybe<IntFilterInput>;
 };
 
 export type CookieInput = {
   blocks?: InputMaybe<Array<Scalars["CookieBlocksDynamicZoneInput"]>>;
-  customId?: InputMaybe<Scalars["String"]>;
-  draftCreationId?: InputMaybe<Scalars["String"]>;
-  hasDraft?: InputMaybe<Scalars["Boolean"]>;
-  publishedDate?: InputMaybe<Scalars["DateTime"]>;
+  hasMobile?: InputMaybe<Scalars["Boolean"]>;
   status?: InputMaybe<Enum_Cookie_Status>;
   title?: InputMaybe<Scalars["String"]>;
-  toBeUpdated?: InputMaybe<Scalars["Boolean"]>;
-  versionNumber?: InputMaybe<Scalars["Int"]>;
 };
 
 export type CookieRelationResponseCollection = {
@@ -2392,6 +2365,7 @@ export type DropOffMapDto = {
   __typename?: "DropOffMapDTO";
   BANFeatureProperties?: Maybe<Scalars["JSON"]>;
   address: Scalars["String"];
+  audiences?: Maybe<Array<Maybe<AudienceDto>>>;
   city: Scalars["String"];
   collect?: Maybe<CollectEntity>;
   description?: Maybe<Scalars["String"]>;
@@ -2670,7 +2644,6 @@ export enum Enum_Confidentiality_Status {
 }
 
 export enum Enum_Contactus_Status {
-  Archived = "archived",
   Draft = "draft",
   Published = "published",
 }
@@ -4419,6 +4392,7 @@ export type Mutation = {
   deleteTip?: Maybe<TipEntityResponse>;
   deleteTipSubService?: Maybe<TipSubServiceEntityResponse>;
   deleteTopContentBlock?: Maybe<TopContentBlockEntityResponse>;
+  deleteUnusedSectors?: Maybe<Sectorization>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
   deleteUserDataStorage?: Maybe<UserDataStorageEntityResponse>;
@@ -5178,6 +5152,10 @@ export type MutationDeleteTipSubServiceArgs = {
 };
 
 export type MutationDeleteTopContentBlockArgs = {
+  id: Scalars["ID"];
+};
+
+export type MutationDeleteUnusedSectorsArgs = {
   id: Scalars["ID"];
 };
 
@@ -6442,8 +6420,6 @@ export type Query = {
   getThreeRandomTips?: Maybe<Array<Maybe<Tips>>>;
   getTopContentBlockDTO?: Maybe<TopContentBlockDto>;
   getTopContentDTOs?: Maybe<Array<Maybe<EditoContentDto>>>;
-  getUserWasteManagement?: Maybe<Array<Maybe<UserWasteData>>>;
-  getUserWasteManagementHistory?: Maybe<Array<Maybe<UserWasteData>>>;
   global?: Maybe<GlobalEntityResponse>;
   homepage?: Maybe<HomepageEntityResponse>;
   homepages?: Maybe<HomepageEntityResponseCollection>;
@@ -6944,6 +6920,7 @@ export type QueryGetDropOffCollectTypeArgs = {
 };
 
 export type QueryGetDropOffMapsArgs = {
+  audienceId: Scalars["String"];
   dropOffMapServiceId: Scalars["ID"];
 };
 
@@ -7005,20 +6982,6 @@ export type QueryGetTopContentBlockDtoArgs = {
 export type QueryGetTopContentDtOsArgs = {
   contractId: Scalars["ID"];
   status?: InputMaybe<Enum_Topcontentdto_Status>;
-};
-
-export type QueryGetUserWasteManagementArgs = {
-  city: Scalars["String"];
-  contractID: Scalars["ID"];
-  name: Scalars["String"];
-  postcode: Scalars["String"];
-};
-
-export type QueryGetUserWasteManagementHistoryArgs = {
-  city: Scalars["String"];
-  contractID: Scalars["ID"];
-  name: Scalars["String"];
-  postcode: Scalars["String"];
 };
 
 export type QueryHomepageArgs = {
@@ -7247,9 +7210,8 @@ export type QueryRequestsArgs = {
 };
 
 export type QuerySearchAddressArgs = {
-  address: Scalars["String"];
-  citycode?: InputMaybe<Scalars["String"]>;
-  limit: Scalars["Int"];
+  address?: InputMaybe<Scalars["String"]>;
+  limit?: InputMaybe<Scalars["Int"]>;
 };
 
 export type QuerySearchCitiesArgs = {
@@ -8228,6 +8190,7 @@ export type RequestTaked = {
   __typename?: "RequestTaked";
   city?: Maybe<Scalars["String"]>;
   createdAt?: Maybe<Scalars["DateTime"]>;
+  isActivated?: Maybe<Scalars["Boolean"]>;
   name: Scalars["String"];
   requestServiceId?: Maybe<Scalars["Int"]>;
   requestSlot?: Maybe<RequestSlotEntityResponse>;
@@ -8259,6 +8222,7 @@ export type RequestTakedFiltersInput = {
   city?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
+  isActivated?: InputMaybe<BooleanFilterInput>;
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<RequestTakedFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<RequestTakedFiltersInput>>>;
@@ -8272,6 +8236,7 @@ export type RequestTakedFiltersInput = {
 
 export type RequestTakedInput = {
   city?: InputMaybe<Scalars["String"]>;
+  isActivated?: InputMaybe<Scalars["Boolean"]>;
   name?: InputMaybe<Scalars["String"]>;
   requestServiceId?: InputMaybe<Scalars["Int"]>;
   requestSlot?: InputMaybe<Scalars["ID"]>;
@@ -8961,14 +8926,6 @@ export type TopContentBlockTopContentDynamicZone =
   | ComponentLinksTopContent
   | Error;
 
-export type TrashFlow = {
-  __typename?: "TrashFlow";
-  name?: Maybe<Scalars["String"]>;
-  percentage?: Maybe<Scalars["Int"]>;
-  trashFlow?: Maybe<Scalars["String"]>;
-  weight?: Maybe<Scalars["Int"]>;
-};
-
 export type UploadFile = {
   __typename?: "UploadFile";
   alternativeText?: Maybe<Scalars["String"]>;
@@ -9194,15 +9151,6 @@ export type UserDataStorageInput = {
   name?: InputMaybe<Scalars["String"]>;
   phone?: InputMaybe<Scalars["String"]>;
   requestTakeds?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
-};
-
-export type UserWasteData = {
-  __typename?: "UserWasteData";
-  averageProduction?: Maybe<Scalars["String"]>;
-  barometerParams?: Maybe<Scalars["String"]>;
-  flows?: Maybe<Array<Maybe<TrashFlow>>>;
-  lastDayOfRange?: Maybe<Scalars["String"]>;
-  totalWeight?: Maybe<Scalars["Int"]>;
 };
 
 export type UsersPermissionsCreateRolePayload = {
@@ -9657,6 +9605,36 @@ export type TotalCountPerTag = {
   name: Scalars["String"];
 };
 
+export type GetAudiencesIdQueryVariables = Exact<{
+  contractId?: InputMaybe<Scalars["ID"]>;
+}>;
+
+export type GetAudiencesIdQuery = {
+  __typename?: "Query";
+  contract?: {
+    __typename?: "ContractEntityResponse";
+    data?: {
+      __typename?: "ContractEntity";
+      id?: string | null;
+      attributes?: {
+        __typename?: "Contract";
+        audiences?: {
+          __typename?: "AudienceRelationResponseCollection";
+          data: Array<{
+            __typename?: "AudienceEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "Audience";
+              isActive: boolean;
+              type: Enum_Audience_Type;
+            } | null;
+          }>;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
+};
+
 export type GetNewByIdQueryVariables = Exact<{
   newId: Scalars["ID"];
 }>;
@@ -9778,6 +9756,7 @@ export type GetNewByIdQuery = {
 export type GetNewsAndEventsByContractIdQueryVariables = Exact<{
   contractId: Scalars["ID"];
   pagination?: InputMaybe<PaginationArg>;
+  audienceId: Scalars["ID"];
 }>;
 
 export type GetNewsAndEventsByContractIdQuery = {
@@ -9920,6 +9899,7 @@ export type GetNewsPathsTotalQuery = {
 export type GetFreeContentsByFreeContentSubServiceIdQueryVariables = Exact<{
   freeContentSubServiceId: Scalars["ID"];
   pagination?: InputMaybe<PaginationArg>;
+  audienceId: Scalars["ID"];
 }>;
 
 export type GetFreeContentsByFreeContentSubServiceIdQuery = {
@@ -11014,6 +10994,7 @@ export type GetNewestTopContentsQuery = {
 
 export type GetQuizAndTipsBlockQueryVariables = Exact<{
   contractId: Scalars["ID"];
+  audienceId: Scalars["ID"];
 }>;
 
 export type GetQuizAndTipsBlockQuery = {
@@ -11022,12 +11003,14 @@ export type GetQuizAndTipsBlockQuery = {
     __typename?: "ContractCustomizationEntityResponseCollection";
     data: Array<{
       __typename?: "ContractCustomizationEntity";
+      id?: string | null;
       attributes?: {
         __typename?: "ContractCustomization";
         homepage?: {
           __typename?: "HomepageEntityResponse";
           data?: {
             __typename?: "HomepageEntity";
+            id?: string | null;
             attributes?: {
               __typename?: "Homepage";
               quizAndTipsBlock?: {
@@ -11063,6 +11046,13 @@ export type GetQuizAndTipsBlockQuery = {
                           shortDescription?: string | null;
                           link?: string | null;
                           publishedDate?: any | null;
+                          audiences?: {
+                            __typename?: "AudienceRelationResponseCollection";
+                            data: Array<{
+                              __typename?: "AudienceEntity";
+                              id?: string | null;
+                            }>;
+                          } | null;
                           tags?: {
                             __typename?: "TagRelationResponseCollection";
                             data: Array<{
@@ -11797,6 +11787,7 @@ export type GetContactQuery = {
 
 export type GetDropOffMapByDropOffMapByServiceIdQueryVariables = Exact<{
   dropOffMapServiceId: Scalars["ID"];
+  audienceId: Scalars["String"];
 }>;
 
 export type GetDropOffMapByDropOffMapByServiceIdQuery = {
@@ -11902,6 +11893,7 @@ export type GetPickUpDaysByIdsAndContratIdQueryVariables = Exact<{
     Array<InputMaybe<Scalars["ID"]>> | InputMaybe<Scalars["ID"]>
   >;
   contractId?: InputMaybe<Scalars["ID"]>;
+  audienceId: Scalars["ID"];
 }>;
 
 export type GetPickUpDaysByIdsAndContratIdQuery = {
@@ -12399,6 +12391,7 @@ export type GetMemoTriBlockByContractIdQuery = {
 
 export type GetRecyclingFamiliesFormsQueryVariables = Exact<{
   recyclingGuideServiceId?: InputMaybe<Scalars["ID"]>;
+  audienceId: Scalars["ID"];
 }>;
 
 export type GetRecyclingFamiliesFormsQuery = {
@@ -12895,6 +12888,77 @@ export type GetTipsPathsTotalQuery = {
   } | null;
 };
 
+export const GetAudiencesIdDocument = gql`
+  query getAudiencesId($contractId: ID) {
+    contract(id: $contractId) {
+      data {
+        id
+        attributes {
+          audiences {
+            data {
+              id
+              attributes {
+                isActive
+                type
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetAudiencesIdQuery__
+ *
+ * To run a query within a React component, call `useGetAudiencesIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAudiencesIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAudiencesIdQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetAudiencesIdQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetAudiencesIdQuery,
+    GetAudiencesIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetAudiencesIdQuery, GetAudiencesIdQueryVariables>(
+    GetAudiencesIdDocument,
+    options,
+  );
+}
+export function useGetAudiencesIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAudiencesIdQuery,
+    GetAudiencesIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetAudiencesIdQuery, GetAudiencesIdQueryVariables>(
+    GetAudiencesIdDocument,
+    options,
+  );
+}
+export type GetAudiencesIdQueryHookResult = ReturnType<
+  typeof useGetAudiencesIdQuery
+>;
+export type GetAudiencesIdLazyQueryHookResult = ReturnType<
+  typeof useGetAudiencesIdLazyQuery
+>;
+export type GetAudiencesIdQueryResult = Apollo.QueryResult<
+  GetAudiencesIdQuery,
+  GetAudiencesIdQueryVariables
+>;
 export const GetNewByIdDocument = gql`
   query getNewById($newId: ID!) {
     new(id: $newId) {
@@ -13046,12 +13110,14 @@ export const GetNewsAndEventsByContractIdDocument = gql`
   query getNewsAndEventsByContractId(
     $contractId: ID!
     $pagination: PaginationArg
+    $audienceId: ID!
   ) {
     news(
       filters: {
         newsSubService: {
           editorialService: { contract: { id: { eq: $contractId } } }
         }
+        audiences: { id: { eq: $audienceId } }
         status: { eq: "published" }
       }
       sort: "publishedDate:desc"
@@ -13102,6 +13168,7 @@ export const GetNewsAndEventsByContractIdDocument = gql`
         eventSubService: {
           editorialService: { contract: { id: { eq: $contractId } } }
         }
+        audiences: { id: { eq: $audienceId } }
         status: { eq: "published" }
       }
       sort: "publishedDate:desc"
@@ -13164,6 +13231,7 @@ export const GetNewsAndEventsByContractIdDocument = gql`
  *   variables: {
  *      contractId: // value for 'contractId'
  *      pagination: // value for 'pagination'
+ *      audienceId: // value for 'audienceId'
  *   },
  * });
  */
@@ -13348,10 +13416,12 @@ export const GetFreeContentsByFreeContentSubServiceIdDocument = gql`
   query getFreeContentsByFreeContentSubServiceId(
     $freeContentSubServiceId: ID!
     $pagination: PaginationArg
+    $audienceId: ID!
   ) {
     freeContents(
       filters: {
         freeContentSubService: { id: { eq: $freeContentSubServiceId } }
+        audiences: { id: { eq: $audienceId } }
         status: { eq: "published" }
       }
       sort: "publishedDate:desc"
@@ -13415,6 +13485,7 @@ export const GetFreeContentsByFreeContentSubServiceIdDocument = gql`
  *   variables: {
  *      freeContentSubServiceId: // value for 'freeContentSubServiceId'
  *      pagination: // value for 'pagination'
+ *      audienceId: // value for 'audienceId'
  *   },
  * });
  */
@@ -14902,12 +14973,14 @@ export type GetNewestTopContentsQueryResult = Apollo.QueryResult<
   GetNewestTopContentsQueryVariables
 >;
 export const GetQuizAndTipsBlockDocument = gql`
-  query getQuizAndTipsBlock($contractId: ID!) {
+  query getQuizAndTipsBlock($contractId: ID!, $audienceId: ID!) {
     contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
       data {
+        id
         attributes {
           homepage {
             data {
+              id
               attributes {
                 quizAndTipsBlock {
                   data {
@@ -14925,13 +14998,20 @@ export const GetQuizAndTipsBlockDocument = gql`
                         }
                       }
                       displayTips
-                      tips {
+                      tips(
+                        filters: { audiences: { id: { eq: $audienceId } } }
+                      ) {
                         data {
                           id
                           attributes {
                             title
                             shortDescription
                             link
+                            audiences {
+                              data {
+                                id
+                              }
+                            }
                             publishedDate
                             tags {
                               data {
@@ -14981,6 +15061,7 @@ export const GetQuizAndTipsBlockDocument = gql`
  * const { data, loading, error } = useGetQuizAndTipsBlockQuery({
  *   variables: {
  *      contractId: // value for 'contractId'
+ *      audienceId: // value for 'audienceId'
  *   },
  * });
  */
@@ -16105,8 +16186,14 @@ export type GetContactQueryResult = Apollo.QueryResult<
   GetContactQueryVariables
 >;
 export const GetDropOffMapByDropOffMapByServiceIdDocument = gql`
-  query getDropOffMapByDropOffMapByServiceId($dropOffMapServiceId: ID!) {
-    getDropOffMaps(dropOffMapServiceId: $dropOffMapServiceId) {
+  query getDropOffMapByDropOffMapByServiceId(
+    $dropOffMapServiceId: ID!
+    $audienceId: String!
+  ) {
+    getDropOffMaps(
+      dropOffMapServiceId: $dropOffMapServiceId
+      audienceId: $audienceId
+    ) {
       id
       __typename
       name
@@ -16187,6 +16274,7 @@ export const GetDropOffMapByDropOffMapByServiceIdDocument = gql`
  * const { data, loading, error } = useGetDropOffMapByDropOffMapByServiceIdQuery({
  *   variables: {
  *      dropOffMapServiceId: // value for 'dropOffMapServiceId'
+ *      audienceId: // value for 'audienceId'
  *   },
  * });
  */
@@ -16352,11 +16440,16 @@ export type GetPickUpDaysByCoordinatesLocalQueryResult = Apollo.QueryResult<
   GetPickUpDaysByCoordinatesLocalQueryVariables
 >;
 export const GetPickUpDaysByIdsAndContratIdDocument = gql`
-  query getPickUpDaysByIdsAndContratId($pickUpDayIds: [ID], $contractId: ID) {
+  query getPickUpDaysByIdsAndContratId(
+    $pickUpDayIds: [ID]
+    $contractId: ID
+    $audienceId: ID!
+  ) {
     pickUpDays(
       filters: {
         id: { in: $pickUpDayIds }
         pickUpDayService: { contract: { id: { eq: $contractId } } }
+        audiences: { id: { eq: $audienceId } }
       }
     ) {
       data {
@@ -16453,11 +16546,12 @@ export const GetPickUpDaysByIdsAndContratIdDocument = gql`
  *   variables: {
  *      pickUpDayIds: // value for 'pickUpDayIds'
  *      contractId: // value for 'contractId'
+ *      audienceId: // value for 'audienceId'
  *   },
  * });
  */
 export function useGetPickUpDaysByIdsAndContratIdQuery(
-  baseOptions?: Apollo.QueryHookOptions<
+  baseOptions: Apollo.QueryHookOptions<
     GetPickUpDaysByIdsAndContratIdQuery,
     GetPickUpDaysByIdsAndContratIdQueryVariables
   >,
@@ -17128,7 +17222,10 @@ export type GetMemoTriBlockByContractIdQueryResult = Apollo.QueryResult<
   GetMemoTriBlockByContractIdQueryVariables
 >;
 export const GetRecyclingFamiliesFormsDocument = gql`
-  query getRecyclingFamiliesForms($recyclingGuideServiceId: ID) {
+  query getRecyclingFamiliesForms(
+    $recyclingGuideServiceId: ID
+    $audienceId: ID!
+  ) {
     recyclingGuideService(id: $recyclingGuideServiceId) {
       data {
         __typename
@@ -17144,7 +17241,12 @@ export const GetRecyclingFamiliesFormsDocument = gql`
                 familyName
                 isSystem
                 updatedAt
-                wasteForms(filters: { status: { eq: "published" } }) {
+                wasteForms(
+                  filters: {
+                    status: { eq: "published" }
+                    audiences: { id: { eq: $audienceId } }
+                  }
+                ) {
                   data {
                     __typename
                     id
@@ -17188,11 +17290,12 @@ export const GetRecyclingFamiliesFormsDocument = gql`
  * const { data, loading, error } = useGetRecyclingFamiliesFormsQuery({
  *   variables: {
  *      recyclingGuideServiceId: // value for 'recyclingGuideServiceId'
+ *      audienceId: // value for 'audienceId'
  *   },
  * });
  */
 export function useGetRecyclingFamiliesFormsQuery(
-  baseOptions?: Apollo.QueryHookOptions<
+  baseOptions: Apollo.QueryHookOptions<
     GetRecyclingFamiliesFormsQuery,
     GetRecyclingFamiliesFormsQueryVariables
   >,

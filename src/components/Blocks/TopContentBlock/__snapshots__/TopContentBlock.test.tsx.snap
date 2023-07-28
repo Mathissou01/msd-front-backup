@@ -95,19 +95,15 @@ exports[`TopContentBlock renders titleContent 1`] = `
                 class="c-CommonCardBlock__ContentHeader"
               >
                 <div
-                  class="c-CommonCardBlock__Tags"
-                >
-                  <span
-                    class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
-                  >
-                    Biodéchets
-                  </span>
-                </div>
-                <div
-                  class="c-CommonCardBlock__Date"
+                  class="c-CommonCardBlock__DateContainer"
                 >
                   29 décembre 2022
                 </div>
+                <span
+                  class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+                >
+                  Biodéchets
+                </span>
               </div>
               <div
                 class="c-CommonCardBlock__ContentBody"
@@ -163,24 +159,20 @@ exports[`TopContentBlock renders titleContent 1`] = `
                 class="c-CommonCardBlock__ContentHeader"
               >
                 <div
-                  class="c-CommonCardBlock__Tags"
-                >
-                  <span
-                    class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
-                  >
-                    Biodéchets
-                  </span>
-                  <span
-                    class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
-                  >
-                    Compostage
-                  </span>
-                </div>
-                <div
-                  class="c-CommonCardBlock__Date"
+                  class="c-CommonCardBlock__DateContainer"
                 >
                   5 décembre 2022
                 </div>
+                <span
+                  class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+                >
+                  Biodéchets
+                </span>
+                <span
+                  class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+                >
+                  Compostage
+                </span>
               </div>
               <div
                 class="c-CommonCardBlock__ContentBody"
@@ -236,24 +228,20 @@ exports[`TopContentBlock renders titleContent 1`] = `
                 class="c-CommonCardBlock__ContentHeader"
               >
                 <div
-                  class="c-CommonCardBlock__Tags"
-                >
-                  <span
-                    class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
-                  >
-                    Biodéchets
-                  </span>
-                  <span
-                    class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
-                  >
-                    Compostage
-                  </span>
-                </div>
-                <div
-                  class="c-CommonCardBlock__Date"
+                  class="c-CommonCardBlock__DateContainer"
                 >
                   5 décembre 2022
                 </div>
+                <span
+                  class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+                >
+                  Biodéchets
+                </span>
+                <span
+                  class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+                >
+                  Compostage
+                </span>
               </div>
               <div
                 class="c-CommonCardBlock__ContentBody"
@@ -391,19 +379,15 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
                 class="c-CommonCardBlock__ContentHeader"
               >
                 <div
-                  class="c-CommonCardBlock__Tags"
-                >
-                  <span
-                    class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
-                  >
-                    Biodéchets
-                  </span>
-                </div>
-                <div
-                  class="c-CommonCardBlock__Date"
+                  class="c-CommonCardBlock__DateContainer"
                 >
                   29 décembre 2022
                 </div>
+                <span
+                  class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+                >
+                  Biodéchets
+                </span>
               </div>
               <div
                 class="c-CommonCardBlock__ContentBody"
@@ -459,24 +443,20 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
                 class="c-CommonCardBlock__ContentHeader"
               >
                 <div
-                  class="c-CommonCardBlock__Tags"
-                >
-                  <span
-                    class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
-                  >
-                    Biodéchets
-                  </span>
-                  <span
-                    class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
-                  >
-                    Compostage
-                  </span>
-                </div>
-                <div
-                  class="c-CommonCardBlock__Date"
+                  class="c-CommonCardBlock__DateContainer"
                 >
                   5 décembre 2022
                 </div>
+                <span
+                  class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+                >
+                  Biodéchets
+                </span>
+                <span
+                  class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+                >
+                  Compostage
+                </span>
               </div>
               <div
                 class="c-CommonCardBlock__ContentBody"
@@ -532,24 +512,20 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
                 class="c-CommonCardBlock__ContentHeader"
               >
                 <div
-                  class="c-CommonCardBlock__Tags"
-                >
-                  <span
-                    class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
-                  >
-                    Biodéchets
-                  </span>
-                  <span
-                    class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
-                  >
-                    Compostage
-                  </span>
-                </div>
-                <div
-                  class="c-CommonCardBlock__Date"
+                  class="c-CommonCardBlock__DateContainer"
                 >
                   5 décembre 2022
                 </div>
+                <span
+                  class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+                >
+                  Biodéchets
+                </span>
+                <span
+                  class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+                >
+                  Compostage
+                </span>
               </div>
               <div
                 class="c-CommonCardBlock__ContentBody"

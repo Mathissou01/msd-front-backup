@@ -305,6 +305,12 @@ type Audience {
   updatedAt: DateTime
 }
 
+type AudienceDTO {
+  id: ID!
+  isActive: Boolean!
+  type: String!
+}
+
 type AudienceEntity {
   attributes: Audience
   id: ID
@@ -1338,17 +1344,13 @@ type ContactResponse {
 }
 
 type ContactUs {
-  audiences(
-    filters: AudienceFiltersInput
+  blocks: [ContactUsBlocksDynamicZone]
+  channelTypes(
+    filters: ChannelTypeFiltersInput
     pagination: PaginationArg = {}
     sort: [String] = []
-  ): AudienceRelationResponseCollection
-  blocks: [ContactUsBlocksDynamicZone]
+  ): ChannelTypeRelationResponseCollection
   createdAt: DateTime
-  customId: String
-  draftCreationId: String
-  hasDraft: Boolean
-  publishedDate: DateTime
   status: ENUM_CONTACTUS_STATUS
   tags(
     filters: TagFiltersInput
@@ -1356,10 +1358,7 @@ type ContactUs {
     sort: [String] = []
   ): TagRelationResponseCollection
   title: String!
-  toBeUpdated: Boolean
-  unpublishedDate: DateTime
   updatedAt: DateTime
-  versionNumber: Int
 }
 
 union ContactUsBlocksDynamicZone =
@@ -1389,37 +1388,23 @@ type ContactUsEntityResponseCollection {
 
 input ContactUsFiltersInput {
   and: [ContactUsFiltersInput]
-  audiences: AudienceFiltersInput
+  channelTypes: ChannelTypeFiltersInput
   createdAt: DateTimeFilterInput
-  customId: StringFilterInput
-  draftCreationId: StringFilterInput
-  hasDraft: BooleanFilterInput
   id: IDFilterInput
   not: ContactUsFiltersInput
   or: [ContactUsFiltersInput]
-  publishedDate: DateTimeFilterInput
   status: StringFilterInput
   tags: TagFiltersInput
   title: StringFilterInput
-  toBeUpdated: BooleanFilterInput
-  unpublishedDate: DateTimeFilterInput
   updatedAt: DateTimeFilterInput
-  versionNumber: IntFilterInput
 }
 
 input ContactUsInput {
-  audiences: [ID]
   blocks: [ContactUsBlocksDynamicZoneInput!]
-  customId: String
-  draftCreationId: String
-  hasDraft: Boolean
-  publishedDate: DateTime
+  channelTypes: [ID]
   status: ENUM_CONTACTUS_STATUS
   tags: [ID]
   title: String
-  toBeUpdated: Boolean
-  unpublishedDate: DateTime
-  versionNumber: Int
 }
 
 type ContactUsRelationResponseCollection {
@@ -1801,21 +1786,18 @@ scalar ContractMenuServiceLinksDynamicZoneInput
 type Cookie {
   blocks: [CookieBlocksDynamicZone]
   createdAt: DateTime
-  customId: String
-  draftCreationId: String
-  hasDraft: Boolean
-  publishedDate: DateTime
+  hasMobile: Boolean!
   status: ENUM_COOKIE_STATUS
   title: String!
-  toBeUpdated: Boolean
   updatedAt: DateTime
-  versionNumber: Int
 }
 
 union CookieBlocksDynamicZone =
     ComponentBlocksFile
   | ComponentBlocksHorizontalRule
+  | ComponentBlocksImage
   | ComponentBlocksSubHeading
+  | ComponentBlocksVideo
   | ComponentBlocksWysiwyg
   | Error
 
@@ -1838,30 +1820,20 @@ type CookieEntityResponseCollection {
 input CookieFiltersInput {
   and: [CookieFiltersInput]
   createdAt: DateTimeFilterInput
-  customId: StringFilterInput
-  draftCreationId: StringFilterInput
-  hasDraft: BooleanFilterInput
+  hasMobile: BooleanFilterInput
   id: IDFilterInput
   not: CookieFiltersInput
   or: [CookieFiltersInput]
-  publishedDate: DateTimeFilterInput
   status: StringFilterInput
   title: StringFilterInput
-  toBeUpdated: BooleanFilterInput
   updatedAt: DateTimeFilterInput
-  versionNumber: IntFilterInput
 }
 
 input CookieInput {
   blocks: [CookieBlocksDynamicZoneInput!]
-  customId: String
-  draftCreationId: String
-  hasDraft: Boolean
-  publishedDate: DateTime
+  hasMobile: Boolean
   status: ENUM_COOKIE_STATUS
   title: String
-  toBeUpdated: Boolean
-  versionNumber: Int
 }
 
 type CookieRelationResponseCollection {
@@ -2107,6 +2079,7 @@ type DropOffMap {
 type DropOffMapDTO {
   BANFeatureProperties: JSON
   address: String!
+  audiences: [AudienceDTO]
   city: String!
   collect: CollectEntity
   description: String
@@ -2364,7 +2337,6 @@ enum ENUM_CONFIDENTIALITY_STATUS {
 }
 
 enum ENUM_CONTACTUS_STATUS {
-  archived
   draft
   published
 }
@@ -4100,6 +4072,7 @@ type Mutation {
   deleteTip(id: ID!): TipEntityResponse
   deleteTipSubService(id: ID!): TipSubServiceEntityResponse
   deleteTopContentBlock(id: ID!): TopContentBlockEntityResponse
+  deleteUnusedSectors(id: ID!): Sectorization
   deleteUploadFile(id: ID!): UploadFileEntityResponse
   deleteUploadFolder(id: ID!): UploadFolderEntityResponse
   deleteUserDataStorage(id: ID!): UserDataStorageEntityResponse
@@ -5226,7 +5199,7 @@ type Query {
   ): [Data]
   getContentTypeDTOs(contractId: ID!): [ContentTypeDTO]
   getDropOffCollectType(contractId: ID!): [CollectEntity]
-  getDropOffMaps(dropOffMapServiceId: ID!): [DropOffMapDTO]
+  getDropOffMaps(audienceId: String!, dropOffMapServiceId: ID!): [DropOffMapDTO]
   getEditoBlockDTO(
     contractId: ID!
     status: ENUM_EDITOCONTENTDTO_STATUS
@@ -5260,18 +5233,6 @@ type Query {
     contractId: ID!
     status: ENUM_TOPCONTENTDTO_STATUS
   ): [EditoContentDTO]
-  getUserWasteManagement(
-    city: String!
-    contractID: ID!
-    name: String!
-    postcode: String!
-  ): [UserWasteData]
-  getUserWasteManagementHistory(
-    city: String!
-    contractID: ID!
-    name: String!
-    postcode: String!
-  ): [UserWasteData]
   global: GlobalEntityResponse
   homepage(id: ID): HomepageEntityResponse
   homepages(
@@ -5407,7 +5368,7 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): RequestEntityResponseCollection
-  searchAddress(address: String!, citycode: String, limit: Int!): [Address]
+  searchAddress(address: String, limit: Int): [Address]
   searchCities(contractId: ID!, searchTerm: String!): [CityResult]
   searchClientsByName(name: String!): [clientName]
   searchEngineBlock(id: ID): SearchEngineBlockEntityResponse
@@ -6216,6 +6177,7 @@ type RequestTagEntity {
 type RequestTaked {
   city: String
   createdAt: DateTime
+  isActivated: Boolean
   name: String!
   requestServiceId: Int
   requestSlot: RequestSlotEntityResponse
@@ -6244,6 +6206,7 @@ input RequestTakedFiltersInput {
   city: StringFilterInput
   createdAt: DateTimeFilterInput
   id: IDFilterInput
+  isActivated: BooleanFilterInput
   name: StringFilterInput
   not: RequestTakedFiltersInput
   or: [RequestTakedFiltersInput]
@@ -6257,6 +6220,7 @@ input RequestTakedFiltersInput {
 
 input RequestTakedInput {
   city: String
+  isActivated: Boolean
   name: String
   requestServiceId: Int
   requestSlot: ID
@@ -6887,13 +6851,6 @@ union TopContentBlockTopContentDynamicZone = ComponentLinksTopContent | Error
 
 scalar TopContentBlockTopContentDynamicZoneInput
 
-type TrashFlow {
-  name: String
-  percentage: Int
-  trashFlow: String
-  weight: Int
-}
-
 scalar Upload
 
 type UploadFile {
@@ -7099,14 +7056,6 @@ input UserDataStorageInput {
   name: String
   phone: String
   requestTakeds: [ID]
-}
-
-type UserWasteData {
-  averageProduction: String
-  barometerParams: String
-  flows: [TrashFlow]
-  lastDayOfRange: String
-  totalWeight: Int
 }
 
 type UsersPermissionsCreateRolePayload {

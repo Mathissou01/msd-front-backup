@@ -7,6 +7,7 @@ import {
   useGetDropOffMapByDropOffMapByServiceIdLazyQuery,
 } from "../../../graphql/codegen/generated-types";
 import { useContract } from "../../../hooks/useContract";
+import { useCurrentUser } from "../../../hooks/useCurrentUser";
 import {
   IGeoPosition,
   IMarker,
@@ -37,6 +38,7 @@ export default function SearchMap({
   disable,
 }: ISearchMapProps) {
   const { contract } = useContract();
+  const { currentAudience } = useCurrentUser();
   const dropOffMapServiceId = contract?.attributes?.dropOffMapService?.data?.id;
   const [getDropOffMapByServiceId] =
     useGetDropOffMapByDropOffMapByServiceIdLazyQuery();
@@ -95,10 +97,15 @@ export default function SearchMap({
         const response = await getDropOffMapByServiceId({
           variables: {
             dropOffMapServiceId: `${dropOffMapServiceId}`,
+            audienceId: currentAudience.id,
           },
         });
         const responseData = response.data;
-        if (responseData?.getDropOffMaps && isMounted) {
+        if (
+          responseData?.getDropOffMaps &&
+          isMounted &&
+          currentAudience.id !== "0"
+        ) {
           const mapData: IMarker[] = responseData.getDropOffMaps.map(
             (dropOffMapData) => {
               const BANFeatureProperties = JSON.parse(
@@ -111,6 +118,9 @@ export default function SearchMap({
                 picto: {
                   url: dropOffMapData?.collect?.picto?.url
                     ? dropOffMapData?.collect?.picto?.url
+                    : "",
+                  name: dropOffMapData?.collect?.picto?.name
+                    ? dropOffMapData?.collect?.picto?.name
                     : "",
                 },
               };
@@ -126,6 +136,7 @@ export default function SearchMap({
                   " " +
                   (BANFeatureProperties.city ?? ""),
                 picto: dropOffMapData?.collect?.picto.url ?? null,
+                pictoName: dropOffMapData?.collect?.picto.name ?? null,
                 collect,
                 collectGender: dropOffMapData?.collect?.grammaticalGender ?? "",
                 files:
@@ -157,7 +168,12 @@ export default function SearchMap({
     return () => {
       isMounted = false;
     };
-  }, [dropOffMapServiceId, getDropOffMapByServiceId, setMarkers]);
+  }, [
+    dropOffMapServiceId,
+    getDropOffMapByServiceId,
+    setMarkers,
+    currentAudience,
+  ]);
 
   return (
     <FormProvider {...formMethods}>

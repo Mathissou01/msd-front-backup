@@ -1,0 +1,14 @@
+query getAudiencesId($contractId: ID) {
+  contract(id: $contractId) {
+    data {
+      id
+      attributes {
+        audiences {
+          data {
+            id
+          }
+        }
+      }
+    }
+  }
+}

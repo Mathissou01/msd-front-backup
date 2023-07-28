@@ -1,5 +1,6 @@
 import CommonSvgFilter from "./CommonSvgFilter/CommonSvgFilter";
 import { useContract } from "../../../hooks/useContract";
+
 export default function CommonSvgDefs() {
   const { colors } = useContract();
   return (
@@ -21,6 +22,11 @@ export default function CommonSvgDefs() {
           <CommonSvgFilter
             id="recolor-secondary"
             hexColor={colors["external-secondary"]}
+            opacity={1}
+          />
+          <CommonSvgFilter
+            id="recolor-expert-blue"
+            hexColor="#030f40"
             opacity={1}
           />
         </defs>

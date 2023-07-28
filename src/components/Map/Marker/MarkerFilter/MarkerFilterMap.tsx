@@ -97,7 +97,7 @@ export default function MarkerFilterMap({
                   >
                     <Image
                       src={makePublicAssetPath(marker.picto)}
-                      alt="PictoDropOffMap"
+                      alt={marker.pictoName ?? ""}
                       width={18}
                       height={18}
                       className={`${
