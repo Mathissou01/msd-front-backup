@@ -21,7 +21,7 @@ interface Params extends ParsedUrlQuery {
   newId: string;
 }
 
-interface IActualitesNewPageProps {
+export interface IActualitesNewPageProps {
   newData: NewEntity | null | undefined;
 }
 

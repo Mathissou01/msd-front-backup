@@ -1552,7 +1552,6 @@ type Contract {
   logicalDelete: Boolean
   logo: UploadFileEntityResponse!
   numberOfInhabitants: Long
-  oldClientName: String
   pathId: Long
   pickUpDayService: PickUpDayServiceEntityResponse
   recyclingGuideService: RecyclingGuideServiceEntityResponse
@@ -1690,7 +1689,6 @@ input ContractFiltersInput {
   logicalDelete: BooleanFilterInput
   not: ContractFiltersInput
   numberOfInhabitants: LongFilterInput
-  oldClientName: StringFilterInput
   or: [ContractFiltersInput]
   pathId: LongFilterInput
   pickUpDayService: PickUpDayServiceFiltersInput
@@ -1733,7 +1731,6 @@ input ContractInput {
   logicalDelete: Boolean
   logo: ID
   numberOfInhabitants: Long
-  oldClientName: String
   pathId: Long
   pickUpDayService: ID
   recyclingGuideService: ID

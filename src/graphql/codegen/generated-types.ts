@@ -1760,7 +1760,6 @@ export type Contract = {
   logicalDelete?: Maybe<Scalars["Boolean"]>;
   logo: UploadFileEntityResponse;
   numberOfInhabitants?: Maybe<Scalars["Long"]>;
-  oldClientName?: Maybe<Scalars["String"]>;
   pathId?: Maybe<Scalars["Long"]>;
   pickUpDayService?: Maybe<PickUpDayServiceEntityResponse>;
   recyclingGuideService?: Maybe<RecyclingGuideServiceEntityResponse>;
@@ -1950,7 +1949,6 @@ export type ContractFiltersInput = {
   logicalDelete?: InputMaybe<BooleanFilterInput>;
   not?: InputMaybe<ContractFiltersInput>;
   numberOfInhabitants?: InputMaybe<LongFilterInput>;
-  oldClientName?: InputMaybe<StringFilterInput>;
   or?: InputMaybe<Array<InputMaybe<ContractFiltersInput>>>;
   pathId?: InputMaybe<LongFilterInput>;
   pickUpDayService?: InputMaybe<PickUpDayServiceFiltersInput>;
@@ -1993,7 +1991,6 @@ export type ContractInput = {
   logicalDelete?: InputMaybe<Scalars["Boolean"]>;
   logo?: InputMaybe<Scalars["ID"]>;
   numberOfInhabitants?: InputMaybe<Scalars["Long"]>;
-  oldClientName?: InputMaybe<Scalars["String"]>;
   pathId?: InputMaybe<Scalars["Long"]>;
   pickUpDayService?: InputMaybe<Scalars["ID"]>;
   recyclingGuideService?: InputMaybe<Scalars["ID"]>;
@@ -6388,7 +6385,6 @@ export type Query = {
   contractCustomizations?: Maybe<ContractCustomizationEntityResponseCollection>;
   contractMenu?: Maybe<ContractMenuEntityResponse>;
   contractMenus?: Maybe<ContractMenuEntityResponseCollection>;
-  contractPublication?: Maybe<ContractStatus>;
   contracts?: Maybe<ContractEntityResponseCollection>;
   cookie?: Maybe<CookieEntityResponse>;
   cookies?: Maybe<CookieEntityResponseCollection>;
@@ -6738,10 +6734,6 @@ export type QueryContractMenusArgs = {
   filters?: InputMaybe<ContractMenuFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
-};
-
-export type QueryContractPublicationArgs = {
-  contractId: Scalars["ID"];
 };
 
 export type QueryContractsArgs = {
@@ -9656,11 +9648,6 @@ export type YesWeScanServiceRelationResponseCollection = {
 export type ClientName = {
   __typename?: "clientName";
   clientName?: Maybe<Scalars["String"]>;
-};
-
-export type ContractStatus = {
-  __typename?: "contractStatus";
-  contractId?: Maybe<Scalars["ID"]>;
 };
 
 export type TotalCountPerTag = {

@@ -21,7 +21,7 @@ interface Params extends ParsedUrlQuery {
   tipId: string;
 }
 
-interface ITipPageProps {
+export interface ITipPageProps {
   tipData: TipEntity | null | undefined;
 }
 
