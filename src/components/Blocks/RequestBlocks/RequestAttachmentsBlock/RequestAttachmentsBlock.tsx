@@ -1,4 +1,4 @@
-import { Controller, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { ComponentBlocksAttachments } from "../../../../graphql/codegen/generated-types";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
@@ -23,7 +23,7 @@ export default function RequestAttachmentsBlock({
   };
 
   const {
-    control,
+    register,
     watch,
     formState: { errors },
   } = useFormContext();
@@ -39,30 +39,17 @@ export default function RequestAttachmentsBlock({
         isAlignLeft
       />
       <div className="c-RequestAttachmentsBlock__Input">
-        <Controller
-          name={name}
-          control={control}
-          rules={{
+        <input
+          type="file"
+          multiple={attachmentsBlockData.multipleAttachments ?? false}
+          {...register(name, {
             required: {
               value: attachmentsBlockData.isMandatory,
               message: labels.mandatoryAttachmentsBlock,
             },
-          }}
-          defaultValue={[]}
-          render={({ field: { onChange, onBlur } }) => {
-            return (
-              <input
-                type="file"
-                multiple={attachmentsBlockData.multipleAttachments ?? false}
-                accept=".docx,.doc,application/pdf,image/svg,image/png,image/jpg"
-                size={10}
-                onChange={(event) => {
-                  onChange(event.target.files);
-                }}
-                onBlur={onBlur}
-              />
-            );
-          }}
+          })}
+          accept=".docx,.doc,application/pdf,image/svg,image/png,image/jpg"
+          size={10}
         />
         {attachmentsBlockData.multipleAttachments &&
           files &&

@@ -3,15 +3,17 @@ import ArrowBack from "public/images/pictos/arrow-back.svg";
 import "./ProgressBar.scss";
 
 interface ProgressBarProps {
-  title: string;
+  title?: string;
   currentQuestion: number;
   maxQuestions: number;
-  handleBackClick: () => void;
+  withoutBackButton?: boolean;
+  handleBackClick?: () => void;
 }
 
 const ProgressBar: React.FC<ProgressBarProps> = ({
-  title,
+  title = "",
   currentQuestion,
+  withoutBackButton = false,
   maxQuestions,
   handleBackClick,
 }) => {
@@ -20,7 +22,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   };
   return (
     <div className="c-ProgressBar__Header">
-      {currentQuestion >= 1 && (
+      {currentQuestion >= 1 && !withoutBackButton && (
         <div onClick={handleBackClick} className="c-ProgressBar__ArrowIcon">
           <ArrowBack />
         </div>

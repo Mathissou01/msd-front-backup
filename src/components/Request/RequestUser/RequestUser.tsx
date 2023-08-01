@@ -38,11 +38,11 @@ export default function RequestUser({
     },
   };
   const fieldNames = {
-    surname: "user-surname",
-    name: "user-name",
-    phone: "user-phone",
-    email: "user-email",
-    allowSms: "user-allow-sms",
+    surname: "userSurname",
+    name: "userName",
+    phone: "userPhone",
+    email: "userEmail",
+    allowSms: "userAllowSms",
   };
 
   /* Local Data */

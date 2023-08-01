@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import { useFormContext } from "react-hook-form";
 import { useGetNextAvailableSlotsLazyQuery } from "../../../graphql/codegen/generated-types";
@@ -9,6 +9,9 @@ interface RequestAppointmentSlotsProps {
   requestId: string;
   lat: string;
   long: string;
+  setCurrentStep: (steps: number) => void;
+  currentStep: number;
+  noBlockSteps: number;
 }
 
 interface AppointmentSlot {
@@ -23,6 +26,9 @@ export default function RequestAppointmentSlots({
   requestId,
   lat,
   long,
+  setCurrentStep,
+  currentStep,
+  noBlockSteps,
 }: RequestAppointmentSlotsProps) {
   /* Static Data */
   const labels = {
@@ -44,16 +50,20 @@ export default function RequestAppointmentSlots({
       },
       fetchPolicy: "network-only",
     });
-  const { register, setValue } = useFormContext();
+  const { register, setValue, watch, resetField } = useFormContext();
+  const watchLat = watch("lat");
+  const watchLong = watch("long");
+
   register("appointmentSlot", { value: undefined, required: true });
   const errors = [error];
-  const onSlotSelected = useCallback(
-    async (slot: AppointmentSlot, slotIndex: number) => {
-      setSelectedAppointmentSlot(slotIndex);
-      setValue("appointmentSlot", slot);
-    },
-    [setValue],
-  );
+
+  function onSlotSelected(slot: AppointmentSlot, slotIndex: number) {
+    setSelectedAppointmentSlot(slotIndex);
+    setValue("appointmentSlot", slot);
+    if (currentStep === noBlockSteps) {
+      setCurrentStep(currentStep + 1);
+    }
+  }
 
   useEffect(() => {
     if (!isInitialized.current) {
@@ -61,6 +71,12 @@ export default function RequestAppointmentSlots({
       void getNextAvailableSlots();
     }
   }, [getNextAvailableSlots, isInitialized]);
+
+  useEffect(() => {
+    resetField("appointmentSlot");
+    setSelectedAppointmentSlot(-1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchLat, watchLong]);
 
   return (
     <>

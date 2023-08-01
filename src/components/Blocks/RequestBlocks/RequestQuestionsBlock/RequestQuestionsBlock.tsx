@@ -1,48 +1,42 @@
-import React, { useEffect, useRef } from "react";
-import { useFormContext } from "react-hook-form";
+import React from "react";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
+import {
+  ComponentBlocksQuestions,
+  Enum_Componentblocksquestions_Textstatus,
+} from "../../../../graphql/codegen/generated-types";
 import FormInput from "../../../Form/FormInput/FormInput";
 import "./request-questions-block.scss";
 
 interface RequestQuestionsBlockProps {
-  id: string;
-  isRequired?: boolean;
-  label: string;
-  placeholder?: string;
-  isMultiLine: boolean;
+  questionsBlockData: ComponentBlocksQuestions;
+  name: string;
 }
 
 export default function RequestQuestionsBlock({
-  id,
-  isRequired,
-  label,
-  placeholder,
-  isMultiLine,
+  questionsBlockData,
+  name,
 }: RequestQuestionsBlockProps) {
-  const { register } = useFormContext();
-  const isInitialized = useRef<boolean>(false);
-
-  useEffect(() => {
-    if (!isInitialized.current) {
-      register(id, { value: undefined, required: isRequired });
-      isInitialized.current = true;
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <div className="c-RequestQuestionsBlock">
       <CommonBlockHeading
         isAlignLeft
-        titleContent={`${label}${isRequired ? " *" : ""}`}
+        titleContent={`${questionsBlockData.questionTextLabel}${
+          questionsBlockData.textStatus ===
+          Enum_Componentblocksquestions_Textstatus.Obligatoire
+            ? " *"
+            : ""
+        }`}
       />
       <FormInput
         type="text"
-        tagType={isMultiLine ? "textarea" : "input"}
-        name={id}
-        label={label}
-        isRequired={isRequired}
-        placeholder={placeholder}
+        tagType={questionsBlockData.height ? "textarea" : "input"}
+        name={name}
+        label={questionsBlockData.questionTextLabel}
+        isRequired={
+          questionsBlockData.textStatus ===
+          Enum_Componentblocksquestions_Textstatus.Obligatoire
+        }
+        placeholder={questionsBlockData.questionTextPlaceholder}
         maxLengthValidation={250}
       />
     </div>

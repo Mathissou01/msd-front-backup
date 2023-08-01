@@ -1,24 +1,31 @@
 import React, { useEffect, useRef } from "react";
 import { useFormContext } from "react-hook-form";
+import {
+  ComponentBlocksCheckbox,
+  Enum_Componentblockscheckbox_Fieldstatuscheckbox,
+} from "../../../../graphql/codegen/generated-types";
 import CommonCheckbox from "../../../Common/CommonCheckbox/CommonCheckbox";
 
 interface RequestCheckboxBlockProps {
-  id: string;
-  isRequired?: boolean;
-  label: string;
+  checkboxBlockData: ComponentBlocksCheckbox;
+  name: string;
 }
 
 export default function RequestCheckboxBlock({
-  id,
-  isRequired,
-  label,
+  checkboxBlockData,
+  name,
 }: RequestCheckboxBlockProps) {
   const { register } = useFormContext();
   const isInitialized = useRef<boolean>(false);
 
   useEffect(() => {
     if (!isInitialized.current) {
-      register(id, { value: undefined, required: isRequired });
+      register(name, {
+        value: undefined,
+        required:
+          checkboxBlockData.fieldStatusCheckbox ===
+          Enum_Componentblockscheckbox_Fieldstatuscheckbox.Obligatoire,
+      });
       isInitialized.current = true;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -26,7 +33,14 @@ export default function RequestCheckboxBlock({
 
   return (
     <div className="c-RequestCheckboxBlock">
-      <CommonCheckbox id={id} isRequired={isRequired} label={label} />
+      <CommonCheckbox
+        id={name}
+        isRequired={
+          checkboxBlockData.fieldStatusCheckbox ===
+          Enum_Componentblockscheckbox_Fieldstatuscheckbox.Obligatoire
+        }
+        label={checkboxBlockData.labelCheckbox}
+      />
     </div>
   );
 }

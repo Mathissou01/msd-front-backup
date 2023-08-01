@@ -56,7 +56,7 @@ export default function FormMultiCheckbox({
       watchChecked.length === 0 &&
       defaultValue
     ) {
-      setValue(name, defaultValue);
+      setValue(name, watchChecked);
     }
   }, [defaultValue, name, setValue, watchChecked]);
 
@@ -96,7 +96,7 @@ export default function FormMultiCheckbox({
                 type="checkbox"
                 {...register(name, {
                   required: {
-                    value: isRequired,
+                    value: isRequired && watchChecked.length === 0,
                     message: errorMessages.required,
                   },
                 })}

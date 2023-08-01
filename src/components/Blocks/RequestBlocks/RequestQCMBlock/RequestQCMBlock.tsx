@@ -8,10 +8,14 @@ import FormSelect from "../../../Form/FormSelect/FormSelect";
 import "./request-qcm-block.scss";
 
 interface IRequestQCMBlock {
+  name: string;
   blockDataQCM: ComponentBlocksQcm;
 }
 
-export default function RequestQCMBlock({ blockDataQCM }: IRequestQCMBlock) {
+export default function RequestQCMBlock({
+  blockDataQCM,
+  name,
+}: IRequestQCMBlock) {
   return (
     <div className="c-RequestQCMBlock">
       <CommonBlockHeading
@@ -25,11 +29,11 @@ export default function RequestQCMBlock({ blockDataQCM }: IRequestQCMBlock) {
       />
       {blockDataQCM.multipleChoice ? (
         <FormMultiCheckbox
-          name="questionsMC"
+          name={name}
           options={blockDataQCM.responses.split(";").map((answer) => {
             return {
               label: answer,
-              value: answer,
+              value: answer.trim(),
             };
           })}
           isRequired={
@@ -39,10 +43,10 @@ export default function RequestQCMBlock({ blockDataQCM }: IRequestQCMBlock) {
         />
       ) : (
         <FormSelect
-          name="questionMC"
+          name={name}
           options={blockDataQCM.responses.split(";").map((answer) => {
             return {
-              option: answer,
+              option: answer.trim(),
             };
           })}
           isRequired={

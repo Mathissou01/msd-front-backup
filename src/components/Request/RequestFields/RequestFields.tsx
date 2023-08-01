@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { RequestEntity } from "../../../graphql/codegen/generated-types";
 import { ICoordinates } from "../../../lib/pickup-days";
@@ -9,13 +9,24 @@ import FormInput from "../../Form/FormInput/FormInput";
 import RequestAddressField from "../RequestAddressField/RequestAddressField";
 import RequestUser from "../RequestUser/RequestUser";
 import RequestBlocks from "../RequestBlocks/RequestBlocks";
+import RequestAppointmentSlots from "../RequestAppointmentSlots/RequestAppointmentSlots";
 import "./request-fields.scss";
 
 interface IRequestFieldsProps {
   data: RequestEntity;
+  setCurrentStep: (steps: number) => void;
+  currentStep: number;
+  noBlockSteps: number;
+  steps: number;
 }
 
-export default function RequestFields({ data }: IRequestFieldsProps) {
+export default function RequestFields({
+  data,
+  setCurrentStep,
+  currentStep,
+  noBlockSteps,
+  steps,
+}: IRequestFieldsProps) {
   /* Static Data */
   const labels = {
     appointmentSlots: "Créneaux disponibles*",
@@ -23,20 +34,49 @@ export default function RequestFields({ data }: IRequestFieldsProps) {
   };
 
   /* Local data */
-  const { setValue, register } = useFormContext();
+  const { setValue, getValues, register, watch, resetField } = useFormContext();
 
   /* Hidden inputs linked to RequestAddressField */
-  register("lat", { value: undefined, required: true });
-  register("long", { value: undefined, required: true });
-  register("attachments", { value: [] });
+  if (data && data.attributes && data.attributes.hasAddress) {
+    register("lat", { value: undefined, required: true });
+    register("long", { value: undefined, required: true });
+  }
 
   const submitSearch = useCallback(
     async (newCoordinates: ICoordinates) => {
       setValue("lat", newCoordinates.latitude);
       setValue("long", newCoordinates.longitude);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [setValue],
   );
+  const watchLat = watch("lat");
+  const watchLong = watch("long");
+
+  useEffect(() => {
+    // If we have values on position
+    if (watchLat !== undefined && watchLong !== undefined) {
+      // case where we already choose an address before
+      if (currentStep > noBlockSteps) {
+        // we reset step position and form value
+        setCurrentStep(
+          data?.attributes?.hasAppointmentSlots
+            ? noBlockSteps
+            : noBlockSteps + 1,
+        );
+
+        resetField("userName");
+        resetField("userSurname");
+        resetField("userEmail");
+        resetField("userPhone");
+        resetField("userAllowSms");
+      } else {
+        // we just jump on next step
+        if (currentStep < noBlockSteps) setCurrentStep(currentStep + 1);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchLat, watchLong]);
 
   return (
     <>
@@ -60,11 +100,10 @@ export default function RequestFields({ data }: IRequestFieldsProps) {
               />
             </div>
           )}
-          {/* TODO : Uncomment after Sprint 12 demo
           {data.attributes.hasAddress &&
             data.attributes.hasAppointmentSlots &&
-            getValues("lat") &&
-            getValues("long") && (
+            watchLat &&
+            watchLong && (
               <div className="c-RequestFields__AppointmentSlots">
                 <CommonBlockHeading
                   titleContent={labels.appointmentSlots}
@@ -74,17 +113,22 @@ export default function RequestFields({ data }: IRequestFieldsProps) {
                   requestId={data.id}
                   lat={getValues("lat")}
                   long={getValues("long")}
+                  setCurrentStep={setCurrentStep}
+                  currentStep={currentStep}
+                  noBlockSteps={noBlockSteps}
                 />
               </div>
             )}
-          */}
           {data.attributes.addableBlocks &&
             data.attributes.addableBlocks.length >= 1 && (
               <RequestBlocks
                 blocks={data.attributes.addableBlocks.filter(removeNulls)}
+                setCurrentStep={setCurrentStep}
+                currentStep={currentStep}
+                noBlockSteps={noBlockSteps}
               />
             )}
-          {data.attributes.hasUser && (
+          {data.attributes.hasUser && currentStep === steps && (
             <RequestUser
               isNameRequired={data.attributes.isUserNameMandatory ?? true}
               isPhoneRequired={data.attributes.isUserPhoneMandatory ?? true}

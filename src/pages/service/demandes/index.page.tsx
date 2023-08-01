@@ -13,6 +13,7 @@ import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/Common
 import RequestLevels from "../../../components/Request/RequestLevels/RequestLevels";
 import RequestForm from "../../../components/Request/RequestForm/RequestForm";
 import CommonButton from "../../../components/Common/CommonButton/CommonButton";
+import ProgressBar from "../../../components/CompteurDechets/Eligibility/ProgressBar/ProgressBar";
 import "./demandes-page.scss";
 
 interface IRequestLevelProps {
@@ -45,62 +46,81 @@ export default function ServiceDemandesPage({
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [allSelectedCards, setAllSelectedCards] = useState<boolean>(false);
   const [currentRequest, setCurrentRequest] = useState<RequestEntity>();
+  const [steps, setSteps] = useState<number>(0);
+  const [currentStep, setCurrentStep] = useState<number>(0);
+  const [noBlockSteps, setNoBlockSteps] = useState<number>(0);
 
   return (
-    <section className="c-RequestPage">
-      {/* TODO PROGRESS BAR */}
-      <CommonBreadcrumb
-        pages={[
-          { label: "Accueil" },
-          { label: "Faire une demande", slug: "demandes" },
-        ]}
+    <>
+      <ProgressBar
+        currentQuestion={currentStep !== 0 ? currentStep : 3}
+        withoutBackButton
+        maxQuestions={steps !== 0 ? steps : 10}
       />
+      <section className="c-RequestPage">
+        <CommonBreadcrumb
+          pages={[
+            { label: "Accueil" },
+            { label: "Faire une demande", slug: "demandes" },
+          ]}
+        />
 
-      {!isSubmitted ? (
-        <>
-          <div className="c-RequestPage__FirstLevel">
-            <p className="c-RequestPage__MandatoryFieldsLabel">
-              {labels.mandatoryFields}
-            </p>
-            {requestLevels && requestLevels.length > 0 ? (
-              <RequestLevels
-                firstLevelDatas={requestLevels}
-                setAllSelectedCards={setAllSelectedCards}
-                setCurrentRequest={setCurrentRequest}
+        {!isSubmitted ? (
+          <>
+            <div className="c-RequestPage__Levels">
+              <p className="c-RequestPage__MandatoryFieldsLabel">
+                {labels.mandatoryFields}
+              </p>
+              {requestLevels && requestLevels.length > 0 ? (
+                <RequestLevels
+                  firstLevelDatas={requestLevels}
+                  setAllSelectedCards={setAllSelectedCards}
+                  setCurrentStep={setCurrentStep}
+                  setNoBlockSteps={setNoBlockSteps}
+                  setSteps={setSteps}
+                  setCurrentRequest={setCurrentRequest}
+                />
+              ) : null}
+            </div>
+            {allSelectedCards && currentRequest && (
+              <RequestForm
+                data={currentRequest}
+                pageOnSubmit={onSubmit}
+                currentRequest={currentRequest}
+                currentStep={currentStep}
+                noBlockSteps={noBlockSteps}
+                setCurrentStep={setCurrentStep}
+                steps={steps}
               />
-            ) : null}
-          </div>
-          {allSelectedCards && currentRequest && (
-            <RequestForm data={currentRequest} pageOnSubmit={onSubmit} />
-          )}
-        </>
-      ) : (
-        <div className="c-RequestPage__ConfirmationMessage">
-          <div
-            dangerouslySetInnerHTML={{
-              __html: currentRequest?.attributes?.confirmationMessage ?? "",
-            }}
-          />
-          <div className="c-RequestPage__ConfirmationMessage_buttons">
-            <CommonButton
-              type="button"
-              style="secondary"
-              onClick={() => router.push("/")}
-              label={labels.backToHome}
+            )}
+          </>
+        ) : (
+          <div className="c-RequestPage__ConfirmationMessage">
+            <div
+              dangerouslySetInnerHTML={{
+                __html: currentRequest?.attributes?.confirmationMessage ?? "", // TODO PURIFY THIS VALUE WHEN GANGEROUSLYSETINNER
+              }}
             />
-            <CommonButton
-              type="button"
-              style="primary"
-              onClick={resetForm}
-              label={labels.submitNewForm}
-            />
+            <div className="c-RequestPage__ConfirmationButtons">
+              <CommonButton
+                type="button"
+                style="secondary"
+                onClick={() => router.push("/")}
+                label={labels.backToHome}
+              />
+              <CommonButton
+                type="button"
+                style="primary"
+                onClick={resetForm}
+                label={labels.submitNewForm}
+              />
+            </div>
           </div>
-        </div>
-      )}
-    </section>
+        )}
+      </section>
+    </>
   );
 }
-
 export const getStaticProps: GetStaticProps<IRequestLevelProps> = async () => {
   const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID?.toString();
   const { data } = await client.query<GetRequestsLevelsQuery>({

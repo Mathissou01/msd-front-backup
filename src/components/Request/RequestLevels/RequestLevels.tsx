@@ -14,12 +14,18 @@ interface IRequestLevelsProps {
   firstLevelDatas: Array<ILevelDatas>;
   setAllSelectedCards: (allSelectedCards: boolean) => void;
   setCurrentRequest: (request: RequestEntity) => void;
+  setCurrentStep: (steps: number) => void;
+  setNoBlockSteps: (steps: number) => void;
+  setSteps: (steps: number) => void;
 }
 
 export default function RequestLevels({
   firstLevelDatas,
   setAllSelectedCards,
   setCurrentRequest,
+  setCurrentStep,
+  setSteps,
+  setNoBlockSteps,
 }: IRequestLevelsProps) {
   const labels = {
     requestFirstLevel: "Votre demande concerne *",
@@ -57,6 +63,7 @@ export default function RequestLevels({
     ) {
       return;
     }
+
     switch (levelType) {
       case E_LEVEL_TYPE.AGGREGATE:
         setFirstLevel({ id: idLevel, levelNumber: 1, type: levelType });
@@ -68,6 +75,7 @@ export default function RequestLevels({
         getRequestById({
           variables: { requestId: "-1" },
         });
+        setCurrentStep(2);
         setAllSelectedCards(false);
         break;
       case E_LEVEL_TYPE.REQUEST_WITHOUT_AGGREGATE:
@@ -77,6 +85,7 @@ export default function RequestLevels({
         getRequestById({
           variables: { requestId: idLevel },
         });
+        setCurrentStep(2);
         setAllSelectedCards(false);
         break;
       case E_LEVEL_TYPE.REQUEST:
@@ -85,10 +94,12 @@ export default function RequestLevels({
         getRequestById({
           variables: { requestId: idLevel },
         });
+        setCurrentStep(3);
         setAllSelectedCards(false);
         break;
       case E_LEVEL_TYPE.REQUEST_TYPE:
         setThirdLevel({ id: idLevel, levelNumber: 3, type: levelType });
+        setCurrentStep(secondLevel.id !== "" ? 4 : 3);
         setAllSelectedCards(true);
         break;
     }
@@ -103,7 +114,23 @@ export default function RequestLevels({
       data.request.data.attributes
     ) {
       setCurrentRequest(data.request.data);
+
+      const levelSteps = secondLevel.id !== "" ? 3 : 2;
+      setNoBlockSteps(
+        levelSteps +
+          (data.request.data.attributes.hasAddress ? 1 : 0) +
+          (data.request.data.attributes.hasAppointmentSlots ? 1 : 0),
+      );
+
+      setSteps(
+        levelSteps +
+          (data.request.data.attributes.hasAddress ? 1 : 0) +
+          (data.request.data.attributes.hasAppointmentSlots ? 1 : 0) +
+          (data.request.data.attributes.addableBlocks?.length ?? 0) +
+          (data.request.data.attributes.hasUser ? 1 : 0),
+      );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, setCurrentRequest]);
 
   return (
