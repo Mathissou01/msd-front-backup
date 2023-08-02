@@ -2217,6 +2217,13 @@ export type CookiesSubServiceInput = {
   name?: InputMaybe<Scalars["String"]>;
 };
 
+export type Cumbersome = {
+  __typename?: "Cumbersome";
+  category: Scalars["String"];
+  cumbersomeName: Scalars["String"];
+  volume: Scalars["String"];
+};
+
 export type DateFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars["Date"]>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars["Date"]>>>;
@@ -4355,6 +4362,7 @@ export type Mutation = {
   deleteAlertNotification?: Maybe<AlertNotificationEntityResponse>;
   deleteAlertNotificationService?: Maybe<AlertNotificationServiceEntityResponse>;
   deleteAlertUserStorage?: Maybe<AlertUserStorageEntityResponse>;
+  deleteAlertUserStorageComplete?: Maybe<Scalars["Int"]>;
   deleteAudience?: Maybe<AudienceEntityResponse>;
   deleteCgu?: Maybe<CguEntityResponse>;
   deleteCguSubService?: Maybe<CguSubServiceEntityResponse>;
@@ -4936,6 +4944,11 @@ export type MutationDeleteAlertNotificationServiceArgs = {
 
 export type MutationDeleteAlertUserStorageArgs = {
   id: Scalars["ID"];
+};
+
+export type MutationDeleteAlertUserStorageCompleteArgs = {
+  email?: InputMaybe<Scalars["String"]>;
+  phoneNumber?: InputMaybe<Scalars["String"]>;
 };
 
 export type MutationDeleteAudienceArgs = {
@@ -6449,6 +6462,7 @@ export type Query = {
   getAllFoldersHierarchy?: Maybe<Array<Maybe<RequestFolders>>>;
   getAppointmentsDetails?: Maybe<AppointmentDetails>;
   getContentTypeDTOs?: Maybe<Array<Maybe<ContentTypeDto>>>;
+  getCumbersomeReferential: Array<Maybe<Cumbersome>>;
   getDropOffCollectType?: Maybe<Array<Maybe<CollectEntity>>>;
   getDropOffMaps?: Maybe<Array<Maybe<DropOffMapDto>>>;
   getEditoBlockDTO?: Maybe<EditoBlockDto>;
@@ -11702,6 +11716,239 @@ export type GetTopContentBlockQuery = {
   } | null;
 };
 
+export type GetCguByContractIdQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+  hasMobile?: InputMaybe<Scalars["Boolean"]>;
+}>;
+
+export type GetCguByContractIdQuery = {
+  __typename?: "Query";
+  cguSubServices?: {
+    __typename?: "CguSubServiceEntityResponseCollection";
+    data: Array<{
+      __typename?: "CguSubServiceEntity";
+      id?: string | null;
+      attributes?: {
+        __typename?: "CguSubService";
+        name: string;
+        cgus?: {
+          __typename?: "CguRelationResponseCollection";
+          data: Array<{
+            __typename?: "CguEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "Cgu";
+              title: string;
+              blocks?: Array<
+                | {
+                    __typename?: "ComponentBlocksFile";
+                    id: string;
+                    document?: {
+                      __typename?: "UploadFileEntityResponse";
+                      data?: {
+                        __typename?: "UploadFileEntity";
+                        id?: string | null;
+                        attributes?: {
+                          __typename?: "UploadFile";
+                          hash: string;
+                          mime: string;
+                          name: string;
+                          provider: string;
+                          size: number;
+                          url: string;
+                          alternativeText?: string | null;
+                          createdAt?: any | null;
+                          ext?: string | null;
+                          width?: number | null;
+                          height?: number | null;
+                        } | null;
+                      } | null;
+                    } | null;
+                  }
+                | { __typename?: "ComponentBlocksHorizontalRule" }
+                | { __typename?: "ComponentBlocksImage" }
+                | {
+                    __typename?: "ComponentBlocksSubHeading";
+                    id: string;
+                    subHeadingText?: string | null;
+                    subHeadingTag?: Enum_Componentblockssubheading_Subheadingtag | null;
+                  }
+                | { __typename?: "ComponentBlocksVideo" }
+                | {
+                    __typename?: "ComponentBlocksWysiwyg";
+                    id: string;
+                    textEditor?: string | null;
+                  }
+                | {
+                    __typename?: "Error";
+                    code: string;
+                    message?: string | null;
+                  }
+                | null
+              > | null;
+            } | null;
+          }>;
+        } | null;
+      } | null;
+    }>;
+  } | null;
+};
+
+export type GetConfidentialityByContractIdQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+  hasMobile?: InputMaybe<Scalars["Boolean"]>;
+}>;
+
+export type GetConfidentialityByContractIdQuery = {
+  __typename?: "Query";
+  confidentialitySubServices?: {
+    __typename?: "ConfidentialitySubServiceEntityResponseCollection";
+    data: Array<{
+      __typename?: "ConfidentialitySubServiceEntity";
+      id?: string | null;
+      attributes?: {
+        __typename?: "ConfidentialitySubService";
+        name: string;
+        confidentialities?: {
+          __typename?: "ConfidentialityRelationResponseCollection";
+          data: Array<{
+            __typename?: "ConfidentialityEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "Confidentiality";
+              title: string;
+              blocks?: Array<
+                | {
+                    __typename?: "ComponentBlocksFile";
+                    id: string;
+                    document?: {
+                      __typename?: "UploadFileEntityResponse";
+                      data?: {
+                        __typename?: "UploadFileEntity";
+                        id?: string | null;
+                        attributes?: {
+                          __typename?: "UploadFile";
+                          hash: string;
+                          mime: string;
+                          name: string;
+                          provider: string;
+                          size: number;
+                          url: string;
+                          alternativeText?: string | null;
+                          createdAt?: any | null;
+                          ext?: string | null;
+                          width?: number | null;
+                          height?: number | null;
+                        } | null;
+                      } | null;
+                    } | null;
+                  }
+                | { __typename?: "ComponentBlocksHorizontalRule" }
+                | { __typename?: "ComponentBlocksImage" }
+                | {
+                    __typename?: "ComponentBlocksSubHeading";
+                    id: string;
+                    subHeadingText?: string | null;
+                    subHeadingTag?: Enum_Componentblockssubheading_Subheadingtag | null;
+                  }
+                | { __typename?: "ComponentBlocksVideo" }
+                | {
+                    __typename?: "ComponentBlocksWysiwyg";
+                    id: string;
+                    textEditor?: string | null;
+                  }
+                | {
+                    __typename?: "Error";
+                    code: string;
+                    message?: string | null;
+                  }
+                | null
+              > | null;
+            } | null;
+          }>;
+        } | null;
+      } | null;
+    }>;
+  } | null;
+};
+
+export type GetCookieByContractIdQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+}>;
+
+export type GetCookieByContractIdQuery = {
+  __typename?: "Query";
+  cookiesSubServices?: {
+    __typename?: "CookiesSubServiceEntityResponseCollection";
+    data: Array<{
+      __typename?: "CookiesSubServiceEntity";
+      id?: string | null;
+      attributes?: {
+        __typename?: "CookiesSubService";
+        name: string;
+        cookies?: {
+          __typename?: "CookieRelationResponseCollection";
+          data: Array<{
+            __typename?: "CookieEntity";
+            id?: string | null;
+            attributes?: {
+              __typename?: "Cookie";
+              title: string;
+              blocks?: Array<
+                | {
+                    __typename?: "ComponentBlocksFile";
+                    id: string;
+                    document?: {
+                      __typename?: "UploadFileEntityResponse";
+                      data?: {
+                        __typename?: "UploadFileEntity";
+                        id?: string | null;
+                        attributes?: {
+                          __typename?: "UploadFile";
+                          hash: string;
+                          mime: string;
+                          name: string;
+                          provider: string;
+                          size: number;
+                          url: string;
+                          alternativeText?: string | null;
+                          createdAt?: any | null;
+                          ext?: string | null;
+                          width?: number | null;
+                          height?: number | null;
+                        } | null;
+                      } | null;
+                    } | null;
+                  }
+                | { __typename?: "ComponentBlocksHorizontalRule" }
+                | { __typename?: "ComponentBlocksImage" }
+                | {
+                    __typename?: "ComponentBlocksSubHeading";
+                    id: string;
+                    subHeadingText?: string | null;
+                    subHeadingTag?: Enum_Componentblockssubheading_Subheadingtag | null;
+                  }
+                | { __typename?: "ComponentBlocksVideo" }
+                | {
+                    __typename?: "ComponentBlocksWysiwyg";
+                    id: string;
+                    textEditor?: string | null;
+                  }
+                | {
+                    __typename?: "Error";
+                    code: string;
+                    message?: string | null;
+                  }
+                | null
+              > | null;
+            } | null;
+          }>;
+        } | null;
+      } | null;
+    }>;
+  } | null;
+};
+
 export type GetUserWasteManagementQueryVariables = Exact<{
   contractId: Scalars["ID"];
   street: Scalars["String"];
@@ -15891,6 +16138,347 @@ export type GetTopContentBlockLazyQueryHookResult = ReturnType<
 export type GetTopContentBlockQueryResult = Apollo.QueryResult<
   GetTopContentBlockQuery,
   GetTopContentBlockQueryVariables
+>;
+export const GetCguByContractIdDocument = gql`
+  query getCguByContractId($contractId: ID!, $hasMobile: Boolean) {
+    cguSubServices(
+      filters: { editorialService: { contract: { id: { eq: $contractId } } } }
+    ) {
+      data {
+        id
+        attributes {
+          cgus(
+            filters: {
+              hasMobile: { eq: $hasMobile }
+              isActivated: { eq: true }
+            }
+          ) {
+            data {
+              id
+              attributes {
+                title
+                blocks {
+                  ... on ComponentBlocksSubHeading {
+                    id
+                    subHeadingText
+                    subHeadingTag
+                  }
+                  ... on ComponentBlocksWysiwyg {
+                    id
+                    textEditor
+                  }
+                  ... on ComponentBlocksFile {
+                    id
+                    document {
+                      data {
+                        id
+                        attributes {
+                          hash
+                          mime
+                          name
+                          provider
+                          size
+                          url
+                          alternativeText
+                          createdAt
+                          ext
+                          width
+                          height
+                        }
+                      }
+                    }
+                  }
+                  ... on Error {
+                    code
+                    message
+                  }
+                }
+              }
+            }
+          }
+          name
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetCguByContractIdQuery__
+ *
+ * To run a query within a React component, call `useGetCguByContractIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCguByContractIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCguByContractIdQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *      hasMobile: // value for 'hasMobile'
+ *   },
+ * });
+ */
+export function useGetCguByContractIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetCguByContractIdQuery,
+    GetCguByContractIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetCguByContractIdQuery,
+    GetCguByContractIdQueryVariables
+  >(GetCguByContractIdDocument, options);
+}
+export function useGetCguByContractIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetCguByContractIdQuery,
+    GetCguByContractIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetCguByContractIdQuery,
+    GetCguByContractIdQueryVariables
+  >(GetCguByContractIdDocument, options);
+}
+export type GetCguByContractIdQueryHookResult = ReturnType<
+  typeof useGetCguByContractIdQuery
+>;
+export type GetCguByContractIdLazyQueryHookResult = ReturnType<
+  typeof useGetCguByContractIdLazyQuery
+>;
+export type GetCguByContractIdQueryResult = Apollo.QueryResult<
+  GetCguByContractIdQuery,
+  GetCguByContractIdQueryVariables
+>;
+export const GetConfidentialityByContractIdDocument = gql`
+  query getConfidentialityByContractId($contractId: ID!, $hasMobile: Boolean) {
+    confidentialitySubServices(
+      filters: { editorialService: { contract: { id: { eq: $contractId } } } }
+    ) {
+      data {
+        id
+        attributes {
+          confidentialities(
+            filters: {
+              hasMobile: { eq: $hasMobile }
+              isActivated: { eq: true }
+            }
+          ) {
+            data {
+              id
+              attributes {
+                title
+                blocks {
+                  ... on ComponentBlocksSubHeading {
+                    id
+                    subHeadingText
+                    subHeadingTag
+                  }
+                  ... on ComponentBlocksWysiwyg {
+                    id
+                    textEditor
+                  }
+                  ... on ComponentBlocksFile {
+                    id
+                    document {
+                      data {
+                        id
+                        attributes {
+                          hash
+                          mime
+                          name
+                          provider
+                          size
+                          url
+                          alternativeText
+                          createdAt
+                          ext
+                          width
+                          height
+                        }
+                      }
+                    }
+                  }
+                  ... on Error {
+                    code
+                    message
+                  }
+                }
+              }
+            }
+          }
+          name
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetConfidentialityByContractIdQuery__
+ *
+ * To run a query within a React component, call `useGetConfidentialityByContractIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetConfidentialityByContractIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetConfidentialityByContractIdQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *      hasMobile: // value for 'hasMobile'
+ *   },
+ * });
+ */
+export function useGetConfidentialityByContractIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetConfidentialityByContractIdQuery,
+    GetConfidentialityByContractIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetConfidentialityByContractIdQuery,
+    GetConfidentialityByContractIdQueryVariables
+  >(GetConfidentialityByContractIdDocument, options);
+}
+export function useGetConfidentialityByContractIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetConfidentialityByContractIdQuery,
+    GetConfidentialityByContractIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetConfidentialityByContractIdQuery,
+    GetConfidentialityByContractIdQueryVariables
+  >(GetConfidentialityByContractIdDocument, options);
+}
+export type GetConfidentialityByContractIdQueryHookResult = ReturnType<
+  typeof useGetConfidentialityByContractIdQuery
+>;
+export type GetConfidentialityByContractIdLazyQueryHookResult = ReturnType<
+  typeof useGetConfidentialityByContractIdLazyQuery
+>;
+export type GetConfidentialityByContractIdQueryResult = Apollo.QueryResult<
+  GetConfidentialityByContractIdQuery,
+  GetConfidentialityByContractIdQueryVariables
+>;
+export const GetCookieByContractIdDocument = gql`
+  query getCookieByContractId($contractId: ID!) {
+    cookiesSubServices(
+      filters: { editorialService: { contract: { id: { eq: $contractId } } } }
+    ) {
+      data {
+        id
+        attributes {
+          cookies(
+            filters: { hasMobile: { eq: false }, isActivated: { eq: true } }
+          ) {
+            data {
+              id
+              attributes {
+                title
+                blocks {
+                  ... on ComponentBlocksSubHeading {
+                    id
+                    subHeadingText
+                    subHeadingTag
+                  }
+                  ... on ComponentBlocksWysiwyg {
+                    id
+                    textEditor
+                  }
+                  ... on ComponentBlocksFile {
+                    id
+                    document {
+                      data {
+                        id
+                        attributes {
+                          hash
+                          mime
+                          name
+                          provider
+                          size
+                          url
+                          alternativeText
+                          createdAt
+                          ext
+                          width
+                          height
+                        }
+                      }
+                    }
+                  }
+                  ... on Error {
+                    code
+                    message
+                  }
+                }
+              }
+            }
+          }
+          name
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetCookieByContractIdQuery__
+ *
+ * To run a query within a React component, call `useGetCookieByContractIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCookieByContractIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCookieByContractIdQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetCookieByContractIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetCookieByContractIdQuery,
+    GetCookieByContractIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetCookieByContractIdQuery,
+    GetCookieByContractIdQueryVariables
+  >(GetCookieByContractIdDocument, options);
+}
+export function useGetCookieByContractIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetCookieByContractIdQuery,
+    GetCookieByContractIdQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetCookieByContractIdQuery,
+    GetCookieByContractIdQueryVariables
+  >(GetCookieByContractIdDocument, options);
+}
+export type GetCookieByContractIdQueryHookResult = ReturnType<
+  typeof useGetCookieByContractIdQuery
+>;
+export type GetCookieByContractIdLazyQueryHookResult = ReturnType<
+  typeof useGetCookieByContractIdLazyQuery
+>;
+export type GetCookieByContractIdQueryResult = Apollo.QueryResult<
+  GetCookieByContractIdQuery,
+  GetCookieByContractIdQueryVariables
 >;
 export const GetUserWasteManagementDocument = gql`
   query GetUserWasteManagement(

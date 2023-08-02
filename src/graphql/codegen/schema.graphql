@@ -1936,6 +1936,12 @@ input CookiesSubServiceInput {
   name: String
 }
 
+type Cumbersome {
+  category: String!
+  cumbersomeName: String!
+  volume: String!
+}
+
 """
 A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
@@ -4029,6 +4035,7 @@ type Mutation {
     id: ID!
   ): AlertNotificationServiceEntityResponse
   deleteAlertUserStorage(id: ID!): AlertUserStorageEntityResponse
+  deleteAlertUserStorageComplete(email: String, phoneNumber: String): Int
   deleteAudience(id: ID!): AudienceEntityResponse
   deleteCgu(id: ID!): CguEntityResponse
   deleteCguSubService(id: ID!): CguSubServiceEntityResponse
@@ -5232,6 +5239,7 @@ type Query {
   getAllFoldersHierarchy(path: String!): [RequestFolders]
   getAppointmentsDetails(requestId: ID!): AppointmentDetails
   getContentTypeDTOs(contractId: ID!): [ContentTypeDTO]
+  getCumbersomeReferential: [Cumbersome]!
   getDropOffCollectType(contractId: ID!): [CollectEntity]
   getDropOffMaps(audienceId: ID!, dropOffMapServiceId: ID!): [DropOffMapDTO]
   getEditoBlockDTO(

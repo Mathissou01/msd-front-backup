@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ENavigationPages, useNavigation } from "../../../hooks/useNavigation";
 import "./common-breadcrumb.scss";
 
-interface IBreadcrumbPage {
+export interface IBreadcrumbPage {
   label: string;
   slug?: string;
 }

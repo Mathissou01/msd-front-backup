@@ -40,10 +40,6 @@ export default function ContactUsPage() {
       label: "Accueil",
       slug: "/",
     },
-    {
-      label: "Service",
-      slug: "/",
-    },
   ];
 
   const contactUs = ContactUsesData?.contactUses?.data[0];

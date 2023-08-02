@@ -21,9 +21,9 @@ export default function Footer() {
   const routes = {
     accessibilityRoute: "/accessibilite",
     siteRoute: "/",
-    cguRoute: "/",
-    cookiesRoute: "/",
-    confidentialityRoute: "/",
+    cookiesRoute: "/cookie",
+    cguRoute: "/conditions-generales",
+    confidentialityRoute: "/confidentialite",
     contactUsRoute: "/service/contact",
   };
 

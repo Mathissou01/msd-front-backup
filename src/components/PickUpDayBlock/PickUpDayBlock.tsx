@@ -39,9 +39,8 @@ export default function PickUpDayBlock() {
   /* Methods */
   const submitSearch = useCallback(
     async (newCoordinates: ICoordinates) => {
-      setPickUpDayResults(undefined);
       setIsLoading(true);
-
+      setPickUpDayResults([]);
       if (
         pickUpDayIsActivated &&
         pickUpDayServiceId &&
@@ -65,12 +64,9 @@ export default function PickUpDayBlock() {
                   audienceId: currentAudience.id,
                 },
                 onCompleted: (pickUpDayResults) => {
-                  if (
-                    pickUpDayResults.pickUpDays &&
-                    pickUpDayResults.pickUpDays?.data.length > 0
-                  ) {
+                  if (pickUpDayResults?.pickUpDays?.data) {
                     setPickUpDayResults(
-                      pickUpDayResults?.pickUpDays?.data as PickUpDayEntity[],
+                      pickUpDayResults.pickUpDays.data as PickUpDayEntity[],
                     );
                   }
                   setIsLoading(false);

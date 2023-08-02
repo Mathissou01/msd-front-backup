@@ -24,7 +24,7 @@ exports[`Header renders 1`] = `
     </a>
     <a
       class="c-Footer__Link"
-      href="/"
+      href="/conditions-generales"
     >
       <span>
         Conditions générales
@@ -32,7 +32,7 @@ exports[`Header renders 1`] = `
     </a>
     <a
       class="c-Footer__Link"
-      href="/"
+      href="/cookie"
     >
       <span>
         Politique de cookies
@@ -40,7 +40,7 @@ exports[`Header renders 1`] = `
     </a>
     <a
       class="c-Footer__Link"
-      href="/"
+      href="/confidentialite"
     >
       <span>
         Politique de confidentialité
