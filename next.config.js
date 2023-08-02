@@ -167,6 +167,23 @@ module.exports = async (phase) => {
     `,
       implementation: sass,
     },
+    async headers() {
+      return [
+        {
+          source: "/(.*)",
+          headers: [
+            {
+              key: "Content-Security-Policy",
+              value: `frame-ancestors ${process.env.NEXT_PUBLIC_BO_URL}`,
+            },
+            {
+              key: "X-Frame-Options",
+              value: `ALLOW-FROM  ${process.env.NEXT_PUBLIC_BO_URL}`,
+            },
+          ],
+        },
+      ];
+    },
     webpack(config) {
       // Enable topLevelAwait, ES2017 in tsconfig
       config.experiments = config.experiments || {};
