@@ -79,6 +79,7 @@ export default function ServiceDemandesPage({
                   setNoBlockSteps={setNoBlockSteps}
                   setSteps={setSteps}
                   setCurrentRequest={setCurrentRequest}
+                  allSelectedCard={allSelectedCards}
                 />
               ) : null}
             </div>

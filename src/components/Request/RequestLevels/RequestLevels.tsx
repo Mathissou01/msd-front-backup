@@ -17,6 +17,7 @@ interface IRequestLevelsProps {
   setCurrentStep: (steps: number) => void;
   setNoBlockSteps: (steps: number) => void;
   setSteps: (steps: number) => void;
+  allSelectedCard: boolean;
 }
 
 export default function RequestLevels({
@@ -26,6 +27,7 @@ export default function RequestLevels({
   setCurrentStep,
   setSteps,
   setNoBlockSteps,
+  allSelectedCard,
 }: IRequestLevelsProps) {
   const labels = {
     requestFirstLevel: "Votre demande concerne *",
@@ -75,7 +77,6 @@ export default function RequestLevels({
         getRequestById({
           variables: { requestId: "-1" },
         });
-        setCurrentStep(2);
         setAllSelectedCards(false);
         break;
       case E_LEVEL_TYPE.REQUEST_WITHOUT_AGGREGATE:
@@ -85,7 +86,6 @@ export default function RequestLevels({
         getRequestById({
           variables: { requestId: idLevel },
         });
-        setCurrentStep(2);
         setAllSelectedCards(false);
         break;
       case E_LEVEL_TYPE.REQUEST:
@@ -94,7 +94,6 @@ export default function RequestLevels({
         getRequestById({
           variables: { requestId: idLevel },
         });
-        setCurrentStep(3);
         setAllSelectedCards(false);
         break;
       case E_LEVEL_TYPE.REQUEST_TYPE:
@@ -114,24 +113,36 @@ export default function RequestLevels({
       data.request.data.attributes
     ) {
       setCurrentRequest(data.request.data);
+    }
+  }, [data, setCurrentRequest]);
 
-      const levelSteps = secondLevel.id !== "" ? 3 : 2;
-      setNoBlockSteps(
-        levelSteps +
-          (data.request.data.attributes.hasAddress ? 1 : 0) +
-          (data.request.data.attributes.hasAppointmentSlots ? 1 : 0),
-      );
+  useEffect(() => {
+    if (
+      data &&
+      data.request &&
+      data.request.data &&
+      data.request.data.id &&
+      data.request.data.attributes
+    ) {
+      if (allSelectedCard) {
+        const levelSteps = secondLevel.id !== "" ? 3 : 2;
+        setNoBlockSteps(
+          levelSteps +
+            (data.request.data.attributes.hasAddress ? 1 : 0) +
+            (data.request.data.attributes.hasAppointmentSlots ? 1 : 0),
+        );
 
-      setSteps(
-        levelSteps +
-          (data.request.data.attributes.hasAddress ? 1 : 0) +
-          (data.request.data.attributes.hasAppointmentSlots ? 1 : 0) +
-          (data.request.data.attributes.addableBlocks?.length ?? 0) +
-          (data.request.data.attributes.hasUser ? 1 : 0),
-      );
+        setSteps(
+          levelSteps +
+            (data.request.data.attributes.hasAddress ? 1 : 0) +
+            (data.request.data.attributes.hasAppointmentSlots ? 1 : 0) +
+            (data.request.data.attributes.addableBlocks?.length ?? 0) +
+            (data.request.data.attributes.hasUser ? 1 : 0),
+        );
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, setCurrentRequest]);
+  }, [allSelectedCard, thirdLevel]);
 
   return (
     <div className="c-RequestLevels">
