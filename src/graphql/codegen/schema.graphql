@@ -2441,6 +2441,11 @@ enum ENUM_QUIZ_STATUS {
   published
 }
 
+enum ENUM_REQUESTSLOT_SLOTTYPE {
+  personalized
+  weekly
+}
+
 enum ENUM_TIP_STATUS {
   archived
   draft
@@ -6172,6 +6177,7 @@ type RequestSlot {
     sort: [String] = []
   ): SectorizationRelationResponseCollection
   slotMessage: String
+  slotType: ENUM_REQUESTSLOT_SLOTTYPE
   slotsExceptions(
     filters: ComponentBlocksRequestSlotsExceptionsFiltersInput
     pagination: PaginationArg = {}
@@ -6205,6 +6211,7 @@ input RequestSlotFiltersInput {
   requestTakeds: RequestTakedFiltersInput
   sectorizations: SectorizationFiltersInput
   slotMessage: StringFilterInput
+  slotType: StringFilterInput
   slotsExceptions: ComponentBlocksRequestSlotsExceptionsFiltersInput
   timeSlots: JSONFilterInput
   updatedAt: DateTimeFilterInput
@@ -6215,6 +6222,7 @@ input RequestSlotInput {
   requestTakeds: [ID]
   sectorizations: [ID]
   slotMessage: String
+  slotType: ENUM_REQUESTSLOT_SLOTTYPE
   slotsExceptions: [ComponentBlocksRequestSlotsExceptionsInput]
   timeSlots: JSON
 }

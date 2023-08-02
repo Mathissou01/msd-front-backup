@@ -2755,6 +2755,11 @@ export enum Enum_Quiz_Status {
   Published = "published",
 }
 
+export enum Enum_Requestslot_Slottype {
+  Personalized = "personalized",
+  Weekly = "weekly",
+}
+
 export enum Enum_Tip_Status {
   Archived = "archived",
   Draft = "draft",
@@ -8199,6 +8204,7 @@ export type RequestSlot = {
   requestTakeds?: Maybe<RequestTakedRelationResponseCollection>;
   sectorizations?: Maybe<SectorizationRelationResponseCollection>;
   slotMessage?: Maybe<Scalars["String"]>;
+  slotType?: Maybe<Enum_Requestslot_Slottype>;
   slotsExceptions?: Maybe<Array<Maybe<ComponentBlocksRequestSlotsExceptions>>>;
   timeSlots?: Maybe<Scalars["JSON"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
@@ -8249,6 +8255,7 @@ export type RequestSlotFiltersInput = {
   requestTakeds?: InputMaybe<RequestTakedFiltersInput>;
   sectorizations?: InputMaybe<SectorizationFiltersInput>;
   slotMessage?: InputMaybe<StringFilterInput>;
+  slotType?: InputMaybe<StringFilterInput>;
   slotsExceptions?: InputMaybe<ComponentBlocksRequestSlotsExceptionsFiltersInput>;
   timeSlots?: InputMaybe<JsonFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -8259,6 +8266,7 @@ export type RequestSlotInput = {
   requestTakeds?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   sectorizations?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   slotMessage?: InputMaybe<Scalars["String"]>;
+  slotType?: InputMaybe<Enum_Requestslot_Slottype>;
   slotsExceptions?: InputMaybe<
     Array<InputMaybe<ComponentBlocksRequestSlotsExceptionsInput>>
   >;
