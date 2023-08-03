@@ -233,11 +233,6 @@ type AlertNotificationService {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): AlertNotificationRelationResponseCollection
-  audiences(
-    filters: AudienceFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): AudienceRelationResponseCollection
   cities(
     filters: CityFiltersInput
     pagination: PaginationArg = {}
@@ -269,7 +264,6 @@ type AlertNotificationServiceEntityResponseCollection {
 input AlertNotificationServiceFiltersInput {
   alertNotifications: AlertNotificationFiltersInput
   and: [AlertNotificationServiceFiltersInput]
-  audiences: AudienceFiltersInput
   cities: CityFiltersInput
   contract: ContractFiltersInput
   createdAt: DateTimeFilterInput
@@ -285,7 +279,6 @@ input AlertNotificationServiceFiltersInput {
 
 input AlertNotificationServiceInput {
   alertNotifications: [ID]
-  audiences: [ID]
   cities: [ID]
   contract: ID
   endDate: Date
@@ -2465,6 +2458,7 @@ enum ENUM_WASTEFORM_STATUS {
 }
 
 type EditoBlock {
+  audience: AudienceEntityResponse
   createdAt: DateTime
   displayBlock: Boolean!
   editoContents: [EditoBlockEditoContentsDynamicZone]
@@ -2474,6 +2468,7 @@ type EditoBlock {
 }
 
 type EditoBlockDTO {
+  audienceId: ID!
   displayBlock: Boolean!
   editoContents: [EditoContentDTO]
   id: ID!
@@ -2500,6 +2495,7 @@ type EditoBlockEntityResponseCollection {
 
 input EditoBlockFiltersInput {
   and: [EditoBlockFiltersInput]
+  audience: AudienceFiltersInput
   createdAt: DateTimeFilterInput
   displayBlock: BooleanFilterInput
   homepage: HomepageFiltersInput
@@ -2511,14 +2507,20 @@ input EditoBlockFiltersInput {
 }
 
 input EditoBlockInput {
+  audience: ID
   displayBlock: Boolean
   editoContents: [EditoBlockEditoContentsDynamicZoneInput!]
   homepage: ID
   titleContent: String
 }
 
+type EditoBlockRelationResponseCollection {
+  data: [EditoBlockEntity!]!
+}
+
 type EditoContentDTO {
   attributes: EditoContentDTOAttributes!
+  audienceId: ID
   componentId: ID
   contentType: String!
   id: ID!
@@ -3480,12 +3482,28 @@ type HomeDataMwc {
 type Homepage {
   contractCustomization: ContractCustomizationEntityResponse
   createdAt: DateTime
-  editoBlock: EditoBlockEntityResponse
-  quizAndTipsBlock: QuizAndTipsBlockEntityResponse
+  editoBlocks(
+    filters: EditoBlockFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): EditoBlockRelationResponseCollection
+  quizAndTipsBlocks(
+    filters: QuizAndTipsBlockFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): QuizAndTipsBlockRelationResponseCollection
   recyclingGuideBlock: RecyclingGuideBlockEntityResponse
   searchEngineBlock: SearchEngineBlockEntityResponse
-  servicesBlock: ServicesBlockEntityResponse
-  topContentBlock: TopContentBlockEntityResponse
+  servicesBlocks(
+    filters: ServicesBlockFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): ServicesBlockRelationResponseCollection
+  topContentBlocks(
+    filters: TopContentBlockFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): TopContentBlockRelationResponseCollection
   updatedAt: DateTime
 }
 
@@ -3507,26 +3525,26 @@ input HomepageFiltersInput {
   and: [HomepageFiltersInput]
   contractCustomization: ContractCustomizationFiltersInput
   createdAt: DateTimeFilterInput
-  editoBlock: EditoBlockFiltersInput
+  editoBlocks: EditoBlockFiltersInput
   id: IDFilterInput
   not: HomepageFiltersInput
   or: [HomepageFiltersInput]
-  quizAndTipsBlock: QuizAndTipsBlockFiltersInput
+  quizAndTipsBlocks: QuizAndTipsBlockFiltersInput
   recyclingGuideBlock: RecyclingGuideBlockFiltersInput
   searchEngineBlock: SearchEngineBlockFiltersInput
-  servicesBlock: ServicesBlockFiltersInput
-  topContentBlock: TopContentBlockFiltersInput
+  servicesBlocks: ServicesBlockFiltersInput
+  topContentBlocks: TopContentBlockFiltersInput
   updatedAt: DateTimeFilterInput
 }
 
 input HomepageInput {
   contractCustomization: ID
-  editoBlock: ID
-  quizAndTipsBlock: ID
+  editoBlocks: [ID]
+  quizAndTipsBlocks: [ID]
   recyclingGuideBlock: ID
   searchEngineBlock: ID
-  servicesBlock: ID
-  topContentBlock: ID
+  servicesBlocks: [ID]
+  topContentBlocks: [ID]
 }
 
 type I18NLocale {
@@ -5247,11 +5265,9 @@ type Query {
   getCumbersomeReferential: [Cumbersome]!
   getDropOffCollectType(contractId: ID!): [CollectEntity]
   getDropOffMaps(audienceId: ID!, dropOffMapServiceId: ID!): [DropOffMapDTO]
-  getEditoBlockDTO(
-    contractId: ID!
-    status: ENUM_EDITOCONTENTDTO_STATUS
-  ): EditoBlockDTO
+  getEditoBlockDTO(audienceId: ID!, contractId: ID!): EditoBlockDTO
   getEditoContentDTOs(
+    audienceId: ID!
     contractId: ID!
     status: ENUM_EDITOCONTENTDTO_STATUS
   ): [EditoContentDTO]
@@ -5272,11 +5288,9 @@ type Query {
   ): [ID]
   getStatusExport(id: ID!): String
   getThreeRandomTips(contractId: ID!): [Tips]
-  getTopContentBlockDTO(
-    contractId: ID!
-    status: ENUM_TOPCONTENTDTO_STATUS
-  ): TopContentBlockDTO
+  getTopContentBlockDTO(audienceId: ID!, contractId: ID!): TopContentBlockDTO
   getTopContentDTOs(
+    audienceId: ID!
     contractId: ID!
     status: ENUM_TOPCONTENTDTO_STATUS
   ): [EditoContentDTO]
@@ -5564,6 +5578,7 @@ type Quiz {
 }
 
 type QuizAndTipsBlock {
+  audience: AudienceEntityResponse
   createdAt: DateTime
   displayBlock: Boolean!
   displayQuiz: Boolean!
@@ -5595,6 +5610,7 @@ type QuizAndTipsBlockEntityResponseCollection {
 
 input QuizAndTipsBlockFiltersInput {
   and: [QuizAndTipsBlockFiltersInput]
+  audience: AudienceFiltersInput
   createdAt: DateTimeFilterInput
   displayBlock: BooleanFilterInput
   displayQuiz: BooleanFilterInput
@@ -5610,6 +5626,7 @@ input QuizAndTipsBlockFiltersInput {
 }
 
 input QuizAndTipsBlockInput {
+  audience: ID
   displayBlock: Boolean
   displayQuiz: Boolean
   displayTips: Boolean
@@ -5617,6 +5634,10 @@ input QuizAndTipsBlockInput {
   quiz: ID
   tips: [ID]
   titleContent: String
+}
+
+type QuizAndTipsBlockRelationResponseCollection {
+  data: [QuizAndTipsBlockEntity!]!
 }
 
 type QuizEntity {
@@ -5743,6 +5764,7 @@ type QuizSubServiceRelationResponseCollection {
 }
 
 type RecyclingGuideBlock {
+  audience: AudienceEntityResponse
   createdAt: DateTime
   homepage: HomepageEntityResponse
   recyclingGuideDisplayContent: String!
@@ -5772,6 +5794,7 @@ type RecyclingGuideBlockEntityResponseCollection {
 
 input RecyclingGuideBlockFiltersInput {
   and: [RecyclingGuideBlockFiltersInput]
+  audience: AudienceFiltersInput
   createdAt: DateTimeFilterInput
   homepage: HomepageFiltersInput
   id: IDFilterInput
@@ -5785,6 +5808,7 @@ input RecyclingGuideBlockFiltersInput {
 }
 
 input RecyclingGuideBlockInput {
+  audience: ID
   homepage: ID
   recyclingGuideDisplayContent: String
   subtitleContent: String
@@ -6427,6 +6451,7 @@ input ServiceInput {
 }
 
 type ServicesBlock {
+  audience: AudienceEntityResponse
   createdAt: DateTime
   homepage: HomepageEntityResponse
   serviceLinks: [ServicesBlockServiceLinksDynamicZone]
@@ -6450,6 +6475,7 @@ type ServicesBlockEntityResponseCollection {
 
 input ServicesBlockFiltersInput {
   and: [ServicesBlockFiltersInput]
+  audience: AudienceFiltersInput
   createdAt: DateTimeFilterInput
   homepage: HomepageFiltersInput
   id: IDFilterInput
@@ -6460,9 +6486,14 @@ input ServicesBlockFiltersInput {
 }
 
 input ServicesBlockInput {
+  audience: ID
   homepage: ID
   serviceLinks: [ServicesBlockServiceLinksDynamicZoneInput!]
   titleContent: String
+}
+
+type ServicesBlockRelationResponseCollection {
+  data: [ServicesBlockEntity!]!
 }
 
 union ServicesBlockServiceLinksDynamicZone =
@@ -6854,6 +6885,7 @@ type Tips {
 }
 
 type TopContentBlock {
+  audience: AudienceEntityResponse
   createdAt: DateTime
   displayBlock: Boolean!
   displayLastThreeContents: Boolean!
@@ -6865,6 +6897,7 @@ type TopContentBlock {
 }
 
 type TopContentBlockDTO {
+  audienceId: ID!
   displayBlock: Boolean!
   displayLastThreeContents: Boolean!
   hasTopContent: Boolean!
@@ -6889,6 +6922,7 @@ type TopContentBlockEntityResponseCollection {
 
 input TopContentBlockFiltersInput {
   and: [TopContentBlockFiltersInput]
+  audience: AudienceFiltersInput
   createdAt: DateTimeFilterInput
   displayBlock: BooleanFilterInput
   displayLastThreeContents: BooleanFilterInput
@@ -6902,12 +6936,17 @@ input TopContentBlockFiltersInput {
 }
 
 input TopContentBlockInput {
+  audience: ID
   displayBlock: Boolean
   displayLastThreeContents: Boolean
   hasTopContent: Boolean
   homepage: ID
   titleContent: String
   topContent: [TopContentBlockTopContentDynamicZoneInput!]
+}
+
+type TopContentBlockRelationResponseCollection {
+  data: [TopContentBlockEntity!]!
 }
 
 union TopContentBlockTopContentDynamicZone = ComponentLinksTopContent | Error

@@ -1,4 +1,4 @@
-query getEditoBlock($contractId: ID!) {
+query getEditoBlock($contractId: ID!, $audienceId: ID!) {
   contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
     data {
       id
@@ -6,10 +6,15 @@ query getEditoBlock($contractId: ID!) {
         homepage {
           data {
             attributes {
-              editoBlock {
+              editoBlocks(filters: { audience: { id: { eq: $audienceId } } }) {
                 data {
                   attributes {
                     titleContent
+                    audience {
+                      data {
+                        id
+                      }
+                    }
                     editoContents {
                       ... on ComponentLinksEditoContent {
                         id

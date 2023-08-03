@@ -1,4 +1,4 @@
-query getServicesBlock($contractId: ID!) {
+query getServicesBlock($contractId: ID!, $audienceId: ID!) {
   contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
     data {
       id
@@ -6,10 +6,17 @@ query getServicesBlock($contractId: ID!) {
         homepage {
           data {
             attributes {
-              servicesBlock {
+              servicesBlocks(
+                filters: { audience: { id: { eq: $audienceId } } }
+              ) {
                 data {
                   attributes {
                     titleContent
+                    audience {
+                      data {
+                        id
+                      }
+                    }
                     serviceLinks {
                       ... on ComponentLinksDropOffMap {
                         id

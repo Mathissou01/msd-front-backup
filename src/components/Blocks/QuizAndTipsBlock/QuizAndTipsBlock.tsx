@@ -1,9 +1,9 @@
 import { QuizAndTipsBlockEntity } from "../../../graphql/codegen/generated-types";
+import { EEditoTypeRoutes } from "../../../lib/edito-content";
 import TipsMobile from "public/images/mobile_astuces-section_bottom-right-angle.svg";
 import TipsDesktop from "public/images/desktop_astuces-section_bottom-right-angle.svg";
 import CommonBlockHeading from "../../Common/CommonBlockHeading/CommonBlockHeading";
 import TipCard from "./TipCard/TipCard";
-import { EEditoTypeRoutes } from "../../../lib/edito-content";
 import "./quiz-and-tips-block.scss";
 
 interface IQuizAndTipsBlockProps {
@@ -32,26 +32,27 @@ export default function QuizAndTipsBlock({ data }: IQuizAndTipsBlockProps) {
           {/*{hasQuiz && <div />}*/}
           {hasTips && (
             <div className="c-QuizAndTipsBlock__Tips">
-              {tips?.map((tip, index) => {
-                if (
-                  tip.id &&
-                  tip.attributes &&
-                  tip.attributes?.shortDescription
-                ) {
-                  return (
-                    <TipCard
-                      key={`tip_${tip.id}_${index}`}
-                      href={`/${EEditoTypeRoutes.tip}/${tip.id}`}
-                      tags={tip.attributes.tags?.data}
-                      content={tip.attributes.shortDescription}
-                      linkLabel={tip.attributes.link ?? labels.knowMore}
-                      pictoUrl={
-                        tip.attributes.image.data?.attributes?.url ?? null
-                      }
-                    />
-                  );
-                }
-              })}
+              {tips &&
+                tips.map((tip, index) => {
+                  if (
+                    tip.id &&
+                    tip.attributes &&
+                    tip.attributes.shortDescription
+                  ) {
+                    return (
+                      <TipCard
+                        key={`tip_${tip.id}_${index}`}
+                        href={`/${EEditoTypeRoutes.tip}/${tip.id}`}
+                        tags={tip.attributes.tags?.data}
+                        content={tip.attributes.shortDescription}
+                        linkLabel={tip.attributes.link ?? labels.knowMore}
+                        pictoUrl={
+                          tip.attributes.image.data?.attributes?.url ?? null
+                        }
+                      />
+                    );
+                  }
+                })}
               <div className="c-QuizAndTipsBlock__SvgContainer">
                 <TipsDesktop className="c-QuizAndTipsBlock__Svg_desktop" />
                 <TipsMobile className="c-QuizAndTipsBlock__Svg_mobile" />

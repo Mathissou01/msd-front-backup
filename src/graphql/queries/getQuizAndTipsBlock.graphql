@@ -7,7 +7,9 @@ query getQuizAndTipsBlock($contractId: ID!, $audienceId: ID!) {
           data {
             id
             attributes {
-              quizAndTipsBlock {
+              quizAndTipsBlocks(
+                filters: { audience: { id: { eq: $audienceId } } }
+              ) {
                 data {
                   id
                   attributes {
@@ -23,6 +25,11 @@ query getQuizAndTipsBlock($contractId: ID!, $audienceId: ID!) {
                       }
                     }
                     displayTips
+                    audience {
+                      data {
+                        id
+                      }
+                    }
                     tips(filters: { audiences: { id: { eq: $audienceId } } }) {
                       data {
                         id

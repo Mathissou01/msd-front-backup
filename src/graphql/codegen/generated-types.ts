@@ -303,7 +303,6 @@ export type AlertNotificationRelationResponseCollection = {
 export type AlertNotificationService = {
   __typename?: "AlertNotificationService";
   alertNotifications?: Maybe<AlertNotificationRelationResponseCollection>;
-  audiences?: Maybe<AudienceRelationResponseCollection>;
   cities?: Maybe<CityRelationResponseCollection>;
   contract?: Maybe<ContractEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
@@ -316,12 +315,6 @@ export type AlertNotificationService = {
 
 export type AlertNotificationServiceAlertNotificationsArgs = {
   filters?: InputMaybe<AlertNotificationFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
-};
-
-export type AlertNotificationServiceAudiencesArgs = {
-  filters?: InputMaybe<AudienceFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
@@ -352,7 +345,6 @@ export type AlertNotificationServiceEntityResponseCollection = {
 export type AlertNotificationServiceFiltersInput = {
   alertNotifications?: InputMaybe<AlertNotificationFiltersInput>;
   and?: InputMaybe<Array<InputMaybe<AlertNotificationServiceFiltersInput>>>;
-  audiences?: InputMaybe<AudienceFiltersInput>;
   cities?: InputMaybe<CityFiltersInput>;
   contract?: InputMaybe<ContractFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
@@ -368,7 +360,6 @@ export type AlertNotificationServiceFiltersInput = {
 
 export type AlertNotificationServiceInput = {
   alertNotifications?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
-  audiences?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   cities?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   contract?: InputMaybe<Scalars["ID"]>;
   endDate?: InputMaybe<Scalars["Date"]>;
@@ -2780,6 +2771,7 @@ export enum Enum_Wasteform_Status {
 
 export type EditoBlock = {
   __typename?: "EditoBlock";
+  audience?: Maybe<AudienceEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   displayBlock: Scalars["Boolean"];
   editoContents?: Maybe<Array<Maybe<EditoBlockEditoContentsDynamicZone>>>;
@@ -2790,6 +2782,7 @@ export type EditoBlock = {
 
 export type EditoBlockDto = {
   __typename?: "EditoBlockDTO";
+  audienceId: Scalars["ID"];
   displayBlock: Scalars["Boolean"];
   editoContents?: Maybe<Array<Maybe<EditoContentDto>>>;
   id: Scalars["ID"];
@@ -2819,6 +2812,7 @@ export type EditoBlockEntityResponseCollection = {
 
 export type EditoBlockFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<EditoBlockFiltersInput>>>;
+  audience?: InputMaybe<AudienceFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   displayBlock?: InputMaybe<BooleanFilterInput>;
   homepage?: InputMaybe<HomepageFiltersInput>;
@@ -2830,6 +2824,7 @@ export type EditoBlockFiltersInput = {
 };
 
 export type EditoBlockInput = {
+  audience?: InputMaybe<Scalars["ID"]>;
   displayBlock?: InputMaybe<Scalars["Boolean"]>;
   editoContents?: InputMaybe<
     Array<Scalars["EditoBlockEditoContentsDynamicZoneInput"]>
@@ -2838,9 +2833,15 @@ export type EditoBlockInput = {
   titleContent?: InputMaybe<Scalars["String"]>;
 };
 
+export type EditoBlockRelationResponseCollection = {
+  __typename?: "EditoBlockRelationResponseCollection";
+  data: Array<EditoBlockEntity>;
+};
+
 export type EditoContentDto = {
   __typename?: "EditoContentDTO";
   attributes: EditoContentDtoAttributes;
+  audienceId?: Maybe<Scalars["ID"]>;
   componentId?: Maybe<Scalars["ID"]>;
   contentType: Scalars["String"];
   id: Scalars["ID"];
@@ -3892,13 +3893,37 @@ export type Homepage = {
   __typename?: "Homepage";
   contractCustomization?: Maybe<ContractCustomizationEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
-  editoBlock?: Maybe<EditoBlockEntityResponse>;
-  quizAndTipsBlock?: Maybe<QuizAndTipsBlockEntityResponse>;
+  editoBlocks?: Maybe<EditoBlockRelationResponseCollection>;
+  quizAndTipsBlocks?: Maybe<QuizAndTipsBlockRelationResponseCollection>;
   recyclingGuideBlock?: Maybe<RecyclingGuideBlockEntityResponse>;
   searchEngineBlock?: Maybe<SearchEngineBlockEntityResponse>;
-  servicesBlock?: Maybe<ServicesBlockEntityResponse>;
-  topContentBlock?: Maybe<TopContentBlockEntityResponse>;
+  servicesBlocks?: Maybe<ServicesBlockRelationResponseCollection>;
+  topContentBlocks?: Maybe<TopContentBlockRelationResponseCollection>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type HomepageEditoBlocksArgs = {
+  filters?: InputMaybe<EditoBlockFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type HomepageQuizAndTipsBlocksArgs = {
+  filters?: InputMaybe<QuizAndTipsBlockFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type HomepageServicesBlocksArgs = {
+  filters?: InputMaybe<ServicesBlockFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type HomepageTopContentBlocksArgs = {
+  filters?: InputMaybe<TopContentBlockFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type HomepageEntity = {
@@ -3922,26 +3947,26 @@ export type HomepageFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<HomepageFiltersInput>>>;
   contractCustomization?: InputMaybe<ContractCustomizationFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  editoBlock?: InputMaybe<EditoBlockFiltersInput>;
+  editoBlocks?: InputMaybe<EditoBlockFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<HomepageFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<HomepageFiltersInput>>>;
-  quizAndTipsBlock?: InputMaybe<QuizAndTipsBlockFiltersInput>;
+  quizAndTipsBlocks?: InputMaybe<QuizAndTipsBlockFiltersInput>;
   recyclingGuideBlock?: InputMaybe<RecyclingGuideBlockFiltersInput>;
   searchEngineBlock?: InputMaybe<SearchEngineBlockFiltersInput>;
-  servicesBlock?: InputMaybe<ServicesBlockFiltersInput>;
-  topContentBlock?: InputMaybe<TopContentBlockFiltersInput>;
+  servicesBlocks?: InputMaybe<ServicesBlockFiltersInput>;
+  topContentBlocks?: InputMaybe<TopContentBlockFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type HomepageInput = {
   contractCustomization?: InputMaybe<Scalars["ID"]>;
-  editoBlock?: InputMaybe<Scalars["ID"]>;
-  quizAndTipsBlock?: InputMaybe<Scalars["ID"]>;
+  editoBlocks?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  quizAndTipsBlocks?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   recyclingGuideBlock?: InputMaybe<Scalars["ID"]>;
   searchEngineBlock?: InputMaybe<Scalars["ID"]>;
-  servicesBlock?: InputMaybe<Scalars["ID"]>;
-  topContentBlock?: InputMaybe<Scalars["ID"]>;
+  servicesBlocks?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  topContentBlocks?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
 };
 
 export type I18NLocale = {
@@ -7005,11 +7030,12 @@ export type QueryGetDropOffMapsArgs = {
 };
 
 export type QueryGetEditoBlockDtoArgs = {
+  audienceId: Scalars["ID"];
   contractId: Scalars["ID"];
-  status?: InputMaybe<Enum_Editocontentdto_Status>;
 };
 
 export type QueryGetEditoContentDtOsArgs = {
+  audienceId: Scalars["ID"];
   contractId: Scalars["ID"];
   status?: InputMaybe<Enum_Editocontentdto_Status>;
 };
@@ -7055,11 +7081,12 @@ export type QueryGetThreeRandomTipsArgs = {
 };
 
 export type QueryGetTopContentBlockDtoArgs = {
+  audienceId: Scalars["ID"];
   contractId: Scalars["ID"];
-  status?: InputMaybe<Enum_Topcontentdto_Status>;
 };
 
 export type QueryGetTopContentDtOsArgs = {
+  audienceId: Scalars["ID"];
   contractId: Scalars["ID"];
   status?: InputMaybe<Enum_Topcontentdto_Status>;
 };
@@ -7530,6 +7557,7 @@ export type QuizTagsArgs = {
 
 export type QuizAndTipsBlock = {
   __typename?: "QuizAndTipsBlock";
+  audience?: Maybe<AudienceEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   displayBlock: Scalars["Boolean"];
   displayQuiz: Scalars["Boolean"];
@@ -7566,6 +7594,7 @@ export type QuizAndTipsBlockEntityResponseCollection = {
 
 export type QuizAndTipsBlockFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<QuizAndTipsBlockFiltersInput>>>;
+  audience?: InputMaybe<AudienceFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   displayBlock?: InputMaybe<BooleanFilterInput>;
   displayQuiz?: InputMaybe<BooleanFilterInput>;
@@ -7581,6 +7610,7 @@ export type QuizAndTipsBlockFiltersInput = {
 };
 
 export type QuizAndTipsBlockInput = {
+  audience?: InputMaybe<Scalars["ID"]>;
   displayBlock?: InputMaybe<Scalars["Boolean"]>;
   displayQuiz?: InputMaybe<Scalars["Boolean"]>;
   displayTips?: InputMaybe<Scalars["Boolean"]>;
@@ -7588,6 +7618,11 @@ export type QuizAndTipsBlockInput = {
   quiz?: InputMaybe<Scalars["ID"]>;
   tips?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   titleContent?: InputMaybe<Scalars["String"]>;
+};
+
+export type QuizAndTipsBlockRelationResponseCollection = {
+  __typename?: "QuizAndTipsBlockRelationResponseCollection";
+  data: Array<QuizAndTipsBlockEntity>;
 };
 
 export type QuizEntity = {
@@ -7728,6 +7763,7 @@ export type QuizSubServiceRelationResponseCollection = {
 
 export type RecyclingGuideBlock = {
   __typename?: "RecyclingGuideBlock";
+  audience?: Maybe<AudienceEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   homepage?: Maybe<HomepageEntityResponse>;
   recyclingGuideDisplayContent: Scalars["String"];
@@ -7762,6 +7798,7 @@ export type RecyclingGuideBlockEntityResponseCollection = {
 
 export type RecyclingGuideBlockFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<RecyclingGuideBlockFiltersInput>>>;
+  audience?: InputMaybe<AudienceFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   homepage?: InputMaybe<HomepageFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
@@ -7775,6 +7812,7 @@ export type RecyclingGuideBlockFiltersInput = {
 };
 
 export type RecyclingGuideBlockInput = {
+  audience?: InputMaybe<Scalars["ID"]>;
   homepage?: InputMaybe<Scalars["ID"]>;
   recyclingGuideDisplayContent?: InputMaybe<Scalars["String"]>;
   subtitleContent?: InputMaybe<Scalars["String"]>;
@@ -8496,6 +8534,7 @@ export type ServiceInput = {
 
 export type ServicesBlock = {
   __typename?: "ServicesBlock";
+  audience?: Maybe<AudienceEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   homepage?: Maybe<HomepageEntityResponse>;
   serviceLinks?: Maybe<Array<Maybe<ServicesBlockServiceLinksDynamicZone>>>;
@@ -8522,6 +8561,7 @@ export type ServicesBlockEntityResponseCollection = {
 
 export type ServicesBlockFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ServicesBlockFiltersInput>>>;
+  audience?: InputMaybe<AudienceFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   homepage?: InputMaybe<HomepageFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
@@ -8532,11 +8572,17 @@ export type ServicesBlockFiltersInput = {
 };
 
 export type ServicesBlockInput = {
+  audience?: InputMaybe<Scalars["ID"]>;
   homepage?: InputMaybe<Scalars["ID"]>;
   serviceLinks?: InputMaybe<
     Array<Scalars["ServicesBlockServiceLinksDynamicZoneInput"]>
   >;
   titleContent?: InputMaybe<Scalars["String"]>;
+};
+
+export type ServicesBlockRelationResponseCollection = {
+  __typename?: "ServicesBlockRelationResponseCollection";
+  data: Array<ServicesBlockEntity>;
 };
 
 export type ServicesBlockServiceLinksDynamicZone =
@@ -8959,6 +9005,7 @@ export type Tips = {
 
 export type TopContentBlock = {
   __typename?: "TopContentBlock";
+  audience?: Maybe<AudienceEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   displayBlock: Scalars["Boolean"];
   displayLastThreeContents: Scalars["Boolean"];
@@ -8971,6 +9018,7 @@ export type TopContentBlock = {
 
 export type TopContentBlockDto = {
   __typename?: "TopContentBlockDTO";
+  audienceId: Scalars["ID"];
   displayBlock: Scalars["Boolean"];
   displayLastThreeContents: Scalars["Boolean"];
   hasTopContent: Scalars["Boolean"];
@@ -8998,6 +9046,7 @@ export type TopContentBlockEntityResponseCollection = {
 
 export type TopContentBlockFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<TopContentBlockFiltersInput>>>;
+  audience?: InputMaybe<AudienceFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   displayBlock?: InputMaybe<BooleanFilterInput>;
   displayLastThreeContents?: InputMaybe<BooleanFilterInput>;
@@ -9011,6 +9060,7 @@ export type TopContentBlockFiltersInput = {
 };
 
 export type TopContentBlockInput = {
+  audience?: InputMaybe<Scalars["ID"]>;
   displayBlock?: InputMaybe<Scalars["Boolean"]>;
   displayLastThreeContents?: InputMaybe<Scalars["Boolean"]>;
   hasTopContent?: InputMaybe<Scalars["Boolean"]>;
@@ -9019,6 +9069,11 @@ export type TopContentBlockInput = {
   topContent?: InputMaybe<
     Array<Scalars["TopContentBlockTopContentDynamicZoneInput"]>
   >;
+};
+
+export type TopContentBlockRelationResponseCollection = {
+  __typename?: "TopContentBlockRelationResponseCollection";
+  data: Array<TopContentBlockEntity>;
 };
 
 export type TopContentBlockTopContentDynamicZone =
@@ -10737,6 +10792,7 @@ export type GetContractMenuQuery = {
 
 export type GetEditoBlockQueryVariables = Exact<{
   contractId: Scalars["ID"];
+  audienceId: Scalars["ID"];
 }>;
 
 export type GetEditoBlockQuery = {
@@ -10754,14 +10810,21 @@ export type GetEditoBlockQuery = {
             __typename?: "HomepageEntity";
             attributes?: {
               __typename?: "Homepage";
-              editoBlock?: {
-                __typename?: "EditoBlockEntityResponse";
-                data?: {
+              editoBlocks?: {
+                __typename?: "EditoBlockRelationResponseCollection";
+                data: Array<{
                   __typename?: "EditoBlockEntity";
                   attributes?: {
                     __typename?: "EditoBlock";
                     titleContent: string;
                     displayBlock: boolean;
+                    audience?: {
+                      __typename?: "AudienceEntityResponse";
+                      data?: {
+                        __typename?: "AudienceEntity";
+                        id?: string | null;
+                      } | null;
+                    } | null;
                     editoContents?: Array<
                       | {
                           __typename?: "ComponentLinksEditoContent";
@@ -10955,7 +11018,7 @@ export type GetEditoBlockQuery = {
                       | null
                     > | null;
                   } | null;
-                } | null;
+                }>;
               } | null;
             } | null;
           } | null;
@@ -11132,9 +11195,9 @@ export type GetQuizAndTipsBlockQuery = {
             id?: string | null;
             attributes?: {
               __typename?: "Homepage";
-              quizAndTipsBlock?: {
-                __typename?: "QuizAndTipsBlockEntityResponse";
-                data?: {
+              quizAndTipsBlocks?: {
+                __typename?: "QuizAndTipsBlockRelationResponseCollection";
+                data: Array<{
                   __typename?: "QuizAndTipsBlockEntity";
                   id?: string | null;
                   attributes?: {
@@ -11152,6 +11215,13 @@ export type GetQuizAndTipsBlockQuery = {
                           __typename?: "Quiz";
                           title?: string | null;
                         } | null;
+                      } | null;
+                    } | null;
+                    audience?: {
+                      __typename?: "AudienceEntityResponse";
+                      data?: {
+                        __typename?: "AudienceEntity";
+                        id?: string | null;
                       } | null;
                     } | null;
                     tips?: {
@@ -11202,7 +11272,7 @@ export type GetQuizAndTipsBlockQuery = {
                       }>;
                     } | null;
                   } | null;
-                } | null;
+                }>;
               } | null;
             } | null;
           } | null;
@@ -11377,6 +11447,7 @@ export type GetServicesActiveQuery = {
 
 export type GetServicesBlockQueryVariables = Exact<{
   contractId: Scalars["ID"];
+  audienceId: Scalars["ID"];
 }>;
 
 export type GetServicesBlockQuery = {
@@ -11394,13 +11465,20 @@ export type GetServicesBlockQuery = {
             __typename?: "HomepageEntity";
             attributes?: {
               __typename?: "Homepage";
-              servicesBlock?: {
-                __typename?: "ServicesBlockEntityResponse";
-                data?: {
+              servicesBlocks?: {
+                __typename?: "ServicesBlockRelationResponseCollection";
+                data: Array<{
                   __typename?: "ServicesBlockEntity";
                   attributes?: {
                     __typename?: "ServicesBlock";
                     titleContent: string;
+                    audience?: {
+                      __typename?: "AudienceEntityResponse";
+                      data?: {
+                        __typename?: "AudienceEntity";
+                        id?: string | null;
+                      } | null;
+                    } | null;
                     serviceLinks?: Array<
                       | { __typename?: "ComponentLinksAlertNotification" }
                       | {
@@ -11586,7 +11664,7 @@ export type GetServicesBlockQuery = {
                       | null
                     > | null;
                   } | null;
-                } | null;
+                }>;
               } | null;
             } | null;
           } | null;
@@ -11598,6 +11676,7 @@ export type GetServicesBlockQuery = {
 
 export type GetTopContentBlockQueryVariables = Exact<{
   contractId: Scalars["ID"];
+  audienceId: Scalars["ID"];
 }>;
 
 export type GetTopContentBlockQuery = {
@@ -11614,9 +11693,9 @@ export type GetTopContentBlockQuery = {
             __typename?: "HomepageEntity";
             attributes?: {
               __typename?: "Homepage";
-              topContentBlock?: {
-                __typename?: "TopContentBlockEntityResponse";
-                data?: {
+              topContentBlocks?: {
+                __typename?: "TopContentBlockRelationResponseCollection";
+                data: Array<{
                   __typename?: "TopContentBlockEntity";
                   id?: string | null;
                   attributes?: {
@@ -11625,6 +11704,13 @@ export type GetTopContentBlockQuery = {
                     displayBlock: boolean;
                     displayLastThreeContents: boolean;
                     hasTopContent: boolean;
+                    audience?: {
+                      __typename?: "AudienceEntityResponse";
+                      data?: {
+                        __typename?: "AudienceEntity";
+                        id?: string | null;
+                      } | null;
+                    } | null;
                     topContent?: Array<
                       | {
                           __typename?: "ComponentLinksTopContent";
@@ -11714,7 +11800,7 @@ export type GetTopContentBlockQuery = {
                       | null
                     > | null;
                   } | null;
-                } | null;
+                }>;
               } | null;
             } | null;
           } | null;
@@ -14928,7 +15014,7 @@ export type GetContractMenuQueryResult = Apollo.QueryResult<
   GetContractMenuQueryVariables
 >;
 export const GetEditoBlockDocument = gql`
-  query getEditoBlock($contractId: ID!) {
+  query getEditoBlock($contractId: ID!, $audienceId: ID!) {
     contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
       data {
         id
@@ -14936,10 +15022,17 @@ export const GetEditoBlockDocument = gql`
           homepage {
             data {
               attributes {
-                editoBlock {
+                editoBlocks(
+                  filters: { audience: { id: { eq: $audienceId } } }
+                ) {
                   data {
                     attributes {
                       titleContent
+                      audience {
+                        data {
+                          id
+                        }
+                      }
                       editoContents {
                         ... on ComponentLinksEditoContent {
                           id
@@ -15113,6 +15206,7 @@ export const GetEditoBlockDocument = gql`
  * const { data, loading, error } = useGetEditoBlockQuery({
  *   variables: {
  *      contractId: // value for 'contractId'
+ *      audienceId: // value for 'audienceId'
  *   },
  * });
  */
@@ -15408,7 +15502,9 @@ export const GetQuizAndTipsBlockDocument = gql`
             data {
               id
               attributes {
-                quizAndTipsBlock {
+                quizAndTipsBlocks(
+                  filters: { audience: { id: { eq: $audienceId } } }
+                ) {
                   data {
                     id
                     attributes {
@@ -15424,6 +15520,11 @@ export const GetQuizAndTipsBlockDocument = gql`
                         }
                       }
                       displayTips
+                      audience {
+                        data {
+                          id
+                        }
+                      }
                       tips(
                         filters: { audiences: { id: { eq: $audienceId } } }
                       ) {
@@ -15793,7 +15894,7 @@ export type GetServicesActiveQueryResult = Apollo.QueryResult<
   GetServicesActiveQueryVariables
 >;
 export const GetServicesBlockDocument = gql`
-  query getServicesBlock($contractId: ID!) {
+  query getServicesBlock($contractId: ID!, $audienceId: ID!) {
     contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
       data {
         id
@@ -15801,10 +15902,17 @@ export const GetServicesBlockDocument = gql`
           homepage {
             data {
               attributes {
-                servicesBlock {
+                servicesBlocks(
+                  filters: { audience: { id: { eq: $audienceId } } }
+                ) {
                   data {
                     attributes {
                       titleContent
+                      audience {
+                        data {
+                          id
+                        }
+                      }
                       serviceLinks {
                         ... on ComponentLinksDropOffMap {
                           id
@@ -15965,6 +16073,7 @@ export const GetServicesBlockDocument = gql`
  * const { data, loading, error } = useGetServicesBlockQuery({
  *   variables: {
  *      contractId: // value for 'contractId'
+ *      audienceId: // value for 'audienceId'
  *   },
  * });
  */
@@ -16003,14 +16112,16 @@ export type GetServicesBlockQueryResult = Apollo.QueryResult<
   GetServicesBlockQueryVariables
 >;
 export const GetTopContentBlockDocument = gql`
-  query getTopContentBlock($contractId: ID!) {
+  query getTopContentBlock($contractId: ID!, $audienceId: ID!) {
     contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
       data {
         attributes {
           homepage {
             data {
               attributes {
-                topContentBlock {
+                topContentBlocks(
+                  filters: { audience: { id: { eq: $audienceId } } }
+                ) {
                   data {
                     id
                     attributes {
@@ -16018,6 +16129,11 @@ export const GetTopContentBlockDocument = gql`
                       displayBlock
                       displayLastThreeContents
                       hasTopContent
+                      audience {
+                        data {
+                          id
+                        }
+                      }
                       topContent {
                         ... on ComponentLinksTopContent {
                           id
@@ -16110,6 +16226,7 @@ export const GetTopContentBlockDocument = gql`
  * const { data, loading, error } = useGetTopContentBlockQuery({
  *   variables: {
  *      contractId: // value for 'contractId'
+ *      audienceId: // value for 'audienceId'
  *   },
  * });
  */

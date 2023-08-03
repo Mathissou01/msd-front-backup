@@ -24,7 +24,7 @@ export function extractRecyclingGuideBlock(data: GetRecyclingGuideBlockQuery) {
 export function extractServicesBlock(data: GetServicesBlockQuery) {
   const serviceBlock =
     data.contractCustomizations?.data[0]?.attributes?.homepage?.data?.attributes
-      ?.servicesBlock?.data ?? null;
+      ?.servicesBlocks?.data[0] ?? null;
   const serviceLinks: Array<IServiceLink> | null = remapServiceLinksDynamicZone(
     serviceBlock?.attributes?.serviceLinks?.filter(removeNulls) ?? [],
   );
@@ -32,26 +32,27 @@ export function extractServicesBlock(data: GetServicesBlockQuery) {
   return {
     titleContent: serviceBlock?.attributes?.titleContent ?? null,
     serviceLinks,
+    audience: serviceBlock?.attributes?.audience?.data?.id ?? "0",
   };
 }
 
 export function extractQuizAndTipsBlock(data: GetQuizAndTipsBlockQuery) {
   const quizAndTipsBlock: QuizAndTipsBlockEntity | null =
     data.contractCustomizations?.data[0]?.attributes?.homepage?.data?.attributes
-      ?.quizAndTipsBlock?.data ?? null;
+      ?.quizAndTipsBlocks?.data[0] ?? null;
   return quizAndTipsBlock;
 }
 
 export function extractTopContentBlock(data: GetTopContentBlockQuery) {
   const topContentBlock: TopContentBlockEntity | null =
     data.contractCustomizations?.data[0]?.attributes?.homepage?.data?.attributes
-      ?.topContentBlock?.data ?? null;
+      ?.topContentBlocks?.data[0] ?? null;
   return topContentBlock;
 }
 
 export function extractEditoBlock(data: GetEditoBlockQuery) {
   const editoBlock: EditoBlockEntity | null =
     data?.contractCustomizations?.data[0]?.attributes?.homepage?.data
-      ?.attributes?.editoBlock?.data ?? null;
+      ?.attributes?.editoBlocks?.data[0] ?? null;
   return editoBlock;
 }

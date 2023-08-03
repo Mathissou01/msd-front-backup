@@ -1,11 +1,13 @@
-query getTopContentBlock($contractId: ID!) {
+query getTopContentBlock($contractId: ID!, $audienceId: ID!) {
   contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
     data {
       attributes {
         homepage {
           data {
             attributes {
-              topContentBlock {
+              topContentBlocks(
+                filters: { audience: { id: { eq: $audienceId } } }
+              ) {
                 data {
                   id
                   attributes {
@@ -13,6 +15,11 @@ query getTopContentBlock($contractId: ID!) {
                     displayBlock
                     displayLastThreeContents
                     hasTopContent
+                    audience {
+                      data {
+                        id
+                      }
+                    }
                     topContent {
                       ... on ComponentLinksTopContent {
                         id
