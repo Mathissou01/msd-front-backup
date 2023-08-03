@@ -88,7 +88,12 @@ export default function RecyclingGuideBlock({
     <section className="c-RecyclingGuideBlock">
       <div className="c-RecyclingGuideBlock__Heading">
         <span className="c-RecyclingGuideBlock__Title">{titleContent}</span>
-        <h2 className="c-RecyclingGuideBlock__Subtitle">{subtitleContent}</h2>
+        <h2
+          id="findRecyclingGuideSubtitle"
+          className="c-RecyclingGuideBlock__Subtitle"
+        >
+          {subtitleContent}
+        </h2>
       </div>
       <div className="c-RecyclingGuideBlock__SearchContainer">
         <form
@@ -105,6 +110,8 @@ export default function RecyclingGuideBlock({
             type="text"
             defaultValue={router.query.search}
             onChange={handleChange}
+            title="Saisir votre recherche"
+            aria-labelledby="findRecyclingGuideSubtitle"
           />
           <CommonButton
             label="Rechercher"
