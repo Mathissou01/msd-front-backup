@@ -46,11 +46,17 @@ exports[`Header renders in desktop mode 1`] = `
               type="text"
             />
             <button
-              class="c-CommonButton c-CommonButton_tertiary c-CommonButton_fontSmall"
-              type="button"
+              class="c-HeaderLinkSearch__Button"
             >
-              <div
-                class="c-CommonButton__Picto c-CommonButton__Picto_search"
+              <img
+                alt="Chercher"
+                data-nimg="1"
+                decoding="async"
+                height="24"
+                loading="lazy"
+                src="/images/pictos/search.svg"
+                style="color: transparent;"
+                width="24"
               />
             </button>
           </div>
@@ -74,7 +80,7 @@ exports[`Header renders in desktop mode 1`] = `
               class="c-NavigationLink__Picto"
             >
               <img
-                alt=""
+                alt="Notification"
                 data-nimg="1"
                 decoding="async"
                 height="24"
@@ -108,7 +114,7 @@ exports[`Header renders in desktop mode 1`] = `
               class="c-NavigationLink__Picto"
             >
               <img
-                alt=""
+                alt="contactez-nous"
                 data-nimg="1"
                 decoding="async"
                 height="24"
@@ -296,7 +302,7 @@ exports[`Header renders in mobile mode 1`] = `
               class="c-NavigationLink__Picto"
             >
               <img
-                alt=""
+                alt="Rechercher"
                 data-nimg="1"
                 decoding="async"
                 height="24"

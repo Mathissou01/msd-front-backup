@@ -55,6 +55,7 @@ export default function HeaderTopBar({
                 <NavigationLink
                   href="/"
                   pictoUrl="/images/pictos/search.svg"
+                  pictoAlt="Rechercher"
                   isDesktopMode
                 />
               </li>
@@ -76,6 +77,7 @@ export default function HeaderTopBar({
                 <NavigationLink
                   href="/"
                   pictoUrl="/images/pictos/notify.svg"
+                  pictoAlt="Notification"
                   isDesktopMode
                 />
               </li>
@@ -84,6 +86,7 @@ export default function HeaderTopBar({
                 <NavigationLink
                   href={routes.contactUsRoute}
                   pictoUrl="/images/pictos/contact.svg"
+                  pictoAlt="contactez-nous"
                   isDesktopMode
                 />
               </li>

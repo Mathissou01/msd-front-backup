@@ -1,5 +1,5 @@
 import React from "react";
-import CommonButton from "../../../Common/CommonButton/CommonButton";
+import Image from "next/image";
 import "./header-link-search.scss";
 
 export default function HeaderLinkSearch() {
@@ -12,7 +12,14 @@ export default function HeaderLinkSearch() {
         role="search"
         aria-label="Rechercher sur le site"
       />
-      <CommonButton picto="search" style="tertiary" />
+      <button className="c-HeaderLinkSearch__Button">
+        <Image
+          src="/images/pictos/search.svg"
+          alt="Chercher"
+          width="24"
+          height="24"
+        />
+      </button>
     </div>
   );
 }
