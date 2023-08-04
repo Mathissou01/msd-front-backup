@@ -128,7 +128,7 @@ export default function RequestFields({
                 noBlockSteps={noBlockSteps}
               />
             )}
-          {data.attributes.hasUser && currentStep === steps && (
+          {data.attributes.hasUser && currentStep === steps - 1 && (
             <RequestUser
               isNameRequired={data.attributes.isUserNameMandatory ?? true}
               isPhoneRequired={data.attributes.isUserPhoneMandatory ?? true}

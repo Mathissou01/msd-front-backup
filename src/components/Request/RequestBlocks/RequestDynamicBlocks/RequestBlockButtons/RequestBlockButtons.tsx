@@ -1,16 +1,16 @@
-import { isArray, isObject, isEmpty, isDate, isBoolean } from "lodash";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { isString } from "../../../../../lib/utilities";
+import classNames from "classnames";
 import CommonButton from "../../../../Common/CommonButton/CommonButton";
 import "./request-block-buttons.scss";
-import classNames from "classnames";
 
 interface IRequestBlockButtons {
   isMandatoryBlock: boolean;
   setCurrentStep: (steps: number) => void;
   currentStep: number;
   nameBlockValue: string;
+  noBlockSteps: number;
+  blockIndex: number;
 }
 
 export default function RequestBlockButtons({
@@ -18,6 +18,8 @@ export default function RequestBlockButtons({
   setCurrentStep,
   currentStep,
   nameBlockValue,
+  noBlockSteps,
+  blockIndex,
 }: IRequestBlockButtons) {
   /* Static data */
   const labels = {
@@ -39,18 +41,9 @@ export default function RequestBlockButtons({
   });
 
   useEffect(() => {
-    if (
-      watchValue &&
-      ((isString(watchValue) && watchValue !== "") ||
-        (isArray(watchValue) && watchValue.length > 0) ||
-        (isObject(watchValue) && !isEmpty(watchValue)) ||
-        isDate(watchValue) ||
-        (isBoolean(watchValue) && watchValue))
-    ) {
+    if (watchValue && currentStep - noBlockSteps === blockIndex + 1) {
       setCurrentStep(currentStep + 1);
       setHiddenNextStepButton(true);
-    } else {
-      setHiddenNextStepButton(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchValue]);

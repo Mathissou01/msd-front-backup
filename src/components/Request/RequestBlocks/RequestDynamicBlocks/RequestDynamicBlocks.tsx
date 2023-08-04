@@ -1,3 +1,4 @@
+import { useCallback, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import classNames from "classnames";
 import {
@@ -16,7 +17,6 @@ import RequestQCMBlock from "../../../Blocks/RequestBlocks/RequestQCMBlock/Reque
 import RequestQuestionsBlock from "../../../Blocks/RequestBlocks/RequestQuestionsBlock/RequestQuestionsBlock";
 import RequestBlockButtons from "./RequestBlockButtons/RequestBlockButtons";
 import "./request-dynamic-blocks.scss";
-import { useCallback, useEffect } from "react";
 
 interface IRequestDynamicBlockProps {
   block: RequestAddableBlocksDynamicZone;
@@ -157,7 +157,8 @@ export default function RequestDynamicBlocks({
     [blockIndex],
   );
 
-  const { watch, resetField } = useFormContext();
+  const { watch, resetField, register } = useFormContext();
+  register(getBlockName(block), { value: undefined });
 
   const watchLat = watch("lat");
   const watchLong = watch("long");
@@ -181,6 +182,8 @@ export default function RequestDynamicBlocks({
         setCurrentStep={setCurrentStep}
         currentStep={currentStep}
         nameBlockValue={getBlockName(block)}
+        noBlockSteps={noBlockSteps}
+        blockIndex={blockIndex}
       />
     </div>
   );

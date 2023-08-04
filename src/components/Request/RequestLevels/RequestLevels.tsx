@@ -74,6 +74,9 @@ export default function RequestLevels({
         getRequestsByAggregateId({
           variables: { requestAggregateId: idLevel },
         });
+        // For reseting the progressbar to 30%
+        setSteps(10);
+        setCurrentStep(3);
         getRequestById({
           variables: { requestId: "-1" },
         });
@@ -86,6 +89,9 @@ export default function RequestLevels({
         getRequestById({
           variables: { requestId: idLevel },
         });
+        // For reseting the progressbar to 30%
+        setSteps(10);
+        setCurrentStep(3);
         setAllSelectedCards(false);
         break;
       case E_LEVEL_TYPE.REQUEST:
@@ -94,11 +100,14 @@ export default function RequestLevels({
         getRequestById({
           variables: { requestId: idLevel },
         });
+        // For reseting the progressbar to 30%
+        setSteps(10);
+        setCurrentStep(3);
         setAllSelectedCards(false);
         break;
       case E_LEVEL_TYPE.REQUEST_TYPE:
         setThirdLevel({ id: idLevel, levelNumber: 3, type: levelType });
-        setCurrentStep(secondLevel.id !== "" ? 4 : 3);
+        setCurrentStep(secondLevel.levelNumber !== -1 ? 4 : 3);
         setAllSelectedCards(true);
         break;
     }
@@ -125,7 +134,7 @@ export default function RequestLevels({
       data.request.data.attributes
     ) {
       if (allSelectedCard) {
-        const levelSteps = secondLevel.id !== "" ? 3 : 2;
+        const levelSteps = secondLevel.levelNumber !== -1 ? 3 : 2;
         setNoBlockSteps(
           levelSteps +
             (data.request.data.attributes.hasAddress ? 1 : 0) +
@@ -137,7 +146,8 @@ export default function RequestLevels({
             (data.request.data.attributes.hasAddress ? 1 : 0) +
             (data.request.data.attributes.hasAppointmentSlots ? 1 : 0) +
             (data.request.data.attributes.addableBlocks?.length ?? 0) +
-            (data.request.data.attributes.hasUser ? 1 : 0),
+            (data.request.data.attributes.hasUser ? 1 : 0) +
+            1,
         );
       }
     }
