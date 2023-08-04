@@ -5,6 +5,7 @@ exports[`Header renders 1`] = `
   <footer
     class="c-Footer"
     data-testid="footer"
+    role="contentinfo"
   >
     <a
       class="c-Footer__Link"

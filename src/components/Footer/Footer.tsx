@@ -40,7 +40,7 @@ export default function Footer() {
     : EAccessibilityLevel.not_conform;
 
   return (
-    <footer className="c-Footer" data-testid="footer">
+    <footer className="c-Footer" role="contentinfo" data-testid="footer">
       <Link className="c-Footer__Link" href={routes.accessibilityRoute}>
         <span>{labels.accessibilityLabel + accessibilityLevelLabel}</span>
       </Link>

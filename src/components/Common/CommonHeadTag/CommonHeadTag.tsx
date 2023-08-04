@@ -9,9 +9,14 @@ export default function CommonHeadTag({
   title,
   description = "",
 }: ICommonHeadTagProps) {
+  /* Static Data */
+  const siteName = "MSD-Front";
+
   return (
     <Head>
-      <title>{title}</title>
+      <title>
+        {title} - {siteName}
+      </title>
       <meta name="description" content={description} />
     </Head>
   );

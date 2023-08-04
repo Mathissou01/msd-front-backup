@@ -598,7 +598,6 @@ type ChannelTypeRelationResponseCollection {
 type City {
   GeoJSON: JSON
   MwCounter: MwCounterServiceEntityResponse
-  contract: ContractEntityResponse
   createdAt: DateTime
   department: String
   epci(
@@ -638,7 +637,6 @@ input CityFiltersInput {
   GeoJSON: JSONFilterInput
   MwCounter: MwCounterServiceFiltersInput
   and: [CityFiltersInput]
-  contract: ContractFiltersInput
   createdAt: DateTimeFilterInput
   department: StringFilterInput
   epci: EpciFiltersInput
@@ -658,7 +656,6 @@ input CityFiltersInput {
 input CityInput {
   GeoJSON: JSON
   MwCounter: ID
-  contract: ID
   department: String
   epci: [ID]
   insee: Long
@@ -1530,11 +1527,6 @@ type Contract {
   ): AudienceRelationResponseCollection
   ccap: Long
   channelType: ChannelTypeEntityResponse
-  cities(
-    filters: CityFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): CityRelationResponseCollection
   clear: Long
   clientContact: ClientContactEntityResponse
   clientName: String!
@@ -1687,7 +1679,6 @@ input ContractFiltersInput {
   audiences: AudienceFiltersInput
   ccap: LongFilterInput
   channelType: ChannelTypeFiltersInput
-  cities: CityFiltersInput
   clear: LongFilterInput
   clientContact: ClientContactFiltersInput
   clientName: StringFilterInput
@@ -1732,7 +1723,6 @@ input ContractInput {
   audiences: [ID]
   ccap: Long
   channelType: ID
-  cities: [ID]
   clear: Long
   clientContact: ID
   clientName: String
@@ -3446,6 +3436,7 @@ union GenericMorph =
   | UsersPermissionsUser
   | WasteFamily
   | WasteForm
+  | WelcomeMessageBlock
   | YesWeScanService
 
 type Global {
@@ -3505,6 +3496,7 @@ type Homepage {
     sort: [String] = []
   ): TopContentBlockRelationResponseCollection
   updatedAt: DateTime
+  welcomeMessageBlock: WelcomeMessageBlockEntityResponse
 }
 
 type HomepageEntity {
@@ -3535,6 +3527,7 @@ input HomepageFiltersInput {
   servicesBlocks: ServicesBlockFiltersInput
   topContentBlocks: TopContentBlockFiltersInput
   updatedAt: DateTimeFilterInput
+  welcomeMessageBlock: WelcomeMessageBlockFiltersInput
 }
 
 input HomepageInput {
@@ -3545,6 +3538,7 @@ input HomepageInput {
   searchEngineBlock: ID
   servicesBlocks: [ID]
   topContentBlocks: [ID]
+  welcomeMessageBlock: ID
 }
 
 type I18NLocale {
@@ -4047,6 +4041,9 @@ type Mutation {
   ): UsersPermissionsUserEntityResponse!
   createWasteFamily(data: WasteFamilyInput!): WasteFamilyEntityResponse
   createWasteForm(data: WasteFormInput!): WasteFormEntityResponse
+  createWelcomeMessageBlock(
+    data: WelcomeMessageBlockInput!
+  ): WelcomeMessageBlockEntityResponse
   createYesWeScanService(
     data: YesWeScanServiceInput!
   ): YesWeScanServiceEntityResponse
@@ -4141,6 +4138,7 @@ type Mutation {
   deleteUsersPermissionsUser(id: ID!): UsersPermissionsUserEntityResponse!
   deleteWasteFamily(id: ID!): WasteFamilyEntityResponse
   deleteWasteForm(id: ID!): WasteFormEntityResponse
+  deleteWelcomeMessageBlock(id: ID!): WelcomeMessageBlockEntityResponse
   deleteYesWeScanService(id: ID!): YesWeScanServiceEntityResponse
   deleteYwsService(id: ID!): Boolean
   duplicateContent(id: ID!, type: String): Boolean
@@ -4448,6 +4446,10 @@ type Mutation {
   ): UsersPermissionsUserEntityResponse!
   updateWasteFamily(data: WasteFamilyInput!, id: ID!): WasteFamilyEntityResponse
   updateWasteForm(data: WasteFormInput!, id: ID!): WasteFormEntityResponse
+  updateWelcomeMessageBlock(
+    data: WelcomeMessageBlockInput!
+    id: ID!
+  ): WelcomeMessageBlockEntityResponse
   updateYesWeScanService(
     data: YesWeScanServiceInput!
     id: ID!
@@ -5543,6 +5545,12 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): WasteFormEntityResponseCollection
+  welcomeMessageBlock(id: ID): WelcomeMessageBlockEntityResponse
+  welcomeMessageBlocks(
+    filters: WelcomeMessageBlockFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): WelcomeMessageBlockEntityResponseCollection
   yesWeScanService(id: ID): YesWeScanServiceEntityResponse
   yesWeScanServices(
     filters: YesWeScanServiceFiltersInput
@@ -5764,7 +5772,6 @@ type QuizSubServiceRelationResponseCollection {
 }
 
 type RecyclingGuideBlock {
-  audience: AudienceEntityResponse
   createdAt: DateTime
   homepage: HomepageEntityResponse
   recyclingGuideDisplayContent: String!
@@ -5794,7 +5801,6 @@ type RecyclingGuideBlockEntityResponseCollection {
 
 input RecyclingGuideBlockFiltersInput {
   and: [RecyclingGuideBlockFiltersInput]
-  audience: AudienceFiltersInput
   createdAt: DateTimeFilterInput
   homepage: HomepageFiltersInput
   id: IDFilterInput
@@ -5808,7 +5814,6 @@ input RecyclingGuideBlockFiltersInput {
 }
 
 input RecyclingGuideBlockInput {
-  audience: ID
   homepage: ID
   recyclingGuideDisplayContent: String
   subtitleContent: String
@@ -7527,6 +7532,49 @@ input WasteFormInput {
 
 type WasteFormRelationResponseCollection {
   data: [WasteFormEntity!]!
+}
+
+type WelcomeMessageBlock {
+  createdAt: DateTime
+  homepage: HomepageEntityResponse
+  showBlock: Boolean!
+  subtitle: String!
+  title: String!
+  updatedAt: DateTime
+}
+
+type WelcomeMessageBlockEntity {
+  attributes: WelcomeMessageBlock
+  id: ID
+}
+
+type WelcomeMessageBlockEntityResponse {
+  data: WelcomeMessageBlockEntity
+}
+
+type WelcomeMessageBlockEntityResponseCollection {
+  data: [WelcomeMessageBlockEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input WelcomeMessageBlockFiltersInput {
+  and: [WelcomeMessageBlockFiltersInput]
+  createdAt: DateTimeFilterInput
+  homepage: HomepageFiltersInput
+  id: IDFilterInput
+  not: WelcomeMessageBlockFiltersInput
+  or: [WelcomeMessageBlockFiltersInput]
+  showBlock: BooleanFilterInput
+  subtitle: StringFilterInput
+  title: StringFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input WelcomeMessageBlockInput {
+  homepage: ID
+  showBlock: Boolean
+  subtitle: String
+  title: String
 }
 
 type YesWeScanService {

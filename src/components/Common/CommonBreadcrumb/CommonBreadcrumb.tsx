@@ -17,7 +17,7 @@ export default function CommonBreadcrumb({ pages }: ICommonBreadcrumbProps) {
   const { setCurrentPage } = useNavigation();
 
   return (
-    <nav className="c-CommonBreadcrumb">
+    <nav className="c-CommonBreadcrumb" role="navigation">
       {pages.map((page, index) =>
         pages.length - 1 === index ? (
           <span className="c-CommonBreadcrumb__Link" key={index}>
