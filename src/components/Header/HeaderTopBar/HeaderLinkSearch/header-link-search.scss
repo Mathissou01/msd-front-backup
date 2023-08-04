@@ -16,6 +16,6 @@
   }
 
   &__Button {
-    @include buttons.button("tertiary");
+    @include buttons.button("lightGray");
   }
 }

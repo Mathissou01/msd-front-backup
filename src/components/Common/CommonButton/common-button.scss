@@ -29,6 +29,10 @@
     @include buttons.button("tertiary");
   }
 
+  &_lightGray {
+    @include buttons.button("lightGray");
+  }
+
   &_paddingSmall {
     padding: 8px 16px;
   }

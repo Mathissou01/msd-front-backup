@@ -40,6 +40,11 @@ const Step3: React.FC<Step3Props> = ({
   const [filteredOptions, setFilteredOptions] = useState<AddressOption[]>([]);
   const [isVisibled, setIsVisibled] = useState(false);
 
+  const labels = {
+    unknownAddressValue: "Mon adresse n'est pas reconnue",
+    unknownAddressError:
+      "Malheureusement, nous ne trouvons pas votre adresse dans notre base de données",
+  };
   const { data: searchAddressData, loading } = useSearchAddressQuery({
     variables: { address: debouncedValue, limit: 5 },
   });
@@ -105,21 +110,20 @@ const Step3: React.FC<Step3Props> = ({
               label="Valider"
               onClick={() => handleOptionClick(4)}
             />
-            <button
-              className="o-Steps__CardButtons_openmodal"
+            <CommonButton
+              type="button"
+              style="tertiary"
+              label={labels.unknownAddressValue}
               onClick={() =>
                 handleError({
                   isActive: true,
-                  title:
-                    "Malheureusement, nous ne trouvons pas votre adresse dans notre base de données",
+                  title: labels.unknownAddressError,
                   isAddressVisible: true,
                   isReasonVisible: false,
                   isContactVisible: true,
                 })
               }
-            >
-              {`Mon adresse n'est pas reconnue`}
-            </button>
+            />
           </div>
         </div>
       </div>

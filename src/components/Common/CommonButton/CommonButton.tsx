@@ -11,7 +11,13 @@ interface ICommonButtonProps {
   onClick?: () => void;
   formLabelId?: string;
   buttonRef?: React.RefObject<HTMLButtonElement>;
-  style?: "primary" | "primaryContrast" | "secondary" | "tertiary" | null;
+  style?:
+    | "primary"
+    | "primaryContrast"
+    | "secondary"
+    | "tertiary"
+    | "lightGray"
+    | null;
   fontStyle?: "fontSmall" | "fontLarge";
   paddingStyle?: "paddingSmall" | "paddingLarge";
   isFullWidth?: boolean;
