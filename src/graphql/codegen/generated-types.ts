@@ -12945,6 +12945,15 @@ export type GetRequestsLevelsQuery = {
   } | null;
 };
 
+export type ValidateRequestMutationVariables = Exact<{
+  data?: InputMaybe<Scalars["JSON"]>;
+}>;
+
+export type ValidateRequestMutation = {
+  __typename?: "Mutation";
+  validateRequest?: boolean | null;
+};
+
 export type GetMemoTriBlockByContractIdQueryVariables = Exact<{
   contractId: Scalars["ID"];
 }>;
@@ -18441,6 +18450,54 @@ export type GetRequestsLevelsLazyQueryHookResult = ReturnType<
 export type GetRequestsLevelsQueryResult = Apollo.QueryResult<
   GetRequestsLevelsQuery,
   GetRequestsLevelsQueryVariables
+>;
+export const ValidateRequestDocument = gql`
+  mutation validateRequest($data: JSON) {
+    validateRequest(requestJSON: $data)
+  }
+`;
+export type ValidateRequestMutationFn = Apollo.MutationFunction<
+  ValidateRequestMutation,
+  ValidateRequestMutationVariables
+>;
+
+/**
+ * __useValidateRequestMutation__
+ *
+ * To run a mutation, you first call `useValidateRequestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useValidateRequestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [validateRequestMutation, { data, loading, error }] = useValidateRequestMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useValidateRequestMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ValidateRequestMutation,
+    ValidateRequestMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    ValidateRequestMutation,
+    ValidateRequestMutationVariables
+  >(ValidateRequestDocument, options);
+}
+export type ValidateRequestMutationHookResult = ReturnType<
+  typeof useValidateRequestMutation
+>;
+export type ValidateRequestMutationResult =
+  Apollo.MutationResult<ValidateRequestMutation>;
+export type ValidateRequestMutationOptions = Apollo.BaseMutationOptions<
+  ValidateRequestMutation,
+  ValidateRequestMutationVariables
 >;
 export const GetMemoTriBlockByContractIdDocument = gql`
   query getMemoTriBlockByContractId($contractId: ID!) {

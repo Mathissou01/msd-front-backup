@@ -37,10 +37,14 @@ const CommonCheckbox: React.ForwardRefRenderFunction<
   /* Methods */
   function handleOnChange(event: React.ChangeEvent<HTMLInputElement>) {
     const newValue = !isChecked;
-    setValue(id, newValue, {
-      shouldDirty: true,
-      shouldValidate: true,
-    });
+    setValue(
+      id,
+      { name: label, content: newValue },
+      {
+        shouldDirty: true,
+        shouldValidate: true,
+      },
+    );
     setIsChecked(newValue);
     if (onChange) {
       onChange(event);

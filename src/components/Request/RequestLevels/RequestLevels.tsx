@@ -18,6 +18,7 @@ interface IRequestLevelsProps {
   setNoBlockSteps: (steps: number) => void;
   setSteps: (steps: number) => void;
   allSelectedCard: boolean;
+  setChosenRequestTypeId: (requestTypeId: string) => void;
 }
 
 export default function RequestLevels({
@@ -28,6 +29,7 @@ export default function RequestLevels({
   setSteps,
   setNoBlockSteps,
   allSelectedCard,
+  setChosenRequestTypeId,
 }: IRequestLevelsProps) {
   const labels = {
     requestFirstLevel: "Votre demande concerne *",
@@ -108,6 +110,7 @@ export default function RequestLevels({
       case E_LEVEL_TYPE.REQUEST_TYPE:
         setThirdLevel({ id: idLevel, levelNumber: 3, type: levelType });
         setCurrentStep(secondLevel.levelNumber !== -1 ? 4 : 3);
+        setChosenRequestTypeId(idLevel);
         setAllSelectedCards(true);
         break;
     }

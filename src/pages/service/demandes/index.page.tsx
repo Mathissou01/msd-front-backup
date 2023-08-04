@@ -46,6 +46,7 @@ export default function ServiceDemandesPage({
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [allSelectedCards, setAllSelectedCards] = useState<boolean>(false);
   const [currentRequest, setCurrentRequest] = useState<RequestEntity>();
+  const [chosenRequestTypeId, setChosenRequestTypeId] = useState<string>("");
   const [steps, setSteps] = useState<number>(0);
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [noBlockSteps, setNoBlockSteps] = useState<number>(0);
@@ -80,6 +81,7 @@ export default function ServiceDemandesPage({
                   setSteps={setSteps}
                   setCurrentRequest={setCurrentRequest}
                   allSelectedCard={allSelectedCards}
+                  setChosenRequestTypeId={setChosenRequestTypeId}
                 />
               ) : null}
             </div>
@@ -92,6 +94,7 @@ export default function ServiceDemandesPage({
                 noBlockSteps={noBlockSteps}
                 setCurrentStep={setCurrentStep}
                 steps={steps}
+                chosenRequestTypeId={chosenRequestTypeId}
               />
             )}
           </>

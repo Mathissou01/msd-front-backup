@@ -14,7 +14,7 @@ interface RequestAppointmentSlotsProps {
   noBlockSteps: number;
 }
 
-interface AppointmentSlot {
+export interface AppointmentSlot {
   __typename?: "AvailableSlot";
   slotId: string;
   exceptionId?: string | null;

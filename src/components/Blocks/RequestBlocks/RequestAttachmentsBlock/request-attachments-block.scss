@@ -9,6 +9,12 @@
     input {
       width: 100%;
     }
+
+    &_invalid {
+      input {
+        border: solid 1px colors.$error;
+      }
+    }
   }
 
   &__InformativeText {

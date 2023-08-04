@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useFormContext } from "react-hook-form";
 import {
   ComponentBlocksQcm,
   Enum_Componentblocksqcm_Fieldstatusqcm,
@@ -16,6 +18,15 @@ export default function RequestQCMBlock({
   blockDataQCM,
   name,
 }: IRequestQCMBlock) {
+  const { watch, setValue } = useFormContext();
+  const watchValue = watch(`temp.${name}`);
+
+  useEffect(() => {
+    if (watchValue)
+      setValue(name, { name: blockDataQCM.fieldLabelQCM, content: watchValue });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchValue]);
+
   return (
     <div className="c-RequestQCMBlock">
       <CommonBlockHeading
@@ -29,7 +40,7 @@ export default function RequestQCMBlock({
       />
       {blockDataQCM.multipleChoice ? (
         <FormMultiCheckbox
-          name={name}
+          name={`temp.${name}`}
           options={blockDataQCM.responses.split(";").map((answer) => {
             return {
               label: answer,
@@ -43,7 +54,7 @@ export default function RequestQCMBlock({
         />
       ) : (
         <FormSelect
-          name={name}
+          name={`temp.${name}`}
           options={blockDataQCM.responses.split(";").map((answer) => {
             return {
               option: answer.trim(),

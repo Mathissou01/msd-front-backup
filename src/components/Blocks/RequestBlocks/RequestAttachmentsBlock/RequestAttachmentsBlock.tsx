@@ -1,5 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import classNames from "classnames";
+import _ from "lodash";
 import { ComponentBlocksAttachments } from "../../../../graphql/codegen/generated-types";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
 import CommonFormErrorText from "../../../Common/CommonFormErrorText/CommonFormErrorText";
@@ -38,7 +40,11 @@ export default function RequestAttachmentsBlock({
         }`}
         isAlignLeft
       />
-      <div className="c-RequestAttachmentsBlock__Input">
+      <div
+        className={classNames("c-RequestAttachmentsBlock__Input", {
+          "c-RequestAttachmentsBlock__Input_invalid": !!_.get(errors, name),
+        })}
+      >
         <input
           type="file"
           multiple={attachmentsBlockData.multipleAttachments ?? false}

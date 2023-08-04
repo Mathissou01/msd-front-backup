@@ -10,6 +10,7 @@ import RequestAddressField from "../RequestAddressField/RequestAddressField";
 import RequestUser from "../RequestUser/RequestUser";
 import RequestBlocks from "../RequestBlocks/RequestBlocks";
 import RequestAppointmentSlots from "../RequestAppointmentSlots/RequestAppointmentSlots";
+import CommonButton from "../../Common/CommonButton/CommonButton";
 import "./request-fields.scss";
 
 interface IRequestFieldsProps {
@@ -31,6 +32,7 @@ export default function RequestFields({
   const labels = {
     appointmentSlots: "Créneaux disponibles*",
     additionalAddress: "Complément d'adresse",
+    submitButton: "Envoyer",
   };
 
   /* Local data */
@@ -134,6 +136,14 @@ export default function RequestFields({
               isPhoneRequired={data.attributes.isUserPhoneMandatory ?? true}
               isEmailRequired={data.attributes.isUserEmailMandatory ?? true}
               hasSMS={data.attributes.userAllowSMSNotification ?? false}
+            />
+          )}
+          {currentStep === steps && (
+            <CommonButton
+              label={labels.submitButton}
+              type="submit"
+              style="primary"
+              paddingStyle="paddingLarge"
             />
           )}
         </div>
