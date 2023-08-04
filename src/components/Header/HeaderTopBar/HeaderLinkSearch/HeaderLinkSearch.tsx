@@ -1,8 +1,15 @@
 import React from "react";
 import Image from "next/image";
+import { makePublicAssetPath } from "../../../../lib/utilities";
 import "./header-link-search.scss";
 
 export default function HeaderLinkSearch() {
+  /* Static Data */
+  const searchIcon = {
+    source: "/images/pictos/search.svg",
+    alternativeText: "Lancer la recherche",
+  };
+
   return (
     <div className="c-HeaderLinkSearch">
       <input
@@ -14,10 +21,10 @@ export default function HeaderLinkSearch() {
       />
       <button className="c-HeaderLinkSearch__Button">
         <Image
-          src="/images/pictos/search.svg"
-          alt="Chercher"
-          width="24"
-          height="24"
+          src={makePublicAssetPath(searchIcon.source)}
+          alt={searchIcon.alternativeText}
+          width={24}
+          height={24}
         />
       </button>
     </div>

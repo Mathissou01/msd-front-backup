@@ -1,12 +1,14 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { makePublicAssetPath } from "../../../../lib/utilities";
 import { useContract } from "../../../../hooks/useContract";
 
 export default function LogoCommunity() {
   /*Local Data */
   const { contract } = useContract();
   const logoCommunity = contract?.attributes?.logo?.data?.attributes;
+  const ariaLabel = `${contract.attributes?.clientName}, retour à l'accueil`;
 
   return (
     <>
@@ -17,10 +19,11 @@ export default function LogoCommunity() {
           data-testid="logo-community"
         >
           <Image
-            src={logoCommunity.url}
-            alt={logoCommunity.alternativeText ?? ""}
-            width={"160"}
-            height={"56"}
+            src={makePublicAssetPath(logoCommunity.url)}
+            alt={logoCommunity.alternativeText ?? "Retour à l'accueil"}
+            width={160}
+            height={56}
+            aria-label={ariaLabel}
             priority
           />
         </Link>

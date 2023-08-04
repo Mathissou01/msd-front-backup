@@ -6,7 +6,6 @@ import {
   TagEntity,
   UploadFile,
 } from "../../../graphql/codegen/generated-types";
-import Arrow from "public/images/pictos/arrow.svg";
 import {
   handleDateFrenchFormat,
   makePublicAssetPath,
@@ -34,9 +33,15 @@ export default function CommonCardBlock({
   isEventDisplay = false,
   isAlignTextCenter = false,
 }: ICommonCardBlockProps) {
+  /* Static Data */
   const linkLabel = "En savoir plus";
   const contentCardDate = new Date(date ?? "");
   const dataFrenchFormat = handleDateFrenchFormat(contentCardDate);
+  const arrowIcon = {
+    source: "images/pictos/arrow.svg",
+    alternativeText: "",
+    ariaHidden: true,
+  };
   const blockClasses = classNames("c-CommonCardBlock", {
     "c-CommonCardBlock_isEventDisplay": isEventDisplay,
   });
@@ -94,7 +99,13 @@ export default function CommonCardBlock({
           </div>
           <div className="c-CommonCardBlock__Link">
             <span>{linkLabel}</span>
-            <Arrow />
+            <Image
+              src={makePublicAssetPath(arrowIcon.source)}
+              alt={arrowIcon.alternativeText}
+              aria-hidden={arrowIcon.ariaHidden}
+              width={24}
+              height={24}
+            />
           </div>
         </div>
       </div>

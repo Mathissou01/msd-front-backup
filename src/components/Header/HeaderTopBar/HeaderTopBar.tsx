@@ -30,6 +30,19 @@ export default function HeaderTopBar({
     notifyRoute: "/",
     contactUsRoute: "/service/contact",
   };
+  const searchIcon = {
+    source: "/images/pictos/search.svg",
+    alternativeText: "Afficher la recherche",
+  };
+  const notifyIcon = {
+    source: "/images/pictos/notify.svg",
+    alternativeText: "S'abonner aux alertes",
+  };
+  const contactIcon = {
+    source: "/images/pictos/contact.svg",
+    alternativeText: "Contactez-nous",
+  };
+
   return (
     <>
       <header role="banner" className="c-HeaderTopBar" data-testid="top-bar">
@@ -54,8 +67,8 @@ export default function HeaderTopBar({
               <li className="c-HeaderTopBar__Item c-HeaderTopBar__Search">
                 <NavigationLink
                   href="/"
-                  pictoUrl="/images/pictos/search.svg"
-                  pictoAlt="Rechercher"
+                  pictoUrl={searchIcon.source}
+                  pictoAlt={searchIcon.alternativeText}
                   isDesktopMode
                 />
               </li>
@@ -76,8 +89,8 @@ export default function HeaderTopBar({
               <li className="c-HeaderTopBar__Item">
                 <NavigationLink
                   href="/"
-                  pictoUrl="/images/pictos/notify.svg"
-                  pictoAlt="Notification"
+                  pictoUrl={notifyIcon.source}
+                  pictoAlt={notifyIcon.alternativeText}
                   isDesktopMode
                 />
               </li>
@@ -85,8 +98,8 @@ export default function HeaderTopBar({
               <li className="c-HeaderTopBar__Item">
                 <NavigationLink
                   href={routes.contactUsRoute}
-                  pictoUrl="/images/pictos/contact.svg"
-                  pictoAlt="contactez-nous"
+                  pictoUrl={contactIcon.source}
+                  pictoAlt={contactIcon.alternativeText}
                   isDesktopMode
                 />
               </li>

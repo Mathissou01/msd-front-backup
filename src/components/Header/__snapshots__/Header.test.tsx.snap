@@ -22,7 +22,17 @@ exports[`Header renders in desktop mode 1`] = `
           <span>
             Montauban
           </span>
-          <div />
+          <img
+            alt="Changer de ville"
+            aria-label="Changer de ville"
+            data-nimg="1"
+            decoding="async"
+            height="24"
+            loading="lazy"
+            src="images/pictos/button_refresh_arrows.svg"
+            style="color: transparent;"
+            width="24"
+          />
         </div>
       </li>
       <div
@@ -49,7 +59,7 @@ exports[`Header renders in desktop mode 1`] = `
               class="c-HeaderLinkSearch__Button"
             >
               <img
-                alt="Chercher"
+                alt="Lancer la recherche"
                 data-nimg="1"
                 decoding="async"
                 height="24"
@@ -80,7 +90,7 @@ exports[`Header renders in desktop mode 1`] = `
               class="c-NavigationLink__Picto"
             >
               <img
-                alt="Notification"
+                alt="S'abonner aux alertes"
                 data-nimg="1"
                 decoding="async"
                 height="24"
@@ -114,7 +124,7 @@ exports[`Header renders in desktop mode 1`] = `
               class="c-NavigationLink__Picto"
             >
               <img
-                alt="contactez-nous"
+                alt="Contactez-nous"
                 data-nimg="1"
                 decoding="async"
                 height="24"
@@ -230,7 +240,17 @@ exports[`Header renders in desktop mode 1`] = `
           <div
             class="c-HeaderLinkUser__Circle"
           >
-            <div />
+            <img
+              alt="Mon compte"
+              aria-label="Mon compte"
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="images/pictos/avatar.svg"
+              style="color: transparent;"
+              width="20"
+            />
           </div>
         </a>
       </li>
@@ -244,7 +264,17 @@ exports[`Header renders in desktop mode 1`] = `
       class="c-MSDLogo"
       href="https://www.monservicedechets.com/"
     >
-      <div />
+      <img
+        alt="Allez sur le site de Suez"
+        aria-label="Mon service déchets Suez, allez sur le site de Suez"
+        data-nimg="1"
+        decoding="async"
+        height="30"
+        loading="lazy"
+        src="images/logo_msd.svg"
+        style="color: transparent;"
+        width="141"
+      />
     </a>
   </nav>
   <div
@@ -284,7 +314,17 @@ exports[`Header renders in mobile mode 1`] = `
           <div
             class="c-HeaderLinkUser__Circle"
           >
-            <div />
+            <img
+              alt="Mon compte"
+              aria-label="Mon compte"
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="images/pictos/avatar.svg"
+              style="color: transparent;"
+              width="20"
+            />
           </div>
         </a>
       </li>
@@ -302,7 +342,7 @@ exports[`Header renders in mobile mode 1`] = `
               class="c-NavigationLink__Picto"
             >
               <img
-                alt="Rechercher"
+                alt="Afficher la recherche"
                 data-nimg="1"
                 decoding="async"
                 height="24"
@@ -339,7 +379,17 @@ exports[`Header renders in mobile mode 1`] = `
           <span>
             Montauban
           </span>
-          <div />
+          <img
+            alt="Changer de ville"
+            aria-label="Changer de ville"
+            data-nimg="1"
+            decoding="async"
+            height="24"
+            loading="lazy"
+            src="images/pictos/button_refresh_arrows.svg"
+            style="color: transparent;"
+            width="24"
+          />
         </div>
       </li>
       <li
@@ -571,7 +621,17 @@ exports[`Header renders in mobile mode 1`] = `
           class="c-MSDLogo"
           href="https://www.monservicedechets.com/"
         >
-          <div />
+          <img
+            alt="Allez sur le site de Suez"
+            aria-label="Mon service déchets Suez, allez sur le site de Suez"
+            data-nimg="1"
+            decoding="async"
+            height="30"
+            loading="lazy"
+            src="images/logo_msd.svg"
+            style="color: transparent;"
+            width="141"
+          />
         </a>
       </li>
     </ul>

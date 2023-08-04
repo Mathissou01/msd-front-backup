@@ -125,7 +125,17 @@ exports[`TopContentBlock renders titleContent 1`] = `
                 <span>
                   En savoir plus
                 </span>
-                <div />
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  data-nimg="1"
+                  decoding="async"
+                  height="24"
+                  loading="lazy"
+                  src="images/pictos/arrow.svg"
+                  style="color: transparent;"
+                  width="24"
+                />
               </div>
             </div>
           </div>
@@ -194,7 +204,17 @@ exports[`TopContentBlock renders titleContent 1`] = `
                 <span>
                   En savoir plus
                 </span>
-                <div />
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  data-nimg="1"
+                  decoding="async"
+                  height="24"
+                  loading="lazy"
+                  src="images/pictos/arrow.svg"
+                  style="color: transparent;"
+                  width="24"
+                />
               </div>
             </div>
           </div>
@@ -263,7 +283,17 @@ exports[`TopContentBlock renders titleContent 1`] = `
                 <span>
                   En savoir plus
                 </span>
-                <div />
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  data-nimg="1"
+                  decoding="async"
+                  height="24"
+                  loading="lazy"
+                  src="images/pictos/arrow.svg"
+                  style="color: transparent;"
+                  width="24"
+                />
               </div>
             </div>
           </div>
@@ -409,7 +439,17 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
                 <span>
                   En savoir plus
                 </span>
-                <div />
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  data-nimg="1"
+                  decoding="async"
+                  height="24"
+                  loading="lazy"
+                  src="images/pictos/arrow.svg"
+                  style="color: transparent;"
+                  width="24"
+                />
               </div>
             </div>
           </div>
@@ -478,7 +518,17 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
                 <span>
                   En savoir plus
                 </span>
-                <div />
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  data-nimg="1"
+                  decoding="async"
+                  height="24"
+                  loading="lazy"
+                  src="images/pictos/arrow.svg"
+                  style="color: transparent;"
+                  width="24"
+                />
               </div>
             </div>
           </div>
@@ -547,7 +597,17 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
                 <span>
                   En savoir plus
                 </span>
-                <div />
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  data-nimg="1"
+                  decoding="async"
+                  height="24"
+                  loading="lazy"
+                  src="images/pictos/arrow.svg"
+                  style="color: transparent;"
+                  width="24"
+                />
               </div>
             </div>
           </div>
