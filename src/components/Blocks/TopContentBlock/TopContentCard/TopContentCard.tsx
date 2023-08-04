@@ -75,7 +75,7 @@ export default function TopContentCard({
             )}
           </div>
           <div className="c-TopContentCard__Content">
-            <h2 className="c-TopContentCard__Title">{title}</h2>
+            <h3 className="c-TopContentCard__Title">{title}</h3>
             <p className="c-TopContentCard__Description">{shortDescription}</p>
           </div>
           <div className="c-TopContentCard__KnowMore">

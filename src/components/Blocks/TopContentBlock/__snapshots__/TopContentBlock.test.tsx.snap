@@ -41,11 +41,11 @@ exports[`TopContentBlock renders titleContent 1`] = `
             <div
               class="c-TopContentCard__Content"
             >
-              <h2
+              <h3
                 class="c-TopContentCard__Title"
               >
                 Actu test
-              </h2>
+              </h3>
               <p
                 class="c-TopContentCard__Description"
               >
@@ -325,11 +325,11 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
             <div
               class="c-TopContentCard__Content"
             >
-              <h2
+              <h3
                 class="c-TopContentCard__Title"
               >
                 Actu test
-              </h2>
+              </h3>
               <p
                 class="c-TopContentCard__Description"
               >

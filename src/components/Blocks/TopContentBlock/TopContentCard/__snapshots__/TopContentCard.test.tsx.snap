@@ -37,11 +37,11 @@ exports[`TopContentCard renders 1`] = `
         <div
           class="c-TopContentCard__Content"
         >
-          <h2
+          <h3
             class="c-TopContentCard__Title"
           >
             common top content card title
-          </h2>
+          </h3>
           <p
             class="c-TopContentCard__Description"
           />
