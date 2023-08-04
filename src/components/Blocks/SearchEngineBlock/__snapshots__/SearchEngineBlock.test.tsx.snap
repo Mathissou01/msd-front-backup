@@ -29,6 +29,7 @@ exports[`SearchEngineBlock renders the block properly with all props 1`] = `
           aria-label="Rechercher un déchet"
           class="c-SearchEngineBlock__Input"
           placeholder="Lampes"
+          role="search"
           type="text"
         />
         <button
@@ -76,6 +77,7 @@ exports[`SearchEngineBlock should modify input value by firing onChangeEvent 1`]
           aria-label="Rechercher un déchet"
           class="c-SearchEngineBlock__Input"
           placeholder="Lampes"
+          role="search"
           type="text"
         />
         <button

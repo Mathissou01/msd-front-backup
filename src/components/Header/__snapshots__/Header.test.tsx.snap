@@ -259,6 +259,7 @@ exports[`Header renders in desktop mode 1`] = `
   <nav
     class="c-HeaderSideBar"
     data-testid="side-bar"
+    role="navigation"
   >
     <a
       class="c-MSDLogo"

@@ -111,6 +111,7 @@ export default function RecyclingGuideBlock({
             defaultValue={router.query.search}
             onChange={handleChange}
             title="Saisir votre recherche"
+            role="search"
             aria-labelledby="findRecyclingGuideSubtitle"
           />
           <CommonButton

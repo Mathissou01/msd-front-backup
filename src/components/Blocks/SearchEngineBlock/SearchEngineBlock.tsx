@@ -50,6 +50,7 @@ export default function SearchEngineBlock({
             className="c-SearchEngineBlock__Input"
             placeholder={placeholder}
             type="text"
+            role="search"
             onChange={(e) => onSearchTermChange(e.target.value)}
             aria-label="Rechercher un déchet"
           />
