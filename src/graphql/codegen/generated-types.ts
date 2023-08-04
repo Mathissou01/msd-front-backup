@@ -12682,6 +12682,20 @@ export type GetContactUsSubServiceByContractIdQuery = {
   } | null;
 };
 
+export type GetCumbersomeReferentialQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetCumbersomeReferentialQuery = {
+  __typename?: "Query";
+  getCumbersomeReferential: Array<{
+    __typename?: "Cumbersome";
+    category: string;
+    cumbersomeName: string;
+    volume: string;
+  } | null>;
+};
+
 export type GetNextAvailableSlotsQueryVariables = Exact<{
   requestId: Scalars["ID"];
   lat: Scalars["Float"];
@@ -17944,6 +17958,65 @@ export type GetContactUsSubServiceByContractIdLazyQueryHookResult = ReturnType<
 export type GetContactUsSubServiceByContractIdQueryResult = Apollo.QueryResult<
   GetContactUsSubServiceByContractIdQuery,
   GetContactUsSubServiceByContractIdQueryVariables
+>;
+export const GetCumbersomeReferentialDocument = gql`
+  query GetCumbersomeReferential {
+    getCumbersomeReferential {
+      category
+      cumbersomeName
+      volume
+    }
+  }
+`;
+
+/**
+ * __useGetCumbersomeReferentialQuery__
+ *
+ * To run a query within a React component, call `useGetCumbersomeReferentialQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCumbersomeReferentialQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCumbersomeReferentialQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetCumbersomeReferentialQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetCumbersomeReferentialQuery,
+    GetCumbersomeReferentialQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetCumbersomeReferentialQuery,
+    GetCumbersomeReferentialQueryVariables
+  >(GetCumbersomeReferentialDocument, options);
+}
+export function useGetCumbersomeReferentialLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetCumbersomeReferentialQuery,
+    GetCumbersomeReferentialQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetCumbersomeReferentialQuery,
+    GetCumbersomeReferentialQueryVariables
+  >(GetCumbersomeReferentialDocument, options);
+}
+export type GetCumbersomeReferentialQueryHookResult = ReturnType<
+  typeof useGetCumbersomeReferentialQuery
+>;
+export type GetCumbersomeReferentialLazyQueryHookResult = ReturnType<
+  typeof useGetCumbersomeReferentialLazyQuery
+>;
+export type GetCumbersomeReferentialQueryResult = Apollo.QueryResult<
+  GetCumbersomeReferentialQuery,
+  GetCumbersomeReferentialQueryVariables
 >;
 export const GetNextAvailableSlotsDocument = gql`
   query GetNextAvailableSlots($requestId: ID!, $lat: Float!, $long: Float!) {

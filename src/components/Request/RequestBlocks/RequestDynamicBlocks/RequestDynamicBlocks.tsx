@@ -15,6 +15,7 @@ import RequestCommentaryBlock from "../../../Blocks/RequestBlocks/RequestComment
 import RequestDatePickerBlock from "../../../Blocks/RequestBlocks/RequestDatePickerBlock/RequestDatePickerBlock";
 import RequestQCMBlock from "../../../Blocks/RequestBlocks/RequestQCMBlock/RequestQCMBlock";
 import RequestQuestionsBlock from "../../../Blocks/RequestBlocks/RequestQuestionsBlock/RequestQuestionsBlock";
+import RequestCumbersomeBlock from "../../../Blocks/RequestBlocks/RequestCumbersomeBlock/RequestCumbersomeBlock";
 import RequestBlockButtons from "./RequestBlockButtons/RequestBlockButtons";
 import "./request-dynamic-blocks.scss";
 
@@ -60,7 +61,12 @@ export default function RequestDynamicBlocks({
         );
       }
       case "ComponentBlocksCumbersome": {
-        return <></>;
+        return (
+          <RequestCumbersomeBlock
+            cumbersomeBlockData={block}
+            name={`cumbersome.${blockIndex}`}
+          />
+        );
       }
       case "ComponentBlocksDateChoice": {
         return (
@@ -106,6 +112,10 @@ export default function RequestDynamicBlocks({
           Enum_Componentblockscommentary_Commentarystatus.Obligatoire
         );
       }
+      case "ComponentBlocksCumbersome": {
+        // If this block is contributed then it is mandatory
+        return true;
+      }
       case "ComponentBlocksDateChoice": {
         return (
           block.fieldStatus ===
@@ -140,6 +150,9 @@ export default function RequestDynamicBlocks({
         }
         case "ComponentBlocksCommentary": {
           return `commentaries.${blockIndex}`;
+        }
+        case "ComponentBlocksCumbersome": {
+          return `cumbersome.${blockIndex}`;
         }
         case "ComponentBlocksDateChoice": {
           return `dateChoice.${blockIndex}`;

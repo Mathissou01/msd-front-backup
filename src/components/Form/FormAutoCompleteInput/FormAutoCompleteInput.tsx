@@ -14,12 +14,16 @@ interface IFormAutoCompleteInputProps<T> {
   displayTransformFunction: (result: T) => string;
   selectTransformFunction: (result: T) => string | undefined;
   isLoading: boolean;
+  isLoadingCustomMessage?: string;
   isRequired?: boolean;
   minLength?: number;
+  minLengthErrorMessage?: string;
+  noResultsCustomMessage?: string;
   isDisabled?: boolean;
   defaultValue?: string;
   placeholder?: string;
   labelProps?: IFormLabelProps;
+  onClickResult?: (result: string) => void;
 }
 
 export default function FormAutoCompleteInput<T>({
@@ -28,18 +32,25 @@ export default function FormAutoCompleteInput<T>({
   displayTransformFunction,
   selectTransformFunction,
   isLoading,
+  isLoadingCustomMessage,
   isRequired = false,
   minLength = 3,
+  minLengthErrorMessage,
+  noResultsCustomMessage,
   isDisabled = false,
   defaultValue,
   placeholder,
+  onClickResult,
 }: IFormAutoCompleteInputProps<T>) {
   /* Static Data */
-  const isLoadingMessage = "Recherche d'adresse";
-  const noResultsMessage = "Aucune adresse correspondante à cette recherche";
+  const isLoadingMessage = isLoadingCustomMessage ?? "Recherche d'adresse";
+  const noResultsMessage =
+    noResultsCustomMessage ?? "Aucune adresse correspondante à cette recherche";
   const errorMessages = {
     required: "Ce champ est obligatoire",
-    minLength: `Veuillez rechercher une adresse existante en saisissant au moins ${minLength} caractères, puis sélectionnez un résultat`,
+    minLength:
+      minLengthErrorMessage ??
+      `Veuillez rechercher une adresse existante en saisissant au moins ${minLength} caractères, puis sélectionnez un résultat`,
   };
 
   /* Methods */
@@ -67,10 +78,14 @@ export default function FormAutoCompleteInput<T>({
 
   function handleClickResult(result: T) {
     hasResultSelected.current = true;
-    setValue(name, selectTransformFunction(result), {
+    const transformedResult = selectTransformFunction(result);
+    setValue(name, transformedResult, {
       shouldDirty: true,
       shouldValidate: true,
     });
+    if (onClickResult && transformedResult) {
+      onClickResult(transformedResult);
+    }
   }
 
   function displayResults(results: Array<T>) {
