@@ -39,6 +39,7 @@ exports[`Header renders in desktop mode 1`] = `
             class="c-HeaderLinkSearch"
           >
             <input
+              aria-label="Rechercher sur le site"
               class="c-HeaderLinkSearch__Input"
               placeholder="Rechercher sur le site"
               type="text"

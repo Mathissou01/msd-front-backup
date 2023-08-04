@@ -9,6 +9,7 @@ export default function HeaderLinkSearch() {
         className="c-HeaderLinkSearch__Input"
         type="text"
         placeholder="Rechercher sur le site"
+        aria-label="Rechercher sur le site"
       />
       <CommonButton picto="search" style="tertiary" />
     </div>

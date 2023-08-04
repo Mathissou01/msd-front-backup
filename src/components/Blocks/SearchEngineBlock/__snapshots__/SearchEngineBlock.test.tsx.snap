@@ -26,6 +26,7 @@ exports[`SearchEngineBlock renders the block properly with all props 1`] = `
         class="c-SearchEngineBlock__SearchBar"
       >
         <input
+          aria-label="Rechercher un déchet"
           class="c-SearchEngineBlock__Input"
           placeholder="Lampes"
           type="text"
@@ -72,6 +73,7 @@ exports[`SearchEngineBlock should modify input value by firing onChangeEvent 1`]
         class="c-SearchEngineBlock__SearchBar"
       >
         <input
+          aria-label="Rechercher un déchet"
           class="c-SearchEngineBlock__Input"
           placeholder="Lampes"
           type="text"

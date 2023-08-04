@@ -51,6 +51,7 @@ export default function SearchEngineBlock({
             placeholder={placeholder}
             type="text"
             onChange={(e) => onSearchTermChange(e.target.value)}
+            aria-label="Rechercher un déchet"
           />
           <CommonButton
             label={labels.buttonLabel}
