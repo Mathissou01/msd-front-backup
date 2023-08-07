@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { makePublicAssetPath } from "../../../../lib/utilities";
 import { useContract } from "../../../../hooks/useContract";
+import "./logo-community.scss";
 
 export default function LogoCommunity() {
   /*Local Data */
