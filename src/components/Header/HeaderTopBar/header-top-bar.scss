@@ -113,6 +113,7 @@
     justify-content: center;
     min-width: 56px;
     height: 60px;
+    padding: 0 13px;
     color: colors.$expert-blue;
   }
 
@@ -130,8 +131,16 @@
   }
 
   &__Separator {
+    align-self: center;
     width: 2px;
     height: 48px;
     background-color: colors.$gray-200;
+  }
+
+  &__Nav {
+    display: flex;
+    flex-direction: row;
+    margin: 0 0 0 -13px;
+    padding: 0;
   }
 }

@@ -76,41 +76,59 @@ export default function HeaderTopBar({
           )}
           {isDesktopMode && (
             <>
-              <li className="c-HeaderTopBar__Item">
+              <div className="c-HeaderTopBar__Item">
                 <HeaderLinkSelector />
-              </li>
+              </div>
               <div className="c-HeaderTopBar__Filler" aria-hidden={true} />
-              <li className="c-HeaderTopBar__Item">
+              <div className="c-HeaderTopBar__Item">
                 <div className="c-HeaderTopBar__SearchBar">
                   <HeaderLinkSearch />
                 </div>
-              </li>
-              <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
-              <li className="c-HeaderTopBar__Item">
-                <NavigationLink
-                  href="/"
-                  pictoUrl={notifyIcon.source}
-                  pictoAlt={notifyIcon.alternativeText}
-                  isDesktopMode
-                />
-              </li>
-              <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
-              <li className="c-HeaderTopBar__Item">
-                <NavigationLink
-                  href={routes.contactUsRoute}
-                  pictoUrl={contactIcon.source}
-                  pictoAlt={contactIcon.alternativeText}
-                  isDesktopMode
-                />
-              </li>
-              <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
-              <li className="c-HeaderTopBar__Item">
-                <HeaderLinkProfile />
-              </li>
-              <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
-              <li className="c-HeaderTopBar__Item">
-                <HeaderLinkUser />
-              </li>
+              </div>
+              <nav>
+                <ul className="c-HeaderTopBar__Nav">
+                  <div
+                    className="c-HeaderTopBar__Separator"
+                    aria-hidden={true}
+                  />
+                  <li className="c-HeaderTopBar__Item">
+                    <NavigationLink
+                      href="/"
+                      pictoUrl={notifyIcon.source}
+                      pictoAlt={notifyIcon.alternativeText}
+                      isDesktopMode
+                    />
+                  </li>
+                  <div
+                    className="c-HeaderTopBar__Separator"
+                    aria-hidden={true}
+                  />
+
+                  <li className="c-HeaderTopBar__Item">
+                    <NavigationLink
+                      href={routes.contactUsRoute}
+                      pictoUrl={contactIcon.source}
+                      pictoAlt={contactIcon.alternativeText}
+                      isDesktopMode
+                    />
+                  </li>
+
+                  <div
+                    className="c-HeaderTopBar__Separator"
+                    aria-hidden={true}
+                  />
+                  <li className="c-HeaderTopBar__Item">
+                    <HeaderLinkProfile />
+                  </li>
+                  <div
+                    className="c-HeaderTopBar__Separator"
+                    aria-hidden={true}
+                  />
+                  <li className="c-HeaderTopBar__Item">
+                    <HeaderLinkUser />
+                  </li>
+                </ul>
+              </nav>
             </>
           )}
         </ul>

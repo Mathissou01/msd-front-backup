@@ -13,7 +13,7 @@ exports[`Header renders in desktop mode 1`] = `
     <ul
       class="c-HeaderTopBar__List"
     >
-      <li
+      <div
         class="c-HeaderTopBar__Item"
       >
         <div
@@ -34,12 +34,12 @@ exports[`Header renders in desktop mode 1`] = `
             width="24"
           />
         </div>
-      </li>
+      </div>
       <div
         aria-hidden="true"
         class="c-HeaderTopBar__Filler"
       />
-      <li
+      <div
         class="c-HeaderTopBar__Item"
       >
         <div
@@ -71,189 +71,195 @@ exports[`Header renders in desktop mode 1`] = `
             </button>
           </div>
         </div>
-      </li>
-      <div
-        aria-hidden="true"
-        class="c-HeaderTopBar__Separator"
-      />
-      <li
-        class="c-HeaderTopBar__Item"
-      >
-        <a
-          class="c-NavigationLink c-NavigationLink_desktop"
-          href="/"
+      </div>
+      <nav>
+        <ul
+          class="c-HeaderTopBar__Nav"
         >
           <div
-            class="c-NavigationLink__Box"
-          >
-            <div
-              class="c-NavigationLink__Picto"
-            >
-              <img
-                alt="S'abonner aux alertes"
-                data-nimg="1"
-                decoding="async"
-                height="24"
-                loading="lazy"
-                src="/images/pictos/notify.svg"
-                style="color: transparent;"
-                width="24"
-              />
-            </div>
-          </div>
-          <span
-            class="c-NavigationLink__Label"
+            aria-hidden="true"
+            class="c-HeaderTopBar__Separator"
           />
-        </a>
-      </li>
-      <div
-        aria-hidden="true"
-        class="c-HeaderTopBar__Separator"
-      />
-      <li
-        class="c-HeaderTopBar__Item"
-      >
-        <a
-          class="c-NavigationLink c-NavigationLink_desktop"
-          href="/service/contact"
-        >
-          <div
-            class="c-NavigationLink__Box"
+          <li
+            class="c-HeaderTopBar__Item"
           >
-            <div
-              class="c-NavigationLink__Picto"
+            <a
+              class="c-NavigationLink c-NavigationLink_desktop"
+              href="/"
             >
-              <img
-                alt="Contactez-nous"
-                data-nimg="1"
-                decoding="async"
-                height="24"
-                loading="lazy"
-                src="/images/pictos/contact.svg"
-                style="color: transparent;"
-                width="24"
-              />
-            </div>
-          </div>
-          <span
-            class="c-NavigationLink__Label"
-          />
-        </a>
-      </li>
-      <div
-        aria-hidden="true"
-        class="c-HeaderTopBar__Separator"
-      />
-      <li
-        class="c-HeaderTopBar__Item"
-      >
-        <div
-          class="c-HeaderLinkProfile"
-        >
-          <div
-            class="c-HeaderLinkProfile__Content"
-          >
-            <div
-              style="transform: scaleY(1); transition: transform 0.2s ease;"
-            />
-          </div>
-          <div
-            class="c-HeaderLinkProfile__PopUp "
-          >
-            <div
-              class="c-HeaderLinkProfile__PopUpHead"
-            />
-            <div
-              class="c-HeaderLinkProfile__PopUpContent"
-            >
+              <div
+                class="c-NavigationLink__Box"
+              >
+                <div
+                  class="c-NavigationLink__Picto"
+                >
+                  <img
+                    alt="S'abonner aux alertes"
+                    data-nimg="1"
+                    decoding="async"
+                    height="24"
+                    loading="lazy"
+                    src="/images/pictos/notify.svg"
+                    style="color: transparent;"
+                    width="24"
+                  />
+                </div>
+              </div>
               <span
-                class="c-HeaderLinkProfile__PopUpTitle"
-              >
-                Mon profil :
-              </span>
-              <form
-                class="c-HeaderLinkProfile__PopUpForm"
-              >
-                <div
-                  class="c-FormSelect"
-                >
-                  <div
-                    class="c-FormLabel"
-                  >
-                    <label
-                      class="c-FormLabel__LabelWrapper"
-                      for="audience"
-                    >
-                      <span
-                        class="c-FormLabel__Label"
-                      >
-                        Profil *
-                      </span>
-                    </label>
-                  </div>
-                  <div
-                    class="o-SelectWrapper"
-                  >
-                    <select
-                      aria-errormessage="audience_error"
-                      aria-invalid="false"
-                      class="o-SelectWrapper__Select o-SelectWrapper__Select_placeholder"
-                      data-testid="form-select"
-                      id="audience"
-                    >
-                      <option
-                        disabled=""
-                        hidden=""
-                        value="-1"
-                      >
-                        - Sélectionnez un élément -
-                      </option>
-                    </select>
-                  </div>
-                </div>
-                <div
-                  class="c-HeaderLinkProfile__PopUpButton"
-                >
-                  <button
-                    class="c-CommonButton c-CommonButton_primary c-CommonButton_fontLarge c-CommonButton_paddingLarge c-CommonButton_fullWidth"
-                    type="submit"
-                  >
-                    Modifier mon profil
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </li>
-      <div
-        aria-hidden="true"
-        class="c-HeaderTopBar__Separator"
-      />
-      <li
-        class="c-HeaderTopBar__Item"
-      >
-        <a
-          class="c-HeaderLinkUser"
-          href="/connexion"
-        >
+                class="c-NavigationLink__Label"
+              />
+            </a>
+          </li>
           <div
-            class="c-HeaderLinkUser__Circle"
+            aria-hidden="true"
+            class="c-HeaderTopBar__Separator"
+          />
+          <li
+            class="c-HeaderTopBar__Item"
           >
-            <img
-              alt="Mon compte"
-              aria-label="Mon compte"
-              data-nimg="1"
-              decoding="async"
-              height="24"
-              loading="lazy"
-              src="images/pictos/avatar.svg"
-              style="color: transparent;"
-              width="20"
-            />
-          </div>
-        </a>
-      </li>
+            <a
+              class="c-NavigationLink c-NavigationLink_desktop"
+              href="/service/contact"
+            >
+              <div
+                class="c-NavigationLink__Box"
+              >
+                <div
+                  class="c-NavigationLink__Picto"
+                >
+                  <img
+                    alt="Contactez-nous"
+                    data-nimg="1"
+                    decoding="async"
+                    height="24"
+                    loading="lazy"
+                    src="/images/pictos/contact.svg"
+                    style="color: transparent;"
+                    width="24"
+                  />
+                </div>
+              </div>
+              <span
+                class="c-NavigationLink__Label"
+              />
+            </a>
+          </li>
+          <div
+            aria-hidden="true"
+            class="c-HeaderTopBar__Separator"
+          />
+          <li
+            class="c-HeaderTopBar__Item"
+          >
+            <div
+              class="c-HeaderLinkProfile"
+            >
+              <div
+                class="c-HeaderLinkProfile__Content"
+              >
+                <div
+                  style="transform: scaleY(1); transition: transform 0.2s ease;"
+                />
+              </div>
+              <div
+                class="c-HeaderLinkProfile__PopUp "
+              >
+                <div
+                  class="c-HeaderLinkProfile__PopUpHead"
+                />
+                <div
+                  class="c-HeaderLinkProfile__PopUpContent"
+                >
+                  <span
+                    class="c-HeaderLinkProfile__PopUpTitle"
+                  >
+                    Mon profil :
+                  </span>
+                  <form
+                    class="c-HeaderLinkProfile__PopUpForm"
+                  >
+                    <div
+                      class="c-FormSelect"
+                    >
+                      <div
+                        class="c-FormLabel"
+                      >
+                        <label
+                          class="c-FormLabel__LabelWrapper"
+                          for="audience"
+                        >
+                          <span
+                            class="c-FormLabel__Label"
+                          >
+                            Profil *
+                          </span>
+                        </label>
+                      </div>
+                      <div
+                        class="o-SelectWrapper"
+                      >
+                        <select
+                          aria-errormessage="audience_error"
+                          aria-invalid="false"
+                          class="o-SelectWrapper__Select o-SelectWrapper__Select_placeholder"
+                          data-testid="form-select"
+                          id="audience"
+                        >
+                          <option
+                            disabled=""
+                            hidden=""
+                            value="-1"
+                          >
+                            - Sélectionnez un élément -
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div
+                      class="c-HeaderLinkProfile__PopUpButton"
+                    >
+                      <button
+                        class="c-CommonButton c-CommonButton_primary c-CommonButton_fontLarge c-CommonButton_paddingLarge c-CommonButton_fullWidth"
+                        type="submit"
+                      >
+                        Modifier mon profil
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </li>
+          <div
+            aria-hidden="true"
+            class="c-HeaderTopBar__Separator"
+          />
+          <li
+            class="c-HeaderTopBar__Item"
+          >
+            <a
+              class="c-HeaderLinkUser"
+              href="/connexion"
+            >
+              <div
+                class="c-HeaderLinkUser__Circle"
+              >
+                <img
+                  alt="Mon compte"
+                  aria-label="Mon compte"
+                  data-nimg="1"
+                  decoding="async"
+                  height="24"
+                  loading="lazy"
+                  src="images/pictos/avatar.svg"
+                  style="color: transparent;"
+                  width="20"
+                />
+              </div>
+            </a>
+          </li>
+        </ul>
+      </nav>
     </ul>
   </header>
   <nav
