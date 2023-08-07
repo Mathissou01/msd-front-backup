@@ -14,7 +14,7 @@
 
   margin: 5px;
 
-  &__Container {
+  &__Heading {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -34,14 +34,16 @@
     }
   }
 
-  &__Container:hover {
+  &__Heading:hover {
     border: thin solid;
     cursor: pointer;
   }
 
   &__Name {
     color: colors.$expert-blue;
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 18px;
+    font-family: DINPro-Regular, sans-serif;
   }
 
   &__Icon {
@@ -52,17 +54,18 @@
     transform: rotate(90deg);
   }
 
-  &__ButtonContainer:hover {
-    background-color: colors.$gray-200;
-    border-radius: 5px;
-  }
-
-  &__Button {
+  &__IconContainer {
     display: flex;
     align-items: center;
     padding: 8px;
     transition-duration: 200ms;
   }
+
+  &__IconContainer:hover {
+    background-color: colors.$gray-200;
+    border-radius: 5px;
+  }
+
   // stylelint-disable-next-line
   .is-open {
     transform: rotate(90deg);

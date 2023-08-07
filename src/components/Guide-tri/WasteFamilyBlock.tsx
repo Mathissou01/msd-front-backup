@@ -140,7 +140,7 @@ export default function WasteFamilyBlock({
     });
   };
   // Ref Family Block
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLButtonElement>(null);
   /* Render */
   return (
     <CommonLoader
@@ -154,19 +154,26 @@ export default function WasteFamilyBlock({
       )}
       {tableData &&
         tableData.map((data, index) => (
-          <div key={index} className="c-WasteFamillyBlock">
-            <div
-              className="c-WasteFamillyBlock__Container"
-              ref={containerRef}
-              onClick={() => handleDropdownClick(index)}
-            >
-              <div className="c-WasteFamillyBlock__Name">
-                <span>{data.familyName}</span>
-              </div>
-              <div className="c-WasteFamillyBlock__ButtonContainer">
-                <button
-                  type="button"
-                  className={`c-WasteFamillyBlock__Button ${
+          <div
+            key={index}
+            className="c-WasteFamillyBlock"
+            id={`panel-${index}`}
+          >
+            <h3>
+              <button
+                className="c-WasteFamillyBlock__Heading"
+                ref={containerRef}
+                onClick={() => handleDropdownClick(index)}
+                type="button"
+                aria-expanded={dropdownStates[index]}
+                aria-controls={`panel-${index}`}
+                id={`accordion-${index}`}
+              >
+                <span className="c-WasteFamillyBlock__Name">
+                  {data.familyName}
+                </span>
+                <span
+                  className={`c-WasteFamillyBlock__IconContainer ${
                     dropdownStates[index] ? "is-open" : ""
                   }`}
                 >
@@ -175,9 +182,9 @@ export default function WasteFamilyBlock({
                   ) : (
                     <OpenList className="c-WasteFamillyBlock__Icon" />
                   )}
-                </button>
-              </div>
-            </div>
+                </span>
+              </button>
+            </h3>
             <div
               key={index}
               className={`c-WasteFamillyBlock__Submenu_${
