@@ -1,5 +1,7 @@
-import classNames from "classnames";
 import React from "react";
+import Image from "next/image";
+import classNames from "classnames";
+import { makePublicAssetPath } from "../../../lib/utilities";
 import "./common-pagination.scss";
 
 export interface ICommonPaginationProps {
@@ -26,6 +28,16 @@ export default function CommonPagination({
   rowsPerPageOptions = [10, 20, 50, 100],
   rowsPerPageText = "Entrées par page",
 }: ICommonPaginationProps) {
+  /* Static Data */
+  const navigationArrowSrc = "/images/pictos/navigation-arrow.svg";
+  const navigationArrowToSrc = "/images/pictos/navigation-arrow-to.svg";
+  const alternativeText = {
+    arrowToFirst: "Aller à la première page",
+    arrowToLast: "Aller à la dernière page",
+    arrowPrevious: "Aller à la page précédente",
+    arrowNext: "Aller à la page suivante",
+  };
+
   /* Local Data */
   const pageCount = Math.ceil(rowCount / rowsPerPage);
   const paginationClassNames = classNames("c-CommonPagination", {
@@ -65,16 +77,32 @@ export default function CommonPagination({
         <div className={previousClassNames}>
           <button
             type="button"
-            className="c-CommonPagination__Button c-CommonPagination__Button_arrowTo c-CommonPagination__Button_reverse"
+            className="c-CommonPagination__Button"
             disabled={currentPage <= 1}
             onClick={() => onChangePage(1, rowCount)}
-          />
+          >
+            <Image
+              className="c-CommonPagination__Button_reverse"
+              src={makePublicAssetPath(navigationArrowToSrc)}
+              alt={alternativeText.arrowToFirst}
+              height={24}
+              width={24}
+            />
+          </button>
           <button
             type="button"
-            className="c-CommonPagination__Button c-CommonPagination__Button_arrow c-CommonPagination__Button_reverse"
+            className="c-CommonPagination__Button"
             disabled={currentPage <= 1}
             onClick={() => onChangePage(currentPage - 1, rowCount)}
-          />
+          >
+            <Image
+              className="c-CommonPagination__Button_reverse"
+              src={makePublicAssetPath(navigationArrowSrc)}
+              alt={alternativeText.arrowPrevious}
+              height={24}
+              width={24}
+            />
+          </button>
         </div>
         <div className="c-CommonPagination__Pages">
           {[...Array(pageCount)].map((e, i) => (
@@ -92,16 +120,30 @@ export default function CommonPagination({
         <div className={nextClassNames}>
           <button
             type="button"
-            className="c-CommonPagination__Button c-CommonPagination__Button_arrow"
+            className="c-CommonPagination__Button"
             disabled={currentPage >= pageCount}
             onClick={() => onChangePage(currentPage + 1, rowCount)}
-          />
+          >
+            <Image
+              src={makePublicAssetPath(navigationArrowSrc)}
+              alt={alternativeText.arrowNext}
+              height={24}
+              width={24}
+            />
+          </button>
           <button
             type="button"
-            className="c-CommonPagination__Button c-CommonPagination__Button_arrowTo"
+            className="c-CommonPagination__Button"
             disabled={currentPage >= pageCount}
             onClick={() => onChangePage(pageCount, rowCount)}
-          />
+          >
+            <Image
+              src={makePublicAssetPath(navigationArrowToSrc)}
+              alt={alternativeText.arrowToLast}
+              height={24}
+              width={24}
+            />
+          </button>
         </div>
       </nav>
     </div>

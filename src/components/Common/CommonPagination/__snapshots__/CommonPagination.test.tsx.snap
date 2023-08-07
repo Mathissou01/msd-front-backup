@@ -48,15 +48,39 @@ exports[`CommonPagination renders 1`] = `
         class="c-CommonPagination__Backward c-CommonPagination__Backward_disabled"
       >
         <button
-          class="c-CommonPagination__Button c-CommonPagination__Button_arrowTo c-CommonPagination__Button_reverse"
+          class="c-CommonPagination__Button"
           disabled=""
           type="button"
-        />
+        >
+          <img
+            alt="Aller à la première page"
+            class="c-CommonPagination__Button_reverse"
+            data-nimg="1"
+            decoding="async"
+            height="24"
+            loading="lazy"
+            src="/images/pictos/navigation-arrow-to.svg"
+            style="color: transparent;"
+            width="24"
+          />
+        </button>
         <button
-          class="c-CommonPagination__Button c-CommonPagination__Button_arrow c-CommonPagination__Button_reverse"
+          class="c-CommonPagination__Button"
           disabled=""
           type="button"
-        />
+        >
+          <img
+            alt="Aller à la page précédente"
+            class="c-CommonPagination__Button_reverse"
+            data-nimg="1"
+            decoding="async"
+            height="24"
+            loading="lazy"
+            src="/images/pictos/navigation-arrow.svg"
+            style="color: transparent;"
+            width="24"
+          />
+        </button>
       </div>
       <div
         class="c-CommonPagination__Pages"
@@ -81,13 +105,35 @@ exports[`CommonPagination renders 1`] = `
         class="c-CommonPagination__Forward"
       >
         <button
-          class="c-CommonPagination__Button c-CommonPagination__Button_arrow"
+          class="c-CommonPagination__Button"
           type="button"
-        />
+        >
+          <img
+            alt="Aller à la page suivante"
+            data-nimg="1"
+            decoding="async"
+            height="24"
+            loading="lazy"
+            src="/images/pictos/navigation-arrow.svg"
+            style="color: transparent;"
+            width="24"
+          />
+        </button>
         <button
-          class="c-CommonPagination__Button c-CommonPagination__Button_arrowTo"
+          class="c-CommonPagination__Button"
           type="button"
-        />
+        >
+          <img
+            alt="Aller à la dernière page"
+            data-nimg="1"
+            decoding="async"
+            height="24"
+            loading="lazy"
+            src="/images/pictos/navigation-arrow-to.svg"
+            style="color: transparent;"
+            width="24"
+          />
+        </button>
       </div>
     </nav>
   </div>
