@@ -101,6 +101,9 @@ export default function RequestCumbersomeBlock({
   function onCumbersomeRemoval(
     updatedCumbersome: IRequestCumbersomeWithQuantity,
   ) {
+    if (!localCumbersomeWithQuantity) {
+      return;
+    }
     const cumbersomeInInitialReferential =
       data?.getCumbersomeReferential.find((cumbersome) => {
         if (!cumbersome) {
@@ -109,8 +112,10 @@ export default function RequestCumbersomeBlock({
         return cumbersome?.cumbersomeName === updatedCumbersome.cumbersomeName;
       }) ?? undefined;
     if (cumbersomeInInitialReferential) {
-      const newLocalReferential = localCumbersomeReferential;
-      newLocalReferential.push(cumbersomeInInitialReferential);
+      const newLocalReferential = [
+        ...localCumbersomeReferential,
+        cumbersomeInInitialReferential,
+      ];
       setLocalCumbersomeReferential(newLocalReferential);
       setLocalCumbersomeWithQuantity(
         localCumbersomeWithQuantity.filter(
@@ -136,6 +141,9 @@ export default function RequestCumbersomeBlock({
   }
 
   function onCumbersomeQuantityChange(name: string, quantity: number) {
+    if (!localCumbersomeWithQuantity) {
+      return;
+    }
     const cumbersomeWithQuantity = localCumbersomeWithQuantity;
     const updatedCumbersome = cumbersomeWithQuantity.find(
       (cumbersome: IRequestCumbersomeWithQuantity) =>
@@ -175,7 +183,7 @@ export default function RequestCumbersomeBlock({
     Array<Cumbersome>
   >([]);
   const [localCumbersomeWithQuantity, setLocalCumbersomeWithQuantity] =
-    useState<Array<IRequestCumbersomeWithQuantity>>([]);
+    useState<Array<IRequestCumbersomeWithQuantity>>();
   const [currentItemsVolume, setCurrentItemsVolume] = useState<number>(0);
   const [currentItemsQuantity, setCurrentItemsQuantity] = useState<number>(0);
   const [isCumbersomeBlockInError, setIsCumbersomeBlockInError] =
@@ -206,11 +214,12 @@ export default function RequestCumbersomeBlock({
   useEffect(() => {
     setValue(
       name,
-      localCumbersomeWithQuantity.length > 0
+      localCumbersomeWithQuantity?.length &&
+        localCumbersomeWithQuantity?.length > 0
         ? localCumbersomeWithQuantity
         : undefined,
     );
-    if (localCumbersomeWithQuantity.length === 0) {
+    if (localCumbersomeWithQuantity?.length === 0) {
       setError(cumbersomeAutocompleteName, {
         type: "validate",
         message: labels.mandatoryError,
@@ -260,6 +269,15 @@ export default function RequestCumbersomeBlock({
             isLoadingCustomMessage={labels.isLoadingCustomMessage}
             noResultsCustomMessage={labels.noResultsCustomMessage}
             isDisabled={isCumbersomeBlockInError}
+            isRequired={
+              localCumbersomeWithQuantity?.length === 0 ||
+              isCumbersomeBlockInError
+            }
+            requiredCustomMessage={
+              isCumbersomeBlockInError
+                ? cumbersomeBlockData.cumbersomeLimitMessage
+                : undefined
+            }
           />
         </CommonErrors>
         {localCumbersomeWithQuantity &&

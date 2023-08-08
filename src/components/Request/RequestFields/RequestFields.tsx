@@ -138,7 +138,7 @@ export default function RequestFields({
               hasSMS={data.attributes.userAllowSMSNotification ?? false}
             />
           )}
-          {currentStep === steps && (
+          {currentStep >= steps - 1 && (
             <CommonButton
               label={labels.submitButton}
               type="submit"

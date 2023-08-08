@@ -16,6 +16,7 @@ interface IFormAutoCompleteInputProps<T> {
   isLoading: boolean;
   isLoadingCustomMessage?: string;
   isRequired?: boolean;
+  requiredCustomMessage?: string;
   minLength?: number;
   minLengthErrorMessage?: string;
   noResultsCustomMessage?: string;
@@ -34,6 +35,7 @@ export default function FormAutoCompleteInput<T>({
   isLoading,
   isLoadingCustomMessage,
   isRequired = false,
+  requiredCustomMessage,
   minLength = 3,
   minLengthErrorMessage,
   noResultsCustomMessage,
@@ -47,7 +49,7 @@ export default function FormAutoCompleteInput<T>({
   const noResultsMessage =
     noResultsCustomMessage ?? "Aucune adresse correspondante à cette recherche";
   const errorMessages = {
-    required: "Ce champ est obligatoire",
+    required: requiredCustomMessage ?? "Ce champ est obligatoire",
     minLength:
       minLengthErrorMessage ??
       `Veuillez rechercher une adresse existante en saisissant au moins ${minLength} caractères, puis sélectionnez un résultat`,

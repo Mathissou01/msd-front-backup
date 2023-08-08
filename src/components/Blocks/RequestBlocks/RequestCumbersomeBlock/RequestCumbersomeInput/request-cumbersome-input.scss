@@ -43,8 +43,6 @@
     border-radius: 100%;
     cursor: pointer;
     user-select: none;
-    user-select: none;
-    user-select: none;
 
     @include im.media("<=mobile") {
       width: 18px;
@@ -91,8 +89,6 @@
     span {
       font-weight: bolder;
       font-size: 18px;
-      user-select: none;
-      user-select: none;
       user-select: none;
 
       @include im.media("<=mobile") {

@@ -20,6 +20,13 @@ interface IUserData {
   userEmail: string;
 }
 
+interface ICumbersomeData {
+  category: string;
+  cumbersomeName: string;
+  quantity: number;
+  volume: string;
+}
+
 interface IRequestFieldsValues extends FieldValues {
   lat: number;
   long: number;
@@ -28,6 +35,7 @@ interface IRequestFieldsValues extends FieldValues {
   attachments: Array<FileList>;
   checkboxes: Array<IRequestBlockValues>;
   commentaries: Array<IRequestBlockValues>;
+  cumbersome: Array<ICumbersomeData>;
   questions: Array<IRequestBlockValues>;
   questionQCM: Array<IRequestBlockValues>;
   dateChoice: Array<IRequestBlockValues>;
@@ -82,50 +90,62 @@ export default function RequestForm({
   }
 
   async function onSubmit(submitData: IRequestFieldsValues) {
-    const attachements = await Promise.all(
-      Array.from(submitData.attachments)
-        .filter(removeNulls)
-        .map((fileList: FileList) => {
-          return Promise.all(
-            Array.from(fileList).map((file: File) => {
-              return fileToBase64(file).then((res) => {
-                return {
-                  name: file.name,
-                  content: res,
-                };
-              });
-            }),
-          );
-        }),
-    );
+    let attachments = undefined;
+    if (submitData.attachments) {
+      attachments = await Promise.all(
+        Array.from(submitData.attachments)
+          .filter(removeNulls)
+          .map((fileList: FileList) => {
+            return Promise.all(
+              Array.from(fileList).map((file: File) => {
+                return fileToBase64(file).then((res) => {
+                  return {
+                    name: file.name,
+                    content: res,
+                  };
+                });
+              }),
+            );
+          }),
+      );
+    }
 
     const variables = {
-      lat: submitData.lat,
-      long: submitData.long,
-      requestId: submitData.requestId,
-      choosenRequestType: submitData.choosenRequestType,
-      appointmentSlot: submitData.appointmentSlot,
-      attachements,
-      userAllowSms: submitData.userAllowSms,
-      checkboxes: Array.from(submitData.checkboxes).filter((value) => {
-        return value != null;
-      }),
-      commentaries: Array.from(submitData.commentaries).filter(removeNulls),
-      dateChoice: Array.from(submitData.dateChoice)
-        .filter((value) => {
-          return value != null;
-        })
-        .map((date) => {
-          const dateFormatted = new Date(String(date));
-          return `${dateFormatted.getFullYear()}-${dateFormatted.getMonth()}-${dateFormatted.getDay()}`;
-        }),
-      questionsQCM: Array.from(submitData.questionsQCM).filter(removeNulls),
-      questions: Array.from(submitData.questions).filter(removeNulls),
+      lat: submitData.lat ?? undefined,
+      long: submitData.long ?? undefined,
+      requestId: submitData.requestId ?? undefined,
+      choosenRequestType: submitData.choosenRequestType ?? undefined,
+      appointmentSlot: submitData.appointmentSlot ?? undefined,
+      attachments: attachments ?? undefined,
+      userAllowSms: submitData.userAllowSms ?? undefined,
+      checkboxes: submitData.checkboxes
+        ? Array.from(submitData.checkboxes).filter(removeNulls)
+        : undefined,
+      commentaries: submitData.commentaries
+        ? Array.from(submitData.commentaries).filter(removeNulls)
+        : undefined,
+      cumbersome: submitData.cumbersome
+        ? Array.from(submitData.cumbersome).filter(removeNulls)
+        : undefined,
+      dateChoice: submitData.dateChoice
+        ? Array.from(submitData.dateChoice)
+            .filter((value) => value != null)
+            .map((date) => {
+              const dateFormatted = new Date(String(date));
+              return `${dateFormatted.getFullYear()}-${dateFormatted.getMonth()}-${dateFormatted.getDay()}`;
+            })
+        : undefined,
+      questionsQCM: submitData.questionsQCM
+        ? Array.from(submitData.questionsQCM).filter(removeNulls)
+        : undefined,
+      questions: submitData.questions
+        ? Array.from(submitData.questions).filter(removeNulls)
+        : undefined,
       user: {
-        surname: submitData.userSurname,
-        name: submitData.userName,
-        phonehone: submitData.userPhone,
-        email: submitData.userEmail,
+        surname: submitData.userSurname ?? undefined,
+        name: submitData.userName ?? undefined,
+        phonehone: submitData.userPhone ?? undefined,
+        email: submitData.userEmail ?? undefined,
       },
     };
 

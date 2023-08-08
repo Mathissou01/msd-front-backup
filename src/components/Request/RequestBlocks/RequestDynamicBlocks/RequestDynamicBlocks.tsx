@@ -64,7 +64,7 @@ export default function RequestDynamicBlocks({
         return (
           <RequestCumbersomeBlock
             cumbersomeBlockData={block}
-            name={`cumbersome.${blockIndex}`}
+            name="cumbersome"
           />
         );
       }
@@ -152,7 +152,7 @@ export default function RequestDynamicBlocks({
           return `commentaries.${blockIndex}`;
         }
         case "ComponentBlocksCumbersome": {
-          return `cumbersome.${blockIndex}`;
+          return `cumbersome`;
         }
         case "ComponentBlocksDateChoice": {
           return `dateChoice.${blockIndex}`;
