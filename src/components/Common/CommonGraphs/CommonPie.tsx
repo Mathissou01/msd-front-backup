@@ -45,10 +45,18 @@ export default function BarometerInsight({
   const data: Data[] = [
     { name: "0", value: 0, color: white },
     { name: "low", value: maxLow, color: graphLow },
-    { name: "medium", value: maxMedium, color: graphMedium },
-    { name: "high", value: maxHigh, color: graphHot },
-    { name: "veryHigh", value: maxVeryHigh, color: graphVeryHot },
+    { name: "medium", value: maxMedium - maxLow, color: graphMedium },
+    { name: "high", value: maxHigh - maxMedium, color: graphHot },
+    { name: "veryHigh", value: maxVeryHigh - maxHigh, color: graphVeryHot },
   ];
+
+  const dataValues: { [key: string]: number } = {
+    0: 0,
+    low: maxLow,
+    medium: maxMedium,
+    high: maxHigh,
+    veryHigh: maxVeryHigh,
+  };
 
   const cx = 155;
   const cy = 160;
@@ -129,13 +137,13 @@ export default function BarometerInsight({
                   textAnchor={x > cx ? "start" : "end"}
                   fontSize={12}
                 >
-                  {data[index].value !== 0
-                    ? data[index].value + "kg"
-                    : data[index].value}
+                  {dataValues[data[index].name] !== 0
+                    ? dataValues[data[index].name] + "kg"
+                    : dataValues[data[index].name]}
                 </text>
               );
             }}
-            labelLine={false}
+            labelLine={true}
           >
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.color} />
