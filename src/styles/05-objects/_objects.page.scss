@@ -145,9 +145,18 @@
     background: colors.$white;
     border-radius: 8px;
     box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
+    transition: background-color 0.3s ease-in-out;
 
     @include im.media(">=mobile") {
       font-size: 16px;
+    }
+
+    &:hover {
+      padding: 16px;
+      font-weight: 600;
+      background-color: colors.$gray-100;
+      border: 8px solid colors.$white;
+      border-radius: 8px;
     }
   }
 
