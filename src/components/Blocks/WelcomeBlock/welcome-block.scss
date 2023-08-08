@@ -19,6 +19,7 @@
     @include im.media("<laptop") {
       min-height: 0;
       margin: 0;
+      padding: 16px;
     }
 
     @include im.media(">=laptop") {
@@ -39,6 +40,8 @@
 
   &__Subtitle {
     @include typo.text("body");
+
+    margin-left: 2px;
   }
 
   &__SvgContainer {

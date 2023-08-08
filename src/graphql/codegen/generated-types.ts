@@ -11874,6 +11874,45 @@ export type GetTopContentBlockQuery = {
   } | null;
 };
 
+export type GetWelcomeMessageBlockQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+}>;
+
+export type GetWelcomeMessageBlockQuery = {
+  __typename?: "Query";
+  contractCustomizations?: {
+    __typename?: "ContractCustomizationEntityResponseCollection";
+    data: Array<{
+      __typename?: "ContractCustomizationEntity";
+      attributes?: {
+        __typename?: "ContractCustomization";
+        homepage?: {
+          __typename?: "HomepageEntityResponse";
+          data?: {
+            __typename?: "HomepageEntity";
+            attributes?: {
+              __typename?: "Homepage";
+              welcomeMessageBlock?: {
+                __typename?: "WelcomeMessageBlockEntityResponse";
+                data?: {
+                  __typename?: "WelcomeMessageBlockEntity";
+                  id?: string | null;
+                  attributes?: {
+                    __typename?: "WelcomeMessageBlock";
+                    showBlock: boolean;
+                    subtitle: string;
+                    title: string;
+                  } | null;
+                } | null;
+              } | null;
+            } | null;
+          } | null;
+        } | null;
+      } | null;
+    }>;
+  } | null;
+};
+
 export type GetCguByContractIdQueryVariables = Exact<{
   contractId: Scalars["ID"];
   hasMobile?: InputMaybe<Scalars["Boolean"]>;
@@ -16350,6 +16389,83 @@ export type GetTopContentBlockLazyQueryHookResult = ReturnType<
 export type GetTopContentBlockQueryResult = Apollo.QueryResult<
   GetTopContentBlockQuery,
   GetTopContentBlockQueryVariables
+>;
+export const GetWelcomeMessageBlockDocument = gql`
+  query getWelcomeMessageBlock($contractId: ID!) {
+    contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
+      data {
+        attributes {
+          homepage {
+            data {
+              attributes {
+                welcomeMessageBlock {
+                  data {
+                    id
+                    attributes {
+                      showBlock
+                      subtitle
+                      title
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetWelcomeMessageBlockQuery__
+ *
+ * To run a query within a React component, call `useGetWelcomeMessageBlockQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetWelcomeMessageBlockQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetWelcomeMessageBlockQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *   },
+ * });
+ */
+export function useGetWelcomeMessageBlockQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetWelcomeMessageBlockQuery,
+    GetWelcomeMessageBlockQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetWelcomeMessageBlockQuery,
+    GetWelcomeMessageBlockQueryVariables
+  >(GetWelcomeMessageBlockDocument, options);
+}
+export function useGetWelcomeMessageBlockLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetWelcomeMessageBlockQuery,
+    GetWelcomeMessageBlockQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetWelcomeMessageBlockQuery,
+    GetWelcomeMessageBlockQueryVariables
+  >(GetWelcomeMessageBlockDocument, options);
+}
+export type GetWelcomeMessageBlockQueryHookResult = ReturnType<
+  typeof useGetWelcomeMessageBlockQuery
+>;
+export type GetWelcomeMessageBlockLazyQueryHookResult = ReturnType<
+  typeof useGetWelcomeMessageBlockLazyQuery
+>;
+export type GetWelcomeMessageBlockQueryResult = Apollo.QueryResult<
+  GetWelcomeMessageBlockQuery,
+  GetWelcomeMessageBlockQueryVariables
 >;
 export const GetCguByContractIdDocument = gql`
   query getCguByContractId($contractId: ID!, $hasMobile: Boolean) {

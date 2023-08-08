@@ -20,9 +20,12 @@ import {
   GetServicesBlockQuery,
   GetTopContentBlockDocument,
   GetTopContentBlockQuery,
+  GetWelcomeMessageBlockDocument,
+  GetWelcomeMessageBlockQuery,
   QuizAndTipsBlockEntity,
   RecyclingGuideBlockEntity,
   TopContentBlockEntity,
+  WelcomeMessageBlockEntity,
 } from "../graphql/codegen/generated-types";
 import {
   extractEditoBlock,
@@ -30,6 +33,7 @@ import {
   extractRecyclingGuideBlock,
   extractServicesBlock,
   extractTopContentBlock,
+  extractWelcomeMessageBlock,
 } from "../lib/graphql-data";
 import { IServiceLink } from "../lib/service-links";
 import { useCurrentUser } from "../hooks/useCurrentUser";
@@ -48,6 +52,7 @@ interface IServicesBlock {
 
 interface IHomePageProps {
   servicesData: GetServicesActiveQuery;
+  welcomeMessageBlock: WelcomeMessageBlockEntity | null;
   recyclingGuideBlock: RecyclingGuideBlockEntity | null;
   servicesBlocks: Array<IServicesBlock>;
   quizAndTipsBlocks: Array<QuizAndTipsBlockEntity> | null;
@@ -59,6 +64,7 @@ interface IHomePageProps {
 
 export default function HomePage({
   servicesData,
+  welcomeMessageBlock,
   recyclingGuideBlock,
   servicesBlocks,
   quizAndTipsBlocks,
@@ -89,6 +95,7 @@ export default function HomePage({
   const [recyclingGuideSearchTerm, setRecyclingGuideSearchTerm] = useState("");
 
   /* StaticProps data */
+  const displayWelcomeMessageBlock = welcomeMessageBlock?.attributes?.showBlock;
   const displayRecyclingGuideBlock =
     !!recyclingGuideBlock &&
     servicesData.recyclingGuideServices?.data[0]?.attributes?.isActivated;
@@ -157,7 +164,12 @@ export default function HomePage({
         src={scriptUrl}
         type="text/javascript"
       ></Script>
-      <WelcomeBlock />
+      {displayWelcomeMessageBlock && (
+        <WelcomeBlock
+          title={welcomeMessageBlock.attributes?.title ?? ""}
+          subtitle={welcomeMessageBlock.attributes?.subtitle ?? ""}
+        />
+      )}
       {displayRecyclingGuideBlock && (
         <SearchEngineBlock
           searchTerm={recyclingGuideSearchTerm}
@@ -194,6 +206,15 @@ export async function getStaticProps() {
     query: GetServicesActiveDocument,
     variables: { contractId },
   });
+
+  const { data: welcomeMessageBlockData } =
+    await client.query<GetWelcomeMessageBlockQuery>({
+      query: GetWelcomeMessageBlockDocument,
+      variables: { contractId },
+    });
+  const welcomeMessageBlock = extractWelcomeMessageBlock(
+    welcomeMessageBlockData,
+  );
 
   const { data: recyclingGuideBlockData } =
     await client.query<GetRecyclingGuideBlockQuery>({
@@ -280,6 +301,7 @@ export async function getStaticProps() {
   return {
     props: {
       servicesData,
+      welcomeMessageBlock,
       recyclingGuideBlock,
       servicesBlocks,
       quizAndTipsBlocks,

@@ -10,10 +10,14 @@ exports[`WelcomeBlock renders 1`] = `
     >
       <h1
         class="c-WelcomeBlock__Title"
-      />
+      >
+        Title
+      </h1>
       <span
         class="c-WelcomeBlock__Subtitle"
-      />
+      >
+        Subtitle
+      </span>
     </div>
     <div
       class="c-WelcomeBlock__SvgContainer"

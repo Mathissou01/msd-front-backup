@@ -5,14 +5,24 @@ import {
   GetRecyclingGuideBlockQuery,
   GetServicesBlockQuery,
   GetTopContentBlockQuery,
+  GetWelcomeMessageBlockQuery,
   QuizAndTipsBlockEntity,
   RecyclingGuideBlockEntity,
   TopContentBlockEntity,
+  WelcomeMessageBlockEntity,
 } from "../graphql/codegen/generated-types";
 import { IServiceLink, remapServiceLinksDynamicZone } from "./service-links";
 import { removeNulls } from "./utilities";
 
 /* Homepage */
+export function extractWelcomeMessageBlock(data: GetWelcomeMessageBlockQuery) {
+  const welcomeMessageBlock: WelcomeMessageBlockEntity | null =
+    data.contractCustomizations?.data[0]?.attributes?.homepage?.data?.attributes
+      ?.welcomeMessageBlock?.data ?? null;
+
+  return welcomeMessageBlock;
+}
+
 export function extractRecyclingGuideBlock(data: GetRecyclingGuideBlockQuery) {
   const recyclingGuideBlock: RecyclingGuideBlockEntity | null =
     data.contractCustomizations?.data[0]?.attributes?.homepage?.data?.attributes
