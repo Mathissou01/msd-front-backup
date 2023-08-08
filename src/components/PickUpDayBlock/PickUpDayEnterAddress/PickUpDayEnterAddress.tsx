@@ -4,9 +4,9 @@ import {
   useGetBanAddressesAutoCompleteLazyQuery,
 } from "../../../graphql/codegen/generated-types";
 import { removeNulls } from "../../../lib/utilities";
-import CommonButton from "../../Common/CommonButton/CommonButton";
 import { IAddressInfo, ICoordinates } from "../../../lib/pickup-days";
-import RequestAddressFields from "../../Request/RequestAddressField/RequestAddressField";
+import CommonAddressField from "../../Common/CommonAddressField/CommonAddressField";
+import CommonButton from "../../Common/CommonButton/CommonButton";
 import "./pick-up-day-enter-address.scss";
 
 interface IFormInput {
@@ -99,7 +99,7 @@ export default function PickUpDayEnterAddress({
           className="c-PickUpDayEnterAddress__AddressInput"
           onBlur={() => clearErrors("addressInput")}
         >
-          <RequestAddressFields name={"addressInput"} label="Adresse" />
+          <CommonAddressField name={"addressInput"} label="Adresse" />
         </div>
         <CommonButton
           label="Valider"

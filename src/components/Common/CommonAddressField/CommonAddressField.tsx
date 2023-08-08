@@ -5,16 +5,16 @@ import {
   useGetBanAddressesAutoCompleteLazyQuery,
 } from "../../../graphql/codegen/generated-types";
 import { removeNulls } from "../../../lib/utilities";
-import CommonErrors from "../../Common/CommonErrors/CommonErrors";
+import CommonErrors from "../CommonErrors/CommonErrors";
 import FormAutoCompleteInput from "../../Form/FormAutoCompleteInput/FormAutoCompleteInput";
-import "./request-address-field.scss";
+import "./common-address-field.scss";
 
 interface RequestAddressProps {
   label?: string;
   name: string;
 }
 
-export default function RequestAddressField({
+export default function CommonAddressField({
   label,
   name,
 }: RequestAddressProps) {
@@ -51,7 +51,7 @@ export default function RequestAddressField({
   }
 
   return (
-    <div className="c-RequestAddressField">
+    <div className="c-CommonAddressField">
       <CommonErrors errors={[error]}>
         <FormAutoCompleteInput<SearchResultAddress>
           name={name}

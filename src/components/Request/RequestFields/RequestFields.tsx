@@ -6,10 +6,10 @@ import { removeNulls } from "../../../lib/utilities";
 import CommonBlockHeading from "../../Common/CommonBlockHeading/CommonBlockHeading";
 import CommonGeolocationButton from "../../Common/CommonGeolocationButton/CommonGeolocationButton";
 import FormInput from "../../Form/FormInput/FormInput";
-import RequestAddressField from "../RequestAddressField/RequestAddressField";
 import RequestUser from "../RequestUser/RequestUser";
 import RequestBlocks from "../RequestBlocks/RequestBlocks";
 import RequestAppointmentSlots from "../RequestAppointmentSlots/RequestAppointmentSlots";
+import CommonAddressField from "../../Common/CommonAddressField/CommonAddressField";
 import CommonButton from "../../Common/CommonButton/CommonButton";
 import "./request-fields.scss";
 
@@ -94,7 +94,7 @@ export default function RequestFields({
                 onUpdateCoordinates={submitSearch}
                 type="button"
               />
-              <RequestAddressField name="address" />
+              <CommonAddressField name="address" />
               <FormInput
                 name="additionalAddress"
                 label={labels.additionalAddress}
