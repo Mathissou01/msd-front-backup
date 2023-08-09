@@ -20,13 +20,19 @@ import CommonPie from "../../../Common/CommonGraphs/CommonPie";
 import { useCurrentUser } from "../../../../hooks/useCurrentUser";
 import { useContract } from "../../../../hooks/useContract";
 import CommonSpinner from "../../../Common/CommonSpinner/CommonSpinner";
-
+interface BarometerParams {
+  low: number;
+  high: number;
+  medium: number;
+  veryHigh: number;
+}
 const MyHomeData = () => {
   const router = useRouter();
   const { contractId } = useContract();
   const { currentUser } = useCurrentUser();
   const [variationPercent, setVariationPercent] = useState<number | null>(null);
 
+  const [baroParam, setBaroParam] = useState<BarometerParams | null>(null);
   const { data } = useGetDataHomePageMwcQuery({
     variables: {
       address: "11111",
@@ -72,6 +78,16 @@ const MyHomeData = () => {
         contractId: contractId,
       },
     });
+  // console.log("pieData :", pieData);
+  const pie = pieData?.getUserWasteManagement?.map((pie) =>
+    JSON.parse(pie?.barometerParams || ""),
+  );
+
+  useEffect(() => {
+    if (pie && pie.length > 0) {
+      setBaroParam(pie[0]);
+    }
+  }, [pie]);
 
   const renderOverlayContent = () => {
     return (
@@ -204,7 +220,7 @@ const MyHomeData = () => {
               <div className="c-MyHomeData__Barometer">
                 {/* TODO: Change values when API's ready */}
                 <p className="c-MyHomeData__BarometerTopInfo">
-                  Pour votre foyer, la production est de{" "}
+                  Pour votre foyer, la production est de
                   <span>
                     {pieData?.getUserWasteManagement?.[0]?.totalWeight || 0}
                     kg/personne
@@ -220,7 +236,7 @@ const MyHomeData = () => {
 
                 <div className="c-MyHomeData__BarometerLegend">
                   <p>
-                    <span className="c-MyHomeData__BarometerLegend_low"></span>{" "}
+                    <span className="c-MyHomeData__BarometerLegend_low"></span>
                     Faible
                   </p>
                   <p>
@@ -228,7 +244,7 @@ const MyHomeData = () => {
                     Moyen
                   </p>
                   <p>
-                    <span className="c-MyHomeData__BarometerLegend_hot"></span>{" "}
+                    <span className="c-MyHomeData__BarometerLegend_hot"></span>
                     Élevé
                   </p>
                   <p>
@@ -236,11 +252,65 @@ const MyHomeData = () => {
                     Trés élevé
                   </p>
                 </div>
-
+                <div className="c-MyHomeData__BarometerAccess">
+                  {baroParam !== null && (
+                    <>
+                      <p>
+                        {` 0 à
+                        ${
+                          Math.round(baroParam?.low / 100) *
+                          (averageProduction?.getMwcAverageProduction ?? 0)
+                        }
+                        kg `}
+                      </p>
+                      <p>
+                        {` ${
+                          Math.round(baroParam?.low / 100) *
+                            (averageProduction?.getMwcAverageProduction ?? 0) +
+                          1
+                        }
+                        à
+                        ${Math.round(
+                          (baroParam?.medium / 100) *
+                            (averageProduction?.getMwcAverageProduction ?? 0),
+                        )}
+                        kg`}
+                      </p>
+                      <p>
+                        {`${
+                          Math.round(
+                            (baroParam?.medium / 100) *
+                              (averageProduction?.getMwcAverageProduction ?? 0),
+                          ) + 1
+                        }
+                        à
+                        ${Math.round(
+                          (baroParam?.high / 100) *
+                            (averageProduction?.getMwcAverageProduction ?? 0),
+                        )}
+                        kg`}
+                      </p>
+                      <p>
+                        {` ${
+                          Math.round(
+                            (baroParam?.high / 100) *
+                              (averageProduction?.getMwcAverageProduction ?? 0),
+                          ) + 1
+                        }
+                        à
+                        ${Math.round(
+                          (baroParam?.veryHigh / 100) *
+                            (averageProduction?.getMwcAverageProduction ?? 0),
+                        )}
+                        kg`}
+                      </p>
+                    </>
+                  )}
+                </div>
                 {/* TODO: Change values when API's ready */}
                 <div className="c-MyHomeData__BarometerBottomInfo">
                   <p>
-                    Votre foyer est constitué de :{" "}
+                    Votre foyer est constitué de :
                     <span>{currentUser?.householdSize || "X"} personne(s)</span>
                   </p>
                   <button
