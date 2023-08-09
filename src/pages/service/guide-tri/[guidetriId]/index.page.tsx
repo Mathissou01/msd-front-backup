@@ -14,6 +14,7 @@ import EditoDynamicBlock from "../../../../components/Edito/EditoDynamicBlock";
 import client from "../../../../graphql/client";
 import { isEditoBlock } from "../../../../lib/edito-content";
 import { removeNulls } from "../../../../lib/utilities";
+import CommonMeta from "../../../../components/Common/CommonMeta/CommonMeta";
 import CommonBreadcrumb from "../../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 import WasteHeading from "../../../../components/Guide-tri/WasteHeading/WasteHeading";
 import "./guide-tri-content.scss";
@@ -45,38 +46,35 @@ export default function ServiceGuideTriPage({
   }
 
   return (
-    <>
+    <section className="c-GuideTriContent">
+      <CommonMeta title={guidetriData?.attributes?.name ?? ""} />
       <CommonBreadcrumb pages={breadcrumbPages} />
-      <section className="c-GuideTriContent">
-        {guidetriData?.attributes?.name && (
-          <WasteHeading
-            title={guidetriData.attributes.name}
-            picto={guidetriData.attributes.picto}
-            gestureText={guidetriData.attributes.recyclingGestureText}
-            flowData={guidetriData.attributes.flow?.data ?? {}}
-            collectItems={guidetriData.attributes.flow?.data?.attributes}
-          />
+      {guidetriData?.attributes?.name && (
+        <WasteHeading
+          title={guidetriData.attributes.name}
+          picto={guidetriData.attributes.picto}
+          gestureText={guidetriData.attributes.recyclingGestureText}
+          flowData={guidetriData.attributes.flow?.data ?? {}}
+          collectItems={guidetriData.attributes.flow?.data?.attributes}
+        />
+      )}
+      {guidetriData?.attributes?.contentBlock &&
+        guidetriData.attributes.contentBlock.length > 0 && (
+          <div className="c-GuideTriContent__Blocks">
+            {guidetriData.attributes.contentBlock.map((contentBlock, index) => {
+              if (contentBlock && isEditoBlock(contentBlock)) {
+                return (
+                  <EditoDynamicBlock
+                    key={index}
+                    type={contentBlock.__typename}
+                    data={contentBlock}
+                  />
+                );
+              }
+            })}
+          </div>
         )}
-        {guidetriData?.attributes?.contentBlock &&
-          guidetriData.attributes.contentBlock.length > 0 && (
-            <div className="c-GuideTriContent__Blocks">
-              {guidetriData.attributes.contentBlock.map(
-                (contentBlock, index) => {
-                  if (contentBlock && isEditoBlock(contentBlock)) {
-                    return (
-                      <EditoDynamicBlock
-                        key={index}
-                        type={contentBlock.__typename}
-                        data={contentBlock}
-                      />
-                    );
-                  }
-                },
-              )}
-            </div>
-          )}
-      </section>
-    </>
+    </section>
   );
 }
 

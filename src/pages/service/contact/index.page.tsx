@@ -1,17 +1,21 @@
 import React, { useEffect, useMemo } from "react";
-import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
-import EditoHeading from "../../../components/Edito/EditoHeading/EditoHeading";
-import EditoDynamicBlock from "../../../components/Edito/EditoDynamicBlock";
-import "./contact.scss";
 import {
   GetContactUsSubServiceByContractIdQueryVariables,
   useGetContactUsSubServiceByContractIdLazyQuery,
 } from "../../../graphql/codegen/generated-types";
+import CommonMeta from "../../../components/Common/CommonMeta/CommonMeta";
+import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 import CommonLoader from "../../../components/Common/CommonLoader/CommonLoader";
+import EditoDynamicBlock from "../../../components/Edito/EditoDynamicBlock";
+import EditoHeading from "../../../components/Edito/EditoHeading/EditoHeading";
 import { isEditoBlock } from "../../../lib/edito-content";
+import "./contact.scss";
 
 export default function ContactUsPage() {
   /* Static Data */
+  const pageTitle = "Contactez nous";
+
+  /* External Data */
   const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID?.toString();
   const defaultQueryVariables =
     useMemo<GetContactUsSubServiceByContractIdQueryVariables>(
@@ -48,6 +52,7 @@ export default function ContactUsPage() {
   }
   return (
     <>
+      <CommonMeta title={pageTitle} />
       <CommonBreadcrumb pages={breadcrumbPages} />
       <CommonLoader isLoading={loading} errors={[error]}>
         <section className="c-ContactPage">

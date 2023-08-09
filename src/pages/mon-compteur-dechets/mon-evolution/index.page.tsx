@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from "react";
-import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
-import CommonMonthSelector from "../../../components/Common/CommonMonthSelector/CommonMonthSelector";
-import SectionHeader from "../../../components/CompteurDechets/StatSection/SectionHeader/SectionHeader";
 import { format, subMonths } from "date-fns";
 import { fr } from "date-fns/locale";
-import { useCurrentUser } from "../../../hooks/useCurrentUser";
-import MyEvolutionDetailBlock from "../../../components/CompteurDechets/MyEvolution/MyEvolutionDetailBlock";
-import CommonBarChart from "../../../components/Common/CommonGraphs/CommonBarChart/CommonBarChart";
 import {
   Maybe,
   TrashFlow,
   UserWasteData,
   useGetUserWasteManagementHistoryQuery,
 } from "../../../graphql/codegen/generated-types";
+import { useCurrentUser } from "../../../hooks/useCurrentUser";
+import { useContract } from "../../../hooks/useContract";
+import CommonMeta from "../../../components/Common/CommonMeta/CommonMeta";
+import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
+import CommonMonthSelector from "../../../components/Common/CommonMonthSelector/CommonMonthSelector";
+import SectionHeader from "../../../components/CompteurDechets/StatSection/SectionHeader/SectionHeader";
+import CommonBarChart from "../../../components/Common/CommonGraphs/CommonBarChart/CommonBarChart";
+import MyEvolutionDetailBlock from "../../../components/CompteurDechets/MyEvolution/MyEvolutionDetailBlock";
 import CommonSpinner from "../../../components/Common/CommonSpinner/CommonSpinner";
 import "./my-evolution.scss";
-import { useContract } from "../../../hooks/useContract";
 
 interface DataEntry {
   lastDayOfRange: string;
@@ -47,6 +48,9 @@ const breadcrumbPages = [
 ];
 
 export default function MyEvolutionPage() {
+  /* Static Data */
+  const pageTitle = "Mon évolution";
+
   const { contractId } = useContract();
   const [currentDate, setCurrentDate] = useState(subMonths(new Date(), 1));
   const { currentUser } = useCurrentUser();
@@ -167,6 +171,7 @@ export default function MyEvolutionPage() {
 
   return (
     <>
+      <CommonMeta title={pageTitle} />
       <CommonBreadcrumb pages={breadcrumbPages} />
       {data && !loading ? (
         <div className="c-MyEvolution">

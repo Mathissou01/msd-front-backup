@@ -12,7 +12,7 @@ import {
 } from "../../../graphql/codegen/generated-types";
 import { removeNulls } from "../../../lib/utilities";
 import { isEditoBlock } from "../../../lib/edito-content";
-import CommonHeadTag from "../../../components/Common/CommonHeadTag/CommonHeadTag";
+import CommonMeta from "../../../components/Common/CommonMeta/CommonMeta";
 import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 import EditoHeading from "../../../components/Edito/EditoHeading/EditoHeading";
 import EditoDynamicBlock from "../../../components/Edito/EditoDynamicBlock";
@@ -45,7 +45,7 @@ export default function ActualitesNewPage({
 
   return (
     <>
-      <CommonHeadTag title={newData?.attributes?.title ?? ""} />
+      <CommonMeta title={newData?.attributes?.title ?? ""} />
       <CommonBreadcrumb pages={breadcrumbPages} />
       <section className="c-ActualitesNewPage">
         {newData?.attributes?.title && (

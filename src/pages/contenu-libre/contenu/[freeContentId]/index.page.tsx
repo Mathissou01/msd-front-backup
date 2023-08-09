@@ -12,10 +12,11 @@ import {
   GetFreeContentsPathsTotalQuery,
 } from "../../../../graphql/codegen/generated-types";
 import { removeNulls } from "../../../../lib/utilities";
-import EditoDynamicBlock from "../../../../components/Edito/EditoDynamicBlock";
-import CommonBreadcrumb from "../../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 import { isEditoBlock } from "../../../../lib/edito-content";
+import EditoDynamicBlock from "../../../../components/Edito/EditoDynamicBlock";
 import EditoHeading from "../../../../components/Edito/EditoHeading/EditoHeading";
+import CommonMeta from "../../../../components/Common/CommonMeta/CommonMeta";
+import CommonBreadcrumb from "../../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 
 interface Params extends ParsedUrlQuery {
   freeContentId: string;
@@ -48,6 +49,7 @@ export default function FreeContentPage({
   }
   return (
     <>
+      <CommonMeta title={freeContentData?.attributes?.title ?? ""} />
       <CommonBreadcrumb pages={breadcrumbPages} />
       <section className="c-FreeContentPage">
         {freeContentData?.attributes?.title && (

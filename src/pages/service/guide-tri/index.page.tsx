@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import WasteFamilyBlock from "../../../components/Guide-tri/WasteFamilyBlock";
+import CommonMeta from "../../../components/Common/CommonMeta/CommonMeta";
 import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 import MemoTriBlock from "../../../components/Guide-tri/MemoTriBlock/MemoTriBlock";
 import RecyclingGuideBlock from "../../../components/Blocks/RecyclingGuideBlock/RecyclingGuideBlock";
@@ -28,6 +29,9 @@ export default function ServiceGuideTriPage({
   MemoTriBlockData,
   recyclingGuideBlock,
 }: IGuideTriProps) {
+  /* Static Data */
+  const pageTitle = "Guide du tri";
+
   /* Local Data */
   const pagesUrl = [
     {
@@ -60,6 +64,7 @@ export default function ServiceGuideTriPage({
 
   return (
     <div className="c-GuideTri">
+      <CommonMeta title={pageTitle} />
       <CommonBreadcrumb pages={pagesUrl} />
       <div className="c-GuideTri__RecyclingGuide">
         {displayRecyclingGuideBlock && (

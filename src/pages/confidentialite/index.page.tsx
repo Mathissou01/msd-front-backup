@@ -7,6 +7,7 @@ import client from "../../graphql/client";
 import { isEditoBlock } from "../../lib/edito-content";
 import { removeNulls } from "../../lib/utilities";
 import LegalContentRenderer from "../../components/Edito/LegalContentRenderer/LegalContentRenderer";
+import CommonMeta from "../../components/Common/CommonMeta/CommonMeta";
 
 interface IConfidentialityPageProps {
   confidentialityData: GetConfidentialityByContractIdQuery;
@@ -33,20 +34,23 @@ export default function ConfidentialityPage({
     });
   }
   return (
-    <LegalContentRenderer
-      breadcrumbPages={breadcrumbPages}
-      title={confidentiality?.attributes?.title ?? ""}
-      legalContentBlocks={
-        confidentialityData?.confidentialitySubServices?.data[0]?.attributes?.confidentialities?.data[0]?.attributes?.blocks
-          ?.map((block) => {
-            if (block && isEditoBlock(block)) {
-              return block;
-            }
-            return undefined;
-          })
-          .filter(removeNulls) ?? []
-      }
-    />
+    <>
+      <CommonMeta title={confidentiality?.attributes?.title ?? ""} />
+      <LegalContentRenderer
+        breadcrumbPages={breadcrumbPages}
+        title={confidentiality?.attributes?.title ?? ""}
+        legalContentBlocks={
+          confidentialityData?.confidentialitySubServices?.data[0]?.attributes?.confidentialities?.data[0]?.attributes?.blocks
+            ?.map((block) => {
+              if (block && isEditoBlock(block)) {
+                return block;
+              }
+              return undefined;
+            })
+            .filter(removeNulls) ?? []
+        }
+      />
+    </>
   );
 }
 

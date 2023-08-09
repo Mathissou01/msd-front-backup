@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import CommonMeta from "../../components/Common/CommonMeta/CommonMeta";
 import "./accessibility-page.scss";
 
 export default function AccessibilityPage() {
@@ -64,6 +65,7 @@ export default function AccessibilityPage() {
 
   return (
     <section className="c-AccessibilityPage">
+      <CommonMeta title={labels.title} />
       <div className="c-AccessibilityPage__Block">
         <h1>{labels.title}</h1>
         <div className="c-AccessibilityPage__Block_content">

@@ -9,6 +9,7 @@ import {
   IMarker,
 } from "../../../lib/map";
 import { removeNulls } from "../../../lib/utilities";
+import CommonMeta from "../../../components/Common/CommonMeta/CommonMeta";
 import CollapsingContent from "../../../components/Map/CollapsingContent/CollapsingContent";
 import MarkerFilterMap from "../../../components/Map/Marker/MarkerFilter/MarkerFilterMap";
 import ContentMap from "../../../components/Map/Content/ContentMap";
@@ -37,6 +38,9 @@ const getSpecificNameDropOffMaps = (markers: IMarker[], targetName: string) => {
 };
 
 export default function ServiceCartePage() {
+  /* Static Data */
+  const pageTitle = "Points d'apports et carte";
+
   const [markers, setMarkers] = useState<IMarker[]>();
   const [isMapLoaded, setIsMapLoaded] = useState<boolean>(false);
   const [destination, setDestination] = useState<Position>(null);
@@ -132,80 +136,79 @@ export default function ServiceCartePage() {
     setSelectedMarkerId(content?.infoId);
   };
   return (
-    <>
-      <div className="c-ServiceCartePage">
-        {showModal && selectedContent && (
-          <CollapsingContent
-            message={message}
-            setDestination={setDestination}
-            markers={[selectedContent]}
-            closeModal={closeModal}
-          />
-        )}
-        <div className="c-ServiceCartePage__SearchMapContainer">
-          <SearchMap
-            setMarkers={setMarkers}
-            fetchGeolocation={fetchGeolocationWithAutoUpdate}
-            setSelectedAddress={setSelectedAddress}
-            error={error}
-            disable={disable}
-          />
-        </div>
-        <div className="c-ServiceCartePage__ContentMapContainer">
-          {(geoLocation || selectedAddress) && (
-            <ContentMap
-              contents={data[0].dropOffMaps
-                .filter(removeNulls)
-                ?.map((content) => {
-                  return {
-                    infoId: content.id,
-                    infoPicto: content.picto,
-                    infoPictoName: content.pictoName,
-                    infoName: content.name,
-                    infoAddress: content.address,
-                    infoPostal: content.postal,
-                    infoDistance: content.distanceText,
-                    infoLat: content.lat,
-                    infoLng: content.lng,
-                    infoMustKnow: content.mustKnow,
-                    infoTime: content.time,
-                    infoFiles: content.files,
-                    infoCollectGender: content.collectGender,
-                  } as IContentData;
-                })}
-              onContentClick={(content, message) =>
-                handleContentClick(content, message)
-              }
-              selectedMarkerId={selectedMarkerId}
-              showModal={showModal}
-            />
-          )}
-        </div>
-        <div className="c-ServiceCartePage__MarkerFilterContainer">
-          <MarkerFilterMap
-            setSelectedFilter={setSelectedFilter}
-            markers={filters.filter(removeNulls).map((marker) => {
-              return {
-                name: marker?.name,
-                picto: marker.picto,
-                count: marker?.count,
-              } as IFilterData;
-            })}
-            pavQueryParam={pavQueryParam}
-          />
-        </div>
-        <div className="c-ServiceCartePage__LayersMapContainer">
-          <LayersMap
-            markers={data[0].dropOffMaps}
-            position={checkPosition()}
-            setIsMapLoaded={setIsMapLoaded}
-            destination={destination}
-            onMarkerClick={onMarkerClick}
-            selectedMarkerId={selectedContent?.infoId}
+    <div className="c-ServiceCartePage">
+      <CommonMeta title={pageTitle} />
+      {showModal && selectedContent && (
+        <CollapsingContent
+          message={message}
+          setDestination={setDestination}
+          markers={[selectedContent]}
+          closeModal={closeModal}
+        />
+      )}
+      <div className="c-ServiceCartePage__SearchMapContainer">
+        <SearchMap
+          setMarkers={setMarkers}
+          fetchGeolocation={fetchGeolocationWithAutoUpdate}
+          setSelectedAddress={setSelectedAddress}
+          error={error}
+          disable={disable}
+        />
+      </div>
+      <div className="c-ServiceCartePage__ContentMapContainer">
+        {(geoLocation || selectedAddress) && (
+          <ContentMap
+            contents={data[0].dropOffMaps
+              .filter(removeNulls)
+              ?.map((content) => {
+                return {
+                  infoId: content.id,
+                  infoPicto: content.picto,
+                  infoPictoName: content.pictoName,
+                  infoName: content.name,
+                  infoAddress: content.address,
+                  infoPostal: content.postal,
+                  infoDistance: content.distanceText,
+                  infoLat: content.lat,
+                  infoLng: content.lng,
+                  infoMustKnow: content.mustKnow,
+                  infoTime: content.time,
+                  infoFiles: content.files,
+                  infoCollectGender: content.collectGender,
+                } as IContentData;
+              })}
+            onContentClick={(content, message) =>
+              handleContentClick(content, message)
+            }
+            selectedMarkerId={selectedMarkerId}
             showModal={showModal}
           />
-        </div>
+        )}
       </div>
-    </>
+      <div className="c-ServiceCartePage__MarkerFilterContainer">
+        <MarkerFilterMap
+          setSelectedFilter={setSelectedFilter}
+          markers={filters.filter(removeNulls).map((marker) => {
+            return {
+              name: marker?.name,
+              picto: marker.picto,
+              count: marker?.count,
+            } as IFilterData;
+          })}
+          pavQueryParam={pavQueryParam}
+        />
+      </div>
+      <div className="c-ServiceCartePage__LayersMapContainer">
+        <LayersMap
+          markers={data[0].dropOffMaps}
+          position={checkPosition()}
+          setIsMapLoaded={setIsMapLoaded}
+          destination={destination}
+          onMarkerClick={onMarkerClick}
+          selectedMarkerId={selectedContent?.infoId}
+          showModal={showModal}
+        />
+      </div>
+    </div>
   );
 }

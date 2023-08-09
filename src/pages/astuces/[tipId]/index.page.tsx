@@ -12,6 +12,7 @@ import {
 } from "../../../graphql/codegen/generated-types";
 import { removeNulls } from "../../../lib/utilities";
 import { isEditoBlock } from "../../../lib/edito-content";
+import CommonMeta from "../../../components/Common/CommonMeta/CommonMeta";
 import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 import EditoHeading from "../../../components/Edito/EditoHeading/EditoHeading";
 import EditoDynamicBlock from "../../../components/Edito/EditoDynamicBlock";
@@ -26,6 +27,7 @@ export interface ITipPageProps {
 }
 
 export default function TipPage({ tipData }: ITipPageProps) {
+  /* Static Data */
   const breadcrumbPages = [
     {
       label: "Accueil",
@@ -40,34 +42,32 @@ export default function TipPage({ tipData }: ITipPageProps) {
     breadcrumbPages.push({ label: tipData.attributes.title, slug: "" });
   }
   return (
-    <>
+    <section className="c-TipPage">
+      <CommonMeta title={tipData?.attributes?.title ?? ""} />
       <CommonBreadcrumb pages={breadcrumbPages} />
-      <section className="c-TipPage">
-        {tipData?.attributes?.title && (
-          <EditoHeading
-            title={tipData.attributes.title}
-            tags={tipData.attributes.tags?.data}
-            image={tipData?.attributes?.image?.data?.attributes}
-          />
-        )}
-        {tipData?.attributes?.blocks &&
-          tipData.attributes.blocks.length > 0 && (
-            <div className="c-TipPage__Blocks">
-              {tipData.attributes.blocks.map((block, index) => {
-                if (block && isEditoBlock(block)) {
-                  return (
-                    <EditoDynamicBlock
-                      key={index}
-                      type={block.__typename}
-                      data={block}
-                    />
-                  );
-                }
-              })}
-            </div>
-          )}
-      </section>
-    </>
+      {tipData?.attributes?.title && (
+        <EditoHeading
+          title={tipData.attributes.title}
+          tags={tipData.attributes.tags?.data}
+          image={tipData?.attributes?.image?.data?.attributes}
+        />
+      )}
+      {tipData?.attributes?.blocks && tipData.attributes.blocks.length > 0 && (
+        <div className="c-TipPage__Blocks">
+          {tipData.attributes.blocks.map((block, index) => {
+            if (block && isEditoBlock(block)) {
+              return (
+                <EditoDynamicBlock
+                  key={index}
+                  type={block.__typename}
+                  data={block}
+                />
+              );
+            }
+          })}
+        </div>
+      )}
+    </section>
   );
 }
 

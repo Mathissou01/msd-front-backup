@@ -1,16 +1,20 @@
 import React from "react";
+import { useRouter } from "next/router";
+import useGetUser from "../../hooks/user/useGetUser";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
+import MyPersonalInfos from "../../components/MyAccount/MyPersonnalInfos";
 import CommonTabs from "../../components/Common/CommonTabs/CommonTabs";
 import CommonPageTitle from "../../components/Common/CommonPageTitle/CommonPageTitle";
-import MyPersonalInfos from "../../components/MyAccount/MyPersonnalInfos";
-import useGetUser from "../../hooks/user/useGetUser";
+import CommonMeta from "../../components/Common/CommonMeta/CommonMeta";
 import CommonSpinner from "../../components/Common/CommonSpinner/CommonSpinner";
 import MyCommunicationPref from "../../components/MyAccount/MyCommunicationPref/MyCommunicationPref";
 import CommonButton from "../../components/Common/CommonButton/CommonButton";
-import { useCurrentUser } from "../../hooks/useCurrentUser";
-import { useRouter } from "next/router";
 import "./my-account-page.scss";
 
 const MyAccountPage = () => {
+  /* Static Data */
+  const pageTitle = "Mon Compte";
+
   const router = useRouter();
   const { user, refetch, loading } = useGetUser(
     process.env.NEXT_PUBLIC_USER_ID || "",
@@ -31,6 +35,7 @@ const MyAccountPage = () => {
 
   return (
     <div className="o-MyAccount">
+      <CommonMeta title={pageTitle} />
       {loading ? (
         <CommonSpinner />
       ) : (

@@ -1,15 +1,6 @@
+import React, { useEffect, useState } from "react";
 import { GetServerSideProps, GetStaticPaths } from "next";
 import { ParsedUrlQuery } from "querystring";
-import React, { useEffect, useState } from "react";
-import { useCurrentUser } from "../../../hooks/useCurrentUser";
-import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
-import CommonCardBlock from "../../../components/Common/CommonCardBlock/CommonCardBlock";
-import CommonLoader from "../../../components/Common/CommonLoader/CommonLoader";
-import CommonPagination from "../../../components/Common/CommonPagination/CommonPagination";
-import client from "../../../graphql/client";
-import DesktopTopRightAngle from "public/images/desktop_page_top-right-angle.svg";
-import MobileTopRightAngle from "public/images/mobile_page_top-right-angle.svg";
-import { removeNulls } from "../../../lib/utilities";
 import {
   FreeContentSubServiceEntity,
   GetFreeContentsByFreeContentSubServiceIdQueryVariables,
@@ -21,6 +12,16 @@ import {
   GetFreeContentSubServicesPathsTotalQuery,
   useGetFreeContentsByFreeContentSubServiceIdLazyQuery,
 } from "../../../graphql/codegen/generated-types";
+import { removeNulls } from "../../../lib/utilities";
+import client from "../../../graphql/client";
+import { useCurrentUser } from "../../../hooks/useCurrentUser";
+import CommonMeta from "../../../components/Common/CommonMeta/CommonMeta";
+import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
+import CommonCardBlock from "../../../components/Common/CommonCardBlock/CommonCardBlock";
+import CommonLoader from "../../../components/Common/CommonLoader/CommonLoader";
+import CommonPagination from "../../../components/Common/CommonPagination/CommonPagination";
+import DesktopTopRightAngle from "public/images/desktop_page_top-right-angle.svg";
+import MobileTopRightAngle from "public/images/mobile_page_top-right-angle.svg";
 import "./contenu-libre.scss";
 
 interface Params extends ParsedUrlQuery {
@@ -90,6 +91,7 @@ export default function FreeContentListPage({
   const rowCount = freeContentsData?.freeContents?.meta.pagination.total;
   return (
     <div className="c-FreeContentListPage">
+      <CommonMeta title={titleContent} />
       <CommonBreadcrumb pages={pagesUrl} />
       <div className="c-FreeContentListPage__SvgContainer">
         <DesktopTopRightAngle className="c-FreeContentListPage__Svg_desktop" />

@@ -9,10 +9,11 @@ import {
 } from "../../../graphql/codegen/generated-types";
 import { removeNulls } from "../../../lib/utilities";
 import { E_LEVEL_TYPE, ILevelDatas } from "../../../lib/request";
+import CommonMeta from "../../../components/Common/CommonMeta/CommonMeta";
 import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
+import CommonButton from "../../../components/Common/CommonButton/CommonButton";
 import RequestLevels from "../../../components/Request/RequestLevels/RequestLevels";
 import RequestForm from "../../../components/Request/RequestForm/RequestForm";
-import CommonButton from "../../../components/Common/CommonButton/CommonButton";
 import ProgressBar from "../../../components/CompteurDechets/Eligibility/ProgressBar/ProgressBar";
 import "./demandes-page.scss";
 
@@ -23,7 +24,8 @@ interface IRequestLevelProps {
 export default function ServiceDemandesPage({
   requestLevels,
 }: IRequestLevelProps) {
-  /* Static datas */
+  /* Static Data */
+  const pageTitle = "Demande";
   const labels = {
     mandatoryFields: "*Les champs marqués d’une astérisque sont obligatoires.",
     backToHome: "Revenir à l'accueil",
@@ -53,6 +55,7 @@ export default function ServiceDemandesPage({
 
   return (
     <>
+      <CommonMeta title={pageTitle} />
       <ProgressBar
         currentQuestion={currentStep !== 0 ? currentStep : 3}
         withoutBackButton

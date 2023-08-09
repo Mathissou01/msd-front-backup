@@ -4490,6 +4490,7 @@ export type Mutation = {
   updateAccessibilitySubService?: Maybe<AccessibilitySubServiceEntityResponse>;
   updateAlertNotification?: Maybe<AlertNotificationEntityResponse>;
   updateAlertNotificationService?: Maybe<AlertNotificationServiceEntityResponse>;
+  updateAlertNotificationsX?: Maybe<AlertNotification>;
   updateAlertUserStorage?: Maybe<AlertUserStorageEntityResponse>;
   updateAudience?: Maybe<AudienceEntityResponse>;
   updateCgu?: Maybe<CguEntityResponse>;
@@ -5392,6 +5393,22 @@ export type MutationUpdateAlertNotificationArgs = {
 export type MutationUpdateAlertNotificationServiceArgs = {
   data: AlertNotificationServiceInput;
   id: Scalars["ID"];
+};
+
+export type MutationUpdateAlertNotificationsXArgs = {
+  alertDescription?: InputMaybe<Scalars["String"]>;
+  alertMessage?: InputMaybe<Scalars["String"]>;
+  alertNotifService?: InputMaybe<Scalars["ID"]>;
+  alertTitle?: InputMaybe<Scalars["String"]>;
+  alertUserStorages?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  cities?: InputMaybe<Scalars["String"]>;
+  idAlertNotification?: InputMaybe<Scalars["ID"]>;
+  scheduledAt?: InputMaybe<Scalars["Date"]>;
+  scheduledAtTime?: InputMaybe<Scalars["String"]>;
+  sectorizations?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  sendMail?: InputMaybe<Scalars["Boolean"]>;
+  sendSMS?: InputMaybe<Scalars["Boolean"]>;
+  subject?: InputMaybe<Scalars["String"]>;
 };
 
 export type MutationUpdateAlertUserStorageArgs = {
@@ -6525,6 +6542,7 @@ export type Query = {
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
   informationMessage?: Maybe<InformationMessageEntityResponse>;
   informationMessages?: Maybe<InformationMessageEntityResponseCollection>;
+  isSlotsUpdatable?: Maybe<Scalars["Boolean"]>;
   keyMetric?: Maybe<KeyMetricEntityResponse>;
   keyMetrics?: Maybe<KeyMetricEntityResponseCollection>;
   keyMetricsService?: Maybe<KeyMetricsServiceEntityResponse>;
@@ -7144,6 +7162,10 @@ export type QueryInformationMessagesArgs = {
   filters?: InputMaybe<InformationMessageFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type QueryIsSlotsUpdatableArgs = {
+  requestId: Scalars["ID"];
 };
 
 export type QueryKeyMetricArgs = {

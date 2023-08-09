@@ -1,15 +1,15 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import CommonButton from "../../../../Common/CommonButton/CommonButton";
-import CommonBreadcrumb from "../../../../Common/CommonBreadcrumb/CommonBreadcrumb";
+import { useGetHasTipsQuery } from "../../../../../graphql/codegen/generated-types";
 import FlowsBox from "../FlowsBox";
+import { useContract } from "../../../../../hooks/useContract";
+import CommonBreadcrumb from "../../../../Common/CommonBreadcrumb/CommonBreadcrumb";
+import CommonButton from "../../../../Common/CommonButton/CommonButton";
 import MyHomeData from "../../MyHomeData/MyHomeData";
-import Illu_1 from "public/images/illu_1.svg";
 import LearnMore from "../LearnMore/LearnMore";
 import MwcTips from "./MwcTips/MwcTips";
+import Illu_1 from "public/images/illu_1.svg";
 import "./dashboard-waste.scss";
-import { useGetHasTipsQuery } from "../../../../../graphql/codegen/generated-types";
-import { useContract } from "../../../../../hooks/useContract";
 
 const DashboardWaste: React.FC = () => {
   const { contractId } = useContract();

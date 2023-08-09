@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import SectionHeader from "../../../components/CompteurDechets/StatSection/SectionHeader/SectionHeader";
-import CommonChips from "../../../components/Common/CommonChips/CommonChips";
-import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
+import { useCurrentUser } from "../../../hooks/useCurrentUser";
+import { useContract } from "../../../hooks/useContract";
 import { format, subMonths } from "date-fns";
 import { fr } from "date-fns/locale";
 import {
@@ -10,16 +9,15 @@ import {
   useGetUserWasteManagementQuery,
 } from "../../../graphql/codegen/generated-types";
 import { renderFlowName } from "../../../lib/flows";
+import SectionHeader from "../../../components/CompteurDechets/StatSection/SectionHeader/SectionHeader";
+import CommonChips from "../../../components/Common/CommonChips/CommonChips";
+import CommonMeta from "../../../components/Common/CommonMeta/CommonMeta";
+import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
+import CommonDonut from "../../../components/Common/CommonGraphs/CommonDonut";
+import CommonSpinner from "../../../components/Common/CommonSpinner/CommonSpinner";
 import MyWasteStatsBlock from "../../../components/CompteurDechets/MyWaste/MyWasteStatsBlock";
 import MyFlowEdito from "../../../components/CompteurDechets/MyWaste/MyFlowEdito/MyFlowEdito";
-
-import CommonDonut from "../../../components/Common/CommonGraphs/CommonDonut";
 import Illu_idea from "../../../../public/images/pictos/Idea.svg";
-
-import CommonSpinner from "../../../components/Common/CommonSpinner/CommonSpinner";
-import { useCurrentUser } from "../../../hooks/useCurrentUser";
-import { useContract } from "../../../hooks/useContract";
-
 import "./my-waste.scss";
 
 const breadcrumbPages = [
@@ -51,6 +49,14 @@ interface IMyWasteFlowEdito {
 }
 
 export default function MyWastePage() {
+  /* Static Data */
+  const pageTitle = "Mes déchets";
+  const content = {
+    householdWaste: "Ordures ménagères",
+    packaging: "Emballages",
+    buttonInfo: "Equivalent d’un foyer d’environ X personne(s)",
+  };
+
   const { contractId } = useContract();
   const { currentUser } = useCurrentUser();
   const { data } = useGetMwcFlowsByContractIdQuery({
@@ -116,71 +122,66 @@ export default function MyWastePage() {
   }, [data, selectedChip]);
 
   return (
-    <>
+    <div className="c-MyWaste">
+      <CommonMeta title={pageTitle} />
       <CommonBreadcrumb pages={breadcrumbPages} />
-      <div className="c-MyWaste">
-        <SectionHeader title="Mes déchets" date={formattedDate} />
-        {data && (
-          <div className="c-MyWaste__Content">
-            <CommonChips
-              chips={chips}
-              selectedChip={selectedChip}
-              setSelectedChip={setSelectedChip}
-              renderChipName={renderFlowName}
-            />
-            {flowsData && flowsData?.getUserWasteManagement && !loading ? (
-              <div className="c-MyWaste__EvolutionContainer">
-                <div className="c-MyWaste__BlockContainer">
-                  <div className="c-MyWaste__DonutChart">
-                    <CommonDonut
-                      selectedChip={selectedChip}
-                      flows={
-                        flowsData?.getUserWasteManagement[0] as UserWasteData
-                      }
-                    />
+      <SectionHeader title="Mes déchets" date={formattedDate} />
+      {data && (
+        <div className="c-MyWaste__Content">
+          <CommonChips
+            chips={chips}
+            selectedChip={selectedChip}
+            setSelectedChip={setSelectedChip}
+            renderChipName={renderFlowName}
+          />
+          {flowsData && flowsData?.getUserWasteManagement && !loading ? (
+            <div className="c-MyWaste__EvolutionContainer">
+              <div className="c-MyWaste__BlockContainer">
+                <div className="c-MyWaste__DonutChart">
+                  <CommonDonut
+                    selectedChip={selectedChip}
+                    flows={
+                      flowsData?.getUserWasteManagement[0] as UserWasteData
+                    }
+                  />
 
-                    <div className="c-MyWaste__DonutLegend">
-                      <p>
-                        <span
-                          className={"c-MyWaste__DonutLegend_color1"}
-                        ></span>
-                        Ordures ménagères
-                      </p>
-                      <p>
-                        <span
-                          className={`c-MyWaste__DonutLegend_color2`}
-                        ></span>
-                        Emballages
-                      </p>
-                    </div>
-                    <div className="c-MyWaste__DonutChartBottomInfo">
-                      <Illu_idea />
-                      <p>Equivalent d’un foyer d’environ X personne(s)</p>
-                    </div>
+                  <div className="c-MyWaste__DonutLegend">
+                    <p>
+                      <span className={"c-MyWaste__DonutLegend_color1"}></span>
+                      {content.householdWaste}
+                    </p>
+                    <p>
+                      <span className={`c-MyWaste__DonutLegend_color2`}></span>
+                      {content.packaging}
+                    </p>
                   </div>
-                  {flowsData &&
-                    flowsData.getUserWasteManagement &&
-                    flowsData?.getUserWasteManagement?.[0] &&
-                    selectedChip === "all" && (
-                      <MyWasteStatsBlock
-                        flows={flowsData?.getUserWasteManagement[0]}
-                      />
-                    )}
-                  {selectedChip !== "all" && (
-                    <div className="c-MyFlowEdito">
-                      {wasteFlows?.map((wasteFlow, index) => (
-                        <MyFlowEdito wasteFlow={wasteFlow} key={index} />
-                      ))}
-                    </div>
-                  )}
+                  <div className="c-MyWaste__DonutChartBottomInfo">
+                    <Illu_idea />
+                    <p>{content.buttonInfo}</p>
+                  </div>
                 </div>
+                {flowsData &&
+                  flowsData.getUserWasteManagement &&
+                  flowsData?.getUserWasteManagement?.[0] &&
+                  selectedChip === "all" && (
+                    <MyWasteStatsBlock
+                      flows={flowsData?.getUserWasteManagement[0]}
+                    />
+                  )}
+                {selectedChip !== "all" && (
+                  <div className="c-MyFlowEdito">
+                    {wasteFlows?.map((wasteFlow, index) => (
+                      <MyFlowEdito wasteFlow={wasteFlow} key={index} />
+                    ))}
+                  </div>
+                )}
               </div>
-            ) : (
-              <CommonSpinner />
-            )}
-          </div>
-        )}
-      </div>
-    </>
+            </div>
+          ) : (
+            <CommonSpinner />
+          )}
+        </div>
+      )}
+    </div>
   );
 }

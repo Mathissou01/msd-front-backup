@@ -3,15 +3,16 @@ import {
   GetNewsAndEventsByContractIdQueryVariables,
   useGetNewsAndEventsByContractIdLazyQuery,
 } from "../../graphql/codegen/generated-types";
+import { removeNulls } from "../../lib/utilities";
 import { useContract } from "../../hooks/useContract";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
+import CommonMeta from "../../components/Common/CommonMeta/CommonMeta";
 import CommonBreadcrumb from "../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
-import DesktopTopRightAngle from "public/images/desktop_page_top-right-angle.svg";
-import MobileTopRightAngle from "public/images/mobile_page_top-right-angle.svg";
 import CommonCardBlock from "../../components/Common/CommonCardBlock/CommonCardBlock";
 import CommonPagination from "../../components/Common/CommonPagination/CommonPagination";
-import { removeNulls } from "../../lib/utilities";
 import CommonLoader from "../../components/Common/CommonLoader/CommonLoader";
+import DesktopTopRightAngle from "public/images/desktop_page_top-right-angle.svg";
+import MobileTopRightAngle from "public/images/mobile_page_top-right-angle.svg";
 import "./actualites-evenements-page.scss";
 
 export default function ActualitesEvenementsPage() {
@@ -70,6 +71,7 @@ export default function ActualitesEvenementsPage() {
 
   return (
     <div className="c-ActualitesEvenementsPage">
+      <CommonMeta title={titleContent} />
       <CommonBreadcrumb pages={pagesUrl} />
       <div className="c-ActualitesEvenementsPage__SvgContainer">
         <DesktopTopRightAngle className="c-ActualitesEvenementsPage__Svg_desktop" />

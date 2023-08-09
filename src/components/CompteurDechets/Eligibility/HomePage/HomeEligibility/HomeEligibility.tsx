@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
-import BgPagePrincipaleDesktop from "public/images/bg_page-principale.svg";
-import BgPagePrincipaleMobile from "public/images/bg_page-principale-mobile.svg";
 import CommonBreadcrumb from "../../../../Common/CommonBreadcrumb/CommonBreadcrumb";
 import CommonButton from "../../../../Common/CommonButton/CommonButton";
+import BgPagePrincipaleDesktop from "public/images/bg_page-principale.svg";
+import BgPagePrincipaleMobile from "public/images/bg_page-principale-mobile.svg";
 import "./home-eligibility.scss";
 
 export default function HomeEligibility() {

@@ -7,6 +7,7 @@ import Step3 from "../../../components/CompteurDechets/Eligibility/Step3/Step3";
 import Step4 from "../../../components/CompteurDechets/Eligibility/Step4/Step4";
 import Step5 from "../../../components/CompteurDechets/Eligibility/Step5/Step5";
 import ProgressBar from "../../../components/CompteurDechets/Eligibility/ProgressBar/ProgressBar";
+import CommonMeta from "../../../components/Common/CommonMeta/CommonMeta";
 import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 import StepError from "../../../components/CompteurDechets/Eligibility/StepError/StepError";
 import { useCurrentUser } from "../../../hooks/useCurrentUser";
@@ -35,6 +36,9 @@ const breadcrumbPages = [
 ];
 
 const Eligibilite = () => {
+  /* Static Data */
+  const pageTitle = "Mon compteur déchets";
+
   const router = useRouter();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAddress, setSelectedAddress] = useState<
@@ -123,6 +127,7 @@ const Eligibilite = () => {
         handleBackClick={handleBackClick}
       />
       <div className="c-Steps">
+        <CommonMeta title={pageTitle} />
         <CommonBreadcrumb pages={breadcrumbPages} />
         {error.isActive ? (
           <StepError
