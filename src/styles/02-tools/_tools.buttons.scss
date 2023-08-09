@@ -50,12 +50,12 @@
     }
   } @else if $type == "secondary" {
     &:hover {
-      background-color: color.adjust(colors.$gray-800, $alpha: -0.9);
+      background-color: color.adjust(colors.$green, $alpha: -0.9);
     }
 
     &:active,
     &:focus {
-      background-color: color.adjust(colors.$gray-800, $alpha: -0.9);
+      background-color: color.adjust(colors.$green, $alpha: -0.9);
     }
 
     &:disabled {
