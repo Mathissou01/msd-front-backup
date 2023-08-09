@@ -71,6 +71,7 @@
     @include typo.text("bodyStatic");
 
     flex-grow: 1;
+    margin-bottom: 24px;
     color: colors.$contrast-text;
     font-weight: 500;
     word-wrap: break-word;
