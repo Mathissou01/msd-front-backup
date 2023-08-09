@@ -6,7 +6,7 @@ import "./header-link-selector.scss";
 export default function HeaderLinkSelector() {
   /* Static Data */
   const refreshhArrowIcon = {
-    source: "images/pictos/button_refresh_arrows.svg",
+    source: "/images/pictos/button_refresh_arrows.svg",
     alternativeText: "Changer de ville",
     ariaLabel: "Changer de ville",
   };

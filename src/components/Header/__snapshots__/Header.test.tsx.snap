@@ -29,7 +29,7 @@ exports[`Header renders in desktop mode 1`] = `
             decoding="async"
             height="24"
             loading="lazy"
-            src="images/pictos/button_refresh_arrows.svg"
+            src="/images/pictos/button_refresh_arrows.svg"
             style="color: transparent;"
             width="24"
           />
@@ -251,7 +251,7 @@ exports[`Header renders in desktop mode 1`] = `
                   decoding="async"
                   height="24"
                   loading="lazy"
-                  src="images/pictos/avatar.svg"
+                  src="/images/pictos/avatar.svg"
                   style="color: transparent;"
                   width="20"
                 />
@@ -278,7 +278,7 @@ exports[`Header renders in desktop mode 1`] = `
         decoding="async"
         height="30"
         loading="lazy"
-        src="images/logo_msd.svg"
+        src="/images/logo_msd.svg"
         style="color: transparent;"
         width="141"
       />
@@ -328,7 +328,7 @@ exports[`Header renders in mobile mode 1`] = `
               decoding="async"
               height="24"
               loading="lazy"
-              src="images/pictos/avatar.svg"
+              src="/images/pictos/avatar.svg"
               style="color: transparent;"
               width="20"
             />
@@ -393,7 +393,7 @@ exports[`Header renders in mobile mode 1`] = `
             decoding="async"
             height="24"
             loading="lazy"
-            src="images/pictos/button_refresh_arrows.svg"
+            src="/images/pictos/button_refresh_arrows.svg"
             style="color: transparent;"
             width="24"
           />
@@ -635,7 +635,7 @@ exports[`Header renders in mobile mode 1`] = `
             decoding="async"
             height="30"
             loading="lazy"
-            src="images/logo_msd.svg"
+            src="/images/logo_msd.svg"
             style="color: transparent;"
             width="141"
           />

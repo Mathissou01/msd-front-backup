@@ -8,7 +8,7 @@ import "./header-link-user.scss";
 export default function HeaderLinkUser() {
   const { currentUser } = useCurrentUser();
   const userIcon = {
-    source: "images/pictos/avatar.svg",
+    source: "/images/pictos/avatar.svg",
     alternativeText: "Mon compte",
     ariaLabel: "Mon compte",
   };

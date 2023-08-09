@@ -6,7 +6,7 @@ import "./msd-logo.scss";
 export default function MSDLogo() {
   const logoUrl = "https://www.monservicedechets.com/";
   const msdLogo = {
-    source: "images/logo_msd.svg",
+    source: "/images/logo_msd.svg",
     alternativeText: "Allez sur le site de Suez",
     ariaLabel: "Mon service déchets Suez, allez sur le site de Suez",
   };

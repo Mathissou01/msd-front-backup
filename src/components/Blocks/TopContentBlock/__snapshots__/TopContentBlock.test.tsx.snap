@@ -132,7 +132,7 @@ exports[`TopContentBlock renders titleContent 1`] = `
                   decoding="async"
                   height="24"
                   loading="lazy"
-                  src="images/pictos/arrow.svg"
+                  src="/images/pictos/arrow.svg"
                   style="color: transparent;"
                   width="24"
                 />
@@ -211,7 +211,7 @@ exports[`TopContentBlock renders titleContent 1`] = `
                   decoding="async"
                   height="24"
                   loading="lazy"
-                  src="images/pictos/arrow.svg"
+                  src="/images/pictos/arrow.svg"
                   style="color: transparent;"
                   width="24"
                 />
@@ -290,7 +290,7 @@ exports[`TopContentBlock renders titleContent 1`] = `
                   decoding="async"
                   height="24"
                   loading="lazy"
-                  src="images/pictos/arrow.svg"
+                  src="/images/pictos/arrow.svg"
                   style="color: transparent;"
                   width="24"
                 />
@@ -446,7 +446,7 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
                   decoding="async"
                   height="24"
                   loading="lazy"
-                  src="images/pictos/arrow.svg"
+                  src="/images/pictos/arrow.svg"
                   style="color: transparent;"
                   width="24"
                 />
@@ -525,7 +525,7 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
                   decoding="async"
                   height="24"
                   loading="lazy"
-                  src="images/pictos/arrow.svg"
+                  src="/images/pictos/arrow.svg"
                   style="color: transparent;"
                   width="24"
                 />
@@ -604,7 +604,7 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
                   decoding="async"
                   height="24"
                   loading="lazy"
-                  src="images/pictos/arrow.svg"
+                  src="/images/pictos/arrow.svg"
                   style="color: transparent;"
                   width="24"
                 />

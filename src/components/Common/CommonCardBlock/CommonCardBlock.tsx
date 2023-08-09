@@ -38,7 +38,7 @@ export default function CommonCardBlock({
   const contentCardDate = new Date(date ?? "");
   const dataFrenchFormat = handleDateFrenchFormat(contentCardDate);
   const arrowIcon = {
-    source: "images/pictos/arrow.svg",
+    source: "/images/pictos/arrow.svg",
     alternativeText: "",
     ariaHidden: true,
   };

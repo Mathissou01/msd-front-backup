@@ -71,7 +71,7 @@ exports[`CommonCardBlock renders 1`] = `
             decoding="async"
             height="24"
             loading="lazy"
-            src="images/pictos/arrow.svg"
+            src="/images/pictos/arrow.svg"
             style="color: transparent;"
             width="24"
           />
