@@ -108,7 +108,7 @@ exports[`NavigationList renders in desktop mode 1`] = `
     >
       <a
         class="c-NavigationListButton c-NavigationListButton_desktop"
-        href="/actualites"
+        href="/actualites-evenements"
       >
         <div
           class="c-NavigationListButton__Circle"
@@ -314,7 +314,7 @@ exports[`NavigationList renders in mobile mode 1`] = `
     >
       <a
         class="c-NavigationListButton c-NavigationListButton_mobile"
-        href="/actualites"
+        href="/actualites-evenements"
       >
         <div
           class="c-NavigationListButton__Circle"

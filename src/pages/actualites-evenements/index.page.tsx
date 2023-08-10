@@ -83,11 +83,7 @@ export default function ActualitesEvenementsPage() {
           <CommonLoader isLoading={loading} errors={[error]}>
             {newsAndEvents &&
               newsAndEvents.map((news) => {
-                if (
-                  news.id &&
-                  news.attributes?.title &&
-                  news.attributes.shortDescription
-                ) {
+                if (news.id && news.attributes?.title) {
                   return (
                     <CommonCardBlock
                       key={news.id}
@@ -95,7 +91,11 @@ export default function ActualitesEvenementsPage() {
                       tags={news.attributes.tags?.data}
                       image={news.attributes.image?.data?.attributes}
                       date={news.attributes.publishedDate}
-                      shortDescription={news.attributes.shortDescription}
+                      shortDescription={
+                        news.attributes?.shortDescription
+                          ? news.attributes.shortDescription
+                          : undefined
+                      }
                       href={`/actualites/${news.id}`}
                     />
                   );

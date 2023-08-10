@@ -3,8 +3,7 @@ import React, { useContext } from "react";
 export enum ENavigationPages {
   "HomeLink" = "/",
   // Editorial
-  "ComponentLinksNews" = "/actualites",
-  "ComponentLinksEvents" = "/evenements",
+  "ComponentLinksNews" = "/actualites-evenements",
   "ComponentLinksQuizzes" = "/quiz",
   "ComponentLinksTips" = "/astuces",
   "ComponentLinksFrees" = "/contenu-libre", // Path is concatenated with name as normalized string

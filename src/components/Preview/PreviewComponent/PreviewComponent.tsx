@@ -8,7 +8,7 @@ import {
   TPreviewTypes,
   isPreviewType,
 } from "../../../lib/preview";
-import ActualitesNewPage from "../../../pages/actualites/[newId]/index.page";
+import ActualitesNewPage from "../../../pages/actualites-evenements/[newId]/index.page";
 import TipPage from "../../../pages/astuces/[tipId]/index.page";
 import ServiceGuideTriPage from "../../../pages/service/guide-tri/[guidetriId]/index.page";
 
