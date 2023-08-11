@@ -1,8 +1,9 @@
 import { useRouter } from "next/router";
 import CommonBreadcrumb from "../../../../Common/CommonBreadcrumb/CommonBreadcrumb";
 import CommonButton from "../../../../Common/CommonButton/CommonButton";
-import BgPagePrincipaleDesktop from "public/images/bg_page-principale.svg";
-import BgPagePrincipaleMobile from "public/images/bg_page-principale-mobile.svg";
+import BgPagePrincipaleDesktop from "public/images/hero-desktop_compteur-dechets.svg";
+import BgPagePrincipaleTablet from "public/images/hero-tablet_compteur-dechets.svg";
+import BgPagePrincipaleMobile from "public/images/hero-mobile_compteur-dechets.svg";
 import "./home-eligibility.scss";
 
 export default function HomeEligibility() {
@@ -26,6 +27,10 @@ export default function HomeEligibility() {
           <BgPagePrincipaleDesktop
             className="c-HomeEligibility__Svg_desktop"
             data-testid="bg-pagePrincipale-desktop"
+          />
+          <BgPagePrincipaleTablet
+            className="c-HomeEligibility__Svg_tablet"
+            data-testid="bg-pagePrincipale-tablet"
           />
           <BgPagePrincipaleMobile
             className="c-HomeEligibility__Svg_mobile"

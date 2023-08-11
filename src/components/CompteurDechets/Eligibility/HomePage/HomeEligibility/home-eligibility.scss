@@ -42,26 +42,15 @@
         // Avoid CLS with expected aspect-ratio
         (100vw - #{layout.$sidebar-width}) / (1233 / 500)
       );
-      margin-top: -242px;
     }
 
     svg {
-      width: 100%;
+      width: 100vw;
       height: 100%;
     }
   }
 
   &__Svg {
-    @include im.media(">=mobile", "<laptop") {
-      &_mobile {
-        display: initial;
-      }
-
-      &_desktop {
-        display: none;
-      }
-    }
-
     &_mobile {
       display: initial;
 
@@ -70,10 +59,18 @@
       }
     }
 
+    &_tablet {
+      display: none;
+
+      @include im.media(">=mobile", "<=laptop") {
+        display: initial;
+      }
+    }
+
     &_desktop {
       display: none;
 
-      @include im.media(">=mobile") {
+      @include im.media(">=tablet") {
         display: initial;
       }
     }
@@ -88,9 +85,9 @@
 
     @include im.media(">=tablet") {
       z-index: 1;
-      width: 678px;
+      width: 682px;
       margin: 0;
-      padding: 64px;
+      padding: 48px;
     }
   }
 
