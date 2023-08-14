@@ -26,6 +26,7 @@ interface IFormInputProps {
   labelStyle?: LabelStyle;
   validationStyle?: ValidationStyle;
   tagType?: "input" | "textarea";
+  isPhoneNumber?: boolean;
 }
 
 export default function FormInput({
@@ -47,6 +48,7 @@ export default function FormInput({
   labelStyle,
   validationStyle = "inline",
   tagType = "input",
+  isPhoneNumber = false,
 }: IFormInputProps) {
   /* Static Data */
   const errorMessages = {
@@ -65,6 +67,18 @@ export default function FormInput({
   const inputClassNames = classNames("c-FormInput", {
     "c-FormInput_row": flexStyle === "row",
   });
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    if (isPhoneNumber) {
+      let value = e.target.value.replace(/\s/g, "");
+      if (value.length > 2) {
+        value = value.replace(/(\d{2})(?=\d)/g, "$1 ");
+        e.target.value = value;
+      }
+    }
+  };
 
   return (
     <div className={inputClassNames}>
@@ -115,6 +129,7 @@ export default function FormInput({
           aria-invalid={!!_.get(errors, name)}
           aria-errormessage={`${name}_error`}
           data-testid="form-input"
+          onChange={handleInputChange}
         />
       </FormLabel>
       <ErrorMessage

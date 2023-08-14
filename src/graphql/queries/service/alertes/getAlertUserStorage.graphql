@@ -1,0 +1,9 @@
+query getAlertUserStorage($email: String, $phoneNumber: String) {
+  alertUserStorages(
+    filters: { email: { eq: $email }, phoneNumber: { eq: $phoneNumber } }
+  ) {
+    data {
+      id
+    }
+  }
+}

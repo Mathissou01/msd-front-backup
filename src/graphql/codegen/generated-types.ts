@@ -12462,6 +12462,50 @@ export type GetContactQuery = {
   } | null;
 };
 
+export type CreateAlertUserStorageMutationVariables = Exact<{
+  data: AlertUserStorageInput;
+}>;
+
+export type CreateAlertUserStorageMutation = {
+  __typename?: "Mutation";
+  createAlertUserStorage?: {
+    __typename?: "AlertUserStorageEntityResponse";
+    data?: {
+      __typename?: "AlertUserStorageEntity";
+      id?: string | null;
+      attributes?: {
+        __typename?: "AlertUserStorage";
+        alertNotificationServiceId: string;
+      } | null;
+    } | null;
+  } | null;
+};
+
+export type DeleteAlertUserStorageMutationVariables = Exact<{
+  deleteAlertUserStorageId: Scalars["ID"];
+}>;
+
+export type DeleteAlertUserStorageMutation = {
+  __typename?: "Mutation";
+  deleteAlertUserStorage?: {
+    __typename?: "AlertUserStorageEntityResponse";
+    data?: { __typename?: "AlertUserStorageEntity"; id?: string | null } | null;
+  } | null;
+};
+
+export type GetAlertUserStorageQueryVariables = Exact<{
+  email?: InputMaybe<Scalars["String"]>;
+  phoneNumber?: InputMaybe<Scalars["String"]>;
+}>;
+
+export type GetAlertUserStorageQuery = {
+  __typename?: "Query";
+  alertUserStorages?: {
+    __typename?: "AlertUserStorageEntityResponseCollection";
+    data: Array<{ __typename?: "AlertUserStorageEntity"; id?: string | null }>;
+  } | null;
+};
+
 export type GetDropOffMapByDropOffMapByServiceIdQueryVariables = Exact<{
   dropOffMapServiceId: Scalars["ID"];
   audienceId: Scalars["ID"];
@@ -17625,6 +17669,176 @@ export type GetContactLazyQueryHookResult = ReturnType<
 export type GetContactQueryResult = Apollo.QueryResult<
   GetContactQuery,
   GetContactQueryVariables
+>;
+export const CreateAlertUserStorageDocument = gql`
+  mutation createAlertUserStorage($data: AlertUserStorageInput!) {
+    createAlertUserStorage(data: $data) {
+      data {
+        id
+        attributes {
+          alertNotificationServiceId
+        }
+      }
+    }
+  }
+`;
+export type CreateAlertUserStorageMutationFn = Apollo.MutationFunction<
+  CreateAlertUserStorageMutation,
+  CreateAlertUserStorageMutationVariables
+>;
+
+/**
+ * __useCreateAlertUserStorageMutation__
+ *
+ * To run a mutation, you first call `useCreateAlertUserStorageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAlertUserStorageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAlertUserStorageMutation, { data, loading, error }] = useCreateAlertUserStorageMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateAlertUserStorageMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateAlertUserStorageMutation,
+    CreateAlertUserStorageMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    CreateAlertUserStorageMutation,
+    CreateAlertUserStorageMutationVariables
+  >(CreateAlertUserStorageDocument, options);
+}
+export type CreateAlertUserStorageMutationHookResult = ReturnType<
+  typeof useCreateAlertUserStorageMutation
+>;
+export type CreateAlertUserStorageMutationResult =
+  Apollo.MutationResult<CreateAlertUserStorageMutation>;
+export type CreateAlertUserStorageMutationOptions = Apollo.BaseMutationOptions<
+  CreateAlertUserStorageMutation,
+  CreateAlertUserStorageMutationVariables
+>;
+export const DeleteAlertUserStorageDocument = gql`
+  mutation deleteAlertUserStorage($deleteAlertUserStorageId: ID!) {
+    deleteAlertUserStorage(id: $deleteAlertUserStorageId) {
+      data {
+        id
+      }
+    }
+  }
+`;
+export type DeleteAlertUserStorageMutationFn = Apollo.MutationFunction<
+  DeleteAlertUserStorageMutation,
+  DeleteAlertUserStorageMutationVariables
+>;
+
+/**
+ * __useDeleteAlertUserStorageMutation__
+ *
+ * To run a mutation, you first call `useDeleteAlertUserStorageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteAlertUserStorageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteAlertUserStorageMutation, { data, loading, error }] = useDeleteAlertUserStorageMutation({
+ *   variables: {
+ *      deleteAlertUserStorageId: // value for 'deleteAlertUserStorageId'
+ *   },
+ * });
+ */
+export function useDeleteAlertUserStorageMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteAlertUserStorageMutation,
+    DeleteAlertUserStorageMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    DeleteAlertUserStorageMutation,
+    DeleteAlertUserStorageMutationVariables
+  >(DeleteAlertUserStorageDocument, options);
+}
+export type DeleteAlertUserStorageMutationHookResult = ReturnType<
+  typeof useDeleteAlertUserStorageMutation
+>;
+export type DeleteAlertUserStorageMutationResult =
+  Apollo.MutationResult<DeleteAlertUserStorageMutation>;
+export type DeleteAlertUserStorageMutationOptions = Apollo.BaseMutationOptions<
+  DeleteAlertUserStorageMutation,
+  DeleteAlertUserStorageMutationVariables
+>;
+export const GetAlertUserStorageDocument = gql`
+  query getAlertUserStorage($email: String, $phoneNumber: String) {
+    alertUserStorages(
+      filters: { email: { eq: $email }, phoneNumber: { eq: $phoneNumber } }
+    ) {
+      data {
+        id
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetAlertUserStorageQuery__
+ *
+ * To run a query within a React component, call `useGetAlertUserStorageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAlertUserStorageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAlertUserStorageQuery({
+ *   variables: {
+ *      email: // value for 'email'
+ *      phoneNumber: // value for 'phoneNumber'
+ *   },
+ * });
+ */
+export function useGetAlertUserStorageQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetAlertUserStorageQuery,
+    GetAlertUserStorageQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetAlertUserStorageQuery,
+    GetAlertUserStorageQueryVariables
+  >(GetAlertUserStorageDocument, options);
+}
+export function useGetAlertUserStorageLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAlertUserStorageQuery,
+    GetAlertUserStorageQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetAlertUserStorageQuery,
+    GetAlertUserStorageQueryVariables
+  >(GetAlertUserStorageDocument, options);
+}
+export type GetAlertUserStorageQueryHookResult = ReturnType<
+  typeof useGetAlertUserStorageQuery
+>;
+export type GetAlertUserStorageLazyQueryHookResult = ReturnType<
+  typeof useGetAlertUserStorageLazyQuery
+>;
+export type GetAlertUserStorageQueryResult = Apollo.QueryResult<
+  GetAlertUserStorageQuery,
+  GetAlertUserStorageQueryVariables
 >;
 export const GetDropOffMapByDropOffMapByServiceIdDocument = gql`
   query getDropOffMapByDropOffMapByServiceId(

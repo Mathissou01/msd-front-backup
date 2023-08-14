@@ -27,7 +27,7 @@ export default function HeaderTopBar({
     searchRoute: "/",
     mapsRoute: "/",
     calendarRoute: "/",
-    notifyRoute: "/",
+    notifyRoute: "/service/alertes",
     contactUsRoute: "/service/contact",
   };
   const searchIcon = {
@@ -93,7 +93,7 @@ export default function HeaderTopBar({
                   />
                   <li className="c-HeaderTopBar__Item">
                     <NavigationLink
-                      href="/"
+                      href={routes.notifyRoute}
                       pictoUrl={notifyIcon.source}
                       pictoAlt={notifyIcon.alternativeText}
                       isDesktopMode

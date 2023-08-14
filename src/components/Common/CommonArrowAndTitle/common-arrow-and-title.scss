@@ -1,0 +1,20 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-CommonArrowAndTitle {
+  display: flex;
+
+  &__ArrowIcon {
+    cursor: pointer;
+  }
+
+  &__Title {
+    display: flex;
+    align-items: center;
+    color: colors.$expert-blue;
+
+    @include im.media(">=mobile") {
+      padding-left: 20px;
+    }
+  }
+}

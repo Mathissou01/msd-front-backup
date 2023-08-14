@@ -1,0 +1,7 @@
+mutation deleteAlertUserStorage($deleteAlertUserStorageId: ID!) {
+  deleteAlertUserStorage(id: $deleteAlertUserStorageId) {
+    data {
+      id
+    }
+  }
+}

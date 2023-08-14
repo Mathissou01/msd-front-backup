@@ -17,9 +17,13 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   maxQuestions,
   handleBackClick,
 }) => {
+  /* Static Data */
+  const progressionTitle = "Progression";
+
   const progressStyle = {
     width: `${(currentQuestion / maxQuestions) * 100}%`,
   };
+
   return (
     <div className="c-ProgressBar__Header">
       {currentQuestion >= 1 && !withoutBackButton && (
@@ -30,7 +34,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
       <div className="c-ProgressBar__Content">
         <h4>{title}</h4>
         <div className="c-ProgressBar__Container">
-          <p>Progression</p>
+          <p>{progressionTitle}</p>
           <div className="c-ProgressBar__ProgressBarContainer">
             <div
               className="c-ProgressBar__ProgressBar"

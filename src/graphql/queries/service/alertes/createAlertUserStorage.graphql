@@ -1,0 +1,10 @@
+mutation createAlertUserStorage($data: AlertUserStorageInput!) {
+  createAlertUserStorage(data: $data) {
+    data {
+      id
+      attributes {
+        alertNotificationServiceId
+      }
+    }
+  }
+}

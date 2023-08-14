@@ -85,7 +85,7 @@ exports[`Header renders in desktop mode 1`] = `
           >
             <a
               class="c-NavigationLink c-NavigationLink_desktop"
-              href="/"
+              href="/service/alertes"
             >
               <div
                 class="c-NavigationLink__Box"

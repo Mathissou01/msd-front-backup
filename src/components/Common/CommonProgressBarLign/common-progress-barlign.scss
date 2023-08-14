@@ -1,0 +1,23 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-CommonProgressBarLign {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  width: 40vw;
+  height: 12px;
+  padding: 2px;
+  background: colors.$white;
+  border: 1px solid #d5d6de;
+  border-radius: 10px;
+
+  &__ProgressBar {
+    z-index: 1;
+    width: 63.43px;
+    height: 8px;
+    background: colors.$brand-secondary;
+    border-radius: 20px;
+  }
+}

@@ -32,6 +32,11 @@ query getGlobalData($contractId: ID!) {
             }
           }
         }
+        alertNotificationService {
+          data {
+            id
+          }
+        }
         dropOffMapService {
           data {
             id
