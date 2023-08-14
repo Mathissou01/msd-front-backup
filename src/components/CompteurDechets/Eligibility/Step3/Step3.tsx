@@ -6,13 +6,13 @@ import React, {
   useState,
 } from "react";
 import { useSearchAddressQuery } from "../../../../graphql/codegen/generated-types";
+import { User } from "../../../../lib/user";
+import { AddressOption } from "../../../../lib/address-option";
 import useDebounce from "../../../../hooks/useDebounce";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
 import CommonButton from "../../../Common/CommonButton/CommonButton";
 import AddressBlock from "../AddressBlock/AddressBlock";
 import AutocompleteAddress from "../AutocompleteAddress/AutocompleteAddress";
-import { AddressOption } from "../../../../lib/address-option";
-import { User } from "../../../../lib/user";
 import { IError } from "../../../../pages/mon-compteur-dechets/eligibilite/index.page";
 import EligibilityAdress from "public/images/adresse-postale.svg";
 import "./step3.scss";

@@ -23,7 +23,6 @@ const imgUrl =
   "https://actualitte.com/uploads/images/the-one-ring-the-lord-of-the-rings-5fe720b868b9b593188157.jpg";
 
 export default function MyFlowEdito({ wasteFlow }: MyWasteFlowEditoProps) {
-  console.log("wasteFlow++ :", wasteFlow?.__typename);
   const ComponentBlocksSubHeading = wasteFlow?.__typename ===
     "ComponentBlocksSubHeading" && (
     <p className="c-MyFlowEdito__Title">

@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from "react";
-import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
-import CommonButton from "../../../Common/CommonButton/CommonButton";
-import Flows from "../HomePage/Flows/Flows";
 import { useRouter } from "next/router";
-import MyHomeDataComponent from "../HomePage/myHomeDataComponent/myHomeDataComponent";
 import {
   useGetDataHomePageMwcQuery,
   useGetMwcAverageProductionQuery,
   useGetUserWasteManagementHistoryQuery,
   useGetUserWasteManagementQuery,
 } from "../../../../graphql/codegen/generated-types";
-
-import PencilWrite from "public/images/pictos/pencilwrite.svg";
-import Info from "public/images/pictos/info.svg";
-import CommonOverlay from "../../../Common/CommonPopover/CommonOverlay";
-import "./my-home-data.scss";
-import CommonStatsArrow from "../../../Common/CommonStatsArrow/CommonStatsArrow";
-import CommonPie from "../../../Common/CommonGraphs/CommonPie";
 import { useCurrentUser } from "../../../../hooks/useCurrentUser";
 import { useContract } from "../../../../hooks/useContract";
+import CommonButton from "../../../Common/CommonButton/CommonButton";
+import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
+import CommonOverlay from "../../../Common/CommonPopover/CommonOverlay";
+import CommonStatsArrow from "../../../Common/CommonStatsArrow/CommonStatsArrow";
+import CommonPie from "../../../Common/CommonGraphs/CommonPie";
 import CommonSpinner from "../../../Common/CommonSpinner/CommonSpinner";
+import MyHomeDataComponent from "../HomePage/myHomeDataComponent/myHomeDataComponent";
+import Flows from "../HomePage/Flows/Flows";
+import PencilWrite from "public/images/pictos/pencilwrite.svg";
+import Info from "public/images/pictos/info.svg";
+import "./my-home-data.scss";
 interface BarometerParams {
   low: number;
   high: number;
@@ -50,7 +49,8 @@ const MyHomeData = () => {
     {
       variables: {
         contractId: contractId,
-        street: `${currentUser?.streetNumber} ${currentUser?.streetName}`,
+        streetName: `${currentUser?.streetName}`,
+        streetNumber: `${currentUser?.streetNumber}`,
         postcode: `${currentUser?.postalCode}`,
         city: `${currentUser?.city}`,
       },
@@ -61,7 +61,8 @@ const MyHomeData = () => {
     useGetUserWasteManagementHistoryQuery({
       variables: {
         contractId: contractId,
-        street: `${currentUser?.streetNumber} ${currentUser?.streetName}`,
+        streetNumber: `${currentUser?.streetNumber}`,
+        streetName: `${currentUser?.streetName}`,
         postcode: `${currentUser?.postalCode}`,
         city: `${currentUser?.city}`,
         signUpDate: new Date(
@@ -78,14 +79,12 @@ const MyHomeData = () => {
         contractId: contractId,
       },
     });
-  // console.log("pieData :", pieData);
-  const pie = pieData?.getUserWasteManagement?.map((pie) =>
-    JSON.parse(pie?.barometerParams || ""),
+  const pie = pieData?.getUserWasteManagement?.map(
+    (pie) => pie?.barometerParams,
   );
-
   useEffect(() => {
-    if (pie && pie.length > 0) {
-      setBaroParam(pie[0]);
+    if (pie && pie[0]) {
+      setBaroParam(pie[0] as BarometerParams);
     }
   }, [pie]);
 
@@ -218,9 +217,8 @@ const MyHomeData = () => {
 
             {!pieLoading && !averageLoading ? (
               <div className="c-MyHomeData__Barometer">
-                {/* TODO: Change values when API's ready */}
                 <p className="c-MyHomeData__BarometerTopInfo">
-                  Pour votre foyer, la production est de
+                  Pour votre foyer, la production est de&nbsp;
                   <span>
                     {pieData?.getUserWasteManagement?.[0]?.totalWeight || 0}
                     kg/personne
@@ -307,7 +305,6 @@ const MyHomeData = () => {
                     </>
                   )}
                 </div>
-                {/* TODO: Change values when API's ready */}
                 <div className="c-MyHomeData__BarometerBottomInfo">
                   <p>
                     Votre foyer est constitué de :

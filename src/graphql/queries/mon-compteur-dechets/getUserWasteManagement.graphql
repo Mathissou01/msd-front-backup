@@ -1,17 +1,24 @@
-query GetUserWasteManagement(
+query getUserWasteManagement(
   $contractId: ID!
-  $street: String!
   $postcode: String!
   $city: String!
+  $streetNumber: String!
+  $streetName: String!
 ) {
   getUserWasteManagement(
     contractID: $contractId
-    street: $street
+    streetNumber: $streetNumber
+    streetName: $streetName
     postcode: $postcode
     city: $city
   ) {
     lastDayOfRange
-    barometerParams
+    barometerParams {
+      low
+      medium
+      high
+      veryHigh
+    }
     totalWeight
     flows {
       name

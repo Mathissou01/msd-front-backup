@@ -4575,6 +4575,7 @@ export type Mutation = {
   uploadGraphQL?: Maybe<Scalars["Boolean"]>;
   urlUploader?: Maybe<Scalars["Boolean"]>;
   validateRequest?: Maybe<Scalars["Boolean"]>;
+  versioningHandler?: Maybe<VersioningEntityResponse>;
   ywsActivation?: Maybe<Scalars["Boolean"]>;
   ywsDeactivation?: Maybe<Scalars["Boolean"]>;
 };
@@ -5319,10 +5320,10 @@ export type MutationMultipleUploadArgs = {
 export type MutationProgrammedSendArgs = {
   alertMessage?: InputMaybe<Scalars["String"]>;
   isEmail?: InputMaybe<Scalars["Boolean"]>;
-  isImmediate?: InputMaybe<Scalars["Boolean"]>;
   isSMS?: InputMaybe<Scalars["Boolean"]>;
   mailSubject?: InputMaybe<Scalars["String"]>;
-  recipientEmail?: InputMaybe<Scalars["String"]>;
+  recipientEmails?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  recipientnumbers?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
   scheduledAt?: InputMaybe<Scalars["Date"]>;
   smsTitle?: InputMaybe<Scalars["String"]>;
   time?: InputMaybe<Scalars["String"]>;
@@ -5344,7 +5345,7 @@ export type MutationResetPasswordArgs = {
 
 export type MutationSendEmailArgs = {
   content?: InputMaybe<Scalars["String"]>;
-  recipientEmail: Scalars["String"];
+  recipientEmails: Array<InputMaybe<Scalars["String"]>>;
   subject?: InputMaybe<Scalars["String"]>;
   templateId?: InputMaybe<Scalars["Int"]>;
 };
@@ -5828,6 +5829,11 @@ export type MutationUrlUploaderArgs = {
 
 export type MutationValidateRequestArgs = {
   requestJSON?: InputMaybe<Scalars["JSON"]>;
+};
+
+export type MutationVersioningHandlerArgs = {
+  data: Scalars["JSON"];
+  entity: Scalars["String"];
 };
 
 export type MutationYwsActivationArgs = {
@@ -7123,7 +7129,8 @@ export type QueryGetUserWasteManagementArgs = {
   city: Scalars["String"];
   contractID: Scalars["ID"];
   postcode: Scalars["String"];
-  street: Scalars["String"];
+  streetName: Scalars["String"];
+  streetNumber: Scalars["String"];
 };
 
 export type QueryGetUserWasteManagementHistoryArgs = {
@@ -7131,7 +7138,8 @@ export type QueryGetUserWasteManagementHistoryArgs = {
   contractID: Scalars["ID"];
   postcode: Scalars["String"];
   signUpDate: Scalars["String"];
-  street: Scalars["String"];
+  streetName: Scalars["String"];
+  streetNumber: Scalars["String"];
 };
 
 export type QueryHomepageArgs = {
@@ -9363,7 +9371,7 @@ export type UserDataStorageInput = {
 export type UserWasteData = {
   __typename?: "UserWasteData";
   averageProduction?: Maybe<Scalars["String"]>;
-  barometerParams?: Maybe<Scalars["String"]>;
+  barometerParams?: Maybe<BarometerParam>;
   flows?: Maybe<Array<Maybe<TrashFlow>>>;
   lastDayOfRange?: Maybe<Scalars["String"]>;
   totalWeight?: Maybe<Scalars["Float"]>;
@@ -9582,6 +9590,19 @@ export type UsersPermissionsUserInput = {
 export type UsersPermissionsUserRelationResponseCollection = {
   __typename?: "UsersPermissionsUserRelationResponseCollection";
   data: Array<UsersPermissionsUserEntity>;
+};
+
+export type VersioningEntity =
+  | EventEntity
+  | FreeContentEntity
+  | NewEntity
+  | QuizEntity
+  | TipEntity
+  | WasteFormEntity;
+
+export type VersioningEntityResponse = {
+  __typename?: "VersioningEntityResponse";
+  data?: Maybe<VersioningEntity>;
 };
 
 export type WasteFamily = {
@@ -9854,6 +9875,14 @@ export type YesWeScanServiceInput = {
 export type YesWeScanServiceRelationResponseCollection = {
   __typename?: "YesWeScanServiceRelationResponseCollection";
   data: Array<YesWeScanServiceEntity>;
+};
+
+export type BarometerParam = {
+  __typename?: "barometerParam";
+  high?: Maybe<Scalars["Int"]>;
+  low?: Maybe<Scalars["Int"]>;
+  medium?: Maybe<Scalars["Int"]>;
+  veryHigh?: Maybe<Scalars["Int"]>;
 };
 
 export type ClientName = {
@@ -12168,27 +12197,20 @@ export type GetCookieByContractIdQuery = {
   } | null;
 };
 
-export type GetUserWasteManagementQueryVariables = Exact<{
-  contractId: Scalars["ID"];
-  street: Scalars["String"];
-  postcode: Scalars["String"];
+export type CheckUserRequirementsQueryVariables = Exact<{
+  streetNumber: Scalars["String"];
+  streetName: Scalars["String"];
+  postalCode: Scalars["String"];
   city: Scalars["String"];
+  contractId: Scalars["ID"];
 }>;
 
-export type GetUserWasteManagementQuery = {
+export type CheckUserRequirementsQuery = {
   __typename?: "Query";
-  getUserWasteManagement?: Array<{
-    __typename?: "UserWasteData";
-    lastDayOfRange?: string | null;
-    barometerParams?: string | null;
-    totalWeight?: number | null;
-    flows?: Array<{
-      __typename?: "TrashFlow";
-      name?: string | null;
-      percentage?: number | null;
-      weight?: number | null;
-      trashFlow?: string | null;
-    } | null> | null;
+  checkUserRequirements?: Array<{
+    __typename?: "UnregisteredUserData";
+    chipId?: string | null;
+    trashFlow?: string | null;
   } | null> | null;
 };
 
@@ -12199,23 +12221,6 @@ export type GetMwcAverageProductionQueryVariables = Exact<{
 export type GetMwcAverageProductionQuery = {
   __typename?: "Query";
   getMwcAverageProduction?: number | null;
-};
-
-export type GetBinsQueryVariables = Exact<{
-  streetNumber: Scalars["String"];
-  streetName: Scalars["String"];
-  postalCode: Scalars["String"];
-  city: Scalars["String"];
-  contractId: Scalars["ID"];
-}>;
-
-export type GetBinsQuery = {
-  __typename?: "Query";
-  checkUserRequirements?: Array<{
-    __typename?: "UnregisteredUserData";
-    chipId?: string | null;
-    trashFlow?: string | null;
-  } | null> | null;
 };
 
 export type GetDataHomePageMwcQueryVariables = Exact<{
@@ -12330,6 +12335,7 @@ export type GetMwcFlowsByContractIdQuery = {
 export type SearchAddressQueryVariables = Exact<{
   address: Scalars["String"];
   limit: Scalars["Int"];
+  citycode?: InputMaybe<Scalars["String"]>;
 }>;
 
 export type SearchAddressQuery = {
@@ -12379,9 +12385,10 @@ export type GetThreeRandomTipsQuery = {
 
 export type GetUserWasteManagementHistoryQueryVariables = Exact<{
   contractId: Scalars["ID"];
-  street: Scalars["String"];
   postcode: Scalars["String"];
   city: Scalars["String"];
+  streetNumber: Scalars["String"];
+  streetName: Scalars["String"];
   signUpDate: Scalars["String"];
 }>;
 
@@ -12390,8 +12397,6 @@ export type GetUserWasteManagementHistoryQuery = {
   getUserWasteManagementHistory?: Array<{
     __typename?: "UserWasteData";
     lastDayOfRange?: string | null;
-    averageProduction?: string | null;
-    barometerParams?: string | null;
     totalWeight?: number | null;
     flows?: Array<{
       __typename?: "TrashFlow";
@@ -12399,6 +12404,37 @@ export type GetUserWasteManagementHistoryQuery = {
       percentage?: number | null;
       trashFlow?: string | null;
       weight?: number | null;
+    } | null> | null;
+  } | null> | null;
+};
+
+export type GetUserWasteManagementQueryVariables = Exact<{
+  contractId: Scalars["ID"];
+  postcode: Scalars["String"];
+  city: Scalars["String"];
+  streetNumber: Scalars["String"];
+  streetName: Scalars["String"];
+}>;
+
+export type GetUserWasteManagementQuery = {
+  __typename?: "Query";
+  getUserWasteManagement?: Array<{
+    __typename?: "UserWasteData";
+    lastDayOfRange?: string | null;
+    totalWeight?: number | null;
+    barometerParams?: {
+      __typename?: "barometerParam";
+      low?: number | null;
+      medium?: number | null;
+      high?: number | null;
+      veryHigh?: number | null;
+    } | null;
+    flows?: Array<{
+      __typename?: "TrashFlow";
+      name?: string | null;
+      percentage?: number | null;
+      weight?: number | null;
+      trashFlow?: string | null;
     } | null> | null;
   } | null> | null;
 };
@@ -16830,84 +16866,80 @@ export type GetCookieByContractIdQueryResult = Apollo.QueryResult<
   GetCookieByContractIdQuery,
   GetCookieByContractIdQueryVariables
 >;
-export const GetUserWasteManagementDocument = gql`
-  query GetUserWasteManagement(
-    $contractId: ID!
-    $street: String!
-    $postcode: String!
+export const CheckUserRequirementsDocument = gql`
+  query checkUserRequirements(
+    $streetNumber: String!
+    $streetName: String!
+    $postalCode: String!
     $city: String!
+    $contractId: ID!
   ) {
-    getUserWasteManagement(
-      contractID: $contractId
-      street: $street
-      postcode: $postcode
+    checkUserRequirements(
+      streetNumber: $streetNumber
+      streetName: $streetName
+      postalCode: $postalCode
       city: $city
+      contractId: $contractId
     ) {
-      lastDayOfRange
-      barometerParams
-      totalWeight
-      flows {
-        name
-        percentage
-        weight
-        trashFlow
-      }
+      chipId
+      trashFlow
     }
   }
 `;
 
 /**
- * __useGetUserWasteManagementQuery__
+ * __useCheckUserRequirementsQuery__
  *
- * To run a query within a React component, call `useGetUserWasteManagementQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetUserWasteManagementQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useCheckUserRequirementsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCheckUserRequirementsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetUserWasteManagementQuery({
+ * const { data, loading, error } = useCheckUserRequirementsQuery({
  *   variables: {
- *      contractId: // value for 'contractId'
- *      street: // value for 'street'
- *      postcode: // value for 'postcode'
+ *      streetNumber: // value for 'streetNumber'
+ *      streetName: // value for 'streetName'
+ *      postalCode: // value for 'postalCode'
  *      city: // value for 'city'
+ *      contractId: // value for 'contractId'
  *   },
  * });
  */
-export function useGetUserWasteManagementQuery(
+export function useCheckUserRequirementsQuery(
   baseOptions: Apollo.QueryHookOptions<
-    GetUserWasteManagementQuery,
-    GetUserWasteManagementQueryVariables
+    CheckUserRequirementsQuery,
+    CheckUserRequirementsQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<
-    GetUserWasteManagementQuery,
-    GetUserWasteManagementQueryVariables
-  >(GetUserWasteManagementDocument, options);
+    CheckUserRequirementsQuery,
+    CheckUserRequirementsQueryVariables
+  >(CheckUserRequirementsDocument, options);
 }
-export function useGetUserWasteManagementLazyQuery(
+export function useCheckUserRequirementsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    GetUserWasteManagementQuery,
-    GetUserWasteManagementQueryVariables
+    CheckUserRequirementsQuery,
+    CheckUserRequirementsQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<
-    GetUserWasteManagementQuery,
-    GetUserWasteManagementQueryVariables
-  >(GetUserWasteManagementDocument, options);
+    CheckUserRequirementsQuery,
+    CheckUserRequirementsQueryVariables
+  >(CheckUserRequirementsDocument, options);
 }
-export type GetUserWasteManagementQueryHookResult = ReturnType<
-  typeof useGetUserWasteManagementQuery
+export type CheckUserRequirementsQueryHookResult = ReturnType<
+  typeof useCheckUserRequirementsQuery
 >;
-export type GetUserWasteManagementLazyQueryHookResult = ReturnType<
-  typeof useGetUserWasteManagementLazyQuery
+export type CheckUserRequirementsLazyQueryHookResult = ReturnType<
+  typeof useCheckUserRequirementsLazyQuery
 >;
-export type GetUserWasteManagementQueryResult = Apollo.QueryResult<
-  GetUserWasteManagementQuery,
-  GetUserWasteManagementQueryVariables
+export type CheckUserRequirementsQueryResult = Apollo.QueryResult<
+  CheckUserRequirementsQuery,
+  CheckUserRequirementsQueryVariables
 >;
 export const GetMwcAverageProductionDocument = gql`
   query getMwcAverageProduction($contractId: ID) {
@@ -16964,74 +16996,6 @@ export type GetMwcAverageProductionLazyQueryHookResult = ReturnType<
 export type GetMwcAverageProductionQueryResult = Apollo.QueryResult<
   GetMwcAverageProductionQuery,
   GetMwcAverageProductionQueryVariables
->;
-export const GetBinsDocument = gql`
-  query getBins(
-    $streetNumber: String!
-    $streetName: String!
-    $postalCode: String!
-    $city: String!
-    $contractId: ID!
-  ) {
-    checkUserRequirements(
-      streetNumber: $streetNumber
-      streetName: $streetName
-      postalCode: $postalCode
-      city: $city
-      contractId: $contractId
-    ) {
-      chipId
-      trashFlow
-    }
-  }
-`;
-
-/**
- * __useGetBinsQuery__
- *
- * To run a query within a React component, call `useGetBinsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetBinsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetBinsQuery({
- *   variables: {
- *      streetNumber: // value for 'streetNumber'
- *      streetName: // value for 'streetName'
- *      postalCode: // value for 'postalCode'
- *      city: // value for 'city'
- *      contractId: // value for 'contractId'
- *   },
- * });
- */
-export function useGetBinsQuery(
-  baseOptions: Apollo.QueryHookOptions<GetBinsQuery, GetBinsQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetBinsQuery, GetBinsQueryVariables>(
-    GetBinsDocument,
-    options,
-  );
-}
-export function useGetBinsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetBinsQuery,
-    GetBinsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetBinsQuery, GetBinsQueryVariables>(
-    GetBinsDocument,
-    options,
-  );
-}
-export type GetBinsQueryHookResult = ReturnType<typeof useGetBinsQuery>;
-export type GetBinsLazyQueryHookResult = ReturnType<typeof useGetBinsLazyQuery>;
-export type GetBinsQueryResult = Apollo.QueryResult<
-  GetBinsQuery,
-  GetBinsQueryVariables
 >;
 export const GetDataHomePageMwcDocument = gql`
   query getDataHomePageMwc(
@@ -17283,8 +17247,8 @@ export type GetMwcFlowsByContractIdQueryResult = Apollo.QueryResult<
   GetMwcFlowsByContractIdQueryVariables
 >;
 export const SearchAddressDocument = gql`
-  query SearchAddress($address: String!, $limit: Int!) {
-    searchAddress(address: $address, limit: $limit) {
+  query SearchAddress($address: String!, $limit: Int!, $citycode: String) {
+    searchAddress(address: $address, limit: $limit, citycode: $citycode) {
       label
       score
       id
@@ -17318,6 +17282,7 @@ export const SearchAddressDocument = gql`
  *   variables: {
  *      address: // value for 'address'
  *      limit: // value for 'limit'
+ *      citycode: // value for 'citycode'
  *   },
  * });
  */
@@ -17426,23 +17391,23 @@ export type GetThreeRandomTipsQueryResult = Apollo.QueryResult<
   GetThreeRandomTipsQueryVariables
 >;
 export const GetUserWasteManagementHistoryDocument = gql`
-  query GetUserWasteManagementHistory(
+  query getUserWasteManagementHistory(
     $contractId: ID!
-    $street: String!
     $postcode: String!
     $city: String!
+    $streetNumber: String!
+    $streetName: String!
     $signUpDate: String!
   ) {
     getUserWasteManagementHistory(
       contractID: $contractId
-      street: $street
+      streetNumber: $streetNumber
+      streetName: $streetName
       postcode: $postcode
       city: $city
       signUpDate: $signUpDate
     ) {
       lastDayOfRange
-      averageProduction
-      barometerParams
       totalWeight
       flows {
         name
@@ -17467,9 +17432,10 @@ export const GetUserWasteManagementHistoryDocument = gql`
  * const { data, loading, error } = useGetUserWasteManagementHistoryQuery({
  *   variables: {
  *      contractId: // value for 'contractId'
- *      street: // value for 'street'
  *      postcode: // value for 'postcode'
  *      city: // value for 'city'
+ *      streetNumber: // value for 'streetNumber'
+ *      streetName: // value for 'streetName'
  *      signUpDate: // value for 'signUpDate'
  *   },
  * });
@@ -17507,6 +17473,93 @@ export type GetUserWasteManagementHistoryLazyQueryHookResult = ReturnType<
 export type GetUserWasteManagementHistoryQueryResult = Apollo.QueryResult<
   GetUserWasteManagementHistoryQuery,
   GetUserWasteManagementHistoryQueryVariables
+>;
+export const GetUserWasteManagementDocument = gql`
+  query getUserWasteManagement(
+    $contractId: ID!
+    $postcode: String!
+    $city: String!
+    $streetNumber: String!
+    $streetName: String!
+  ) {
+    getUserWasteManagement(
+      contractID: $contractId
+      streetNumber: $streetNumber
+      streetName: $streetName
+      postcode: $postcode
+      city: $city
+    ) {
+      lastDayOfRange
+      barometerParams {
+        low
+        medium
+        high
+        veryHigh
+      }
+      totalWeight
+      flows {
+        name
+        percentage
+        weight
+        trashFlow
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetUserWasteManagementQuery__
+ *
+ * To run a query within a React component, call `useGetUserWasteManagementQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserWasteManagementQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserWasteManagementQuery({
+ *   variables: {
+ *      contractId: // value for 'contractId'
+ *      postcode: // value for 'postcode'
+ *      city: // value for 'city'
+ *      streetNumber: // value for 'streetNumber'
+ *      streetName: // value for 'streetName'
+ *   },
+ * });
+ */
+export function useGetUserWasteManagementQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetUserWasteManagementQuery,
+    GetUserWasteManagementQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetUserWasteManagementQuery,
+    GetUserWasteManagementQueryVariables
+  >(GetUserWasteManagementDocument, options);
+}
+export function useGetUserWasteManagementLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetUserWasteManagementQuery,
+    GetUserWasteManagementQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetUserWasteManagementQuery,
+    GetUserWasteManagementQueryVariables
+  >(GetUserWasteManagementDocument, options);
+}
+export type GetUserWasteManagementQueryHookResult = ReturnType<
+  typeof useGetUserWasteManagementQuery
+>;
+export type GetUserWasteManagementLazyQueryHookResult = ReturnType<
+  typeof useGetUserWasteManagementLazyQuery
+>;
+export type GetUserWasteManagementQueryResult = Apollo.QueryResult<
+  GetUserWasteManagementQuery,
+  GetUserWasteManagementQueryVariables
 >;
 export const GetContactDocument = gql`
   query getContact($filters: MwCounterServiceFiltersInput) {

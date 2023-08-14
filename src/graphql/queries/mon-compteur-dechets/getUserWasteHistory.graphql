@@ -1,20 +1,20 @@
-query GetUserWasteManagementHistory(
+query getUserWasteManagementHistory(
   $contractId: ID!
-  $street: String!
   $postcode: String!
   $city: String!
+  $streetNumber: String!
+  $streetName: String!
   $signUpDate: String!
 ) {
   getUserWasteManagementHistory(
     contractID: $contractId
-    street: $street
+    streetNumber: $streetNumber
+    streetName: $streetName
     postcode: $postcode
     city: $city
     signUpDate: $signUpDate
   ) {
     lastDayOfRange
-    averageProduction
-    barometerParams
     totalWeight
     flows {
       name

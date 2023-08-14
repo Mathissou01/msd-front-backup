@@ -1,4 +1,4 @@
-query getBins(
+query checkUserRequirements(
   $streetNumber: String!
   $streetName: String!
   $postalCode: String!

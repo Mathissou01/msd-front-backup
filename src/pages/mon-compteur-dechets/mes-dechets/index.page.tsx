@@ -76,7 +76,8 @@ export default function MyWastePage() {
   const { data: flowsData, loading } = useGetUserWasteManagementQuery({
     variables: {
       contractId: contractId,
-      street: `${currentUser?.streetNumber} ${currentUser?.streetName}`,
+      streetNumber: `${currentUser?.streetNumber}`,
+      streetName: `${currentUser?.streetName}`,
       postcode: `${currentUser?.postalCode}`,
       city: `${currentUser?.city}`,
     },

@@ -46,8 +46,6 @@ const LearnMore = () => {
     }
   }, [data]);
 
-  console.log(flows);
-
   const renderOverlayContent = () => {
     const uniqueWeighingSystems = Array.from(
       new Set(flows.map((flow) => flow.weightSystem)),

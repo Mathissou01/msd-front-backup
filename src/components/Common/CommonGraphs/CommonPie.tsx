@@ -1,8 +1,8 @@
 /* eslint-disable no-shadow */
 import React from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-import "./common-pie.scss";
 import { UserWasteData } from "../../../graphql/codegen/generated-types";
+import "./common-pie.scss";
 
 interface IBarometerInsightProps {
   pieData?: UserWasteData;
@@ -27,13 +27,22 @@ export default function BarometerInsight({
   average,
 }: IBarometerInsightProps) {
   const needleValue = pieData?.totalWeight || 0;
-  const barometerParams: BarometerParams = JSON.parse(
-    pieData?.barometerParams as string,
-  );
-  const maxLow = Math.round(barometerParams.low / 100) * average;
-  const maxMedium = Math.round((barometerParams.medium / 100) * average);
-  const maxHigh = Math.round((barometerParams.high / 100) * average);
-  const maxVeryHigh = Math.round((barometerParams.veryHigh / 100) * average);
+
+  const barometerParams: BarometerParams = {
+    low: pieData?.barometerParams?.low ?? 0,
+    medium: pieData?.barometerParams?.medium ?? 0,
+    high: pieData?.barometerParams?.high ?? 0,
+    veryHigh: pieData?.barometerParams?.veryHigh ?? 0,
+  };
+
+  const maxLow =
+    barometerParams && Math.round(barometerParams.low / 100) * average;
+  const maxMedium =
+    barometerParams && Math.round((barometerParams.medium / 100) * average);
+  const maxHigh =
+    barometerParams && Math.round((barometerParams.high / 100) * average);
+  const maxVeryHigh =
+    barometerParams && Math.round((barometerParams.veryHigh / 100) * average);
 
   const rootStyles = getComputedStyle(document.documentElement);
   const white = rootStyles.getPropertyValue("--white");

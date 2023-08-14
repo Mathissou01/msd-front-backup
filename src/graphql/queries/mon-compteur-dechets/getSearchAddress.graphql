@@ -1,5 +1,5 @@
-query SearchAddress($address: String!, $limit: Int!) {
-  searchAddress(address: $address, limit: $limit) {
+query SearchAddress($address: String!, $limit: Int!, $citycode: String) {
+  searchAddress(address: $address, limit: $limit, citycode: $citycode) {
     label
     score
     id

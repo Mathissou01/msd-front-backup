@@ -4167,10 +4167,10 @@ type Mutation {
   programmedSend(
     alertMessage: String
     isEmail: Boolean
-    isImmediate: Boolean
     isSMS: Boolean
     mailSubject: String
-    recipientEmail: String
+    recipientEmails: [String]
+    recipientnumbers: [String]
     scheduledAt: Date
     smsTitle: String
     time: String
@@ -4192,7 +4192,7 @@ type Mutation {
   ): UsersPermissionsLoginPayload
   sendEmail(
     content: String
-    recipientEmail: String!
+    recipientEmails: [String]!
     subject: String
     templateId: Int
   ): String
@@ -4486,6 +4486,7 @@ type Mutation {
   ): Boolean
   urlUploader(imageName: String!, url: String!): Boolean
   validateRequest(requestJSON: JSON): Boolean
+  versioningHandler(data: JSON!, entity: String!): VersioningEntityResponse
   ywsActivation(contractId: ID!): Boolean
   ywsDeactivation(contractId: ID!): Boolean
 }
@@ -5315,14 +5316,16 @@ type Query {
     city: String!
     contractID: ID!
     postcode: String!
-    street: String!
+    streetName: String!
+    streetNumber: String!
   ): [UserWasteData]
   getUserWasteManagementHistory(
     city: String!
     contractID: ID!
     postcode: String!
     signUpDate: String!
-    street: String!
+    streetName: String!
+    streetNumber: String!
   ): [UserWasteData]
   global: GlobalEntityResponse
   homepage(id: ID): HomepageEntityResponse
@@ -7195,7 +7198,7 @@ input UserDataStorageInput {
 
 type UserWasteData {
   averageProduction: String
-  barometerParams: String
+  barometerParams: barometerParam
   flows: [TrashFlow]
   lastDayOfRange: String
   totalWeight: Float
@@ -7391,6 +7394,18 @@ input UsersPermissionsUserInput {
 
 type UsersPermissionsUserRelationResponseCollection {
   data: [UsersPermissionsUserEntity!]!
+}
+
+union VersioningEntity =
+    EventEntity
+  | FreeContentEntity
+  | NewEntity
+  | QuizEntity
+  | TipEntity
+  | WasteFormEntity
+
+type VersioningEntityResponse {
+  data: VersioningEntity
 }
 
 type WasteFamily {
@@ -7638,6 +7653,13 @@ input YesWeScanServiceInput {
 
 type YesWeScanServiceRelationResponseCollection {
   data: [YesWeScanServiceEntity!]!
+}
+
+type barometerParam {
+  high: Int
+  low: Int
+  medium: Int
+  veryHigh: Int
 }
 
 type clientName {

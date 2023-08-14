@@ -1,20 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import CommonButton from "../../../Common/CommonButton/CommonButton";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
 import GetDataChipId from "../../../Common/CommonChipIdMwc/CommonChipIdMwc";
 import CommonLoader from "../../../Common/CommonLoader/CommonLoader";
+import CommonOverlay from "../../../Common/CommonPopover/CommonOverlay";
 import { IError } from "../../../../pages/mon-compteur-dechets/eligibilite/index.page";
 import EligibilityRecycling from "public/images/id-bac.svg";
 import BacIcon from "public/images/pictos/search.svg";
 import "./step4.scss";
-import CommonOverlay from "../../../Common/CommonPopover/CommonOverlay";
 
 interface Step4Props {
   handleOptionClick: (next: string | number) => void;
   handleError: (updates: Partial<IError>) => void;
 }
 
+const labels = {
+  unknownBacs:
+    "Malheureusement, nous ne retrouvons pas de bacs de déchets liés à votre adresse",
+};
 const Step4: React.FC<Step4Props> = ({ handleOptionClick, handleError }) => {
   const { loading, error, findChipIdByTrashFlow, binIdData } = GetDataChipId();
 
@@ -27,6 +31,18 @@ const Step4: React.FC<Step4Props> = ({ handleOptionClick, handleError }) => {
     binIdData,
     "CS",
   );
+
+  useEffect(() => {
+    if (error && error.message) {
+      handleError({
+        isActive: true,
+        isAddressVisible: true,
+        isReasonVisible: true,
+        isContactVisible: true,
+        title: labels.unknownBacs,
+      });
+    }
+  }, [chipIdCollecteSelective, chipIdOrduresMenageres, error, handleError]);
   return (
     <>
       <div>

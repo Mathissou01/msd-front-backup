@@ -1,11 +1,11 @@
-import { useGetBinsQuery } from "../../../graphql/codegen/generated-types";
+import { useCheckUserRequirementsQuery } from "../../../graphql/codegen/generated-types";
 import { useContract } from "../../../hooks/useContract";
 import { useCurrentUser } from "../../../hooks/useCurrentUser";
 
 export const GetDataChipId = () => {
   const { currentUser } = useCurrentUser();
   const { contractId } = useContract();
-  const { data, loading, error } = useGetBinsQuery({
+  const { data, loading, error } = useCheckUserRequirementsQuery({
     variables: {
       streetNumber: `${currentUser?.streetNumber}`,
       streetName: `${currentUser?.streetName}`,
