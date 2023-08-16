@@ -23,6 +23,7 @@ function MsdFrontApp({ Component, pageProps }: AppProps) {
   const [currentPage, setCurrentPage] = useState<ENavigationPages | string>(
     router.route as ENavigationPages | string,
   );
+
   return (
     <>
       <ApolloProvider client={client}>

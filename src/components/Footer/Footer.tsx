@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { version } from "../../../package.json";
 import { useContract } from "../../hooks/useContract";
 import "./footer.scss";
 
@@ -40,52 +41,61 @@ export default function Footer() {
     : EAccessibilityLevel.not_conform;
 
   return (
-    <footer className="c-Footer" role="contentinfo" data-testid="footer">
-      <Link className="c-Footer__Link" href={routes.accessibilityRoute}>
-        <span>{labels.accessibilityLabel + accessibilityLevelLabel}</span>
-      </Link>
-      <Link className="c-Footer__Link" href={routes.siteRoute}>
-        <span>{labels.siteLabel}</span>
-      </Link>
-      <Link
-        className="c-Footer__Link"
-        href={
-          footerData?.cguSubService?.data?.attributes?.link ?? routes.cguRoute
-        }
+    <div className="c-Footer">
+      <footer
+        className="c-Footer__ContentContainer"
+        role="contentinfo"
+        data-testid="footer"
       >
-        <span>{labels.cguLabel}</span>
-      </Link>
-      <Link
-        className="c-Footer__Link"
-        href={
-          footerData?.cookiesSubService?.data?.attributes?.link ??
-          routes.cookiesRoute
-        }
-      >
-        <span>{labels.cookiesLabel}</span>
-      </Link>
-      <Link
-        className="c-Footer__Link"
-        href={
-          footerData?.confidentialitySubService?.data?.attributes?.link ??
-          routes.confidentialityRoute
-        }
-      >
-        <span>{labels.confidentialityLabel}</span>
-      </Link>
+        <Link className="c-Footer__Link" href={routes.accessibilityRoute}>
+          <span>{labels.accessibilityLabel + accessibilityLevelLabel}</span>
+        </Link>
+        <Link className="c-Footer__Link" href={routes.siteRoute}>
+          <span>{labels.siteLabel}</span>
+        </Link>
+        <Link
+          className="c-Footer__Link"
+          href={
+            footerData?.cguSubService?.data?.attributes?.link ?? routes.cguRoute
+          }
+        >
+          <span>{labels.cguLabel}</span>
+        </Link>
+        <Link
+          className="c-Footer__Link"
+          href={
+            footerData?.cookiesSubService?.data?.attributes?.link ??
+            routes.cookiesRoute
+          }
+        >
+          <span>{labels.cookiesLabel}</span>
+        </Link>
+        <Link
+          className="c-Footer__Link"
+          href={
+            footerData?.confidentialitySubService?.data?.attributes?.link ??
+            routes.confidentialityRoute
+          }
+        >
+          <span>{labels.confidentialityLabel}</span>
+        </Link>
 
-      {footerData?.contactUsSubService?.data?.attributes?.isActivated &&
-        footerData?.contactUsSubService?.data.attributes.label && (
-          <Link
-            className="c-Footer__Link"
-            href={
-              footerData.contactUsSubService?.data?.attributes.link ??
-              routes.contactUsRoute
-            }
-          >
-            <span>{footerData.contactUsSubService.data?.attributes.label}</span>
-          </Link>
-        )}
-    </footer>
+        {footerData?.contactUsSubService?.data?.attributes?.isActivated &&
+          footerData?.contactUsSubService?.data.attributes.label && (
+            <Link
+              className="c-Footer__Link"
+              href={
+                footerData.contactUsSubService?.data?.attributes.link ??
+                routes.contactUsRoute
+              }
+            >
+              <span>
+                {footerData.contactUsSubService.data?.attributes.label}
+              </span>
+            </Link>
+          )}
+      </footer>
+      <span className="c-Footer__Version">Version - {version}</span>
+    </div>
   );
 }

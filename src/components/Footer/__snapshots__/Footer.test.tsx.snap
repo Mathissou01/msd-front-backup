@@ -2,51 +2,61 @@
 
 exports[`Header renders 1`] = `
 <div>
-  <footer
+  <div
     class="c-Footer"
-    data-testid="footer"
-    role="contentinfo"
   >
-    <a
-      class="c-Footer__Link"
-      href="/accessibilite"
+    <footer
+      class="c-Footer__ContentContainer"
+      data-testid="footer"
+      role="contentinfo"
     >
-      <span>
-        Accessibilité : non conforme
-      </span>
-    </a>
-    <a
-      class="c-Footer__Link"
-      href="/"
+      <a
+        class="c-Footer__Link"
+        href="/accessibilite"
+      >
+        <span>
+          Accessibilité : non conforme
+        </span>
+      </a>
+      <a
+        class="c-Footer__Link"
+        href="/"
+      >
+        <span>
+          Le site de SUEZ
+        </span>
+      </a>
+      <a
+        class="c-Footer__Link"
+        href="/conditions-generales"
+      >
+        <span>
+          Conditions générales
+        </span>
+      </a>
+      <a
+        class="c-Footer__Link"
+        href="/cookie"
+      >
+        <span>
+          Politique de cookies
+        </span>
+      </a>
+      <a
+        class="c-Footer__Link"
+        href="/confidentialite"
+      >
+        <span>
+          Politique de confidentialité
+        </span>
+      </a>
+    </footer>
+    <span
+      class="c-Footer__Version"
     >
-      <span>
-        Le site de SUEZ
-      </span>
-    </a>
-    <a
-      class="c-Footer__Link"
-      href="/conditions-generales"
-    >
-      <span>
-        Conditions générales
-      </span>
-    </a>
-    <a
-      class="c-Footer__Link"
-      href="/cookie"
-    >
-      <span>
-        Politique de cookies
-      </span>
-    </a>
-    <a
-      class="c-Footer__Link"
-      href="/confidentialite"
-    >
-      <span>
-        Politique de confidentialité
-      </span>
-    </a>
-  </footer>
+      Version - 
+      0.0.1
+    </span>
+  </div>
 </div>
 `;
