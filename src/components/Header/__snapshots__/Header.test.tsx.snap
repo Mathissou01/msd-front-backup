@@ -72,7 +72,9 @@ exports[`Header renders in desktop mode 1`] = `
           </div>
         </div>
       </div>
-      <nav>
+      <nav
+        role="navigation"
+      >
         <ul
           class="c-HeaderTopBar__Nav"
         >

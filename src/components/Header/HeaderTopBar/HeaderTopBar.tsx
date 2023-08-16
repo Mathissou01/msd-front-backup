@@ -85,7 +85,7 @@ export default function HeaderTopBar({
                   <HeaderLinkSearch />
                 </div>
               </div>
-              <nav>
+              <nav role="navigation">
                 <ul className="c-HeaderTopBar__Nav">
                   <div
                     className="c-HeaderTopBar__Separator"
