@@ -87,7 +87,11 @@ export default function RequestAppointmentSlots({
           )}
           {data?.getNextAvailableSlots?.noSlotMessage &&
             data.getNextAvailableSlots.nextAvailableSlots?.length === 0 && (
-              <span>{data.getNextAvailableSlots.noSlotMessage}</span>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: data.getNextAvailableSlots.noSlotMessage,
+                }}
+              />
             )}
           {data?.getNextAvailableSlots?.nextAvailableSlots &&
             data.getNextAvailableSlots.nextAvailableSlots.map(
@@ -127,9 +131,11 @@ export default function RequestAppointmentSlots({
       {data?.getNextAvailableSlots?.slotMessage &&
       data?.getNextAvailableSlots?.nextAvailableSlots?.length &&
       data.getNextAvailableSlots.nextAvailableSlots.length > 0 ? (
-        <span className="c-RequestAppointmentSlotsMessage">
-          {data.getNextAvailableSlots.slotMessage}
-        </span>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: data.getNextAvailableSlots.slotMessage,
+          }}
+        />
       ) : (
         <></>
       )}

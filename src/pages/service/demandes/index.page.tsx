@@ -105,7 +105,7 @@ export default function ServiceDemandesPage({
           <div className="c-RequestPage__ConfirmationMessage">
             <div
               dangerouslySetInnerHTML={{
-                __html: currentRequest?.attributes?.confirmationMessage ?? "", // TODO PURIFY THIS VALUE WHEN GANGEROUSLYSETINNER
+                __html: currentRequest?.attributes?.confirmationMessage ?? "",
               }}
             />
             <div className="c-RequestPage__ConfirmationButtons">
