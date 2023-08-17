@@ -19,20 +19,23 @@ exports[`Header renders in desktop mode 1`] = `
         <div
           class="c-HeaderLinkSelector"
         >
-          <span>
-            Montauban
-          </span>
-          <img
-            alt="Changer de ville"
-            aria-label="Changer de ville"
-            data-nimg="1"
-            decoding="async"
-            height="24"
-            loading="lazy"
-            src="/images/pictos/button_refresh_arrows.svg"
-            style="color: transparent;"
-            width="24"
-          />
+          <a
+            class="c-HeaderLinkSelector__Link"
+            href="/"
+          >
+            <span />
+            <img
+              alt="Changer de ville"
+              aria-label="Changer de ville"
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="/images/pictos/button_refresh_arrows.svg"
+              style="color: transparent;"
+              width="24"
+            />
+          </a>
         </div>
       </div>
       <div
@@ -385,20 +388,23 @@ exports[`Header renders in mobile mode 1`] = `
         <div
           class="c-HeaderLinkSelector"
         >
-          <span>
-            Montauban
-          </span>
-          <img
-            alt="Changer de ville"
-            aria-label="Changer de ville"
-            data-nimg="1"
-            decoding="async"
-            height="24"
-            loading="lazy"
-            src="/images/pictos/button_refresh_arrows.svg"
-            style="color: transparent;"
-            width="24"
-          />
+          <a
+            class="c-HeaderLinkSelector__Link"
+            href="/"
+          >
+            <span />
+            <img
+              alt="Changer de ville"
+              aria-label="Changer de ville"
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="/images/pictos/button_refresh_arrows.svg"
+              style="color: transparent;"
+              width="24"
+            />
+          </a>
         </div>
       </li>
       <li

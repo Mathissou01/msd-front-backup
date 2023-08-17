@@ -24,10 +24,10 @@ const CommonModal = ({
     <>
       <div className="c-CommonModal">
         <button
-          className="c-CommonModal__Closebtn"
+          className="c-CommonModal__CloseButton"
           type="button"
           onClick={handleClose}
-        ></button>
+        />
         <div className="c-CommonModal__Container">
           {headerTitle && (
             <div className="c-CommonModal__Title">{headerTitle}</div>

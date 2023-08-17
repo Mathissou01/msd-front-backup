@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { makePublicAssetPath } from "../../../../lib/utilities";
+import { useContract } from "../../../../hooks/useContract";
+import ModalSelector from "./ModalSelector/ModalSelector";
 import "./header-link-selector.scss";
 
 export default function HeaderLinkSelector() {
@@ -11,16 +14,32 @@ export default function HeaderLinkSelector() {
     ariaLabel: "Changer de ville",
   };
 
+  /* Methods */
+  function handleShowSelector() {
+    setShowModal(true);
+  }
+
+  /* Local Data */
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const { contract } = useContract();
+
   return (
     <div className="c-HeaderLinkSelector">
-      <span>Montauban</span>
-      <Image
-        src={makePublicAssetPath(refreshhArrowIcon.source)}
-        alt={refreshhArrowIcon.alternativeText}
-        aria-label={refreshhArrowIcon.ariaLabel}
-        width={24}
-        height={24}
-      />
+      <Link
+        href="/"
+        className="c-HeaderLinkSelector__Link"
+        onClick={handleShowSelector}
+      >
+        <span>{contract.attributes?.clientName}</span>
+        <Image
+          src={makePublicAssetPath(refreshhArrowIcon.source)}
+          alt={refreshhArrowIcon.alternativeText}
+          aria-label={refreshhArrowIcon.ariaLabel}
+          width={24}
+          height={24}
+        />
+      </Link>
+      {showModal && <ModalSelector handleClose={() => setShowModal(false)} />}
     </div>
   );
 }

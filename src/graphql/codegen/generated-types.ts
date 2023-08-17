@@ -10480,6 +10480,20 @@ export type GetBanAddressesAutoCompleteQuery = {
   } | null> | null;
 };
 
+export type GetBanCitiesAutoCompleteQueryVariables = Exact<{
+  nameOrPostalCode: Scalars["String"];
+  limit: Scalars["Int"];
+}>;
+
+export type GetBanCitiesAutoCompleteQuery = {
+  __typename?: "Query";
+  getBanCitiesAutoComplete?: Array<{
+    __typename?: "City";
+    name?: string | null;
+    postalCode?: string | null;
+  } | null> | null;
+};
+
 export type GetContractByIdQueryVariables = Exact<{
   contractId: Scalars["ID"];
 }>;
@@ -14831,6 +14845,69 @@ export type GetBanAddressesAutoCompleteLazyQueryHookResult = ReturnType<
 export type GetBanAddressesAutoCompleteQueryResult = Apollo.QueryResult<
   GetBanAddressesAutoCompleteQuery,
   GetBanAddressesAutoCompleteQueryVariables
+>;
+export const GetBanCitiesAutoCompleteDocument = gql`
+  query getBanCitiesAutoComplete($nameOrPostalCode: String!, $limit: Int!) {
+    getBanCitiesAutoComplete(
+      nameOrPostalCode: $nameOrPostalCode
+      limit: $limit
+    ) {
+      name
+      postalCode
+    }
+  }
+`;
+
+/**
+ * __useGetBanCitiesAutoCompleteQuery__
+ *
+ * To run a query within a React component, call `useGetBanCitiesAutoCompleteQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetBanCitiesAutoCompleteQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetBanCitiesAutoCompleteQuery({
+ *   variables: {
+ *      nameOrPostalCode: // value for 'nameOrPostalCode'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useGetBanCitiesAutoCompleteQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetBanCitiesAutoCompleteQuery,
+    GetBanCitiesAutoCompleteQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetBanCitiesAutoCompleteQuery,
+    GetBanCitiesAutoCompleteQueryVariables
+  >(GetBanCitiesAutoCompleteDocument, options);
+}
+export function useGetBanCitiesAutoCompleteLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetBanCitiesAutoCompleteQuery,
+    GetBanCitiesAutoCompleteQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetBanCitiesAutoCompleteQuery,
+    GetBanCitiesAutoCompleteQueryVariables
+  >(GetBanCitiesAutoCompleteDocument, options);
+}
+export type GetBanCitiesAutoCompleteQueryHookResult = ReturnType<
+  typeof useGetBanCitiesAutoCompleteQuery
+>;
+export type GetBanCitiesAutoCompleteLazyQueryHookResult = ReturnType<
+  typeof useGetBanCitiesAutoCompleteLazyQuery
+>;
+export type GetBanCitiesAutoCompleteQueryResult = Apollo.QueryResult<
+  GetBanCitiesAutoCompleteQuery,
+  GetBanCitiesAutoCompleteQueryVariables
 >;
 export const GetContractByIdDocument = gql`
   query getContractById($contractId: ID!) {
