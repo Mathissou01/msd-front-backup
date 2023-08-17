@@ -85,6 +85,9 @@ query getNewById($newId: ID!) {
               }
             }
           }
+          ... on ComponentBlocksServices {
+            id
+          }
           ... on Error {
             code
             message

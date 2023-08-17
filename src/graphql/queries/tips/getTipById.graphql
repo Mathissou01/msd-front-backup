@@ -91,6 +91,9 @@ query getTipById($tipId: ID) {
               }
             }
           }
+          ... on ComponentBlocksServices {
+            id
+          }
           ... on Error {
             code
             message

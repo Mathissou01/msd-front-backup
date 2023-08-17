@@ -608,7 +608,7 @@ type City {
   insee: Long
   name: String
   pickUpDay: PickUpDayEntityResponse
-  postalCode: Long
+  postalCode: String
   region: String
   siren: Long
   territories(
@@ -1053,6 +1053,16 @@ input ComponentBlocksRequestTypeInput {
   isEmail: Boolean
   isTSMS: Boolean
   title: String
+}
+
+type ComponentBlocksServices {
+  alertS: AlertNotificationServiceEntityResponse
+  dropOffS: DropOffMapServiceEntityResponse
+  editoS: EditorialServiceEntityResponse
+  id: ID!
+  pickUpS: PickUpDayServiceEntityResponse
+  recyclingS: RecyclingGuideServiceEntityResponse
+  requestS: RequestServiceEntityResponse
 }
 
 type ComponentBlocksSubHeading {
@@ -1559,6 +1569,7 @@ type Contract {
     sort: [String] = []
   ): FlowRelationResponseCollection
   hasYesWeScan: Boolean
+  isFreemium: Boolean!
   isNonExclusive: Boolean!
   isRVFrance: Boolean!
   keyMetricsService: KeyMetricsServiceEntityResponse
@@ -1696,6 +1707,7 @@ input ContractFiltersInput {
   flows: FlowFiltersInput
   hasYesWeScan: BooleanFilterInput
   id: IDFilterInput
+  isFreemium: BooleanFilterInput
   isNonExclusive: BooleanFilterInput
   isRVFrance: BooleanFilterInput
   keyMetricsService: KeyMetricsServiceFiltersInput
@@ -1738,6 +1750,7 @@ input ContractInput {
   editorialService: ID
   flows: [ID]
   hasYesWeScan: Boolean
+  isFreemium: Boolean
   isNonExclusive: Boolean
   isRVFrance: Boolean
   keyMetricsService: ID
@@ -2681,7 +2694,6 @@ type Event {
   ): EventRelationResponseCollection
   hasDraft: Boolean
   image: UploadFileEntityResponse!
-  linkToServices: [EventLinkToServicesDynamicZone]
   publishedDate: DateTime
   shortDescription: String
   status: ENUM_EVENT_STATUS
@@ -2701,6 +2713,7 @@ union EventBlocksDynamicZone =
     ComponentBlocksFile
   | ComponentBlocksHorizontalRule
   | ComponentBlocksImage
+  | ComponentBlocksServices
   | ComponentBlocksSubHeading
   | ComponentBlocksVideo
   | ComponentBlocksWysiwyg
@@ -2756,7 +2769,6 @@ input EventInput {
   events: [ID]
   hasDraft: Boolean
   image: ID
-  linkToServices: [EventLinkToServicesDynamicZoneInput!]
   publishedDate: DateTime
   shortDescription: String
   status: ENUM_EVENT_STATUS
@@ -2766,17 +2778,6 @@ input EventInput {
   unpublishedDate: DateTime
   versionNumber: Int
 }
-
-union EventLinkToServicesDynamicZone =
-    ComponentLinksAlertNotification
-  | ComponentLinksDropOffMap
-  | ComponentLinksEditorial
-  | ComponentLinksPickUpDay
-  | ComponentLinksRecyclingGuide
-  | ComponentLinksRequest
-  | Error
-
-scalar EventLinkToServicesDynamicZoneInput
 
 type EventOrNews {
   image: UploadFile
@@ -3159,7 +3160,6 @@ type FreeContent {
   freeContentSubService: FreeContentSubServiceEntityResponse
   hasDraft: Boolean
   image: UploadFileEntityResponse!
-  linkToServices: [FreeContentLinkToServicesDynamicZone]
   publishedDate: DateTime
   shortDescription: String
   status: ENUM_FREECONTENT_STATUS
@@ -3179,6 +3179,7 @@ union FreeContentBlocksDynamicZone =
     ComponentBlocksFile
   | ComponentBlocksHorizontalRule
   | ComponentBlocksImage
+  | ComponentBlocksServices
   | ComponentBlocksSubHeading
   | ComponentBlocksVideo
   | ComponentBlocksWysiwyg
@@ -3230,7 +3231,6 @@ input FreeContentInput {
   freeContentSubService: ID
   hasDraft: Boolean
   image: ID
-  linkToServices: [FreeContentLinkToServicesDynamicZoneInput!]
   publishedDate: DateTime
   shortDescription: String
   status: ENUM_FREECONTENT_STATUS
@@ -3240,17 +3240,6 @@ input FreeContentInput {
   unpublishedDate: DateTime
   versionNumber: Int
 }
-
-union FreeContentLinkToServicesDynamicZone =
-    ComponentLinksAlertNotification
-  | ComponentLinksDropOffMap
-  | ComponentLinksEditorial
-  | ComponentLinksPickUpDay
-  | ComponentLinksRecyclingGuide
-  | ComponentLinksRequest
-  | Error
-
-scalar FreeContentLinkToServicesDynamicZoneInput
 
 type FreeContentRelationResponseCollection {
   data: [FreeContentEntity!]!
@@ -3352,6 +3341,7 @@ union GenericMorph =
   | ComponentBlocksQuestions
   | ComponentBlocksRequestSlotsExceptions
   | ComponentBlocksRequestType
+  | ComponentBlocksServices
   | ComponentBlocksSubHeading
   | ComponentBlocksTest
   | ComponentBlocksVideo
@@ -3821,6 +3811,11 @@ type KeyMetricsServiceRelationResponseCollection {
   data: [KeyMetricsServiceEntity!]!
 }
 
+type LinkedServices {
+  id: ID
+  name: String
+}
+
 """
 The `BigInt` scalar type represents non-fractional signed whole numeric values.
 """
@@ -3948,8 +3943,10 @@ type Mutation {
     contactFirstName: String!
     contactLastName: String!
     contactPhoneNumber: String!
+    isFreemium: Boolean!
     isNonExclusive: Boolean!
     isRVFrance: Boolean!
+    servicesToActivate: [ServiceType]!
     siretNumber: Long
   ): [ContractAndClientContact]
   createEpci(data: EpciInput!): EpciEntityResponse
@@ -4657,7 +4654,6 @@ type New {
   draftCreationId: String
   hasDraft: Boolean
   image: UploadFileEntityResponse
-  linkToServices: [NewLinkToServicesDynamicZone]
   newsSubService: NewsSubServiceEntityResponse
   publishedDate: DateTime
   shortDescription: String
@@ -4678,6 +4674,7 @@ union NewBlocksDynamicZone =
     ComponentBlocksFile
   | ComponentBlocksHorizontalRule
   | ComponentBlocksImage
+  | ComponentBlocksServices
   | ComponentBlocksSubHeading
   | ComponentBlocksVideo
   | ComponentBlocksWysiwyg
@@ -4730,7 +4727,6 @@ input NewInput {
   draftCreationId: String
   hasDraft: Boolean
   image: ID
-  linkToServices: [NewLinkToServicesDynamicZoneInput!]
   newsSubService: ID
   publishedDate: DateTime
   shortDescription: String
@@ -4741,17 +4737,6 @@ input NewInput {
   unpublishedDate: DateTime
   versionNumber: Int
 }
-
-union NewLinkToServicesDynamicZone =
-    ComponentLinksAlertNotification
-  | ComponentLinksDropOffMap
-  | ComponentLinksEditorial
-  | ComponentLinksPickUpDay
-  | ComponentLinksRecyclingGuide
-  | ComponentLinksRequest
-  | Error
-
-scalar NewLinkToServicesDynamicZoneInput
 
 type NewRelationResponseCollection {
   data: [NewEntity!]!
@@ -5279,6 +5264,7 @@ type Query {
   getAddressCoordinates(searchTerm: String!): [SearchResultAddress]
   getAllFoldersHierarchy(path: String!): [RequestFolders]
   getAppointmentsDetails(requestId: ID!): AppointmentDetails
+  getBanCitiesAutoComplete(limit: Int!, nameOrPostalCode: String!): [City]
   getContentTypeDTOs(contractId: ID!): [ContentTypeDTO]
   getCumbersomeReferential: [Cumbersome]!
   getDropOffCollectType(contractId: ID!): [CollectEntity]
@@ -5289,6 +5275,11 @@ type Query {
     contractId: ID!
     status: ENUM_EDITOCONTENTDTO_STATUS
   ): [EditoContentDTO]
+  getEditoContentLinkedServices(
+    contractId: ID
+    linkToServiceId: ID!
+    selectedService: String!
+  ): [LinkedServices]
   getEnrichRequests(requestServiceId: ID!): [EnrichRequest]
   getFilePath(id: ID!): String
   getFolderHierarchy(path: String!): [RequestFolders]
@@ -6474,6 +6465,22 @@ input ServiceInput {
   startDate: String!
 }
 
+enum ServiceType {
+  alert
+  dropOffMap
+  event
+  freeContent1
+  freeContent2
+  keyMetrics
+  mwc
+  news
+  pickUpDay
+  quizz
+  recycling
+  request
+  tip
+}
+
 type ServicesBlock {
   audience: AudienceEntityResponse
   createdAt: DateTime
@@ -6728,7 +6735,6 @@ type Tip {
   hasDraft: Boolean
   image: UploadFileEntityResponse!
   link: String
-  linkToServices: [TipLinkToServicesDynamicZone]
   publishedDate: DateTime
   shortDescription: String
   status: ENUM_TIP_STATUS
@@ -6750,6 +6756,7 @@ union TipBlocksDynamicZone =
     ComponentBlocksFile
   | ComponentBlocksHorizontalRule
   | ComponentBlocksImage
+  | ComponentBlocksServices
   | ComponentBlocksSubHeading
   | ComponentBlocksVideo
   | ComponentBlocksWysiwyg
@@ -6805,7 +6812,6 @@ input TipInput {
   image: ID
   isSystem: Boolean
   link: String
-  linkToServices: [TipLinkToServicesDynamicZoneInput!]
   publishedDate: DateTime
   shortDescription: String
   status: ENUM_TIP_STATUS
@@ -6817,17 +6823,6 @@ input TipInput {
   unpublishedDate: DateTime
   versionNumber: Int
 }
-
-union TipLinkToServicesDynamicZone =
-    ComponentLinksAlertNotification
-  | ComponentLinksDropOffMap
-  | ComponentLinksEditorial
-  | ComponentLinksPickUpDay
-  | ComponentLinksRecyclingGuide
-  | ComponentLinksRequest
-  | Error
-
-scalar TipLinkToServicesDynamicZoneInput
 
 type TipRelationResponseCollection {
   data: [TipEntity!]!

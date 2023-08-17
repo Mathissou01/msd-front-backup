@@ -96,7 +96,7 @@ export default function ActualitesEvenementsPage() {
                           ? news.attributes.shortDescription
                           : undefined
                       }
-                      href={`/actualites/${news.id}`}
+                      href={`/actualites-evenements/${news.id}`}
                     />
                   );
                 }

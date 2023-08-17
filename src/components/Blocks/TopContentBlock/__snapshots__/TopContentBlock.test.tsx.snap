@@ -20,7 +20,7 @@ exports[`TopContentBlock renders titleContent 1`] = `
     >
       <a
         class="c-TopContentCard"
-        href="/actualites/1"
+        href="/actualites-evenements/1"
       >
         <div
           class="c-TopContentCard__Banner"
@@ -68,7 +68,7 @@ exports[`TopContentBlock renders titleContent 1`] = `
       >
         <a
           class="c-CommonCardBlock__Container"
-          href="/actualites/1"
+          href="/actualites-evenements/1"
         >
           <div
             class="c-CommonCardBlock"
@@ -142,7 +142,7 @@ exports[`TopContentBlock renders titleContent 1`] = `
         </a>
         <a
           class="c-CommonCardBlock__Container"
-          href="/actualites/2"
+          href="/actualites-evenements/2"
         >
           <div
             class="c-CommonCardBlock"
@@ -334,7 +334,7 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
     >
       <a
         class="c-TopContentCard"
-        href="/actualites/1"
+        href="/actualites-evenements/1"
       >
         <div
           class="c-TopContentCard__Banner"
@@ -382,7 +382,7 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
       >
         <a
           class="c-CommonCardBlock__Container"
-          href="/actualites/1"
+          href="/actualites-evenements/1"
         >
           <div
             class="c-CommonCardBlock"
@@ -456,7 +456,7 @@ exports[`TopContentBlock renders top Content and three topContents 1`] = `
         </a>
         <a
           class="c-CommonCardBlock__Container"
-          href="/actualites/2"
+          href="/actualites-evenements/2"
         >
           <div
             class="c-CommonCardBlock"

@@ -19,7 +19,7 @@ export const editoFields: Array<TEditoFields> = [
 ];
 
 export enum EEditoTypeRoutes {
-  "new" = "actualites",
+  "new" = "actualites-evenements",
   "event" = "evenements",
   "freeContent" = "contenu-libre",
   "quiz" = "quiz",
@@ -59,6 +59,7 @@ export type TBlocksDynamicZone =
   | "ComponentBlocksSubHeading"
   | "ComponentBlocksVideo"
   | "ComponentBlocksWysiwyg"
+  | "ComponentBlocksServices"
   | "Error";
 export type TDynamicFieldOption = Exclude<TBlocksDynamicZone, "Error">;
 
@@ -79,7 +80,8 @@ export type IEditoBlock =
   | IBlocksImage
   | IBlocksSubHeading
   | IBlocksVideo
-  | IBlocksWysiwyg;
+  | IBlocksWysiwyg
+  | IBlocksServices;
 
 export interface IBlocksFile extends IPartialBlock {
   __typename: "ComponentBlocksFile";
@@ -111,6 +113,10 @@ export interface IBlocksVideo extends IPartialBlock {
 export interface IBlocksWysiwyg extends IPartialBlock {
   __typename: "ComponentBlocksWysiwyg";
   textEditor?: string;
+}
+
+export interface IBlocksServices extends IPartialBlock {
+  __typename: "ComponentBlocksServices";
 }
 
 /* Methods */
