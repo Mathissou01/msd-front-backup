@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { version } from "../../../package.json";
+import { useEffect, useState } from "react";
 import { useContract } from "../../hooks/useContract";
 import "./footer.scss";
 
@@ -30,6 +30,7 @@ export default function Footer() {
 
   /* Global Data */
   const { contract } = useContract();
+  const [version, setVersion] = useState<string>();
   const footerData =
     contract?.attributes?.contractCustomization?.data?.attributes?.footer?.data
       ?.attributes;
@@ -39,6 +40,11 @@ export default function Footer() {
         Object.keys(EAccessibilityLevel).indexOf(footerData.accessibilityLevel)
       ]
     : EAccessibilityLevel.not_conform;
+
+  useEffect(() => {
+    // process.env.npm_package_version is only available when deployed, not locally
+    setVersion(process.env.npm_package_version ?? "");
+  }, []);
 
   return (
     <div className="c-Footer">
