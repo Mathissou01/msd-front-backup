@@ -77,9 +77,9 @@ export default function RequestForm({
 
   /* Methods */
   async function onSubmit(submitData: IRequestFieldsValues) {
-    const attachments = submitData.attachments.flat();
+    const attachments = submitData.attachments?.flat();
     const data = new FormData();
-    attachments.forEach((attachment) => {
+    attachments?.forEach((attachment) => {
       data.append("files", attachment);
     });
     const attachmentsUrl = await fetch(
@@ -95,7 +95,7 @@ export default function RequestForm({
       });
 
     const attachmentsUrlWithNames = attachments
-      .flat()
+      ?.flat()
       .map((attachments, index) => {
         return {
           name: attachments.name,
