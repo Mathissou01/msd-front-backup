@@ -66,8 +66,7 @@ export default function SubscriptionBlock() {
                 latitude: transformedResult.lat,
                 isSMS: data.isSMS,
                 isEmail: data.isEmail,
-                alertNotificationServiceId:
-                  contract.attributes?.alertNotificationService?.data?.id,
+                alertNotificationServiceId: contract.id,
                 email: data.email,
                 phoneNumber: data.phoneNumber?.replaceAll(" ", ""),
               },

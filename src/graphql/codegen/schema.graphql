@@ -4653,7 +4653,7 @@ type New {
   customId: String
   draftCreationId: String
   hasDraft: Boolean
-  image: UploadFileEntityResponse
+  image: UploadFileEntityResponse!
   newsSubService: NewsSubServiceEntityResponse
   publishedDate: DateTime
   shortDescription: String
@@ -6151,6 +6151,7 @@ type RequestService {
     sort: [String] = []
   ): RequestRelationResponseCollection
   startDate: Date
+  tsmsApiKey: String
   updatedAt: DateTime
 }
 
@@ -6183,6 +6184,7 @@ input RequestServiceFiltersInput {
   requestAggregates: RequestAggregateFiltersInput
   requests: RequestFiltersInput
   startDate: DateFilterInput
+  tsmsApiKey: StringFilterInput
   updatedAt: DateTimeFilterInput
 }
 
@@ -6196,6 +6198,7 @@ input RequestServiceInput {
   requestAggregates: [ID]
   requests: [ID]
   startDate: Date
+  tsmsApiKey: String
 }
 
 type RequestServiceRelationResponseCollection {

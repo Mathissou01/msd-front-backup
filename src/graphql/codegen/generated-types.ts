@@ -6009,7 +6009,7 @@ export type New = {
   customId?: Maybe<Scalars["String"]>;
   draftCreationId?: Maybe<Scalars["String"]>;
   hasDraft?: Maybe<Scalars["Boolean"]>;
-  image?: Maybe<UploadFileEntityResponse>;
+  image: UploadFileEntityResponse;
   newsSubService?: Maybe<NewsSubServiceEntityResponse>;
   publishedDate?: Maybe<Scalars["DateTime"]>;
   shortDescription?: Maybe<Scalars["String"]>;
@@ -8199,6 +8199,7 @@ export type RequestService = {
   requestAggregates?: Maybe<RequestAggregateRelationResponseCollection>;
   requests?: Maybe<RequestRelationResponseCollection>;
   startDate?: Maybe<Scalars["Date"]>;
+  tsmsApiKey?: Maybe<Scalars["String"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
 
@@ -8258,6 +8259,7 @@ export type RequestServiceFiltersInput = {
   requestAggregates?: InputMaybe<RequestAggregateFiltersInput>;
   requests?: InputMaybe<RequestFiltersInput>;
   startDate?: InputMaybe<DateFilterInput>;
+  tsmsApiKey?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
@@ -8271,6 +8273,7 @@ export type RequestServiceInput = {
   requestAggregates?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   requests?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   startDate?: InputMaybe<Scalars["Date"]>;
+  tsmsApiKey?: InputMaybe<Scalars["String"]>;
 };
 
 export type RequestServiceRelationResponseCollection = {
@@ -9927,7 +9930,7 @@ export type GetNewByIdQuery = {
             attributes?: { __typename?: "Tag"; name: string } | null;
           }>;
         } | null;
-        image?: {
+        image: {
           __typename?: "UploadFileEntityResponse";
           data?: {
             __typename?: "UploadFileEntity";
@@ -9943,7 +9946,7 @@ export type GetNewByIdQuery = {
               alternativeText?: string | null;
             } | null;
           } | null;
-        } | null;
+        };
         blocks?: Array<
           | {
               __typename?: "ComponentBlocksFile";
@@ -10050,7 +10053,7 @@ export type GetNewsAndEventsByContractIdQuery = {
         shortDescription?: string | null;
         status?: Enum_New_Status | null;
         publishedDate?: any | null;
-        image?: {
+        image: {
           __typename?: "UploadFileEntityResponse";
           data?: {
             __typename?: "UploadFileEntity";
@@ -10066,7 +10069,7 @@ export type GetNewsAndEventsByContractIdQuery = {
               alternativeText?: string | null;
             } | null;
           } | null;
-        } | null;
+        };
         tags?: {
           __typename?: "TagRelationResponseCollection";
           data: Array<{
@@ -11058,7 +11061,7 @@ export type GetEditoBlockQuery = {
                                     } | null;
                                   }>;
                                 } | null;
-                                image?: {
+                                image: {
                                   __typename?: "UploadFileEntityResponse";
                                   data?: {
                                     __typename?: "UploadFileEntity";
@@ -11073,7 +11076,7 @@ export type GetEditoBlockQuery = {
                                       alternativeText?: string | null;
                                     } | null;
                                   } | null;
-                                } | null;
+                                };
                               } | null;
                             } | null;
                           } | null;
@@ -11903,7 +11906,7 @@ export type GetTopContentBlockQuery = {
                                     } | null;
                                   }>;
                                 } | null;
-                                image?: {
+                                image: {
                                   __typename?: "UploadFileEntityResponse";
                                   data?: {
                                     __typename?: "UploadFileEntity";
@@ -11918,7 +11921,7 @@ export type GetTopContentBlockQuery = {
                                       alternativeText?: string | null;
                                     } | null;
                                   } | null;
-                                } | null;
+                                };
                               } | null;
                             } | null;
                           } | null;
