@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { E_LEVEL_TYPE, ILevel, ILevelDatas } from "../../../lib/request";
+import { ILevel, ILevelDatas } from "../../../lib/request";
 import { removeNulls } from "../../../lib/utilities";
 import RequestLevelCard from "../RequestLevel/RequestLevelCard";
 
 interface IRequestLevelGroupProps {
   level: ILevel;
   datas: Array<ILevelDatas>;
-  handleClickLevel: (idLevel: string, levelType: E_LEVEL_TYPE) => void;
+  handleClickLevel: (level: ILevelDatas) => void;
 }
 
 export default function RequestLevelGroup({
@@ -16,7 +16,7 @@ export default function RequestLevelGroup({
 }: IRequestLevelGroupProps) {
   useEffect(() => {
     if (datas.length === 1) {
-      void handleClickLevel(datas[0].id, datas[0].type);
+      void handleClickLevel(datas[0]);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -32,7 +32,7 @@ export default function RequestLevelGroup({
                 key={`${data.name}_${data.id}`}
                 name={data.name}
                 isSelected={level.id === data.id && level.type === data.type}
-                onClick={() => handleClickLevel(data.id, data.type)}
+                onClick={() => handleClickLevel(data)}
               />
             );
         })

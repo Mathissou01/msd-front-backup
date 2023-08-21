@@ -138,6 +138,7 @@ query getRequestById($requestId: ID) {
             title
             isEmail
             email
+            isTSMS
           }
         }
       }

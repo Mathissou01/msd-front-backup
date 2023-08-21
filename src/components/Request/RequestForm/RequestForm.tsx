@@ -32,7 +32,7 @@ interface IRequestFieldsValues extends FieldValues {
   long: number;
   requestId: string;
   appointmentSlot: AppointmentSlot;
-  attachments: Array<FileList>;
+  attachments: Array<Array<File>>;
   checkboxes: Array<IRequestBlockValues>;
   commentaries: Array<IRequestBlockValues>;
   cumbersome: Array<ICumbersomeData>;
@@ -52,7 +52,7 @@ interface IRequestFormProps {
   setCurrentStep: (steps: number) => void;
   steps: number;
   noBlockSteps: number;
-  chosenRequestTypeId: string;
+  chosenRequestType: string;
 }
 
 export default function RequestForm({
@@ -63,7 +63,7 @@ export default function RequestForm({
   setCurrentStep,
   steps,
   noBlockSteps,
-  chosenRequestTypeId,
+  chosenRequestType,
 }: IRequestFormProps) {
   /* Local data */
   const form = useForm<IRequestFieldsValues>({ mode: "onChange" });
@@ -73,59 +73,64 @@ export default function RequestForm({
 
   if (currentRequest && currentRequest.id) {
     register("requestId", { value: currentRequest.id ?? "" });
-    register("choosenRequestType", { value: chosenRequestTypeId });
   }
 
   /* Methods */
-  function fileToBase64(file: File) {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      // Read file content on file loaded event
-      reader.onload = function (event) {
-        resolve(event?.target?.result);
-      };
-
-      reader.readAsDataURL(file);
-    });
-  }
-
   async function onSubmit(submitData: IRequestFieldsValues) {
-    let attachments = undefined;
-    if (submitData.attachments) {
-      attachments = await Promise.all(
-        Array.from(submitData.attachments)
-          .filter(removeNulls)
-          .map((fileList: FileList) => {
-            return Promise.all(
-              Array.from(fileList).map((file: File) => {
-                return fileToBase64(file).then((res) => {
-                  return {
-                    name: file.name,
-                    content: res,
-                  };
-                });
-              }),
-            );
-          }),
-      );
-    }
+    const attachments = submitData.attachments.flat();
+    const data = new FormData();
+    attachments.forEach((attachment) => {
+      data.append("files", attachment);
+    });
+    const attachmentsUrl = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/attachments`,
+      {
+        method: "POST",
+        body: data,
+      },
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        return res;
+      });
+
+    const attachmentsUrlWithNames = attachments
+      .flat()
+      .map((attachments, index) => {
+        return {
+          name: attachments.name,
+          content: attachmentsUrl[index],
+        };
+      });
 
     const variables = {
-      lat: submitData.lat ?? undefined,
-      long: submitData.long ?? undefined,
-      requestId: submitData.requestId ?? undefined,
-      choosenRequestType: submitData.choosenRequestType ?? undefined,
-      appointmentSlot: submitData.appointmentSlot ?? undefined,
-      attachments: attachments ?? undefined,
-      userAllowSms: submitData.userAllowSms ?? undefined,
+      lat: submitData.lat,
+      long: submitData.long,
+      requestId: submitData.requestId,
+      chosenRequestType: chosenRequestType,
+      appointmentSlot: submitData.appointmentSlot,
+      attachments: attachmentsUrlWithNames,
+      userAllowSms: submitData.allowSmsNotification ?? {
+        name: "",
+        content: false,
+      },
       checkboxes: submitData.checkboxes
         ? Array.from(submitData.checkboxes).filter(removeNulls)
         : undefined,
-      commentaries: submitData.commentaries
+      comments: submitData.commentaries
         ? Array.from(submitData.commentaries).filter(removeNulls)
         : undefined,
       cumbersome: submitData.cumbersome
-        ? Array.from(submitData.cumbersome).filter(removeNulls)
+        ? Array.from(submitData.cumbersome)
+            .filter(removeNulls)
+            .map((cumbersome) => {
+              return {
+                category: cumbersome.category,
+                cumbersomeName: cumbersome.cumbersomeName,
+                quantity: cumbersome.quantity.toString(),
+                volume: cumbersome.volume,
+              };
+            })
         : undefined,
       dateChoice: submitData.dateChoice
         ? Array.from(submitData.dateChoice)
@@ -133,7 +138,7 @@ export default function RequestForm({
             .map((date) => {
               const dateFormatted = new Date(String(date));
               return `${dateFormatted.getFullYear()}-${dateFormatted.getMonth()}-${dateFormatted.getDay()}`;
-            })
+            })[0]
         : undefined,
       questionsQCM: submitData.questionsQCM
         ? Array.from(submitData.questionsQCM).filter(removeNulls)
@@ -142,16 +147,17 @@ export default function RequestForm({
         ? Array.from(submitData.questions).filter(removeNulls)
         : undefined,
       user: {
-        surname: submitData.userSurname ?? undefined,
-        name: submitData.userName ?? undefined,
-        phonehone: submitData.userPhone ?? undefined,
-        email: submitData.userEmail ?? undefined,
+        surname: submitData.userSurname,
+        name: submitData.userName,
+        phone: submitData.userPhone,
+        email: submitData.userEmail,
       },
+      userConsent: true,
     };
 
     validateRequest({
       variables: {
-        data: JSON.parse(JSON.stringify(variables)),
+        data: variables,
       },
     }).then(() => {
       pageOnSubmit();

@@ -56,11 +56,8 @@ export default function RequestFields({
   const watchLong = watch("long");
 
   useEffect(() => {
-    // If we have values on position
     if (watchLat !== undefined && watchLong !== undefined) {
-      // case where we already choose an address before
-      if (currentStep > noBlockSteps) {
-        // we reset step position and form value
+      if (currentStep >= noBlockSteps) {
         setCurrentStep(
           data?.attributes?.hasAppointmentSlots
             ? noBlockSteps
@@ -73,8 +70,7 @@ export default function RequestFields({
         resetField("userPhone");
         resetField("userAllowSms");
       } else {
-        // we just jump on next step
-        if (currentStep < noBlockSteps) setCurrentStep(currentStep + 1);
+        setCurrentStep(currentStep + 1);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -130,15 +126,19 @@ export default function RequestFields({
                 noBlockSteps={noBlockSteps}
               />
             )}
-          {data.attributes.hasUser && currentStep === steps - 1 && (
-            <RequestUser
-              isNameRequired={data.attributes.isUserNameMandatory ?? true}
-              isPhoneRequired={data.attributes.isUserPhoneMandatory ?? true}
-              isEmailRequired={data.attributes.isUserEmailMandatory ?? true}
-              hasSMS={data.attributes.userAllowSMSNotification ?? false}
-            />
-          )}
-          {currentStep >= steps - 1 && (
+          {data.attributes.hasUser &&
+            (currentStep === steps - 1 || currentStep === steps) && (
+              <RequestUser
+                isNameRequired={data.attributes.isUserNameMandatory ?? true}
+                isPhoneRequired={data.attributes.isUserPhoneMandatory ?? true}
+                isEmailRequired={data.attributes.isUserEmailMandatory ?? true}
+                hasSMS={data.attributes.userAllowSMSNotification ?? false}
+                setCurrentStep={setCurrentStep}
+                currentStep={currentStep}
+                steps={steps}
+              />
+            )}
+          {currentStep === steps && (
             <CommonButton
               label={labels.submitButton}
               type="submit"

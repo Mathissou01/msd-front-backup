@@ -16,4 +16,5 @@ export interface ILevelDatas {
   id: string;
   name: string;
   type: E_LEVEL_TYPE;
+  isTsms?: boolean;
 }

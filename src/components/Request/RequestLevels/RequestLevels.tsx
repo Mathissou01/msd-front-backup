@@ -18,7 +18,7 @@ interface IRequestLevelsProps {
   setNoBlockSteps: (steps: number) => void;
   setSteps: (steps: number) => void;
   allSelectedCard: boolean;
-  setChosenRequestTypeId: (requestTypeId: string) => void;
+  setChosenRequestType: (requestTypeId: string) => void;
 }
 
 export default function RequestLevels({
@@ -29,7 +29,7 @@ export default function RequestLevels({
   setSteps,
   setNoBlockSteps,
   allSelectedCard,
-  setChosenRequestTypeId,
+  setChosenRequestType,
 }: IRequestLevelsProps) {
   const labels = {
     requestFirstLevel: "Votre demande concerne *",
@@ -60,21 +60,21 @@ export default function RequestLevels({
 
   const [getRequestById, { data, loading }] = useGetRequestByIdLazyQuery();
 
-  const handleLevelClick = (idLevel: string, levelType: E_LEVEL_TYPE) => {
+  const handleLevelClick = (level: ILevelDatas) => {
     if (
-      (firstLevel.id === idLevel && firstLevel.type === levelType) ||
-      (secondLevel.id === idLevel && secondLevel.type === levelType)
+      (firstLevel.id === level.id && firstLevel.type === level.type) ||
+      (secondLevel.id === level.id && secondLevel.type === level.type)
     ) {
       return;
     }
 
-    switch (levelType) {
+    switch (level.type) {
       case E_LEVEL_TYPE.AGGREGATE:
-        setFirstLevel({ id: idLevel, levelNumber: 1, type: levelType });
+        setFirstLevel({ id: level.id, levelNumber: 1, type: level.type });
         setSecondLevel({ id: "", levelNumber: -1, type: E_LEVEL_TYPE.NOTHING });
         setThirdLevel({ id: "", levelNumber: -1, type: E_LEVEL_TYPE.NOTHING });
         getRequestsByAggregateId({
-          variables: { requestAggregateId: idLevel },
+          variables: { requestAggregateId: level.id },
         });
         // For reseting the progressbar to 30%
         setSteps(10);
@@ -85,11 +85,11 @@ export default function RequestLevels({
         setAllSelectedCards(false);
         break;
       case E_LEVEL_TYPE.REQUEST_WITHOUT_AGGREGATE:
-        setFirstLevel({ id: idLevel, levelNumber: 1, type: levelType });
+        setFirstLevel({ id: level.id, levelNumber: 1, type: level.type });
         setSecondLevel({ id: "", levelNumber: -1, type: E_LEVEL_TYPE.NOTHING });
         setThirdLevel({ id: "", levelNumber: -1, type: E_LEVEL_TYPE.NOTHING });
         getRequestById({
-          variables: { requestId: idLevel },
+          variables: { requestId: level.id },
         });
         // For reseting the progressbar to 30%
         setSteps(10);
@@ -97,10 +97,10 @@ export default function RequestLevels({
         setAllSelectedCards(false);
         break;
       case E_LEVEL_TYPE.REQUEST:
-        setSecondLevel({ id: idLevel, levelNumber: 2, type: levelType });
+        setSecondLevel({ id: level.id, levelNumber: 2, type: level.type });
         setThirdLevel({ id: "", levelNumber: -1, type: E_LEVEL_TYPE.NOTHING });
         getRequestById({
-          variables: { requestId: idLevel },
+          variables: { requestId: level.id },
         });
         // For reseting the progressbar to 30%
         setSteps(10);
@@ -108,9 +108,9 @@ export default function RequestLevels({
         setAllSelectedCards(false);
         break;
       case E_LEVEL_TYPE.REQUEST_TYPE:
-        setThirdLevel({ id: idLevel, levelNumber: 3, type: levelType });
+        setThirdLevel({ id: level.id, levelNumber: 3, type: level.type });
         setCurrentStep(secondLevel.levelNumber !== -1 ? 4 : 3);
-        setChosenRequestTypeId(idLevel);
+        setChosenRequestType(level.id);
         setAllSelectedCards(true);
         break;
     }
@@ -232,6 +232,7 @@ export default function RequestLevels({
                                       id: requestType.id,
                                       name: requestType.title,
                                       type: E_LEVEL_TYPE.REQUEST_TYPE,
+                                      isTsms: requestType.isTSMS ?? false,
                                     };
                                 })
                                 .filter(removeNulls) ?? []

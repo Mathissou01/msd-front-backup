@@ -23,7 +23,10 @@ export default function RequestQCMBlock({
 
   useEffect(() => {
     if (watchValue)
-      setValue(name, { name: blockDataQCM.fieldLabelQCM, content: watchValue });
+      setValue(name, {
+        name: blockDataQCM.fieldLabelQCM,
+        content: watchValue.join(","),
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchValue]);
 

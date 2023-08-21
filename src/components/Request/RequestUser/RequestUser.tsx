@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import CommonBlockHeading from "../../Common/CommonBlockHeading/CommonBlockHeading";
 import CommonCheckbox from "../../Common/CommonCheckbox/CommonCheckbox";
@@ -10,6 +10,9 @@ interface IRequestUserProps {
   isEmailRequired: boolean;
   isPhoneRequired: boolean;
   hasSMS: boolean;
+  setCurrentStep: (currentStep: number) => void;
+  currentStep: number;
+  steps: number;
 }
 
 export default function RequestUser({
@@ -17,6 +20,9 @@ export default function RequestUser({
   isPhoneRequired,
   isEmailRequired,
   hasSMS,
+  setCurrentStep,
+  currentStep,
+  steps,
 }: IRequestUserProps) {
   /* Static Data */
   const labels = {
@@ -47,7 +53,30 @@ export default function RequestUser({
 
   /* Local Data */
   const { watch } = useFormContext();
+
+  const allowSmsWatcher = watch(fieldNames.allowSms);
   const phoneWatcher = watch(fieldNames.phone);
+  const consentWatcher = watch("consent");
+
+  useEffect(() => {
+    if (hasSMS) {
+      if (
+        consentWatcher &&
+        allowSmsWatcher &&
+        allowSmsWatcher.content &&
+        currentStep === steps - 1
+      )
+        setCurrentStep(steps);
+    } else if (consentWatcher && currentStep === steps - 1)
+      setCurrentStep(steps);
+  }, [
+    allowSmsWatcher,
+    consentWatcher,
+    currentStep,
+    hasSMS,
+    setCurrentStep,
+    steps,
+  ]);
 
   return (
     <div className="c-RequestUser">

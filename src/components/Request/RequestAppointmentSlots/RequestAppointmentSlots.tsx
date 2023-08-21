@@ -132,6 +132,7 @@ export default function RequestAppointmentSlots({
       data?.getNextAvailableSlots?.nextAvailableSlots?.length &&
       data.getNextAvailableSlots.nextAvailableSlots.length > 0 ? (
         <div
+          className="c-RequestAppointmentSlotsMessage"
           dangerouslySetInnerHTML={{
             __html: data.getNextAvailableSlots.slotMessage,
           }}

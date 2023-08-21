@@ -2,31 +2,52 @@
 @use "src/styles/02-tools/tools.inputs" as inputs;
 
 .c-RequestAttachmentsBlock {
-  &__Input {
-    display: grid;
-    margin-top: 16px;
+  display: grid;
+  gap: 16px;
 
-    input {
-      width: 100%;
+  &__MultipleFiles {
+    width: 100%;
+    padding: 12px;
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23343A40' stroke-width='1' stroke-dasharray='10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+    border-radius: 8px;
+
+    button {
+      margin: auto;
     }
 
     &_invalid {
-      input {
-        border: solid 1px colors.$error;
-      }
+      border: solid 1px colors.$error;
     }
+  }
+
+  &__AddedFilesList {
+    display: grid;
+    gap: 5px;
+    margin-bottom: 12px;
+    font-size: medium;
+  }
+
+  &__AddedFile {
+    position: relative;
+    padding: 5px;
+    background-color: colors.$gray-200;
+    border: solid 2px colors.$gray-500;
+    border-radius: 4px;
+
+    > button {
+      position: absolute;
+      top: 2px;
+      right: 0;
+    }
+  }
+
+  &__ExplanatoryText {
+    color: colors.$gray-800;
+    font-size: 16px;
   }
 
   &__InformativeText {
     color: colors.$gray-600;
     font-size: small;
-  }
-
-  &__AttachmentsList {
-    display: grid;
-    gap: 5px;
-    padding: 16px;
-    color: colors.$gray-800;
-    font-size: medium;
   }
 }

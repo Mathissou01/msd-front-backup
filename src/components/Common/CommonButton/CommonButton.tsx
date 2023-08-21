@@ -4,7 +4,14 @@ import "./common-button.scss";
 interface ICommonButtonProps {
   label?: string;
   type?: "button" | "submit" | "reset" | undefined;
-  picto?: "search" | "cross" | "target" | "defaultPicto" | "download";
+  picto?:
+    | "search"
+    | "cross"
+    | "target"
+    | "defaultPicto"
+    | "download"
+    | "add"
+    | "delete";
   pictoPosition?: "left" | "right";
   isDisabled?: boolean;
   onClick?: () => void;

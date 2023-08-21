@@ -13045,6 +13045,7 @@ export type GetRequestByIdQuery = {
           title: string;
           isEmail?: boolean | null;
           email?: string | null;
+          isTSMS?: boolean | null;
         } | null> | null;
       } | null;
     } | null;
@@ -18729,6 +18730,7 @@ export const GetRequestByIdDocument = gql`
               title
               isEmail
               email
+              isTSMS
             }
           }
         }
