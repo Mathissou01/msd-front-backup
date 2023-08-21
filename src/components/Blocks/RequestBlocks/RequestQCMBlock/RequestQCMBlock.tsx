@@ -22,11 +22,14 @@ export default function RequestQCMBlock({
   const watchValue = watch(`temp.${name}`);
 
   useEffect(() => {
-    if (watchValue)
+    if (watchValue) {
       setValue(name, {
         name: blockDataQCM.fieldLabelQCM,
-        content: watchValue.join(","),
+        content: blockDataQCM.multipleChoice
+          ? watchValue.join(",")
+          : watchValue,
       });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchValue]);
 
