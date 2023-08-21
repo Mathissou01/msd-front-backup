@@ -22,7 +22,6 @@ export default function ModalSelector({ handleClose }: IModalSelectorProps) {
     title: "Changer de commune",
     searchboxLabel:
       "Pour accéder au service, merci d'indiquer votre commune : *",
-    notResult: "Vous ne trouvez pas votre commune dans la liste ?",
     searchboxPlaceHolder: "Entre une commune",
     labelButton: "Valider",
   };
@@ -108,9 +107,6 @@ export default function ModalSelector({ handleClose }: IModalSelectorProps) {
                 </CommonErrors>
               </form>
             </FormProvider>
-            <span className="c-ModalSelector__ShowList">
-              {formLabels.notResult}
-            </span>
           </div>
           <div className="c-ModalSelector__Bottom">
             <CommonButton
