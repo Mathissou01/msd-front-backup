@@ -3,12 +3,12 @@ name: MSD_FO_Site_$(Rev:rrr)
 
 trigger:
   batch: true
-##FIXME: Enable tags, release and main triggers or delete related code
-##       (variables, parameters and conditions) if FO CI/CD should run
-##       on DEV environment only
-#  tags:
-#    include:
-#      - v*
+  ##FIXME: Enable tags, release and main triggers or delete related code
+  ##       (variables, parameters and conditions) if FO CI/CD should run
+  ##       on DEV environment only
+  #  tags:
+  #    include:
+  #      - v*
   branches:
     include:
       - develop

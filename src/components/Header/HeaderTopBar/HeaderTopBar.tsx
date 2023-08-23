@@ -6,6 +6,7 @@ import HeaderLinkProfile from "./HeaderLinkProfile/HeaderLinkProfile";
 import HeaderLinkSelector from "./HeaderLinkSelector/HeaderLinkSelector";
 import HeaderLinkUser from "./HeaderLinkUser/HeaderLinkUser";
 import HeaderLinkSearch from "./HeaderLinkSearch/HeaderLinkSearch";
+import { PopinProvider } from "../PopinContext/PopinContext";
 import "./header-top-bar.scss";
 
 interface IHeaderTopBarProps {
@@ -44,7 +45,7 @@ export default function HeaderTopBar({
   };
 
   return (
-    <>
+    <PopinProvider>
       <header role="banner" className="c-HeaderTopBar" data-testid="top-bar">
         {!isDesktopMode && (
           <button
@@ -139,6 +140,6 @@ export default function HeaderTopBar({
           onNavigationClick={() => handleClick(false)}
         />
       )}
-    </>
+    </PopinProvider>
   );
 }

@@ -1,4 +1,8 @@
 @use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.z-index" as index;
+@use "src/styles/01-settings/settings.layout" as layout;
+@use "src/styles/02-tools/tools.shadows" as shadows;
 
 .c-HeaderLinkUser {
   &__Circle {
@@ -12,5 +16,84 @@
     padding: 0;
     background-color: colors.$background-default;
     border-radius: 100px;
+  }
+
+  &__PopUpHead {
+    position: relative;
+    top: 0;
+    left: 182px;
+    width: 0;
+    height: 0;
+    background-color: transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 20px solid colors.$white;
+    border-left: 20px solid transparent;
+
+    @include im.media(">mobile", "<=laptop") {
+      left: 60%;
+    }
+    @include im.media(">laptop") {
+      position: relative;
+      top: 0;
+      left: 85%;
+      width: 0;
+      height: 0;
+      background-color: transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 20px solid colors.$white;
+      border-left: 20px solid transparent;
+    }
+  }
+
+  &__PopUpTitle {
+    margin-bottom: 20px;
+    color: colors.$black;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: start;
+  }
+
+  &__PopUp {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    z-index: index.z("modal");
+    display: none;
+    width: 80%;
+    height: fit-content;
+    opacity: 0;
+    transition: max-height 0.2s ease, opacity 0.2s ease;
+
+    @include im.media(">=mobile") {
+      position: absolute;
+      top: layout.$header-height;
+      right: 20px;
+      display: none;
+      width: fit-content;
+      height: fit-content;
+      opacity: 0;
+      transition: max-height 0.2s ease, opacity 0.2s ease;
+    }
+
+    &.Visible {
+      display: block;
+      max-height: 500px;
+      opacity: 1;
+      pointer-events: auto; /* Ensure the PopUp is interactive when visible */
+    }
+  }
+
+  &__PopUpContent {
+    @include shadows.shadow(2);
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+    width: 300px;
+    max-width: 300px;
+    padding: 20px;
+    background-color: colors.$white;
+    border-radius: 5px;
   }
 }

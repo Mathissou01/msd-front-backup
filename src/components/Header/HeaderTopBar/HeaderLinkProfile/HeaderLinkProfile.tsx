@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import FormSelect from "../../../Form/FormSelect/FormSelect";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import { IAudience } from "../../../../lib/audience";
 import { useContract } from "../../../../hooks/useContract";
@@ -9,10 +8,13 @@ import {
   Enum_Audience_Type,
 } from "../../../../graphql/codegen/generated-types";
 import CommonButton from "../../../Common/CommonButton/CommonButton";
+import FormSelect from "../../../Form/FormSelect/FormSelect";
+import { usePopinContext } from "../../PopinContext/PopinContext";
 import ArrowDown from "public/images/pictos/arrow_bold.svg";
 import "./header-link-profile.scss";
 
 export default function HeaderLinkProfile() {
+  const { openPopinProfil, isPopinProfilOpen } = usePopinContext();
   /* Static data */
   const defaultAudience = {
     id: "0",
@@ -48,7 +50,7 @@ export default function HeaderLinkProfile() {
       setUserAudience(newAudience);
       setSelectedAudienceType(newAudience);
     }
-    setPopUpVisible(false);
+    openPopinProfil();
     setMirrored(false);
   }
 
@@ -96,13 +98,7 @@ export default function HeaderLinkProfile() {
   );
 
   /* Animation Popup properties */
-  const [isPopUpVisible, setPopUpVisible] = useState<boolean>(false);
   const [isMirrored, setMirrored] = useState<boolean>(false);
-
-  const togglePopUp = () => {
-    setPopUpVisible(!isPopUpVisible);
-    setMirrored(!isMirrored);
-  };
 
   const arrowStyle = {
     transform: isMirrored ? "scaleY(-1)" : "scaleY(1)",
@@ -126,13 +122,18 @@ export default function HeaderLinkProfile() {
 
   return (
     <div className="c-HeaderLinkProfile">
-      <div className="c-HeaderLinkProfile__Content" onClick={togglePopUp}>
+      <div
+        className="c-HeaderLinkProfile__Content"
+        onClick={() => {
+          openPopinProfil();
+        }}
+      >
         {selectedAudience && <span>{selectedAudience.type}</span>}
         <ArrowDown style={arrowStyle} />
       </div>
       <div
         className={`c-HeaderLinkProfile__PopUp ${
-          isPopUpVisible ? "Visible" : ""
+          isPopinProfilOpen ? "Visible" : ""
         }`}
       >
         <div className="c-HeaderLinkProfile__PopUpHead"></div>
