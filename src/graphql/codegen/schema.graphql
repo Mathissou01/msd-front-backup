@@ -296,11 +296,14 @@ type AlertUserStorage {
   ): AlertNotificationRelationResponseCollection
   createdAt: DateTime
   email: String
+  firstSubscriptionDate: DateTime
   isEmail: Boolean!
   isSMS: Boolean!
   latitude: String
   longitude: String
   phoneNumber: String
+  reactivatedAt: DateTime
+  reactivationMailSentAt: DateTime
   updatedAt: DateTime
 }
 
@@ -324,6 +327,7 @@ input AlertUserStorageFiltersInput {
   and: [AlertUserStorageFiltersInput]
   createdAt: DateTimeFilterInput
   email: StringFilterInput
+  firstSubscriptionDate: DateTimeFilterInput
   id: IDFilterInput
   isEmail: BooleanFilterInput
   isSMS: BooleanFilterInput
@@ -332,6 +336,8 @@ input AlertUserStorageFiltersInput {
   not: AlertUserStorageFiltersInput
   or: [AlertUserStorageFiltersInput]
   phoneNumber: StringFilterInput
+  reactivatedAt: DateTimeFilterInput
+  reactivationMailSentAt: DateTimeFilterInput
   updatedAt: DateTimeFilterInput
 }
 
@@ -339,11 +345,14 @@ input AlertUserStorageInput {
   alertNotificationServiceId: String
   alertNotifications: [ID]
   email: String
+  firstSubscriptionDate: DateTime
   isEmail: Boolean
   isSMS: Boolean
   latitude: String
   longitude: String
   phoneNumber: String
+  reactivatedAt: DateTime
+  reactivationMailSentAt: DateTime
 }
 
 type AlertUserStorageRelationResponseCollection {
@@ -600,11 +609,7 @@ type City {
   MwCounter: MwCounterServiceEntityResponse
   createdAt: DateTime
   department: String
-  epci(
-    filters: EpciFiltersInput
-    pagination: PaginationArg = {}
-    sort: [String] = []
-  ): EpciRelationResponseCollection
+  epci: EpciEntityResponse
   insee: Long
   name: String
   pickUpDay: PickUpDayEntityResponse
@@ -653,11 +658,20 @@ input CityFiltersInput {
   updatedAt: DateTimeFilterInput
 }
 
+type CityInformation {
+  department: Department
+  insee: String
+  name: String
+  postalCode: String
+  region: Region
+  siren: String
+}
+
 input CityInput {
   GeoJSON: JSON
   MwCounter: ID
   department: String
-  epci: [ID]
+  epci: ID
   insee: Long
   name: String
   pickUpDay: ID
@@ -902,10 +916,6 @@ input CollectVoluntaryInput {
 
 type CollectVoluntaryRelationResponseCollection {
   data: [CollectVoluntaryEntity!]!
-}
-
-input CommuneInput {
-  insee: Int!
 }
 
 type ComponentBlocksAttachments {
@@ -1575,7 +1585,6 @@ type Contract {
   keyMetricsService: KeyMetricsServiceEntityResponse
   logicalDelete: Boolean
   logo: UploadFileEntityResponse!
-  numberOfInhabitants: Long
   oldClientName: String
   pathId: Long
   pickUpDayService: PickUpDayServiceEntityResponse
@@ -1713,7 +1722,6 @@ input ContractFiltersInput {
   keyMetricsService: KeyMetricsServiceFiltersInput
   logicalDelete: BooleanFilterInput
   not: ContractFiltersInput
-  numberOfInhabitants: LongFilterInput
   oldClientName: StringFilterInput
   or: [ContractFiltersInput]
   pathId: LongFilterInput
@@ -1756,7 +1764,6 @@ input ContractInput {
   keyMetricsService: ID
   logicalDelete: Boolean
   logo: ID
-  numberOfInhabitants: Long
   oldClientName: String
   pathId: Long
   pickUpDayService: ID
@@ -2005,6 +2012,11 @@ type Deactivation {
 type DeletedMessage {
   id: ID
   message: String
+}
+
+type Department {
+  code: String
+  name: String
 }
 
 type DescriptionService {
@@ -2619,9 +2631,14 @@ type EnrichRequest {
 }
 
 type Epci {
-  cities: CityEntityResponse
+  cities(
+    filters: CityFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): CityRelationResponseCollection
   createdAt: DateTime
   name: String
+  siren: String!
   territories(
     filters: TerritoryFiltersInput
     pagination: PaginationArg = {}
@@ -2652,13 +2669,15 @@ input EpciFiltersInput {
   name: StringFilterInput
   not: EpciFiltersInput
   or: [EpciFiltersInput]
+  siren: StringFilterInput
   territories: TerritoryFiltersInput
   updatedAt: DateTimeFilterInput
 }
 
 input EpciInput {
-  cities: ID
+  cities: [ID]
   name: String
+  siren: String
   territories: [ID]
 }
 
@@ -3846,7 +3865,6 @@ input LongFilterInput {
 }
 
 type Mutation {
-  addCommuneToContract(ContractId: ID!, commune: CommuneInput!): ContractEntity
   bulkDeleteMedias(
     fileRequests: [RequestFile]!
     folderRequests: [RequestFolder]!
@@ -5261,11 +5279,19 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): FreeContentEntityResponseCollection
-  getAddressCoordinates(searchTerm: String!): [SearchResultAddress]
+  getAddressCoordinates(
+    housenumber: Boolean
+    searchTerm: String!
+  ): [SearchResultAddress]
   getAllFoldersHierarchy(path: String!): [RequestFolders]
   getAppointmentsDetails(requestId: ID!): AppointmentDetails
   getBanCitiesAutoComplete(limit: Int!, nameOrPostalCode: String!): [City]
+  getCitiesInformations(
+    prehome: Boolean!
+    searchTerm: String!
+  ): [CityInformation]
   getContentTypeDTOs(contractId: ID!): [ContentTypeDTO]
+  getContractIdByInseeCode(INSEE: String!): ContractEntity
   getCumbersomeReferential: [Cumbersome]!
   getDropOffCollectType(contractId: ID!): [CollectEntity]
   getDropOffMaps(audienceId: ID!, dropOffMapServiceId: ID!): [DropOffMapDTO]
@@ -5918,6 +5944,11 @@ input RecyclingGuideServiceInput {
 
 type RecyclingGuideServiceRelationResponseCollection {
   data: [RecyclingGuideServiceEntity!]!
+}
+
+type Region {
+  code: String
+  name: String
 }
 
 type Request {
@@ -6634,6 +6665,7 @@ type Territory {
     sort: [String] = []
   ): EpciRelationResponseCollection
   name: String
+  numberOfInhabitants: Long
   territoryType: TerritoryTypeEntityResponse
   updatedAt: DateTime
 }
@@ -6661,6 +6693,7 @@ input TerritoryFiltersInput {
   id: IDFilterInput
   name: StringFilterInput
   not: TerritoryFiltersInput
+  numberOfInhabitants: LongFilterInput
   or: [TerritoryFiltersInput]
   territoryType: TerritoryTypeFiltersInput
   updatedAt: DateTimeFilterInput
@@ -6671,6 +6704,7 @@ input TerritoryInput {
   contract: ID
   epcis: [ID]
   name: String
+  numberOfInhabitants: Long
   territoryType: ID
 }
 

@@ -2,8 +2,9 @@ import React from "react";
 import router from "next/router";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import {
-  City,
-  useGetBanCitiesAutoCompleteLazyQuery,
+  CityInformation,
+  useGetCitiesInformationsLazyQuery,
+  useGetContractIdByInseeCodeLazyQuery,
 } from "../../../../../graphql/codegen/generated-types";
 import { removeNulls } from "../../../../../lib/utilities";
 import CommonButton from "../../../../Common/CommonButton/CommonButton";
@@ -25,51 +26,49 @@ export default function ModalSelector({ handleClose }: IModalSelectorProps) {
     searchboxPlaceHolder: "Entre une commune",
     labelButton: "Valider",
   };
-  const limit = 10;
 
   /* Methods */
-  async function searchFunction(searchValue: string): Promise<Array<City>> {
-    let searchResults: Array<City> = [];
+  async function searchFunction(
+    searchValue: string,
+  ): Promise<Array<CityInformation>> {
+    let searchResults: Array<CityInformation> = [];
     await getCities({
-      variables: { limit, nameOrPostalCode: searchValue },
+      variables: { searchTerm: searchValue, prehome: true },
       onCompleted: (results) => {
         if (
-          results.getBanCitiesAutoComplete &&
-          results.getBanCitiesAutoComplete?.length > 0
+          results.getCitiesInformations &&
+          results.getCitiesInformations?.length > 0
         ) {
           searchResults =
-            results.getBanCitiesAutoComplete?.filter(removeNulls) ?? [];
+            results.getCitiesInformations?.filter(removeNulls).slice(0, 5) ??
+            [];
         }
       },
     });
     return searchResults;
   }
 
-  function displayTransform(result: City): string {
-    let city = "";
-
-    if (result.name) {
-      city += result.name;
-    }
-
-    if (city.length > 0 && result.postalCode) {
-      city += ` - ${result.postalCode}`;
-    }
-
-    return city;
+  function selectTransform(result: CityInformation): string {
+    return result.name && result.insee
+      ? `${result.name} - ${result.insee}`
+      : "";
   }
 
-  function selectTransform(result: City): string {
-    return result.name ?? "";
-  }
-
-  function handleOnSubmit() {
-    router.push(
-      `/${form
-        .getValues("search")
-        .toLowerCase()
-        .replaceAll(" ", "-")}/index.html`,
-    );
+  function handleOnSubmit(city: string) {
+    const regex = /(\d+)$/;
+    const match = city.match(regex);
+    const inseeCode = match && match.length >= 2 ? match[1] : null;
+    return getContractByInsee({
+      variables: { insee: `${inseeCode}` },
+      onCompleted: (results) => {
+        router.push(
+          `/${results.getContractIdByInseeCode?.attributes?.clientName?.toLowerCase()}/index.html`,
+        );
+      },
+      onError: (error) => {
+        console.log("Error fetching contract by Insee code:", error);
+      },
+    });
   }
 
   /* Local data */
@@ -78,9 +77,10 @@ export default function ModalSelector({ handleClose }: IModalSelectorProps) {
   });
 
   /* External Data */
-  const [getCities, { loading, error }] =
-    useGetBanCitiesAutoCompleteLazyQuery();
+  const [getCities, { loading, error }] = useGetCitiesInformationsLazyQuery();
+  const [getContractByInsee] = useGetContractIdByInseeCodeLazyQuery();
 
+  const searchValue = form.getValues("search");
   return (
     <>
       <div className="c-ModalSelector">
@@ -96,11 +96,15 @@ export default function ModalSelector({ handleClose }: IModalSelectorProps) {
               <form className="c-ModalSelector__Form">
                 <FormLabel label={formLabels.searchboxLabel} />
                 <CommonErrors errors={[error]}>
-                  <FormAutoCompleteInput<City>
+                  <FormAutoCompleteInput<CityInformation>
                     name="search"
                     placeholder={formLabels.searchboxPlaceHolder}
                     searchFunction={searchFunction}
-                    displayTransformFunction={displayTransform}
+                    displayTransformFunction={(result) =>
+                      result.insee
+                        ? `${result.name} - ${result.insee}`
+                        : result.name ?? ""
+                    }
                     selectTransformFunction={selectTransform}
                     isLoading={loading}
                   />
@@ -113,7 +117,7 @@ export default function ModalSelector({ handleClose }: IModalSelectorProps) {
               type="button"
               style="primary"
               label={formLabels.labelButton}
-              onClick={handleOnSubmit}
+              onClick={() => handleOnSubmit(searchValue)}
             />
           </div>
         </div>

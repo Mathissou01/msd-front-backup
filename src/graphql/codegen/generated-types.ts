@@ -370,11 +370,14 @@ export type AlertUserStorage = {
   alertNotifications?: Maybe<AlertNotificationRelationResponseCollection>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   email?: Maybe<Scalars["String"]>;
+  firstSubscriptionDate?: Maybe<Scalars["DateTime"]>;
   isEmail: Scalars["Boolean"];
   isSMS: Scalars["Boolean"];
   latitude?: Maybe<Scalars["String"]>;
   longitude?: Maybe<Scalars["String"]>;
   phoneNumber?: Maybe<Scalars["String"]>;
+  reactivatedAt?: Maybe<Scalars["DateTime"]>;
+  reactivationMailSentAt?: Maybe<Scalars["DateTime"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
 
@@ -407,6 +410,7 @@ export type AlertUserStorageFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<AlertUserStorageFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   email?: InputMaybe<StringFilterInput>;
+  firstSubscriptionDate?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   isEmail?: InputMaybe<BooleanFilterInput>;
   isSMS?: InputMaybe<BooleanFilterInput>;
@@ -415,6 +419,8 @@ export type AlertUserStorageFiltersInput = {
   not?: InputMaybe<AlertUserStorageFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<AlertUserStorageFiltersInput>>>;
   phoneNumber?: InputMaybe<StringFilterInput>;
+  reactivatedAt?: InputMaybe<DateTimeFilterInput>;
+  reactivationMailSentAt?: InputMaybe<DateTimeFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
@@ -422,11 +428,14 @@ export type AlertUserStorageInput = {
   alertNotificationServiceId?: InputMaybe<Scalars["String"]>;
   alertNotifications?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   email?: InputMaybe<Scalars["String"]>;
+  firstSubscriptionDate?: InputMaybe<Scalars["DateTime"]>;
   isEmail?: InputMaybe<Scalars["Boolean"]>;
   isSMS?: InputMaybe<Scalars["Boolean"]>;
   latitude?: InputMaybe<Scalars["String"]>;
   longitude?: InputMaybe<Scalars["String"]>;
   phoneNumber?: InputMaybe<Scalars["String"]>;
+  reactivatedAt?: InputMaybe<Scalars["DateTime"]>;
+  reactivationMailSentAt?: InputMaybe<Scalars["DateTime"]>;
 };
 
 export type AlertUserStorageRelationResponseCollection = {
@@ -708,7 +717,7 @@ export type City = {
   MwCounter?: Maybe<MwCounterServiceEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   department?: Maybe<Scalars["String"]>;
-  epci?: Maybe<EpciRelationResponseCollection>;
+  epci?: Maybe<EpciEntityResponse>;
   insee?: Maybe<Scalars["Long"]>;
   name?: Maybe<Scalars["String"]>;
   pickUpDay?: Maybe<PickUpDayEntityResponse>;
@@ -717,12 +726,6 @@ export type City = {
   siren?: Maybe<Scalars["Long"]>;
   territories?: Maybe<TerritoryRelationResponseCollection>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
-};
-
-export type CityEpciArgs = {
-  filters?: InputMaybe<EpciFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type CityTerritoriesArgs = {
@@ -768,11 +771,21 @@ export type CityFiltersInput = {
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
+export type CityInformation = {
+  __typename?: "CityInformation";
+  department?: Maybe<Department>;
+  insee?: Maybe<Scalars["String"]>;
+  name?: Maybe<Scalars["String"]>;
+  postalCode?: Maybe<Scalars["String"]>;
+  region?: Maybe<Region>;
+  siren?: Maybe<Scalars["String"]>;
+};
+
 export type CityInput = {
   GeoJSON?: InputMaybe<Scalars["JSON"]>;
   MwCounter?: InputMaybe<Scalars["ID"]>;
   department?: InputMaybe<Scalars["String"]>;
-  epci?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  epci?: InputMaybe<Scalars["ID"]>;
   insee?: InputMaybe<Scalars["Long"]>;
   name?: InputMaybe<Scalars["String"]>;
   pickUpDay?: InputMaybe<Scalars["ID"]>;
@@ -1047,10 +1060,6 @@ export type CollectVoluntaryInput = {
 export type CollectVoluntaryRelationResponseCollection = {
   __typename?: "CollectVoluntaryRelationResponseCollection";
   data: Array<CollectVoluntaryEntity>;
-};
-
-export type CommuneInput = {
-  insee: Scalars["Int"];
 };
 
 export type ComponentBlocksAttachments = {
@@ -1790,7 +1799,6 @@ export type Contract = {
   keyMetricsService?: Maybe<KeyMetricsServiceEntityResponse>;
   logicalDelete?: Maybe<Scalars["Boolean"]>;
   logo: UploadFileEntityResponse;
-  numberOfInhabitants?: Maybe<Scalars["Long"]>;
   oldClientName?: Maybe<Scalars["String"]>;
   pathId?: Maybe<Scalars["Long"]>;
   pickUpDayService?: Maybe<PickUpDayServiceEntityResponse>;
@@ -1974,7 +1982,6 @@ export type ContractFiltersInput = {
   keyMetricsService?: InputMaybe<KeyMetricsServiceFiltersInput>;
   logicalDelete?: InputMaybe<BooleanFilterInput>;
   not?: InputMaybe<ContractFiltersInput>;
-  numberOfInhabitants?: InputMaybe<LongFilterInput>;
   oldClientName?: InputMaybe<StringFilterInput>;
   or?: InputMaybe<Array<InputMaybe<ContractFiltersInput>>>;
   pathId?: InputMaybe<LongFilterInput>;
@@ -2017,7 +2024,6 @@ export type ContractInput = {
   keyMetricsService?: InputMaybe<Scalars["ID"]>;
   logicalDelete?: InputMaybe<Scalars["Boolean"]>;
   logo?: InputMaybe<Scalars["ID"]>;
-  numberOfInhabitants?: InputMaybe<Scalars["Long"]>;
   oldClientName?: InputMaybe<Scalars["String"]>;
   pathId?: InputMaybe<Scalars["Long"]>;
   pickUpDayService?: InputMaybe<Scalars["ID"]>;
@@ -2272,6 +2278,12 @@ export type DeletedMessage = {
   __typename?: "DeletedMessage";
   id?: Maybe<Scalars["ID"]>;
   message?: Maybe<Scalars["String"]>;
+};
+
+export type Department = {
+  __typename?: "Department";
+  code?: Maybe<Scalars["String"]>;
+  name?: Maybe<Scalars["String"]>;
 };
 
 export type DescriptionService = {
@@ -2946,11 +2958,18 @@ export type EnrichRequest = {
 
 export type Epci = {
   __typename?: "Epci";
-  cities?: Maybe<CityEntityResponse>;
+  cities?: Maybe<CityRelationResponseCollection>;
   createdAt?: Maybe<Scalars["DateTime"]>;
   name?: Maybe<Scalars["String"]>;
+  siren: Scalars["String"];
   territories?: Maybe<TerritoryRelationResponseCollection>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type EpciCitiesArgs = {
+  filters?: InputMaybe<CityFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
 export type EpciTerritoriesArgs = {
@@ -2984,13 +3003,15 @@ export type EpciFiltersInput = {
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<EpciFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<EpciFiltersInput>>>;
+  siren?: InputMaybe<StringFilterInput>;
   territories?: InputMaybe<TerritoryFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type EpciInput = {
-  cities?: InputMaybe<Scalars["ID"]>;
+  cities?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   name?: InputMaybe<Scalars["String"]>;
+  siren?: InputMaybe<Scalars["String"]>;
   territories?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
 };
 
@@ -4282,7 +4303,6 @@ export type LongFilterInput = {
 
 export type Mutation = {
   __typename?: "Mutation";
-  addCommuneToContract?: Maybe<ContractEntity>;
   bulkDeleteMedias?: Maybe<Array<Maybe<DeletedMessage>>>;
   bulkMoveMedias?: Maybe<Array<Maybe<RequestFileOrFolder>>>;
   /** Change user password. Confirm with the current password. */
@@ -4571,11 +4591,6 @@ export type Mutation = {
   versioningHandler?: Maybe<VersioningEntityResponse>;
   ywsActivation?: Maybe<Scalars["Boolean"]>;
   ywsDeactivation?: Maybe<Scalars["Boolean"]>;
-};
-
-export type MutationAddCommuneToContractArgs = {
-  ContractId: Scalars["ID"];
-  commune: CommuneInput;
 };
 
 export type MutationBulkDeleteMediasArgs = {
@@ -6506,7 +6521,9 @@ export type Query = {
   getAllFoldersHierarchy?: Maybe<Array<Maybe<RequestFolders>>>;
   getAppointmentsDetails?: Maybe<AppointmentDetails>;
   getBanCitiesAutoComplete?: Maybe<Array<Maybe<City>>>;
+  getCitiesInformations?: Maybe<Array<Maybe<CityInformation>>>;
   getContentTypeDTOs?: Maybe<Array<Maybe<ContentTypeDto>>>;
+  getContractIdByInseeCode?: Maybe<ContractEntity>;
   getCumbersomeReferential: Array<Maybe<Cumbersome>>;
   getDropOffCollectType?: Maybe<Array<Maybe<CollectEntity>>>;
   getDropOffMaps?: Maybe<Array<Maybe<DropOffMapDto>>>;
@@ -7024,6 +7041,7 @@ export type QueryFreeContentsArgs = {
 };
 
 export type QueryGetAddressCoordinatesArgs = {
+  housenumber?: InputMaybe<Scalars["Boolean"]>;
   searchTerm: Scalars["String"];
 };
 
@@ -7040,8 +7058,17 @@ export type QueryGetBanCitiesAutoCompleteArgs = {
   nameOrPostalCode: Scalars["String"];
 };
 
+export type QueryGetCitiesInformationsArgs = {
+  prehome: Scalars["Boolean"];
+  searchTerm: Scalars["String"];
+};
+
 export type QueryGetContentTypeDtOsArgs = {
   contractId: Scalars["ID"];
+};
+
+export type QueryGetContractIdByInseeCodeArgs = {
+  INSEE: Scalars["String"];
 };
 
 export type QueryGetDropOffCollectTypeArgs = {
@@ -7965,6 +7992,12 @@ export type RecyclingGuideServiceRelationResponseCollection = {
   data: Array<RecyclingGuideServiceEntity>;
 };
 
+export type Region = {
+  __typename?: "Region";
+  code?: Maybe<Scalars["String"]>;
+  name?: Maybe<Scalars["String"]>;
+};
+
 export type Request = {
   __typename?: "Request";
   addableBlocks?: Maybe<Array<Maybe<RequestAddableBlocksDynamicZone>>>;
@@ -8748,6 +8781,7 @@ export type Territory = {
   createdAt?: Maybe<Scalars["DateTime"]>;
   epcis?: Maybe<EpciRelationResponseCollection>;
   name?: Maybe<Scalars["String"]>;
+  numberOfInhabitants?: Maybe<Scalars["Long"]>;
   territoryType?: Maybe<TerritoryTypeEntityResponse>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
@@ -8790,6 +8824,7 @@ export type TerritoryFiltersInput = {
   id?: InputMaybe<IdFilterInput>;
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<TerritoryFiltersInput>;
+  numberOfInhabitants?: InputMaybe<LongFilterInput>;
   or?: InputMaybe<Array<InputMaybe<TerritoryFiltersInput>>>;
   territoryType?: InputMaybe<TerritoryTypeFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -8800,6 +8835,7 @@ export type TerritoryInput = {
   contract?: InputMaybe<Scalars["ID"]>;
   epcis?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   name?: InputMaybe<Scalars["String"]>;
+  numberOfInhabitants?: InputMaybe<Scalars["Long"]>;
   territoryType?: InputMaybe<Scalars["ID"]>;
 };
 
@@ -10497,6 +10533,21 @@ export type GetBanCitiesAutoCompleteQuery = {
   } | null> | null;
 };
 
+export type GetCitiesInformationsQueryVariables = Exact<{
+  searchTerm: Scalars["String"];
+  prehome: Scalars["Boolean"];
+}>;
+
+export type GetCitiesInformationsQuery = {
+  __typename?: "Query";
+  getCitiesInformations?: Array<{
+    __typename?: "CityInformation";
+    insee?: string | null;
+    name?: string | null;
+    siren?: string | null;
+  } | null> | null;
+};
+
 export type GetContractByIdQueryVariables = Exact<{
   contractId: Scalars["ID"];
 }>;
@@ -10696,6 +10747,18 @@ export type GetContractByIdQuery = {
         } | null;
       } | null;
     } | null;
+  } | null;
+};
+
+export type GetContractIdByInseeCodeQueryVariables = Exact<{
+  insee: Scalars["String"];
+}>;
+
+export type GetContractIdByInseeCodeQuery = {
+  __typename?: "Query";
+  getContractIdByInseeCode?: {
+    __typename?: "ContractEntity";
+    attributes?: { __typename?: "Contract"; clientName: string } | null;
   } | null;
 };
 
@@ -14913,6 +14976,67 @@ export type GetBanCitiesAutoCompleteQueryResult = Apollo.QueryResult<
   GetBanCitiesAutoCompleteQuery,
   GetBanCitiesAutoCompleteQueryVariables
 >;
+export const GetCitiesInformationsDocument = gql`
+  query GetCitiesInformations($searchTerm: String!, $prehome: Boolean!) {
+    getCitiesInformations(searchTerm: $searchTerm, prehome: $prehome) {
+      insee
+      name
+      siren
+    }
+  }
+`;
+
+/**
+ * __useGetCitiesInformationsQuery__
+ *
+ * To run a query within a React component, call `useGetCitiesInformationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCitiesInformationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCitiesInformationsQuery({
+ *   variables: {
+ *      searchTerm: // value for 'searchTerm'
+ *      prehome: // value for 'prehome'
+ *   },
+ * });
+ */
+export function useGetCitiesInformationsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetCitiesInformationsQuery,
+    GetCitiesInformationsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetCitiesInformationsQuery,
+    GetCitiesInformationsQueryVariables
+  >(GetCitiesInformationsDocument, options);
+}
+export function useGetCitiesInformationsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetCitiesInformationsQuery,
+    GetCitiesInformationsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetCitiesInformationsQuery,
+    GetCitiesInformationsQueryVariables
+  >(GetCitiesInformationsDocument, options);
+}
+export type GetCitiesInformationsQueryHookResult = ReturnType<
+  typeof useGetCitiesInformationsQuery
+>;
+export type GetCitiesInformationsLazyQueryHookResult = ReturnType<
+  typeof useGetCitiesInformationsLazyQuery
+>;
+export type GetCitiesInformationsQueryResult = Apollo.QueryResult<
+  GetCitiesInformationsQuery,
+  GetCitiesInformationsQueryVariables
+>;
 export const GetContractByIdDocument = gql`
   query getContractById($contractId: ID!) {
     contract(id: $contractId) {
@@ -15116,6 +15240,66 @@ export type GetContractByIdLazyQueryHookResult = ReturnType<
 export type GetContractByIdQueryResult = Apollo.QueryResult<
   GetContractByIdQuery,
   GetContractByIdQueryVariables
+>;
+export const GetContractIdByInseeCodeDocument = gql`
+  query GetContractIdByInseeCode($insee: String!) {
+    getContractIdByInseeCode(INSEE: $insee) {
+      attributes {
+        clientName
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetContractIdByInseeCodeQuery__
+ *
+ * To run a query within a React component, call `useGetContractIdByInseeCodeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetContractIdByInseeCodeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetContractIdByInseeCodeQuery({
+ *   variables: {
+ *      insee: // value for 'insee'
+ *   },
+ * });
+ */
+export function useGetContractIdByInseeCodeQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetContractIdByInseeCodeQuery,
+    GetContractIdByInseeCodeQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetContractIdByInseeCodeQuery,
+    GetContractIdByInseeCodeQueryVariables
+  >(GetContractIdByInseeCodeDocument, options);
+}
+export function useGetContractIdByInseeCodeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetContractIdByInseeCodeQuery,
+    GetContractIdByInseeCodeQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetContractIdByInseeCodeQuery,
+    GetContractIdByInseeCodeQueryVariables
+  >(GetContractIdByInseeCodeDocument, options);
+}
+export type GetContractIdByInseeCodeQueryHookResult = ReturnType<
+  typeof useGetContractIdByInseeCodeQuery
+>;
+export type GetContractIdByInseeCodeLazyQueryHookResult = ReturnType<
+  typeof useGetContractIdByInseeCodeLazyQuery
+>;
+export type GetContractIdByInseeCodeQueryResult = Apollo.QueryResult<
+  GetContractIdByInseeCodeQuery,
+  GetContractIdByInseeCodeQueryVariables
 >;
 export const GetContractMenuDocument = gql`
   query getContractMenu($contractId: ID!) {
