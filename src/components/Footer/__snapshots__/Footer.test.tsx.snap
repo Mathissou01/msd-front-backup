@@ -55,7 +55,7 @@ exports[`Header renders 1`] = `
       class="c-Footer__Version"
     >
       Version - 
-      0.0.1
+      1.0.0
     </span>
   </div>
 </div>

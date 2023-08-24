@@ -62,7 +62,7 @@ export default function ModalSelector({ handleClose }: IModalSelectorProps) {
       variables: { insee: `${inseeCode}` },
       onCompleted: (results) => {
         router.push(
-          `/${results.getContractIdByInseeCode?.attributes?.clientName?.toLowerCase()}/index.html`,
+          `/${results.getContractIdByInseeCode?.attributes?.clientName}/index.html`,
         );
       },
       onError: (error) => {

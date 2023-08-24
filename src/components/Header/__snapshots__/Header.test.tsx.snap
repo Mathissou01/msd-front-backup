@@ -19,9 +19,8 @@ exports[`Header renders in desktop mode 1`] = `
         <div
           class="c-HeaderLinkSelector"
         >
-          <a
+          <button
             class="c-HeaderLinkSelector__Link"
-            href="/"
           >
             <span />
             <img
@@ -35,7 +34,7 @@ exports[`Header renders in desktop mode 1`] = `
               style="color: transparent;"
               width="24"
             />
-          </a>
+          </button>
         </div>
       </div>
       <div
@@ -420,9 +419,8 @@ exports[`Header renders in mobile mode 1`] = `
         <div
           class="c-HeaderLinkSelector"
         >
-          <a
+          <button
             class="c-HeaderLinkSelector__Link"
-            href="/"
           >
             <span />
             <img
@@ -436,7 +434,7 @@ exports[`Header renders in mobile mode 1`] = `
               style="color: transparent;"
               width="24"
             />
-          </a>
+          </button>
         </div>
       </li>
       <li

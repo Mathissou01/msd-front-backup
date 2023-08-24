@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { makePublicAssetPath } from "../../../../lib/utilities";
 import { useContract } from "../../../../hooks/useContract";
@@ -25,8 +24,7 @@ export default function HeaderLinkSelector() {
 
   return (
     <div className="c-HeaderLinkSelector">
-      <Link
-        href="/"
+      <button
         className="c-HeaderLinkSelector__Link"
         onClick={handleShowSelector}
       >
@@ -38,7 +36,7 @@ export default function HeaderLinkSelector() {
           width={24}
           height={24}
         />
-      </Link>
+      </button>
       {showModal && <ModalSelector handleClose={() => setShowModal(false)} />}
     </div>
   );
