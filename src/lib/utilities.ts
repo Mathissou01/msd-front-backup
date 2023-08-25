@@ -1,10 +1,15 @@
 import chroma from "chroma-js";
 
 export function makePublicAssetPath(path: string) {
-  return process.env.NODE_ENV === "production" &&
-    !!process.env.NEXT_PUBLIC_BASE_PATH
-    ? `/${process.env.NEXT_PUBLIC_BASE_PATH}/${path}`
-    : path;
+  // TODO: Better code with regex or smthing else
+  if (path.startsWith("http")) {
+    return path;
+  } else {
+    return process.env.NODE_ENV === "production" &&
+      !!process.env.NEXT_PUBLIC_BASE_PATH
+      ? `/${process.env.NEXT_PUBLIC_BASE_PATH}/${path}`
+      : path;
+  }
 }
 
 export const removeNulls = <S>(

@@ -52,12 +52,10 @@ export default function HeaderAlerts({
         <p>{labels.description}</p>
         <div className="c-HeaderAlerts__SubscriptionCards">
           <SubscriptionCard
-            href=""
             name={labels.alertSubscription}
             onClick={handleSubscriptionClick}
           />
           <SubscriptionCard
-            href=""
             name={labels.alertUnSubscription}
             onClick={handleUnsubscriptionClick}
           />

@@ -613,7 +613,7 @@ type City {
   insee: Long
   name: String
   pickUpDay: PickUpDayEntityResponse
-  postalCode: String
+  postalCode: Long
   region: String
   siren: Long
   territories(
@@ -1073,6 +1073,28 @@ type ComponentBlocksServices {
   pickUpS: PickUpDayServiceEntityResponse
   recyclingS: RecyclingGuideServiceEntityResponse
   requestS: RequestServiceEntityResponse
+}
+
+input ComponentBlocksServicesFiltersInput {
+  alertS: AlertNotificationServiceFiltersInput
+  and: [ComponentBlocksServicesFiltersInput]
+  dropOffS: DropOffMapServiceFiltersInput
+  editoS: EditorialServiceFiltersInput
+  not: ComponentBlocksServicesFiltersInput
+  or: [ComponentBlocksServicesFiltersInput]
+  pickUpS: PickUpDayServiceFiltersInput
+  recyclingS: RecyclingGuideServiceFiltersInput
+  requestS: RequestServiceFiltersInput
+}
+
+input ComponentBlocksServicesInput {
+  alertS: ID
+  dropOffS: ID
+  editoS: ID
+  id: ID
+  pickUpS: ID
+  recyclingS: ID
+  requestS: ID
 }
 
 type ComponentBlocksSubHeading {
@@ -3494,6 +3516,7 @@ type Homepage {
   ): QuizAndTipsBlockRelationResponseCollection
   recyclingGuideBlock: RecyclingGuideBlockEntityResponse
   searchEngineBlock: SearchEngineBlockEntityResponse
+  services: ComponentBlocksServices
   servicesBlocks(
     filters: ServicesBlockFiltersInput
     pagination: PaginationArg = {}
@@ -3533,6 +3556,7 @@ input HomepageFiltersInput {
   quizAndTipsBlocks: QuizAndTipsBlockFiltersInput
   recyclingGuideBlock: RecyclingGuideBlockFiltersInput
   searchEngineBlock: SearchEngineBlockFiltersInput
+  services: ComponentBlocksServicesFiltersInput
   servicesBlocks: ServicesBlockFiltersInput
   topContentBlocks: TopContentBlockFiltersInput
   updatedAt: DateTimeFilterInput
@@ -3545,6 +3569,7 @@ input HomepageInput {
   quizAndTipsBlocks: [ID]
   recyclingGuideBlock: ID
   searchEngineBlock: ID
+  services: ComponentBlocksServicesInput
   servicesBlocks: [ID]
   topContentBlocks: [ID]
   welcomeMessageBlock: ID
@@ -5101,6 +5126,7 @@ type Query {
     postalCode: String!
     streetName: String!
     streetNumber: String!
+    userId: String
   ): [UnregisteredUserData]
   cities(
     filters: CityFiltersInput
@@ -5285,7 +5311,6 @@ type Query {
   ): [SearchResultAddress]
   getAllFoldersHierarchy(path: String!): [RequestFolders]
   getAppointmentsDetails(requestId: ID!): AppointmentDetails
-  getBanCitiesAutoComplete(limit: Int!, nameOrPostalCode: String!): [City]
   getCitiesInformations(
     prehome: Boolean!
     searchTerm: String!

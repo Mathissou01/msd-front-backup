@@ -721,7 +721,7 @@ export type City = {
   insee?: Maybe<Scalars["Long"]>;
   name?: Maybe<Scalars["String"]>;
   pickUpDay?: Maybe<PickUpDayEntityResponse>;
-  postalCode?: Maybe<Scalars["String"]>;
+  postalCode?: Maybe<Scalars["Long"]>;
   region?: Maybe<Scalars["String"]>;
   siren?: Maybe<Scalars["Long"]>;
   territories?: Maybe<TerritoryRelationResponseCollection>;
@@ -1238,6 +1238,28 @@ export type ComponentBlocksServices = {
   pickUpS?: Maybe<PickUpDayServiceEntityResponse>;
   recyclingS?: Maybe<RecyclingGuideServiceEntityResponse>;
   requestS?: Maybe<RequestServiceEntityResponse>;
+};
+
+export type ComponentBlocksServicesFiltersInput = {
+  alertS?: InputMaybe<AlertNotificationServiceFiltersInput>;
+  and?: InputMaybe<Array<InputMaybe<ComponentBlocksServicesFiltersInput>>>;
+  dropOffS?: InputMaybe<DropOffMapServiceFiltersInput>;
+  editoS?: InputMaybe<EditorialServiceFiltersInput>;
+  not?: InputMaybe<ComponentBlocksServicesFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentBlocksServicesFiltersInput>>>;
+  pickUpS?: InputMaybe<PickUpDayServiceFiltersInput>;
+  recyclingS?: InputMaybe<RecyclingGuideServiceFiltersInput>;
+  requestS?: InputMaybe<RequestServiceFiltersInput>;
+};
+
+export type ComponentBlocksServicesInput = {
+  alertS?: InputMaybe<Scalars["ID"]>;
+  dropOffS?: InputMaybe<Scalars["ID"]>;
+  editoS?: InputMaybe<Scalars["ID"]>;
+  id?: InputMaybe<Scalars["ID"]>;
+  pickUpS?: InputMaybe<Scalars["ID"]>;
+  recyclingS?: InputMaybe<Scalars["ID"]>;
+  requestS?: InputMaybe<Scalars["ID"]>;
 };
 
 export type ComponentBlocksSubHeading = {
@@ -3894,6 +3916,7 @@ export type Homepage = {
   quizAndTipsBlocks?: Maybe<QuizAndTipsBlockRelationResponseCollection>;
   recyclingGuideBlock?: Maybe<RecyclingGuideBlockEntityResponse>;
   searchEngineBlock?: Maybe<SearchEngineBlockEntityResponse>;
+  services?: Maybe<ComponentBlocksServices>;
   servicesBlocks?: Maybe<ServicesBlockRelationResponseCollection>;
   topContentBlocks?: Maybe<TopContentBlockRelationResponseCollection>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
@@ -3952,6 +3975,7 @@ export type HomepageFiltersInput = {
   quizAndTipsBlocks?: InputMaybe<QuizAndTipsBlockFiltersInput>;
   recyclingGuideBlock?: InputMaybe<RecyclingGuideBlockFiltersInput>;
   searchEngineBlock?: InputMaybe<SearchEngineBlockFiltersInput>;
+  services?: InputMaybe<ComponentBlocksServicesFiltersInput>;
   servicesBlocks?: InputMaybe<ServicesBlockFiltersInput>;
   topContentBlocks?: InputMaybe<TopContentBlockFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -3964,6 +3988,7 @@ export type HomepageInput = {
   quizAndTipsBlocks?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   recyclingGuideBlock?: InputMaybe<Scalars["ID"]>;
   searchEngineBlock?: InputMaybe<Scalars["ID"]>;
+  services?: InputMaybe<ComponentBlocksServicesInput>;
   servicesBlocks?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   topContentBlocks?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   welcomeMessageBlock?: InputMaybe<Scalars["ID"]>;
@@ -6520,7 +6545,6 @@ export type Query = {
   getAddressCoordinates?: Maybe<Array<Maybe<SearchResultAddress>>>;
   getAllFoldersHierarchy?: Maybe<Array<Maybe<RequestFolders>>>;
   getAppointmentsDetails?: Maybe<AppointmentDetails>;
-  getBanCitiesAutoComplete?: Maybe<Array<Maybe<City>>>;
   getCitiesInformations?: Maybe<Array<Maybe<CityInformation>>>;
   getContentTypeDTOs?: Maybe<Array<Maybe<ContentTypeDto>>>;
   getContractIdByInseeCode?: Maybe<ContractEntity>;
@@ -6740,6 +6764,7 @@ export type QueryCheckUserRequirementsArgs = {
   postalCode: Scalars["String"];
   streetName: Scalars["String"];
   streetNumber: Scalars["String"];
+  userId?: InputMaybe<Scalars["String"]>;
 };
 
 export type QueryCitiesArgs = {
@@ -7051,11 +7076,6 @@ export type QueryGetAllFoldersHierarchyArgs = {
 
 export type QueryGetAppointmentsDetailsArgs = {
   requestId: Scalars["ID"];
-};
-
-export type QueryGetBanCitiesAutoCompleteArgs = {
-  limit: Scalars["Int"];
-  nameOrPostalCode: Scalars["String"];
 };
 
 export type QueryGetCitiesInformationsArgs = {
@@ -10521,13 +10541,12 @@ export type GetBanAddressesAutoCompleteQuery = {
 
 export type GetBanCitiesAutoCompleteQueryVariables = Exact<{
   nameOrPostalCode: Scalars["String"];
-  limit: Scalars["Int"];
 }>;
 
 export type GetBanCitiesAutoCompleteQuery = {
   __typename?: "Query";
-  getBanCitiesAutoComplete?: Array<{
-    __typename?: "City";
+  getCitiesInformations?: Array<{
+    __typename?: "CityInformation";
     name?: string | null;
     postalCode?: string | null;
   } | null> | null;
@@ -14914,11 +14933,8 @@ export type GetBanAddressesAutoCompleteQueryResult = Apollo.QueryResult<
   GetBanAddressesAutoCompleteQueryVariables
 >;
 export const GetBanCitiesAutoCompleteDocument = gql`
-  query getBanCitiesAutoComplete($nameOrPostalCode: String!, $limit: Int!) {
-    getBanCitiesAutoComplete(
-      nameOrPostalCode: $nameOrPostalCode
-      limit: $limit
-    ) {
+  query getBanCitiesAutoComplete($nameOrPostalCode: String!) {
+    getCitiesInformations(searchTerm: $nameOrPostalCode, prehome: true) {
       name
       postalCode
     }
@@ -14938,7 +14954,6 @@ export const GetBanCitiesAutoCompleteDocument = gql`
  * const { data, loading, error } = useGetBanCitiesAutoCompleteQuery({
  *   variables: {
  *      nameOrPostalCode: // value for 'nameOrPostalCode'
- *      limit: // value for 'limit'
  *   },
  * });
  */

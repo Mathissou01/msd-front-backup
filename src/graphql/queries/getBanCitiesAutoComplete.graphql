@@ -1,5 +1,5 @@
-query getBanCitiesAutoComplete($nameOrPostalCode: String!, $limit: Int!) {
-  getBanCitiesAutoComplete(nameOrPostalCode: $nameOrPostalCode, limit: $limit) {
+query getBanCitiesAutoComplete($nameOrPostalCode: String!) {
+  getCitiesInformations(searchTerm: $nameOrPostalCode, prehome: true) {
     name
     postalCode
   }
