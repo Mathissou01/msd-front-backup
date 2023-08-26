@@ -121,7 +121,11 @@ module.exports = async (phase) => {
 
   /** @type {import("next").NextConfig} */
   return {
-    basePath: "",
+    basePath:
+      process.env.NODE_ENV === "production" &&
+      !!process.env.NEXT_PUBLIC_BASE_PATH
+        ? `/${process.env.NEXT_PUBLIC_BASE_PATH}/`
+        : undefined,
     assetPrefix:
       process.env.NODE_ENV === "production" &&
       !!process.env.NEXT_PUBLIC_BASE_PATH
