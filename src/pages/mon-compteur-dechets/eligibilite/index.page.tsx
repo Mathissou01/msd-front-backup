@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import Step0 from "../../../components/CompteurDechets/Eligibility/Step0/Step0";
 import Step1 from "../../../components/CompteurDechets/Eligibility/Step1/Step1";
@@ -6,12 +7,13 @@ import Step2 from "../../../components/CompteurDechets/Eligibility/Step2/Step2";
 import Step3 from "../../../components/CompteurDechets/Eligibility/Step3/Step3";
 import Step4 from "../../../components/CompteurDechets/Eligibility/Step4/Step4";
 import Step5 from "../../../components/CompteurDechets/Eligibility/Step5/Step5";
+import StepFinal from "../../../components/CompteurDechets/Eligibility/StepFinal/StepFinal";
 import ProgressBar from "../../../components/CompteurDechets/Eligibility/ProgressBar/ProgressBar";
 import CommonMeta from "../../../components/Common/CommonMeta/CommonMeta";
 import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
 import StepError from "../../../components/CompteurDechets/Eligibility/StepError/StepError";
 import { useCurrentUser } from "../../../hooks/useCurrentUser";
-import { User } from "../../../lib/user";
+import { IAddress } from "../../../lib/user";
 import "./eligibilite-page.scss";
 
 export interface IError {
@@ -40,12 +42,12 @@ const Eligibilite = () => {
   const pageTitle = "Mon compteur déchets";
 
   const router = useRouter();
+  const { currentUser } = useCurrentUser();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAddress, setSelectedAddress] = useState<
-    Partial<User> | null | undefined
-  >();
-  const [personsCount, setPersonsCount] = useState(1);
-  const { currentUser } = useCurrentUser();
+    IAddress | null | undefined
+  >(currentUser?.address || null);
+
   const [error, setError] = useState({
     isActive: false,
     title: "",
@@ -53,6 +55,15 @@ const Eligibilite = () => {
     isReasonVisible: false,
     isNoBinsLinked: false,
     isContactVisible: false,
+  });
+
+  const methods = useForm({
+    defaultValues: {
+      email: currentUser?.email,
+      dwellingType: currentUser?.dwellingType,
+      userType: currentUser?.userType,
+      householdSize: currentUser?.householdSize || 1,
+    },
   });
 
   const handleError = (updates: Partial<IError>) => {
@@ -93,16 +104,14 @@ const Eligibilite = () => {
           <Step4
             handleOptionClick={handleOptionClick}
             handleError={handleError}
+            selectedAddress={selectedAddress}
+            setSelectedAddress={setSelectedAddress}
           />
         );
       case 5:
-        return (
-          <Step5
-            handleOptionClick={handleOptionClick}
-            personsCount={personsCount}
-            setPersonsCount={setPersonsCount}
-          />
-        );
+        return <Step5 handleOptionClick={handleOptionClick} />;
+      case 6:
+        return <StepFinal selectedAddress={selectedAddress} />;
     }
   };
 
@@ -113,13 +122,18 @@ const Eligibilite = () => {
   };
 
   const handleBackClick = () => {
-    error.isActive
-      ? setError({ ...error, isActive: false })
-      : setCurrentQuestion(currentQuestion - 1);
+    if (currentQuestion === 4) {
+      setCurrentQuestion(3);
+      setError({ ...error, isActive: false });
+    } else {
+      error.isActive
+        ? setError({ ...error, isActive: false })
+        : setCurrentQuestion(currentQuestion - 1);
+    }
   };
 
   return (
-    <>
+    <FormProvider {...methods}>
       <ProgressBar
         title="Activation du compteur déchets"
         currentQuestion={currentQuestion}
@@ -141,7 +155,7 @@ const Eligibilite = () => {
           renderQuestion()
         )}
       </div>
-    </>
+    </FormProvider>
   );
 };
 

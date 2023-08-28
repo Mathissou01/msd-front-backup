@@ -1,9 +1,9 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { User } from "../../../lib/user";
+import { IUser } from "../../../lib/user";
 import CommonButton from "../../Common/CommonButton/CommonButton";
 
 interface MyInfosBlockProps {
-  user: User;
+  user: IUser;
   isEdit: boolean;
   setIsEdit: Dispatch<SetStateAction<boolean>>;
 }
@@ -20,14 +20,14 @@ const MyInfosBlock: React.FC<MyInfosBlockProps> = ({
           <p className="c-CommonInfoPerso__ContentItem_subTtitle">
             ID Utilisateur
           </p>
-          <p className="c-CommonInfoPerso__ContentItem_value">{user?.id}</p>
+          <p className="c-CommonInfoPerso__ContentItem_value"></p>
         </div>
         <div className="c-CommonInfoPerso__ContentItem">
           <p className="c-CommonInfoPerso__ContentItem_subTtitle">
             Adresse complète *
           </p>
           <p className="c-CommonInfoPerso__ContentItem_value">
-            {user?.addressLabel}
+            {user?.address?.label}
           </p>
         </div>
         <div className="c-CommonInfoPerso__ContentItem">

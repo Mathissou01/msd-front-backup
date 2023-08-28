@@ -7,10 +7,10 @@ export const GetDataChipId = () => {
   const { contractId } = useContract();
   const { data, loading, error } = useCheckUserRequirementsQuery({
     variables: {
-      streetNumber: `${currentUser?.streetNumber}`,
-      streetName: `${currentUser?.streetName}`,
-      postalCode: `${currentUser?.postalCode}`,
-      city: `${currentUser?.city}`,
+      streetNumber: `${currentUser?.address?.houseNumber}`,
+      streetName: `${currentUser?.address?.street}`,
+      postalCode: `${currentUser?.address?.postcode}`,
+      city: `${currentUser?.address?.city}`,
       contractId: contractId,
     },
   });

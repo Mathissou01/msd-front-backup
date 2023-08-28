@@ -1,11 +1,11 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { User } from "../../../lib/user";
+import { IUser } from "../../../lib/user";
 import useUpdateUser from "../../../hooks/user/useUpdateUser";
 import CommonButton from "../../Common/CommonButton/CommonButton";
 
 interface MyHomeProps {
-  user: User;
+  user: IUser;
   refetch: () => void;
   isEdit: boolean;
   setIsEdit: Dispatch<SetStateAction<boolean>>;

@@ -26,6 +26,7 @@ query getMwcFlowsByContractId($filters: MwcFlowFiltersInput) {
               data {
                 attributes {
                   name
+                  url
                 }
               }
             }

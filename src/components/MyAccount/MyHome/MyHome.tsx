@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { User } from "../../../lib/user";
+import { IUser } from "../../../lib/user";
 import MyHomeNotCompleteBlock from "./MyHomeNotCompleteBlock";
 import MyHomeEditBlock from "./MyHomeEditBlock";
 import MyHomeBlock from "./MyHomeBlock";
 
 interface MyHomeProps {
-  user: User;
+  user: IUser;
   refetch: () => void;
 }
 

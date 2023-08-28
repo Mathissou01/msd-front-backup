@@ -1,33 +1,36 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { useEffect } from "react";
 import "./step5.scss";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
 import CommonButton from "../../../Common/CommonButton/CommonButton";
 import EligibilityPersons from "public/images/membre-foyer.svg";
+import { useFormContext } from "react-hook-form";
 
 interface Step5Props {
   handleOptionClick: (next: string | number) => void;
-  personsCount: number;
-  setPersonsCount: Dispatch<SetStateAction<number>>;
 }
 
-const Step5: React.FC<Step5Props> = ({
-  handleOptionClick,
-  personsCount,
-  setPersonsCount,
-}) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(e.target.value);
-    value >= 1 && setPersonsCount(value);
-  };
+const Step5: React.FC<Step5Props> = ({ handleOptionClick }) => {
+  const {
+    register,
+    setValue,
+    getValues,
+    trigger,
+    formState: { errors },
+  } = useFormContext();
 
+  useEffect(() => {
+    trigger("householdSize"); // Déclencher la validation du champ "householdSize" au chargement du composant
+  }, [trigger]);
   const incrementValue = () => {
-    setPersonsCount(personsCount + 1);
+    setValue("householdSize", parseInt(getValues("householdSize"), 10) + 1);
+    trigger("householdSize");
   };
 
   const decrementValue = () => {
-    if (personsCount > 1) {
-      setPersonsCount(personsCount - 1);
+    if (parseInt(getValues("householdSize"), 10) > 1) {
+      setValue("householdSize", parseInt(getValues("householdSize"), 10) - 1);
     }
+    trigger("householdSize");
   };
 
   return (
@@ -50,12 +53,29 @@ const Step5: React.FC<Step5Props> = ({
               -
             </button>
             <input
-              id="personsCount"
-              name="personsCount"
+              {...register("householdSize", {
+                valueAsNumber: true,
+                required: "Le nombre de personnes est obligatoire",
+                min: {
+                  value: 1,
+                  message: "Le nombre de personnes doit être supérieur à 0",
+                },
+                max: {
+                  value: 20,
+                  message: "Le nombre de personnes doit être inférieur à 20",
+                },
+              })}
               className="c-Step5__InputField"
               type="number"
-              value={personsCount}
-              onChange={handleChange}
+              onChange={(e) => {
+                setValue("householdSize", parseInt(e.target.value, 10)); // Mettre à jour la valeur du champ "householdSize"
+                trigger("householdSize"); // Déclencher la validation du champ "householdSize" lors de la modification de la valeur
+              }}
+              value={
+                typeof getValues("householdSize") === "number"
+                  ? getValues("householdSize")
+                  : 1
+              }
             />
             <button
               type="button"
@@ -66,16 +86,17 @@ const Step5: React.FC<Step5Props> = ({
             </button>
           </div>
           <p className="c-Step5__ErrorMessage">
-            {personsCount > 20 &&
-              "Merci de vérifier le nombre de personnes dans votre foyer"}
+            {errors.householdSize?.message as string}
           </p>
           <div className="o-Steps__ButtonContainer">
             <CommonButton
               type="button"
               style="primary"
               label="Valider"
-              onClick={() => personsCount <= 20 && handleOptionClick(6)}
-              isDisabled={personsCount > 20}
+              onClick={() => {
+                handleOptionClick(6);
+              }}
+              isDisabled={errors.householdSize?.message !== undefined}
             />
             <p className="c-Step5__RGPD">
               L’activation de Mon Compteur Déchets entrainera le traitement de

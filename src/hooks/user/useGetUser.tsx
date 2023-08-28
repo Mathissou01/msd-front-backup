@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { User } from "../../lib/user";
+import { IUser } from "../../lib/user";
 
 const useGetUser = (userId: string | null) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<IUser | null>(null);
   const [loading, setLoading] = useState(true);
 
   const fetchUser = async () => {
@@ -11,7 +11,7 @@ const useGetUser = (userId: string | null) => {
 
       if (userId) {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_USER_API_URL}/user/${userId}`,
+          `${process.env.NEXT_PUBLIC_USER_API_URL}/users/${userId}`,
         );
         if (!response.ok) {
           throw new Error("An error occurred");

@@ -610,12 +610,12 @@ type City {
   createdAt: DateTime
   department: String
   epci: EpciEntityResponse
-  insee: Long
+  insee: String
   name: String
   pickUpDay: PickUpDayEntityResponse
-  postalCode: Long
+  postalCode: String
   region: String
-  siren: Long
+  siren: String
   territories(
     filters: TerritoryFiltersInput
     pagination: PaginationArg = {}
@@ -646,14 +646,14 @@ input CityFiltersInput {
   department: StringFilterInput
   epci: EpciFiltersInput
   id: IDFilterInput
-  insee: LongFilterInput
+  insee: StringFilterInput
   name: StringFilterInput
   not: CityFiltersInput
   or: [CityFiltersInput]
   pickUpDay: PickUpDayFiltersInput
-  postalCode: LongFilterInput
+  postalCode: StringFilterInput
   region: StringFilterInput
-  siren: LongFilterInput
+  siren: StringFilterInput
   territories: TerritoryFiltersInput
   updatedAt: DateTimeFilterInput
 }
@@ -672,12 +672,12 @@ input CityInput {
   MwCounter: ID
   department: String
   epci: ID
-  insee: Long
+  insee: String
   name: String
   pickUpDay: ID
-  postalCode: Long
+  postalCode: String
   region: String
-  siren: Long
+  siren: String
   territories: [ID]
 }
 
@@ -2409,6 +2409,7 @@ enum ENUM_CONTRACT_CLIENTTYPE {
 
 enum ENUM_CONTRACT_CONTRACTSTATUS {
   Actif
+  Desactive
   En_cours
   Initialisation
 }
@@ -5114,6 +5115,7 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): CguEntityResponseCollection
+  changeContractStatus(contractId: ID!, status: Statuses!): contractStatus
   channelType(id: ID): ChannelTypeEntityResponse
   channelTypes(
     filters: ChannelTypeFiltersInput
@@ -6609,6 +6611,14 @@ type ServicesDeactivated {
   contractId: ID
   serviceId: ID
   serviceName: String
+}
+
+enum Statuses {
+  Actif
+  Desactive
+  En
+  Initialisation
+  cours
 }
 
 input StringFilterInput {

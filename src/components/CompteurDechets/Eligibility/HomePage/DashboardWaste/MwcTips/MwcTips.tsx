@@ -16,21 +16,25 @@ export default function MwcTips() {
   });
 
   return (
-    <div className="c-MwcTips">
-      <div className="c-MwcTips__Title">
-        <CommonBlockHeading titleContent="Astuces" />
-      </div>
-      <div className="c-MwcTips__Tips">
-        {data?.getThreeRandomTips?.map((tip, index) => (
-          <TipCard
-            key={index}
-            href={`/${EEditoTypeRoutes.tip}/${tip?.originalId || ""}`}
-            content={tip?.shortDescription || ""}
-            linkLabel="En savoir plus"
-            pictoUrl={tip?.image?.url || ""}
-          />
-        ))}
-      </div>
-    </div>
+    <>
+      {data?.getThreeRandomTips && data?.getThreeRandomTips?.length > 0 && (
+        <div className="c-MwcTips">
+          <div className="c-MwcTips__Title">
+            <CommonBlockHeading titleContent="Astuces" />
+          </div>
+          <div className="c-MwcTips__Tips">
+            {data?.getThreeRandomTips?.map((tip, index) => (
+              <TipCard
+                key={index}
+                href={`/${EEditoTypeRoutes.tip}/${tip?.originalId || ""}`}
+                content={tip?.shortDescription || ""}
+                linkLabel="En savoir plus"
+                pictoUrl={tip?.image?.url || ""}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+    </>
   );
 }

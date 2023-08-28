@@ -1,17 +1,17 @@
 import React, { useRef } from "react";
-import { Communication } from "../../../lib/user";
+import { ICommunication } from "../../../lib/user";
 import { Control, Controller, FieldValues } from "react-hook-form";
 import Letter from "public/images/pictos/letter.svg";
 import Mobile from "public/images/pictos/mobile.svg";
 import Notification from "public/images/pictos/notification.svg";
-import CommonCheckbox from "../../Common/CommonCheckbox/CommonCheckbox";
+import Checkbox from "./Checkbox";
 import "./my-services.scss";
 
 interface MyServicesProps {
-  control: Control<Communication>;
+  control: Control<ICommunication>;
 }
 
-const communications: { title: string; type: keyof Communication }[] = [
+const communications: { title: string; type: keyof ICommunication }[] = [
   { title: "Recevoir des alertes et informations", type: "alerts" },
   { title: "Conseils personnalisés", type: "tips" },
 ];
@@ -37,15 +37,15 @@ const MyServices: React.FC<MyServicesProps> = ({ control }) => {
 
                     <Controller
                       control={control}
-                      name={`${item.type}.${key}` as keyof Communication}
+                      name={`${item.type}.${key}` as keyof ICommunication}
                       render={({
                         field,
                       }: {
                         field: FieldValues[keyof FieldValues];
                       }) => (
-                        <CommonCheckbox
+                        <Checkbox
                           {...field}
-                          defaultChecked={field.value}
+                          checked={field.value}
                           onChange={(e) => {
                             field.onChange(e.target.checked);
                           }}
@@ -80,15 +80,15 @@ const MyServices: React.FC<MyServicesProps> = ({ control }) => {
 
                     <Controller
                       control={control}
-                      name={`${item.type}.${key}` as keyof Communication}
+                      name={`${item.type}.${key}` as keyof ICommunication}
                       render={({
                         field,
                       }: {
                         field: FieldValues[keyof FieldValues];
                       }) => (
-                        <CommonCheckbox
+                        <Checkbox
                           {...field}
-                          defaultChecked={field.value}
+                          checked={field.value}
                           onChange={(e) => {
                             field.onChange(e.target.checked);
                           }}

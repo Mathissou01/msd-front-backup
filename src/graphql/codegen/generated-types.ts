@@ -718,12 +718,12 @@ export type City = {
   createdAt?: Maybe<Scalars["DateTime"]>;
   department?: Maybe<Scalars["String"]>;
   epci?: Maybe<EpciEntityResponse>;
-  insee?: Maybe<Scalars["Long"]>;
+  insee?: Maybe<Scalars["String"]>;
   name?: Maybe<Scalars["String"]>;
   pickUpDay?: Maybe<PickUpDayEntityResponse>;
-  postalCode?: Maybe<Scalars["Long"]>;
+  postalCode?: Maybe<Scalars["String"]>;
   region?: Maybe<Scalars["String"]>;
-  siren?: Maybe<Scalars["Long"]>;
+  siren?: Maybe<Scalars["String"]>;
   territories?: Maybe<TerritoryRelationResponseCollection>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
@@ -759,14 +759,14 @@ export type CityFiltersInput = {
   department?: InputMaybe<StringFilterInput>;
   epci?: InputMaybe<EpciFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
-  insee?: InputMaybe<LongFilterInput>;
+  insee?: InputMaybe<StringFilterInput>;
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<CityFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<CityFiltersInput>>>;
   pickUpDay?: InputMaybe<PickUpDayFiltersInput>;
-  postalCode?: InputMaybe<LongFilterInput>;
+  postalCode?: InputMaybe<StringFilterInput>;
   region?: InputMaybe<StringFilterInput>;
-  siren?: InputMaybe<LongFilterInput>;
+  siren?: InputMaybe<StringFilterInput>;
   territories?: InputMaybe<TerritoryFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
@@ -786,12 +786,12 @@ export type CityInput = {
   MwCounter?: InputMaybe<Scalars["ID"]>;
   department?: InputMaybe<Scalars["String"]>;
   epci?: InputMaybe<Scalars["ID"]>;
-  insee?: InputMaybe<Scalars["Long"]>;
+  insee?: InputMaybe<Scalars["String"]>;
   name?: InputMaybe<Scalars["String"]>;
   pickUpDay?: InputMaybe<Scalars["ID"]>;
-  postalCode?: InputMaybe<Scalars["Long"]>;
+  postalCode?: InputMaybe<Scalars["String"]>;
   region?: InputMaybe<Scalars["String"]>;
-  siren?: InputMaybe<Scalars["Long"]>;
+  siren?: InputMaybe<Scalars["String"]>;
   territories?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
 };
 
@@ -2716,6 +2716,7 @@ export enum Enum_Contract_Clienttype {
 
 export enum Enum_Contract_Contractstatus {
   Actif = "Actif",
+  Desactive = "Desactive",
   EnCours = "En_cours",
   Initialisation = "Initialisation",
 }
@@ -6478,6 +6479,7 @@ export type Query = {
   cguSubService?: Maybe<CguSubServiceEntityResponse>;
   cguSubServices?: Maybe<CguSubServiceEntityResponseCollection>;
   cgus?: Maybe<CguEntityResponseCollection>;
+  changeContractStatus?: Maybe<ContractStatus>;
   channelType?: Maybe<ChannelTypeEntityResponse>;
   channelTypes?: Maybe<ChannelTypeEntityResponseCollection>;
   checkUserRequirements?: Maybe<Array<Maybe<UnregisteredUserData>>>;
@@ -6746,6 +6748,11 @@ export type QueryCgusArgs = {
   filters?: InputMaybe<CguFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type QueryChangeContractStatusArgs = {
+  contractId: Scalars["ID"];
+  status: Statuses;
 };
 
 export type QueryChannelTypeArgs = {
@@ -8723,6 +8730,14 @@ export type ServicesDeactivated = {
   serviceId?: Maybe<Scalars["ID"]>;
   serviceName?: Maybe<Scalars["String"]>;
 };
+
+export enum Statuses {
+  Actif = "Actif",
+  Desactive = "Desactive",
+  En = "En",
+  Initialisation = "Initialisation",
+  Cours = "cours",
+}
 
 export type StringFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
@@ -12304,6 +12319,7 @@ export type CheckUserRequirementsQueryVariables = Exact<{
   postalCode: Scalars["String"];
   city: Scalars["String"];
   contractId: Scalars["ID"];
+  userId?: InputMaybe<Scalars["String"]>;
 }>;
 
 export type CheckUserRequirementsQuery = {
@@ -12392,6 +12408,7 @@ export type GetMwcFlowsByContractIdQuery = {
                   attributes?: {
                     __typename?: "UploadFile";
                     name: string;
+                    url: string;
                   } | null;
                 } | null;
               } | null;
@@ -17206,6 +17223,7 @@ export const CheckUserRequirementsDocument = gql`
     $postalCode: String!
     $city: String!
     $contractId: ID!
+    $userId: String
   ) {
     checkUserRequirements(
       streetNumber: $streetNumber
@@ -17213,6 +17231,7 @@ export const CheckUserRequirementsDocument = gql`
       postalCode: $postalCode
       city: $city
       contractId: $contractId
+      userId: $userId
     ) {
       chipId
       trashFlow
@@ -17237,6 +17256,7 @@ export const CheckUserRequirementsDocument = gql`
  *      postalCode: // value for 'postalCode'
  *      city: // value for 'city'
  *      contractId: // value for 'contractId'
+ *      userId: // value for 'userId'
  *   },
  * });
  */
@@ -17503,6 +17523,7 @@ export const GetMwcFlowsByContractIdDocument = gql`
                 data {
                   attributes {
                     name
+                    url
                   }
                 }
               }

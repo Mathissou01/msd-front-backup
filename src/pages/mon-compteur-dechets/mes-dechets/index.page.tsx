@@ -5,6 +5,7 @@ import { format, subMonths } from "date-fns";
 import { fr } from "date-fns/locale";
 import {
   UserWasteData,
+  useGetMwcAverageProductionQuery,
   useGetMwcFlowsByContractIdQuery,
   useGetUserWasteManagementQuery,
 } from "../../../graphql/codegen/generated-types";
@@ -51,11 +52,6 @@ interface IMyWasteFlowEdito {
 export default function MyWastePage() {
   /* Static Data */
   const pageTitle = "Mes déchets";
-  const content = {
-    householdWaste: "Ordures ménagères",
-    packaging: "Emballages",
-    buttonInfo: "Equivalent d’un foyer d’environ X personne(s)",
-  };
 
   const { contractId } = useContract();
   const { currentUser } = useCurrentUser();
@@ -73,19 +69,35 @@ export default function MyWastePage() {
     },
   });
 
+  console.log(data);
+
   const { data: flowsData, loading } = useGetUserWasteManagementQuery({
     variables: {
       contractId: contractId,
-      streetNumber: `${currentUser?.streetNumber}`,
-      streetName: `${currentUser?.streetName}`,
-      postcode: `${currentUser?.postalCode}`,
-      city: `${currentUser?.city}`,
+      streetNumber: `${currentUser?.address?.houseNumber}`,
+      streetName: `${currentUser?.address?.street}`,
+      postcode: `${currentUser?.address?.postcode}`,
+      city: `${currentUser?.address?.city}`,
     },
   });
 
+  const { data: averageProduction } = useGetMwcAverageProductionQuery({
+    variables: {
+      contractId: contractId,
+    },
+  });
+
+  const content = {
+    householdWaste: "Ordures ménagères",
+    packaging: "Emballages",
+    buttonInfo: "Equivalent d’un foyer d’environ ",
+    persons: " personne(s)",
+  };
   const [chips, setChips] = useState<string[]>([]);
   const [wasteFlows, setWasteFlows] = useState<IMyWasteFlowEdito[]>([]);
   const [selectedChip, setSelectedChip] = useState("all");
+  const [productionCompare, setProductionCompare] = useState(0);
+  const [selectedFlowWeight, setSelectedFlowWeight] = useState(0);
   const [currentDate] = useState(subMonths(new Date(), 1));
   const formattedDate = format(currentDate, "MMMM yyyy", {
     locale: fr,
@@ -122,6 +134,29 @@ export default function MyWastePage() {
     }
   }, [data, selectedChip]);
 
+  useEffect(() => {
+    // recuperer averageProductionPerson
+    data?.mwcFlows?.data?.map((flow) => {
+      if (
+        flow?.attributes?.flow?.data?.attributes?.code === selectedChip &&
+        flow?.attributes?.averageProductionPerson
+      ) {
+        setProductionCompare(flow?.attributes?.averageProductionPerson);
+      }
+    });
+    // récupérer le weight du chip selected
+    if (
+      selectedChip !== "all" &&
+      flowsData?.getUserWasteManagement?.[0]?.flows
+    ) {
+      flowsData?.getUserWasteManagement?.[0]?.flows.map((flow) => {
+        if (flow?.trashFlow === selectedChip) {
+          setSelectedFlowWeight(flow?.weight || 0);
+        }
+      });
+    }
+  }, [data, selectedChip, flowsData]);
+
   return (
     <div className="c-MyWaste">
       <CommonMeta title={pageTitle} />
@@ -156,10 +191,26 @@ export default function MyWastePage() {
                       {content.packaging}
                     </p>
                   </div>
-                  <div className="c-MyWaste__DonutChartBottomInfo">
-                    <Illu_idea />
-                    <p>{content.buttonInfo}</p>
-                  </div>
+                  {flowsData &&
+                    flowsData?.getUserWasteManagement[0] &&
+                    flowsData?.getUserWasteManagement[0]?.totalWeight &&
+                    averageProduction?.getMwcAverageProduction && (
+                      <div className="c-MyWaste__DonutChartBottomInfo">
+                        <Illu_idea />
+                        <p>
+                          {content.buttonInfo}{" "}
+                          {selectedChip !== "all" &&
+                            Math.round(selectedFlowWeight / productionCompare)}
+                          {selectedChip === "all" &&
+                            Math.round(
+                              flowsData?.getUserWasteManagement?.[0]
+                                ?.totalWeight /
+                                averageProduction?.getMwcAverageProduction,
+                            )}
+                          {content.persons}
+                        </p>
+                      </div>
+                    )}
                 </div>
                 {flowsData &&
                   flowsData.getUserWasteManagement &&

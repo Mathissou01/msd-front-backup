@@ -6,7 +6,6 @@ import React, {
   useState,
 } from "react";
 import { useSearchAddressQuery } from "../../../../graphql/codegen/generated-types";
-import { User } from "../../../../lib/user";
 import { AddressOption } from "../../../../lib/address-option";
 import useDebounce from "../../../../hooks/useDebounce";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
@@ -16,13 +15,13 @@ import AutocompleteAddress from "../AutocompleteAddress/AutocompleteAddress";
 import { IError } from "../../../../pages/mon-compteur-dechets/eligibilite/index.page";
 import EligibilityAdress from "public/images/adresse-postale.svg";
 import "./step3.scss";
+import { useCurrentUser } from "../../../../hooks/useCurrentUser";
+import { IAddress } from "../../../../lib/user";
 
 interface Step3Props {
   handleOptionClick: (next: string | number) => void;
-  selectedAddress: Partial<User> | null | undefined;
-  setSelectedAddress: Dispatch<
-    SetStateAction<Partial<User> | null | undefined>
-  >;
+  selectedAddress: IAddress | null | undefined;
+  setSelectedAddress: Dispatch<SetStateAction<IAddress | null | undefined>>;
   handleError: (updates: Partial<IError>) => void;
 }
 
@@ -32,10 +31,10 @@ const Step3: React.FC<Step3Props> = ({
   setSelectedAddress,
   handleError,
 }) => {
-  const addressString = `${selectedAddress?.streetNumber || ""} ${
-    selectedAddress?.streetName || ""
-  } ${selectedAddress?.postalCode || ""} ${selectedAddress?.city || ""}`;
-  const [value, setValue] = useState(addressString || "");
+  const { currentUser } = useCurrentUser();
+  const [value, setValue] = useState(
+    selectedAddress?.label || currentUser?.address?.label || "",
+  );
   const debouncedValue = useDebounce<string>(value, 500);
   const [filteredOptions, setFilteredOptions] = useState<AddressOption[]>([]);
   const [isVisibled, setIsVisibled] = useState(false);
@@ -61,14 +60,8 @@ const Step3: React.FC<Step3Props> = ({
     setValue(event.target.value);
   }
 
-  function handleClick(option: Partial<AddressOption>) {
-    setSelectedAddress({
-      streetNumber: option.houseNumber || null,
-      streetName: option.street || null,
-      city: option.city || null,
-      postalCode: option.postcode || null,
-      idAddress: option.id || null,
-    });
+  function handleClick(option: IAddress) {
+    setSelectedAddress(option);
     setValue(option.label || "");
     setIsVisibled(false);
   }

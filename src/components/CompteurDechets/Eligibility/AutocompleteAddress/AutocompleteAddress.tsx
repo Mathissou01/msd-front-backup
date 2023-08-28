@@ -1,9 +1,9 @@
-import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import React, { Dispatch, SetStateAction, useRef } from "react";
 import { useRouter } from "next/router";
-import { IError } from "../../../../pages/mon-compteur-dechets/eligibilite/index.page";
-import "./autocomplete-address.scss";
-import { AddressOption } from "../../../../lib/address-option";
 import CommonSpinner from "../../../Common/CommonSpinner/CommonSpinner";
+import { IError } from "../../../../pages/mon-compteur-dechets/eligibilite/index.page";
+import { IAddress } from "../../../../lib/user";
+import "./autocomplete-address.scss";
 
 interface AutocompleteAddressProps {
   value: string;
@@ -11,8 +11,8 @@ interface AutocompleteAddressProps {
   debouncedValue: string;
   isVisibled: boolean;
   setIsVisibled: Dispatch<SetStateAction<boolean>>;
-  handleClick: (option: AddressOption) => void;
-  filteredOptions: AddressOption[];
+  handleClick: (option: IAddress) => void;
+  filteredOptions: IAddress[];
   inputName: string;
   inputLabel?: string;
   inputPlaceholder?: string;
@@ -39,21 +39,6 @@ const AutocompleteAddress: React.FC<AutocompleteAddressProps> = ({
   const selectorRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        selectorRef.current &&
-        !selectorRef.current.contains(event.target as Node)
-      ) {
-        setIsVisibled(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [setIsVisibled]);
-
   return (
     <div className="c-AutocompleteAddress">
       <div className="c-AutocompleteAddress__Container">
@@ -75,7 +60,7 @@ const AutocompleteAddress: React.FC<AutocompleteAddressProps> = ({
             {!loading ? (
               <>
                 {filteredOptions.length ? (
-                  filteredOptions.map((option: AddressOption, i: number) => (
+                  filteredOptions.map((option: IAddress, i: number) => (
                     <button
                       className="c-AutocompleteAddress__Option"
                       key={i}

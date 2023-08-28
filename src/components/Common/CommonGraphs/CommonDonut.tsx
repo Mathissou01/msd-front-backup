@@ -65,7 +65,6 @@ const CommonDonut = ({
   const findFlow = (code: string) => {
     return selectedData?.find((flow) => flow?.trashFlow === code);
   };
-
   const COLORS =
     selectedChip === "CS"
       ? ["#F5C500", "#ecedee"]
@@ -110,26 +109,28 @@ const CommonDonut = ({
           x={
             selectedChip === "all" && flows.totalWeight
               ? flows?.totalWeight >= 100
-                ? cx - 20
+                ? cx + 20
                 : flows?.totalWeight < 10
-                ? cx - 5
-                : cx - 15
+                ? cx + 5
+                : cx + 10
               : activeFlow?.weight && activeFlow?.weight >= 100
-              ? cx - 20
+              ? cx + 20
               : activeFlow?.weight && activeFlow?.weight < 10
-              ? cx - 5
-              : cx - 15
+              ? cx + 5
+              : cx + 10
           }
           y={cy - 15}
           textAnchor={x > cx ? "start" : "end"}
           dominantBaseline="central"
           className="c-MyWaste__DonutChartPoid"
         >
-          {selectedChip === "all" ? flows.totalWeight : activeFlow?.weight}
+          {selectedChip === "all"
+            ? Math.round(flows?.totalWeight || 0)
+            : Math.round(activeFlow?.weight || 0)}
         </text>
 
         <text
-          x={cx - 8}
+          x={cx + 5}
           y={cy + 5}
           textAnchor={x > cx ? "start" : "end"}
           dominantBaseline="central"
@@ -138,7 +139,7 @@ const CommonDonut = ({
           kg
         </text>
         <text
-          x={cx - 10}
+          x={cx + 15}
           y={cy + 25}
           fill="#767C97"
           textAnchor={x > cx ? "start" : "end"}

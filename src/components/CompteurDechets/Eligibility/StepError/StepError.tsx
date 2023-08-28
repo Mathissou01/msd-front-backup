@@ -4,15 +4,13 @@ import AddressBlock from "../AddressBlock/AddressBlock";
 import { IError } from "../../../../pages/mon-compteur-dechets/eligibilite/index.page";
 import ErrorReason from "../ErrorReason/ErrorReason";
 import ErrorContactBlock from "../ErrorContactBlock/ErrorContactBlock";
-import { User } from "../../../../lib/user";
+import { IAddress } from "../../../../lib/user";
 import EligibilityRecycling from "public/images/non-eligible.svg";
 import BinsError from "../BinsError/BinsError";
 
 interface ErrorPageProps {
-  selectedAddress: Partial<User> | null | undefined;
-  setSelectedAddress: Dispatch<
-    SetStateAction<Partial<User> | null | undefined>
-  >;
+  selectedAddress: IAddress | null | undefined;
+  setSelectedAddress: Dispatch<SetStateAction<IAddress | null | undefined>>;
   error: IError;
   handleError: (updates: Partial<IError>) => void;
   setCurrentQuestion: Dispatch<SetStateAction<number>>;

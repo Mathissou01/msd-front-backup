@@ -17,6 +17,7 @@ export default function HeaderLinkUser() {
     alternativeText: "Mon compte",
     ariaLabel: "Mon compte",
   };
+
   return (
     <>
       <div
@@ -43,7 +44,9 @@ export default function HeaderLinkUser() {
         <div className="c-HeaderLinkUser__PopUpHead"></div>
         <div className="c-HeaderLinkUser__PopUpContent">
           <CommonButton
-            label="Mon profil"
+            label={
+              currentUser && currentUser !== null ? "Mon profil" : "Connexion"
+            }
             style="primary"
             onClick={() => {
               openPopinUser();

@@ -1,9 +1,9 @@
 import React from "react";
-import { User } from "../../../lib/user";
+import { IUser } from "../../../lib/user";
 import "./email-reminder.scss";
 import { useRouter } from "next/router";
 interface EmailReminderProps {
-  user: User | null;
+  user: IUser | null;
 }
 
 const EmailReminder: React.FC<EmailReminderProps> = ({ user }) => {

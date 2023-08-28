@@ -273,7 +273,7 @@ exports[`Header renders in desktop mode 1`] = `
                   class="c-CommonButton c-CommonButton_primary c-CommonButton_fontSmall"
                   type="button"
                 >
-                  Mon profil
+                  Connexion
                 </button>
               </div>
             </div>
@@ -366,7 +366,7 @@ exports[`Header renders in mobile mode 1`] = `
               class="c-CommonButton c-CommonButton_primary c-CommonButton_fontSmall"
               type="button"
             >
-              Mon profil
+              Connexion
             </button>
           </div>
         </div>

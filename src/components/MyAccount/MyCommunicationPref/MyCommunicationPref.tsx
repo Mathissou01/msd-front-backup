@@ -1,15 +1,16 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Communication, User } from "../../../lib/user";
+import { ICommunication, IUser } from "../../../lib/user";
 import useUpdateUser from "../../../hooks/user/useUpdateUser";
 import EmailReminder from "../EmailReminder/EmailReminder";
 import MyServices from "../MyServices/MyServices";
 import OtherCommunications from "../OtherCommunications/OtherCommunications";
 import CommonButton from "../../Common/CommonButton/CommonButton";
+import { useCurrentUser } from "../../../hooks/useCurrentUser";
 import "./my-communication-pref.scss";
 
 interface MyCommunicationPrefProps {
-  user: User | null;
+  user: IUser | null;
   refetch: () => void;
 }
 
@@ -17,9 +18,10 @@ const MyCommunicationPref: React.FC<MyCommunicationPrefProps> = ({
   user,
   refetch,
 }) => {
-  const { updateUser } = useUpdateUser(process.env.NEXT_PUBLIC_USER_ID || "");
+  const { currentUser } = useCurrentUser();
+  const { updateUser } = useUpdateUser(currentUser?._id || "");
 
-  const { control, handleSubmit } = useForm<Communication>({
+  const { control, handleSubmit } = useForm<ICommunication>({
     defaultValues: {
       alerts: {
         email: user?.communication?.alerts.email || false,
@@ -36,7 +38,7 @@ const MyCommunicationPref: React.FC<MyCommunicationPrefProps> = ({
     },
   });
 
-  const onSubmit = (data: Communication) => {
+  const onSubmit = (data: ICommunication) => {
     updateUser({ communication: data }, refetch);
   };
 
