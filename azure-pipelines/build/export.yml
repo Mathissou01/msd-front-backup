@@ -3,6 +3,19 @@ parameters:
   - name: env
     type: string
 
+  - name: contractID
+    type: number
+    default: 1
+
+  - name: clientName
+    displayName: Name of Client to build
+    type: string
+    default: ""
+
+  - name: ignore
+    type: boolean
+    default: false
+
 steps:
   - task: Npm@1
     displayName: "Build FO Static WebSite"
@@ -12,6 +25,10 @@ steps:
     env:
       NEXT_PUBLIC_API_URL: https://func-msd-${{ parameters.env }}-foapi.azurewebsites.net/api
       COOKIE_BOT_CBID: $(COOKIE_BOT_CBID)
+      NEXT_PUBLIC_CONTRACT_ID: ${{ parameters.contractID }}
+      NEXT_PUBLIC_BASE_PATH: ${{ parameters.clientName }}
+      NODE_ENV: "production"
+    condition: not(${{ parameters.ignore }})
 
   - task: Npm@1
     displayName: "Export FO Static Website assets"
@@ -21,6 +38,7 @@ steps:
     env:
       NEXT_PUBLIC_API_URL: https://func-msd-${{ parameters.env }}-foapi.azurewebsites.net/api
       COOKIE_BOT_CBID: $(COOKIE_BOT_CBID)
-
-
-
+      NEXT_PUBLIC_CONTRACT_ID: ${{ parameters.contractID }}
+      NEXT_PUBLIC_BASE_PATH: ${{ parameters.clientName }}
+      NODE_ENV: "production"
+    condition: not(${{ parameters.ignore }})

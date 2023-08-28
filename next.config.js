@@ -69,6 +69,7 @@ function writeGlobalData(contract, customColors) {
 
 let customColors = null;
 module.exports = async (phase) => {
+  "./";
   const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID.toString();
   if (!Number.parseInt(contractId)) throw "Error";
   if (process.env.NEXT_PUBLIC_MOCK === "true" || phase === "phase-test") {
@@ -135,7 +136,21 @@ module.exports = async (phase) => {
     trailingSlash: true,
     images: {
       loader: "default",
-      domains: ["localhost", "stomsdmediadev.blob.core.windows.net"],
+      domains: [
+        "localhost",
+        "stomsdmediadev.blob.core.windows.net", // Medialib Dev
+        "stomsdmediarec.blob.core.windows.net", // Medialib Rec
+        "stomsdmediahml.blob.core.windows.net", // Medialib Hml
+        "stomsdmediaprd.blob.core.windows.net", // Medialib Prd
+        "delightful-forest-04aca4603.2.azurestaticapps.net", // Develop FO
+        "kind-sand-0bc8f8b03.2.azurestaticapps.net", // Recette FO
+        "ashy-ground-068611603.2.azurestaticapps.net", // Hml FO
+        "green-wave-064ab8c03.2.azurestaticapps.net", // Prod FO
+        "devmsd.suez.com", // Develop FO
+        "recmsd.suez.com", // Recette FO
+        "hmlmsd.suez.com", // Hml FO
+        "msd.suez.com", // Prod FO
+      ],
       unoptimized: true,
     },
     env: {

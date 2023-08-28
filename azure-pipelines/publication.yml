@@ -1,0 +1,219 @@
+# Mock pipeline for US#71
+name: MSD_FO_PUBLICATION_$(Rev:rrr)
+
+trigger: none
+
+parameters:
+  - name: az_env
+    displayName: Instance to delivery
+    type: string
+    default: production
+    values:
+      - smile
+      - production
+
+  - name: hasCustomDomain
+    displayName: Custom Domain
+    type: boolean
+    default: false
+
+  - name: clientName
+    displayName: Name of Client to build
+    type: string
+    default: new
+
+  - name: oldClientName
+    displayName: Previous name of the Client
+    type: string
+    default: old
+
+  - name: contractID
+    displayName: Identifier of the contract
+    type: number
+    default: 1
+
+  - name: clientStatus
+    displayName: Status of the client
+    type: string
+    default: Actif
+    values:
+      - Initialisation
+      - En cours
+      - Actif
+      - Désactivé
+
+  - name: env
+    type: string
+    default: dev
+    values:
+      - dev
+      - rec
+      - hml
+      - prd
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: Build
+    displayName: CI tasks
+    variables:
+      - group: fo_site_variables_${{ parameters.env }}
+      - name: rg_msd
+        value: rg-msd-${{ parameters.env }}
+      - name: app_name
+        value: stapp-msd-fo-${{ parameters.env }}-${{ parameters.contractID }}
+
+    jobs:
+      - job:
+        steps:
+          - bash: |
+              echo 'Build parameters'
+              echo ''
+              echo 'contractID: ${{ parameters.contractID }}'
+              echo 'clientName: ${{ parameters.clientName }}'
+              echo 'oldClientName: ${{ parameters.oldClientName }}'
+              echo 'clientStatus: ${{ parameters.clientStatus }}'
+              echo 'hasCustomDomain: ${{ parameters.hasCustomDomain }}'
+              echo ''
+              echo 'Environment is ${{ parameters.env }}'
+              echo 'Goodbye!'
+            displayName: "Print expected parameters"
+
+          - template: build/node.yml
+
+          - template: build/install.yml
+
+          - template: build/export.yml
+            parameters:
+              env: ${{ parameters.env }}
+              contractID: ${{ parameters.contractID }}
+              ${{ if parameters.hasCustomDomain }}:
+                clientName: .
+              ${{ else }}:
+                clientName: ${{ parameters.clientName }}
+              ${{ if eq(parameters.clientStatus, 'Désactivé') }}:
+                ignore: true
+              ${{ else  }}:
+                ignore: false
+
+          - ${{ if parameters.hasCustomDomain }}:
+              - task: AzureCLI@2
+                displayName: Create Static Webapp for Custom Domain
+                inputs:
+                  azureSubscription: msd-${{ parameters.env }}-spn
+                  scriptType: bash
+                  scriptLocation: inlineScript
+                  inlineScript: |
+                    echo "##[group] Verify if staticwebapp exist, else create the instance static webapp"
+                    output=$(az staticwebapp list --out table | grep "${{ variables.app_name }}")
+                    if [ -z "$output"  ]
+                    then
+                      az staticwebapp create --location westeurope --resource-group ${{ variables.rg_msd }} --name ${{ variables.app_name }}
+                    else
+                      echo "##[warning] The Static Webapp has already exist"
+                    fi
+                    echo "##[endgroup]"
+
+                    echo "##[group] Retrieve the token that used for deploying static webapp"
+                    token=$(az staticwebapp secrets list --name ${{ variables.app_name }} --query 'properties.apiKey')
+                    tokenWithoutCote=`sed -e 's/^"//' -e 's/"$//' <<<"$token"`
+                    echo "##[endgroup]"
+
+                    echo "##[group] Set deploy token as an environment variable"
+                    echo "##vso[task.setvariable variable=deployToken]$tokenWithoutCote"
+                    echo "##[endgroup]"
+                condition: ${{ eq(parameters.clientStatus, 'Initialisation') }}
+
+              - task: AzureCLI@2
+                displayName: Destroy Static Webapp For Custom Domain
+                inputs:
+                  azureSubscription: msd-${{ parameters.env }}-spn
+                  scriptType: bash
+                  scriptLocation: inlineScript
+                  inlineScript: |
+                    echo "##[group] Verify if staticwebapp exist, else destory the instance static webapp"
+                    output=$(az staticwebapp list --out table | grep "${{ variables.app_name }}")
+                    if [ -z "$output"  ]
+                    then
+                      echo "##[warning] The Static Webapp does not exist"                      
+                    else
+                      echo "##[warning] The Static Webapp ${{ variables.app_name }} is deleting !"
+                      az staticwebapp delete --resource-group ${{ variables.rg_msd }} --name ${{ variables.app_name }} --yes
+                    fi
+                    echo "##[endgroup]"
+                condition: ${{ eq(parameters.clientStatus,'Désactivé') }}
+
+          - ${{ else }}:
+              - task: AzureCLI@2
+                displayName: Create New Site With Storage Account
+                inputs:
+                  azureSubscription: msd-${{ parameters.env }}-spn
+                  scriptType: bash
+                  scriptLocation: inlineScript
+                  inlineScript: |
+                    echo "##[group]Fetch generated websites from 'sites' container in 'stomsdwebsites${{ parameters.env }}' storage account"
+                    az storage blob download-batch --destination $(Build.StagingDirectory) --source sites --account-name stomsdwebsites${{ parameters.env }}
+                    echo "##[endgroup]"
+
+                    echo "##[group]Update subsites"
+                    rm -Rf $(Build.StagingDirectory)/'${{ parameters.oldClientName }}'
+                    sed -i '/${{ parameters.oldClientName }}.index.html/d' $(Build.StagingDirectory)/page.html
+                    echo "<li><a href=${{ parameters.clientName }}/index.html>[#${{ parameters.contractID }}] <s>${{ parameters.oldClientName }} </s> ➡️  ${{ parameters.clientName }}</a> - <em>🤖 Generated at $(date) from <a href="https://dev.azure.com/SuezCircularSolutions/MSD/_build/results?buildId=$(Build.BuildId)">$(Build.BuildNumber)</a></em></li>" >> $(Build.StagingDirectory)/page.html
+                    mv out $(Build.StagingDirectory)/'${{ parameters.clientName }}'
+                    az storage blob sync --container sites --source $(Build.StagingDirectory) --account-name stomsdwebsites${{ parameters.env }}
+                    echo "##[endgroup]"
+
+                    echo "##[group]Fetch landing page from 'home' container in 'stomsdwebsites${{ parameters.env }}' storage account"
+                    az storage blob download-batch --destination $(Build.StagingDirectory) --source home --account-name stomsdwebsites${{ parameters.env }}
+                    echo "##[endgroup]"
+
+                    echo "##[group]Prepare content to publish into Static App"
+                    mkdir out
+                    cp -r $(Build.StagingDirectory)/* out
+                    echo "##[endgroup]"
+                condition: ${{ eq(parameters.clientStatus, 'Actif') }}
+
+              - task: AzureCLI@2
+                displayName: Delete the Site In Storage Account
+                inputs:
+                  azureSubscription: msd-${{ parameters.env }}-spn
+                  scriptType: bash
+                  scriptLocation: inlineScript
+                  inlineScript: |
+                    echo "##[group]Fetch generated websites from 'sites' container in 'stomsdwebsites${{ parameters.env }}' storage account"
+                    az storage blob download-batch --destination $(Build.StagingDirectory) --source sites --account-name stomsdwebsites{{parameters.env}}
+                    echo "##[endgroup]"
+
+                    echo "##[group]Update subsites"
+                    rm -Rf $(Build.StagingDirectory)/'${{ parameters.clientName }}'
+                    echo "<li>[#${{ parameters.contractID }}] ${{ parameters.clientName }} - <em>🤖 Deleted at $(date) from <a href="https://dev.azure.com/SuezCircularSolutions/MSD/_build/results?buildId=$(Build.BuildId)">$(Build.BuildNumber)</a></em></li>" >> $(Build.StagingDirectory)/page.html
+                    az storage blob sync --container sites --source $(Build.StagingDirectory) --account-name stomsdwebsites{{parameters.env}}
+                    echo "##[endgroup]"
+
+                    echo "##[group]Fetch landing page from 'home' container in 'stomsdwebsites${{ parameters.env }}' storage account"
+                    az storage blob download-batch --destination $(Build.StagingDirectory) --source home --account-name stomsdwebsites{{parameters.env}}
+                    echo "##[endgroup]"
+
+                    echo "##[group]Prepare content to publish into Static App"
+                    mkdir out
+                    cp -r $(Build.StagingDirectory)/* out
+                    echo "##[endgroup]"
+                condition: ${{ eq(parameters.clientStatus, 'Désactivé') }}
+
+          - task: AzureStaticWebApp@0
+            displayName: Publish FO Static WebApp in Azure Cloud
+            inputs:
+              app_location: "out/"
+              output_location: "./"
+              skip_app_build: "true"
+              verbose: true
+              is_static_export: true
+              ${{ if not(eq(parameters.az_env, 'production')) }}:
+                deployment_environment: smile
+            env:
+              ${{ if parameters.hasCustomDomain }}:
+                azure_static_web_apps_api_token: $(deployToken)
+              ${{ else }}:
+                azure_static_web_apps_api_token: $(fo-deployment-token)
+            condition: ${{ or(eq(parameters.clientStatus, 'Actif') , and(eq(parameters.clientStatus, 'Initialisation'), parameters.hasCustomDomain), and(eq(parameters.clientStatus, 'Désactivé'), not(parameters.hasCustomDomain))) }}
