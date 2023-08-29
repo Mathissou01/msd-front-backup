@@ -24,6 +24,7 @@ steps:
       customCommand: "run build"
     env:
       NEXT_PUBLIC_API_URL: https://func-msd-${{ parameters.env }}-foapi.azurewebsites.net/api
+      NEXT_PUBLIC_USER_API_URL: https://app-msd-${{ parameters.env }}-useraccount.azurewebsites.net/
       COOKIE_BOT_CBID: $(COOKIE_BOT_CBID)
       NEXT_PUBLIC_CONTRACT_ID: ${{ parameters.contractID }}
       NEXT_PUBLIC_BASE_PATH: ${{ parameters.clientName }}
@@ -37,6 +38,7 @@ steps:
       customCommand: "run export"
     env:
       NEXT_PUBLIC_API_URL: https://func-msd-${{ parameters.env }}-foapi.azurewebsites.net/api
+      NEXT_PUBLIC_USER_API_URL: https://app-msd-${{ parameters.env }}-useraccount.azurewebsites.net/
       COOKIE_BOT_CBID: $(COOKIE_BOT_CBID)
       NEXT_PUBLIC_CONTRACT_ID: ${{ parameters.contractID }}
       NEXT_PUBLIC_BASE_PATH: ${{ parameters.clientName }}
