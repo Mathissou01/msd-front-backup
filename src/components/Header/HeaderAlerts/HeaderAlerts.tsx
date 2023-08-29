@@ -19,7 +19,7 @@ export default function HeaderAlerts({
   const labels = {
     title: "Votre demande concerne",
     description:
-      "Pour recevoir par SMS ou e-mail les infos sur les modifications de collecte (perturbations météo, collecte supplémentaire…) ou animations(compostage, village de la réparation…).",
+      "Pour recevoir par SMS ou e-mail les infos sur les modifications de collecte (perturbations météo, collecte supplémentaire…) ou animations (compostage, village de la réparation…).",
     alertSubscription: "M'inscrire aux alertes",
     alertUnSubscription: "Me désinscrire",
   };

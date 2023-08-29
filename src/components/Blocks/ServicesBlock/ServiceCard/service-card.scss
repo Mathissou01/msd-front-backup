@@ -24,6 +24,11 @@
     padding: 24px;
   }
 
+  &:focus-visible {
+    color: colors.$expert-blue;
+    outline-color: colors.$expert-blue;
+  }
+
   &:hover {
     background-color: colors.$brand-primary-light;
   }
