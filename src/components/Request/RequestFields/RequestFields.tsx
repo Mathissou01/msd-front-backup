@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { RequestEntity } from "../../../graphql/codegen/generated-types";
-import { ICoordinates } from "../../../lib/pickup-days";
+import { IAddressInfo, ICoordinates } from "../../../lib/pickup-days";
 import { removeNulls } from "../../../lib/utilities";
 import CommonBlockHeading from "../../Common/CommonBlockHeading/CommonBlockHeading";
 import CommonGeolocationButton from "../../Common/CommonGeolocationButton/CommonGeolocationButton";
@@ -34,6 +34,17 @@ export default function RequestFields({
     additionalAddress: "Complément d'adresse",
     submitButton: "Envoyer",
   };
+
+  /* Methods */
+  function updateAddressFromGeolocation(address: IAddressInfo) {
+    if (address.street && address.city && address.postalCode) {
+      const houseNumber = address.houseNumber ? `${address.houseNumber} ` : "";
+      setValue(
+        "address",
+        `${houseNumber}${address.street}, ${address.city}, ${address.postalCode}`,
+      );
+    }
+  }
 
   /* Local data */
   const { setValue, getValues, register, watch, resetField } = useFormContext();
@@ -88,6 +99,7 @@ export default function RequestFields({
               />
               <CommonGeolocationButton
                 onUpdateCoordinates={submitSearch}
+                onUpdateAddressInfo={updateAddressFromGeolocation}
                 type="button"
               />
               <CommonAddressField name="address" />

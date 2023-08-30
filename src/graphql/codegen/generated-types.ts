@@ -4489,6 +4489,7 @@ export type Mutation = {
   deleteTip?: Maybe<TipEntityResponse>;
   deleteTipSubService?: Maybe<TipSubServiceEntityResponse>;
   deleteTopContentBlock?: Maybe<TopContentBlockEntityResponse>;
+  deleteUnpublishedMedia?: Maybe<Array<Maybe<Scalars["ID"]>>>;
   deleteUnusedSectors?: Maybe<Sectorization>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -5269,6 +5270,10 @@ export type MutationDeleteTipSubServiceArgs = {
 
 export type MutationDeleteTopContentBlockArgs = {
   id: Scalars["ID"];
+};
+
+export type MutationDeleteUnpublishedMediaArgs = {
+  imageIds?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
 };
 
 export type MutationDeleteUnusedSectorsArgs = {
@@ -14890,7 +14895,7 @@ export type GetAudiencesIdQueryResult = Apollo.QueryResult<
 >;
 export const GetBanAddressesAutoCompleteDocument = gql`
   query getBanAddressesAutoComplete($searchTerm: String!) {
-    getAddressCoordinates(searchTerm: $searchTerm) {
+    getAddressCoordinates(searchTerm: $searchTerm, housenumber: false) {
       name
       latitude
       longitude
@@ -18279,7 +18284,7 @@ export type GetDropOffMapByDropOffMapByServiceIdQueryResult =
   >;
 export const GetAddressCoordinatesDocument = gql`
   query GetAddressCoordinates($searchTerm: String!) {
-    getAddressCoordinates(searchTerm: $searchTerm) {
+    getAddressCoordinates(searchTerm: $searchTerm, housenumber: false) {
       name
       latitude
       longitude

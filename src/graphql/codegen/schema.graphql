@@ -4163,6 +4163,7 @@ type Mutation {
   deleteTip(id: ID!): TipEntityResponse
   deleteTipSubService(id: ID!): TipSubServiceEntityResponse
   deleteTopContentBlock(id: ID!): TopContentBlockEntityResponse
+  deleteUnpublishedMedia(imageIds: [ID]): [ID]
   deleteUnusedSectors(id: ID!): Sectorization
   deleteUploadFile(id: ID!): UploadFileEntityResponse
   deleteUploadFolder(id: ID!): UploadFolderEntityResponse

@@ -60,10 +60,17 @@ export default function CommonGeolocationButton({
 
     if (searchResults.length > 0) {
       const firstResult = JSON.parse(searchResults[0].banFeaturesProperties);
-      if (firstResult && firstResult.city && firstResult.street) {
+      if (
+        firstResult &&
+        firstResult.city &&
+        firstResult.street &&
+        firstResult.citycode
+      ) {
         return {
           city: firstResult.city,
           street: firstResult.street,
+          postalCode: firstResult.postcode,
+          houseNumber: firstResult.housenumber,
         };
       }
     }
@@ -85,10 +92,12 @@ export default function CommonGeolocationButton({
     const getInfoAddress = async () => {
       if (onUpdateAddressInfo && !isInitializedAddress && address) {
         const infoAddress = await infoFromAddress(address);
-        if (infoAddress?.street && infoAddress.city) {
+        if (infoAddress?.street && infoAddress.city && infoAddress.postalCode) {
           onUpdateAddressInfo({
             street: infoAddress.street,
             city: infoAddress.city,
+            postalCode: infoAddress.postalCode,
+            houseNumber: infoAddress.houseNumber,
           });
         }
         setIsInitializedAddress(true);
