@@ -1,8 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import ArrowBold from "public/images/pictos/arrow_bold.svg";
-import "./common-tabs.scss";
 import classNames from "classnames";
-import { useRouter } from "next/router";
+import "./common-tabs.scss";
 
 interface CommonTabsProps {
   tabData: {
@@ -12,54 +11,24 @@ interface CommonTabsProps {
   }[];
   initialTab?: number;
   align?: "left" | "center" | "right";
+  changeTab?: number;
 }
 
 const CommonTabs: React.FC<CommonTabsProps> = ({
   tabData,
   initialTab = 0,
   align = "left",
+  changeTab,
 }) => {
-  const router = useRouter();
   const [activeTab, setActiveTab] = useState(initialTab);
 
-  useEffect(() => {
-    const tabFromUrl = tabData.findIndex(
-      (tab) =>
-        tab.title.split(" ").join("-").toLowerCase() === router.query.tab,
-    );
-    if (tabFromUrl !== -1) {
-      setActiveTab(tabFromUrl);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query.tab]);
-
   const handleTabClick = (tabIndex: number) => {
-    if (activeTab !== tabIndex) {
-      setActiveTab(tabIndex);
-      const newTabTitle = tabData[tabIndex].title
-        .split(" ")
-        .join("-")
-        .toLowerCase();
-      const newUrl = `?tab=${newTabTitle}`;
-      if (router.query.tab !== newTabTitle) {
-        router.push(newUrl);
-      }
-    }
+    setActiveTab(tabIndex);
   };
 
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const tabIndex = parseInt(event.target.value, 10);
-    if (activeTab !== tabIndex) {
-      setActiveTab(tabIndex);
-      const newTabTitle = tabData[tabIndex].title
-        .split(" ")
-        .join("-")
-        .toLowerCase();
-      const newUrl = `?tab=${newTabTitle}`;
-      if (router.query.tab !== newTabTitle) {
-        router.push(newUrl);
-      }
-    }
+    setActiveTab(tabIndex);
   };
 
   const renderContent = () => {
@@ -74,6 +43,12 @@ const CommonTabs: React.FC<CommonTabsProps> = ({
     "c-CommonTabs__Tabs_center": align === "center",
     "c-CommonTabs__Tabs_right": align === "right",
   });
+
+  useEffect(() => {
+    if (changeTab) {
+      setActiveTab(changeTab);
+    }
+  }, [changeTab]);
 
   return (
     <div className="c-CommonTabs">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { useForm } from "react-hook-form";
 import { ICommunication, IUser } from "../../../lib/user";
 import useUpdateUser from "../../../hooks/user/useUpdateUser";
@@ -12,11 +12,14 @@ import "./my-communication-pref.scss";
 interface MyCommunicationPrefProps {
   user: IUser | null;
   refetch: () => void;
+  activeTab: number;
+  setActiveTab: Dispatch<SetStateAction<number>>;
 }
 
 const MyCommunicationPref: React.FC<MyCommunicationPrefProps> = ({
   user,
   refetch,
+  setActiveTab,
 }) => {
   const { currentUser } = useCurrentUser();
   const { updateUser } = useUpdateUser(currentUser?._id || "");
@@ -45,7 +48,7 @@ const MyCommunicationPref: React.FC<MyCommunicationPrefProps> = ({
   return (
     <div className="c-MyCommunicationPref">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <EmailReminder user={user} />
+        <EmailReminder user={user} setActiveTab={setActiveTab} />
         <MyServices control={control} />
         <OtherCommunications user={user} control={control} />
         <div className="c-MyCommunicationPref__Button">

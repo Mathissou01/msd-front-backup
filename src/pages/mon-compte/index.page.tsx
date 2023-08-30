@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import useGetUser from "../../hooks/user/useGetUser";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
@@ -17,6 +17,7 @@ const MyAccountPage = () => {
   const router = useRouter();
   const { currentUser, isLoading } = useCurrentUser();
   const { user, refetch, loading } = useGetUser(currentUser?._id || "");
+  const [activeTab, setActiveTab] = useState(0);
 
   const tabData = [
     {
@@ -26,7 +27,14 @@ const MyAccountPage = () => {
     },
     {
       title: "Mes préférences de communication",
-      content: <MyCommunicationPref user={user} refetch={refetch} />,
+      content: (
+        <MyCommunicationPref
+          user={user}
+          refetch={refetch}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
+      ),
       isActive: true,
     },
   ];
@@ -43,7 +51,7 @@ const MyAccountPage = () => {
       ) : (
         <>
           <CommonPageTitle title="Mon compte" />
-          <CommonTabs tabData={tabData} align="center" />
+          <CommonTabs tabData={tabData} align="center" changeTab={activeTab} />
         </>
       )}
     </div>
