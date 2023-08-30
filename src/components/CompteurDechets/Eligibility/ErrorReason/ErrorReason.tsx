@@ -23,7 +23,7 @@ const ErrorReason: React.FC<ErrorReasonProps> = ({
               Votre adresse n&apos;est pas encore correctement
               r&eacute;f&eacute;renc&eacute;e
             </strong>
-            par nos services
+            {` par nos services`}
           </li>
         </ul>
       ) : (
@@ -34,8 +34,8 @@ const ErrorReason: React.FC<ErrorReasonProps> = ({
           <li>
             <strong>
               Un membre de votre foyer possède un compte Mon Service Déchet
-            </strong>{" "}
-            et l&apos;acc&egrave;s &agrave; ce compteur
+            </strong>
+            {` et l'accès à ce compteur`}
           </li>
           <li>
             <strong>

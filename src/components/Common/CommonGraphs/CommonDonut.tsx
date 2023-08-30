@@ -61,7 +61,6 @@ const CommonDonut = ({
     percent: flow?.percentage,
   }));
   const reversedFlows = combinedFlows && [...combinedFlows].reverse(); // Inverse l'ordre des données car le plugin les affiche à l'envers
-
   const findFlow = (code: string) => {
     return selectedData?.find((flow) => flow?.trashFlow === code);
   };
@@ -101,7 +100,6 @@ const CommonDonut = ({
     const RADIAN = Math.PI / 180;
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    //  const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
     return (
       <>
@@ -113,6 +111,8 @@ const CommonDonut = ({
                 : flows?.totalWeight < 10
                 ? cx + 5
                 : cx + 10
+              : !activeFlow?.weight
+              ? cx + 5
               : activeFlow?.weight && activeFlow?.weight >= 100
               ? cx + 20
               : activeFlow?.weight && activeFlow?.weight < 10
@@ -147,7 +147,9 @@ const CommonDonut = ({
           className="c-MyWaste__DonutChartPercent"
         >
           {`${
-            selectedChip === "all" ? 100 : activeFlow?.percentage?.toFixed(0)
+            selectedChip === "all"
+              ? 100
+              : activeFlow?.percentage?.toFixed(0) || 0
           }%`}
         </text>
       </>

@@ -46,7 +46,14 @@ interface IMyWasteFlowEdito {
   transcriptText?: string;
   videoLink?: string;
   textEditor?: string;
-  picture?: string[];
+  picture?: {
+    data?: {
+      attributes?: {
+        url: string;
+        alt: string;
+      };
+    };
+  };
 }
 
 export default function MyWastePage() {
@@ -68,8 +75,6 @@ export default function MyWastePage() {
       },
     },
   });
-
-  console.log(data);
 
   const { data: flowsData, loading } = useGetUserWasteManagementQuery({
     variables: {
@@ -193,7 +198,6 @@ export default function MyWastePage() {
                   </div>
                   {flowsData &&
                     flowsData?.getUserWasteManagement[0] &&
-                    flowsData?.getUserWasteManagement[0]?.totalWeight &&
                     averageProduction?.getMwcAverageProduction && (
                       <div className="c-MyWaste__DonutChartBottomInfo">
                         <Illu_idea />
@@ -204,8 +208,10 @@ export default function MyWastePage() {
                           {selectedChip === "all" &&
                             Math.round(
                               flowsData?.getUserWasteManagement?.[0]
-                                ?.totalWeight /
-                                averageProduction?.getMwcAverageProduction,
+                                ?.totalWeight ||
+                                0 /
+                                  averageProduction?.getMwcAverageProduction ||
+                                0,
                             )}
                           {content.persons}
                         </p>
@@ -220,9 +226,9 @@ export default function MyWastePage() {
                       flows={flowsData?.getUserWasteManagement[0]}
                     />
                   )}
-                {selectedChip !== "all" && (
+                {selectedChip !== "all" && wasteFlows.length > 0 && (
                   <div className="c-MyFlowEdito">
-                    {wasteFlows?.map((wasteFlow, index) => (
+                    {wasteFlows?.map((wasteFlow: IMyWasteFlowEdito, index) => (
                       <MyFlowEdito wasteFlow={wasteFlow} key={index} />
                     ))}
                   </div>

@@ -59,18 +59,16 @@ const Step4: React.FC<Step4Props> = ({
           isContactVisible: true,
           title: labels.alreadyLinked,
         });
+      if (error?.message)
+        handleError({
+          isActive: true,
+          isAddressVisible: true,
+          isReasonVisible: true,
+          isContactVisible: true,
+          title: labels.unknownBacs,
+          isNoBinsLinked: true,
+        });
     }
-    if (
-      error?.message ===
-      "Your trays are not registered yet. Please try again later."
-    )
-      handleError({
-        isActive: true,
-        isAddressVisible: true,
-        isReasonVisible: false,
-        isContactVisible: true,
-        title: labels.unknownBacs,
-      });
   }, [error, handleError]);
 
   return (

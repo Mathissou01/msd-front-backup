@@ -13,7 +13,7 @@ const MyWasteStatsBlock: React.FC<MyWasteStatsBlockProps> = ({ flows }) => {
       <div className="c-MyWasteStatsBlock__TotalCountContainer">
         <p className="c-MyWasteStatsBlock__Total">TOTAL</p>
         <p className="c-MyWasteStatsBlock__TotalValue">
-          {flows?.totalWeight} kg
+          {flows?.totalWeight && Math.round(flows?.totalWeight) + " kg"}
         </p>
       </div>
       {flows && <FlowsStatsBlock flows={flows.flows} type="percent" />}

@@ -187,7 +187,9 @@ const MyHomeData = () => {
               title="Mes Déchets"
               logoOrWeight={
                 <>
-                  {pieData?.getUserWasteManagement?.[0]?.totalWeight || 0}
+                  {Math.round(
+                    pieData?.getUserWasteManagement?.[0]?.totalWeight || 0,
+                  )}
                   <span className="c-MyHomeData__DataUnity">kg</span>
                 </>
               }
@@ -214,8 +216,12 @@ const MyHomeData = () => {
                 <p className="c-MyHomeData__BarometerTopInfo">
                   Pour votre foyer, la production est de&nbsp;
                   <span>
-                    {pieData?.getUserWasteManagement?.[0]?.totalWeight || 0}
-                    kg/personne
+                    <span>
+                      {`${Math.round(
+                        (pieData?.getUserWasteManagement?.[0]?.totalWeight ||
+                          0) / (currentUser?.householdSize || 1),
+                      )} kg/personne`}
+                    </span>
                   </span>
                 </p>
                 {averageProduction?.getMwcAverageProduction &&
@@ -301,8 +307,10 @@ const MyHomeData = () => {
                 </div>
                 <div className="c-MyHomeData__BarometerBottomInfo">
                   <p>
-                    Votre foyer est constitué de :
-                    <span>{currentUser?.householdSize || "X"} personne(s)</span>
+                    Votre foyer est constitué de:
+                    <span>{` ${
+                      currentUser?.householdSize || "X"
+                    } personne(s)`}</span>
                   </p>
                   <button
                     type="button"

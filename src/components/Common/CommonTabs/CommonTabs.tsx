@@ -34,18 +34,32 @@ const CommonTabs: React.FC<CommonTabsProps> = ({
   }, [router.query.tab]);
 
   const handleTabClick = (tabIndex: number) => {
-    setActiveTab(tabIndex);
-    router.push(
-      `?tab=${tabData[tabIndex].title.split(" ").join("-").toLowerCase()}`,
-    );
+    if (activeTab !== tabIndex) {
+      setActiveTab(tabIndex);
+      const newTabTitle = tabData[tabIndex].title
+        .split(" ")
+        .join("-")
+        .toLowerCase();
+      const newUrl = `?tab=${newTabTitle}`;
+      if (router.query.tab !== newTabTitle) {
+        router.push(newUrl);
+      }
+    }
   };
 
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const tabIndex = parseInt(event.target.value, 10);
-    setActiveTab(tabIndex);
-    router.push(
-      `?tab=${tabData[tabIndex].title.split(" ").join("-").toLowerCase()}`,
-    );
+    if (activeTab !== tabIndex) {
+      setActiveTab(tabIndex);
+      const newTabTitle = tabData[tabIndex].title
+        .split(" ")
+        .join("-")
+        .toLowerCase();
+      const newUrl = `?tab=${newTabTitle}`;
+      if (router.query.tab !== newTabTitle) {
+        router.push(newUrl);
+      }
+    }
   };
 
   const renderContent = () => {
