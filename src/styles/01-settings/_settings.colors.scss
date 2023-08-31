@@ -3,6 +3,7 @@
 /* Static */
 $black: #000;
 $white: #fff;
+$green: #9bcd41;
 
 // Background colors
 $background-default: #faf8f4;
@@ -15,9 +16,12 @@ $blue-1: #3d466c;
 $blue-2: #767c97;
 $blue-3: #abafbf;
 $blue-4: #d5d6de;
+$blue-5: #343a40;
+$blue-6: #808080;
 
 // Gray shades
 $gray-0: #f4f8ff;
+$gray-100: #f8f9fa;
 $gray-200: #e9ecef;
 $gray-500: #adb5bd;
 $gray-600: #6c757d;
@@ -37,6 +41,25 @@ $success-dark: #107d2b;
 $error: #eb4a65ff;
 $error-light: #f5c4cc;
 $error-dark: #800e21;
+
+// Graph
+$graph-low: #4bc068;
+$graph-medium: #f5c500;
+$graph-hot: #ff8363;
+$graph-veryhot: #eb4a65;
+
+// BarLign
+$white-clear: #d5d6de;
+
+:root {
+  --white: #{$white};
+  --graph-low: #{$graph-low};
+  --graph-medium: #{$graph-medium};
+  --graph-hot: #{$graph-hot};
+  --graph-veryhot: #{$graph-veryhot};
+
+  /* Autres variables de couleur */
+}
 
 /* Dynamic */
 

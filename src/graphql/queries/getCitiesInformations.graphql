@@ -1,0 +1,7 @@
+query GetCitiesInformations($searchTerm: String!, $prehome: Boolean!) {
+  getCitiesInformations(searchTerm: $searchTerm, prehome: $prehome) {
+    insee
+    name
+    siren
+  }
+}

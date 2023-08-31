@@ -1,0 +1,56 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.z-index" as index;
+
+.c-ProgressBar__Header {
+  position: fixed;
+  z-index: index.z("site-header");
+
+  .c-ProgressBar__Content {
+    margin-right: 150px;
+  }
+}
+
+.c-RequestPage {
+  width: 100%;
+  margin-top: 50px;
+  padding-bottom: 30px;
+
+  &__Levels {
+    padding: 0 16px;
+    @include im.media(">=tablet") {
+      padding: 0 150px;
+    }
+  }
+
+  &__LevelGroup {
+    display: grid;
+    gap: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    @include im.media(">=tablet") {
+      grid-template-columns: repeat(auto-fit, minmax(25%, 1fr));
+    }
+  }
+
+  &__MandatoryFieldsLabel {
+    margin-top: 15px;
+    margin-bottom: 30px;
+    @include im.media(">=tablet") {
+      text-align: right;
+    }
+  }
+
+  &__ConfirmationMessage {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20%;
+    text-align: center;
+  }
+
+  &__ConfirmationButtons {
+    display: flex;
+    gap: 12px;
+    align-self: center;
+    margin-top: 12px;
+  }
+}

@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WasteHeading renders 1`] = `
+<div>
+  <div
+    class="c-WasteHeading"
+  >
+    <div
+      class="c-WasteHeading__SvgContainer"
+    >
+      <div
+        class="c-WasteHeading__Svg_desktop"
+      />
+      <div
+        class="c-WasteHeading__Svg_mobile"
+      />
+    </div>
+    <div
+      class="c-WasteHeading__DetailDechet"
+    >
+      <h1
+        class="c-WasteHeading__WasteName"
+      >
+        Edito heading title
+      </h1>
+      <div
+        class="c-WasteHeading__Content"
+      >
+        <div
+          class="c-WasteHeading__BlocConsignes"
+        >
+          <div
+            class="c-WasteHeading__Bloc c-WasteHeading__Bloc_right"
+          >
+            <div
+              class="c-WasteHeading__BoxContainers"
+            >
+              <div
+                class="c-WasteHeading__BoxPictos"
+              >
+                <img
+                  alt=""
+                  class="c-WasteHeading__Picto"
+                  data-nimg="1"
+                  decoding="async"
+                  height="48"
+                  loading="lazy"
+                  src="https://stomsdmediadev.blob.core.windows.net/msd-media-dev/assets-local-sdial/decheterie_496861.svg"
+                  style="color: transparent;"
+                  width="48"
+                />
+                <span>
+                  ou
+                </span>
+              </div>
+              <div
+                class="c-WasteHeading__BoxPictos"
+              >
+                <img
+                  alt=""
+                  class="c-WasteHeading__Picto"
+                  data-nimg="1"
+                  decoding="async"
+                  height="48"
+                  loading="lazy"
+                  src="https://stomsdmediadev.blob.core.windows.net/msd-media-dev/assets-local-sdial/decheterie_496861.svg"
+                  style="color: transparent;"
+                  width="48"
+                />
+              </div>
+            </div>
+            <div
+              class="c-WasteHeading__Description"
+            >
+              <div
+                class="c-WasteHeading__Description"
+              >
+                <span
+                  class="c-WasteHeading__NamePicto"
+                >
+                  Sac
+                </span>
+                <span>
+                  ou
+                </span>
+              </div>
+              <div
+                class="c-WasteHeading__Description"
+              >
+                <span
+                  class="c-WasteHeading__NamePicto"
+                >
+                  Colonne
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="o-Blob c-WasteHeading__WastePicto"
+      >
+        <img
+          alt=""
+          class="c-WasteHeading__WastePicto_desktop"
+          data-nimg="1"
+          decoding="async"
+          height="130"
+          loading="lazy"
+          src="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=384&q=75"
+          srcset="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=256&q=75 1x, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=384&q=75 2x"
+          style="color: transparent;"
+          width="130"
+        />
+        <img
+          alt=""
+          class="c-WasteHeading__WastePicto_mobile"
+          data-nimg="1"
+          decoding="async"
+          height="76"
+          loading="lazy"
+          src="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=256&q=75"
+          srcset="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=96&q=75 1x, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=256&q=75 2x"
+          style="color: transparent;"
+          width="76"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,94 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-CommonTabs {
+  width: 90%;
+  margin: 0 auto;
+
+  &__Tabs {
+    display: none;
+    @include im.media(">=mobile") {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      height: 60px;
+      margin: 16px 0;
+      padding: 0 8px;
+      box-shadow: 0 1px 0 rgb(0 0 0 / 10%);
+
+      &_left {
+        justify-content: flex-start;
+      }
+
+      &_center {
+        justify-content: center;
+      }
+
+      &_right {
+        justify-content: flex-end;
+      }
+    }
+  }
+
+  &__Tab {
+    padding: 1rem;
+    color: colors.$blue-1;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 14px;
+    text-decoration: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: colors.$expert-blue;
+    }
+  }
+
+  &__ActiveTab {
+    border-bottom: 2px solid colors.$expert-blue;
+    border-bottom-width: 100%;
+  }
+
+  span &__Content {
+    @include im.media(">=mobile") {
+      padding-top: 32px;
+    }
+  }
+
+  &__SelectContainer {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 16px;
+    background-color: colors.$white;
+    @include im.media(">=mobile") {
+      display: none;
+    }
+  }
+
+  &__Select {
+    width: 100%;
+    padding: 1rem;
+    color: $expert-blue;
+    font-weight: 500;
+    background-color: colors.$white;
+    border: 1px solid $blue-2;
+    border-radius: 4px;
+    appearance: none;
+  }
+
+  &__CustomArrow {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    width: 16px;
+    height: 16px;
+    color: $expert-blue;
+    background-repeat: no-repeat;
+    background-size: contain;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+}

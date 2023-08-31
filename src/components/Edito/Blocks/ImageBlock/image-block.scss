@@ -1,0 +1,24 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-ImageBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  width: 100%;
+
+  @include im.media(">=tablet") {
+    width: 580px;
+    min-height: 328px;
+  }
+
+  img {
+    position: relative;
+    width: 100%;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 0.7em;
+    box-shadow: 0 0 1px transparent;
+  }
+}

@@ -1,0 +1,15 @@
+query getRequestsByRequestAggregateId($requestAggregateId: ID!) {
+  requests(
+    filters: {
+      requestAggregate: { id: { eq: $requestAggregateId } }
+      isActivated: { eq: true }
+    }
+  ) {
+    data {
+      id
+      attributes {
+        name
+      }
+    }
+  }
+}

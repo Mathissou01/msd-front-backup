@@ -6,7 +6,7 @@ describe("WelcomeBlock", () => {
   it("renders", () => {
     const { container } = render(
       <IsDesktopContext.Provider value={false}>
-        <WelcomeBlock />
+        <WelcomeBlock title="Title" subtitle="Subtitle" />
       </IsDesktopContext.Provider>,
     );
 

@@ -1,0 +1,14 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-EditoDynamicBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  @include im.media(">=tablet") {
+    padding: 0 224px;
+  }
+}

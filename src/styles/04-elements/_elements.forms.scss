@@ -1,3 +1,5 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+
 label {
   margin: 0;
   padding: 0;
@@ -5,4 +7,68 @@ label {
 
 legend {
   padding-inline: 0;
+}
+
+.c-FormRadioInput {
+  &__Options {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  &__Option {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+  }
+
+  &__Input {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    color: colors.$expert-blue;
+    background-color: transparent;
+    border: 2px solid colors.$expert-blue;
+    border-radius: 50%;
+    cursor: pointer;
+    appearance: none;
+  }
+
+  &__Input_checked:checked {
+    &::after {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      bottom: 3px;
+      left: 3px;
+      background-color: colors.$expert-blue;
+      border-radius: 50%;
+      content: "";
+    }
+  }
+}
+
+.c-FormLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 2px;
+  color: colors.$blue-2;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+
+  &__LabelWrapper {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__Label {
+    margin-right: auto;
+  }
 }

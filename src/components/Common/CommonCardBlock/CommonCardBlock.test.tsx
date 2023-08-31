@@ -33,7 +33,7 @@ describe("CommonCardBlock", () => {
   it("renders", () => {
     const { container } = render(
       <CommonCardBlock
-        tagLabels={mock.tagLabels}
+        tags={mock.tagLabels}
         title={mock.title}
         image={mock.image}
         href={mock.href}

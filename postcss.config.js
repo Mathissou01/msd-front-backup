@@ -21,6 +21,7 @@ module.exports = {
           "./src/components/**/*.{js,jsx,ts,tsx}",
           /* vendors/external libraries */
           "./node_modules/react-big-calendar/**/*.{js,jsx,ts,tsx,html}",
+          "./node_modules/react-datepicker/**/*.{js,jsx,ts,tsx,html}",
         ],
         defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
         safelist: {

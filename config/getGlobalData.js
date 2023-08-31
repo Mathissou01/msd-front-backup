@@ -2,11 +2,66 @@ module.exports = `
 query getGlobalData($contractId: ID!) {
   contract(id: $contractId) {
     data {
+      id
       attributes {
+        clientName
+        clientType
+        contractStatus
+        isNonExclusive
+        isRVFrance
+          audiences {
+          data {
+            attributes {
+              isActive
+              type
+            }
+            id
+          }
+        }
+        logo {
+          data {
+            id
+            attributes {
+              name
+              mime
+              size
+              url
+              provider
+              hash
+              alternativeText
+            }
+          }
+        }
+        alertNotificationService {
+          data {
+            id
+          }
+        }
+        dropOffMapService {
+          data {
+            id
+            attributes {
+              isActivated
+              name
+            }
+          }
+        }
+        pickUpDayService {
+          data {
+            id
+            attributes {
+              isActivated
+              name
+            }
+          }
+        }
         contractCustomization {
           data {
             id
             attributes {
+              primaryColor
+              secondaryColor
+              textContrast
               footer {
                 data {
                   attributes {
@@ -68,7 +123,21 @@ query getGlobalData($contractId: ID!) {
           data {
             attributes {
               serviceLinks {
+                ... on ComponentLinksMyWasteCounter{
+                  __typename
+                  id
+                  name
+                  isDisplayed
+                  picto{
+                    data {
+                      attributes {
+                        url
+                      }
+                    }
+                  }
+                }
                 ... on ComponentLinksDropOffMap {
+                  __typename
                   id
                   name
                   isDisplayed
@@ -81,6 +150,7 @@ query getGlobalData($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksPickUpDay {
+                  __typename
                   id
                   name
                   isDisplayed
@@ -93,6 +163,7 @@ query getGlobalData($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksRecyclingGuide {
+                  __typename
                   id
                   name
                   isDisplayed
@@ -105,6 +176,7 @@ query getGlobalData($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksRequest {
+                  __typename
                   id
                   name
                   isDisplayed
@@ -117,6 +189,7 @@ query getGlobalData($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksContactUs {
+                  __typename
                   id
                   name
                   isDisplayed
@@ -129,6 +202,7 @@ query getGlobalData($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksNews {
+                  __typename
                   id
                   name
                   isDisplayed
@@ -141,6 +215,7 @@ query getGlobalData($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksEvents {
+                  __typename
                   id
                   name
                   isDisplayed
@@ -153,6 +228,7 @@ query getGlobalData($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksQuizzes {
+                  __typename
                   id
                   name
                   isDisplayed
@@ -165,6 +241,7 @@ query getGlobalData($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksTips {
+                  __typename
                   id
                   name
                   isDisplayed
@@ -177,9 +254,18 @@ query getGlobalData($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksFrees {
+                  __typename
                   id
                   name
                   isDisplayed
+                  freeContents {
+                    data {
+                      id
+                      attributes {
+                        name
+                      }
+                    }
+                  }
                   picto {
                     data {
                       attributes {
@@ -189,9 +275,11 @@ query getGlobalData($contractId: ID!) {
                   }
                 }
                 ... on ComponentLinksExternal {
+                  __typename
                   id
                   name
                   isDisplayed
+                  externalLink
                   picto {
                     data {
                       attributes {
@@ -199,7 +287,6 @@ query getGlobalData($contractId: ID!) {
                       }
                     }
                   }
-                  externalLink
                 }
               }
             }
@@ -209,4 +296,5 @@ query getGlobalData($contractId: ID!) {
     }
   }
 }
+
 `;

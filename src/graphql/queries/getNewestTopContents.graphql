@@ -1,5 +1,6 @@
 query getNewestTopContents($contractId: ID!) {
   getNewestTopContents(contractId: $contractId) {
+    type
     originalId
     title
     shortDescription

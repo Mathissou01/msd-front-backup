@@ -1,0 +1,69 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.buttons" as buttons;
+@use "src/styles/02-tools/tools.typography" as typo;
+@use "src/styles/02-tools/tools.functions" as func;
+
+.c-CollapsingButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  cursor: pointer;
+
+  &_fontSmall {
+    @include typo.text("buttonSmall");
+  }
+
+  &_secondary {
+    width: fit-content;
+    height: fit-content;
+    border: 1px solid colors.$gray-200;
+  }
+
+  &_paddingSmall {
+    padding: 10px;
+  }
+
+  &_fullWidth {
+    @include im.media("<laptop") {
+      width: 100%;
+    }
+  }
+
+  &_isRounded {
+    border-radius: 50%;
+  }
+
+  &__ButtonLabelName {
+    color: colors.$contrast-text;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  &__Picto {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    object-position: center;
+
+    &_direction {
+      background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 21.15a1.61 1.61 0 0 1-.625-.125 2.001 2.001 0 0 1-.575-.375L3.35 13.2a2.003 2.003 0 0 1-.375-.575A1.61 1.61 0 0 1 2.85 12a1.69 1.69 0 0 1 .5-1.2l7.45-7.45c.183-.167.375-.292.575-.375.2-.084.408-.125.625-.125a1.697 1.697 0 0 1 1.2.5l7.45 7.45a1.68 1.68 0 0 1 .375 1.825c-.084.2-.209.391-.375.575l-7.45 7.45a1.666 1.666 0 0 1-.562.375 1.707 1.707 0 0 1-.638.125Zm-3.95-5.2 3.75 3.725c.05.066.116.1.2.1a.24.24 0 0 0 .2-.1l7.475-7.475a.24.24 0 0 0 .1-.2.238.238 0 0 0-.1-.2L12.2 4.325a.238.238 0 0 0-.2-.1.238.238 0 0 0-.2.1L4.325 11.8a.238.238 0 0 0-.1.2c0 .083.033.15.1.2l3.725 3.75Zm3.925.6 4.55-4.55-4.55-4.55-1 1 2.875 2.85H7.425v1.4h6.425l-2.875 2.85 1 1Z' fill='#{func.hex-to-url-string(colors.$contrast-text)}'/%3E%3C/svg%3E%0A");
+    }
+
+    &_map {
+      background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m14.975 20.25-5.95-2.075L4.85 19.8a.784.784 0 0 1-.788-.075c-.241-.167-.362-.409-.362-.725V6.2a.94.94 0 0 1 .15-.512.817.817 0 0 1 .425-.338l4.75-1.625 5.95 2.075 4.175-1.625c.284-.117.546-.096.788.062a.773.773 0 0 1 .362.688v12.9c0 .2-.054.379-.162.538a.76.76 0 0 1-.438.312l-4.725 1.575Zm-.7-1.7V7L9.75 5.425v11.55l4.525 1.575Zm1.375 0 3.25-1.075V5.75L15.65 7v11.55ZM5.1 18.225l3.25-1.25V5.425L5.1 6.5v11.725ZM15.65 7v11.55V7Zm-7.3-1.575v11.55-11.55Z' fill='#{func.hex-to-url-string(colors.$contrast-text)}'/%3E%3C/svg%3E%0A");
+    }
+
+    &_event {
+      background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10.975 17.825 7.85 14.7l1-1 2.125 2.125 4.175-4.175 1 1-5.175 5.175Zm-5.6 3.475c-.467 0-.867-.167-1.2-.5a1.636 1.636 0 0 1-.5-1.2V6.375c0-.484.166-.892.5-1.225.333-.334.741-.5 1.225-.5h1.475v-2.1H8.3v2.1h7.425v-2.1h1.4v2.1H18.6c.483 0 .891.166 1.225.5.333.333.5.741.5 1.225V19.6c0 .466-.167.866-.5 1.2-.334.333-.733.5-1.2.5H5.375Zm.025-1.4h13.2a.31.31 0 0 0 .225-.1c.067-.067.1-.134.1-.2v-9.25H5.075v9.25c0 .066.033.133.1.2a.31.31 0 0 0 .225.1ZM5.075 8.95h13.85V6.375a.31.31 0 0 0-.1-.225.311.311 0 0 0-.225-.1H5.4a.31.31 0 0 0-.225.1.31.31 0 0 0-.1.225V8.95Zm0 0v-2.9 2.9Z' fill='#{func.hex-to-url-string(colors.$contrast-text)}'/%3E%3C/svg%3E%0A");
+    }
+
+    &_flag {
+      background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.65 20.6V4.675h7.875l.4 1.975h5.425v8.725h-5.875l-.4-1.975H7.05v7.2h-1.4Zm8.975-6.625h3.325V8.05h-5.2l-.4-1.975h-5.3V12h7.175l.4 1.975Z' fill='#{func.hex-to-url-string(colors.$contrast-text)}'/%3E%3C/svg%3E%0A");
+    }
+  }
+}

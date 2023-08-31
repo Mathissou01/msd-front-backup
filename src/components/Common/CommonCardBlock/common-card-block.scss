@@ -39,12 +39,12 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 9px;
     align-items: center;
     justify-content: center;
     width: 132px;
-    height: 132px;
-    margin: auto;
+    aspect-ratio: 1;
+    margin: 0 auto;
     padding: 32px;
     background: rgb(244 154 28 / 10%);
     border-radius: 50%;
@@ -55,14 +55,55 @@
     filter: url("#recolor-secondary");
   }
 
+  &__DateContainer {
+    @include typo.text("tag");
+
+    float: right;
+    width: fit-content;
+    height: fit-content;
+    margin-top: 8px;
+    white-space: nowrap;
+    text-transform: lowercase;
+  }
+
+  &__ContentHeader {
+    float: right;
+    margin: 5px;
+  }
+
+  &__Tags {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__Tag {
+    @include typo.text("tag");
+
+    display: inline-block;
+    padding: 6px 10px;
+    border: 1px solid colors.$blue-4;
+    border-radius: 4px;
+
+    &_background {
+      margin: 3px 2px;
+      background-color: colors.$gray-0;
+      border: hidden;
+    }
+  }
+
   &__Date {
-    width: 150px;
-    color: colors.$gray-800;
-    font-weight: 500;
-    font-size: 14px;
-    font-family: DINPro-Medium, sans-serif;
-    line-height: 21px;
-    text-align: right;
+    @include typo.text("tag");
+
+    margin-top: 5px;
+    white-space: nowrap;
+    text-transform: lowercase;
+
+    #{$self}__EventDisplay & {
+      font-weight: 500;
+      font-size: 14px;
+      font-family: DINPro-Medium, sans-serif;
+      line-height: 21px;
+    }
   }
 
   &__Image {
@@ -81,7 +122,7 @@
       transition: transform 0.2s ease-in-out;
 
       @include im.media(">=tablet") {
-        object-fit: cover;
+        object-fit: contain;
       }
 
       #{$self}:hover & {
@@ -92,42 +133,14 @@
 
   &__Content {
     display: flex;
+    flex: 1;
     flex-direction: column;
     gap: 16px;
-    height: 100%;
     padding: 0 16px;
 
     &_textCenter {
       align-items: center;
       text-align: center;
-    }
-  }
-
-  &__ContentHeader {
-    display: flex;
-    gap: 16px;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  &__Tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    align-items: center;
-    max-width: 175px;
-  }
-
-  &__Tag {
-    @include typo.text("tag");
-
-    padding: 6px 10px;
-    border: 1px solid colors.$blue-4;
-    border-radius: 4px;
-
-    &_background {
-      background-color: colors.$gray-0;
-      border: hidden;
     }
   }
 

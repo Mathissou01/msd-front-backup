@@ -1,0 +1,101 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.functions" as func;
+@use "src/styles/02-tools/tools.shadows" as shadows;
+
+.c-ContentMap {
+  height: 100%;
+  overflow: auto;
+  background-color: colors.$white;
+
+  :hover {
+    background-color: colors.$gray-200;
+    cursor: pointer;
+
+    .c-Marker {
+      animation-name: bounce-marker;
+    }
+
+    .c-Marker__WavePin {
+      animation: shadow-marker 2s infinite;
+    }
+  }
+
+  &__Content {
+    @include shadows.shadow(1);
+
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    overflow: hidden;
+    background-color: transparent;
+  }
+
+  &__Info {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 40px 15px 0;
+    background-color: transparent;
+  }
+
+  &__Picto {
+    position: relative;
+    bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-color: transparent;
+  }
+
+  &__CarPicto {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin: auto;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='#{func.hex-to-url-string(colors.$contrast-text)}' style='enable-background:new 0 0 24 24' xml:space='preserve'%3E%3Cpath d='M20.25 20.75A2.252 2.252 0 0 1 18 18.5v-.75H6v.75c0 1.241-1.009 2.25-2.25 2.25S1.5 19.741 1.5 18.5v-.879A2.258 2.258 0 0 1 0 15.5v-2.251a2.543 2.543 0 0 1 .249-1.097 2.53 2.53 0 0 1 .5-.713l1.94-1.94-.75-.75H.75a.749.749 0 1 1 0-1.499h1.5c.2 0 .389.078.53.22l.676.676 1.291-3.449A3.014 3.014 0 0 1 7.556 2.75h8.885c1.243 0 2.372.782 2.808 1.947l1.292 3.451.679-.678c.14-.14.333-.22.53-.22h1.5a.75.75 0 0 1 0 1.5h-1.189l-.75.75 1.94 1.94A2.56 2.56 0 0 1 24 13.249V15.5c0 .96-.615 1.808-1.5 2.121v.879a2.252 2.252 0 0 1-2.25 2.25zm-.75-2.25a.75.75 0 0 0 1.5 0v-.75h-1.5v.75zM3 18.5a.75.75 0 0 0 1.5 0v-.75H3v.75zm-1.5-3c0 .414.336.75.75.75h19.5a.75.75 0 0 0 .75-.75v-2.25h-3.129c-.2 0-.388.078-.53.219L17.78 14.53a.744.744 0 0 1-1.06 0 .749.749 0 0 1 0-1.06l1.061-1.061c.425-.425.99-.659 1.59-.659h2.068l-1.5-1.5H4.061l-1.5 1.5h2.068c.601 0 1.166.234 1.59.659L7.28 13.47c.142.141.22.33.22.53s-.078.389-.22.53a.744.744 0 0 1-1.06 0l-1.061-1.061a.754.754 0 0 0-.53-.219H1.5v2.25zm17.666-6.75-1.321-3.527a1.506 1.506 0 0 0-1.404-.973H7.557c-.622 0-1.186.391-1.404.973L4.832 8.75h14.334z'/%3E%3C/svg%3E%0A");
+  }
+
+  &__InfoName {
+    color: colors.$expert-blue;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  &__InfoOpeningTimeContainer {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__InfoAddress {
+    text-align: left;
+  }
+
+  &__InfoPostal {
+    text-align: left;
+  }
+
+  &__PictoContainer {
+    transform: scale(0.7) translateY(50px);
+  }
+
+  &__TextWarning {
+    color: colors.$error-dark;
+    font-weight: 600;
+  }
+
+  &__InfoDistance {
+    color: colors.$blue-1;
+    font-weight: 600;
+  }
+
+  &__Open {
+    color: colors.$success-dark;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  &__Close {
+    color: colors.$error-dark;
+    font-weight: bold;
+    text-align: left;
+  }
+}

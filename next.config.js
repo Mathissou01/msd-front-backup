@@ -1,60 +1,89 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const fs = require("fs-extra");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
+const sass = require("sass");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require("path");
-const {
-  contrastText,
-  primaryColor,
-  primaryColorDark,
-  primaryColorLight,
-  secondaryColor,
-  secondaryColorDark,
-  secondaryColorLight,
-  wasteHousehold,
-  wasteSelective,
-  wasteBio,
-  wasteGlass,
-  wasteGreen,
-  wastePaper,
-  wasteOther, // eslint-disable-next-line @typescript-eslint/no-var-requires
-} = require("./config/color-config");
 
-function writeGlobalData(contractMenu, footer) {
-  const globalData = {
-    contractMenu,
-    footer,
-    colors: {
-      "external-contrast-text": contrastText,
-      "external-primary": primaryColor,
-      "calculated-primary-dark": primaryColorDark,
-      "calculated-primary-light": primaryColorLight,
-      "external-secondary": secondaryColor,
-      "calculated-secondary-dark": secondaryColorDark,
-      "calculated-secondary-light": secondaryColorLight,
-      "external-waste-household": wasteHousehold,
-      "external-waste-selective": wasteSelective,
-      "external-waste-bio": wasteBio,
-      "external-waste-green": wasteGreen,
-      "external-waste-glass": wasteGlass,
-      "external-waste-paper": wastePaper,
-      "external-waste-other": wasteOther,
-    },
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const generateColors = require("./config/color-config").generateColors;
+
+// Check if .env exist and if it missing important info
+function validateEnvInfo() {
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
+
+  if (!apiKey) {
+    throw new Error(
+      "La clé Google Maps API est manquante ou vide dans le fichier .env",
+    );
+  }
+
+  if (apiKey.length < 35) {
+    throw new Error(
+      "La clé Google Maps API doit avoir au moins 35 caractères dans le fichier .env",
+    );
+  }
+}
+
+validateEnvInfo();
+
+function writeGlobalData(contract, customColors) {
+  let colorsObj = {
+    "external-primary": customColors.primaryColor,
+    "calculated-primary-dark": customColors.primaryColorDark,
+    "calculated-primary-light": customColors.primaryColorLight,
+    "external-secondary": customColors.secondaryColor,
+    "calculated-secondary-dark": customColors.secondaryColorDark,
+    "calculated-secondary-light": customColors.secondaryColorLight,
+    "external-contrast-text": customColors.contrastText,
+    "external-waste-household": customColors.wasteHousehold,
+    "external-waste-selective": customColors.wasteSelective,
+    "external-waste-bio": customColors.wasteBio,
+    "external-waste-green": customColors.wasteGreen,
+    "external-waste-glass": customColors.wasteGlass,
+    "external-waste-paper": customColors.wastePaper,
+    "external-waste-other": customColors.wasteOther,
   };
+
+  // Check if undefined colors
+  function checkColors(colorsObj, contract) {
+    if (
+      typeof colorsObj === "object" &&
+      Object.values(colorsObj).includes(undefined)
+    ) {
+      return {
+        contract,
+        colors: customColors,
+      };
+    } else {
+      return {
+        contract,
+        colors: colorsObj,
+      };
+    }
+  }
+
+  const globalData = checkColors(colorsObj, contract);
   fs.writeFile("./config/global.json", JSON.stringify(globalData));
 }
 
+let customColors = null;
 module.exports = async (phase) => {
+  "./";
   const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID.toString();
   if (!Number.parseInt(contractId)) throw "Error";
-
   if (process.env.NEXT_PUBLIC_MOCK === "true" || phase === "phase-test") {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const globalMockData = require("./__mocks__/globalMock.json");
-    writeGlobalData(globalMockData.contractMenu, globalMockData.footer);
+
+    customColors = globalMockData.colors;
+
+    writeGlobalData(globalMockData.contract, globalMockData.colors);
   } else {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const GetGlobalDataQuery = require("./config/getGlobalData");
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/graphql`, {
+
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/graphql`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,15 +94,29 @@ module.exports = async (phase) => {
           contractId,
         },
       }),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        writeGlobalData(
-          result.data.contract.data.attributes.contractMenu,
-          result.data.contract.data.attributes.contractCustomization.data
-            .attributes.footer,
-        );
-      });
+    });
+
+    const resultQuery = await response.json();
+
+    const primaryColorInput =
+      resultQuery.data.contract.data.attributes.contractCustomization.data
+        .attributes.primaryColor;
+
+    const secondaryColorInput =
+      resultQuery.data.contract.data.attributes.contractCustomization.data
+        .attributes.secondaryColor;
+
+    const contrastTextInput =
+      resultQuery.data.contract.data.attributes.contractCustomization.data
+        .attributes.textContrast;
+
+    const colorsConfig = generateColors(
+      primaryColorInput,
+      secondaryColorInput,
+      contrastTextInput,
+    );
+    customColors = colorsConfig.getColors();
+    writeGlobalData(resultQuery.data.contract.data, colorsConfig.getColors());
   }
 
   /** @type {import("next").NextConfig} */
@@ -93,7 +136,21 @@ module.exports = async (phase) => {
     trailingSlash: true,
     images: {
       loader: "default",
-      domains: ["localhost"],
+      domains: [
+        "localhost",
+        "stomsdmediadev.blob.core.windows.net", // Medialib Dev
+        "stomsdmediarec.blob.core.windows.net", // Medialib Rec
+        "stomsdmediahml.blob.core.windows.net", // Medialib Hml
+        "stomsdmediaprd.blob.core.windows.net", // Medialib Prd
+        "delightful-forest-04aca4603.2.azurestaticapps.net", // Develop FO
+        "kind-sand-0bc8f8b03.2.azurestaticapps.net", // Recette FO
+        "ashy-ground-068611603.2.azurestaticapps.net", // Hml FO
+        "green-wave-064ab8c03.2.azurestaticapps.net", // Prod FO
+        "devmsd.suez.com", // Develop FO
+        "recmsd.suez.com", // Recette FO
+        "hmlmsd.suez.com", // Hml FO
+        "msd.suez.com", // Prod FO
+      ],
       unoptimized: true,
     },
     env: {
@@ -105,24 +162,42 @@ module.exports = async (phase) => {
       // Calculate dark/light values of color with chroma.js (using CIELAB calculations)
       // then override values with .env, then make settings globally available
       additionalData: `
-      @use "src/styles/01-settings/settings.external" as *;
-      $external-contrast-text: ${contrastText};
-      $external-primary: ${primaryColor};
-      $calculated-primary-dark: ${primaryColorDark};
-      $calculated-primary-light: ${primaryColorLight};
-      $external-secondary: ${secondaryColor};
-      $calculated-secondary-dark: ${secondaryColorDark};
-      $calculated-secondary-light: ${secondaryColorLight};
-      $external-waste-household: ${wasteHousehold};
-      $external-waste-selective: ${wasteSelective};
-      $external-waste-bio: ${wasteBio};
-      $external-waste-green: ${wasteGreen};
-      $external-waste-glass: ${wasteGlass};
-      $external-waste-paper: ${wastePaper};
-      $external-waste-other: ${wasteOther};
+      @use "src/styles/01-settings/settings.external" as *;   
+      $external-primary: ${customColors.primaryColor};
+      $calculated-primary-dark: ${customColors.primaryColorDark};
+      $calculated-primary-light: ${customColors.primaryColorLight};
+      $external-secondary: ${customColors.secondaryColor};
+      $calculated-secondary-dark: ${customColors.secondaryColorDark};
+      $calculated-secondary-light: ${customColors.secondaryColorLight};
+      $external-contrast-text: ${customColors.contrastText};
+      $external-waste-household: ${customColors.wasteHousehold};
+      $external-waste-selective: ${customColors.wasteSelective};
+      $external-waste-bio: ${customColors.wasteBio};
+      $external-waste-green: ${customColors.wasteGreen};
+      $external-waste-glass: ${customColors.wasteGlass};
+      $external-waste-paper: ${customColors.wastePaper};
+      $external-waste-other: ${customColors.wasteOther};
       @use "src/styles/01-settings" as *;
       @use "src/styles/02-tools" as *;
     `,
+      implementation: sass,
+    },
+    async headers() {
+      return [
+        {
+          source: "/(.*)",
+          headers: [
+            {
+              key: "Content-Security-Policy",
+              value: `frame-ancestors ${process.env.NEXT_PUBLIC_BO_URL}`,
+            },
+            {
+              key: "X-Frame-Options",
+              value: `ALLOW-FROM  ${process.env.NEXT_PUBLIC_BO_URL}`,
+            },
+          ],
+        },
+      ];
     },
     webpack(config) {
       // Enable topLevelAwait, ES2017 in tsconfig
@@ -155,6 +230,7 @@ module.exports = async (phase) => {
           type: "asset",
           resourceQuery: /url/, // *.svg?url
         },
+        { test: /\.ttf$/i, type: "asset/resource" },
         {
           test: /\.svg$/i,
           issuer: /\.[jt]sx?$/,

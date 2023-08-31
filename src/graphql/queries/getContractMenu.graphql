@@ -126,6 +126,18 @@ query getContractMenu($contractId: ID!) {
                     }
                   }
                 }
+                ... on ComponentLinksMyWasteCounter {
+                  id
+                  name
+                  isDisplayed
+                  picto {
+                    data {
+                      attributes {
+                        url
+                      }
+                    }
+                  }
+                }
                 ... on ComponentLinksExternal {
                   id
                   name

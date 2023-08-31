@@ -1,0 +1,67 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+
+.c-MarkerGeoloc {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  animation: fade-in 1s ease-in-out;
+
+  &__Content {
+    position: absolute;
+    top: calc(25% - 46px / 2);
+    left: calc(50% - 46px / 2);
+    opacity: 0.8;
+  }
+
+  &__TopPin {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    z-index: 3;
+    width: 48px;
+    height: 48px;
+    background-color: colors.$brand-secondary;
+    background-image: url("../../../../../public/images/pictos/target_geoloc.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border: 6px solid colors.$brand-secondary;
+    border-radius: 50%;
+    outline: 3px solid colors.$brand-secondary-dark;
+  }
+
+  &__TopPin::before {
+    position: absolute;
+    bottom: -16px;
+    left: -2px;
+    z-index: 2;
+    width: 0;
+    height: 0;
+    border-top: 20px solid colors.$brand-secondary;
+    border-right: 20px solid transparent;
+    border-left: 20px solid transparent;
+    content: "";
+  }
+
+  &__BottomPin {
+    position: absolute;
+    bottom: -20px;
+    left: -5px;
+    z-index: 1;
+    width: 0;
+    height: 0;
+    border-top: 23px solid colors.$brand-secondary-dark;
+    border-right: 23px solid transparent;
+    border-left: 23px solid transparent;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+}

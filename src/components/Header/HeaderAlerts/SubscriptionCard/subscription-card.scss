@@ -1,0 +1,32 @@
+@use "src/styles/02-tools/tools.typography" as typo;
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.shadows" as shadows;
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-SubscriptionCard {
+  @include typo.text("bodyStatic");
+  @include shadows.shadow(1);
+
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  width: 100%;
+  min-height: 96px;
+  padding: 16px;
+  overflow: auto;
+  font-weight: 500;
+  background: colors.$white;
+  border-radius: 8px;
+
+  @include im.media(">=mobile") {
+    padding: 24px;
+  }
+
+  &:hover {
+    background-color: colors.$brand-primary-light;
+  }
+
+  &__Name {
+    word-break: break-word;
+  }
+}

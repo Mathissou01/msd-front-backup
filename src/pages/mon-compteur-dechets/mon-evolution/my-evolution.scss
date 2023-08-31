@@ -1,0 +1,121 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/01-settings/settings.colors" as colors;
+
+.c-MyEvolution {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  &__Content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 0;
+    background-color: transparent;
+    @include im.media(">=mobile") {
+      width: calc(70% + 75px + 16px);
+      margin-top: 16px;
+      background-color: $white;
+      border-radius: 8px;
+      box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
+    }
+  }
+
+  &__DateSelectorContent {
+    width: 100%;
+    background-color: colors.$white;
+  }
+
+  &__EvolutionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-top: 24px;
+    border-radius: 8px;
+
+    @include im.media(">tablet") {
+      width: calc(70% + 75px + 16px);
+      padding: 30px;
+      background: #fff;
+    }
+  }
+
+  &__EvolutionWrapper {
+    padding: 16px 8px;
+    border-radius: 8px;
+
+    @include im.media(">=tablet") {
+      padding: 24px 24px 16px;
+      background: #f8f9fa;
+    }
+  }
+
+  &__BlockContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    @include im.media(">=tablet") {
+      width: 100%;
+    }
+  }
+
+  &__ProgressionBlockContainer {
+    display: flex;
+    width: 100%;
+    min-height: 450px;
+
+    @include im.media(">=tablet") {
+      width: 35%;
+      padding-left: 24px;
+    }
+
+    > * {
+      width: 100%;
+      padding: 16px;
+      background-color: $white;
+      border: 1px solid #d5d6de;
+      border-radius: 8px;
+    }
+  }
+
+  &__StatsContainer {
+    display: flex;
+    width: 100%;
+    margin-bottom: 16px;
+    background-color: $white;
+    border: 1px solid #d5d6de;
+    border-radius: 8px;
+
+    @include im.media(">=tablet") {
+      width: 65%;
+      margin-bottom: 0;
+    }
+
+    > * {
+      width: 100%;
+      padding: 10px 0 40px;
+    }
+  }
+
+  &__DataTextContent {
+    width: calc(70% + 75px + 16px);
+    padding: 30px 0 0;
+
+    @include im.media(">=tablet") {
+      width: 100%;
+    }
+  }
+
+  &__DataText {
+    color: #767c97;
+    font-size: 12px;
+  }
+}

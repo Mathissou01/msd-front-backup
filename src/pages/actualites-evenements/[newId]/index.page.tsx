@@ -1,4 +1,4 @@
-import { GetStaticProps, GetStaticPaths } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import client from "../../../graphql/client";
 import { ParsedUrlQuery } from "querystring";
 import {
@@ -6,12 +6,15 @@ import {
   GetNewByIdQuery,
   GetNewsPathsDocument,
   GetNewsPathsQuery,
+  GetNewsPathsTotalDocument,
+  GetNewsPathsTotalQuery,
   NewEntity,
 } from "../../../graphql/codegen/generated-types";
 import { removeNulls } from "../../../lib/utilities";
-import { remapEditoBlocksDynamicZone } from "../../../lib/edito-content";
+import { isEditoBlock } from "../../../lib/edito-content";
+import CommonMeta from "../../../components/Common/CommonMeta/CommonMeta";
 import CommonBreadcrumb from "../../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
-import EditoHeadingBlock from "../../../components/Edito/EditoHeading/EditoHeading";
+import EditoHeading from "../../../components/Edito/EditoHeading/EditoHeading";
 import EditoDynamicBlock from "../../../components/Edito/EditoDynamicBlock";
 import "./actualites-new-page.scss";
 
@@ -19,7 +22,7 @@ interface Params extends ParsedUrlQuery {
   newId: string;
 }
 
-interface IActualitesNewPageProps {
+export interface IActualitesNewPageProps {
   newData: NewEntity | null | undefined;
 }
 
@@ -42,10 +45,11 @@ export default function ActualitesNewPage({
 
   return (
     <>
+      <CommonMeta title={newData?.attributes?.title ?? ""} />
       <CommonBreadcrumb pages={breadcrumbPages} />
       <section className="c-ActualitesNewPage">
         {newData?.attributes?.title && (
-          <EditoHeadingBlock
+          <EditoHeading
             title={newData.attributes.title}
             tags={newData.attributes.tags?.data}
             image={newData?.attributes?.image?.data?.attributes}
@@ -54,9 +58,17 @@ export default function ActualitesNewPage({
         {newData?.attributes?.blocks &&
           newData.attributes.blocks.length > 0 && (
             <div className="c-ActualitesNewPage__Blocks">
-              <EditoDynamicBlock
-                blocks={remapEditoBlocksDynamicZone(newData.attributes.blocks)}
-              />
+              {newData.attributes.blocks.map((block, index) => {
+                if (block && isEditoBlock(block)) {
+                  return (
+                    <EditoDynamicBlock
+                      key={index}
+                      type={block.__typename}
+                      data={block}
+                    />
+                  );
+                }
+              })}
             </div>
           )}
       </section>
@@ -82,8 +94,14 @@ export const getStaticProps: GetStaticProps<
 };
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
+  const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID?.toString();
+  const { data: totalData } = await client.query<GetNewsPathsTotalQuery>({
+    query: GetNewsPathsTotalDocument,
+    variables: { contractId },
+  });
   const { data } = await client.query<GetNewsPathsQuery>({
     query: GetNewsPathsDocument,
+    variables: { contractId, total: totalData.news?.meta.pagination.total },
   });
 
   const news = data.news?.data.filter(removeNulls) ?? [];

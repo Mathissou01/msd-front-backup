@@ -1,0 +1,47 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/01-settings/settings.colors" as colors;
+
+.c-StepAddress {
+  &__Fields {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    label {
+      color: $blue-2;
+      font-weight: 700;
+    }
+
+    input[type="text"] {
+      height: 48px;
+      background-color: $gray-0;
+      border: 1px solid $blue-2;
+      border-radius: 4px;
+    }
+  }
+
+  // Card fields completed
+  &__AddressBlockContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 16px;
+    padding: 14px;
+    background-color: #f8f9fa;
+    border: 1px solid $blue-4;
+    border-radius: 8px;
+  }
+
+  &__LabelConfirm {
+    color: $gray-600;
+    font-size: 12px;
+  }
+
+  &__SelectedAddress {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}

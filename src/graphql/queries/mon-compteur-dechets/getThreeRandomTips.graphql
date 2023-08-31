@@ -1,0 +1,17 @@
+query GetThreeRandomTips($contractId: ID!) {
+  getThreeRandomTips(contractId: $contractId) {
+    originalId
+    title
+    shortDescription
+    tags {
+      name
+    }
+    image {
+      url
+      name
+      alternativeText
+      height
+      width
+    }
+  }
+}

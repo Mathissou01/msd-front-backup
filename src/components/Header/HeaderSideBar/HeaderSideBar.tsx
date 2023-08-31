@@ -5,7 +5,7 @@ import "./header-side-bar.scss";
 
 export default function HeaderSideBar() {
   return (
-    <nav className="c-HeaderSideBar" data-testid="side-bar">
+    <nav className="c-HeaderSideBar" data-testid="side-bar" role="navigation">
       <NavigationList isDesktopMode />
       <MSDLogo />
     </nav>

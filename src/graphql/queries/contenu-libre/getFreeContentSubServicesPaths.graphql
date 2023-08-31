@@ -1,0 +1,16 @@
+query getFreeContentSubServicesPaths($contractId: ID!, $total: Int!) {
+  freeContentSubServices(
+    filters: {
+      isActivated: { eq: true }
+      editorialService: { contract: { id: { eq: $contractId } } }
+    }
+    pagination: { limit: $total }
+  ) {
+    data {
+      id
+      attributes {
+        isActivated
+      }
+    }
+  }
+}

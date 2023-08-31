@@ -9,35 +9,39 @@ exports[`Header renders in desktop mode 1`] = `
   >
     <div
       class="c-HeaderTopBar__Item c-HeaderTopBar__Logo"
-    >
-      <a
-        class="c-LogoCommunity"
-        data-testid="logo-community"
-        href="/"
-      >
-        <div />
-      </a>
-    </div>
+    />
     <ul
       class="c-HeaderTopBar__List"
     >
-      <li
+      <div
         class="c-HeaderTopBar__Item"
       >
         <div
           class="c-HeaderLinkSelector"
         >
-          <span>
-            Montauban
-          </span>
-          <div />
+          <button
+            class="c-HeaderLinkSelector__Link"
+          >
+            <span />
+            <img
+              alt="Changer de ville"
+              aria-label="Changer de ville"
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="/images/pictos/button_refresh_arrows.svg"
+              style="color: transparent;"
+              width="24"
+            />
+          </button>
         </div>
-      </li>
+      </div>
       <div
         aria-hidden="true"
         class="c-HeaderTopBar__Filler"
       />
-      <li
+      <div
         class="c-HeaderTopBar__Item"
       >
         <div
@@ -47,198 +51,257 @@ exports[`Header renders in desktop mode 1`] = `
             class="c-HeaderLinkSearch"
           >
             <input
+              aria-label="Rechercher sur le site"
               class="c-HeaderLinkSearch__Input"
               placeholder="Rechercher sur le site"
+              role="search"
               type="text"
             />
             <button
-              class="c-CommonButton c-CommonButton_tertiary c-CommonButton_fontSmall"
-              type="button"
+              class="c-HeaderLinkSearch__Button"
             >
-              <div
-                class="c-CommonButton__Picto c-CommonButton__Picto_search"
+              <img
+                alt="Lancer la recherche"
+                data-nimg="1"
+                decoding="async"
+                height="24"
+                loading="lazy"
+                src="/images/pictos/search.svg"
+                style="color: transparent;"
+                width="24"
               />
             </button>
           </div>
         </div>
-      </li>
-      <li
-        class="c-HeaderTopBar__Item"
+      </div>
+      <nav
+        role="navigation"
       >
-        <a
-          class="c-NavigationLink c-NavigationLink_desktop"
-          href="/"
+        <ul
+          class="c-HeaderTopBar__Nav"
         >
           <div
-            class="c-NavigationLink__Box"
+            aria-hidden="true"
+            class="c-HeaderTopBar__Separator"
+          />
+          <li
+            class="c-HeaderTopBar__Item"
+          >
+            <a
+              class="c-NavigationLink c-NavigationLink_desktop"
+              href="/service/alertes"
+            >
+              <div
+                class="c-NavigationLink__Box"
+              >
+                <div
+                  class="c-NavigationLink__Picto"
+                >
+                  <img
+                    alt="S'abonner aux alertes"
+                    data-nimg="1"
+                    decoding="async"
+                    height="24"
+                    loading="lazy"
+                    src="/images/pictos/notify.svg"
+                    style="color: transparent;"
+                    width="24"
+                  />
+                </div>
+              </div>
+              <span
+                class="c-NavigationLink__Label"
+              />
+            </a>
+          </li>
+          <div
+            aria-hidden="true"
+            class="c-HeaderTopBar__Separator"
+          />
+          <li
+            class="c-HeaderTopBar__Item"
+          >
+            <a
+              class="c-NavigationLink c-NavigationLink_desktop"
+              href="/service/contact"
+            >
+              <div
+                class="c-NavigationLink__Box"
+              >
+                <div
+                  class="c-NavigationLink__Picto"
+                >
+                  <img
+                    alt="Contactez-nous"
+                    data-nimg="1"
+                    decoding="async"
+                    height="24"
+                    loading="lazy"
+                    src="/images/pictos/contact.svg"
+                    style="color: transparent;"
+                    width="24"
+                  />
+                </div>
+              </div>
+              <span
+                class="c-NavigationLink__Label"
+              />
+            </a>
+          </li>
+          <div
+            aria-hidden="true"
+            class="c-HeaderTopBar__Separator"
+          />
+          <li
+            class="c-HeaderTopBar__Item"
           >
             <div
-              class="c-NavigationLink__Picto"
+              class="c-HeaderLinkProfile"
             >
-              <img
-                alt=""
-                data-nimg="1"
-                decoding="async"
-                height="24"
-                loading="lazy"
-                src="/images/pictos/localisation.svg"
-                style="color: transparent;"
-                width="24"
-              />
+              <div
+                class="c-HeaderLinkProfile__Content"
+              >
+                <div
+                  style="transform: scaleY(1); transition: transform 0.2s ease;"
+                />
+              </div>
+              <div
+                class="c-HeaderLinkProfile__PopUp "
+              >
+                <div
+                  class="c-HeaderLinkProfile__PopUpHead"
+                />
+                <div
+                  class="c-HeaderLinkProfile__PopUpContent"
+                >
+                  <span
+                    class="c-HeaderLinkProfile__PopUpTitle"
+                  >
+                    Mon profil :
+                  </span>
+                  <form
+                    class="c-HeaderLinkProfile__PopUpForm"
+                  >
+                    <div
+                      class="c-FormSelect"
+                    >
+                      <div
+                        class="c-FormLabel"
+                      >
+                        <label
+                          class="c-FormLabel__LabelWrapper"
+                          for="audience"
+                        >
+                          <span
+                            class="c-FormLabel__Label"
+                          >
+                            Profil *
+                          </span>
+                        </label>
+                      </div>
+                      <div
+                        class="o-SelectWrapper"
+                      >
+                        <select
+                          aria-errormessage="audience_error"
+                          aria-invalid="false"
+                          class="o-SelectWrapper__Select o-SelectWrapper__Select_placeholder"
+                          data-testid="form-select"
+                          id="audience"
+                        >
+                          <option
+                            disabled=""
+                            hidden=""
+                            value="-1"
+                          >
+                            - Sélectionnez un élément -
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div
+                      class="c-HeaderLinkProfile__PopUpButton"
+                    >
+                      <button
+                        class="c-CommonButton c-CommonButton_primary c-CommonButton_fontLarge c-CommonButton_paddingLarge c-CommonButton_fullWidth"
+                        type="submit"
+                      >
+                        Modifier mon profil
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
-          </div>
-          <span
-            class="c-NavigationLink__Label"
-          />
-        </a>
-      </li>
-      <div
-        aria-hidden="true"
-        class="c-HeaderTopBar__Separator"
-      />
-      <li
-        class="c-HeaderTopBar__Item"
-      >
-        <a
-          class="c-NavigationLink c-NavigationLink_desktop"
-          href="/"
-        >
+          </li>
           <div
-            class="c-NavigationLink__Box"
+            aria-hidden="true"
+            class="c-HeaderTopBar__Separator"
+          />
+          <li
+            class="c-HeaderTopBar__Item"
           >
             <div
-              class="c-NavigationLink__Picto"
+              class="c-HeaderLinkUser"
             >
-              <img
-                alt=""
-                data-nimg="1"
-                decoding="async"
-                height="24"
-                loading="lazy"
-                src="/images/pictos/calendar.svg"
-                style="color: transparent;"
-                width="24"
-              />
+              <div
+                class="c-HeaderLinkUser__Circle"
+              >
+                <img
+                  alt="Mon compte"
+                  aria-label="Mon compte"
+                  data-nimg="1"
+                  decoding="async"
+                  height="24"
+                  loading="lazy"
+                  src="/images/pictos/avatar.svg"
+                  style="color: transparent;"
+                  width="20"
+                />
+              </div>
             </div>
-          </div>
-          <span
-            class="c-NavigationLink__Label"
-          />
-        </a>
-      </li>
-      <div
-        aria-hidden="true"
-        class="c-HeaderTopBar__Separator"
-      />
-      <li
-        class="c-HeaderTopBar__Item"
-      >
-        <a
-          class="c-NavigationLink c-NavigationLink_desktop"
-          href="/"
-        >
-          <div
-            class="c-NavigationLink__Box"
-          >
             <div
-              class="c-NavigationLink__Picto"
+              class="c-HeaderLinkUser__PopUp "
             >
-              <img
-                alt=""
-                data-nimg="1"
-                decoding="async"
-                height="24"
-                loading="lazy"
-                src="/images/pictos/notify.svg"
-                style="color: transparent;"
-                width="24"
+              <div
+                class="c-HeaderLinkUser__PopUpHead"
               />
+              <div
+                class="c-HeaderLinkUser__PopUpContent"
+              >
+                <button
+                  class="c-CommonButton c-CommonButton_primary c-CommonButton_fontSmall"
+                  type="button"
+                >
+                  Mon profil
+                </button>
+              </div>
             </div>
-          </div>
-          <span
-            class="c-NavigationLink__Label"
-          />
-        </a>
-      </li>
-      <div
-        aria-hidden="true"
-        class="c-HeaderTopBar__Separator"
-      />
-      <li
-        class="c-HeaderTopBar__Item"
-      >
-        <a
-          class="c-NavigationLink c-NavigationLink_desktop"
-          href="/"
-        >
-          <div
-            class="c-NavigationLink__Box"
-          >
-            <div
-              class="c-NavigationLink__Picto"
-            >
-              <img
-                alt=""
-                data-nimg="1"
-                decoding="async"
-                height="24"
-                loading="lazy"
-                src="/images/pictos/contact.svg"
-                style="color: transparent;"
-                width="24"
-              />
-            </div>
-          </div>
-          <span
-            class="c-NavigationLink__Label"
-          />
-        </a>
-      </li>
-      <div
-        aria-hidden="true"
-        class="c-HeaderTopBar__Separator"
-      />
-      <li
-        class="c-HeaderTopBar__Item"
-      >
-        <div
-          class="c-HeaderLinkProfile"
-        >
-          <span>
-            Particulier
-          </span>
-          <div />
-        </div>
-      </li>
-      <div
-        aria-hidden="true"
-        class="c-HeaderTopBar__Separator"
-      />
-      <li
-        class="c-HeaderTopBar__Item"
-      >
-        <a
-          class="c-HeaderLinkUser"
-          href="/"
-        >
-          <div
-            class="c-HeaderLinkUser__Circle"
-          >
-            <div />
-          </div>
-        </a>
-      </li>
+          </li>
+        </ul>
+      </nav>
     </ul>
   </header>
   <nav
     class="c-HeaderSideBar"
     data-testid="side-bar"
+    role="navigation"
   >
     <a
       class="c-MSDLogo"
       href="https://www.monservicedechets.com/"
     >
-      <div />
+      <img
+        alt="Allez sur le site de Suez"
+        aria-label="Mon service déchets Suez, allez sur le site de Suez"
+        data-nimg="1"
+        decoding="async"
+        height="30"
+        loading="lazy"
+        src="/images/logo_msd.svg"
+        style="color: transparent;"
+        width="141"
+      />
     </a>
   </nav>
   <div
@@ -264,31 +327,49 @@ exports[`Header renders in mobile mode 1`] = `
     />
     <div
       class="c-HeaderTopBar__Item c-HeaderTopBar__Logo"
-    >
-      <a
-        class="c-LogoCommunity"
-        data-testid="logo-community"
-        href="/"
-      >
-        <div />
-      </a>
-    </div>
+    />
     <ul
       class="c-HeaderTopBar__List"
     >
       <li
         class="c-HeaderTopBar__Item c-HeaderTopBar__User"
       >
-        <a
+        <div
           class="c-HeaderLinkUser"
-          href="/"
         >
           <div
             class="c-HeaderLinkUser__Circle"
           >
-            <div />
+            <img
+              alt="Mon compte"
+              aria-label="Mon compte"
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="/images/pictos/avatar.svg"
+              style="color: transparent;"
+              width="20"
+            />
           </div>
-        </a>
+        </div>
+        <div
+          class="c-HeaderLinkUser__PopUp "
+        >
+          <div
+            class="c-HeaderLinkUser__PopUpHead"
+          />
+          <div
+            class="c-HeaderLinkUser__PopUpContent"
+          >
+            <button
+              class="c-CommonButton c-CommonButton_primary c-CommonButton_fontSmall"
+              type="button"
+            >
+              Mon profil
+            </button>
+          </div>
+        </div>
       </li>
       <li
         class="c-HeaderTopBar__Item c-HeaderTopBar__Search"
@@ -304,7 +385,7 @@ exports[`Header renders in mobile mode 1`] = `
               class="c-NavigationLink__Picto"
             >
               <img
-                alt=""
+                alt="Afficher la recherche"
                 data-nimg="1"
                 decoding="async"
                 height="24"
@@ -338,10 +419,22 @@ exports[`Header renders in mobile mode 1`] = `
         <div
           class="c-HeaderLinkSelector"
         >
-          <span>
-            Montauban
-          </span>
-          <div />
+          <button
+            class="c-HeaderLinkSelector__Link"
+          >
+            <span />
+            <img
+              alt="Changer de ville"
+              aria-label="Changer de ville"
+              data-nimg="1"
+              decoding="async"
+              height="24"
+              loading="lazy"
+              src="/images/pictos/button_refresh_arrows.svg"
+              style="color: transparent;"
+              width="24"
+            />
+          </button>
         </div>
       </li>
       <li
@@ -356,10 +449,80 @@ exports[`Header renders in mobile mode 1`] = `
           <div
             class="c-HeaderLinkProfile"
           >
-            <span>
-              Particulier
-            </span>
-            <div />
+            <div
+              class="c-HeaderLinkProfile__Content"
+            >
+              <div
+                style="transform: scaleY(1); transition: transform 0.2s ease;"
+              />
+            </div>
+            <div
+              class="c-HeaderLinkProfile__PopUp "
+            >
+              <div
+                class="c-HeaderLinkProfile__PopUpHead"
+              />
+              <div
+                class="c-HeaderLinkProfile__PopUpContent"
+              >
+                <span
+                  class="c-HeaderLinkProfile__PopUpTitle"
+                >
+                  Mon profil :
+                </span>
+                <form
+                  class="c-HeaderLinkProfile__PopUpForm"
+                >
+                  <div
+                    class="c-FormSelect"
+                  >
+                    <div
+                      class="c-FormLabel"
+                    >
+                      <label
+                        class="c-FormLabel__LabelWrapper"
+                        for="audience"
+                      >
+                        <span
+                          class="c-FormLabel__Label"
+                        >
+                          Profil *
+                        </span>
+                      </label>
+                    </div>
+                    <div
+                      class="o-SelectWrapper"
+                    >
+                      <select
+                        aria-errormessage="audience_error"
+                        aria-invalid="false"
+                        class="o-SelectWrapper__Select o-SelectWrapper__Select_placeholder"
+                        data-testid="form-select"
+                        id="audience"
+                      >
+                        <option
+                          disabled=""
+                          hidden=""
+                          value="-1"
+                        >
+                          - Sélectionnez un élément -
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div
+                    class="c-HeaderLinkProfile__PopUpButton"
+                  >
+                    <button
+                      class="c-CommonButton c-CommonButton_primary c-CommonButton_fontLarge c-CommonButton_paddingLarge c-CommonButton_fullWidth"
+                      type="submit"
+                    >
+                      Modifier mon profil
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </li>
@@ -503,7 +666,17 @@ exports[`Header renders in mobile mode 1`] = `
           class="c-MSDLogo"
           href="https://www.monservicedechets.com/"
         >
-          <div />
+          <img
+            alt="Allez sur le site de Suez"
+            aria-label="Mon service déchets Suez, allez sur le site de Suez"
+            data-nimg="1"
+            decoding="async"
+            height="30"
+            loading="lazy"
+            src="/images/logo_msd.svg"
+            style="color: transparent;"
+            width="141"
+          />
         </a>
       </li>
     </ul>

@@ -1,0 +1,8 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-RequestForm {
+  padding: 0 16px;
+  @include im.media(">=tablet") {
+    padding: 0 150px;
+  }
+}

@@ -1,0 +1,30 @@
+query getUserWasteManagement(
+  $contractId: ID!
+  $postcode: String!
+  $city: String!
+  $streetNumber: String!
+  $streetName: String!
+) {
+  getUserWasteManagement(
+    contractID: $contractId
+    streetNumber: $streetNumber
+    streetName: $streetName
+    postcode: $postcode
+    city: $city
+  ) {
+    lastDayOfRange
+    barometerParams {
+      low
+      medium
+      high
+      veryHigh
+    }
+    totalWeight
+    flows {
+      name
+      percentage
+      weight
+      trashFlow
+    }
+  }
+}

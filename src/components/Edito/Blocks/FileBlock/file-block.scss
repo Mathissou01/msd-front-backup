@@ -1,0 +1,10 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-FileBlock {
+  width: 100%;
+  margin: -6px;
+
+  @include im.media(">=tablet") {
+    margin: -10px;
+  }
+}

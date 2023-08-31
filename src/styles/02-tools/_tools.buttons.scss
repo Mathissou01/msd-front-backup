@@ -50,6 +50,22 @@
     }
   } @else if $type == "secondary" {
     &:hover {
+      background-color: color.adjust(colors.$green, $alpha: -0.9);
+    }
+
+    &:active,
+    &:focus {
+      background-color: color.adjust(colors.$green, $alpha: -0.9);
+    }
+
+    &:disabled {
+      background-color: inherit;
+      border-color: colors.$blue-3;
+    }
+  } @else if $type == "tertiary" {
+    border-color: transparent;
+
+    &:hover {
       background-color: color.adjust(colors.$gray-800, $alpha: -0.9);
     }
 
@@ -60,20 +76,21 @@
 
     &:disabled {
       background-color: inherit;
-      border-color: colors.$blue-3;
     }
-  } @else if $type == "tertiary" {
+  } @else if $type == "lightGray" {
     color: colors.$blue-1;
     border-color: transparent;
     background-color: color.adjust(colors.$gray-800, $alpha: -0.9);
 
     &:hover {
-      background-color: color.adjust(colors.$gray-800, $alpha: -0.9);
+      background-color: transparent;
+      border: 1px solid color.adjust(colors.$gray-800, $alpha: -0.9);
     }
 
     &:active,
     &:focus {
-      background-color: color.adjust(colors.$gray-800, $alpha: -0.9);
+      background-color: transparent;
+      border: 1px solid color.adjust(colors.$gray-800, $alpha: -0.9);
     }
 
     &:disabled {

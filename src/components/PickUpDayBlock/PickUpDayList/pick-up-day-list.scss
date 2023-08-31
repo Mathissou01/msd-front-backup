@@ -1,0 +1,29 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-PickUpDayList {
+  &__List {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 40px 16px;
+    @include im.media(">=mobile") {
+      padding: 40px;
+    }
+    @include im.media(">=tablet") {
+      padding: 40px 0;
+    }
+  }
+
+  &__DownloadPDF {
+    display: flex;
+    justify-content: center;
+    @include im.media(">=tablet") {
+      justify-content: start;
+    }
+  }
+
+  &__NoResult {
+    display: flex;
+    justify-content: center;
+  }
+}

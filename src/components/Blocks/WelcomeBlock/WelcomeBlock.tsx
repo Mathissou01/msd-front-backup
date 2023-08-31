@@ -3,20 +3,17 @@ import HeroIlluTablet from "public/images/Hero-illu-tablet.svg";
 import HeroIlluMobile from "public/images/Hero-illu-mobile.svg";
 import "./welcome-block.scss";
 
-export default function WelcomeBlock() {
-  /* Static Data */
-  const temporaryText = {
-    title: "",
-    subtitle: "",
-  };
+interface IWelcomeBlockProps {
+  title: string;
+  subtitle: string;
+}
 
+export default function WelcomeBlock({ title, subtitle }: IWelcomeBlockProps) {
   return (
     <section className="c-WelcomeBlock">
       <div className="c-WelcomeBlock__Heading">
-        <h1 className="c-WelcomeBlock__Title">{temporaryText.title}</h1>
-        <span className="c-WelcomeBlock__Subtitle">
-          {temporaryText.subtitle}
-        </span>
+        <h1 className="c-WelcomeBlock__Title">{title}</h1>
+        <span className="c-WelcomeBlock__Subtitle">{subtitle}</span>
       </div>
       <div className="c-WelcomeBlock__SvgContainer">
         <HeroIlluDesktop

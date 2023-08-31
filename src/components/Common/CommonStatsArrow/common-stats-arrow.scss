@@ -1,0 +1,38 @@
+.c-CommonStatsArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: rgb(52 58 64 / 5%);
+  border-radius: 50%;
+
+  svg path {
+    fill: #2e88ff;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &_green {
+    svg {
+      transform: rotate(45deg);
+    }
+
+    svg path {
+      fill: #30d158;
+    }
+  }
+
+  &_red {
+    svg {
+      transform: rotate(-45deg);
+    }
+
+    svg path {
+      fill: #eb4a65;
+    }
+  }
+}

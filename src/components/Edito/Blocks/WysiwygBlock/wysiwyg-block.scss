@@ -1,0 +1,11 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.focus" as focus;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.wysiwyg" as wysiwyg;
+
+.c-WysiwygBlock {
+  @include wysiwyg.html-parse;
+
+  display: block;
+  width: 100%;
+}

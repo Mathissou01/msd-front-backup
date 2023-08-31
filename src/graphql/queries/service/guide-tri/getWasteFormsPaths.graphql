@@ -1,0 +1,19 @@
+query getWasteFormsPaths($contractId: ID!, $total: Int!) {
+  wasteForms(
+    filters: {
+      recyclingGuideService: {
+        isActivated: { eq: true }
+        contract: { id: { eq: $contractId } }
+      }
+    }
+    pagination: { limit: $total }
+  ) {
+    data {
+      id
+      __typename
+      attributes {
+        isHidden
+      }
+    }
+  }
+}

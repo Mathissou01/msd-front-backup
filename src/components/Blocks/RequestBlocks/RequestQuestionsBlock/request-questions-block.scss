@@ -1,0 +1,30 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.inputs" as inputs;
+
+.c-RequestQuestionsBlock {
+  .c-QuestionsBlock {
+    width: 100%;
+    margin-top: 14px;
+    @include im.media(">=tablet") {
+      width: 60%;
+    }
+
+    &__Input {
+      @include inputs.input;
+
+      &_invalid {
+        @include inputs.input("invalid");
+      }
+    }
+
+    &__TextArea {
+      @include inputs.input;
+
+      min-height: 112px;
+
+      &_invalid {
+        @include inputs.input("invalid");
+      }
+    }
+  }
+}

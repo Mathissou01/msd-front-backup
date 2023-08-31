@@ -1,0 +1,84 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/01-settings/settings.colors" as colors;
+
+.c-StepIdentiteBacs {
+  &__CardContainer {
+    width: 100%;
+    margin-top: 24px;
+
+    @include im.media(">=mobile") {
+      margin-top: 40px;
+    }
+  }
+
+  &__CardItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 16px;
+    padding: 16px;
+    color: colors.$expert-blue;
+    background: colors.$white;
+    border: 1px solid#d5d6de;
+    border-radius: 8px;
+
+    &_icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+
+      svg {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transform: scale(0.6);
+      }
+    }
+
+    &_gray {
+      .c-StepIdentiteBacs__CardItem_icon {
+        background-color: #4e585e;
+      }
+    }
+
+    &_yellow {
+      .c-StepIdentiteBacs__CardItem_icon {
+        background-color: #fad609;
+      }
+    }
+
+    &_content {
+      margin-left: 24px;
+    }
+
+    &_label {
+      color: $gray-600;
+      font-size: 12px;
+      line-height: 18px;
+    }
+
+    &_idPuce {
+      font-weight: 600;
+      font-size: 16px;
+    }
+  }
+
+  &__ModalContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  &__Text {
+    width: 80%;
+    color: colors.$expert-blue;
+    text-align: center;
+  }
+}

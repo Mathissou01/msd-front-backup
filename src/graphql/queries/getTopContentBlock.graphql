@@ -1,11 +1,13 @@
-query getTopContentBlock($contractId: ID!) {
+query getTopContentBlock($contractId: ID!, $audienceId: ID!) {
   contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
     data {
       attributes {
         homepage {
           data {
             attributes {
-              topContentBlock {
+              topContentBlocks(
+                filters: { audience: { id: { eq: $audienceId } } }
+              ) {
                 data {
                   id
                   attributes {
@@ -13,70 +15,76 @@ query getTopContentBlock($contractId: ID!) {
                     displayBlock
                     displayLastThreeContents
                     hasTopContent
-                    topContent {
+                    audience {
                       data {
-                        attributes {
-                          news {
-                            data {
-                              id
-                              attributes {
-                                title
-                                shortDescription
-                                publishedDate
-                                tags {
-                                  data {
-                                    attributes {
-                                      name
-                                    }
-                                  }
-                                }
-                                image {
-                                  data {
-                                    attributes {
-                                      hash
-                                      mime
-                                      name
-                                      provider
-                                      size
-                                      url
-                                      alternativeText
-                                    }
+                        id
+                      }
+                    }
+                    topContent {
+                      ... on ComponentLinksTopContent {
+                        id
+                        event {
+                          data {
+                            id
+                            attributes {
+                              title
+                              shortDescription
+                              tags {
+                                data {
+                                  attributes {
+                                    name
                                   }
                                 }
                               }
-                            }
-                          }
-                          event {
-                            data {
-                              id
-                              attributes {
-                                title
-                                shortDescription
-                                publishedDate
-                                tags {
-                                  data {
-                                    attributes {
-                                      name
-                                    }
-                                  }
-                                }
-                                image {
-                                  data {
-                                    attributes {
-                                      hash
-                                      mime
-                                      name
-                                      provider
-                                      size
-                                      url
-                                      alternativeText
-                                    }
+                              image {
+                                data {
+                                  attributes {
+                                    hash
+                                    mime
+                                    name
+                                    provider
+                                    size
+                                    url
+                                    alternativeText
                                   }
                                 }
                               }
                             }
                           }
                         }
+                        new {
+                          data {
+                            id
+                            attributes {
+                              title
+                              shortDescription
+                              tags {
+                                data {
+                                  attributes {
+                                    name
+                                  }
+                                }
+                              }
+                              image {
+                                data {
+                                  attributes {
+                                    hash
+                                    mime
+                                    name
+                                    provider
+                                    size
+                                    url
+                                    alternativeText
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                      ... on Error {
+                        code
+                        message
                       }
                     }
                   }

@@ -8,10 +8,10 @@ import {
   ENavigationPages,
   useNavigation,
 } from "../../../../hooks/useNavigation";
-import globalData from "../../../../../config/global.json";
-import { GlobalDataType } from "../../../../../config/globalData.type";
+import { useContract } from "../../../../hooks/useContract";
 import NavigationListButton from "./NavigationListButton/NavigationListButton";
 import "./navigation-list.scss";
+import { removeNulls } from "../../../../lib/utilities";
 
 interface INavigationListProps {
   isDesktopMode: boolean;
@@ -39,12 +39,14 @@ export default function NavigationList({
   }
 
   /* External Data */
+  const { contract } = useContract();
   const { currentPage, setCurrentPage } = useNavigation();
 
   const contractMenus: Array<IServiceLink> | null =
     remapServiceLinksDynamicZone(
-      (globalData as GlobalDataType).contractMenu.data?.attributes
-        ?.serviceLinks ?? null,
+      contract.attributes?.contractMenu?.data?.attributes?.serviceLinks?.filter(
+        removeNulls,
+      ) ?? [],
     );
 
   /* Local Data */
@@ -69,6 +71,20 @@ export default function NavigationList({
           onClick={() => handleClick(ENavigationPages["HomeLink"])}
         />
       </li>
+      {/* <li
+        className={`c-NavigationList__Item ${isActiveRoute(
+          ENavigationPages["MonCompteurDechets"],
+        )}`}
+      >
+        <NavigationListButton
+          href={ENavigationPages["MonCompteurDechets"]}
+          label="mon compteur déchets"
+          pictoUrl="/images/pictos/mon_compteur_dechets.svg"
+          isDesktopMode={isDesktopMode}
+          isActive={currentPage === ENavigationPages["MonCompteurDechets"]}
+          onClick={() => handleClick(ENavigationPages["MonCompteurDechets"])}
+        />
+      </li> */}
       {contractMenus &&
         contractMenus.map((menu, index) => {
           if (
@@ -76,25 +92,20 @@ export default function NavigationList({
             menu?.type &&
             menu?.type in ENavigationPages
           ) {
-            let path: string =
-              Object.values(ENavigationPages)[
-                Object.keys(ENavigationPages).indexOf(menu.type)
-              ];
-            if (menu.type === "ComponentLinksFrees") {
-              path += `/${menu.generatedSlug}`;
-            }
             return (
               <li
-                key={`navigation_link_${path}_${index}`}
-                className={`c-NavigationList__Item ${isActiveRoute(path)}`}
+                key={`navigation_link_${index}`}
+                className={`c-NavigationList__Item ${isActiveRoute(
+                  menu.generatedSlug,
+                )}`}
               >
                 <NavigationListButton
-                  href={path}
+                  href={menu.generatedSlug}
                   label={menu.name}
                   pictoUrl={menu.picto?.data?.attributes?.url ?? defaultPicto}
                   isDesktopMode={isDesktopMode}
-                  isActive={currentPage === path}
-                  onClick={() => handleClick(path)}
+                  isActive={currentPage === menu.generatedSlug}
+                  onClick={() => handleClick(menu.generatedSlug)}
                 />
               </li>
             );

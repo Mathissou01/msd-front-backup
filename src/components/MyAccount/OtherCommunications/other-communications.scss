@@ -1,0 +1,26 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-OtherCommunications {
+  padding: 24px;
+  border: 1px solid colors.$blue-4;
+  border-radius: 8px;
+
+  &__Content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__Text {
+    width: 80%;
+    margin-top: 28px;
+    @include im.media(">=mobile") {
+      width: 90%;
+    }
+  }
+
+  &__Description {
+    margin-top: 16px;
+  }
+}

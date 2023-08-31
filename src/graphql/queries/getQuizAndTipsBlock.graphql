@@ -1,11 +1,15 @@
-query getQuizAndTipsBlock($contractId: ID!) {
+query getQuizAndTipsBlock($contractId: ID!, $audienceId: ID!) {
   contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
     data {
+      id
       attributes {
         homepage {
           data {
+            id
             attributes {
-              quizAndTipsBlock {
+              quizAndTipsBlocks(
+                filters: { audience: { id: { eq: $audienceId } } }
+              ) {
                 data {
                   id
                   attributes {
@@ -17,19 +21,35 @@ query getQuizAndTipsBlock($contractId: ID!) {
                         id
                         attributes {
                           title
-                          publishedDate
                         }
                       }
                     }
                     displayTips
-                    tips {
+                    audience {
+                      data {
+                        id
+                      }
+                    }
+                    tips(filters: { audiences: { id: { eq: $audienceId } } }) {
                       data {
                         id
                         attributes {
                           title
                           shortDescription
                           link
+                          audiences {
+                            data {
+                              id
+                            }
+                          }
                           publishedDate
+                          tags {
+                            data {
+                              attributes {
+                                name
+                              }
+                            }
+                          }
                           image {
                             data {
                               attributes {

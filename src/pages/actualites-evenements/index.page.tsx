@@ -3,13 +3,16 @@ import {
   GetNewsAndEventsByContractIdQueryVariables,
   useGetNewsAndEventsByContractIdLazyQuery,
 } from "../../graphql/codegen/generated-types";
+import { removeNulls } from "../../lib/utilities";
+import { useContract } from "../../hooks/useContract";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
+import CommonMeta from "../../components/Common/CommonMeta/CommonMeta";
 import CommonBreadcrumb from "../../components/Common/CommonBreadcrumb/CommonBreadcrumb";
-import DesktopTopRightAngle from "public/images/desktop_page_top-right-angle.svg";
-import MobileTopRightAngle from "public/images/mobile_page_top-right-angle.svg";
 import CommonCardBlock from "../../components/Common/CommonCardBlock/CommonCardBlock";
 import CommonPagination from "../../components/Common/CommonPagination/CommonPagination";
-import { removeNulls } from "../../lib/utilities";
 import CommonLoader from "../../components/Common/CommonLoader/CommonLoader";
+import DesktopTopRightAngle from "public/images/desktop_page_top-right-angle.svg";
+import MobileTopRightAngle from "public/images/mobile_page_top-right-angle.svg";
 import "./actualites-evenements-page.scss";
 
 export default function ActualitesEvenementsPage() {
@@ -24,15 +27,16 @@ export default function ActualitesEvenementsPage() {
     },
   ];
   const titleContent = "Actualités et événements";
-  const defaultHref = `/actualites-evenements`;
+
   /* Local Data */
-  // const contractId = process.env.NEXT_PUBLIC_CONTRACT_ID?.toString();
-  const contractId = "1"; //TODO temporarily contractId
+  const { contractId } = useContract();
   const defaultRowsPerPage = 9;
   const defaultPage = 1;
+  const { currentAudience } = useCurrentUser();
   const defaultQueryVariables: GetNewsAndEventsByContractIdQueryVariables = {
     contractId: contractId,
     pagination: { page: defaultPage, pageSize: defaultRowsPerPage },
+    audienceId: currentAudience.id,
   };
   const [
     getNewsAndEventsByContractId,
@@ -47,23 +51,27 @@ export default function ActualitesEvenementsPage() {
   });
 
   useEffect(() => {
-    getNewsAndEventsByContractId({
-      variables: {
-        ...defaultQueryVariables,
-        pagination: {
-          page: currentPagination.page,
-          pageSize: defaultRowsPerPage,
+    if (currentAudience.id !== "0") {
+      defaultQueryVariables.audienceId = currentAudience.id;
+      getNewsAndEventsByContractId({
+        variables: {
+          ...defaultQueryVariables,
+          pagination: {
+            page: currentPagination.page,
+            pageSize: defaultRowsPerPage,
+          },
         },
-      },
-    });
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPagination]);
+  }, [currentPagination, currentAudience]);
 
   const newsAndEvents = newsAndEventsData?.news?.data.filter(removeNulls) ?? [];
   const rowCount = newsAndEventsData?.news?.meta.pagination.total;
 
   return (
     <div className="c-ActualitesEvenementsPage">
+      <CommonMeta title={titleContent} />
       <CommonBreadcrumb pages={pagesUrl} />
       <div className="c-ActualitesEvenementsPage__SvgContainer">
         <DesktopTopRightAngle className="c-ActualitesEvenementsPage__Svg_desktop" />
@@ -75,20 +83,20 @@ export default function ActualitesEvenementsPage() {
           <CommonLoader isLoading={loading} errors={[error]}>
             {newsAndEvents &&
               newsAndEvents.map((news) => {
-                if (
-                  news.id &&
-                  news.attributes?.title &&
-                  news.attributes.shortDescription
-                ) {
+                if (news.id && news.attributes?.title) {
                   return (
                     <CommonCardBlock
                       key={news.id}
                       title={news.attributes.title}
-                      tagLabels={news.attributes.tags?.data}
+                      tags={news.attributes.tags?.data}
                       image={news.attributes.image?.data?.attributes}
                       date={news.attributes.publishedDate}
-                      shortDescription={news.attributes.shortDescription}
-                      href={`${defaultHref}/${news.id}`}
+                      shortDescription={
+                        news.attributes?.shortDescription
+                          ? news.attributes.shortDescription
+                          : undefined
+                      }
+                      href={`/actualites-evenements/${news.id}`}
                     />
                   );
                 }

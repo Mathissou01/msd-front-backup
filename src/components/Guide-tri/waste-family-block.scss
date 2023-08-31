@@ -1,0 +1,140 @@
+@use "sass:list";
+@use "sass:math";
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.typography" as typo;
+@use "src/styles/02-tools/tools.z-index" as index;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.functions" as func;
+@use "src/styles/01-settings/settings.blobs" as b;
+@use "src/styles/02-tools/tools.blobs" as blobs;
+@use "src/styles/02-tools/tools.shadows" as shadows;
+
+.c-WasteFamillyBlock {
+  @include shadows.shadow(1);
+
+  margin: 5px;
+
+  &__Heading {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 310px;
+    padding: 10px 16px;
+    background-color: colors.$white;
+    border: 1px solid colors.$gray-500;
+    border-radius: 4px;
+
+    @include im.media(">=mobile") {
+      width: 600px;
+    }
+
+    @include im.media(">=tablet") {
+      width: 1200px;
+    }
+  }
+
+  &__Heading:hover {
+    border: thin solid;
+    cursor: pointer;
+  }
+
+  &__Name {
+    color: colors.$expert-blue;
+    font-weight: 700;
+    font-size: 18px;
+    font-family: DINPro-Regular, sans-serif;
+  }
+
+  &__Icon {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    transform: rotate(90deg);
+  }
+
+  &__IconContainer {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    transition-duration: 200ms;
+  }
+
+  &__IconContainer:hover {
+    background-color: colors.$gray-200;
+    border-radius: 5px;
+  }
+
+  // stylelint-disable-next-line
+  .is-open {
+    transform: rotate(90deg);
+  }
+
+  &__Button:focus {
+    outline: none;
+  }
+
+  &__Submenu {
+    &_none {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      width: 310px;
+      max-height: 0;
+      overflow: hidden;
+      row-gap: 15px;
+      column-gap: 15px;
+      opacity: 0;
+      filter: blur(1px);
+      transition: max-height 200ms ease-out, opacity 300ms ease-out,
+        width 5s ease-in, padding 500ms ease-out;
+    }
+
+    &_display {
+      // Generate a random blob SVG with random rotation for any child element with "o-Blob" class
+      $random-start: math.random(6);
+      @for $i from 1 through (list.length(b.$blobs) * 2) {
+        *:nth-child(#{(length(b.$blobs) * 2)}n + #{$i}) {
+          // stylelint-disable-next-line
+          .o-Blob::after {
+            // stylelint-disable-next-line
+            @include blobs.blob(
+              (($random-start + $i) % list.length(b.$blobs)) + 1
+            );
+
+            transform: rotate(#{math.random(360deg)}deg);
+          }
+        }
+      }
+
+      display: grid;
+      grid-template-columns: 1fr;
+      width: 310px;
+      max-height: 3000px;
+      padding: 20px;
+      overflow: hidden;
+      row-gap: 15px;
+      column-gap: 15px;
+      background-color: #f8f9fa;
+      border: 1px solid colors.$gray-200;
+      border-radius: 4px;
+      opacity: 1;
+      filter: blur(0);
+      transition: max-height 200ms ease-in, opacity 300ms ease-out,
+        padding 400ms cubic-bezier(0, 1, 1, 1);
+
+      @include im.media(">=mobile") {
+        grid-template-columns: 1fr 1fr;
+        width: 600px;
+      }
+
+      @include im.media(">=tablet") {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      @include im.media(">=tablet") {
+        width: 1200px;
+      }
+    }
+  }
+}

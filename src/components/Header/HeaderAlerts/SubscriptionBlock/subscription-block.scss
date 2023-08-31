@@ -1,0 +1,25 @@
+.c-SubscriptionBlock {
+  &__ValidationButton {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+  }
+
+  &__Communication {
+    margin-top: 60px;
+  }
+
+  &__ConfirmationMessage {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10%;
+    text-align: center;
+  }
+
+  &__ConfirmationButtons {
+    display: flex;
+    gap: 12px;
+    align-self: center;
+    margin-top: 45px;
+  }
+}

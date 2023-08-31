@@ -1,0 +1,47 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-PickUpDayBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  &__Title {
+    padding: 40px 0;
+    text-align: center;
+    @include im.media("<=tablet") {
+      text-align: left;
+    }
+  }
+
+  &__Heading {
+    width: 100%;
+    padding: 40px;
+    background-color: colors.$white;
+    @include im.media(">=tablet") {
+      padding: 40px 100px;
+    }
+  }
+
+  &__Search {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    @include im.media(">=mobile") {
+      padding: 40px 100px;
+    }
+    @include im.media(">=tablet") {
+      padding: 40px 180px;
+    }
+    @include im.media(">=desktop") {
+      padding: 40px 224px;
+    }
+  }
+
+  &__Main {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 40px 124px;
+  }
+}

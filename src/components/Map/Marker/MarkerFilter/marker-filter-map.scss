@@ -1,0 +1,163 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/01-settings/settings.layout" as layout;
+@use "src/styles/02-tools/tools.z-index" as index;
+@use "src/styles/02-tools/tools.shadows" as shadows;
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-MarkerFilterMap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  @include im.media(">=tablet") {
+    position: absolute;
+    right: 0;
+  }
+
+  // Filter scroll
+  &__ContainerScroll {
+    padding: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    animation-name: appear-block;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+
+    @include im.media(">=tablet") {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+      justify-content: flex-end;
+    }
+  }
+
+  // Filter wrap
+  &__ContainerWrap {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    animation-name: appear-block;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    row-gap: 10px;
+  }
+
+  @keyframes appear-block {
+    0% {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  &__Content {
+    @include shadows.shadow(1);
+
+    display: inline-block;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    height: fit-content;
+    margin-right: 10px;
+    padding: 4px;
+    font-weight: 400;
+    text-align: center;
+    background-color: colors.$white;
+    border: 1px solid colors.$gray-500;
+    border-radius: 32px;
+    @include im.media(">=tablet") {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+    }
+  }
+
+  &__FilterButton,
+  :active,
+  :focus {
+    outline: none;
+  }
+
+  &__ContentSelected {
+    @include shadows.shadow(1);
+
+    display: inline-block;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    height: fit-content;
+    margin-right: 10px;
+    padding: 4px;
+    font-weight: bold;
+    text-align: center;
+    background-color: colors.$expert-blue;
+    border: 1px solid colors.$gray-500;
+    border-radius: 32px;
+    @include im.media(">=tablet") {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+    }
+  }
+
+  &__DisplayContainer {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    padding: 0 15px 10px;
+
+    @include im.media(">=tablet") {
+      display: none;
+    }
+  }
+
+  &__DisplayText {
+    text-decoration: underline;
+  }
+
+  &__Info {
+    color: colors.$expert-blue;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  &__InfoSelected {
+    color: colors.$white;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  &__PictoFilter {
+    margin: auto;
+    filter: url("#recolor-expert-blue");
+    aspect-ratio: auto;
+  }
+
+  &__PictoFilterSelected {
+    margin: auto;
+    filter: url("#recolor-white");
+    aspect-ratio: auto;
+  }
+}
+
+span {
+  color: colors.$expert-blue;
+  font-size: 15px;
+  text-align: center;
+}

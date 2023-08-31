@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditoHeading renders 1`] = `
+<div>
+  <div
+    class="c-EditoHeading"
+  >
+    <div
+      class="c-EditoHeading__Content"
+    >
+      <div
+        class="c-EditoHeading__Header"
+      >
+        <img
+          alt=""
+          data-nimg="fill"
+          decoding="async"
+          sizes="100vw"
+          src="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=3840&q=75"
+          srcset="/_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=640&q=75 640w, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=750&q=75 750w, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=828&q=75 828w, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=1080&q=75 1080w, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=1200&q=75 1200w, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=1920&q=75 1920w, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=2048&q=75 2048w, /_next/image?url=%2Fimages%2Fimages-temp%2Ftemp_image.jpg&w=3840&q=75 3840w"
+          style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; color: transparent;"
+        />
+      </div>
+      <div
+        class="c-EditoHeading__CardContainer"
+      >
+        <div
+          class="c-EditoHeading__Card"
+        >
+          <h1
+            class="c-EditoHeading__Title"
+          >
+            Edito heading title
+          </h1>
+          <div
+            class="c-EditoHeading__Tags"
+          >
+            <span
+              class="c-EditoHeading__Tag c-EditoHeading__Tag_background"
+            >
+              Prise de RDV
+            </span>
+            <span
+              class="c-EditoHeading__Tag c-EditoHeading__Tag_background"
+            >
+              Evénement
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="c-EditoHeading__Background"
+    />
+    <div
+      class="c-EditoHeading__SvgContainer"
+    >
+      <div
+        class="c-EditoHeading__Svg_mobile"
+      />
+      <div
+        class="c-EditoHeading__Svg_desktop"
+      />
+    </div>
+  </div>
+</div>
+`;

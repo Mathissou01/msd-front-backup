@@ -1,0 +1,134 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormMultiCheckbox renders 1`] = `
+<div>
+  <div
+    class="c-FormMultiCheckbox"
+  >
+    <fieldset>
+      <div
+        class="c-FormLabel"
+      >
+        <legend
+          class="c-FormLabel__LabelWrapper"
+        >
+          <span
+            class="c-FormLabel__Label"
+          >
+            form checkbox *
+          </span>
+        </legend>
+      </div>
+      <div
+        class="c-FormMultiCheckbox__Options c-FormMultiCheckbox__Options_horizontal"
+      >
+        <div
+          class="c-FormMultiCheckbox__Option"
+        >
+          <input
+            class="c-FormMultiCheckbox__Input "
+            data-testid="form-multi-checkbox_0"
+            id="form-checkbox0"
+            name="form-checkbox"
+            type="checkbox"
+            value="value1"
+          />
+          <div
+            class="c-FormLabel"
+          >
+            <label
+              class="c-FormLabel__LabelWrapper"
+              for="form-checkbox0"
+            >
+              <span
+                class="c-FormLabel__Label"
+              >
+                test1
+              </span>
+            </label>
+          </div>
+        </div>
+        <div
+          class="c-FormMultiCheckbox__Option"
+        >
+          <input
+            class="c-FormMultiCheckbox__Input "
+            data-testid="form-multi-checkbox_1"
+            id="form-checkbox1"
+            name="form-checkbox"
+            type="checkbox"
+            value="value2"
+          />
+          <div
+            class="c-FormLabel"
+          >
+            <label
+              class="c-FormLabel__LabelWrapper"
+              for="form-checkbox1"
+            >
+              <span
+                class="c-FormLabel__Label"
+              >
+                test2
+              </span>
+            </label>
+          </div>
+        </div>
+        <div
+          class="c-FormMultiCheckbox__Option"
+        >
+          <input
+            class="c-FormMultiCheckbox__Input "
+            data-testid="form-multi-checkbox_2"
+            id="form-checkbox2"
+            name="form-checkbox"
+            type="checkbox"
+            value="value3"
+          />
+          <div
+            class="c-FormLabel"
+          >
+            <label
+              class="c-FormLabel__LabelWrapper"
+              for="form-checkbox2"
+            >
+              <span
+                class="c-FormLabel__Label"
+              >
+                test3
+              </span>
+            </label>
+          </div>
+        </div>
+        <div
+          class="c-FormMultiCheckbox__Option"
+        >
+          <input
+            class="c-FormMultiCheckbox__Input "
+            data-testid="form-multi-checkbox_3"
+            id="form-checkbox3"
+            name="form-checkbox"
+            type="checkbox"
+            value="value4"
+          />
+          <div
+            class="c-FormLabel"
+          >
+            <label
+              class="c-FormLabel__LabelWrapper"
+              for="form-checkbox3"
+            >
+              <span
+                class="c-FormLabel__Label"
+              >
+                test4
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  ,
+</div>
+`;

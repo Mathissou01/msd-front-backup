@@ -6,6 +6,7 @@ import HeaderLinkProfile from "./HeaderLinkProfile/HeaderLinkProfile";
 import HeaderLinkSelector from "./HeaderLinkSelector/HeaderLinkSelector";
 import HeaderLinkUser from "./HeaderLinkUser/HeaderLinkUser";
 import HeaderLinkSearch from "./HeaderLinkSearch/HeaderLinkSearch";
+import { PopinProvider } from "../PopinContext/PopinContext";
 import "./header-top-bar.scss";
 
 interface IHeaderTopBarProps {
@@ -22,9 +23,29 @@ export default function HeaderTopBar({
   const buttonClassNames = classNames("c-HeaderTopBar__BurgerButton", {
     "c-HeaderTopBar__BurgerButton_expanded": isMenuOpen,
   });
+  /* Static Data */
+  const routes = {
+    searchRoute: "/",
+    mapsRoute: "/",
+    calendarRoute: "/",
+    notifyRoute: "/service/alertes",
+    contactUsRoute: "/service/contact",
+  };
+  const searchIcon = {
+    source: "/images/pictos/search.svg",
+    alternativeText: "Afficher la recherche",
+  };
+  const notifyIcon = {
+    source: "/images/pictos/notify.svg",
+    alternativeText: "S'abonner aux alertes",
+  };
+  const contactIcon = {
+    source: "/images/pictos/contact.svg",
+    alternativeText: "Contactez-nous",
+  };
 
   return (
-    <>
+    <PopinProvider>
       <header role="banner" className="c-HeaderTopBar" data-testid="top-bar">
         {!isDesktopMode && (
           <button
@@ -47,7 +68,8 @@ export default function HeaderTopBar({
               <li className="c-HeaderTopBar__Item c-HeaderTopBar__Search">
                 <NavigationLink
                   href="/"
-                  pictoUrl="/images/pictos/search.svg"
+                  pictoUrl={searchIcon.source}
+                  pictoAlt={searchIcon.alternativeText}
                   isDesktopMode
                 />
               </li>
@@ -55,54 +77,59 @@ export default function HeaderTopBar({
           )}
           {isDesktopMode && (
             <>
-              <li className="c-HeaderTopBar__Item">
+              <div className="c-HeaderTopBar__Item">
                 <HeaderLinkSelector />
-              </li>
+              </div>
               <div className="c-HeaderTopBar__Filler" aria-hidden={true} />
-              <li className="c-HeaderTopBar__Item">
+              <div className="c-HeaderTopBar__Item">
                 <div className="c-HeaderTopBar__SearchBar">
                   <HeaderLinkSearch />
                 </div>
-              </li>
-              <li className="c-HeaderTopBar__Item">
-                <NavigationLink
-                  href="/"
-                  pictoUrl="/images/pictos/localisation.svg"
-                  isDesktopMode
-                />
-              </li>
-              <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
-              <li className="c-HeaderTopBar__Item">
-                <NavigationLink
-                  href="/"
-                  pictoUrl="/images/pictos/calendar.svg"
-                  isDesktopMode
-                />
-              </li>
-              <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
-              <li className="c-HeaderTopBar__Item">
-                <NavigationLink
-                  href="/"
-                  pictoUrl="/images/pictos/notify.svg"
-                  isDesktopMode
-                />
-              </li>
-              <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
-              <li className="c-HeaderTopBar__Item">
-                <NavigationLink
-                  href="/"
-                  pictoUrl="/images/pictos/contact.svg"
-                  isDesktopMode
-                />
-              </li>
-              <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
-              <li className="c-HeaderTopBar__Item">
-                <HeaderLinkProfile />
-              </li>
-              <div className="c-HeaderTopBar__Separator" aria-hidden={true} />
-              <li className="c-HeaderTopBar__Item">
-                <HeaderLinkUser />
-              </li>
+              </div>
+              <nav role="navigation">
+                <ul className="c-HeaderTopBar__Nav">
+                  <div
+                    className="c-HeaderTopBar__Separator"
+                    aria-hidden={true}
+                  />
+                  <li className="c-HeaderTopBar__Item">
+                    <NavigationLink
+                      href={routes.notifyRoute}
+                      pictoUrl={notifyIcon.source}
+                      pictoAlt={notifyIcon.alternativeText}
+                      isDesktopMode
+                    />
+                  </li>
+                  <div
+                    className="c-HeaderTopBar__Separator"
+                    aria-hidden={true}
+                  />
+
+                  <li className="c-HeaderTopBar__Item">
+                    <NavigationLink
+                      href={routes.contactUsRoute}
+                      pictoUrl={contactIcon.source}
+                      pictoAlt={contactIcon.alternativeText}
+                      isDesktopMode
+                    />
+                  </li>
+
+                  <div
+                    className="c-HeaderTopBar__Separator"
+                    aria-hidden={true}
+                  />
+                  <li className="c-HeaderTopBar__Item">
+                    <HeaderLinkProfile />
+                  </li>
+                  <div
+                    className="c-HeaderTopBar__Separator"
+                    aria-hidden={true}
+                  />
+                  <li className="c-HeaderTopBar__Item">
+                    <HeaderLinkUser />
+                  </li>
+                </ul>
+              </nav>
             </>
           )}
         </ul>
@@ -113,6 +140,6 @@ export default function HeaderTopBar({
           onNavigationClick={() => handleClick(false)}
         />
       )}
-    </>
+    </PopinProvider>
   );
 }

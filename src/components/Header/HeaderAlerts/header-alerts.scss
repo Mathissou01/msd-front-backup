@@ -1,0 +1,27 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-HeaderAlerts {
+  margin: 50px 100px;
+
+  &__Title {
+    margin-bottom: 24px;
+  }
+
+  &__SubscriptionCards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 24px;
+    margin-bottom: 80px;
+
+    @include im.media(">=mobile") {
+      flex-direction: row;
+    }
+    @include im.media(">=laptop") {
+      flex-direction: row;
+    }
+    @include im.media(">=desktop") {
+      flex-direction: row;
+    }
+  }
+}

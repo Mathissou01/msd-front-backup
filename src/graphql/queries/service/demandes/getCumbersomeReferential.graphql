@@ -1,0 +1,7 @@
+query GetCumbersomeReferential {
+  getCumbersomeReferential {
+    category
+    cumbersomeName
+    volume
+  }
+}

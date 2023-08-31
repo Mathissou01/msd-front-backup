@@ -1,0 +1,6 @@
+query getBanCitiesAutoComplete($nameOrPostalCode: String!) {
+  getCitiesInformations(searchTerm: $nameOrPostalCode, prehome: true) {
+    name
+    postalCode
+  }
+}

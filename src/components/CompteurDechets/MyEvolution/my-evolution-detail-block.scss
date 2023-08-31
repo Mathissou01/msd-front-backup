@@ -1,0 +1,25 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/01-settings/settings.colors" as colors;
+
+.c-MyEvolutionDetailBlock {
+  &__Date {
+    margin-bottom: 32px;
+    color: $expert-blue;
+    text-transform: capitalize;
+  }
+
+  &__Content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__TotalCountContainer {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    color: colors.$expert-blue;
+    font-weight: 700;
+    font-size: 32px;
+  }
+}

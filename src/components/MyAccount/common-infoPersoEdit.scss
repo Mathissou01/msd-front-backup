@@ -1,0 +1,181 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.buttons" as buttons;
+@use "src/styles/02-tools/tools.typography" as typo;
+@use "src/styles/02-tools/tools.functions" as func;
+
+.c-CommonInfoPersoEdit {
+  &__Content {
+    @include im.media(">=tablet") {
+      width: 550px;
+      max-width: 550px;
+    }
+  }
+
+  &__DisabledField {
+    input {
+      font-weight: normal;
+      background-color: #e9ecef;
+    }
+
+    label {
+      color: #6c757d;
+    }
+  }
+
+  &__Row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+  }
+
+  &__Input {
+    width: 100%;
+    height: 48px;
+    padding: 0 8px;
+    color: colors.$blue-1;
+    background-color: colors.$white;
+    border: 1px solid colors.$blue-2;
+    border-radius: 4px;
+    outline: 2px solid transparent;
+
+    &::placeholder {
+      color: colors.$blue-1;
+      font-family: DINPro-Regular, serif;
+    }
+
+    &:placeholder-shown {
+      background-color: colors.$gray-0;
+    }
+
+    &:focus-visible {
+      color: colors.$expert-blue;
+      outline-color: colors.$expert-blue;
+    }
+
+    &:disabled {
+      background-color: colors.$gray-200;
+      border-color: colors.$blue-4;
+    }
+
+    &_error {
+      padding-right: 44px;
+      background-image: url("data:image/svg+xml,%3Csvg width='36' height='36' viewBox='9 9 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23a)' stroke='%23EB4A65' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M18 22.5a.25.25 0 0 0-.049.495.25.25 0 0 0 .299-.245.25.25 0 0 0-.25-.25Z' stroke-linejoin='round'/%3E%3Cpath d='M18 20.5v-5'/%3E%3Cpath d='M19.08 11.173a1.204 1.204 0 0 0-2.16 0L10.603 24.04a1.013 1.013 0 0 0 .91 1.461h12.971a1.014 1.014 0 0 0 .911-1.461L19.08 11.174Z' stroke-linejoin='round'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='a'%3E%3Cpath fill='%23fff' d='M9 9h18v18H9z'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: calc(100% - 12px) center;
+      background-size: 20px;
+      border-color: colors.$error;
+
+      &:focus-visible {
+        outline-color: colors.$error;
+      }
+    }
+  }
+
+  // Radiobutton
+  &__InputField {
+    flex: 35%;
+    height: 56px;
+    margin-right: 8px;
+    padding: 0 8px;
+    text-align: center;
+    background-color: colors.$gray-0;
+    border: 1px solid;
+    border-color: colors.$blue-4;
+    border-radius: 8px; /* Firefox */
+    appearance: textfield; /* Safari and Chrome */
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      margin: 0;
+      appearance: none;
+    }
+  }
+
+  &__InputNumber {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  &__Plus {
+    margin-right: 8px;
+  }
+
+  &__Plus,
+  &__Less {
+    flex: 10%;
+    height: 56px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
+
+    @include im.media(">=mobile") {
+      flex: 100px 0;
+    }
+  }
+
+  // End Radiobutton
+  &__TextMsg {
+    font-size: 16px;
+    line-height: 18px;
+
+    + .c-CommonInfoPersoEdit__Row {
+      margin-top: 24px;
+    }
+
+    + .c-CommonInfoPersoEdit__Input {
+      margin-top: 14px;
+    }
+  }
+
+  &__Label {
+    margin-bottom: 4px;
+    color: $blue-2;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  &__Bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+
+    @include im.media(">=tablet") {
+      flex-direction: row;
+      align-items: center;
+
+      > * {
+        margin-right: 24px;
+      }
+
+      > *:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &__Button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 24px;
+
+    @include im.media(">=tablet") {
+      margin-top: 0;
+    }
+
+    > button:not(:last-child) {
+      margin-right: 16px;
+    }
+  }
+
+  &__ErrorMessage {
+    padding: 2px 0;
+    color: #eb4a65;
+    font-size: 16px;
+    font-style: italic;
+  }
+}

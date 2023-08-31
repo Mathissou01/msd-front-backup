@@ -1,11 +1,10 @@
-import classNames from "classnames";
-import Head from "next/head";
 import { useState } from "react";
+import classNames from "classnames";
 import { useIsDesktopContext } from "../../hooks/useScreenWidth";
+import CommonMeta from "../Common/CommonMeta/CommonMeta";
 import HeaderTopBar from "./HeaderTopBar/HeaderTopBar";
 import HeaderSideBar from "./HeaderSideBar/HeaderSideBar";
 import "./header.scss";
-import { makePublicAssetPath } from "../../lib/utilities";
 
 export default function Header() {
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
@@ -16,11 +15,7 @@ export default function Header() {
 
   return (
     <>
-      <Head>
-        <title>MSD-FRONT</title>
-        <meta name="description" content="wip" />
-        <link rel="icon" href={makePublicAssetPath("/favicon.ico")} />
-      </Head>
+      <CommonMeta />
       <HeaderTopBar
         isMenuOpen={sidebarExpanded}
         isDesktopMode={isDesktop}

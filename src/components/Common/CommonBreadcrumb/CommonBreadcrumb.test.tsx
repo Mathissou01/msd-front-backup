@@ -7,8 +7,8 @@ const mockPagesUrl = [
     slug: "/",
   },
   {
-    label: "Actualités",
-    slug: "actualites",
+    label: "Actualités et événements",
+    slug: "actualites-evenements",
   },
   {
     label: "Semaine initiatives vertes",

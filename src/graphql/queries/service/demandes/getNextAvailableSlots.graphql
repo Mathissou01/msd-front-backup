@@ -1,0 +1,12 @@
+query GetNextAvailableSlots($requestId: ID!, $lat: Float!, $long: Float!) {
+  getNextAvailableSlots(requestId: $requestId, lat: $lat, long: $long) {
+    nextAvailableSlots {
+      slotId
+      exceptionId
+      day
+      openingTime
+    }
+    noSlotMessage
+    slotMessage
+  }
+}

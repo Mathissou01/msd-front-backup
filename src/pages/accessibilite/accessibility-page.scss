@@ -1,0 +1,25 @@
+.c-AccessibilityPage {
+  margin: 5% 10% 1em;
+
+  &__Block {
+    &:not(:first-of-type) {
+      margin-top: 2em;
+    }
+
+    &_content {
+      margin-top: 0.5em;
+
+      span {
+        display: block;
+      }
+    }
+
+    &_textWithMargin {
+      margin-bottom: 0.5em;
+    }
+
+    &_link {
+      text-decoration: underline;
+    }
+  }
+}

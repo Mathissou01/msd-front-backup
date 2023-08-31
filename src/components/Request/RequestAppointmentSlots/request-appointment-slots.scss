@@ -1,0 +1,55 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.typography" as typo;
+@use "src/styles/02-tools/tools.shadows" as shadows;
+@use "src/styles/02-tools/tools.z-index" as index;
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-RequestAppointmentSlots {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 16px;
+  margin-top: 20px;
+
+  &__Card {
+    @include typo.text("bodyStatic");
+    @include shadows.shadow(1);
+
+    z-index: index.z("site-content");
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 31%;
+    min-height: 90px;
+    padding: 16px 32px;
+    overflow: auto;
+    font-weight: 500;
+    background: colors.$white;
+    border-radius: 8px;
+
+    @include im.media("<=tablet") {
+      width: 30%;
+    }
+
+    @include im.media("<=mobile") {
+      width: 47%;
+    }
+
+    &:hover {
+      background-color: colors.$brand-primary-light;
+    }
+
+    &_selected {
+      background-color: colors.$gray-0;
+      border-style: solid;
+      border-width: 2px;
+    }
+  }
+}
+
+.c-RequestAppointmentSlotsMessage {
+  display: block;
+  margin-top: 10px;
+  margin-left: 2px;
+  font-size: 14px;
+  line-height: 21px;
+}

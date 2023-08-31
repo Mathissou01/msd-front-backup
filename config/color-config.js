@@ -1,46 +1,111 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const chroma = require("chroma-js");
 
-/* Externally loaded colors with fallback values, used to generate site palette */
-// Accessible Contrast
-const contrastText = process.env.NEXT_PUBLIC_CONTRAST_TEXT || "#030f40";
-// Brand Colors
-const primaryColor = process.env.NEXT_PUBLIC_COLOR_BRAND_PRIMARY || "#9bcd41";
-const primaryColorDark = chroma(primaryColor).darken().hex();
-const primaryColorLight = chroma(primaryColor).alpha(0.1).hex();
-const secondaryColor =
-  process.env.NEXT_PUBLIC_COLOR_BRAND_SECONDARY ||
-  process.env.NEXT_PUBLIC_COLOR_BRAND_PRIMARY ||
-  "#ffc229";
-const secondaryColorDark = chroma(secondaryColor).darken().hex();
-const secondaryColorLight = chroma(secondaryColor).alpha(0.1).hex();
+class ColorConfig {
+  /* Externally loaded colors with fallback values, used to generate site palette */
 
-// Waste Colors
-const wasteHousehold =
-  process.env.NEXT_PUBLIC_COLOR_WASTE_HOUSEHOLD || "#6C757D";
-const wasteSelective =
-  process.env.NEXT_PUBLIC_COLOR_WASTE_SELECTIVE || "#FFC229";
-const wasteBio = process.env.NEXT_PUBLIC_COLOR_WASTE_BIO || "#BD4602";
-const wasteGreen = process.env.NEXT_PUBLIC_COLOR_GREEN || "#9BCD41";
-const wasteGlass = process.env.NEXT_PUBLIC_COLOR_WASTE_GLASS || "#30A23D";
-const wastePaper = process.env.NEXT_PUBLIC_COLOR_WASTE_PAPER || "#2068C7";
-const wasteOther = process.env.NEXT_PUBLIC_COLOR_WASTE_OTHER || "#FFFFFF";
+  static Builder = class {
+    primaryColor = null;
+    primaryColorDark = null;
+    primaryColorLight = null;
+    secondaryColor = null;
+    secondaryColorDark = null;
+    secondaryColorLight = null;
+    contrastText = null;
 
-const colorConfig = {
-  contrastText,
-  primaryColor,
-  primaryColorDark,
-  primaryColorLight,
-  secondaryColor,
-  secondaryColorDark,
-  secondaryColorLight,
-  wasteHousehold,
-  wasteSelective,
-  wasteBio,
-  wasteGreen,
-  wasteGlass,
-  wastePaper,
-  wasteOther,
+    setPrimaryColor(color) {
+      this.primaryColor = color;
+      return this;
+    }
+
+    setSecondaryColor(color) {
+      this.secondaryColor = color;
+      return this;
+    }
+
+    setContrastText(color) {
+      this.contrastText = color;
+      return this;
+    }
+
+    build() {
+      return new ColorConfig(
+        this.primaryColor,
+        this.secondaryColor,
+        this.contrastText,
+      );
+    }
+  };
+  // Waste Colors
+  wasteHousehold = process.env.NEXT_PUBLIC_COLOR_WASTE_HOUSEHOLD || "#6C757D";
+  wasteSelective = process.env.NEXT_PUBLIC_COLOR_WASTE_SELECTIVE || "#FFC229";
+  wasteBio = process.env.NEXT_PUBLIC_COLOR_WASTE_BIO || "#BD4602";
+  wasteGreen = process.env.NEXT_PUBLIC_COLOR_GREEN || "#9BCD41";
+  wasteGlass = process.env.NEXT_PUBLIC_COLOR_WASTE_GLASS || "#30A23D";
+  wastePaper = process.env.NEXT_PUBLIC_COLOR_WASTE_PAPER || "#2068C7";
+
+  // Accessible Contrast
+  wasteOther = process.env.NEXT_PUBLIC_COLOR_WASTE_OTHER || "#FFFFFF";
+  // Brand Colors
+  primaryColor = null;
+  primaryColorDark = null;
+  primaryColorLight = null;
+  secondaryColor = null;
+  secondaryColorDark = null;
+  secondaryColorLight = null;
+  contrastText = null;
+
+  constructor(primaryColorInput, secondaryColorInput, contrastTextInput) {
+    /* Default values */
+    const defaultPrimaryColor = "#9bcd41";
+    const defaultSecondaryColor = "#ffc229";
+    const defaultContrastText = "#030f40";
+    this.primaryColor = primaryColorInput || defaultPrimaryColor;
+    this.primaryColorDark = chroma(primaryColorInput).darken().hex();
+    this.primaryColorLight = chroma(primaryColorInput).alpha(0.1).hex();
+    this.secondaryColor = secondaryColorInput || defaultSecondaryColor;
+    this.secondaryColorDark = chroma(secondaryColorInput).darken().hex();
+    this.secondaryColorLight = chroma(secondaryColorInput).alpha(0.1).hex();
+    this.contrastText = contrastTextInput || defaultContrastText;
+  }
+
+  getColors = () => {
+    return {
+      contrastText: this.contrastText,
+      primaryColor: this.primaryColor,
+      primaryColorDark: this.primaryColorDark,
+      primaryColorLight: this.primaryColorLight,
+      secondaryColor: this.secondaryColor,
+      secondaryColorDark: this.secondaryColorDark,
+      secondaryColorLight: this.secondaryColorLight,
+      wasteHousehold: this.wasteHousehold,
+      wasteSelective: this.wasteSelective,
+      wasteBio: this.wasteBio,
+      wasteGreen: this.wasteGreen,
+      wasteGlass: this.wasteGlass,
+      wastePaper: this.wastePaper,
+      wasteOther: this.wasteOther,
+    };
+  };
+}
+
+let colorsConfig = null;
+const generateColors = (
+  primaryColorInput,
+  secondaryColorInput,
+  contrastTextInput,
+) => {
+  if (!colorsConfig) {
+    colorsConfig = new ColorConfig.Builder()
+      .setPrimaryColor(primaryColorInput)
+      .setSecondaryColor(secondaryColorInput)
+      .setContrastText(contrastTextInput)
+      .build();
+  }
+  return colorsConfig;
 };
 
-module.exports = colorConfig;
+module.exports = {
+  generateColors,
+  colors: colorsConfig?.getColors(),
+};

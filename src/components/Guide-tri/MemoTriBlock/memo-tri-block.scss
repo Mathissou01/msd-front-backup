@@ -1,0 +1,192 @@
+@use "sass:list";
+@use "sass:math";
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.typography" as typo;
+@use "src/styles/02-tools/tools.inputs" as input;
+@use "src/styles/02-tools/tools.z-index" as index;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/01-settings/settings.blobs" as b;
+@use "src/styles/02-tools/tools.blobs" as blobs;
+@use "src/styles/02-tools/tools.shadows" as shadows;
+
+.c-MemoTriBlock {
+  // Generate a random blob SVG with random rotation for any child element with "o-Blob" class
+  $random-start: math.random(6);
+  @for $i from 1 through (list.length(b.$blobs) * 2) {
+    *:nth-child(#{(length(b.$blobs) * 2)}n + #{$i}) {
+      // stylelint-disable-next-line
+      .o-Blob::after {
+        // stylelint-disable-next-line
+        @include blobs.blob((($random-start + $i) % list.length(b.$blobs)) + 1);
+
+        transform: rotate(#{math.random(360deg)}deg);
+      }
+    }
+  }
+  @include shadows.shadow(1);
+
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+  padding: 40px 16px;
+  background-color: colors.$white;
+
+  @include im.media(">=tablet") {
+    padding: 60px 160px;
+  }
+
+  @include im.media(">=laptop") {
+    padding: 80px 160px;
+  }
+
+  @include im.media(">=desktop") {
+    padding: 40px 124px;
+  }
+
+  @include im.media(">=large-desktop") {
+    padding: 0 224px 40px;
+  }
+
+  &__CardAstuce {
+    @include shadows.shadow(1);
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding: 16px 24px;
+    overflow: hidden;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+
+    @include im.media(">=tablet") {
+      flex-direction: row;
+      gap: 10%;
+      justify-content: flex-start;
+      max-width: 703px;
+    }
+
+    @include im.media(">=desktop") {
+      flex-direction: row;
+      gap: 10%;
+      justify-content: flex-start;
+      max-width: 785px;
+    }
+
+    @include im.media(">=large-desktop") {
+      flex-direction: row;
+      gap: 10%;
+      justify-content: flex-start;
+      max-width: 1200px;
+      padding: 40px;
+    }
+  }
+
+  &__Image {
+    // position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+
+    &::after {
+      // Position the o-Blob::after element
+      top: -30px;
+      left: -30px;
+      width: 100px;
+      height: 100px;
+      background-color: #9bcd41;
+
+      @include im.media(">=tablet") {
+        top: -36px;
+        left: -130px;
+        width: 460px;
+        height: 410px;
+      }
+    }
+  }
+
+  &__PreviewImage {
+    display: none;
+
+    @include im.media(">=tablet") {
+      display: block;
+      aspect-ratio: auto;
+      object-fit: cover;
+    }
+  }
+
+  &__ContentDescription {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    @include im.media(">=tablet") {
+      align-items: flex-start;
+      text-align: left;
+    }
+  }
+
+  &__Button {
+    :first-child {
+      color: #030f40;
+      font-weight: 600;
+    }
+  }
+
+  &__Text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  &__Title {
+    color: colors.$brand-primary-dark;
+  }
+
+  &__Description {
+    text-align: center;
+
+    @include im.media(">=tablet") {
+      width: 80%;
+      text-align: left;
+    }
+  }
+
+  &__Blob {
+    position: absolute;
+    right: 0;
+    bottom: 1px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+
+    &::after {
+      // Position the o-Blob::after element
+      top: -63px;
+      left: -52px;
+      z-index: -1;
+      width: 100px;
+      height: 100px;
+      background-color: #9bcd41;
+
+      @include im.media(">=tablet") {
+        top: -150px;
+        left: -170px;
+        width: 250px;
+        height: 250px;
+      }
+    }
+  }
+}

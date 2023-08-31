@@ -11,7 +11,10 @@ interface IHeaderBurgerMenuProps {
   onNavigationClick: () => void;
 }
 
-export default function HeaderBurgerMenu({ isOpen }: IHeaderBurgerMenuProps) {
+export default function HeaderBurgerMenu({
+  isOpen,
+  onNavigationClick,
+}: IHeaderBurgerMenuProps) {
   // TODO: temporary static values, remove later
   const temporaryLabels = {
     selector: "Ma commune",
@@ -42,7 +45,10 @@ export default function HeaderBurgerMenu({ isOpen }: IHeaderBurgerMenuProps) {
         <li className="c-HeaderBurgerMenu__Item c-HeaderBurgerMenu__Item_grow">
           <nav className="c-HeaderBurgerMenu__Container" role="navigation">
             <h2>{temporaryLabels.services}</h2>
-            <NavigationList isDesktopMode={false} />
+            <NavigationList
+              isDesktopMode={false}
+              onNavigationClick={onNavigationClick}
+            />
           </nav>
         </li>
         <li className="c-HeaderBurgerMenu__Item c-HeaderBurgerMenu__Item_grow">

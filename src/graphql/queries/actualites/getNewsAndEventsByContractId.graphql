@@ -1,12 +1,14 @@
 query getNewsAndEventsByContractId(
   $contractId: ID!
   $pagination: PaginationArg
+  $audienceId: ID!
 ) {
   news(
     filters: {
       newsSubService: {
         editorialService: { contract: { id: { eq: $contractId } } }
       }
+      audiences: { id: { eq: $audienceId } }
       status: { eq: "published" }
     }
     sort: "publishedDate:desc"
@@ -57,6 +59,7 @@ query getNewsAndEventsByContractId(
       eventSubService: {
         editorialService: { contract: { id: { eq: $contractId } } }
       }
+      audiences: { id: { eq: $audienceId } }
       status: { eq: "published" }
     }
     sort: "publishedDate:desc"

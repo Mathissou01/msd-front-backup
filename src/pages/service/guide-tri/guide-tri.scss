@@ -1,0 +1,15 @@
+@use "src/styles/02-tools/tools.shadows" as shadows;
+
+.c-GuideTri {
+  &__RecyclingGuide {
+    @include shadows.shadow(1);
+  }
+
+  &__Block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 40px 0;
+  }
+}

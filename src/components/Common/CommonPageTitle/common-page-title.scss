@@ -1,0 +1,27 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-PageTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  margin-top: 32px;
+  padding: 10px 24px 20px;
+  @include im.media(">=mobile") {
+    margin-top: 53px;
+    padding: 10px 182px 20px;
+  }
+
+  &__Title {
+    color: colors.$expert-blue;
+  }
+
+  &__Description {
+    color: colors.$gray-600;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+  }
+}

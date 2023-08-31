@@ -1,0 +1,41 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.shadows" as shadows;
+
+.c-CardFile {
+  @include shadows.shadow(1);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 100%;
+  min-height: 62px;
+  padding: 12px 16px;
+  background-color: colors.$white;
+  border-radius: 8px;
+
+  &__Informations {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+  }
+
+  &__InformationsTitle {
+    display: flex;
+    flex-direction: column;
+    color: colors.$expert-blue;
+    font-weight: 500;
+    font-size: 16px;
+    font-family: DINPro-Medium, sans-serif;
+    line-height: 21px;
+  }
+
+  &__InformationsDetails {
+    display: flex;
+    flex-direction: column;
+    color: colors.$gray-800;
+    font-weight: 400;
+    font-size: 14px;
+    font-family: DINPro-Regular, serif;
+    letter-spacing: -0.02em;
+  }
+}

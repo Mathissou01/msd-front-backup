@@ -1,0 +1,81 @@
+query getContactUsSubServiceByContractId($contractId: ID!) {
+  contactUsSubServices(
+    filters: {
+      editorialService: { contract: { id: { eq: $contractId } } }
+      isActivated: { eq: true }
+    }
+  ) {
+    data {
+      id
+      attributes {
+        name
+        isActivated
+      }
+    }
+  }
+  contactUses(filters: { isActivated: { eq: true } }) {
+    data {
+      id
+      attributes {
+        title
+        tags {
+          data {
+            attributes {
+              name
+            }
+          }
+        }
+        blocks {
+          ... on ComponentBlocksHorizontalRule {
+            id
+            hr
+          }
+          ... on ComponentBlocksSubHeading {
+            id
+            subHeadingText
+            subHeadingTag
+          }
+          ... on ComponentBlocksVideo {
+            id
+            videoLink
+            transcriptText
+          }
+          ... on ComponentBlocksWysiwyg {
+            id
+            textEditor
+          }
+          ... on ComponentBlocksImage {
+            id
+            picture {
+              data {
+                attributes {
+                  name
+                  url
+                }
+              }
+            }
+            isDecorative
+            altText
+          }
+          ... on ComponentBlocksFile {
+            id
+            document {
+              data {
+                attributes {
+                  url
+                  size
+                  formats
+                  name
+                }
+              }
+            }
+          }
+          ... on Error {
+            code
+            message
+          }
+        }
+      }
+    }
+  }
+}

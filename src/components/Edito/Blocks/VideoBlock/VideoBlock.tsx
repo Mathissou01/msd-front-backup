@@ -1,33 +1,39 @@
-import React, { useState, useEffect } from "react";
 import classNames from "classnames";
+import parse from "html-react-parser";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import ReactPlayer from "react-player";
-import "./video-block.scss";
 import { makePublicAssetPath } from "../../../../lib/utilities";
+import "./video-block.scss";
 
 interface IVideoBlockProps {
   videoLink: string;
   transcriptText?: string;
+  hasMaxWith?: boolean;
 }
 
 export default function VideoBlock({
   videoLink,
   transcriptText,
+  hasMaxWith,
 }: IVideoBlockProps) {
   /* Static Data */
   const labelButtons = {
     displayTranscriptText: "Masquer la transcription textuelle de la vidéo",
-    hidenTranscriptText: "Lire la transcription textuelle de la vidéo",
+    hiddenTranscriptText: "Lire la transcription textuelle de la vidéo",
   };
+  const errorMessage = "L'URL de la vidéo est invalide";
+
+  /* Methods */
+  function onToggleDisplayVideo() {
+    setIsDisplayTranscriptVideo(!isDisplayTranscriptVideo);
+  }
 
   /* Local Data */
   const [hasWindow, setHasWindow] = useState<boolean>(false);
   const [isDisplayTranscriptVideo, setIsDisplayTranscriptVideo] =
     useState<boolean>(false);
-
-  function onToggleDisplayVideo() {
-    setIsDisplayTranscriptVideo(!isDisplayTranscriptVideo);
-  }
+  const parsedHtml = transcriptText ? parse(transcriptText, {}) : null;
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -35,9 +41,16 @@ export default function VideoBlock({
     }
   }, []);
 
+  const videoBlockClasses = classNames({
+    hasMaxWith: hasMaxWith,
+  });
   return ReactPlayer.canPlay(videoLink) ? (
     <div className="c-VideoBlock">
-      <div className="c-VideoBlock__WrapperPlayer">
+      <div
+        className={`c-VideoBlock__WrapperPlayer ${
+          videoBlockClasses && "c-VideoBlock_hasMaxWith"
+        }`}
+      >
         {hasWindow && (
           <ReactPlayer
             className="c-VideoBlock__Player"
@@ -48,7 +61,7 @@ export default function VideoBlock({
           />
         )}
       </div>
-      {transcriptText && (
+      {parsedHtml && (
         <div className="c-VideoBlock__TranscriptBlock">
           <button
             className="c-VideoBlock__Button"
@@ -66,7 +79,7 @@ export default function VideoBlock({
             />
             {isDisplayTranscriptVideo
               ? labelButtons.displayTranscriptText
-              : labelButtons.hidenTranscriptText}
+              : labelButtons.hiddenTranscriptText}
           </button>
           <div
             className={classNames("c-VideoBlock__TranscriptText", {
@@ -74,15 +87,13 @@ export default function VideoBlock({
             })}
           >
             <div className="c-VideoBlock__Line" />
-            <p className="c-VideoBlock__Text">{transcriptText}</p>
+            <div className="c-VideoBlock__Text">{parsedHtml}</div>
           </div>
         </div>
       )}
     </div>
   ) : (
     //TODO A definir par SUEZ
-    <span className="c-VideoBlock__BadUrl">
-      Url de la video est invalide &#128555;
-    </span>
+    <span className="c-VideoBlock__BadUrl">{errorMessage}</span>
   );
 }

@@ -1,0 +1,62 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-MyWaste {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  &__Content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-top: 16px;
+    background-color: transparent;
+    border-radius: 8px;
+
+    @include im.media(">=mobile") {
+      width: calc(70% + 75px + 16px);
+      background-color: $white;
+      box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
+    }
+  }
+
+  &__EvolutionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 32px;
+    border-radius: 8px;
+
+    @include im.media(">tablet") {
+      width: calc(100% - 64px);
+      margin: 16px 0 32px;
+      background: #f8f9fa;
+    }
+  }
+
+  &__BlockContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    // width: calc(70% + 75px + 16px);
+
+    @include im.media(">=tablet") {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+}

@@ -6,7 +6,6 @@ import {
   TagEntity,
   UploadFile,
 } from "../../../graphql/codegen/generated-types";
-import Arrow from "public/images/pictos/arrow.svg";
 import {
   handleDateFrenchFormat,
   makePublicAssetPath,
@@ -14,32 +13,35 @@ import {
 import "./common-card-block.scss";
 
 interface ICommonCardBlockProps {
+  href: string;
   title: string;
   shortDescription?: string;
   date?: string;
-  tagLabels?: Array<TagEntity>;
+  tags?: Array<TagEntity>;
   image?: UploadFile | null;
-  href: string;
   isAlignTextCenter?: boolean;
   isEventDisplay?: boolean;
 }
 
 export default function CommonCardBlock({
+  href,
   title,
   shortDescription,
   date,
-  tagLabels,
+  tags,
   image,
-  href,
   isEventDisplay = false,
   isAlignTextCenter = false,
 }: ICommonCardBlockProps) {
-  // TODO: remove temporary default image
-  const temporaryDefaultImage = "/images/images-temp/temp_image.jpg";
-
+  /* Static Data */
   const linkLabel = "En savoir plus";
   const contentCardDate = new Date(date ?? "");
   const dataFrenchFormat = handleDateFrenchFormat(contentCardDate);
+  const arrowIcon = {
+    source: "/images/pictos/arrow.svg",
+    alternativeText: "",
+    ariaHidden: true,
+  };
   const blockClasses = classNames("c-CommonCardBlock", {
     "c-CommonCardBlock_isEventDisplay": isEventDisplay,
   });
@@ -65,33 +67,31 @@ export default function CommonCardBlock({
               </div>
             )}
           </div>
-        ) : image || temporaryDefaultImage ? (
+        ) : (
           <div className="c-CommonCardBlock__Image">
-            <Image
-              src={makePublicAssetPath(image?.url ?? temporaryDefaultImage)}
-              alt={image?.alternativeText ?? ""}
-              width={image?.width ?? 482}
-              height={image?.height ?? 309}
-            />
+            {image?.url && (
+              <Image
+                src={makePublicAssetPath(image.url)}
+                alt={image?.alternativeText ?? ""}
+                width={image?.width ?? 482}
+                height={image?.height ?? 309}
+              />
+            )}
           </div>
-        ) : null}
+        )}
         <div className={contentClasses}>
           <div className="c-CommonCardBlock__ContentHeader">
-            <div className="c-CommonCardBlock__Tags">
-              {tagLabels?.map((tagLabel, index) => (
-                <span
-                  key={index}
-                  className={`c-CommonCardBlock__Tag ${
-                    index > 0 ? "c-CommonCardBlock__Tag_background" : ""
-                  }`}
-                >
-                  {tagLabel.attributes?.name}
-                </span>
-              ))}
+            <div className="c-CommonCardBlock__DateContainer">
+              {dataFrenchFormat}
             </div>
-            {!isEventDisplay && date ? (
-              <div className="c-CommonCardBlock__Date">{dataFrenchFormat}</div>
-            ) : null}
+            {tags?.map((tagLabel, index) => (
+              <span
+                key={index}
+                className="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+              >
+                {tagLabel.attributes?.name}
+              </span>
+            ))}
           </div>
           <div className="c-CommonCardBlock__ContentBody">
             <h3 className="c-CommonCardBlock__Title">{title}</h3>
@@ -99,7 +99,13 @@ export default function CommonCardBlock({
           </div>
           <div className="c-CommonCardBlock__Link">
             <span>{linkLabel}</span>
-            <Arrow />
+            <Image
+              src={makePublicAssetPath(arrowIcon.source)}
+              alt={arrowIcon.alternativeText}
+              aria-hidden={arrowIcon.ariaHidden}
+              width={24}
+              height={24}
+            />
           </div>
         </div>
       </div>

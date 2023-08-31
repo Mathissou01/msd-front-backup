@@ -1,0 +1,94 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.shadows" as shadows;
+
+.c-MyHomeData {
+  margin-top: 34px;
+  padding: 0 8px;
+  @include im.media(">=tablet") {
+    width: 100%;
+    margin: 20px auto;
+    padding: 80px 124px 32px;
+  }
+
+  &__Container {
+    display: flex;
+    flex-flow: column wrap;
+    margin-top: 16px;
+
+    @include im.media(">=mobile") {
+      flex-flow: row nowrap;
+      margin-top: 35px;
+    }
+  }
+
+  &__TextInfo {
+    margin-top: 16px;
+    color: colors.$blue-2;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  &__Head {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 24px;
+    @include im.media(">=mobile") {
+      padding: 0;
+    }
+  }
+
+  &__TitleContent {
+    display: none;
+    @include im.media(">=mobile") {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &__TitleContentAddress_label {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 15px;
+  }
+
+  &__TitleContentAddress_labelValue {
+    color: colors.$gray-600;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  &__InfoIcon {
+    cursor: pointer;
+    @include im.media(">=mobile") {
+      display: none;
+    }
+  }
+
+  &__Info {
+    display: flex;
+    width: 32px;
+    height: 33px;
+  }
+
+  &__PencilIcon {
+    display: flex;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+  }
+
+  &__Overlay {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  &__Flows {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}

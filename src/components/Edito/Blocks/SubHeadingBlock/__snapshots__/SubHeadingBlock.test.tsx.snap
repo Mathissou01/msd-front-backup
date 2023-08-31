@@ -5,9 +5,9 @@ exports[`SubHeadingBlock renders 1`] = `
   <div
     class="c-SubHeadingBlock"
   >
-    <div
-      class="c-SubHeadingBlock__Line"
-    />
+    <h2>
+      Heading Block
+    </h2>
   </div>
 </div>
 `;

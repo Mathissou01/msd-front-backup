@@ -4,19 +4,32 @@ import {
   NewEntity,
   QuizEntity,
   TipEntity,
+  UploadFileEntityResponse,
 } from "../graphql/codegen/generated-types";
 import { removeNulls } from "./utilities";
 
-export type TEditoFields = "news" | "event" | "freeContent" | "quiz" | "tip";
+export type TEditoFields = "new" | "event" | "freeContent" | "quiz" | "tip";
 
 export const editoFields: Array<TEditoFields> = [
-  "news",
+  "new",
   "event",
   "freeContent",
   "quiz",
   "tip",
 ];
 
+export enum EEditoTypeRoutes {
+  "new" = "actualites-evenements",
+  "event" = "evenements",
+  "freeContent" = "contenu-libre",
+  "quiz" = "quiz",
+  "tip" = "astuces",
+}
+
+/* Heading Tags */
+export type THeadingTags = "h2" | "h3" | "h4" | "h5" | "h6";
+
+/* Edito Types */
 export type TEditoTypenames =
   | "EventEntity"
   | "FreeContentEntity"
@@ -38,7 +51,7 @@ export function isEditoType<T extends TEditoTypes>(
   return (content as T).__typename === typename;
 }
 
-/* Blocks */
+/* Edito Blocks */
 export type TBlocksDynamicZone =
   | "ComponentBlocksFile"
   | "ComponentBlocksHorizontalRule"
@@ -46,6 +59,7 @@ export type TBlocksDynamicZone =
   | "ComponentBlocksSubHeading"
   | "ComponentBlocksVideo"
   | "ComponentBlocksWysiwyg"
+  | "ComponentBlocksServices"
   | "Error";
 export type TDynamicFieldOption = Exclude<TBlocksDynamicZone, "Error">;
 
@@ -66,10 +80,12 @@ export type IEditoBlock =
   | IBlocksImage
   | IBlocksSubHeading
   | IBlocksVideo
-  | IBlocksWysiwyg;
+  | IBlocksWysiwyg
+  | IBlocksServices;
 
 export interface IBlocksFile extends IPartialBlock {
   __typename: "ComponentBlocksFile";
+  document: UploadFileEntityResponse;
 }
 
 export interface IBlocksHorizontalRule extends IPartialBlock {
@@ -79,11 +95,12 @@ export interface IBlocksHorizontalRule extends IPartialBlock {
 
 export interface IBlocksImage extends IPartialBlock {
   __typename: "ComponentBlocksImage";
+  picture: UploadFileEntityResponse;
 }
 
 export interface IBlocksSubHeading extends IPartialBlock {
   __typename: "ComponentBlocksSubHeading";
-  subHeadingTag?: string;
+  subHeadingTag?: THeadingTags;
   subHeadingText?: string;
 }
 
@@ -95,6 +112,11 @@ export interface IBlocksVideo extends IPartialBlock {
 
 export interface IBlocksWysiwyg extends IPartialBlock {
   __typename: "ComponentBlocksWysiwyg";
+  textEditor?: string;
+}
+
+export interface IBlocksServices extends IPartialBlock {
+  __typename: "ComponentBlocksServices";
 }
 
 /* Methods */

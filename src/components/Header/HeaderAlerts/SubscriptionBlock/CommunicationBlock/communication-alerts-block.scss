@@ -1,0 +1,27 @@
+.c-CommunicationAlertsBlock {
+  flex-direction: column;
+
+  &__Title {
+    margin-bottom: 24px;
+  }
+
+  &__SMS {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  &__Mail {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  &__RGPD {
+    display: flex;
+    flex-direction: column;
+    margin: 24px 0;
+  }
+}

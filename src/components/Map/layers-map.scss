@@ -1,0 +1,25 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/01-settings/settings.layout" as layout;
+@use "src/styles/02-tools/tools.typography" as typo;
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-LayersMap {
+  overflow: hidden;
+
+  &__Container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    @include im.media(">=tablet") {
+      position: absolute;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+  }
+}

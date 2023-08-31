@@ -1,0 +1,3 @@
+mutation validateRequest($data: JSON) {
+  validateRequest(requestJSON: $data)
+}

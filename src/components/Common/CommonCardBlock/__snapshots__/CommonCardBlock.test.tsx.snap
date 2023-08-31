@@ -31,19 +31,20 @@ exports[`CommonCardBlock renders 1`] = `
           class="c-CommonCardBlock__ContentHeader"
         >
           <div
-            class="c-CommonCardBlock__Tags"
+            class="c-CommonCardBlock__DateContainer"
           >
-            <span
-              class="c-CommonCardBlock__Tag "
-            >
-              Prise de RDV
-            </span>
-            <span
-              class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
-            >
-              Evénement
-            </span>
+            Invalid Date
           </div>
+          <span
+            class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+          >
+            Prise de RDV
+          </span>
+          <span
+            class="c-CommonCardBlock__Tag c-CommonCardBlock__Tag_background"
+          >
+            Evénement
+          </span>
         </div>
         <div
           class="c-CommonCardBlock__ContentBody"
@@ -63,7 +64,17 @@ exports[`CommonCardBlock renders 1`] = `
           <span>
             En savoir plus
           </span>
-          <div />
+          <img
+            alt=""
+            aria-hidden="true"
+            data-nimg="1"
+            decoding="async"
+            height="24"
+            loading="lazy"
+            src="/images/pictos/arrow.svg"
+            style="color: transparent;"
+            width="24"
+          />
         </div>
       </div>
     </div>

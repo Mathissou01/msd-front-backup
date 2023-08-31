@@ -80,9 +80,13 @@ query getNewById($newId: ID!) {
                   size
                   url
                   alternativeText
+                  ext
                 }
               }
             }
+          }
+          ... on ComponentBlocksServices {
+            id
           }
           ... on Error {
             code

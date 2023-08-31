@@ -1,6 +1,6 @@
 import Link from "next/link";
-import globalData from "../../../config/global.json";
-import { GlobalDataType } from "../../../config/globalData.type";
+import packageData from "../../../package.json";
+import { useContract } from "../../hooks/useContract";
 import "./footer.scss";
 
 enum EAccessibilityLevel {
@@ -17,70 +17,85 @@ export default function Footer() {
     cguLabel: "Conditions générales",
     cookiesLabel: "Politique de cookies",
     confidentialityLabel: "Politique de confidentialité",
+    contactUsSubService: "Contactez-nous",
   };
   const routes = {
-    accessibilityRoute: "/",
+    accessibilityRoute: "/accessibilite",
     siteRoute: "/",
-    cguRoute: "/",
-    cookiesRoute: "/",
-    confidentialityRoute: "/",
-    contactUsRoute: "/",
+    cookiesRoute: "/cookie",
+    cguRoute: "/conditions-generales",
+    confidentialityRoute: "/confidentialite",
+    contactUsRoute: "/service/contact",
   };
 
   /* Global Data */
-  const footerData = (globalData as GlobalDataType).footer.data?.attributes;
+  const { contract } = useContract();
+  const footerData =
+    contract?.attributes?.contractCustomization?.data?.attributes?.footer?.data
+      ?.attributes;
+
   const accessibilityLevelLabel = footerData?.accessibilityLevel
     ? Object.values(EAccessibilityLevel)[
         Object.keys(EAccessibilityLevel).indexOf(footerData.accessibilityLevel)
       ]
-    : "";
+    : EAccessibilityLevel.not_conform;
 
   return (
-    <footer className="c-Footer" data-testid="footer">
-      <Link className="c-Footer__Link" href={routes.accessibilityRoute}>
-        <span>{labels.accessibilityLabel + accessibilityLevelLabel}</span>
-      </Link>
-      <Link className="c-Footer__Link" href={routes.siteRoute}>
-        <span>{labels.siteLabel}</span>
-      </Link>
-      <Link
-        className="c-Footer__Link"
-        href={
-          footerData?.cguSubService?.data?.attributes?.link ?? routes.cguRoute
-        }
+    <div className="c-Footer">
+      <footer
+        className="c-Footer__ContentContainer"
+        role="contentinfo"
+        data-testid="footer"
       >
-        <span>{labels.cguLabel}</span>
-      </Link>
-      <Link
-        className="c-Footer__Link"
-        href={
-          footerData?.cookiesSubService?.data?.attributes?.link ??
-          routes.cookiesRoute
-        }
-      >
-        <span>{labels.cookiesLabel}</span>
-      </Link>
-      <Link
-        className="c-Footer__Link"
-        href={
-          footerData?.confidentialitySubService?.data?.attributes?.link ??
-          routes.confidentialityRoute
-        }
-      >
-        <span>{labels.confidentialityLabel}</span>
-      </Link>
-      {footerData?.contactUsSubService?.data?.attributes?.isActivated &&
-        footerData?.contactUsSubService?.data.attributes.label && (
-          <Link
-            className="c-Footer__Link"
-            href={
-              footerData.contactUsSubService?.data?.attributes.link ??
-              routes.contactUsRoute
-            }
-          >
-            <span>{footerData.contactUsSubService.data?.attributes.label}</span>
-          </Link>
-        )}
-    </footer>
+        <Link className="c-Footer__Link" href={routes.accessibilityRoute}>
+          <span>{labels.accessibilityLabel + accessibilityLevelLabel}</span>
+        </Link>
+        <Link className="c-Footer__Link" href={routes.siteRoute}>
+          <span>{labels.siteLabel}</span>
+        </Link>
+        <Link
+          className="c-Footer__Link"
+          href={
+            footerData?.cguSubService?.data?.attributes?.link ?? routes.cguRoute
+          }
+        >
+          <span>{labels.cguLabel}</span>
+        </Link>
+        <Link
+          className="c-Footer__Link"
+          href={
+            footerData?.cookiesSubService?.data?.attributes?.link ??
+            routes.cookiesRoute
+          }
+        >
+          <span>{labels.cookiesLabel}</span>
+        </Link>
+        <Link
+          className="c-Footer__Link"
+          href={
+            footerData?.confidentialitySubService?.data?.attributes?.link ??
+            routes.confidentialityRoute
+          }
+        >
+          <span>{labels.confidentialityLabel}</span>
+        </Link>
+
+        {footerData?.contactUsSubService?.data?.attributes?.isActivated &&
+          footerData?.contactUsSubService?.data.attributes.label && (
+            <Link
+              className="c-Footer__Link"
+              href={
+                footerData.contactUsSubService?.data?.attributes.link ??
+                routes.contactUsRoute
+              }
+            >
+              <span>
+                {footerData.contactUsSubService.data?.attributes.label}
+              </span>
+            </Link>
+          )}
+      </footer>
+      <span className="c-Footer__Version">Version - {packageData.version}</span>
+    </div>
   );
 }

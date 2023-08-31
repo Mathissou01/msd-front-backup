@@ -1,0 +1,8 @@
+query getRecyclingGuideSearchEngine($searchTerm: String!, $contractId: ID!) {
+  recyclingGuideSearchEngine(searchTerm: $searchTerm, contractId: $contractId) {
+    typeName
+    id
+    name
+    wasteFamilyName
+  }
+}

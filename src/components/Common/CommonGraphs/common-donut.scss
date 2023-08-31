@@ -1,0 +1,125 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.shadows" as shadows;
+/* stylelint-disable */
+.c-MyWaste {
+  &__DonutChart {
+    margin: 0 auto;
+    width: 100%;
+
+    @include im.media(">tablet") {
+      width: 50%;
+    }
+
+    g.recharts-layer.recharts-pie-labels > .recharts-layer + .recharts-layer {
+      display: none;
+    }
+
+    .recharts-layer.recharts-pie-labels {
+      transform: translate(-0%, 0%);
+    }
+  }
+
+  &__DonutChartPoid {
+    font-size: 24px;
+    font-weight: 600;
+    color: colors.$expert-blue;
+  }
+
+  &__DonutChartPoidUnity {
+    font-size: 12px;
+    color: colors.$expert-blue;
+  }
+
+  &__DonutChartPercent {
+    font-size: 12px;
+    fill: colors.$blue-2;
+  }
+
+  //Legend
+  &__DonutLegend {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px auto 32px;
+    width: 260px;
+
+    p {
+      display: flex;
+      align-items: center;
+      margin-right: 8px;
+      color: colors.$blue-2;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    span {
+      display: block;
+      width: 12px;
+      height: 12px;
+      margin-right: 8px;
+      border-radius: 50px;
+    }
+  }
+
+  &__DonutLegend_color1 {
+    background-color: $blue-6;
+  }
+  &__DonutLegend_color2 {
+    background-color: colors.$graph-medium;
+  }
+  &__DonutLegend_color3 {
+    background-color: #f4f3e5;
+  }
+  &__DonutLegend_color4 {
+    background-color: #ecedee;
+  }
+
+  //Box info idea
+  &__DonutChartBottomInfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    width: 100%;
+    padding: 28px 8px;
+    border: 1px solid colors.$blue-4;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+
+    p {
+      margin-left: 10px;
+    }
+  }
+
+  //Bulletpoints (WIP)
+  &__DonutChartBullets {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px auto;
+    width: 84px;
+
+    @include im.media(">tablet") {
+      display: none;
+    }
+  }
+  &__DonutChartBulletItem {
+    background-color: transparent;
+    width: 12px;
+    height: 12px;
+    padding: 3px;
+    border: 2px solid colors.$expert-blue;
+    border-radius: 50px;
+  }
+  &__DonutChartBullet_active {
+    background-color: colors.$expert-blue;
+    width: 6px;
+    height: 6px;
+    padding: 3px;
+    border: 1px solid #fff;
+    box-shadow: 0px 0px 1px 2.5px colors.$expert-blue;
+    border-radius: 50px;
+  }
+}
+/* stylelint-enable */

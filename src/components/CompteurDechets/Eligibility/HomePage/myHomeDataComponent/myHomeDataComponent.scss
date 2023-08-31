@@ -1,0 +1,169 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-MyHomeData {
+  &__Item {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 96px;
+    margin-right: 24px;
+    margin-bottom: 16px;
+    padding: 24px 16px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 1px rgb(17 95 251 / 5%), 0 1px 3px rgb(17 95 251 / 10%);
+
+    // stylelint-disable-next-line
+    &::after {
+      position: absolute;
+      top: calc(50% - 21px);
+      right: 0;
+      display: block;
+      width: 21px;
+      height: 28px;
+      background-image: url("../../../../../../public/images/pictos/arrow-back.svg");
+      background-repeat: no-repeat;
+      transform: rotate(180deg) translateY(-50%);
+      content: "";
+    }
+
+    // stylelint-disable-next-line
+    @include im.media(">=mobile") {
+      flex-basis: 50%;
+      flex-direction: column;
+      width: 228px;
+      height: auto;
+      margin-bottom: 0;
+      padding: 32px 16px 24px;
+
+      &::after {
+        content: none;
+      }
+    }
+
+    button {
+      display: none;
+      margin-top: auto;
+
+      @include im.media(">=mobile") {
+        display: block;
+      }
+    }
+  }
+
+  &__LinkWrapper {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+
+    @include im.media(">=mobile") {
+      display: none;
+    }
+  }
+
+  &__Img {
+    width: 48px;
+    height: 48px;
+    margin-right: 16px;
+
+    @include im.media(">=mobile") {
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+  }
+
+  &__Title {
+    margin-right: 30px;
+    font-weight: 600;
+    font-size: 18px;
+
+    @include im.media(">=mobile") {
+      margin-right: 0;
+      margin-bottom: 35px;
+    }
+  }
+
+  &__Data {
+    position: absolute;
+    right: 60px;
+    font-weight: 700;
+    font-size: 28px;
+    font-family: DINPro-Bold, sans-serif;
+
+    @include im.media(">=mobile") {
+      position: initial;
+      margin-bottom: 20px;
+      font-size: 48px;
+    }
+
+    svg {
+      width: 19px;
+      height: 19px;
+    }
+  }
+
+  &__DataArrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: rgb(52 58 64 / 5%);
+    border-radius: 50%;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  &__DataArrowRed {
+    svg {
+      transform: rotate(-45deg);
+    }
+
+    svg path {
+      fill: #eb4a65;
+    }
+  }
+
+  &__DataArrowGreen {
+    svg {
+      transform: rotate(45deg);
+    }
+
+    svg path {
+      fill: #30d158;
+    }
+  }
+
+  &__DataArrowBlue {
+    svg path {
+      fill: #2e88ff;
+    }
+  }
+
+  &__DataUnity {
+    margin-left: 10px;
+    font-size: 12px;
+    font-family: DINPro-Regular, sans-serif;
+  }
+
+  &__Desc {
+    display: none;
+    margin-bottom: 30px;
+    color: $blue-2;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+
+    @include im.media(">=mobile") {
+      display: block;
+    }
+  }
+}

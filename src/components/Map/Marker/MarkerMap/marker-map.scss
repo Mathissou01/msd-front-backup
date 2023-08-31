@@ -1,0 +1,148 @@
+@use "src/styles/01-settings/settings.colors" as colors;
+
+.c-Marker {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0;
+  animation: 1s ease-in-out both;
+
+  &__Content {
+    position: absolute;
+    top: calc(25% - 46px / 2);
+    left: calc(50% - 46px / 2);
+  }
+
+  // Normal Marker
+  &__TopPin {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    z-index: 3;
+    width: 40px;
+    height: 40px;
+    background-color: colors.$white !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border: 6px solid colors.$white;
+    border-radius: 50%;
+    outline: 3px solid colors.$expert-blue;
+  }
+
+  &__SvgPicto {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 5;
+    transform: translateX(-50%) translateY(-50%);
+    filter: url("#recolor-expert-blue");
+  }
+
+  // Selected Marker
+  &__TopPinSelected {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    z-index: 3;
+    width: 40px;
+    height: 40px;
+    background-color: colors.$expert-blue !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border: 6px solid colors.$expert-blue;
+    border-radius: 50%;
+    outline: 3px solid colors.$expert-blue;
+  }
+
+  &__SvgPictoSelected {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 5;
+    transform: translateX(-50%) translateY(-50%);
+    filter: url("#recolor-white");
+  }
+
+  &__TopPin::after {
+    position: absolute;
+    bottom: -14px;
+    left: 0;
+    z-index: 2;
+    width: 0;
+    height: 0;
+    border-top: 14px solid colors.$white;
+    border-right: 14px solid transparent;
+    border-left: 14px solid transparent;
+    content: "";
+  }
+
+  &__BottomPin {
+    position: absolute;
+    bottom: -18px;
+    left: -3px;
+    z-index: 1;
+    width: 0;
+    height: 0;
+    border-top: 17px solid colors.$expert-blue;
+    border-right: 17px solid transparent;
+    border-left: 17px solid transparent;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+    filter: drop-shadow(2px 2px 1px colors.$white);
+    animation-name: bounce-marker;
+
+    .c-Marker__WavePin {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      width: 2px;
+      height: 1px;
+      margin: 50px auto;
+      border: #fff 7px solid;
+      border-radius: 300px / 150px;
+      transform: translateX(-50%);
+      opacity: 0;
+      filter: url("#recolor-expert-blue");
+      animation: shadow-marker 2s;
+    }
+  }
+}
+
+// Bounce animation marker
+@keyframes bounce-marker {
+  0%,
+  100%,
+  20%,
+  50%,
+  80% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-30px);
+  }
+
+  60% {
+    transform: translateY(-15px);
+  }
+}
+
+// Drop animation marker
+@keyframes shadow-marker {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    top: -8px;
+    width: 100px;
+    height: 50px;
+    border-width: 1px;
+    opacity: 0;
+  }
+}

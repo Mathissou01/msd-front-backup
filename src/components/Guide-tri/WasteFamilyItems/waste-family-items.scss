@@ -1,0 +1,70 @@
+@use "sass:math";
+@use "sass:list";
+@use "src/styles/01-settings/settings.colors" as colors;
+@use "src/styles/02-tools/tools.typography" as typo;
+@use "src/styles/02-tools/tools.z-index" as index;
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/02-tools/tools.functions" as func;
+@use "src/styles/01-settings/settings.blobs" as b;
+@use "src/styles/02-tools/tools.blobs" as blobs;
+@use "src/styles/02-tools/tools.shadows" as shadows;
+
+.c-WasteFamillyItems {
+  $self: &;
+
+  &__Item {
+    @include shadows.shadow(1);
+
+    position: relative;
+    z-index: index.z("site-content");
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 25px 20px;
+    overflow: hidden;
+    background-color: colors.$white;
+    border: 1px solid colors.$gray-200;
+    border-radius: 8px;
+  }
+
+  &__Item:hover {
+    border: thin solid;
+    cursor: pointer;
+  }
+
+  &__Name {
+    margin-right: 70px;
+    color: colors.$expert-blue;
+    font-weight: bold;
+
+    @include im.media(">=mobile") {
+      margin-right: 60px;
+    }
+  }
+
+  &__ContentPicto {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+
+    &::after {
+      top: -30px;
+      left: -30px;
+      z-index: -1;
+      width: 120px;
+      height: 120px;
+      background-color: colors.$brand-primary;
+    }
+  }
+
+  &__Picto {
+    aspect-ratio: auto;
+  }
+}

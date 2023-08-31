@@ -1,0 +1,56 @@
+query getFreeContentsByFreeContentSubServiceId(
+  $freeContentSubServiceId: ID!
+  $pagination: PaginationArg
+  $audienceId: ID!
+) {
+  freeContents(
+    filters: {
+      freeContentSubService: { id: { eq: $freeContentSubServiceId } }
+      audiences: { id: { eq: $audienceId } }
+      status: { eq: "published" }
+    }
+    sort: "publishedDate:desc"
+    pagination: $pagination
+  ) {
+    meta {
+      pagination {
+        page
+        pageSize
+        pageCount
+        total
+      }
+    }
+    data {
+      id
+      attributes {
+        title
+        shortDescription
+        status
+        publishedDate
+        unpublishedDate
+        image {
+          data {
+            id
+            attributes {
+              name
+              url
+              size
+              mime
+              hash
+              provider
+              alternativeText
+            }
+          }
+        }
+        tags {
+          data {
+            id
+            attributes {
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+}

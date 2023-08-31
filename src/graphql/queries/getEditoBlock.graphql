@@ -1,4 +1,4 @@
-query getEditoBlock($contractId: ID!) {
+query getEditoBlock($contractId: ID!, $audienceId: ID!) {
   contractCustomizations(filters: { contract: { id: { eq: $contractId } } }) {
     data {
       id
@@ -6,147 +6,160 @@ query getEditoBlock($contractId: ID!) {
         homepage {
           data {
             attributes {
-              editoBlock {
+              editoBlocks(filters: { audience: { id: { eq: $audienceId } } }) {
                 data {
                   attributes {
                     titleContent
-                    editoContents {
+                    audience {
                       data {
-                        attributes {
-                          event {
-                            data {
-                              attributes {
-                                title
-                                shortDescription
-                                tags {
-                                  data {
-                                    attributes {
-                                      name
-                                    }
+                        id
+                      }
+                    }
+                    editoContents {
+                      ... on ComponentLinksEditoContent {
+                        id
+                        event {
+                          data {
+                            id
+                            attributes {
+                              title
+                              shortDescription
+                              tags {
+                                data {
+                                  attributes {
+                                    name
                                   }
                                 }
-                                image {
-                                  data {
-                                    attributes {
-                                      hash
-                                      mime
-                                      name
-                                      provider
-                                      size
-                                      url
-                                      alternativeText
-                                    }
-                                  }
-                                }
-                                publishedDate
                               }
-                            }
-                          }
-                          freeContent {
-                            data {
-                              attributes {
-                                title
-                                shortDescription
-                                tags {
-                                  data {
-                                    attributes {
-                                      name
-                                    }
+                              image {
+                                data {
+                                  attributes {
+                                    hash
+                                    mime
+                                    name
+                                    provider
+                                    size
+                                    url
+                                    alternativeText
                                   }
                                 }
-                                image {
-                                  data {
-                                    attributes {
-                                      hash
-                                      mime
-                                      name
-                                      provider
-                                      size
-                                      url
-                                      alternativeText
-                                    }
-                                  }
-                                }
-                                publishedDate
                               }
-                            }
-                          }
-                          news {
-                            data {
-                              attributes {
-                                title
-                                shortDescription
-                                tags {
-                                  data {
-                                    attributes {
-                                      name
-                                    }
-                                  }
-                                }
-                                image {
-                                  data {
-                                    attributes {
-                                      hash
-                                      mime
-                                      name
-                                      provider
-                                      size
-                                      url
-                                      alternativeText
-                                    }
-                                  }
-                                }
-                                publishedDate
-                              }
-                            }
-                          }
-                          quiz {
-                            data {
-                              attributes {
-                                title
-                                shortDescription
-                                tags {
-                                  data {
-                                    attributes {
-                                      name
-                                    }
-                                  }
-                                }
-                                publishedDate
-                              }
-                            }
-                          }
-                          tip {
-                            data {
-                              attributes {
-                                title
-                                shortDescription
-                                link
-                                tags {
-                                  data {
-                                    attributes {
-                                      name
-                                    }
-                                  }
-                                }
-                                image {
-                                  data {
-                                    attributes {
-                                      hash
-                                      mime
-                                      name
-                                      provider
-                                      size
-                                      url
-                                      alternativeText
-                                    }
-                                  }
-                                }
-                                publishedDate
-                              }
+                              publishedDate
                             }
                           }
                         }
+                        freeContent {
+                          data {
+                            id
+                            attributes {
+                              title
+                              shortDescription
+                              tags {
+                                data {
+                                  attributes {
+                                    name
+                                  }
+                                }
+                              }
+                              image {
+                                data {
+                                  attributes {
+                                    hash
+                                    mime
+                                    name
+                                    provider
+                                    size
+                                    url
+                                    alternativeText
+                                  }
+                                }
+                              }
+                              publishedDate
+                            }
+                          }
+                        }
+                        new {
+                          data {
+                            id
+                            attributes {
+                              title
+                              shortDescription
+                              tags {
+                                data {
+                                  attributes {
+                                    name
+                                  }
+                                }
+                              }
+                              image {
+                                data {
+                                  attributes {
+                                    hash
+                                    mime
+                                    name
+                                    provider
+                                    size
+                                    url
+                                    alternativeText
+                                  }
+                                }
+                              }
+                              publishedDate
+                            }
+                          }
+                        }
+                        quiz {
+                          data {
+                            id
+                            attributes {
+                              title
+                              shortDescription
+                              tags {
+                                data {
+                                  attributes {
+                                    name
+                                  }
+                                }
+                              }
+                              publishedDate
+                            }
+                          }
+                        }
+                        tip {
+                          data {
+                            id
+                            attributes {
+                              title
+                              shortDescription
+                              link
+                              tags {
+                                data {
+                                  attributes {
+                                    name
+                                  }
+                                }
+                              }
+                              image {
+                                data {
+                                  attributes {
+                                    hash
+                                    mime
+                                    name
+                                    provider
+                                    size
+                                    url
+                                    alternativeText
+                                  }
+                                }
+                              }
+                              publishedDate
+                            }
+                          }
+                        }
+                      }
+                      ... on Error {
+                        code
+                        message
                       }
                     }
                     displayBlock

@@ -1,0 +1,14 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+@use "src/styles/01-settings/settings.colors" as colors;
+
+.c-CommonBarChart {
+  width: 100%;
+  height: 450px;
+  min-height: 450px;
+
+  &__Title {
+    color: colors.$blue-3;
+    font-size: 12px;
+    text-align: center;
+  }
+}

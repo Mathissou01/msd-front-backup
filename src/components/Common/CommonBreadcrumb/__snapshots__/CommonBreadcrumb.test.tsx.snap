@@ -4,6 +4,7 @@ exports[`CommonBreadcrumb renders 1`] = `
 <div>
   <nav
     class="c-CommonBreadcrumb"
+    role="navigation"
   >
     <a
       class="c-CommonBreadcrumb__Link c-CommonBreadcrumb__Link_active"
@@ -13,9 +14,9 @@ exports[`CommonBreadcrumb renders 1`] = `
     </a>
     <a
       class="c-CommonBreadcrumb__Link c-CommonBreadcrumb__Link_active"
-      href="actualites"
+      href="actualites-evenements"
     >
-      Actualités
+      Actualités et événements
     </a>
     <span
       class="c-CommonBreadcrumb__Link"

@@ -1,0 +1,90 @@
+query getPickUpDaysByIdsAndContratId(
+  $pickUpDayIds: [ID]
+  $contractId: ID
+  $audienceId: ID!
+) {
+  pickUpDays(
+    filters: {
+      id: { in: $pickUpDayIds }
+      pickUpDayService: { contract: { id: { eq: $contractId } } }
+      audiences: { id: { eq: $audienceId } }
+    }
+  ) {
+    data {
+      id
+      attributes {
+        name
+        updatedAt
+        flow {
+          data {
+            attributes {
+              name
+              color {
+                data {
+                  attributes {
+                    name
+                    hexaCode
+                  }
+                }
+              }
+              wasteForms {
+                data {
+                  attributes {
+                    name
+                  }
+                }
+              }
+            }
+          }
+        }
+        pickUpHours
+        periodicity
+        includeHoliday
+        advancedSelection
+        collectDoorToDoor {
+          data {
+            attributes {
+              picto {
+                data {
+                  attributes {
+                    url
+                  }
+                }
+              }
+            }
+          }
+        }
+        collectVoluntary {
+          data {
+            attributes {
+              picto {
+                data {
+                  attributes {
+                    url
+                  }
+                }
+              }
+              name
+            }
+          }
+        }
+        informationMessage {
+          data {
+            attributes {
+              dateEnd
+              dateStart
+              infoMessage
+            }
+          }
+        }
+        buttonLabel
+        externalLink
+        request {
+          data {
+            id
+          }
+        }
+      }
+    }
+  }
+}

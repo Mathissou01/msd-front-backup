@@ -1,0 +1,16 @@
+@use "src/styles/02-tools/tools.include-media" as im;
+
+.c-PickUpDayEnterAddress {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: flex-start;
+  @include im.media(">=tablet") {
+    flex-direction: row;
+    height: 48px;
+  }
+
+  &__AddressInput {
+    flex: 0.75;
+  }
+}

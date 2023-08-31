@@ -1,0 +1,20 @@
+.c-RequestUser {
+  gap: 16px;
+
+  &__Group {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+
+    &_surname,
+    &_name,
+    &_phone,
+    &_email {
+      width: 30%;
+    }
+  }
+
+  &__ConsentCheckbox {
+    margin-top: 20px;
+  }
+}

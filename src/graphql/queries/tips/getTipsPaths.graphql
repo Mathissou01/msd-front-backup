@@ -1,0 +1,19 @@
+query getTipsPaths($contractId: ID!, $total: Int!) {
+  tips(
+    filters: {
+      status: { eq: "published" }
+      tipSubService: {
+        isActivated: { eq: true }
+        editorialService: { contract: { id: { eq: $contractId } } }
+      }
+    }
+    pagination: { limit: $total }
+  ) {
+    data {
+      id
+      attributes {
+        status
+      }
+    }
+  }
+}
