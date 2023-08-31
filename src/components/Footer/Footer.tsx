@@ -13,7 +13,6 @@ export default function Footer() {
   /* Static Data */
   const labels = {
     accessibilityLabel: "Accessibilité : ",
-    siteLabel: "Le site de SUEZ",
     cguLabel: "Conditions générales",
     cookiesLabel: "Politique de cookies",
     confidentialityLabel: "Politique de confidentialité",
@@ -21,7 +20,6 @@ export default function Footer() {
   };
   const routes = {
     accessibilityRoute: "/accessibilite",
-    siteRoute: "/",
     cookiesRoute: "/cookie",
     cguRoute: "/conditions-generales",
     confidentialityRoute: "/confidentialite",
@@ -49,9 +47,6 @@ export default function Footer() {
       >
         <Link className="c-Footer__Link" href={routes.accessibilityRoute}>
           <span>{labels.accessibilityLabel + accessibilityLevelLabel}</span>
-        </Link>
-        <Link className="c-Footer__Link" href={routes.siteRoute}>
-          <span>{labels.siteLabel}</span>
         </Link>
         <Link
           className="c-Footer__Link"

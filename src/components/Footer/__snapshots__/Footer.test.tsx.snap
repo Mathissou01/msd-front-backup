@@ -20,14 +20,6 @@ exports[`Header renders 1`] = `
       </a>
       <a
         class="c-Footer__Link"
-        href="/"
-      >
-        <span>
-          Le site de SUEZ
-        </span>
-      </a>
-      <a
-        class="c-Footer__Link"
         href="/conditions-generales"
       >
         <span>

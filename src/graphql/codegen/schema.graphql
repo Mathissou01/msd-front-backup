@@ -610,12 +610,12 @@ type City {
   createdAt: DateTime
   department: String
   epci: EpciEntityResponse
-  insee: String
+  insee: Long
   name: String
   pickUpDay: PickUpDayEntityResponse
-  postalCode: String
+  postalCode: Long
   region: String
-  siren: String
+  siren: Long
   territories(
     filters: TerritoryFiltersInput
     pagination: PaginationArg = {}
@@ -646,14 +646,14 @@ input CityFiltersInput {
   department: StringFilterInput
   epci: EpciFiltersInput
   id: IDFilterInput
-  insee: StringFilterInput
+  insee: LongFilterInput
   name: StringFilterInput
   not: CityFiltersInput
   or: [CityFiltersInput]
   pickUpDay: PickUpDayFiltersInput
-  postalCode: StringFilterInput
+  postalCode: LongFilterInput
   region: StringFilterInput
-  siren: StringFilterInput
+  siren: LongFilterInput
   territories: TerritoryFiltersInput
   updatedAt: DateTimeFilterInput
 }
@@ -672,12 +672,12 @@ input CityInput {
   MwCounter: ID
   department: String
   epci: ID
-  insee: String
+  insee: Long
   name: String
   pickUpDay: ID
-  postalCode: String
+  postalCode: Long
   region: String
-  siren: String
+  siren: Long
   territories: [ID]
 }
 
@@ -1073,28 +1073,6 @@ type ComponentBlocksServices {
   pickUpS: PickUpDayServiceEntityResponse
   recyclingS: RecyclingGuideServiceEntityResponse
   requestS: RequestServiceEntityResponse
-}
-
-input ComponentBlocksServicesFiltersInput {
-  alertS: AlertNotificationServiceFiltersInput
-  and: [ComponentBlocksServicesFiltersInput]
-  dropOffS: DropOffMapServiceFiltersInput
-  editoS: EditorialServiceFiltersInput
-  not: ComponentBlocksServicesFiltersInput
-  or: [ComponentBlocksServicesFiltersInput]
-  pickUpS: PickUpDayServiceFiltersInput
-  recyclingS: RecyclingGuideServiceFiltersInput
-  requestS: RequestServiceFiltersInput
-}
-
-input ComponentBlocksServicesInput {
-  alertS: ID
-  dropOffS: ID
-  editoS: ID
-  id: ID
-  pickUpS: ID
-  recyclingS: ID
-  requestS: ID
 }
 
 type ComponentBlocksSubHeading {
@@ -2409,7 +2387,6 @@ enum ENUM_CONTRACT_CLIENTTYPE {
 
 enum ENUM_CONTRACT_CONTRACTSTATUS {
   Actif
-  Desactive
   En_cours
   Initialisation
 }
@@ -3517,7 +3494,6 @@ type Homepage {
   ): QuizAndTipsBlockRelationResponseCollection
   recyclingGuideBlock: RecyclingGuideBlockEntityResponse
   searchEngineBlock: SearchEngineBlockEntityResponse
-  services: ComponentBlocksServices
   servicesBlocks(
     filters: ServicesBlockFiltersInput
     pagination: PaginationArg = {}
@@ -3557,7 +3533,6 @@ input HomepageFiltersInput {
   quizAndTipsBlocks: QuizAndTipsBlockFiltersInput
   recyclingGuideBlock: RecyclingGuideBlockFiltersInput
   searchEngineBlock: SearchEngineBlockFiltersInput
-  services: ComponentBlocksServicesFiltersInput
   servicesBlocks: ServicesBlockFiltersInput
   topContentBlocks: TopContentBlockFiltersInput
   updatedAt: DateTimeFilterInput
@@ -3570,7 +3545,6 @@ input HomepageInput {
   quizAndTipsBlocks: [ID]
   recyclingGuideBlock: ID
   searchEngineBlock: ID
-  services: ComponentBlocksServicesInput
   servicesBlocks: [ID]
   topContentBlocks: [ID]
   welcomeMessageBlock: ID
@@ -4163,7 +4137,6 @@ type Mutation {
   deleteTip(id: ID!): TipEntityResponse
   deleteTipSubService(id: ID!): TipSubServiceEntityResponse
   deleteTopContentBlock(id: ID!): TopContentBlockEntityResponse
-  deleteUnpublishedMedia(imageIds: [ID]): [ID]
   deleteUnusedSectors(id: ID!): Sectorization
   deleteUploadFile(id: ID!): UploadFileEntityResponse
   deleteUploadFolder(id: ID!): UploadFolderEntityResponse
@@ -5116,7 +5089,6 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): CguEntityResponseCollection
-  changeContractStatus(contractId: ID!, status: Statuses!): contractStatus
   channelType(id: ID): ChannelTypeEntityResponse
   channelTypes(
     filters: ChannelTypeFiltersInput
@@ -6612,14 +6584,6 @@ type ServicesDeactivated {
   contractId: ID
   serviceId: ID
   serviceName: String
-}
-
-enum Statuses {
-  Actif
-  Desactive
-  En
-  Initialisation
-  cours
 }
 
 input StringFilterInput {

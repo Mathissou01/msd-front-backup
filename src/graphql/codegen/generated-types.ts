@@ -718,12 +718,12 @@ export type City = {
   createdAt?: Maybe<Scalars["DateTime"]>;
   department?: Maybe<Scalars["String"]>;
   epci?: Maybe<EpciEntityResponse>;
-  insee?: Maybe<Scalars["String"]>;
+  insee?: Maybe<Scalars["Long"]>;
   name?: Maybe<Scalars["String"]>;
   pickUpDay?: Maybe<PickUpDayEntityResponse>;
-  postalCode?: Maybe<Scalars["String"]>;
+  postalCode?: Maybe<Scalars["Long"]>;
   region?: Maybe<Scalars["String"]>;
-  siren?: Maybe<Scalars["String"]>;
+  siren?: Maybe<Scalars["Long"]>;
   territories?: Maybe<TerritoryRelationResponseCollection>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
@@ -759,14 +759,14 @@ export type CityFiltersInput = {
   department?: InputMaybe<StringFilterInput>;
   epci?: InputMaybe<EpciFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
-  insee?: InputMaybe<StringFilterInput>;
+  insee?: InputMaybe<LongFilterInput>;
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<CityFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<CityFiltersInput>>>;
   pickUpDay?: InputMaybe<PickUpDayFiltersInput>;
-  postalCode?: InputMaybe<StringFilterInput>;
+  postalCode?: InputMaybe<LongFilterInput>;
   region?: InputMaybe<StringFilterInput>;
-  siren?: InputMaybe<StringFilterInput>;
+  siren?: InputMaybe<LongFilterInput>;
   territories?: InputMaybe<TerritoryFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
@@ -786,12 +786,12 @@ export type CityInput = {
   MwCounter?: InputMaybe<Scalars["ID"]>;
   department?: InputMaybe<Scalars["String"]>;
   epci?: InputMaybe<Scalars["ID"]>;
-  insee?: InputMaybe<Scalars["String"]>;
+  insee?: InputMaybe<Scalars["Long"]>;
   name?: InputMaybe<Scalars["String"]>;
   pickUpDay?: InputMaybe<Scalars["ID"]>;
-  postalCode?: InputMaybe<Scalars["String"]>;
+  postalCode?: InputMaybe<Scalars["Long"]>;
   region?: InputMaybe<Scalars["String"]>;
-  siren?: InputMaybe<Scalars["String"]>;
+  siren?: InputMaybe<Scalars["Long"]>;
   territories?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
 };
 
@@ -1238,28 +1238,6 @@ export type ComponentBlocksServices = {
   pickUpS?: Maybe<PickUpDayServiceEntityResponse>;
   recyclingS?: Maybe<RecyclingGuideServiceEntityResponse>;
   requestS?: Maybe<RequestServiceEntityResponse>;
-};
-
-export type ComponentBlocksServicesFiltersInput = {
-  alertS?: InputMaybe<AlertNotificationServiceFiltersInput>;
-  and?: InputMaybe<Array<InputMaybe<ComponentBlocksServicesFiltersInput>>>;
-  dropOffS?: InputMaybe<DropOffMapServiceFiltersInput>;
-  editoS?: InputMaybe<EditorialServiceFiltersInput>;
-  not?: InputMaybe<ComponentBlocksServicesFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<ComponentBlocksServicesFiltersInput>>>;
-  pickUpS?: InputMaybe<PickUpDayServiceFiltersInput>;
-  recyclingS?: InputMaybe<RecyclingGuideServiceFiltersInput>;
-  requestS?: InputMaybe<RequestServiceFiltersInput>;
-};
-
-export type ComponentBlocksServicesInput = {
-  alertS?: InputMaybe<Scalars["ID"]>;
-  dropOffS?: InputMaybe<Scalars["ID"]>;
-  editoS?: InputMaybe<Scalars["ID"]>;
-  id?: InputMaybe<Scalars["ID"]>;
-  pickUpS?: InputMaybe<Scalars["ID"]>;
-  recyclingS?: InputMaybe<Scalars["ID"]>;
-  requestS?: InputMaybe<Scalars["ID"]>;
 };
 
 export type ComponentBlocksSubHeading = {
@@ -2716,7 +2694,6 @@ export enum Enum_Contract_Clienttype {
 
 export enum Enum_Contract_Contractstatus {
   Actif = "Actif",
-  Desactive = "Desactive",
   EnCours = "En_cours",
   Initialisation = "Initialisation",
 }
@@ -3917,7 +3894,6 @@ export type Homepage = {
   quizAndTipsBlocks?: Maybe<QuizAndTipsBlockRelationResponseCollection>;
   recyclingGuideBlock?: Maybe<RecyclingGuideBlockEntityResponse>;
   searchEngineBlock?: Maybe<SearchEngineBlockEntityResponse>;
-  services?: Maybe<ComponentBlocksServices>;
   servicesBlocks?: Maybe<ServicesBlockRelationResponseCollection>;
   topContentBlocks?: Maybe<TopContentBlockRelationResponseCollection>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
@@ -3976,7 +3952,6 @@ export type HomepageFiltersInput = {
   quizAndTipsBlocks?: InputMaybe<QuizAndTipsBlockFiltersInput>;
   recyclingGuideBlock?: InputMaybe<RecyclingGuideBlockFiltersInput>;
   searchEngineBlock?: InputMaybe<SearchEngineBlockFiltersInput>;
-  services?: InputMaybe<ComponentBlocksServicesFiltersInput>;
   servicesBlocks?: InputMaybe<ServicesBlockFiltersInput>;
   topContentBlocks?: InputMaybe<TopContentBlockFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -3989,7 +3964,6 @@ export type HomepageInput = {
   quizAndTipsBlocks?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   recyclingGuideBlock?: InputMaybe<Scalars["ID"]>;
   searchEngineBlock?: InputMaybe<Scalars["ID"]>;
-  services?: InputMaybe<ComponentBlocksServicesInput>;
   servicesBlocks?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   topContentBlocks?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   welcomeMessageBlock?: InputMaybe<Scalars["ID"]>;
@@ -4489,7 +4463,6 @@ export type Mutation = {
   deleteTip?: Maybe<TipEntityResponse>;
   deleteTipSubService?: Maybe<TipSubServiceEntityResponse>;
   deleteTopContentBlock?: Maybe<TopContentBlockEntityResponse>;
-  deleteUnpublishedMedia?: Maybe<Array<Maybe<Scalars["ID"]>>>;
   deleteUnusedSectors?: Maybe<Sectorization>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -5270,10 +5243,6 @@ export type MutationDeleteTipSubServiceArgs = {
 
 export type MutationDeleteTopContentBlockArgs = {
   id: Scalars["ID"];
-};
-
-export type MutationDeleteUnpublishedMediaArgs = {
-  imageIds?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
 };
 
 export type MutationDeleteUnusedSectorsArgs = {
@@ -6484,7 +6453,6 @@ export type Query = {
   cguSubService?: Maybe<CguSubServiceEntityResponse>;
   cguSubServices?: Maybe<CguSubServiceEntityResponseCollection>;
   cgus?: Maybe<CguEntityResponseCollection>;
-  changeContractStatus?: Maybe<ContractStatus>;
   channelType?: Maybe<ChannelTypeEntityResponse>;
   channelTypes?: Maybe<ChannelTypeEntityResponseCollection>;
   checkUserRequirements?: Maybe<Array<Maybe<UnregisteredUserData>>>;
@@ -6753,11 +6721,6 @@ export type QueryCgusArgs = {
   filters?: InputMaybe<CguFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
-};
-
-export type QueryChangeContractStatusArgs = {
-  contractId: Scalars["ID"];
-  status: Statuses;
 };
 
 export type QueryChannelTypeArgs = {
@@ -8735,14 +8698,6 @@ export type ServicesDeactivated = {
   serviceId?: Maybe<Scalars["ID"]>;
   serviceName?: Maybe<Scalars["String"]>;
 };
-
-export enum Statuses {
-  Actif = "Actif",
-  Desactive = "Desactive",
-  En = "En",
-  Initialisation = "Initialisation",
-  Cours = "cours",
-}
 
 export type StringFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
