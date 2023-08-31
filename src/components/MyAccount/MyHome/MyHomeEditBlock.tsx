@@ -30,7 +30,7 @@ const MyHomeEditBlock: React.FC<MyHomeProps> = ({
   setIsEdit,
   isMyHomeInfosCompleted,
 }) => {
-  const { currentUser } = useCurrentUser();
+  const { currentUser, login } = useCurrentUser();
   const { updateUser } = useUpdateUser(currentUser?._id || "");
   const { control, handleSubmit, getValues, setValue } = useForm({
     defaultValues: {
@@ -66,7 +66,10 @@ const MyHomeEditBlock: React.FC<MyHomeProps> = ({
       ...data,
     };
 
-    updateUser(datas, refetch).then(() => setIsEdit(!isEdit));
+    updateUser(datas, refetch).then(() => {
+      setIsEdit(!isEdit);
+      if (currentUser && currentUser.email) login(currentUser?.email);
+    });
   };
   return (
     <div className="c-CommonInfoPerso__Container">

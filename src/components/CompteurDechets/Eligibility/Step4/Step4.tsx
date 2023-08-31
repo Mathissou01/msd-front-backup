@@ -59,7 +59,7 @@ const Step4: React.FC<Step4Props> = ({
           isContactVisible: true,
           title: labels.alreadyLinked,
         });
-      if (error?.message)
+      else
         handleError({
           isActive: true,
           isAddressVisible: true,

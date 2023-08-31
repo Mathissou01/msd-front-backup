@@ -33,8 +33,12 @@ const CommonMonthSelector: React.FC<CommonMonthSelectorProps> = ({
     date,
   ).getFullYear()}`;
 
-  const entryDate = new Date(date).getTime();
-  const lastMonthDate = subMonths(new Date(), 1).getTime();
+  const currentDate = new Date();
+  const entryDateFormat = new Date(currentDate);
+  const entryDate = entryDateFormat.setDate(entryDateFormat.getDate() + 1);
+
+  const lastMonthDate = subMonths(currentDate, 1);
+  const lastMonthTime = lastMonthDate.getTime();
 
   return (
     <div className="c-CommonMonthSelector">
@@ -48,7 +52,7 @@ const CommonMonthSelector: React.FC<CommonMonthSelectorProps> = ({
       )}
 
       <span className="c-CommonMonthSelector__Date">{formattedDate}</span>
-      {entryDate < lastMonthDate && (
+      {entryDate < lastMonthTime && (
         <button
           className="c-CommonMonthSelector__Arrow"
           onClick={() => handleChangeDate(amount)}

@@ -226,13 +226,17 @@ export default function MyWastePage() {
                       flows={flowsData?.getUserWasteManagement[0]}
                     />
                   )}
-                {selectedChip !== "all" && wasteFlows.length > 0 && (
-                  <div className="c-MyFlowEdito">
-                    {wasteFlows?.map((wasteFlow: IMyWasteFlowEdito, index) => (
-                      <MyFlowEdito wasteFlow={wasteFlow} key={index} />
-                    ))}
-                  </div>
-                )}
+                {selectedChip !== "all" &&
+                  wasteFlows &&
+                  wasteFlows.length > 0 && (
+                    <div className="c-MyFlowEdito">
+                      {wasteFlows?.map(
+                        (wasteFlow: IMyWasteFlowEdito, index) => (
+                          <MyFlowEdito wasteFlow={wasteFlow} key={index} />
+                        ),
+                      )}
+                    </div>
+                  )}
               </div>
             </div>
           ) : (
