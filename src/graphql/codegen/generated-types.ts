@@ -35,6 +35,7 @@ export type Scalars = {
   JSON: any;
   Long: any;
   MwcFlowBlocksDynamicZoneInput: any;
+  MwcFlowEditoContentDynamicZoneInput: any;
   NewBlocksDynamicZoneInput: any;
   RequestAddableBlocksDynamicZoneInput: any;
   ServicesBlockServiceLinksDynamicZoneInput: any;
@@ -668,6 +669,7 @@ export type ChannelType = {
   createdAt?: Maybe<Scalars["DateTime"]>;
   hasWebApp?: Maybe<Scalars["Boolean"]>;
   hasWebSite?: Maybe<Scalars["Boolean"]>;
+  hasYesWeScan?: Maybe<Scalars["Boolean"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
 
@@ -694,6 +696,7 @@ export type ChannelTypeFiltersInput = {
   createdAt?: InputMaybe<DateTimeFilterInput>;
   hasWebApp?: InputMaybe<BooleanFilterInput>;
   hasWebSite?: InputMaybe<BooleanFilterInput>;
+  hasYesWeScan?: InputMaybe<BooleanFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<ChannelTypeFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ChannelTypeFiltersInput>>>;
@@ -704,6 +707,7 @@ export type ChannelTypeInput = {
   contract?: InputMaybe<Scalars["ID"]>;
   hasWebApp?: InputMaybe<Scalars["Boolean"]>;
   hasWebSite?: InputMaybe<Scalars["Boolean"]>;
+  hasYesWeScan?: InputMaybe<Scalars["Boolean"]>;
 };
 
 export type ChannelTypeRelationResponseCollection = {
@@ -1814,7 +1818,6 @@ export type Contract = {
   dueDate?: Maybe<Scalars["DateTime"]>;
   editorialService?: Maybe<EditorialServiceEntityResponse>;
   flows?: Maybe<FlowRelationResponseCollection>;
-  hasYesWeScan?: Maybe<Scalars["Boolean"]>;
   isFreemium: Scalars["Boolean"];
   isNonExclusive: Scalars["Boolean"];
   isRVFrance: Scalars["Boolean"];
@@ -1832,7 +1835,7 @@ export type Contract = {
   territory?: Maybe<TerritoryEntityResponse>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
   users?: Maybe<UsersPermissionsUserRelationResponseCollection>;
-  yes_we_scan_service?: Maybe<YesWeScanServiceRelationResponseCollection>;
+  yesWeScanServices?: Maybe<YesWeScanServiceRelationResponseCollection>;
 };
 
 export type ContractAudiencesArgs = {
@@ -1883,7 +1886,7 @@ export type ContractUsersArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
-export type ContractYes_We_Scan_ServiceArgs = {
+export type ContractYesWeScanServicesArgs = {
   filters?: InputMaybe<YesWeScanServiceFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
@@ -1996,7 +1999,6 @@ export type ContractFiltersInput = {
   dueDate?: InputMaybe<DateTimeFilterInput>;
   editorialService?: InputMaybe<EditorialServiceFiltersInput>;
   flows?: InputMaybe<FlowFiltersInput>;
-  hasYesWeScan?: InputMaybe<BooleanFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   isFreemium?: InputMaybe<BooleanFilterInput>;
   isNonExclusive?: InputMaybe<BooleanFilterInput>;
@@ -2016,7 +2018,7 @@ export type ContractFiltersInput = {
   territory?: InputMaybe<TerritoryFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   users?: InputMaybe<UsersPermissionsUserFiltersInput>;
-  yes_we_scan_service?: InputMaybe<YesWeScanServiceFiltersInput>;
+  yesWeScanServices?: InputMaybe<YesWeScanServiceFiltersInput>;
 };
 
 export type ContractInput = {
@@ -2039,7 +2041,6 @@ export type ContractInput = {
   dueDate?: InputMaybe<Scalars["DateTime"]>;
   editorialService?: InputMaybe<Scalars["ID"]>;
   flows?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
-  hasYesWeScan?: InputMaybe<Scalars["Boolean"]>;
   isFreemium?: InputMaybe<Scalars["Boolean"]>;
   isNonExclusive?: InputMaybe<Scalars["Boolean"]>;
   isRVFrance?: InputMaybe<Scalars["Boolean"]>;
@@ -2056,7 +2057,7 @@ export type ContractInput = {
   tags?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   territory?: InputMaybe<Scalars["ID"]>;
   users?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
-  yes_we_scan_service?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  yesWeScanServices?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
 };
 
 export type ContractMenu = {
@@ -2802,6 +2803,17 @@ export enum Enum_Wasteform_Status {
   Published = "published",
 }
 
+export enum Enum_Yeswescanform_Picturestatus {
+  Mandatory = "mandatory",
+  Masked = "masked",
+  Optional = "optional",
+}
+
+export enum Enum_Yeswescanform_Treatmentmethod {
+  Mail = "mail",
+  Tsms = "tsms",
+}
+
 export type EditoBlock = {
   __typename?: "EditoBlock";
   audience?: Maybe<AudienceEntityResponse>;
@@ -3530,6 +3542,9 @@ export type Footer = {
   contractCustomization?: Maybe<ContractCustomizationEntityResponse>;
   cookiesSubService?: Maybe<CookiesSubServiceEntityResponse>;
   createdAt?: Maybe<Scalars["DateTime"]>;
+  displayLink?: Maybe<Scalars["Boolean"]>;
+  linkName?: Maybe<Scalars["String"]>;
+  linkUrl?: Maybe<Scalars["String"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
 
@@ -3560,7 +3575,10 @@ export type FooterFiltersInput = {
   contractCustomization?: InputMaybe<ContractCustomizationFiltersInput>;
   cookiesSubService?: InputMaybe<CookiesSubServiceFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
+  displayLink?: InputMaybe<BooleanFilterInput>;
   id?: InputMaybe<IdFilterInput>;
+  linkName?: InputMaybe<StringFilterInput>;
+  linkUrl?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<FooterFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<FooterFiltersInput>>>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -3574,6 +3592,9 @@ export type FooterInput = {
   contactUsSubService?: InputMaybe<Scalars["ID"]>;
   contractCustomization?: InputMaybe<Scalars["ID"]>;
   cookiesSubService?: InputMaybe<Scalars["ID"]>;
+  displayLink?: InputMaybe<Scalars["Boolean"]>;
+  linkName?: InputMaybe<Scalars["String"]>;
+  linkUrl?: InputMaybe<Scalars["String"]>;
 };
 
 export type FreeContent = {
@@ -3872,6 +3893,7 @@ export type GenericMorph =
   | WasteFamily
   | WasteForm
   | WelcomeMessageBlock
+  | YesWeScanForm
   | YesWeScanService;
 
 export type Global = {
@@ -4417,8 +4439,9 @@ export type Mutation = {
   createWasteFamily?: Maybe<WasteFamilyEntityResponse>;
   createWasteForm?: Maybe<WasteFormEntityResponse>;
   createWelcomeMessageBlock?: Maybe<WelcomeMessageBlockEntityResponse>;
+  createYesWeScanForm?: Maybe<YesWeScanFormEntityResponse>;
   createYesWeScanService?: Maybe<YesWeScanServiceEntityResponse>;
-  createYwsService?: Maybe<Scalars["Boolean"]>;
+  createYwsService?: Maybe<YesWeScanServiceEntity>;
   deleteAccessibility?: Maybe<AccessibilityEntityResponse>;
   deleteAccessibilitySubService?: Maybe<AccessibilitySubServiceEntityResponse>;
   deleteAlertNotification?: Maybe<AlertNotificationEntityResponse>;
@@ -4501,8 +4524,8 @@ export type Mutation = {
   deleteWasteFamily?: Maybe<WasteFamilyEntityResponse>;
   deleteWasteForm?: Maybe<WasteFormEntityResponse>;
   deleteWelcomeMessageBlock?: Maybe<WelcomeMessageBlockEntityResponse>;
+  deleteYesWeScanForm?: Maybe<YesWeScanFormEntityResponse>;
   deleteYesWeScanService?: Maybe<YesWeScanServiceEntityResponse>;
-  deleteYwsService?: Maybe<Scalars["Boolean"]>;
   duplicateContent?: Maybe<Scalars["Boolean"]>;
   /** Confirm an email users email address */
   emailConfirmation?: Maybe<UsersPermissionsLoginPayload>;
@@ -4609,6 +4632,7 @@ export type Mutation = {
   updateWasteFamily?: Maybe<WasteFamilyEntityResponse>;
   updateWasteForm?: Maybe<WasteFormEntityResponse>;
   updateWelcomeMessageBlock?: Maybe<WelcomeMessageBlockEntityResponse>;
+  updateYesWeScanForm?: Maybe<YesWeScanFormEntityResponse>;
   updateYesWeScanService?: Maybe<YesWeScanServiceEntityResponse>;
   upload: UploadFileEntityResponse;
   uploadFileAndGetId?: Maybe<UploadResult>;
@@ -4616,8 +4640,8 @@ export type Mutation = {
   urlUploader?: Maybe<Scalars["Boolean"]>;
   validateRequest?: Maybe<Scalars["Boolean"]>;
   versioningHandler?: Maybe<VersioningEntityResponse>;
-  ywsActivation?: Maybe<Scalars["Boolean"]>;
-  ywsDeactivation?: Maybe<Scalars["Boolean"]>;
+  ywsActivation?: Maybe<ChannelTypeEntity>;
+  ywsDeactivation?: Maybe<ChannelTypeEntity>;
 };
 
 export type MutationBulkDeleteMediasArgs = {
@@ -4985,6 +5009,10 @@ export type MutationCreateWelcomeMessageBlockArgs = {
   data: WelcomeMessageBlockInput;
 };
 
+export type MutationCreateYesWeScanFormArgs = {
+  data: YesWeScanFormInput;
+};
+
 export type MutationCreateYesWeScanServiceArgs = {
   data: YesWeScanServiceInput;
 };
@@ -5312,11 +5340,11 @@ export type MutationDeleteWelcomeMessageBlockArgs = {
   id: Scalars["ID"];
 };
 
-export type MutationDeleteYesWeScanServiceArgs = {
+export type MutationDeleteYesWeScanFormArgs = {
   id: Scalars["ID"];
 };
 
-export type MutationDeleteYwsServiceArgs = {
+export type MutationDeleteYesWeScanServiceArgs = {
   id: Scalars["ID"];
 };
 
@@ -5838,6 +5866,11 @@ export type MutationUpdateWelcomeMessageBlockArgs = {
   id: Scalars["ID"];
 };
 
+export type MutationUpdateYesWeScanFormArgs = {
+  data: YesWeScanFormInput;
+  id: Scalars["ID"];
+};
+
 export type MutationUpdateYesWeScanServiceArgs = {
   data: YesWeScanServiceInput;
   id: Scalars["ID"];
@@ -5990,7 +6023,9 @@ export type MwcFlow = {
   averageProductionPerson?: Maybe<Scalars["Long"]>;
   blocks?: Maybe<Array<Maybe<MwcFlowBlocksDynamicZone>>>;
   createdAt?: Maybe<Scalars["DateTime"]>;
+  editoContent?: Maybe<Array<Maybe<MwcFlowEditoContentDynamicZone>>>;
   flow?: Maybe<FlowEntityResponse>;
+  hasEdito?: Maybe<Scalars["Boolean"]>;
   mwCounterService?: Maybe<MwCounterServiceEntityResponse>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
   weightSystem?: Maybe<Enum_Mwcflow_Weightsystem>;
@@ -6002,6 +6037,8 @@ export type MwcFlowBlocksDynamicZone =
   | ComponentBlocksVideo
   | ComponentBlocksWysiwyg
   | Error;
+
+export type MwcFlowEditoContentDynamicZone = ComponentLinksEditoContent | Error;
 
 export type MwcFlowEntity = {
   __typename?: "MwcFlowEntity";
@@ -6025,6 +6062,7 @@ export type MwcFlowFiltersInput = {
   averageProductionPerson?: InputMaybe<LongFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   flow?: InputMaybe<FlowFiltersInput>;
+  hasEdito?: InputMaybe<BooleanFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   mwCounterService?: InputMaybe<MwCounterServiceFiltersInput>;
   not?: InputMaybe<MwcFlowFiltersInput>;
@@ -6036,7 +6074,11 @@ export type MwcFlowFiltersInput = {
 export type MwcFlowInput = {
   averageProductionPerson?: InputMaybe<Scalars["Long"]>;
   blocks?: InputMaybe<Array<Scalars["MwcFlowBlocksDynamicZoneInput"]>>;
+  editoContent?: InputMaybe<
+    Array<Scalars["MwcFlowEditoContentDynamicZoneInput"]>
+  >;
   flow?: InputMaybe<Scalars["ID"]>;
+  hasEdito?: InputMaybe<Scalars["Boolean"]>;
   mwCounterService?: InputMaybe<Scalars["ID"]>;
   weightSystem?: InputMaybe<Enum_Mwcflow_Weightsystem>;
 };
@@ -6661,6 +6703,8 @@ export type Query = {
   wasteForms?: Maybe<WasteFormEntityResponseCollection>;
   welcomeMessageBlock?: Maybe<WelcomeMessageBlockEntityResponse>;
   welcomeMessageBlocks?: Maybe<WelcomeMessageBlockEntityResponseCollection>;
+  yesWeScanForm?: Maybe<YesWeScanFormEntityResponse>;
+  yesWeScanForms?: Maybe<YesWeScanFormEntityResponseCollection>;
   yesWeScanService?: Maybe<YesWeScanServiceEntityResponse>;
   yesWeScanServices?: Maybe<YesWeScanServiceEntityResponseCollection>;
 };
@@ -7146,6 +7190,7 @@ export type QueryGetMwcAverageProductionArgs = {
 };
 
 export type QueryGetNewestTopContentsArgs = {
+  audienceId: Scalars["ID"];
   contractId: Scalars["ID"];
 };
 
@@ -7616,6 +7661,17 @@ export type QueryWelcomeMessageBlockArgs = {
 export type QueryWelcomeMessageBlocksArgs = {
   filters?: InputMaybe<WelcomeMessageBlockFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+};
+
+export type QueryYesWeScanFormArgs = {
+  id?: InputMaybe<Scalars["ID"]>;
+};
+
+export type QueryYesWeScanFormsArgs = {
+  filters?: InputMaybe<YesWeScanFormFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
 };
 
@@ -9904,6 +9960,79 @@ export type WelcomeMessageBlockInput = {
   title?: InputMaybe<Scalars["String"]>;
 };
 
+export type YesWeScanForm = {
+  __typename?: "YesWeScanForm";
+  createdAt?: Maybe<Scalars["DateTime"]>;
+  displayEndingButton: Scalars["Boolean"];
+  endingButtonIntroduction?: Maybe<Scalars["String"]>;
+  endingButtonLabel?: Maybe<Scalars["String"]>;
+  endingButtonLink?: Maybe<Scalars["String"]>;
+  logo?: Maybe<UploadFileEntityResponse>;
+  mailRecipients?: Maybe<Scalars["String"]>;
+  pictureStatus: Enum_Yeswescanform_Picturestatus;
+  publishedAt?: Maybe<Scalars["DateTime"]>;
+  reportButtons: Scalars["String"];
+  shortName?: Maybe<Scalars["String"]>;
+  thankYouMessage: Scalars["String"];
+  treatmentMethod: Enum_Yeswescanform_Treatmentmethod;
+  updatedAt?: Maybe<Scalars["DateTime"]>;
+  yesWeScanService?: Maybe<YesWeScanServiceEntityResponse>;
+};
+
+export type YesWeScanFormEntity = {
+  __typename?: "YesWeScanFormEntity";
+  attributes?: Maybe<YesWeScanForm>;
+  id?: Maybe<Scalars["ID"]>;
+};
+
+export type YesWeScanFormEntityResponse = {
+  __typename?: "YesWeScanFormEntityResponse";
+  data?: Maybe<YesWeScanFormEntity>;
+};
+
+export type YesWeScanFormEntityResponseCollection = {
+  __typename?: "YesWeScanFormEntityResponseCollection";
+  data: Array<YesWeScanFormEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type YesWeScanFormFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<YesWeScanFormFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  displayEndingButton?: InputMaybe<BooleanFilterInput>;
+  endingButtonIntroduction?: InputMaybe<StringFilterInput>;
+  endingButtonLabel?: InputMaybe<StringFilterInput>;
+  endingButtonLink?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  mailRecipients?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<YesWeScanFormFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<YesWeScanFormFiltersInput>>>;
+  pictureStatus?: InputMaybe<StringFilterInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  reportButtons?: InputMaybe<StringFilterInput>;
+  shortName?: InputMaybe<StringFilterInput>;
+  thankYouMessage?: InputMaybe<StringFilterInput>;
+  treatmentMethod?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+  yesWeScanService?: InputMaybe<YesWeScanServiceFiltersInput>;
+};
+
+export type YesWeScanFormInput = {
+  displayEndingButton?: InputMaybe<Scalars["Boolean"]>;
+  endingButtonIntroduction?: InputMaybe<Scalars["String"]>;
+  endingButtonLabel?: InputMaybe<Scalars["String"]>;
+  endingButtonLink?: InputMaybe<Scalars["String"]>;
+  logo?: InputMaybe<Scalars["ID"]>;
+  mailRecipients?: InputMaybe<Scalars["String"]>;
+  pictureStatus?: InputMaybe<Enum_Yeswescanform_Picturestatus>;
+  publishedAt?: InputMaybe<Scalars["DateTime"]>;
+  reportButtons?: InputMaybe<Scalars["String"]>;
+  shortName?: InputMaybe<Scalars["String"]>;
+  thankYouMessage?: InputMaybe<Scalars["String"]>;
+  treatmentMethod?: InputMaybe<Enum_Yeswescanform_Treatmentmethod>;
+  yesWeScanService?: InputMaybe<Scalars["ID"]>;
+};
+
 export type YesWeScanService = {
   __typename?: "YesWeScanService";
   contract?: Maybe<ContractEntityResponse>;
@@ -9912,6 +10041,7 @@ export type YesWeScanService = {
   serviceName?: Maybe<Scalars["String"]>;
   startDate?: Maybe<Scalars["DateTime"]>;
   updatedAt?: Maybe<Scalars["DateTime"]>;
+  yesWeScanForm?: Maybe<YesWeScanFormEntityResponse>;
 };
 
 export type YesWeScanServiceEntity = {
@@ -9942,6 +10072,7 @@ export type YesWeScanServiceFiltersInput = {
   serviceName?: InputMaybe<StringFilterInput>;
   startDate?: InputMaybe<DateTimeFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
+  yesWeScanForm?: InputMaybe<YesWeScanFormFiltersInput>;
 };
 
 export type YesWeScanServiceInput = {
@@ -9949,6 +10080,7 @@ export type YesWeScanServiceInput = {
   endDate?: InputMaybe<Scalars["DateTime"]>;
   serviceName?: InputMaybe<Scalars["String"]>;
   startDate?: InputMaybe<Scalars["DateTime"]>;
+  yesWeScanForm?: InputMaybe<Scalars["ID"]>;
 };
 
 export type YesWeScanServiceRelationResponseCollection = {
@@ -11386,6 +11518,7 @@ export type GetLogoQuery = {
 
 export type GetNewestTopContentsQueryVariables = Exact<{
   contractId: Scalars["ID"];
+  audienceId: Scalars["ID"];
 }>;
 
 export type GetNewestTopContentsQuery = {
@@ -15960,8 +16093,8 @@ export type GetLogoQueryResult = Apollo.QueryResult<
   GetLogoQueryVariables
 >;
 export const GetNewestTopContentsDocument = gql`
-  query getNewestTopContents($contractId: ID!) {
-    getNewestTopContents(contractId: $contractId) {
+  query getNewestTopContents($contractId: ID!, $audienceId: ID!) {
+    getNewestTopContents(contractId: $contractId, audienceId: $audienceId) {
       type
       originalId
       title
@@ -15996,6 +16129,7 @@ export const GetNewestTopContentsDocument = gql`
  * const { data, loading, error } = useGetNewestTopContentsQuery({
  *   variables: {
  *      contractId: // value for 'contractId'
+ *      audienceId: // value for 'audienceId'
  *   },
  * });
  */

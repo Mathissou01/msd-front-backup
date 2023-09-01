@@ -58,7 +58,7 @@ interface IHomePageProps {
   quizAndTipsBlocks: Array<QuizAndTipsBlockEntity> | null;
   editoBlocks: Array<EditoBlockEntity> | null;
   topContentBlocks: Array<TopContentBlockEntity> | null;
-  newestTopContents: GetNewestTopContentsQuery;
+  newestTopContentBlocks: Array<GetNewestTopContentsQuery> | null;
   cookieBotCbid: string;
 }
 
@@ -70,7 +70,7 @@ export default function HomePage({
   quizAndTipsBlocks,
   editoBlocks,
   topContentBlocks,
-  newestTopContents,
+  newestTopContentBlocks,
   cookieBotCbid,
 }: IHomePageProps) {
   /* Static Data */
@@ -189,7 +189,11 @@ export default function HomePage({
       {displayTopContentBlock && topContentBlock && (
         <TopContentBlock
           data={topContentBlock}
-          newestTopContents={newestTopContents}
+          newestTopContents={
+            newestTopContentBlocks
+              ? newestTopContentBlocks[currentAudienceId]
+              : undefined
+          }
         />
       )}
       {displayQuizAndTipsBlock && quizAndTipsBlock && (
@@ -241,6 +245,7 @@ export async function getStaticProps() {
   const quizAndTipsBlocks: Record<string, QuizAndTipsBlockEntity> = {};
   const topContentBlocks: Record<string, TopContentBlockEntity> = {};
   const editoBlocks: Record<string, EditoBlockEntity> = {};
+  const newestTopContentsBlocks: Record<string, GetNewestTopContentsQuery> = {};
   const fetchDataForAudienceId = async (id: string) => {
     const variables = { contractId, audienceId: id };
     const { data: servicesBlockData } =
@@ -283,6 +288,14 @@ export async function getStaticProps() {
     if (editoBlockExtracted) {
       editoBlocks[id] = editoBlockExtracted;
     }
+
+    const { data: newestTopContents } =
+      await client.query<GetNewestTopContentsQuery>({
+        query: GetNewestTopContentsDocument,
+        variables,
+      });
+
+    newestTopContentsBlocks[id] = newestTopContents;
   };
 
   for (const id of audienceIds) {
@@ -290,12 +303,6 @@ export async function getStaticProps() {
       await fetchDataForAudienceId(id);
     }
   }
-
-  const { data: newestTopContents } =
-    await client.query<GetNewestTopContentsQuery>({
-      query: GetNewestTopContentsDocument,
-      variables: { contractId },
-    });
 
   const cookieBotCbid = process.env.COOKIE_BOT_CBID?.toString();
   return {
@@ -307,7 +314,7 @@ export async function getStaticProps() {
       quizAndTipsBlocks,
       editoBlocks,
       topContentBlocks,
-      newestTopContents,
+      newestTopContentsBlocks,
       cookieBotCbid,
     },
   };

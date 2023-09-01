@@ -565,6 +565,7 @@ type ChannelType {
   createdAt: DateTime
   hasWebApp: Boolean
   hasWebSite: Boolean
+  hasYesWeScan: Boolean
   updatedAt: DateTime
 }
 
@@ -588,6 +589,7 @@ input ChannelTypeFiltersInput {
   createdAt: DateTimeFilterInput
   hasWebApp: BooleanFilterInput
   hasWebSite: BooleanFilterInput
+  hasYesWeScan: BooleanFilterInput
   id: IDFilterInput
   not: ChannelTypeFiltersInput
   or: [ChannelTypeFiltersInput]
@@ -598,6 +600,7 @@ input ChannelTypeInput {
   contract: ID
   hasWebApp: Boolean
   hasWebSite: Boolean
+  hasYesWeScan: Boolean
 }
 
 type ChannelTypeRelationResponseCollection {
@@ -1600,7 +1603,6 @@ type Contract {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): FlowRelationResponseCollection
-  hasYesWeScan: Boolean
   isFreemium: Boolean!
   isNonExclusive: Boolean!
   isRVFrance: Boolean!
@@ -1630,7 +1632,7 @@ type Contract {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): UsersPermissionsUserRelationResponseCollection
-  yes_we_scan_service(
+  yesWeScanServices(
     filters: YesWeScanServiceFiltersInput
     pagination: PaginationArg = {}
     sort: [String] = []
@@ -1736,7 +1738,6 @@ input ContractFiltersInput {
   dueDate: DateTimeFilterInput
   editorialService: EditorialServiceFiltersInput
   flows: FlowFiltersInput
-  hasYesWeScan: BooleanFilterInput
   id: IDFilterInput
   isFreemium: BooleanFilterInput
   isNonExclusive: BooleanFilterInput
@@ -1756,7 +1757,7 @@ input ContractFiltersInput {
   territory: TerritoryFiltersInput
   updatedAt: DateTimeFilterInput
   users: UsersPermissionsUserFiltersInput
-  yes_we_scan_service: YesWeScanServiceFiltersInput
+  yesWeScanServices: YesWeScanServiceFiltersInput
 }
 
 input ContractInput {
@@ -1779,7 +1780,6 @@ input ContractInput {
   dueDate: DateTime
   editorialService: ID
   flows: [ID]
-  hasYesWeScan: Boolean
   isFreemium: Boolean
   isNonExclusive: Boolean
   isRVFrance: Boolean
@@ -1796,7 +1796,7 @@ input ContractInput {
   tags: [ID]
   territory: ID
   users: [ID]
-  yes_we_scan_service: [ID]
+  yesWeScanServices: [ID]
 }
 
 type ContractMenu {
@@ -2495,6 +2495,17 @@ enum ENUM_WASTEFORM_STATUS {
   published
 }
 
+enum ENUM_YESWESCANFORM_PICTURESTATUS {
+  mandatory
+  masked
+  optional
+}
+
+enum ENUM_YESWESCANFORM_TREATMENTMETHOD {
+  mail
+  tsms
+}
+
 type EditoBlock {
   audience: AudienceEntityResponse
   createdAt: DateTime
@@ -3146,6 +3157,9 @@ type Footer {
   contractCustomization: ContractCustomizationEntityResponse
   cookiesSubService: CookiesSubServiceEntityResponse
   createdAt: DateTime
+  displayLink: Boolean
+  linkName: String
+  linkUrl: String
   updatedAt: DateTime
 }
 
@@ -3173,7 +3187,10 @@ input FooterFiltersInput {
   contractCustomization: ContractCustomizationFiltersInput
   cookiesSubService: CookiesSubServiceFiltersInput
   createdAt: DateTimeFilterInput
+  displayLink: BooleanFilterInput
   id: IDFilterInput
+  linkName: StringFilterInput
+  linkUrl: StringFilterInput
   not: FooterFiltersInput
   or: [FooterFiltersInput]
   updatedAt: DateTimeFilterInput
@@ -3187,6 +3204,9 @@ input FooterInput {
   contactUsSubService: ID
   contractCustomization: ID
   cookiesSubService: ID
+  displayLink: Boolean
+  linkName: String
+  linkUrl: String
 }
 
 type FreeContent {
@@ -3469,6 +3489,7 @@ union GenericMorph =
   | WasteFamily
   | WasteForm
   | WelcomeMessageBlock
+  | YesWeScanForm
   | YesWeScanService
 
 type Global {
@@ -4085,10 +4106,14 @@ type Mutation {
   createWelcomeMessageBlock(
     data: WelcomeMessageBlockInput!
   ): WelcomeMessageBlockEntityResponse
+  createYesWeScanForm(data: YesWeScanFormInput!): YesWeScanFormEntityResponse
   createYesWeScanService(
     data: YesWeScanServiceInput!
   ): YesWeScanServiceEntityResponse
-  createYwsService(contractId: ID!, service: ServiceInput!): Boolean
+  createYwsService(
+    contractId: ID!
+    service: ServiceInput!
+  ): YesWeScanServiceEntity
   deleteAccessibility(id: ID!): AccessibilityEntityResponse
   deleteAccessibilitySubService(id: ID!): AccessibilitySubServiceEntityResponse
   deleteAlertNotification(id: ID!): AlertNotificationEntityResponse
@@ -4181,8 +4206,8 @@ type Mutation {
   deleteWasteFamily(id: ID!): WasteFamilyEntityResponse
   deleteWasteForm(id: ID!): WasteFormEntityResponse
   deleteWelcomeMessageBlock(id: ID!): WelcomeMessageBlockEntityResponse
+  deleteYesWeScanForm(id: ID!): YesWeScanFormEntityResponse
   deleteYesWeScanService(id: ID!): YesWeScanServiceEntityResponse
-  deleteYwsService(id: ID!): Boolean
   duplicateContent(id: ID!, type: String): Boolean
 
   """
@@ -4507,6 +4532,10 @@ type Mutation {
     data: WelcomeMessageBlockInput!
     id: ID!
   ): WelcomeMessageBlockEntityResponse
+  updateYesWeScanForm(
+    data: YesWeScanFormInput!
+    id: ID!
+  ): YesWeScanFormEntityResponse
   updateYesWeScanService(
     data: YesWeScanServiceInput!
     id: ID!
@@ -4529,8 +4558,8 @@ type Mutation {
   urlUploader(imageName: String!, url: String!): Boolean
   validateRequest(requestJSON: JSON): Boolean
   versioningHandler(data: JSON!, entity: String!): VersioningEntityResponse
-  ywsActivation(contractId: ID!): Boolean
-  ywsDeactivation(contractId: ID!): Boolean
+  ywsActivation(contractId: ID!): ChannelTypeEntity
+  ywsDeactivation(contractId: ID!): ChannelTypeEntity
 }
 
 type MwCounterService {
@@ -4628,7 +4657,9 @@ type MwcFlow {
   averageProductionPerson: Long
   blocks: [MwcFlowBlocksDynamicZone]
   createdAt: DateTime
+  editoContent: [MwcFlowEditoContentDynamicZone]
   flow: FlowEntityResponse
+  hasEdito: Boolean
   mwCounterService: MwCounterServiceEntityResponse
   updatedAt: DateTime
   weightSystem: ENUM_MWCFLOW_WEIGHTSYSTEM
@@ -4642,6 +4673,10 @@ union MwcFlowBlocksDynamicZone =
   | Error
 
 scalar MwcFlowBlocksDynamicZoneInput
+
+union MwcFlowEditoContentDynamicZone = ComponentLinksEditoContent | Error
+
+scalar MwcFlowEditoContentDynamicZoneInput
 
 type MwcFlowEntity {
   attributes: MwcFlow
@@ -4662,6 +4697,7 @@ input MwcFlowFiltersInput {
   averageProductionPerson: LongFilterInput
   createdAt: DateTimeFilterInput
   flow: FlowFiltersInput
+  hasEdito: BooleanFilterInput
   id: IDFilterInput
   mwCounterService: MwCounterServiceFiltersInput
   not: MwcFlowFiltersInput
@@ -4673,7 +4709,9 @@ input MwcFlowFiltersInput {
 input MwcFlowInput {
   averageProductionPerson: Long
   blocks: [MwcFlowBlocksDynamicZoneInput!]
+  editoContent: [MwcFlowEditoContentDynamicZoneInput!]
   flow: ID
+  hasEdito: Boolean
   mwCounterService: ID
   weightSystem: ENUM_MWCFLOW_WEIGHTSYSTEM
 }
@@ -5338,7 +5376,7 @@ type Query {
   getFilePath(id: ID!): String
   getFolderHierarchy(path: String!): [RequestFolders]
   getMwcAverageProduction(contractId: ID): Int
-  getNewestTopContents(contractId: ID!): [EventOrNews]
+  getNewestTopContents(audienceId: ID!, contractId: ID!): [EventOrNews]
   getNextAvailableSlots(
     lat: Float!
     long: Float!
@@ -5615,6 +5653,13 @@ type Query {
     pagination: PaginationArg = {}
     sort: [String] = []
   ): WelcomeMessageBlockEntityResponseCollection
+  yesWeScanForm(id: ID): YesWeScanFormEntityResponse
+  yesWeScanForms(
+    filters: YesWeScanFormFiltersInput
+    pagination: PaginationArg = {}
+    publicationState: PublicationState = LIVE
+    sort: [String] = []
+  ): YesWeScanFormEntityResponseCollection
   yesWeScanService(id: ID): YesWeScanServiceEntityResponse
   yesWeScanServices(
     filters: YesWeScanServiceFiltersInput
@@ -7676,6 +7721,75 @@ input WelcomeMessageBlockInput {
   title: String
 }
 
+type YesWeScanForm {
+  createdAt: DateTime
+  displayEndingButton: Boolean!
+  endingButtonIntroduction: String
+  endingButtonLabel: String
+  endingButtonLink: String
+  logo: UploadFileEntityResponse
+  mailRecipients: String
+  pictureStatus: ENUM_YESWESCANFORM_PICTURESTATUS!
+  publishedAt: DateTime
+  reportButtons: String!
+  shortName: String
+  thankYouMessage: String!
+  treatmentMethod: ENUM_YESWESCANFORM_TREATMENTMETHOD!
+  updatedAt: DateTime
+  yesWeScanService: YesWeScanServiceEntityResponse
+}
+
+type YesWeScanFormEntity {
+  attributes: YesWeScanForm
+  id: ID
+}
+
+type YesWeScanFormEntityResponse {
+  data: YesWeScanFormEntity
+}
+
+type YesWeScanFormEntityResponseCollection {
+  data: [YesWeScanFormEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input YesWeScanFormFiltersInput {
+  and: [YesWeScanFormFiltersInput]
+  createdAt: DateTimeFilterInput
+  displayEndingButton: BooleanFilterInput
+  endingButtonIntroduction: StringFilterInput
+  endingButtonLabel: StringFilterInput
+  endingButtonLink: StringFilterInput
+  id: IDFilterInput
+  mailRecipients: StringFilterInput
+  not: YesWeScanFormFiltersInput
+  or: [YesWeScanFormFiltersInput]
+  pictureStatus: StringFilterInput
+  publishedAt: DateTimeFilterInput
+  reportButtons: StringFilterInput
+  shortName: StringFilterInput
+  thankYouMessage: StringFilterInput
+  treatmentMethod: StringFilterInput
+  updatedAt: DateTimeFilterInput
+  yesWeScanService: YesWeScanServiceFiltersInput
+}
+
+input YesWeScanFormInput {
+  displayEndingButton: Boolean
+  endingButtonIntroduction: String
+  endingButtonLabel: String
+  endingButtonLink: String
+  logo: ID
+  mailRecipients: String
+  pictureStatus: ENUM_YESWESCANFORM_PICTURESTATUS
+  publishedAt: DateTime
+  reportButtons: String
+  shortName: String
+  thankYouMessage: String
+  treatmentMethod: ENUM_YESWESCANFORM_TREATMENTMETHOD
+  yesWeScanService: ID
+}
+
 type YesWeScanService {
   contract: ContractEntityResponse
   createdAt: DateTime
@@ -7683,6 +7797,7 @@ type YesWeScanService {
   serviceName: String
   startDate: DateTime
   updatedAt: DateTime
+  yesWeScanForm: YesWeScanFormEntityResponse
 }
 
 type YesWeScanServiceEntity {
@@ -7710,6 +7825,7 @@ input YesWeScanServiceFiltersInput {
   serviceName: StringFilterInput
   startDate: DateTimeFilterInput
   updatedAt: DateTimeFilterInput
+  yesWeScanForm: YesWeScanFormFiltersInput
 }
 
 input YesWeScanServiceInput {
@@ -7717,6 +7833,7 @@ input YesWeScanServiceInput {
   endDate: DateTime
   serviceName: String
   startDate: DateTime
+  yesWeScanForm: ID
 }
 
 type YesWeScanServiceRelationResponseCollection {
