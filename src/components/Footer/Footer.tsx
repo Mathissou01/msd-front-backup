@@ -18,8 +18,10 @@ export default function Footer() {
     confidentialityLabel: "Politique de confidentialité",
     contactUsSubService: "Contactez-nous",
   };
+
   const routes = {
     accessibilityRoute: "/accessibilite",
+    siteRoutes: "",
     cookiesRoute: "/cookie",
     cguRoute: "/conditions-generales",
     confidentialityRoute: "/confidentialite",
@@ -38,6 +40,12 @@ export default function Footer() {
       ]
     : EAccessibilityLevel.not_conform;
 
+  const linkName =
+    contract.attributes?.contractCustomization?.data?.attributes?.footer?.data
+      ?.attributes?.linkName;
+
+  routes.siteRoutes = footerData?.linkUrl ?? "";
+
   return (
     <div className="c-Footer">
       <footer
@@ -48,6 +56,11 @@ export default function Footer() {
         <Link className="c-Footer__Link" href={routes.accessibilityRoute}>
           <span>{labels.accessibilityLabel + accessibilityLevelLabel}</span>
         </Link>
+        {linkName && (
+          <Link className="c-Footer__Link" href={routes.siteRoutes}>
+            <span>{linkName}</span>
+          </Link>
+        )}
         <Link
           className="c-Footer__Link"
           href={

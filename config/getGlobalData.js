@@ -65,6 +65,9 @@ query getGlobalData($contractId: ID!) {
               footer {
                 data {
                   attributes {
+                    linkName
+                    linkUrl
+                    displayLink
                     accessibilityLevel
                     cguSubService {
                       data {

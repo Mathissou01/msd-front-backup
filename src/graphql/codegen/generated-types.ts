@@ -11417,6 +11417,9 @@ export type GetFooterQuery = {
             attributes?: {
               __typename?: "Footer";
               accessibilityLevel?: Enum_Footer_Accessibilitylevel | null;
+              linkUrl?: string | null;
+              linkName?: string | null;
+              displayLink?: boolean | null;
               cguSubService?: {
                 __typename?: "CguSubServiceEntityResponse";
                 data?: {
@@ -15928,6 +15931,9 @@ export const GetFooterDocument = gql`
               id
               attributes {
                 accessibilityLevel
+                linkUrl
+                linkName
+                displayLink
                 cguSubService {
                   data {
                     id
