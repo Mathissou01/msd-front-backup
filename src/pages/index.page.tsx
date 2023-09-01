@@ -245,7 +245,7 @@ export async function getStaticProps() {
   const quizAndTipsBlocks: Record<string, QuizAndTipsBlockEntity> = {};
   const topContentBlocks: Record<string, TopContentBlockEntity> = {};
   const editoBlocks: Record<string, EditoBlockEntity> = {};
-  const newestTopContentsBlocks: Record<string, GetNewestTopContentsQuery> = {};
+  const newestTopContentBlocks: Record<string, GetNewestTopContentsQuery> = {};
   const fetchDataForAudienceId = async (id: string) => {
     const variables = { contractId, audienceId: id };
     const { data: servicesBlockData } =
@@ -295,7 +295,7 @@ export async function getStaticProps() {
         variables,
       });
 
-    newestTopContentsBlocks[id] = newestTopContents;
+    newestTopContentBlocks[id] = newestTopContents;
   };
 
   for (const id of audienceIds) {
@@ -314,7 +314,7 @@ export async function getStaticProps() {
       quizAndTipsBlocks,
       editoBlocks,
       topContentBlocks,
-      newestTopContentsBlocks,
+      newestTopContentBlocks,
       cookieBotCbid,
     },
   };
