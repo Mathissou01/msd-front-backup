@@ -142,7 +142,7 @@ export default function BarometerInsight({
                 <text
                   x={x}
                   y={y}
-                  fill="#8884d8"
+                  fill="#6c757d"
                   textAnchor={x > cx ? "start" : "end"}
                   fontSize={12}
                 >

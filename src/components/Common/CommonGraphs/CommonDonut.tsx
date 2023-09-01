@@ -107,17 +107,17 @@ const CommonDonut = ({
           x={
             selectedChip === "all" && flows.totalWeight
               ? flows?.totalWeight >= 100
-                ? cx + 20
+                ? cx - 20
                 : flows?.totalWeight < 10
-                ? cx + 5
-                : cx + 10
+                ? cx - 5
+                : cx - 10
               : !activeFlow?.weight
-              ? cx + 5
+              ? cx - 5
               : activeFlow?.weight && activeFlow?.weight >= 100
-              ? cx + 20
+              ? cx - 20
               : activeFlow?.weight && activeFlow?.weight < 10
-              ? cx + 5
-              : cx + 10
+              ? cx - 5
+              : cx - 10
           }
           y={cy - 15}
           textAnchor={x > cx ? "start" : "end"}
@@ -130,7 +130,7 @@ const CommonDonut = ({
         </text>
 
         <text
-          x={cx + 5}
+          x={cx - 5}
           y={cy + 5}
           textAnchor={x > cx ? "start" : "end"}
           dominantBaseline="central"
@@ -139,7 +139,7 @@ const CommonDonut = ({
           kg
         </text>
         <text
-          x={cx + 15}
+          x={cx - 10}
           y={cy + 25}
           fill="#767C97"
           textAnchor={x > cx ? "start" : "end"}

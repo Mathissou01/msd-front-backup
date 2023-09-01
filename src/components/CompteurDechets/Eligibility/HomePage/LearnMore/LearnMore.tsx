@@ -121,6 +121,7 @@ const LearnMore = () => {
         <CommonBlockHeading titleContent="En savoir plus" />
       </div>
       <CommonOverlay
+        modalSize="large"
         button={
           <button className="c-LearnMore__Content">
             <div className="c-LearnMore__Info">
