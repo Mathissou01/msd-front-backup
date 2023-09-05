@@ -5,6 +5,7 @@ query getGlobalData($contractId: ID!) {
       id
       attributes {
         clientName
+        isFreemium
         clientType
         contractStatus
         isNonExclusive
