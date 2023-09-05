@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
+import { useGetCitiesInformationsLazyQuery } from "../../../../graphql/codegen/generated-types";
 import { makePublicAssetPath } from "../../../../lib/utilities";
 import { useContract } from "../../../../hooks/useContract";
 import ModalSelector from "./ModalSelector/ModalSelector";
@@ -18,9 +20,53 @@ export default function HeaderLinkSelector() {
     setShowModal(true);
   }
 
+  async function getFreemiumCityNameCallback() {
+    if (
+      typeof inseeCode === "string" &&
+      !isNaN(Number(inseeCode)) &&
+      inseeCode?.length === 5 &&
+      contract.attributes?.isFreemium
+    ) {
+      try {
+        const cityInformation = await getCitiesInformations({
+          variables: {
+            prehome: false,
+            searchTerm: inseeCode,
+          },
+        });
+        if (
+          cityInformation.data?.getCitiesInformations &&
+          cityInformation.data?.getCitiesInformations.length > 0
+        ) {
+          setFreemiumCityName(
+            cityInformation.data?.getCitiesInformations[0]?.name ?? "",
+          );
+        }
+      } catch (error) {
+        setFreemiumCityName(undefined);
+      }
+    }
+  }
+
   /* Local Data */
   const [showModal, setShowModal] = useState<boolean>(false);
   const { contract } = useContract();
+  const router = useRouter();
+  const { inseeCode } = router.query;
+  const [getCitiesInformations] = useGetCitiesInformationsLazyQuery();
+  const [freemiumCityName, setFreemiumCityName] = useState<string>();
+  const getFreemiumCityName = useCallback(getFreemiumCityNameCallback, [
+    contract.attributes?.isFreemium,
+    getCitiesInformations,
+    inseeCode,
+  ]);
+
+  useEffect(() => {
+    if (inseeCode) {
+      setFreemiumCityName(undefined);
+      getFreemiumCityName();
+    }
+  }, [inseeCode, setFreemiumCityName, getFreemiumCityName]);
 
   return (
     <div className="c-HeaderLinkSelector">
@@ -28,7 +74,11 @@ export default function HeaderLinkSelector() {
         className="c-HeaderLinkSelector__Link"
         onClick={handleShowSelector}
       >
-        <span>{contract.attributes?.clientName}</span>
+        <span>
+          {!contract.attributes?.isFreemium
+            ? contract.attributes?.clientName
+            : freemiumCityName}
+        </span>
         <Image
           src={makePublicAssetPath(refreshhArrowIcon.source)}
           alt={refreshhArrowIcon.alternativeText}

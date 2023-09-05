@@ -19,6 +19,7 @@ query getGlobalData($contractId: ID!) {
             id
           }
         }
+        isFreemium
         logo {
           data {
             id

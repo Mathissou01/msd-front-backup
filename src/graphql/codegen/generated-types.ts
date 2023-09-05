@@ -10930,7 +10930,11 @@ export type GetContractIdByInseeCodeQuery = {
   __typename?: "Query";
   getContractIdByInseeCode?: {
     __typename?: "ContractEntity";
-    attributes?: { __typename?: "Contract"; clientName: string } | null;
+    attributes?: {
+      __typename?: "Contract";
+      clientName: string;
+      isFreemium: boolean;
+    } | null;
   } | null;
 };
 
@@ -11417,9 +11421,6 @@ export type GetFooterQuery = {
             attributes?: {
               __typename?: "Footer";
               accessibilityLevel?: Enum_Footer_Accessibilitylevel | null;
-              linkUrl?: string | null;
-              linkName?: string | null;
-              displayLink?: boolean | null;
               cguSubService?: {
                 __typename?: "CguSubServiceEntityResponse";
                 data?: {
@@ -15421,6 +15422,7 @@ export const GetContractIdByInseeCodeDocument = gql`
     getContractIdByInseeCode(INSEE: $insee) {
       attributes {
         clientName
+        isFreemium
       }
     }
   }
@@ -15931,9 +15933,6 @@ export const GetFooterDocument = gql`
               id
               attributes {
                 accessibilityLevel
-                linkUrl
-                linkName
-                displayLink
                 cguSubService {
                   data {
                     id

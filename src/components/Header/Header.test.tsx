@@ -4,6 +4,16 @@ import Header from "./Header";
 
 jest.mock("./Navigation/NavigationList/NavigationList");
 
+jest.mock("next/router", () => ({
+  useRouter: jest.fn().mockReturnValue({
+    query: {},
+  }),
+}));
+
+jest.mock("../../graphql/codegen/generated-types", () => ({
+  useGetCitiesInformationsLazyQuery: jest.fn().mockReturnValue(["test"]),
+}));
+
 describe("Header", () => {
   it("renders in mobile mode", async () => {
     const { container } = render(

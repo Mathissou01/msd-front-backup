@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import router from "next/router";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import {
   CityInformation,
@@ -58,8 +59,12 @@ export default function ModalSelector({ handleClose }: IModalSelectorProps) {
     return getContractByInsee({
       variables: { insee: currentInsee },
       onCompleted: (results) => {
-        window.location.replace(
-          `/${results.getContractIdByInseeCode?.attributes?.clientName}/index.html`,
+        const inseeCodeQueryParameter = results.getContractIdByInseeCode
+          ?.attributes?.isFreemium
+          ? `?inseeCode=${currentInsee}`
+          : "";
+        router.push(
+          `/${results.getContractIdByInseeCode?.attributes?.clientName}/index.html${inseeCodeQueryParameter}`,
         );
       },
       onError: (error) => {

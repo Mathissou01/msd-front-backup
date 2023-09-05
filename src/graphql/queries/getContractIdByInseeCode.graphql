@@ -2,6 +2,7 @@ query GetContractIdByInseeCode($insee: String!) {
   getContractIdByInseeCode(INSEE: $insee) {
     attributes {
       clientName
+      isFreemium
     }
   }
 }
