@@ -25,7 +25,7 @@ interface EventEntityWithType extends EventEntity {
 
 interface ITopContentBlock {
   data: TopContentBlockEntity;
-  newestTopContents: GetNewestTopContentsQuery;
+  newestTopContents?: GetNewestTopContentsQuery;
 }
 
 export default function TopContentBlock({

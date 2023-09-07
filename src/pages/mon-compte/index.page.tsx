@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import useGetUser from "../../hooks/user/useGetUser";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
@@ -8,7 +8,6 @@ import CommonPageTitle from "../../components/Common/CommonPageTitle/CommonPageT
 import CommonMeta from "../../components/Common/CommonMeta/CommonMeta";
 import CommonSpinner from "../../components/Common/CommonSpinner/CommonSpinner";
 import MyCommunicationPref from "../../components/MyAccount/MyCommunicationPref/MyCommunicationPref";
-import CommonButton from "../../components/Common/CommonButton/CommonButton";
 import "./my-account-page.scss";
 
 const MyAccountPage = () => {
@@ -16,10 +15,10 @@ const MyAccountPage = () => {
   const pageTitle = "Mon Compte";
 
   const router = useRouter();
-  const { user, refetch, loading } = useGetUser(
-    process.env.NEXT_PUBLIC_USER_ID || "",
-  );
-  const { logout } = useCurrentUser();
+  const { currentUser, isLoading } = useCurrentUser();
+  const { user, refetch, loading } = useGetUser(currentUser?._id || "");
+  const [activeTab, setActiveTab] = useState(0);
+
   const tabData = [
     {
       title: "Mes informations personnelles",
@@ -28,11 +27,22 @@ const MyAccountPage = () => {
     },
     {
       title: "Mes préférences de communication",
-      content: <MyCommunicationPref user={user} refetch={refetch} />,
+      content: (
+        <MyCommunicationPref
+          user={user}
+          refetch={refetch}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
+      ),
       isActive: true,
     },
   ];
-
+  useEffect(() => {
+    if (!currentUser && !isLoading) {
+      router.push("/connexion");
+    }
+  }, [currentUser, router, isLoading]);
   return (
     <div className="o-MyAccount">
       <CommonMeta title={pageTitle} />
@@ -40,25 +50,8 @@ const MyAccountPage = () => {
         <CommonSpinner />
       ) : (
         <>
-          {user && user !== null ? (
-            <>
-              <CommonPageTitle title="Mon compte" />
-              <CommonTabs tabData={tabData} align="center" />
-            </>
-          ) : (
-            <p>
-              <br />
-              <br />
-              Une erreur est survenue lors de la récupération de votre profile.
-              <CommonButton
-                label="Deconnexion"
-                onClick={() => {
-                  logout();
-                  router.push("/connexion");
-                }}
-              />
-            </p>
-          )}
+          <CommonPageTitle title="Mon compte" />
+          <CommonTabs tabData={tabData} align="center" changeTab={activeTab} />
         </>
       )}
     </div>

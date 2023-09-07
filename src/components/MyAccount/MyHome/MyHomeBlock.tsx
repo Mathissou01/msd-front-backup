@@ -1,8 +1,8 @@
 import React from "react";
 import CommonButton from "../../Common/CommonButton/CommonButton";
-import { User } from "../../../lib/user";
+import { IUser } from "../../../lib/user";
 interface MyHomeNotCompleteBlockProps {
-  user: User;
+  user: IUser;
   isEdit: boolean;
   setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
 }

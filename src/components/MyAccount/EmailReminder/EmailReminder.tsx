@@ -1,13 +1,16 @@
-import React from "react";
-import { User } from "../../../lib/user";
+import React, { Dispatch, SetStateAction } from "react";
+import { IUser } from "../../../lib/user";
 import "./email-reminder.scss";
-import { useRouter } from "next/router";
+
 interface EmailReminderProps {
-  user: User | null;
+  user: IUser | null;
+  setActiveTab: Dispatch<SetStateAction<number>>;
 }
 
-const EmailReminder: React.FC<EmailReminderProps> = ({ user }) => {
-  const router = useRouter();
+const EmailReminder: React.FC<EmailReminderProps> = ({
+  user,
+  setActiveTab,
+}) => {
   return (
     <div className="c-EmailReminder">
       <div className="c-EmailReminder__Content">
@@ -37,14 +40,12 @@ const EmailReminder: React.FC<EmailReminderProps> = ({ user }) => {
         </div>
       </div>
       <div className="c-EmailReminder__Text">
-        Vous pouvez modifier vos coordonn&eacute;es dans l&apos;onglet:{" "}
+        Vous pouvez modifier vos coordonn&eacute;es dans l&apos;onglet:
         <button
           className="c-EmailReminder__Link"
-          onClick={() =>
-            router.push("/mon-compte/?tab=mes-informations-personnelles")
-          }
+          onClick={() => setActiveTab(0)}
         >
-          Mes informations personnelles
+          {" Mes informations personnelles"}
         </button>
       </div>
     </div>

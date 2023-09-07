@@ -6,15 +6,17 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { User } from "../lib/user";
+import { IUser } from "../lib/user";
+import useLogin from "./user/useLogin";
 import { IAudience } from "../lib/audience";
 import { Enum_Audience_Type } from "../graphql/codegen/generated-types";
 
 interface UserContextValues {
-  currentUser: User | null;
-  setCurrentUser: Dispatch<SetStateAction<User | null>>;
-  login: () => void;
+  currentUser: IUser | null;
+  setCurrentUser: Dispatch<SetStateAction<IUser | null>>;
+  login: (email: string) => Promise<void>;
   logout: () => void;
+  isLoading?: boolean;
   currentAudience: IAudience;
   setUserAudience: (audienceData: {
     id: string;
@@ -34,19 +36,39 @@ export const useCurrentUser = (): UserContextValues => {
 const UserContext = createContext<UserContextValues>({} as UserContextValues);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<IUser | null>(null);
+  const { fetchUser } = useLogin();
+  const [isLoading, setIsLoading] = useState(true);
+
   const [currentAudience, setCurrentAudience] = useState<IAudience>({
     id: "0",
   });
 
-  const getUser = async () => {
+  const getStoredUser = async () => {
+    setIsLoading(true);
+    const storedUser = await localStorage.getItem("user");
+    if (storedUser) {
+      setCurrentUser(JSON.parse(storedUser));
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    getStoredUser();
+  }, []);
+
+  const login = async (email: string) => {
+    setIsLoading(true);
     try {
-      const storedUser = localStorage.getItem("user");
-      if (storedUser && storedUser !== "null") {
-        setCurrentUser(JSON.parse(storedUser));
+      const user = await fetchUser(email);
+      if (user) {
+        localStorage.setItem("user", JSON.stringify(user));
+        setCurrentUser(user);
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -73,49 +95,21 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const login = () => {
-    const user: User = {
-      id: "1",
-      email: "john.doe@gmail.com",
-      firstname: "John",
-      lastname: "Doe",
-      activeCounter: true,
-      householdSize: 1,
-      userType: "particular",
-      dwellingType: "house",
-      addressLabel: "1 rue de la paix, 75000 Paris",
-      postalCode: "35000",
-      city: "Rennes",
-      streetNumber: "102",
-      streetName: "ALLEE SAINT-HELIER",
-      activationDate: new Date("2022-07-01"),
-    };
-    setCurrentUser(user);
-    localStorage.setItem("user", JSON.stringify(user));
-  };
-
   const logout = () => {
     setCurrentUser(null);
     localStorage.removeItem("user");
   };
 
   useEffect(() => {
-    getUser();
-  }, []);
-
-  useEffect(() => {
     getAudience();
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(currentUser));
-  }, [currentUser]);
 
   const contextValue: UserContextValues = {
     currentUser,
     setCurrentUser,
     login,
     logout,
+    isLoading,
     setUserAudience,
     currentAudience,
     getAudience,

@@ -1,11 +1,12 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { User } from "../../../lib/user";
+import { IUser } from "../../../lib/user";
 import useUpdateUser from "../../../hooks/user/useUpdateUser";
 import CommonButton from "../../Common/CommonButton/CommonButton";
+import { useCurrentUser } from "../../../hooks/useCurrentUser";
 
 interface MyHomeProps {
-  user: User;
+  user: IUser;
   refetch: () => void;
   isEdit: boolean;
   setIsEdit: Dispatch<SetStateAction<boolean>>;
@@ -29,7 +30,8 @@ const MyHomeEditBlock: React.FC<MyHomeProps> = ({
   setIsEdit,
   isMyHomeInfosCompleted,
 }) => {
-  const { updateUser } = useUpdateUser(process.env.NEXT_PUBLIC_USER_ID || "");
+  const { currentUser, login } = useCurrentUser();
+  const { updateUser } = useUpdateUser(currentUser?._id || "");
   const { control, handleSubmit, getValues, setValue } = useForm({
     defaultValues: {
       dwellingType: user?.dwellingType || "house",
@@ -62,9 +64,12 @@ const MyHomeEditBlock: React.FC<MyHomeProps> = ({
   const onSubmit = (data: MyHomeFormData) => {
     const datas = {
       ...data,
-      activeCounter: false,
     };
-    updateUser(datas, refetch).then(() => setIsEdit(!isEdit));
+
+    updateUser(datas, refetch).then(() => {
+      setIsEdit(!isEdit);
+      if (currentUser && currentUser.email) login(currentUser?.email);
+    });
   };
   return (
     <div className="c-CommonInfoPerso__Container">

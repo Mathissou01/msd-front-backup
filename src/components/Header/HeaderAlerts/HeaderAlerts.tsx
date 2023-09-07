@@ -17,9 +17,9 @@ export default function HeaderAlerts({
 }: HeaderAlertsProps) {
   /* Static Data */
   const labels = {
-    title: "Votre demande concerne",
+    title: "Gérer mes alertes",
     description:
-      "Pour recevoir par SMS ou e-mail les infos sur les modifications de collecte (perturbations météo, collecte supplémentaire…) ou animations(compostage, village de la réparation…).",
+      "Pour recevoir par SMS ou e-mail les infos sur les modifications de collecte (perturbations météo, collecte supplémentaire…) ou animations (compostage, village de la réparation…).",
     alertSubscription: "M'inscrire aux alertes",
     alertUnSubscription: "Me désinscrire",
   };

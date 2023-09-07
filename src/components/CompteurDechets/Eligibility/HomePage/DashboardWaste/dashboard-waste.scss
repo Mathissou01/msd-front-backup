@@ -76,13 +76,13 @@
 
   &__CommonModal {
     position: fixed;
-    top: 150px;
+    top: 100px;
     left: 50%;
     z-index: 11;
     display: flex;
     align-items: center;
     width: 628px;
-    height: 498px;
+    height: 700px;
     min-height: 460px;
     padding: 48px 64px 61px;
     text-align: center;
@@ -150,6 +150,12 @@
       width: 100vw;
       height: 100vh;
       background: rgba(#343a40, 0.45);
+    }
+
+    &_illustration {
+      width: 350px;
+      height: 350px;
+      margin: 0 auto 24px;
     }
   }
 }

@@ -7,7 +7,7 @@ export default function ActualitesPage() {
   /* Static Data */
   const pageTitle = "Non éligibilité";
   const firstText =
-    "malheureusement, le compteur déchets n'est pas encore disponible pour vous";
+    "Malheureusement, le compteur déchets n'est pas encore disponible pour vous";
   const secondText =
     " mais vous pouvez accéder à d'autres services et conseils pour mieux comprendre et améliorer la gestion de vos déchets !";
   const formLabels = {

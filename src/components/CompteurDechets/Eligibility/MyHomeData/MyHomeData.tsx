@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import {
-  useGetDataHomePageMwcQuery,
   useGetMwcAverageProductionQuery,
   useGetUserWasteManagementHistoryQuery,
   useGetUserWasteManagementQuery,
@@ -31,40 +30,35 @@ const MyHomeData = () => {
   const { currentUser } = useCurrentUser();
   const [variationPercent, setVariationPercent] = useState<number | null>(null);
 
-  const [baroParam, setBaroParam] = useState<BarometerParams | null>(null);
-  const { data } = useGetDataHomePageMwcQuery({
-    variables: {
-      address: "11111",
-      typeUsager: "test",
-      dateDebut: "test",
-      dateFin: "test",
-      averageProductionPerPerson: 90,
-      numberOfPeopleIntheHousehold: 4,
-      agregation: "M",
-    },
+  const [baroParam, setBaroParam] = useState<BarometerParams | null>({
+    low: 75,
+    medium: 100,
+    high: 125,
+    veryHigh: 150,
   });
-  const homeData = data?.GetHomeDataMwc;
 
   const { data: pieData, loading: pieLoading } = useGetUserWasteManagementQuery(
     {
       variables: {
         contractId: contractId,
-        streetName: `${currentUser?.streetName}`,
-        streetNumber: `${currentUser?.streetNumber}`,
-        postcode: `${currentUser?.postalCode}`,
-        city: `${currentUser?.city}`,
+        streetName: `${currentUser?.address?.street}`,
+        streetNumber: `${currentUser?.address?.houseNumber}`,
+        postcode: `${currentUser?.address?.postcode}`,
+        city: `${currentUser?.address?.city}`,
       },
     },
   );
+
+  const totalWeight = pieData?.getUserWasteManagement?.[0]?.totalWeight;
 
   const { data: wasteUserHistory, loading: wasteHistoryLoading } =
     useGetUserWasteManagementHistoryQuery({
       variables: {
         contractId: contractId,
-        streetNumber: `${currentUser?.streetNumber}`,
-        streetName: `${currentUser?.streetName}`,
-        postcode: `${currentUser?.postalCode}`,
-        city: `${currentUser?.city}`,
+        streetNumber: `${currentUser?.address?.houseNumber}`,
+        streetName: `${currentUser?.address?.street}`,
+        postcode: `${currentUser?.address?.postcode}`,
+        city: `${currentUser?.address?.city}`,
         signUpDate: new Date(
           new Date().getFullYear(),
           new Date().getMonth() - 1,
@@ -79,21 +73,22 @@ const MyHomeData = () => {
         contractId: contractId,
       },
     });
+  const average = averageProduction?.getMwcAverageProduction;
   const pie = pieData?.getUserWasteManagement?.map(
-    (pie) => pie?.barometerParams,
+    (pie) => pie?.barometerParams !== null && pie?.barometerParams,
   );
   useEffect(() => {
     if (pie && pie[0]) {
       setBaroParam(pie[0] as BarometerParams);
     }
-  }, [pie]);
+  }, [pie, pieData]);
 
   const renderOverlayContent = () => {
     return (
       <div className="c-MyHomeData__Overlay">
         <div>
           <h4>Votre adresse</h4>
-          <p>{currentUser?.addressLabel}</p>
+          <p>{currentUser?.address?.label} aaa</p>
         </div>
         <div className="c-MyHomeData__Flows">
           <h4>Vos bacs</h4>
@@ -161,14 +156,13 @@ const MyHomeData = () => {
         <div className="c-MyHomeData">
           <div className="c-MyHomeData__Head">
             <CommonBlockHeading titleContent="Les données de mon foyer" />
-
             <div className="c-MyHomeData__TitleContent">
               <div className="c-MyHomeData__TitleContentAddress">
                 <p className="c-MyHomeData__TitleContentAddress_label">
                   Votre adresse
                 </p>
                 <p className="c-MyHomeData__TitleContentAddress_labelValue">
-                  {currentUser?.addressLabel}
+                  {currentUser?.address?.label}
                 </p>
               </div>
               <div
@@ -193,12 +187,14 @@ const MyHomeData = () => {
               title="Mes Déchets"
               logoOrWeight={
                 <>
-                  {pieData?.getUserWasteManagement?.[0]?.totalWeight || 0}
+                  {Math.round(
+                    pieData?.getUserWasteManagement?.[0]?.totalWeight || 0,
+                  )}
                   <span className="c-MyHomeData__DataUnity">kg</span>
                 </>
               }
               text={`C'est l'équivalent de la production d'un foyer d'environ ${
-                homeData?.equivalentOfProduction || 0
+                average && totalWeight && Math.round(totalWeight / average)
               } personnes`}
               path="/mon-compteur-dechets/mes-dechets"
             />
@@ -220,8 +216,12 @@ const MyHomeData = () => {
                 <p className="c-MyHomeData__BarometerTopInfo">
                   Pour votre foyer, la production est de&nbsp;
                   <span>
-                    {pieData?.getUserWasteManagement?.[0]?.totalWeight || 0}
-                    kg/personne
+                    <span>
+                      {`${Math.round(
+                        (pieData?.getUserWasteManagement?.[0]?.totalWeight ||
+                          0) / (currentUser?.householdSize || 1),
+                      )} kg/personne`}
+                    </span>
                   </span>
                 </p>
                 {averageProduction?.getMwcAverageProduction &&
@@ -307,8 +307,10 @@ const MyHomeData = () => {
                 </div>
                 <div className="c-MyHomeData__BarometerBottomInfo">
                   <p>
-                    Votre foyer est constitué de :
-                    <span>{currentUser?.householdSize || "X"} personne(s)</span>
+                    Votre foyer est constitué de:
+                    <span>{` ${
+                      currentUser?.householdSize || "X"
+                    } personne(s)`}</span>
                   </p>
                   <button
                     type="button"

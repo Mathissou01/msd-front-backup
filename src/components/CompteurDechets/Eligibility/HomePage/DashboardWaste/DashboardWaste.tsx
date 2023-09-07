@@ -1,6 +1,8 @@
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { useGetHasTipsQuery } from "../../../../../graphql/codegen/generated-types";
+import { useEffect, useState } from "react";
+import {
+  useCheckUserRequirementsQuery,
+  useGetHasTipsQuery,
+} from "../../../../../graphql/codegen/generated-types";
 import FlowsBox from "../FlowsBox";
 import { useContract } from "../../../../../hooks/useContract";
 import CommonBreadcrumb from "../../../../Common/CommonBreadcrumb/CommonBreadcrumb";
@@ -8,13 +10,19 @@ import CommonButton from "../../../../Common/CommonButton/CommonButton";
 import MyHomeData from "../../MyHomeData/MyHomeData";
 import LearnMore from "../LearnMore/LearnMore";
 import MwcTips from "./MwcTips/MwcTips";
-import Illu_1 from "public/images/illu_1.svg";
+import Illu_1 from "public/images/felicitations.svg";
 import "./dashboard-waste.scss";
+import { useCurrentUser } from "../../../../../hooks/useCurrentUser";
+import CommonSpinner from "../../../../Common/CommonSpinner/CommonSpinner";
 
 const DashboardWaste: React.FC = () => {
+  const isModalAlreadyShow = localStorage.getItem("showModal");
+  const { currentUser } = useCurrentUser();
   const { contractId } = useContract();
-  const [showModal, setShowModal] = useState(true);
-  const router = useRouter();
+
+  const [showModal, setShowModal] = useState(
+    isModalAlreadyShow === "off" ? false : true,
+  );
 
   const breadcrumbPages = [
     {
@@ -37,6 +45,22 @@ const DashboardWaste: React.FC = () => {
       },
     },
   });
+
+  const { data: bins, loading: binsLoading } = useCheckUserRequirementsQuery({
+    variables: {
+      streetNumber: `${currentUser?.address?.houseNumber}`,
+      streetName: `${currentUser?.address?.street}`,
+      postalCode: `${currentUser?.address?.postcode}`,
+      city: `${currentUser?.address?.city}`,
+      contractId: contractId,
+      userId: currentUser?._id,
+    },
+  });
+
+  useEffect(() => {
+    localStorage.setItem("showModal", "off");
+  }, []);
+
   return (
     <div className="c-DashboardWaste">
       {showModal && (
@@ -67,9 +91,7 @@ const DashboardWaste: React.FC = () => {
                   label="Accèder à mon compteur"
                   type="button"
                   style="primary"
-                  onClick={() =>
-                    router.push("/mon-compteur-dechets/eligibilite")
-                  }
+                  onClick={() => setShowModal(false)}
                 />
               </div>
             </div>
@@ -83,11 +105,16 @@ const DashboardWaste: React.FC = () => {
       )}
 
       <CommonBreadcrumb pages={breadcrumbPages} />
-      <section>
-        <FlowsBox />
+      {!binsLoading ? (
+        <section>
+          <FlowsBox bins={bins} />
 
-        <MyHomeData />
-      </section>
+          <MyHomeData />
+        </section>
+      ) : (
+        <CommonSpinner />
+      )}
+
       {hasTips?.mwCounterServices?.data?.[0]?.attributes?.hasTips && (
         <section>
           <MwcTips />

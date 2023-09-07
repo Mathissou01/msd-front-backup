@@ -27,7 +27,7 @@ const MyEvolutionDetailBlock: React.FC<MyEvolutionDetailBlockProps> = ({
       <div className="c-MyEvolutionDetailBlock__Content">
         <p>TOTAL</p>
         <div className="c-MyEvolutionDetailBlock__TotalCountContainer">
-          <p>{wasteUserHistory?.totalWeight} kg</p>
+          <p>{Math.round(wasteUserHistory?.totalWeight)} kg</p>
           {activeIndex !== 0 && (
             <CommonStatsArrow percent={productionCompare} />
           )}

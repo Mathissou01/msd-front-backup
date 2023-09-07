@@ -1,5 +1,5 @@
-query getNewestTopContents($contractId: ID!) {
-  getNewestTopContents(contractId: $contractId) {
+query getNewestTopContents($contractId: ID!, $audienceId: ID!) {
+  getNewestTopContents(contractId: $contractId, audienceId: $audienceId) {
     type
     originalId
     title

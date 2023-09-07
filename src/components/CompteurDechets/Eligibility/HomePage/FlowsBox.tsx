@@ -3,16 +3,22 @@ import { format, subMonths, subYears } from "date-fns";
 import { fr } from "date-fns/locale";
 import Bac from "public/images/pictos/bac_2_roues.svg";
 import Calendar from "public/images/pictos/calendar.svg";
-import CommonLoader from "../../../Common/CommonLoader/CommonLoader";
-import GetDataChipId from "../../../Common/CommonChipIdMwc/CommonChipIdMwc";
-
+import { CheckUserRequirementsQuery } from "../../../../graphql/codegen/generated-types";
+import classNames from "classnames";
 import "./flows-box.scss";
 
-const FlowsBox = () => {
+const binType: { [key: string]: string } = {
+  OMR: "Ordures ménagères",
+  CS: "Emballages",
+};
+
+interface IFlowsBoxProps {
+  bins: CheckUserRequirementsQuery | undefined;
+}
+
+const FlowsBox = ({ bins }: IFlowsBoxProps) => {
   const [previousMonth, setPreviousMonth] = useState("");
   const [previousYear, setPreviousYear] = useState("");
-
-  const { loading, error, findChipIdByTrashFlow, binIdData } = GetDataChipId();
 
   useEffect(() => {
     const today = new Date();
@@ -30,16 +36,6 @@ const FlowsBox = () => {
     setPreviousYear(formattedPreviousYear);
   }, []);
 
-  const chipIdOrduresMenageres: string = findChipIdByTrashFlow(
-    binIdData,
-    "OMR",
-  );
-
-  const chipIdCollecteSelective: string = findChipIdByTrashFlow(
-    binIdData,
-    "CS",
-  );
-
   return (
     <div className="c-FlowsBox">
       <p className="c-FlowsBox__Title">Mon compteur déchets</p>
@@ -49,32 +45,29 @@ const FlowsBox = () => {
             Suivez la production de déchets de votre foyer, mois après mois,
             pour les flux ci-dessous :
           </p>
-          <CommonLoader isLoading={loading} errors={[error]}>
-            <div className="c-FlowsBox__Flows">
-              <div className="c-FlowsBox__Flows_item">
-                <div className="c-FlowsBox__BacSvg_gray">
+
+          <div className="c-FlowsBox__Flows">
+            {bins?.checkUserRequirements?.map((item, i) => (
+              <div className="c-FlowsBox__Flows_item" key={i}>
+                <div
+                  className={classNames(
+                    "c-FlowsBox__BacSvg",
+                    item?.trashFlow === "OMR"
+                      ? "c-FlowsBox__BacSvg_gray"
+                      : "c-FlowsBox__BacSvg_yellow",
+                  )}
+                >
                   <Bac data-testid="bac1" />
                 </div>
                 <div className="c-FlowsBox__Flows_itemData">
-                  <p className="c-FlowsBox__Flows_name">Ordures ménagères</p>
-                  <p className="c-FlowsBox__Flows_id">
-                    {chipIdOrduresMenageres}
+                  <p className="c-FlowsBox__Flows_name">
+                    {binType[item?.trashFlow as string]}
                   </p>
+                  <p className="c-FlowsBox__Flows_id">{item?.chipId}</p>
                 </div>
               </div>
-              <div className="c-FlowsBox__Flows_item">
-                <div className="c-FlowsBox__BacSvg_yellow">
-                  <Bac data-testid="bac2" />
-                </div>
-                <div className="c-FlowsBox__Flows_itemData">
-                  <p className="c-FlowsBox__Flows_name">Emballages</p>
-                  <p className="c-FlowsBox__Flows_id">
-                    {chipIdCollecteSelective}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </CommonLoader>
+            ))}
+          </div>
         </div>
         <div className="c-FlowsBox__Date">
           <Calendar className="c-FlowsBox_Svg" data-testid="bac1" />

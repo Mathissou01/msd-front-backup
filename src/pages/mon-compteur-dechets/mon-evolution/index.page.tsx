@@ -68,10 +68,10 @@ export default function MyEvolutionPage() {
   const { data, loading } = useGetUserWasteManagementHistoryQuery({
     variables: {
       contractId: contractId,
-      streetNumber: `${currentUser?.streetNumber}`,
-      streetName: `${currentUser?.streetName}`,
-      postcode: `${currentUser?.postalCode}`,
-      city: `${currentUser?.city}`,
+      streetNumber: `${currentUser?.address?.houseNumber}`,
+      streetName: `${currentUser?.address?.street}`,
+      postcode: `${currentUser?.address?.postcode}`,
+      city: `${currentUser?.address?.city}`,
       signUpDate:
         currentUser && currentUser.activationDate
           ? new Date(currentUser?.activationDate).toISOString()

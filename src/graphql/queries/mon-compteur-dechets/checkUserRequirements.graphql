@@ -4,6 +4,7 @@ query checkUserRequirements(
   $postalCode: String!
   $city: String!
   $contractId: ID!
+  $userId: String
 ) {
   checkUserRequirements(
     streetNumber: $streetNumber
@@ -11,6 +12,7 @@ query checkUserRequirements(
     postalCode: $postalCode
     city: $city
     contractId: $contractId
+    userId: $userId
   ) {
     chipId
     trashFlow

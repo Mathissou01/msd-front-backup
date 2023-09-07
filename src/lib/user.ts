@@ -1,9 +1,9 @@
 import { NextRouter } from "next/router";
 
-export interface User {
-  id: string;
-  firstname: string;
-  lastname: string;
+export interface IUser {
+  _id?: string;
+  firstname?: string;
+  lastname?: string;
   email: string;
   phone?: string;
   idAddress?: string | null;
@@ -12,34 +12,50 @@ export interface User {
   city?: string | null;
   postalCode?: string | null;
   addressLabel?: string | null;
-  dwellingType: string;
-  userType: string;
-  householdSize: number;
-  consent?: Consent[];
+  dwellingType?: string;
+  userType?: string;
+  householdSize?: number;
+  consents?: IConsent[];
   activeCounter?: boolean;
+  address?: IAddress;
   activationDate?: Date;
-  communication?: Communication;
+  communication?: ICommunication;
 }
 
-export interface Consent {
+export interface IAddress {
+  city?: string;
+  citycode?: string;
+  context?: string;
+  district?: string;
+  houseNumber?: number;
+  id?: string;
+  importance?: number;
+  label?: string;
+  name?: string;
+  postcode?: string;
+  street?: string;
+  type?: string;
+}
+
+export interface IConsent {
   acceptanceDate: Date;
   version: string;
 }
 
-export interface Communication {
-  alerts: CommunicationType;
-  tips: CommunicationType;
+export interface ICommunication {
+  alerts: ICommunicationType;
+  tips: ICommunicationType;
   sociologicalSurveys: boolean;
   evolutionServices: boolean;
 }
 
-export interface CommunicationType {
+export interface ICommunicationType {
   email: boolean;
   sms: boolean;
   push: boolean;
 }
 
-export const isUserAccessToMWC = (currentUser: User | null): boolean => {
+export const isUserAccessToMWC = (currentUser: IUser | null): boolean => {
   return (
     (currentUser && currentUser.activeCounter === false) ||
     currentUser?.dwellingType !== "house" ||
@@ -47,7 +63,7 @@ export const isUserAccessToMWC = (currentUser: User | null): boolean => {
   );
 };
 
-export const redirectUser = (currentUser: User | null, router: NextRouter) => {
+export const redirectUser = (currentUser: IUser | null, router: NextRouter) => {
   if (!currentUser) {
     router.push("/connexion");
     return;
@@ -55,7 +71,7 @@ export const redirectUser = (currentUser: User | null, router: NextRouter) => {
 };
 
 export const redirectMWCUser = (
-  currentUser: User | null,
+  currentUser: IUser | null,
   router: NextRouter,
 ) => {
   redirectUser(currentUser, router);

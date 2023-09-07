@@ -12,7 +12,7 @@ export default function CommunicationAlertsBlock() {
     RGPTConditions:
       "J'accepte que mes coordonnées soient utilsées dans le cadre du service 'Infos et Alertes' de ma ville.",
     RGPTInformation:
-      " Les informations renseignées dans ce formaulaire serviront uniquement au service Infos et Alertes, aucunement à des fins commerciales.",
+      " Les informations renseignées dans ce formulaire serviront uniquement au service Infos et Alertes, aucunement à des fins commerciales.",
     RGPT: "RGPT",
     fields: {
       phoneErrorMessage: "Le numéro de téléphone est incorrect",

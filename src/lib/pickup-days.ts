@@ -10,6 +10,8 @@ import { createDateFromString, isSubArrayInOrder } from "./utilities";
 interface IAddressInfo {
   city: string;
   street: string;
+  houseNumber?: string;
+  postalCode?: string;
 }
 
 enum EMonthlyStatus {

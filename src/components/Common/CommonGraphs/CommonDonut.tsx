@@ -61,11 +61,9 @@ const CommonDonut = ({
     percent: flow?.percentage,
   }));
   const reversedFlows = combinedFlows && [...combinedFlows].reverse(); // Inverse l'ordre des données car le plugin les affiche à l'envers
-
   const findFlow = (code: string) => {
     return selectedData?.find((flow) => flow?.trashFlow === code);
   };
-
   const COLORS =
     selectedChip === "CS"
       ? ["#F5C500", "#ecedee"]
@@ -102,7 +100,6 @@ const CommonDonut = ({
     const RADIAN = Math.PI / 180;
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    //  const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
     return (
       <>
@@ -113,23 +110,27 @@ const CommonDonut = ({
                 ? cx - 20
                 : flows?.totalWeight < 10
                 ? cx - 5
-                : cx - 15
+                : cx - 10
+              : !activeFlow?.weight
+              ? cx - 5
               : activeFlow?.weight && activeFlow?.weight >= 100
               ? cx - 20
               : activeFlow?.weight && activeFlow?.weight < 10
               ? cx - 5
-              : cx - 15
+              : cx - 10
           }
           y={cy - 15}
           textAnchor={x > cx ? "start" : "end"}
           dominantBaseline="central"
           className="c-MyWaste__DonutChartPoid"
         >
-          {selectedChip === "all" ? flows.totalWeight : activeFlow?.weight}
+          {selectedChip === "all"
+            ? Math.round(flows?.totalWeight || 0)
+            : Math.round(activeFlow?.weight || 0)}
         </text>
 
         <text
-          x={cx - 8}
+          x={cx - 5}
           y={cy + 5}
           textAnchor={x > cx ? "start" : "end"}
           dominantBaseline="central"
@@ -146,7 +147,9 @@ const CommonDonut = ({
           className="c-MyWaste__DonutChartPercent"
         >
           {`${
-            selectedChip === "all" ? 100 : activeFlow?.percentage?.toFixed(0)
+            selectedChip === "all"
+              ? 100
+              : activeFlow?.percentage?.toFixed(0) || 0
           }%`}
         </text>
       </>

@@ -5,6 +5,7 @@ query getGlobalData($contractId: ID!) {
       id
       attributes {
         clientName
+        isFreemium
         clientType
         contractStatus
         isNonExclusive
@@ -18,6 +19,7 @@ query getGlobalData($contractId: ID!) {
             id
           }
         }
+        isFreemium
         logo {
           data {
             id
@@ -65,6 +67,9 @@ query getGlobalData($contractId: ID!) {
               footer {
                 data {
                   attributes {
+                    linkName
+                    linkUrl
+                    displayLink
                     accessibilityLevel
                     cguSubService {
                       data {

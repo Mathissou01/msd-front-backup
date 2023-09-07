@@ -1,12 +1,12 @@
 import React from "react";
 import CommonToggle from "../../Common/CommonToggle/CommonToggle";
-import { Communication, User } from "../../../lib/user";
+import { ICommunication, IUser } from "../../../lib/user";
 import { Control, Controller, FieldValues } from "react-hook-form";
 import "./other-communications.scss";
 
 interface OtherCommunicationsProps {
-  user: User | null;
-  control: Control<Communication>;
+  user: IUser | null;
+  control: Control<ICommunication>;
 }
 
 const communications = [
@@ -34,9 +34,9 @@ const OtherCommunications: React.FC<OtherCommunicationsProps> = ({
           </div>
           <Controller
             control={control}
-            name={`${key.type}` as keyof Communication}
+            name={`${key.type}` as keyof ICommunication}
             defaultValue={
-              user?.communication?.[key.type as keyof Communication] || false
+              user?.communication?.[key.type as keyof ICommunication] || false
             }
             render={({ field }: { field: FieldValues[keyof FieldValues] }) => (
               <CommonToggle

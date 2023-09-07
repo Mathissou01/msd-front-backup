@@ -9,14 +9,15 @@ import { Controller, useForm } from "react-hook-form";
 import { useSearchAddressQuery } from "../../../graphql/codegen/generated-types";
 import useUpdateUser from "../../../hooks/user/useUpdateUser";
 import useDebounce from "../../../hooks/useDebounce";
-import { User } from "../../../lib/user";
+import { IAddress, IUser } from "../../../lib/user";
 import { AddressOption } from "../../../lib/address-option";
 import CommonButton from "../../Common/CommonButton/CommonButton";
 import AutocompleteAddress from "../../CompteurDechets/Eligibility/AutocompleteAddress/AutocompleteAddress";
 import classNames from "classnames";
+import { useCurrentUser } from "../../../hooks/useCurrentUser";
 
 interface MyInfosEditProps {
-  user: User;
+  user: IUser;
   refetch: () => void;
   isEdit: boolean;
   setIsEdit: Dispatch<SetStateAction<boolean>>;
@@ -27,6 +28,7 @@ interface MyInfosFormData {
   lastname?: string;
   email?: string;
   phone?: string;
+  activeCounter?: boolean;
 }
 
 const MyInfosEditBlock: React.FC<MyInfosEditProps> = ({
@@ -35,9 +37,9 @@ const MyInfosEditBlock: React.FC<MyInfosEditProps> = ({
   isEdit,
   setIsEdit,
 }) => {
-  const [addressValue, setAddressValue] = useState(user.addressLabel || "");
+  const [addressValue, setAddressValue] = useState(user?.address?.label || "");
   const debouncedValue = useDebounce<string>(addressValue, 500);
-  const [selectedAddress, setSelectedAddress] = useState<Partial<User>>();
+  const [selectedAddress, setSelectedAddress] = useState<IAddress>();
   const [filteredOptions, setFilteredOptions] = useState<AddressOption[]>([]);
   const [isVisibled, setIsVisibled] = useState(false);
   const {
@@ -45,7 +47,8 @@ const MyInfosEditBlock: React.FC<MyInfosEditProps> = ({
     control,
     formState: { errors },
   } = useForm();
-  const { updateUser } = useUpdateUser(process.env.NEXT_PUBLIC_USER_ID || "");
+  const { currentUser } = useCurrentUser();
+  const { updateUser } = useUpdateUser(currentUser?._id || "");
   const { data: searchAddressData, loading } = useSearchAddressQuery({
     variables: { address: debouncedValue, limit: 5 },
   });
@@ -54,15 +57,8 @@ const MyInfosEditBlock: React.FC<MyInfosEditProps> = ({
     setAddressValue(event.target.value);
   };
 
-  const handleClickAddressOption = (option: Partial<AddressOption>) => {
-    setSelectedAddress({
-      streetNumber: option.houseNumber || null,
-      streetName: option.street || null,
-      city: option.city || null,
-      postalCode: option.postcode || null,
-      idAddress: option.id || null,
-      addressLabel: option.label || null,
-    });
+  const handleClickAddressOption = (option: IAddress) => {
+    setSelectedAddress(option);
     setAddressValue(option.label || "");
     setIsVisibled(false);
   };
@@ -76,10 +72,15 @@ const MyInfosEditBlock: React.FC<MyInfosEditProps> = ({
   const onSubmit = (data: MyInfosFormData) => {
     const datas = {
       ...data,
-      ...selectedAddress,
+      address: selectedAddress,
     };
-    if (datas.idAddress && datas.idAddress !== user.idAddress) {
+    localStorage.removeItem("showModal");
+    if (
+      datas?.address?.label &&
+      datas?.address.label !== user?.address?.label
+    ) {
       datas.activeCounter = false;
+      localStorage.removeItem("showModal");
     }
     updateUser(datas, refetch).then(() => setIsEdit(!isEdit));
   };

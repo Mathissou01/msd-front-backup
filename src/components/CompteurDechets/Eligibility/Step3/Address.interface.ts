@@ -1,26 +1,26 @@
 // TODO: Delete interface when API is ready
 
-export interface Address {
+export interface IAddress {
   attribution: string;
   licence: string;
   limit: number;
   query: string;
   type: string;
   version: string;
-  features: Feature[];
+  features: IAddressFeature[];
 }
 
-export interface Feature {
-  geometry: Geometry;
-  properties: Properties;
+export interface IAddressFeature {
+  geometry: IAddressGeometry;
+  properties: IAddressProperties;
 }
 
-export interface Geometry {
+export interface IAddressGeometry {
   coordinates: number[];
   type: string;
 }
 
-export interface Properties {
+export interface IAddressProperties {
   citycode: string;
   context: string;
   city: string;

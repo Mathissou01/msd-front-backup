@@ -34,7 +34,7 @@ export default function DeleteAccount() {
         isBottomButton={true}
         bottomButtonLabel="Confirmer"
         onButtonClick={() => {
-          currentUser && deleteUser(currentUser.id);
+          currentUser && deleteUser(currentUser?._id || "");
         }}
       />
     </div>

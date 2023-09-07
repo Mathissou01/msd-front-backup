@@ -1,12 +1,23 @@
 import React from "react";
 import CommonBlockHeading from "../../../Common/CommonBlockHeading/CommonBlockHeading";
 import EligibilityRecycling from "public/images/maison-immeuble.svg";
+import { useFormContext } from "react-hook-form";
 
 interface Step2Props {
   handleOptionClick: (next: string | number) => void;
 }
 
 const Step2: React.FC<Step2Props> = ({ handleOptionClick }) => {
+  const { setValue } = useFormContext();
+
+  const handleButtonClick = (dwellingType: string) => {
+    setValue("dwellingType", dwellingType);
+    if (dwellingType === "house") {
+      handleOptionClick(3);
+    } else {
+      handleOptionClick("/non-eligibilite");
+    }
+  };
   return (
     <div className="o-Steps">
       <EligibilityRecycling className="o-Steps__Image" />
@@ -21,13 +32,17 @@ const Step2: React.FC<Step2Props> = ({ handleOptionClick }) => {
 
           <button
             className="o-Steps__Card"
-            onClick={() => handleOptionClick(3)}
+            onClick={() => {
+              handleButtonClick("house");
+            }}
           >
             <p className="o-Steps__CardSubtitle">Une maison</p>
           </button>
           <button
             className="o-Steps__Card"
-            onClick={() => handleOptionClick("/non-eligibilite")}
+            onClick={() => {
+              handleButtonClick("apartment");
+            }}
           >
             <p className="o-Steps__CardSubtitle">Un appartement</p>
           </button>

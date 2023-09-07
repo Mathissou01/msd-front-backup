@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import {
   CityInformation,
@@ -48,20 +48,22 @@ export default function ModalSelector({ handleClose }: IModalSelectorProps) {
   }
 
   function selectTransform(result: CityInformation): string {
-    return result.name && result.insee
-      ? `${result.name} - ${result.insee}`
+    setCurrentInsee(result.insee ?? "");
+    return result.name && result.postalCode
+      ? `${result.name} - ${result.postalCode}`
       : "";
   }
 
-  function handleOnSubmit(city: string) {
-    const regex = /(\d+)$/;
-    const match = city.match(regex);
-    const inseeCode = match && match.length >= 2 ? match[1] : null;
+  function handleOnSubmit() {
     return getContractByInsee({
-      variables: { insee: `${inseeCode}` },
+      variables: { insee: currentInsee },
       onCompleted: (results) => {
+        const inseeCodeQueryParameter = results.getContractIdByInseeCode
+          ?.attributes?.isFreemium
+          ? `?inseeCode=${currentInsee}`
+          : "";
         window.location.replace(
-          `/${results.getContractIdByInseeCode?.attributes?.clientName}/index.html`,
+          `/${results.getContractIdByInseeCode?.attributes?.clientName}/index.html${inseeCodeQueryParameter}`,
         );
       },
       onError: (error) => {
@@ -74,12 +76,12 @@ export default function ModalSelector({ handleClose }: IModalSelectorProps) {
   const form = useForm<FieldValues>({
     mode: "onChange",
   });
+  const [currentInsee, setCurrentInsee] = useState<string>("");
 
   /* External Data */
   const [getCities, { loading, error }] = useGetCitiesInformationsLazyQuery();
   const [getContractByInsee] = useGetContractIdByInseeCodeLazyQuery();
 
-  const searchValue = form.getValues("search");
   return (
     <>
       <div className="c-ModalSelector">
@@ -100,8 +102,8 @@ export default function ModalSelector({ handleClose }: IModalSelectorProps) {
                     placeholder={formLabels.searchboxPlaceHolder}
                     searchFunction={searchFunction}
                     displayTransformFunction={(result) =>
-                      result.insee
-                        ? `${result.name} - ${result.insee}`
+                      result.postalCode
+                        ? `${result.name} - ${result.postalCode}`
                         : result.name ?? ""
                     }
                     selectTransformFunction={selectTransform}
@@ -116,7 +118,7 @@ export default function ModalSelector({ handleClose }: IModalSelectorProps) {
               type="button"
               style="primary"
               label={formLabels.labelButton}
-              onClick={() => handleOnSubmit(searchValue)}
+              onClick={handleOnSubmit}
             />
           </div>
         </div>

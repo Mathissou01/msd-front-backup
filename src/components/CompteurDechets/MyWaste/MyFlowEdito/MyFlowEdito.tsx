@@ -13,14 +13,24 @@ interface IMyWasteFlowEdito {
   transcriptText?: string;
   videoLink?: string;
   textEditor?: string;
-  picture?: string[];
+  picture?: {
+    data?: {
+      attributes?: {
+        url: string;
+        alt: string;
+      };
+    };
+  };
 }
 interface MyWasteFlowEditoProps {
   wasteFlow: IMyWasteFlowEdito;
 }
 
-const imgUrl =
-  "https://actualitte.com/uploads/images/the-one-ring-the-lord-of-the-rings-5fe720b868b9b593188157.jpg";
+const decodeHtmlEntities = (html: string) => {
+  const textarea = document.createElement("textarea");
+  textarea.innerHTML = html;
+  return textarea.value;
+};
 
 export default function MyFlowEdito({ wasteFlow }: MyWasteFlowEditoProps) {
   const ComponentBlocksSubHeading = wasteFlow?.__typename ===
@@ -36,9 +46,12 @@ export default function MyFlowEdito({ wasteFlow }: MyWasteFlowEditoProps) {
       <div className="c-MyFlowEdito__WysiwygIcon">
         <TruckIcon />
       </div>
-      <div className="c-MyFlowEdito__WysiwygContent">
-        {wasteFlow.textEditor}
-      </div>
+      <div
+        className="c-MyFlowEdito__WysiwygContent"
+        dangerouslySetInnerHTML={{
+          __html: decodeHtmlEntities(wasteFlow.textEditor || ""),
+        }}
+      ></div>
     </div>
   );
 
@@ -58,7 +71,7 @@ export default function MyFlowEdito({ wasteFlow }: MyWasteFlowEditoProps) {
     "ComponentBlocksImage" && (
     <div className="c-MyFlowEdito__ImageContainer">
       <Image
-        src={imgUrl}
+        src={wasteFlow?.picture?.data?.attributes?.url || ""}
         alt="Image section Emballage"
         width="380"
         height="200"

@@ -13,15 +13,15 @@ export default function Footer() {
   /* Static Data */
   const labels = {
     accessibilityLabel: "Accessibilité : ",
-    siteLabel: "Le site de SUEZ",
     cguLabel: "Conditions générales",
     cookiesLabel: "Politique de cookies",
     confidentialityLabel: "Politique de confidentialité",
     contactUsSubService: "Contactez-nous",
   };
+
   const routes = {
     accessibilityRoute: "/accessibilite",
-    siteRoute: "/",
+    siteRoutes: "",
     cookiesRoute: "/cookie",
     cguRoute: "/conditions-generales",
     confidentialityRoute: "/confidentialite",
@@ -40,6 +40,12 @@ export default function Footer() {
       ]
     : EAccessibilityLevel.not_conform;
 
+  const linkName =
+    contract.attributes?.contractCustomization?.data?.attributes?.footer?.data
+      ?.attributes?.linkName;
+
+  routes.siteRoutes = footerData?.linkUrl ?? "";
+
   return (
     <div className="c-Footer">
       <footer
@@ -50,9 +56,11 @@ export default function Footer() {
         <Link className="c-Footer__Link" href={routes.accessibilityRoute}>
           <span>{labels.accessibilityLabel + accessibilityLevelLabel}</span>
         </Link>
-        <Link className="c-Footer__Link" href={routes.siteRoute}>
-          <span>{labels.siteLabel}</span>
-        </Link>
+        {linkName && (
+          <Link className="c-Footer__Link" href={routes.siteRoutes}>
+            <span>{linkName}</span>
+          </Link>
+        )}
         <Link
           className="c-Footer__Link"
           href={

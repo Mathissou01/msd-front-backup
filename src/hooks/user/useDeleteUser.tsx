@@ -12,12 +12,13 @@ export default function useDeleteUser(): {
 
   const deleteUser = (userId: string) => {
     setIsLoading(true);
-    fetch(`${process.env.NEXT_PUBLIC_USER_API_URL}/user/${userId}`, {
+    fetch(`${process.env.NEXT_PUBLIC_USER_API_URL}/users/${userId}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
       .then(() => {
         logout();
+        localStorage.removeItem("showModal");
         router.push("/");
       })
       .catch((error) => {

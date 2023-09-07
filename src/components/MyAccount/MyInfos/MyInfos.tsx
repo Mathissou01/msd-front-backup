@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { User } from "../../../lib/user";
+import { IUser } from "../../../lib/user";
 import MyInfosBlock from "./MyInfosBlock";
 import MyInfosEditBlock from "./MyInfosEditBlock";
 
 interface MyInfosProps {
-  user: User;
+  user: IUser;
   refetch: () => void;
 }
 
